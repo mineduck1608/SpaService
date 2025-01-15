@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaServiceBE", "SpaServiceBE\SpaServiceBE.csproj", "{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaServiceBE", "SpaServiceBE\SpaServiceBE.csproj", "{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
