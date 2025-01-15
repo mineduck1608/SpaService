@@ -10,3 +10,7 @@ D:\Coding\SpaService\SpaServiceBE\Services\obj\Debug\net8.0\Services.dll
 D:\Coding\SpaService\SpaServiceBE\Services\obj\Debug\net8.0\refint\Services.dll
 D:\Coding\SpaService\SpaServiceBE\Services\obj\Debug\net8.0\Services.pdb
 D:\Coding\SpaService\SpaServiceBE\Services\obj\Debug\net8.0\ref\Services.dll
+D:\Coding\SpaService\SpaServiceBE\Services\bin\Debug\net8.0\Repositories.dll
+D:\Coding\SpaService\SpaServiceBE\Services\bin\Debug\net8.0\Repositories.pdb
+D:\Coding\SpaService\SpaServiceBE\Services\obj\Debug\net8.0\Services.csproj.AssemblyReference.cache
+D:\Coding\SpaService\SpaServiceBE\Services\obj\Debug\net8.0\Services.csproj.Up2Date
