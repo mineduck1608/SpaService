@@ -1,6 +1,0 @@
-@SpaService_HostAddress = http://localhost:5085
-
-GET {{SpaService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

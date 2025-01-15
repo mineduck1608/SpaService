@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SpaService.Controllers
+namespace SpaServiceBE.Controllers
 {
     [ApiController]
     [Route("[controller]")]

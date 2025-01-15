@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Coding\\SpaService\\SpaService\\SpaService\\SpaService.csproj": {}
+    "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj": {}
   },
   "projects": {
-    "D:\\Coding\\SpaService\\SpaService\\SpaService\\SpaService.csproj": {
+    "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Coding\\SpaService\\SpaService\\SpaService\\SpaService.csproj",
-        "projectName": "SpaService",
-        "projectPath": "D:\\Coding\\SpaService\\SpaService\\SpaService\\SpaService.csproj",
+        "projectUniqueName": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
+        "projectName": "SpaServiceBE",
+        "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
         "packagesPath": "C:\\Users\\ducco\\.nuget\\packages\\",
-        "outputPath": "D:\\Coding\\SpaService\\SpaService\\SpaService\\obj\\",
+        "outputPath": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ducco\\AppData\\Roaming\\NuGet\\NuGet.Config",
