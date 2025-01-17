@@ -1,0 +1,14 @@
+/* Import Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Thêm các tùy chỉnh SCSS */
+$primary-color: #4f46e5;
+
+.custom-button {
+  @apply bg-blue-500 text-white py-2 px-4 rounded;
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
