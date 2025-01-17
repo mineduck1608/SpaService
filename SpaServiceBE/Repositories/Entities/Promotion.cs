@@ -7,9 +7,9 @@ public partial class Promotion
 {
     public string PromotionId { get; set; } = null!;
 
-    public double DiscountValue { get; set; }
+    public float DiscountValue { get; set; }
 
-    public string? PromotionCode { get; set; }
+    public string PromotionCode { get; set; } = null!;
 
     public string PromotionName { get; set; } = null!;
 

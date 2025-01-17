@@ -7,19 +7,19 @@ public partial class Account
 {
     public string AccountId { get; set; } = null!;
 
-    public string? RoleId { get; set; }
-
-    public string? Username { get; set; }
+    public string Username { get; set; } = null!;
 
     public string Password { get; set; } = null!;
 
     public bool Status { get; set; }
 
-    public DateTime CreateAt { get; set; }
+    public DateTime CreatedAt { get; set; }
+
+    public string RoleId { get; set; } = null!;
 
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 
-    public virtual Role? Role { get; set; }
+    public virtual Role Role { get; set; } = null!;
 }

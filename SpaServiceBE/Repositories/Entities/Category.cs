@@ -9,7 +9,7 @@ public partial class Category
 
     public string CategoryName { get; set; } = null!;
 
-    public string? CategoryImage { get; set; }
+    public string CategoryImage { get; set; } = null!;
 
     public string CategoryDescription { get; set; } = null!;
 

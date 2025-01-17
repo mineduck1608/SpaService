@@ -7,7 +7,7 @@ public partial class Customer
 {
     public string CustomerId { get; set; } = null!;
 
-    public string? AccountId { get; set; }
+    public string AccountId { get; set; } = null!;
 
     public string FullName { get; set; } = null!;
 
@@ -19,11 +19,13 @@ public partial class Customer
 
     public DateTime DateOfBirth { get; set; }
 
-    public string? MembershipLevel { get; set; }
+    public string? MembershipId { get; set; }
 
-    public virtual Account? Account { get; set; }
-
-    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+    public virtual Account Account { get; set; } = null!;
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+
+    public virtual Membership? Membership { get; set; }
+
+    public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 }
