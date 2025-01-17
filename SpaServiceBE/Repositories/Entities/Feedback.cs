@@ -9,15 +9,15 @@ public partial class Feedback
 
     public string FeedbackMessage { get; set; } = null!;
 
-    public int Rate { get; set; }
+    public int Rating { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
-    public string? ServiceId { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
-    public string? CustomerId { get; set; }
+    public string ServiceId { get; set; } = null!;
 
-    public virtual Customer? Customer { get; set; }
+    public virtual Customer CreatedByNavigation { get; set; } = null!;
 
-    public virtual SpaService? Service { get; set; }
+    public virtual SpaService Service { get; set; } = null!;
 }
