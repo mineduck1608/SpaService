@@ -6,11 +6,11 @@ namespace Services.IServices
 {
     public interface IAccountService
     {
-        Task<Account> GetAccountByLoginAsync(string username, string password);
-        Task<Account> GetAccountByIdAsync(string accountId);
-        Task<List<Account>> GetAllAccountsAsync();
-        Task<bool> AddAccountAsync(Account account);
-        Task<bool> UpdateAccountAsync(Account account, string accountId);
-        Task<bool> DeleteAccountAsync(string accountId);
+        Task<Account> GetAccountByLogin(string username, string password);
+        Task<Account> GetAccountById(string accountId);
+        Task<List<Account>> GetAllAccounts();
+        Task<bool> AddAccount(Account account);
+        Task<bool> UpdateAccount(Account account, string accountId);
+        Task<bool> DeleteAccount(string accountId);
     }
 }

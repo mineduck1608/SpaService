@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Repositories.Context;
 
 namespace Repositories
 {
@@ -17,23 +18,31 @@ namespace Repositories
             _context = context;
         }
 
-        public async Task<Account> GetAccountByLoginAsync(string username, string password)
+        public async Task<Account> GetAccountByLogin(string username, string password)
         {
             return await _context.Accounts
                 .FirstOrDefaultAsync(a => a.Username == username && a.Password == password);
         }
 
-        public async Task<Account> GetAccountByIdAsync(string accountId)
+        public async Task<Account> GetAccountById(string accountId)
         {
-            return await _context.Accounts.FirstOrDefaultAsync(a => a.AccountId == accountId);
+            return await _context.Accounts
+                .Include(a => a.Role) // Bao gồm thông tin Role của Account
+                .Include(a => a.Customers) // Bao gồm thông tin Customer liên quan
+                .Include(a => a.Employees) // Bao gồm thông tin Employee liên quan
+                .FirstOrDefaultAsync(a => a.AccountId == accountId);
         }
 
-        public async Task<List<Account>> GetAllAccountsAsync()
+
+        public async Task<List<Account>> GetAllAccounts()
         {
-            return await _context.Accounts.ToListAsync();
+            return await _context.Accounts
+                .Include(a => a.Role) // Bao gồm thông tin Role của Account
+                .Include(a => a.Customers) // Bao gồm thông tin Customer liên quan
+                .Include(a => a.Employees).ToListAsync();
         }
 
-        public async Task<bool> AddAccountAsync(Account account)
+        public async Task<bool> AddAccount(Account account)
         {
             try
             {
@@ -47,9 +56,9 @@ namespace Repositories
             }
         }
 
-        public async Task<bool> UpdateAccountAsync(Account account, string accountId)
+        public async Task<bool> UpdateAccount(Account account, string accountId)
         {
-            var existingAccount = await GetAccountByIdAsync(accountId);
+            var existingAccount = await GetAccountById(accountId);
             if (existingAccount == null) return false;
 
             existingAccount.Username = account.Username;
@@ -69,9 +78,9 @@ namespace Repositories
             }
         }
 
-        public async Task<bool> DeleteAccountAsync(string accountId)
+        public async Task<bool> DeleteAccount(string accountId)
         {
-            var account = await GetAccountByIdAsync(accountId);
+            var account = await GetAccountById(accountId);
             if (account == null) return false;
 
             try

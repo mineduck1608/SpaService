@@ -15,34 +15,34 @@ namespace Services
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public async Task<Account> GetAccountByLoginAsync(string username, string password)
+        public async Task<Account> GetAccountByLogin(string username, string password)
         {
-            return await _repository.GetAccountByLoginAsync(username, password);
+            return await _repository.GetAccountByLogin(username, password);
         }
 
-        public async Task<Account> GetAccountByIdAsync(string accountId)
+        public async Task<Account> GetAccountById(string accountId)
         {
-            return await _repository.GetAccountByIdAsync(accountId);
+            return await _repository.GetAccountById(accountId);
         }
 
-        public async Task<List<Account>> GetAllAccountsAsync()
+        public async Task<List<Account>> GetAllAccounts()
         {
-            return await _repository.GetAllAccountsAsync();
+            return await _repository.GetAllAccounts();
         }
 
-        public async Task<bool> AddAccountAsync(Account account)
+        public async Task<bool> AddAccount(Account account)
         {
-            return await _repository.AddAccountAsync(account);
+            return await _repository.AddAccount(account);
         }
 
-        public async Task<bool> UpdateAccountAsync(Account account, string accountId)
+        public async Task<bool> UpdateAccount(Account account, string accountId)
         {
-            return await _repository.UpdateAccountAsync(account, accountId);
+            return await _repository.UpdateAccount(account, accountId);
         }
 
-        public async Task<bool> DeleteAccountAsync(string accountId)
+        public async Task<bool> DeleteAccount(string accountId)
         {
-            return await _repository.DeleteAccountAsync(accountId);
+            return await _repository.DeleteAccount(accountId);
         }
     }
 }

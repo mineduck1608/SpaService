@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/roles")] // Route chung cho controller
     [ApiController]
     public class RoleController : ControllerBase
     {
@@ -18,13 +18,13 @@ namespace API.Controllers
             _roleService = roleService ?? throw new ArgumentNullException(nameof(roleService));
         }
 
-        // GET: api/role
+        // GET: api/roles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetAllRoles()
         {
             try
             {
-                var roles = await _roleService.GetAllRolesAsync();
+                var roles = await _roleService.GetAllRoles();
                 return Ok(roles);
             }
             catch (Exception ex)
@@ -33,13 +33,13 @@ namespace API.Controllers
             }
         }
 
-        // GET: api/role/{id}
-        [HttpGet("{id}")]
+        // GET: api/roles/{id}
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Role>> GetRoleById(string id)
         {
             try
             {
-                var role = await _roleService.GetRoleByIdAsync(id);
+                var role = await _roleService.GetRoleById(id);
 
                 if (role == null)
                     return NotFound($"Role with ID = {id} not found.");
@@ -52,22 +52,16 @@ namespace API.Controllers
             }
         }
 
-        // POST: api/role
-        [HttpPost]
-        public async Task<ActionResult> CreateRole([FromQuery] string roleId, [FromQuery] string roleName)
+        // POST: api/roles/create
+        [HttpPost("Create")]
+        public async Task<ActionResult> CreateRole([FromBody] Role role)
         {
-            if (string.IsNullOrEmpty(roleId) || string.IsNullOrEmpty(roleName))
+            if (role == null || string.IsNullOrEmpty(role.RoleId) || string.IsNullOrEmpty(role.RoleName))
                 return BadRequest("Role details are incomplete.");
-
-            var role = new Role
-            {
-                RoleId = roleId,
-                RoleName = roleName
-            };
 
             try
             {
-                var isCreated = await _roleService.AddRoleAsync(role);
+                var isCreated = await _roleService.AddRole(role);
 
                 if (!isCreated)
                     return StatusCode(500, "An error occurred while creating the role.");
@@ -80,22 +74,16 @@ namespace API.Controllers
             }
         }
 
-        // PUT: api/role/{id}
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateRole(string id, [FromQuery] string roleName)
+        // PUT: api/roles/update/{id}
+        [HttpPut("Update/{id}")]
+        public async Task<ActionResult> UpdateRole(string id, [FromBody] Role role)
         {
-            if (string.IsNullOrEmpty(roleName))
+            if (role == null || string.IsNullOrEmpty(role.RoleName))
                 return BadRequest("Role details are incomplete.");
-
-            var role = new Role
-            {
-                RoleId = id,
-                RoleName = roleName
-            };
 
             try
             {
-                var isUpdated = await _roleService.UpdateRoleAsync(role, id);
+                var isUpdated = await _roleService.UpdateRole(role, id);
 
                 if (!isUpdated)
                     return NotFound($"Role with ID = {id} not found.");
@@ -108,13 +96,13 @@ namespace API.Controllers
             }
         }
 
-        // DELETE: api/role/{id}
-        [HttpDelete("{id}")]
+        // DELETE: api/roles/delete/{id}
+        [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteRole(string id)
         {
             try
             {
-                var isDeleted = await _roleService.DeleteRoleAsync(id);
+                var isDeleted = await _roleService.DeleteRole(id);
 
                 if (!isDeleted)
                     return NotFound($"Role with ID = {id} not found.");

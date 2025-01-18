@@ -15,29 +15,29 @@ namespace Services.Services
             _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
 
-        public async Task<IEnumerable<Role>> GetAllRolesAsync()
+        public async Task<IEnumerable<Role>> GetAllRoles()
         {
-            return await _roleRepository.GetAllAsync();
+            return await _roleRepository.GetAll();
         }
 
-        public async Task<Role> GetRoleByIdAsync(string id)
+        public async Task<Role> GetRoleById(string id)
         {
-            return await _roleRepository.GetByIdAsync(id);
+            return await _roleRepository.GetById(id);
         }
 
-        public async Task<bool> AddRoleAsync(Role role)
+        public async Task<bool> AddRole(Role role)
         {
-            return await _roleRepository.AddAsync(role);
+            return await _roleRepository.Add(role);
         }
 
-        public async Task<bool> UpdateRoleAsync(Role role, string id)
+        public async Task<bool> UpdateRole(Role role, string id)
         {
-            return await _roleRepository.UpdateAsync(role, id);
+            return await _roleRepository.Update(role, id);
         }
 
-        public async Task<bool> DeleteRoleAsync(string id)
+        public async Task<bool> DeleteRole(string id)
         {
-            return await _roleRepository.DeleteAsync(id);
+            return await _roleRepository.Delete(id);
         }
     }
 }

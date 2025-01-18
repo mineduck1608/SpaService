@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/accounts")] // Định tuyến gốc cho controller
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -18,13 +18,13 @@ namespace API.Controllers
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         }
 
-        // GET: api/account
-        [HttpGet]
+        // GET: api/accounts/GetAll
+        [HttpGet("GetAll")] // Đường dẫn cụ thể cho lấy danh sách tài khoản
         public async Task<ActionResult<IEnumerable<Account>>> GetAllAccounts()
         {
             try
             {
-                var accounts = await _accountService.GetAllAccountsAsync();
+                var accounts = await _accountService.GetAllAccounts();
                 return Ok(accounts);
             }
             catch (Exception ex)
@@ -33,13 +33,13 @@ namespace API.Controllers
             }
         }
 
-        // GET: api/account/{id}
-        [HttpGet("{id}")]
+        // GET: api/accounts/GetById/{id}
+        [HttpGet("GetById/{id}")] // Đường dẫn cụ thể cho lấy tài khoản theo ID
         public async Task<ActionResult<Account>> GetAccountById(string id)
         {
             try
             {
-                var account = await _accountService.GetAccountByIdAsync(id);
+                var account = await _accountService.GetAccountById(id);
 
                 if (account == null)
                     return NotFound($"Account with ID = {id} not found.");
@@ -52,31 +52,24 @@ namespace API.Controllers
             }
         }
 
-        // POST: api/account
-        [HttpPost]
-        public async Task<ActionResult> CreateAccount( string accountId,  string username,  string password,  string roleId)
+        // POST: api/accounts/Create
+        [HttpPost("Create")] // Đường dẫn cụ thể cho tạo tài khoản mới
+        public async Task<ActionResult> CreateAccount([FromBody] Account account)
         {
-            if (string.IsNullOrEmpty(accountId) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(roleId))
+            if (account == null || string.IsNullOrEmpty(account.Username) || string.IsNullOrEmpty(account.Password) || string.IsNullOrEmpty(account.RoleId))
                 return BadRequest("Account details are incomplete.");
 
-            var account = new Account
-            {
-                AccountId = accountId,
-                Username = username,
-                Password = password,  // In a real-world scenario, remember to hash the password before saving.
-                Status = true,  // Default status to active
-                CreatedAt = DateTime.UtcNow,  // Set the account creation date
-                RoleId = roleId
-            };
+            account.Status = true; // Mặc định trạng thái là active
+            account.CreatedAt = DateTime.UtcNow; // Thời gian tạo tài khoản
 
             try
             {
-                var isCreated = await _accountService.AddAccountAsync(account);
+                var isCreated = await _accountService.AddAccount(account);
 
                 if (!isCreated)
                     return StatusCode(500, "An error occurred while creating the account.");
 
-                return CreatedAtAction(nameof(GetAccountById), new { id = account.AccountId }, account);
+                return CreatedAtRoute("GetById", new { id = account.AccountId }, account);
             }
             catch (Exception ex)
             {
@@ -84,32 +77,23 @@ namespace API.Controllers
             }
         }
 
-        // PUT: api/account/{id}
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAccount(string id,  string username,  string password,  string roleId)
+        // PUT: api/accounts/Update/{id}
+        [HttpPut("Update/{id}")] // Đường dẫn cụ thể cho cập nhật tài khoản
+        public async Task<ActionResult> UpdateAccount(string id, [FromBody] Account account)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(roleId))
+            if (account == null || string.IsNullOrEmpty(account.Username) || string.IsNullOrEmpty(account.Password) || string.IsNullOrEmpty(account.RoleId))
                 return BadRequest("Account details are incomplete.");
 
-            var account = new Account
-            {
-                AccountId = id,
-                Username = username,
-                Password = password,  // In a real-world scenario, remember to hash the password before updating.
-                RoleId = roleId,
-                Status = true,  // Default status to active
-                CreatedAt = DateTime.UtcNow  // This can be omitted if you don't want to change the creation date
-            };
+            account.AccountId = id; // Gán ID tài khoản cần cập nhật
 
             try
             {
-                var isUpdated = await _accountService.UpdateAccountAsync(account, id);
+                var isUpdated = await _accountService.UpdateAccount(account, id);
 
                 if (!isUpdated)
                     return NotFound($"Account with ID = {id} not found.");
 
                 return NoContent();
-
             }
             catch (Exception ex)
             {
@@ -117,13 +101,13 @@ namespace API.Controllers
             }
         }
 
-        // DELETE: api/account/{id}
-        [HttpDelete("{id}")]
+        // DELETE: api/accounts/Delete/{id}
+        [HttpDelete("Delete/{id}")] // Đường dẫn cụ thể cho xóa tài khoản
         public async Task<ActionResult> DeleteAccount(string id)
         {
             try
             {
-                var isDeleted = await _accountService.DeleteAccountAsync(id);
+                var isDeleted = await _accountService.DeleteAccount(id);
 
                 if (!isDeleted)
                     return NotFound($"Account with ID = {id} not found.");

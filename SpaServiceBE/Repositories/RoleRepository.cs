@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Repositories.Context;
 using Repositories.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,24 +15,24 @@ namespace Repositories.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Role>> GetAllAsync()
+        public async Task<IEnumerable<Role>> GetAll()
         {
             return await _context.Roles.ToListAsync();
         }
 
-        public async Task<Role> GetByIdAsync(string id)
+        public async Task<Role> GetById(string id)
         {
             return await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == id);
         }
 
-        public async Task<bool> AddAsync(Role role)
+        public async Task<bool> Add(Role role)
         {
             _context.Roles.Add(role);
             var result = await _context.SaveChangesAsync();
             return result > 0;
         }
 
-        public async Task<bool> UpdateAsync(Role role, string id)
+        public async Task<bool> Update(Role role, string id)
         {
             var existingRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == id);
             if (existingRole == null)
@@ -43,7 +44,7 @@ namespace Repositories.Repositories
             return result > 0;
         }
 
-        public async Task<bool> DeleteAsync(string id)
+        public async Task<bool> Delete(string id)
         {
             var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == id);
             if (role == null)
