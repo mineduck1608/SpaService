@@ -53,7 +53,7 @@ namespace Repositories
         }
 
         // Update an existing appointment
-        public async Task<bool> Update(Appointment updatedAppointment, string appointmentId)
+        public async Task<bool> Update(string appointmentId, Appointment updatedAppointment)
         {
             var existingAppointment = await GetById(appointmentId);
             if (existingAppointment == null) return false;

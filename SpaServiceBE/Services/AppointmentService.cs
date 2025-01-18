@@ -34,9 +34,9 @@ namespace Services
         }
 
         // Update an existing appointment
-        public async Task<bool> UpdateAppointment(Appointment updatedAppointment, string appointmentId)
+        public async Task<bool> UpdateAppointment(string appointmentId, Appointment updatedAppointment)
         {
-            return await _repository.Update(updatedAppointment, appointmentId);
+            return await _repository.Update(appointmentId, updatedAppointment);
         }
 
         // Delete an appointment by its ID

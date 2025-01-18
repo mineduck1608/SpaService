@@ -9,7 +9,7 @@ namespace Services.IServices
         Task<Appointment> GetAppointmentById(string appointmentId);
         Task<List<Appointment>> GetAllAppointments();
         Task<bool> AddAppointment(Appointment appointment);
-        Task<bool> UpdateAppointment(Appointment appointment, string appointmentId);
+        Task<bool> UpdateAppointment(string appointmentId, Appointment appointment);
         Task<bool> DeleteAppointment(string appointmentId);
     }
 }
