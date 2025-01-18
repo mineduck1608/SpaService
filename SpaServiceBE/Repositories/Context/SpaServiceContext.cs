@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
 
-namespace Repositories;
+namespace Repositories.Context;
 
 public partial class SpaServiceContext : DbContext
 {

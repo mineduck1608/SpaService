@@ -1,8 +1,40 @@
 [
   {
     "ContainingType": "API.Controllers.AccountController",
+    "Method": "CreateAccount",
+    "RelativePath": "api/accounts/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "account",
+        "Type": "Repositories.Entities.Account",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
+    "Method": "DeleteAccount",
+    "RelativePath": "api/accounts/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
     "Method": "GetAllAccounts",
-    "RelativePath": "api/Account",
+    "RelativePath": "api/accounts/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -21,39 +53,8 @@
   },
   {
     "ContainingType": "API.Controllers.AccountController",
-    "Method": "CreateAccount",
-    "RelativePath": "api/Account",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "accountId",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "username",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "password",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "roleId",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AccountController",
     "Method": "GetAccountById",
-    "RelativePath": "api/Account/{id}",
+    "RelativePath": "api/accounts/GetById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -79,7 +80,7 @@
   {
     "ContainingType": "API.Controllers.AccountController",
     "Method": "UpdateAccount",
-    "RelativePath": "api/Account/{id}",
+    "RelativePath": "api/accounts/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -90,34 +91,8 @@
         "IsRequired": true
       },
       {
-        "Name": "username",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "password",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "roleId",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AccountController",
-    "Method": "DeleteAccount",
-    "RelativePath": "api/Account/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
+        "Name": "account",
+        "Type": "Repositories.Entities.Account",
         "IsRequired": true
       }
     ],
@@ -126,7 +101,7 @@
   {
     "ContainingType": "API.Controllers.RoleController",
     "Method": "GetAllRoles",
-    "RelativePath": "api/Role",
+    "RelativePath": "api/roles",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -146,20 +121,31 @@
   {
     "ContainingType": "API.Controllers.RoleController",
     "Method": "CreateRole",
-    "RelativePath": "api/Role",
+    "RelativePath": "api/roles/Create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "roleId",
-        "Type": "System.String",
-        "IsRequired": false
-      },
+        "Name": "role",
+        "Type": "Repositories.Entities.Role",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.RoleController",
+    "Method": "DeleteRole",
+    "RelativePath": "api/roles/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Name": "roleName",
+        "Name": "id",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -167,7 +153,7 @@
   {
     "ContainingType": "API.Controllers.RoleController",
     "Method": "GetRoleById",
-    "RelativePath": "api/Role/{id}",
+    "RelativePath": "api/roles/GetById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -193,7 +179,7 @@
   {
     "ContainingType": "API.Controllers.RoleController",
     "Method": "UpdateRole",
-    "RelativePath": "api/Role/{id}",
+    "RelativePath": "api/roles/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -204,24 +190,8 @@
         "IsRequired": true
       },
       {
-        "Name": "roleName",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.RoleController",
-    "Method": "DeleteRole",
-    "RelativePath": "api/Role/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
+        "Name": "role",
+        "Type": "Repositories.Entities.Role",
         "IsRequired": true
       }
     ],

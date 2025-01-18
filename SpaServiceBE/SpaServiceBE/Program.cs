@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Repositories;
+using Repositories.Context;
 using Repositories.Repositories;
 using Services;
 using Services.IServices;
 using Services.Services;
+using System.Runtime.CompilerServices;
 using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,14 +14,40 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SpaServiceContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add AccountRepository to DI
+// Add repositories to DI
 builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<RoleRepository>();
+builder.Services.AddScoped<AppointmentRepository>();
+builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddScoped<CommissionRepository>();
+builder.Services.AddScoped<CustomerRepository>();
+builder.Services.AddScoped<EmployeeCommissionRepository>();
+builder.Services.AddScoped<EmployeeRepository>();
+builder.Services.AddScoped<FeedbackRepository>();
+builder.Services.AddScoped<MembershipRepository>();
+builder.Services.AddScoped<PromotionRepository>();
+builder.Services.AddScoped<RequestRepository>();
+builder.Services.AddScoped<ScheduleRepository>();
+builder.Services.AddScoped<SpaServiceRepository>();
+builder.Services.AddScoped<TransactionRepository>();
 
-
-// Add AccountService to DI
+// Add services to DI
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IEmployeeCommissionService, EmployeeCommissionService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IComissionService,ComissionService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+builder.Services.AddScoped<IMembershipService, MembershipService>();
+builder.Services.AddScoped<IPromotionService, PromotionService>();
+builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
+builder.Services.AddScoped<ISpaServiceService, SpaServiceService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+
 
 // Add services to the container
 builder.Services.AddControllers()

@@ -13,6 +13,10 @@ function App() {
           Learn React
         </a>
       </header>
+      <div className='flex h-screen flex-col items-center justify-center bg-gray-100'>
+        <h1 className='text-3xl font-bold text-blue-500'>Hello, Tailwind CSS & SCSS!</h1>
+        <button className='custom-button mt-4'>Click Me</button>
+      </div>
     </div>
   )
 }
