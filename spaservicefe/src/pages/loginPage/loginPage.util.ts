@@ -1,4 +1,4 @@
-import { apiUrl } from '../../types/constants.ts'
+import { apiUrl } from "../../types/constants"
 
 const authenticate = async (username: string, password: string) => {
   try {

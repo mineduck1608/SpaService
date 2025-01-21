@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "esnext", // Target modern JavaScript
+    "module": "esnext", // Use ES Modules
+    "strict": true, // Enable strict type checking
+    "jsx": "react", // Use "react-jsx" for React 17+ or "react" for older versions
+    "baseUrl": ".", // Base URL for module resolution
+    "paths": {
+      "@/*": ["./*"] // Support for path aliases
+    },
+    "allowImportingTsExtensions": true, // Allow importing .tsx files
+    "noEmit": true, // Do not emit outputs
+    "moduleResolution": "node", // Use Node-style module resolution
+    "esModuleInterop": true, // Enable interoperability between CommonJS and ES Modules
+    "skipLibCheck": true, // Skip type checking for node_modules
+    "forceConsistentCasingInFileNames": true // Enforce consistent casing in imports
+  },
+  "include": ["src", "components/ui"], // Include your source files
+  "exclude": ["node_modules", "dist"] // Exclude unnecessary files
+}
