@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "target": "esnext", // Target modern JavaScript
+    "target": "esnext", // Use modern JavaScript features
     "module": "esnext", // Use ES Modules
     "strict": true, // Enable strict type checking
-    "jsx": "react", // Use "react-jsx" for React 17+ or "react" for older versions
-    "baseUrl": ".", // Base URL for module resolution
+    "jsx": "react-jsx", // Use "react-jsx" for React 17+ (or "react" for older versions)
+    "baseUrl": ".", // Base directory for module resolution
     "paths": {
-      "@/*": ["./*"] // Support for path aliases
+      "@/*": ["src/*"] // Map '@' to the 'src' directory
     },
-    "allowImportingTsExtensions": true, // Allow importing .tsx files
-    "noEmit": true, // Do not emit outputs
-    "moduleResolution": "node", // Use Node-style module resolution
-    "esModuleInterop": true, // Enable interoperability between CommonJS and ES Modules
-    "skipLibCheck": true, // Skip type checking for node_modules
-    "forceConsistentCasingInFileNames": true // Enforce consistent casing in imports
+    "allowImportingTsExtensions": true, // Allow importing files with .ts/.tsx extensions
+    "noEmit": true, // Prevent TypeScript from emitting compiled files
+    "moduleResolution": "node", // Resolve modules like Node.js
+    "esModuleInterop": true, // Allow interoperability between CommonJS and ES modules
+    "skipLibCheck": true, // Skip type checking for declaration files in node_modules
+    "forceConsistentCasingInFileNames": true // Enforce consistent casing in import paths
   },
-  "include": ["src", "components/ui"], // Include your source files
-  "exclude": ["node_modules", "dist"] // Exclude unnecessary files
+  "include": ["src"], // Include the entire "src" folder
+  "exclude": ["node_modules", "dist"] // Exclude unnecessary folders
 }
