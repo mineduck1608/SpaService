@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react'
 import InputField from '../../components/inputField.tsx'
 import PasswordField from '../../components/passwordField.tsx'
+import { register } from './registerPage.util.ts'
 
 export default function RegisterPage() {
   const [data, setData] = useState({
@@ -8,10 +9,10 @@ export default function RegisterPage() {
     password: '',
     confirm: '',
     email: '',
-    fullname: '',
-    gender: false,
+    fullName: '',
+    gender: 'female',
     phone: '',
-    dob: ''
+    dateOfBirth: new Date()
   })
   const [isFetching, setIsFetching] = useState(false)
 
@@ -25,7 +26,15 @@ export default function RegisterPage() {
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
+    console.log(data);
     setIsFetching(true)
+    const rs = await register(data)
+    if(rs.success){
+      alert('Register success. Redirect you to login page :)')
+      window.location.assign('/login')
+    } else {
+      alert(rs.msg)
+    }
     setIsFetching(false)
   }
 
@@ -44,7 +53,7 @@ export default function RegisterPage() {
           <InputField
             id='fullname'
             label='Display name'
-            onChange={(txt) => setData({ ...data, fullname: txt })}
+            onChange={(txt) => setData({ ...data, fullName: txt })}
             required
             type='text'
           />
@@ -88,7 +97,7 @@ export default function RegisterPage() {
           <InputField
             id='dob'
             label='Date of birth'
-            onChange={(txt) => setData({ ...data, dob: txt })}
+            onChange={(txt) => setData({ ...data, dateOfBirth: new Date(txt) })}
             required
             type='date'
           />
@@ -96,9 +105,9 @@ export default function RegisterPage() {
             <label htmlFor='gender' className='mb-1 mr-2 text-left text-sm font-medium text-gray-700'>
               Gender
             </label>
-            <input type='radio' name='gender' defaultChecked onChange={(e) => setData({ ...data, gender: false })} />
+            <input type='radio' name='gender' defaultChecked onChange={(e) => setData({ ...data, gender: 'female' })} />
             <label className='ml-2 mr-2'>Female</label>
-            <input type='radio' name='gender' onChange={(e) => setData({ ...data, gender: true })} />
+            <input type='radio' name='gender' onChange={(e) => setData({ ...data, gender: 'male' })} />
             <label className='ml-2'>Male</label>
           </div>
           <div className='mb-4 flex justify-evenly'>

@@ -5,3 +5,4 @@ appsettings.json
 
 /node_modules
 *.bin
+/SpaServiceBE/.vs

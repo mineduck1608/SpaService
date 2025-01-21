@@ -1,6 +1,6 @@
-import { apiUrl } from "../../types/constants"
+import { apiUrl } from "../../types/constants.ts"
 
-const register = async (params:{
+const register = async (params: {
   username: string,
   password: string,
   fullName: string,
@@ -9,13 +9,37 @@ const register = async (params:{
   email: string,
   dateOfBirth: Date
 }) => {
-  try{
+  console.log('Wait');
+  
+  try {
     const resp = await fetch(`${apiUrl}/accounts/Register`, {
       headers: {
-      }
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(params),
+      method: 'POST'
     })
+    const json = await resp.text()
+    if (resp.ok) {
+      window.location.assign('/login')
+      return {
+        success: true,
+        msg: ''
+      }
+    }
+    return {
+      success: false,
+      msg: json
+    }
   }
-  catch(e){
+  catch (e) {
+    return {
+      success: false,
+      msg: e
+    }
+  }
+}
 
-  }
+export {
+  register
 }

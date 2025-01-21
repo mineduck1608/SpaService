@@ -18,7 +18,14 @@ export default function LoginPage() {
   const submit = async (e: FormEvent) => {
     e.preventDefault()
     setIsFetching(true)
-    await authenticate(data.username, data.password)
+    const rs = await authenticate(data.username, data.password)
+    if(rs.success){
+      sessionStorage.setItem('accessToken', rs.token)
+      window.location.assign('/')
+    }
+    else {
+      alert(rs.msg)
+    }
     setIsFetching(false)
   }
 
