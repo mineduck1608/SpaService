@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useEffect } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { authenticate } from './loginPage.util.ts'
 import InputField from '../../components/inputField.tsx'
 import PasswordField from '../../components/passwordField.tsx'

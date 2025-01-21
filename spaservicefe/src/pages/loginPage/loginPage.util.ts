@@ -1,4 +1,4 @@
-import { apiUrl } from "../../types/constants.ts"
+import { apiUrl } from '../../types/constants.ts'
 
 const authenticate = async (username: string, password: string) => {
   try {
@@ -14,15 +14,13 @@ const authenticate = async (username: string, password: string) => {
         success: true,
         token: (await resp.json()).accessToken
       }
-    }
-    else {
+    } else {
       return {
         success: false,
         msg: await resp.text()
       }
     }
-  }
-  catch (e) {
+  } catch (e) {
     return {
       success: false,
       msg: await e

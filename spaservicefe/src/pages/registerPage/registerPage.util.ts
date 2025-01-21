@@ -1,16 +1,16 @@
-import { apiUrl } from "../../types/constants.ts"
+import { apiUrl } from '../../types/constants.ts'
 
 const register = async (params: {
-  username: string,
-  password: string,
-  fullName: string,
-  gender: string,
-  phone: string,
-  email: string,
+  username: string
+  password: string
+  fullName: string
+  gender: string
+  phone: string
+  email: string
   dateOfBirth: Date
 }) => {
-  console.log('Wait');
-  
+  console.log('Wait')
+
   try {
     const resp = await fetch(`${apiUrl}/accounts/Register`, {
       headers: {
@@ -31,8 +31,7 @@ const register = async (params: {
       success: false,
       msg: json
     }
-  }
-  catch (e) {
+  } catch (e) {
     return {
       success: false,
       msg: e
@@ -40,6 +39,4 @@ const register = async (params: {
   }
 }
 
-export {
-  register
-}
+export { register }

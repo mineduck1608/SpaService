@@ -122,7 +122,7 @@ export default function RegisterPage() {
                     name='gender'
                     defaultChecked
                     className='mr-1'
-                    onChange={(e) => setData({ ...data, gender: 'female' })}
+                    onChange={() => setData({ ...data, gender: 'female' })}
                   />
                   Female
                 </label>
@@ -132,7 +132,7 @@ export default function RegisterPage() {
                     type='radio'
                     name='gender'
                     className='mr-1'
-                    onChange={(e) => setData({ ...data, gender: 'male' })}
+                    onChange={() => setData({ ...data, gender: 'male' })}
                   />
                   Male
                 </label>

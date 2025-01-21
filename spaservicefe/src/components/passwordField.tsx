@@ -1,4 +1,4 @@
-import React, { HTMLInputTypeAttribute, useState } from 'react'
+import React, { useState } from 'react'
 
 export default function PasswordField(params: {
   id: string

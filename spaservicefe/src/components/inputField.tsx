@@ -1,10 +1,10 @@
 import React, { HTMLInputTypeAttribute } from 'react'
 
 export default function InputField(params: {
-  id: string,
+  id: string
   label: string
-  placeholder?: string,
-  type: HTMLInputTypeAttribute,
+  placeholder?: string
+  type: HTMLInputTypeAttribute
   onChange: (x: string) => void
   required?: boolean
 }) {
