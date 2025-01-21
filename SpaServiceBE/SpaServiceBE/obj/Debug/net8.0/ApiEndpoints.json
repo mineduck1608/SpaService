@@ -81,19 +81,14 @@
     "ContainingType": "API.Controllers.AccountController",
     "Method": "Login",
     "RelativePath": "api/accounts/Login",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "username",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "password",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

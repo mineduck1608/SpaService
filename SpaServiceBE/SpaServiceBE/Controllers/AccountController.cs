@@ -24,11 +24,24 @@ namespace API.Controllers
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         }
 
-        [HttpGet("Login")]
-        public async Task<ActionResult<object>> Login(string username, string password)
+        [HttpPost("Login")]
+        public async Task<ActionResult<object>> Login([FromBody] object request)
         {
             try
             {
+                // Chuyển đổi request sang JsonElement
+                var jsonElement = (JsonElement)request;
+
+                // Lấy username và password từ JSON request
+                string username = jsonElement.GetProperty("username").GetString();
+                string password = jsonElement.GetProperty("password").GetString();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    return BadRequest("Username and password are required.");
+                }
+
                 // Mã hóa mật khẩu
                 password = Util.ToHashString(password);
 
@@ -36,13 +49,14 @@ namespace API.Controllers
                 var account = await _accountService.GetAccountByLogin(username, password);
 
                 if (account == null)
+                {
                     return NotFound("Account not found.");
+                }
 
                 // Tạo Access Token
                 var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName);
- 
 
-                // Trả về Access Token và thông tin người dùng
+                // Trả về Access Token
                 return Ok(new
                 {
                     accessToken,
@@ -52,11 +66,16 @@ namespace API.Controllers
             {
                 return Unauthorized(ex.Message);
             }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest($"Missing property: {ex.Message}");
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
 
 
 
