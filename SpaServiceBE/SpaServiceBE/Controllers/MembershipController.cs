@@ -3,6 +3,7 @@ using Repositories.Entities;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -57,21 +58,29 @@ namespace API.Controllers
 
         // POST: api/memberships/Create
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateMembership([FromBody] Membership membership)
+        public async Task<ActionResult> CreateMembership([FromBody] dynamic request)
         {
-            if (membership == null ||
-                string.IsNullOrEmpty(membership.Type) ||
-                membership.Min <= 0 ||
-                membership.Max <= 0 ||
-                membership.Discount < 0 || membership.Discount > 100)
-            {
-                return BadRequest("Membership details are incomplete or invalid.");
-            }
-
-            membership.MembershipId = Guid.NewGuid().ToString(); // Generate unique ID
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                string type = jsonElement.GetProperty("type").GetString();
+                double totalPayment = jsonElement.GetProperty("totalPayment").GetDouble();
+                int discount = jsonElement.GetProperty("discount").GetInt32();
+
+                if (string.IsNullOrEmpty(type) || totalPayment <= 0 || discount < 0 || discount > 100)
+                {
+                    return BadRequest("Membership details are incomplete or invalid.");
+                }
+
+                var membership = new Membership
+                {
+                    MembershipId = Guid.NewGuid().ToString("N"),
+                    Type = type,
+                    TotalPayment = totalPayment,
+                    Discount = discount
+                };
+
                 var isCreated = await _service.AddMembership(membership);
 
                 if (!isCreated)
@@ -87,27 +96,35 @@ namespace API.Controllers
 
         // PUT: api/memberships/Update/{id}
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateMembership(string id, [FromBody] Membership membership)
+        public async Task<ActionResult> UpdateMembership(string id, [FromBody] dynamic request)
         {
-            if (membership == null ||
-                string.IsNullOrEmpty(membership.Type) ||
-                membership.Min <= 0 ||
-                membership.Max <= 0 ||
-                membership.Discount < 0 || membership.Discount > 100)
-            {
-                return BadRequest("Membership details are incomplete or invalid.");
-            }
-
-            membership.MembershipId = id; // Assign the ID for the update
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                string type = jsonElement.GetProperty("type").GetString();
+                double totalPayment = jsonElement.GetProperty("totalPayment").GetDouble();
+                int discount = jsonElement.GetProperty("discount").GetInt32();
+
+                if (string.IsNullOrEmpty(type) || totalPayment <= 0 || discount < 0 || discount > 100)
+                {
+                    return BadRequest("Membership details are incomplete or invalid.");
+                }
+
+                var membership = new Membership
+                {
+                    MembershipId = id,
+                    Type = type,
+                    TotalPayment = totalPayment,
+                    Discount = discount
+                };
+
                 var isUpdated = await _service.UpdateMembership(id, membership);
 
                 if (!isUpdated)
                     return NotFound($"Membership with ID = {id} not found.");
 
-                return NoContent();
+                return Ok("Update membership successfully.");
             }
             catch (Exception ex)
             {
@@ -129,7 +146,7 @@ namespace API.Controllers
                 if (!isDeleted)
                     return NotFound($"Membership with ID = {id} not found.");
 
-                return NoContent();
+                return Ok("Delete membership successfully.");
             }
             catch (Exception ex)
             {

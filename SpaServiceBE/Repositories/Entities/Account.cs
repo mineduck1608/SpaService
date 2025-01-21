@@ -17,6 +17,8 @@ public partial class Account
 
     public string RoleId { get; set; } = null!;
 
+    public DateTime? UpdatedAt { get; set; }
+
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
