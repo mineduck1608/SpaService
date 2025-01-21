@@ -95,3 +95,9 @@ D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Repositories.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Services.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Services.pdb
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Repositories.pdb
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Newtonsoft.Json.dll

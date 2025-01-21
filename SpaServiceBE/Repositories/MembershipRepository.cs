@@ -57,8 +57,7 @@ namespace Repositories
             if (existingMembership == null) return false;
 
             existingMembership.Type = membership.Type;
-            existingMembership.Min = membership.Min;
-            existingMembership.Max = membership.Max;
+            existingMembership.TotalPayment = membership.TotalPayment;
             existingMembership.Discount = membership.Discount;
 
             try

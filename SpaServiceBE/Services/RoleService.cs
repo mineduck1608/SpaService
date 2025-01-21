@@ -1,4 +1,5 @@
-﻿using Repositories.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Repositories.Entities;
 using Repositories.Repositories;
 using Services.IServices;
 using System.Collections.Generic;

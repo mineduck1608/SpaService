@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Repositories.Context;
+using Microsoft.Identity.Client;
 
 namespace Repositories
 {
@@ -20,7 +21,7 @@ namespace Repositories
 
         public async Task<Account> GetAccountByLogin(string username, string password)
         {
-            return await _context.Accounts
+            return await _context.Accounts.Include(a => a.Role)
                 .FirstOrDefaultAsync(a => a.Username == username && a.Password == password);
         }
 
@@ -33,6 +34,13 @@ namespace Repositories
                 .FirstOrDefaultAsync(a => a.AccountId == accountId);
         }
 
+        public async Task<Account> GetByUsername(string username)
+        {
+            return await _context.Accounts.Include(a => a.Role) // Bao gồm thông tin Role của Account
+                .Include(a => a.Customers) // Bao gồm thông tin Customer liên quan
+                .Include(a => a.Employees) // Bao gồm thông tin Employee liên quan
+                .FirstOrDefaultAsync(a => a.Username == username);
+        }
 
         public async Task<List<Account>> GetAllAccounts()
         {

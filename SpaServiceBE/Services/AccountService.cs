@@ -25,6 +25,11 @@ namespace Services
             return await _repository.GetAccountById(accountId);
         }
 
+        public async Task<Account> GetAccountByUsername(string username)
+        {
+            return await _repository.GetByUsername(username);
+        }
+
         public async Task<List<Account>> GetAllAccounts()
         {
             return await _repository.GetAllAccounts();
