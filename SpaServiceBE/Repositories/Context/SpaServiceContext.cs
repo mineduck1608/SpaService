@@ -48,7 +48,7 @@ public partial class SpaServiceContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=spaservice.database.windows.net;Database= SpaService;UID=spaservice;PWD=Passmonanhemeii@;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=spaservice.database.windows.net;Database=SpaService;UID=spaservice;PWD=Passmonanhemeii@;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,6 +64,7 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("accountId");
+       
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
@@ -73,6 +74,9 @@ public partial class SpaServiceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("roleId");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -340,11 +344,8 @@ public partial class SpaServiceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("membershipId");
             entity.Property(e => e.Discount).HasColumnName("discount");
-            entity.Property(e => e.Max).HasColumnName("max");
-            entity.Property(e => e.Min).HasColumnName("min");
             entity.Property(e => e.Type)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("type");
         });
 

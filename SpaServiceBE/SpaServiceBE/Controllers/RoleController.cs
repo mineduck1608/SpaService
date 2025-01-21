@@ -3,11 +3,12 @@ using Repositories.Entities;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/roles")] // Route chung cho controller
+    [Route("api/roles")]
     [ApiController]
     public class RoleController : ControllerBase
     {
@@ -33,7 +34,7 @@ namespace API.Controllers
             }
         }
 
-        // GET: api/roles/{id}
+        // GET: api/roles/GetById/{id}
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Role>> GetRoleById(string id)
         {
@@ -52,21 +53,32 @@ namespace API.Controllers
             }
         }
 
-        // POST: api/roles/create
+        // POST: api/roles/Create
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateRole([FromBody] Role role)
+        public async Task<ActionResult> CreateRole([FromBody] dynamic request)
         {
-            if (role == null || string.IsNullOrEmpty(role.RoleId) || string.IsNullOrEmpty(role.RoleName))
-                return BadRequest("Role details are incomplete.");
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                string roleName = jsonElement.GetProperty("roleName").GetString();
+
+                if (string.IsNullOrEmpty(roleName))
+                    return BadRequest("Role details are incomplete.");
+
+                // Tạo RoleId tự động
+                var role = new Role
+                {
+                    RoleId = Guid.NewGuid().ToString("N"),
+                    RoleName = roleName
+                };
+
                 var isCreated = await _roleService.AddRole(role);
 
                 if (!isCreated)
                     return StatusCode(500, "An error occurred while creating the role.");
 
-                return CreatedAtAction(nameof(GetRoleById), new { id = role.RoleId }, role);
+                return Ok("Create role successfully.");
             }
             catch (Exception ex)
             {
@@ -74,21 +86,31 @@ namespace API.Controllers
             }
         }
 
-        // PUT: api/roles/update/{id}
+        // PUT: api/roles/Update/{id}
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateRole(string id, [FromBody] Role role)
+        public async Task<ActionResult> UpdateRole(string id, [FromBody] dynamic request)
         {
-            if (role == null || string.IsNullOrEmpty(role.RoleName))
-                return BadRequest("Role details are incomplete.");
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                string roleName = jsonElement.GetProperty("roleName").GetString();
+
+                if (string.IsNullOrEmpty(roleName))
+                    return BadRequest("Role details are incomplete.");
+
+                var role = new Role
+                {
+                    RoleId = id,
+                    RoleName = roleName
+                };
+
                 var isUpdated = await _roleService.UpdateRole(role, id);
 
                 if (!isUpdated)
                     return NotFound($"Role with ID = {id} not found.");
 
-                return NoContent();
+                return Ok("Update role successfully.");
             }
             catch (Exception ex)
             {
@@ -96,7 +118,7 @@ namespace API.Controllers
             }
         }
 
-        // DELETE: api/roles/delete/{id}
+        // DELETE: api/roles/Delete/{id}
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteRole(string id)
         {
@@ -107,7 +129,7 @@ namespace API.Controllers
                 if (!isDeleted)
                     return NotFound($"Role with ID = {id} not found.");
 
-                return NoContent();
+                return Ok("Delete role successfully.");
             }
             catch (Exception ex)
             {

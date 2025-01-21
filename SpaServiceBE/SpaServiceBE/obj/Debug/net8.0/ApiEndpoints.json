@@ -8,8 +8,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "account",
-        "Type": "Repositories.Entities.Account",
+        "Name": "request",
+        "Type": "System.Object",
         "IsRequired": true
       }
     ],
@@ -79,6 +79,43 @@
   },
   {
     "ContainingType": "API.Controllers.AccountController",
+    "Method": "Login",
+    "RelativePath": "api/accounts/Login",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
+    "Method": "Register",
+    "RelativePath": "api/accounts/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
     "Method": "UpdateAccount",
     "RelativePath": "api/accounts/Update/{id}",
     "HttpMethod": "PUT",
@@ -91,8 +128,8 @@
         "IsRequired": true
       },
       {
-        "Name": "account",
-        "Type": "Repositories.Entities.Account",
+        "Name": "request",
+        "Type": "System.Object",
         "IsRequired": true
       }
     ],
@@ -830,8 +867,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "membership",
-        "Type": "Repositories.Entities.Membership",
+        "Name": "request",
+        "Type": "System.Object",
         "IsRequired": true
       }
     ],
@@ -913,8 +950,8 @@
         "IsRequired": true
       },
       {
-        "Name": "membership",
-        "Type": "Repositories.Entities.Membership",
+        "Name": "request",
+        "Type": "System.Object",
         "IsRequired": true
       }
     ],
@@ -1147,8 +1184,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "role",
-        "Type": "Repositories.Entities.Role",
+        "Name": "request",
+        "Type": "System.Object",
         "IsRequired": true
       }
     ],
@@ -1210,8 +1247,8 @@
         "IsRequired": true
       },
       {
-        "Name": "role",
-        "Type": "Repositories.Entities.Role",
+        "Name": "request",
+        "Type": "System.Object",
         "IsRequired": true
       }
     ],
