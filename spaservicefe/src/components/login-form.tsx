@@ -1,35 +1,58 @@
-import React from 'react'
+import React, { FormEvent, useState } from 'react'
 import { cn } from '../lib/utils'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
+import loginBg from '../images/loginBg.jpg'
+import { authenticate } from '../pages/loginPage/loginPage.util'
+import { toast, ToastContainer } from 'react-toastify'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
+  const [data, setData] = useState({
+    username: '',
+    password: ''
+  })
+  const [fetching, setFetching] = useState(false)
+  const submit = async (e: FormEvent) => {
+    e.preventDefault()
+    setFetching(true)
+    const rs = await authenticate(data.username, data.password)
+    if (rs.success) {
+      sessionStorage.setItem('token', rs.token)
+      window.location.assign('/')
+    }
+    else {
+      toast('An error occured: ' + rs.msg)
+    }
+    setFetching(false)
+  }
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card className='overflow-hidden'>
         <CardContent className='grid p-0 md:grid-cols-2'>
-          <form className='p-6 md:p-8'>
+          <form className='p-6 md:p-8' onSubmit={submit}>
             <div className='flex flex-col gap-6'>
               <div className='flex flex-col items-center text-center'>
                 <h1 className='text-2xl font-bold'>Welcome back</h1>
                 <p className='text-balance text-muted-foreground'>Login to your Acme Inc account</p>
               </div>
               <div className='grid gap-2'>
-                <Label htmlFor='email'>Email</Label>
-                <Input id='email' type='email' placeholder='m@example.com' required />
+                <Label htmlFor='email'>Username</Label>
+                <Input id='username' type='username' required
+                  onChange={(e) => setData({ ...data, username: e.currentTarget.value })} />
               </div>
               <div className='grid gap-2'>
                 <div className='flex items-center'>
                   <Label htmlFor='password'>Password</Label>
-                  <a href='#' className='ml-auto text-sm underline-offset-2 hover:underline'>
+                  <a href='/reset-password' className='ml-auto text-sm underline-offset-2 hover:underline'>
                     Forgot your password?
                   </a>
                 </div>
-                <Input id='password' type='password' required />
+                <Input id='password' type='password' required
+                  onChange={(e) => setData({ ...data, password: e.currentTarget.value })} />
               </div>
-              <Button type='submit' className='w-full'>
+              <Button type='submit' className='w-full' disabled={fetching || data.username.length === 0 || data.password.length === 0}>
                 Login
               </Button>
               <div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
@@ -66,24 +89,26 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
               </div>
               <div className='text-center text-sm'>
                 Don&apos;t have an account?{' '}
-                <a href='#' className='underline underline-offset-4'>
+                <a href='/register' className='underline underline-offset-4'>
                   Sign up
                 </a>
               </div>
             </div>
           </form>
-          <div className='relative hidden bg-muted md:block'>
+          <div className='bg-muted relative hidden md:block'>
             <img
-              src='/placeholder.svg'
-              alt='Image'
-              className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
+              alt='Img'
+              src={loginBg}
+              className='w-full h-full'
             />
           </div>
+
         </CardContent>
       </Card>
       <div className='text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary'>
         By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
       </div>
+      <ToastContainer />
     </div>
   )
 }

@@ -17,13 +17,13 @@ const authenticate = async (username: string, password: string) => {
     } else {
       return {
         success: false,
-        msg: await resp.text()
+        msg: (await resp.text()) as string
       }
     }
   } catch (e) {
     return {
       success: false,
-      msg: await e
+      msg: e as string
     }
   }
 }
