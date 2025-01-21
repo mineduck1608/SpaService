@@ -19,10 +19,18 @@ namespace API.Controllers
         private readonly IRoleService _roleService;
         private readonly IEmployeeService _employeeService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(
+    IAccountService accountService,
+    ICustomerService customerService,
+    IRoleService roleService,
+    IEmployeeService employeeService)
         {
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
+            _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+            _roleService = roleService ?? throw new ArgumentNullException(nameof(roleService));
+            _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
         }
+
 
         [HttpPost("Login")]
         public async Task<ActionResult<object>> Login([FromBody] object request)

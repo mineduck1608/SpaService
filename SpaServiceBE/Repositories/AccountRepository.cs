@@ -21,33 +21,22 @@ namespace Repositories
 
         public async Task<Account> GetAccountByLogin(string username, string password)
         {
-            return await _context.Accounts.Include(a => a.Role)
-                .FirstOrDefaultAsync(a => a.Username == username && a.Password == password);
+            return await _context.Accounts.Include(a => a.Role).FirstOrDefaultAsync(a => a.Username == username && a.Password == password);
         }
 
         public async Task<Account> GetAccountById(string accountId)
         {
-            return await _context.Accounts
-                .Include(a => a.Role) // Bao gồm thông tin Role của Account
-                .Include(a => a.Customers) // Bao gồm thông tin Customer liên quan
-                .Include(a => a.Employees) // Bao gồm thông tin Employee liên quan
-                .FirstOrDefaultAsync(a => a.AccountId == accountId);
+            return await _context.Accounts.FirstOrDefaultAsync(a => a.AccountId == accountId);
         }
 
         public async Task<Account> GetByUsername(string username)
         {
-            return await _context.Accounts.Include(a => a.Role) // Bao gồm thông tin Role của Account
-                .Include(a => a.Customers) // Bao gồm thông tin Customer liên quan
-                .Include(a => a.Employees) // Bao gồm thông tin Employee liên quan
-                .FirstOrDefaultAsync(a => a.Username == username);
+            return await _context.Accounts.FirstOrDefaultAsync(a => a.Username == username);
         }
 
         public async Task<List<Account>> GetAllAccounts()
         {
-            return await _context.Accounts
-                .Include(a => a.Role) // Bao gồm thông tin Role của Account
-                .Include(a => a.Customers) // Bao gồm thông tin Customer liên quan
-                .Include(a => a.Employees).ToListAsync();
+            return await _context.Accounts.ToListAsync();
         }
 
         public async Task<bool> AddAccount(Account account)
