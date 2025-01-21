@@ -3,7 +3,7 @@ import React, { HTMLInputTypeAttribute } from 'react'
 export default function InputField(params: {
   id: string,
   label: string
-  placeholder: string,
+  placeholder?: string,
   type: HTMLInputTypeAttribute,
   onChange: (x: string) => void
   required?: boolean
@@ -17,7 +17,7 @@ export default function InputField(params: {
         type={params.type}
         id={params.id}
         className='w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-blue-500'
-        placeholder={params.label}
+        placeholder={params.placeholder}
         required
         onChange={(e) => {
           params.onChange(e.currentTarget.value)

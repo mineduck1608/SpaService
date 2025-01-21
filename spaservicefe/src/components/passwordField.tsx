@@ -3,7 +3,7 @@ import React, { HTMLInputTypeAttribute, useState } from 'react'
 export default function PasswordField(params: {
   id: string
   label: string
-  placeholder: string
+  placeholder?: string
   onChange: (x: string) => void
   canShow: boolean
   required?: boolean
@@ -18,7 +18,7 @@ export default function PasswordField(params: {
         type={show ? 'text' : 'password'}
         id={params.id}
         className='w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-blue-500'
-        placeholder={params.label}
+        placeholder={params.placeholder}
         required
         onChange={(e) => {
           params.onChange(e.currentTarget.value)
