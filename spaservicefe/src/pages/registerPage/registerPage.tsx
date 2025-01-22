@@ -1,7 +1,5 @@
 import React from 'react'
 import RegisterForm from './registerForm'
-import mainBg from '../../images/registerBg/mainBg.jpg'
-import { GalleryVerticalEnd } from 'lucide-react'
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '../../components/ui/carousel'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../components/ui/tooltip'
 import Autoplay from 'embla-carousel-autoplay'

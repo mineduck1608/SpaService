@@ -39,12 +39,12 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
   return (
     <div className={cn('items-center justify-center', className)} {...props}>
       <form className='h-full min-w-fit content-center justify-center p-6 md:p-8' onSubmit={submit}>
-        <div className='flex flex-col gap-6'>
+        <div className='flex flex-col gap-10'>
           <div className='w-full flex justify-center'>
-            <img src={logo} className='w-2/5' />
+            <img src={logo} className='w-1/2 -translate-y-20' />
           </div>
-          <div className='-translate-y-20'>
-            <div className='flex flex-col items-center text-center'>
+          <div className='-translate-y-24'>
+            <div className='flex flex-col items-center text-center mb-6'>
               <h1 className='text-2xl font-bold'>Create your Account</h1>
               <p className='text-balance text-muted-foreground'>Sign up to join our platform</p>
             </div>
@@ -147,7 +147,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
 
             <Button
               type='submit'
-              className='w-full'
+              className='w-full mt-4 mb-4'
               disabled={
                 fetching ||
                 (Object.values(data).some((value) => value.length === 0 || value === '') ||
@@ -156,7 +156,10 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
             >
               Sign Up
             </Button>
-            <div className='grid'>
+            <div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
+                <span className='relative z-10 bg-background px-2 text-muted-foreground '>Or continue with</span>
+              </div>
+            <div className='grid mt-4'>
               <Button variant='outline' className='w-full'>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
                   <path
@@ -170,7 +173,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
           </div>
         </div>
       </form>
-      <div className='mt-2 text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary'>
+      <div className=' -translate-y-24 text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary'>
         By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
       </div>
       <ToastContainer />
