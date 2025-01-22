@@ -29,6 +29,16 @@ namespace Repositories
                 .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
         }
 
+        public async Task<Employee> GetEmployeeByPhone(string phone)
+        {
+            return await _context.Employees.FirstOrDefaultAsync(a => a.Phone == phone);
+        }
+
+        public async Task<Employee> GetEmployeeByEmail(string email)
+        {
+            return await _context.Employees.FirstOrDefaultAsync(a => a.Email == email);
+        }
+
         // Lấy tất cả Employees với các thực thể liên quan
         public async Task<List<Employee>> GetAll()
         {

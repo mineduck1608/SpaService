@@ -6,6 +6,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundColor: ['hover'],
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

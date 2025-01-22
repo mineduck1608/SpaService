@@ -10,7 +10,7 @@ const register = async (params: {
   dateOfBirth: string
 }) => {
   try {
-    const resp = await fetch(`${apiUrl}/accounts/Register`, {
+    const resp = await fetch(`${apiUrl}/accounts/RegisterCustomer`, {
       headers: {
         'content-type': 'application/json'
       },

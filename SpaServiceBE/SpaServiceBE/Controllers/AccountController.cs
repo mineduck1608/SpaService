@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
@@ -106,69 +107,112 @@ namespace API.Controllers
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Account>> GetAccountById(string id)
         {
-            try
-            {
+
                 var account = await _accountService.GetAccountById(id);
 
                 if (account == null)
                     return NotFound($"Account with ID = {id} not found.");
 
                 return Ok(account);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+ 
+
         }
 
-        // POST: api/accounts/Create
-        [HttpPost("Create")]
-        public async Task<ActionResult> CreateAccount([FromBody] dynamic request)
+        [HttpPost("RegisterEmployee")]
+        public async Task<ActionResult> RegisterEmployee([FromBody] dynamic request)
         {
-            try
-            {
                 var jsonElement = (JsonElement)request;
 
+                // Extract account details
                 string username = jsonElement.GetProperty("username").GetString();
                 string password = jsonElement.GetProperty("password").GetString();
-                string roleId = jsonElement.GetProperty("roleId").GetString();
 
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(roleId))
-                    return BadRequest("Account details are incomplete.");
+                // Extract employee details
+                string fullName = jsonElement.GetProperty("fullName").GetString();
+                string position = jsonElement.GetProperty("position").GetString();
+                string phone = jsonElement.GetProperty("phone").GetString();
+                string email = jsonElement.GetProperty("email").GetString();
+                DateTime hireDate = jsonElement.GetProperty("hireDate").GetDateTime();
+                string status = jsonElement.GetProperty("status").GetString();
+                string? image = jsonElement.TryGetProperty("image", out var imgProperty) ? imgProperty.GetString() : null;
 
-                var account = new Account
+                // Validate required fields
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullName) ||
+                    string.IsNullOrEmpty(position) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email) ||
+                    string.IsNullOrEmpty(hireDate.ToString()) || string.IsNullOrEmpty(status))
+                    return BadRequest("Employee registration details are incomplete.");
+
+                // Validate phone, email, and password formats
+                if (!Util.IsPhoneFormatted(phone.Trim()))
+                    return BadRequest(new { msg = "Phone number is not properly formatted" });
+
+                if (!Util.IsMailFormatted(email))
+                    return BadRequest(new { msg = "Email is not properly formatted" });
+
+                if (!Util.IsPasswordSecure(password))
+                    return BadRequest(new { msg = "Password is not secure enough" });
+
+                // Check if the account already exists
+                var existingAccount = await _accountService.GetAccountByUsername(username);
+                if (existingAccount != null)
+                    return Conflict("Username already exists.");
+
+            var existingPhone = await _employeeService.GetEmployeeByPhone(phone);
+            if (existingPhone != null)
+                return Conflict("Phone is used.");
+
+            var existingEmail = await _employeeService.GetEmployeeByEmail(email);
+            if (existingEmail != null)
+                return Conflict("Email is used.");
+
+            // Create account object
+            var account = new Account
                 {
                     AccountId = Guid.NewGuid().ToString("N"),
                     Username = username,
                     Password = Util.ToHashString(password),
-                    RoleId = roleId,
+                    RoleId = "employeeRoleIdHere", // Replace with your Employee Role ID
                     Status = true,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 };
 
-                var existingAccount = await _accountService.GetAccountByUsername(username);
-                if (existingAccount != null)
-                    return Conflict("Username already exists.");
+                // Create employee object
+                var employee = new Employee
+                {
+                    EmployeeId = Guid.NewGuid().ToString("N"),
+                    AccountId = account.AccountId,
+                    FullName = fullName,
+                    Position = position,
+                    HireDate = hireDate,
+                    Status = status,
+                    Phone = phone,
+                    Email = email,
+                    Image = image ?? string.Empty // Set to empty string if no image is provided
+                };
 
-                var isCreated = await _accountService.AddAccount(account);
+                // Ensure both objects are not null
+                if (account == null || employee == null)
+                    return StatusCode(500, "Account or Employee object is null.");
 
-                if (!isCreated)
+                // Save account
+                var isAccountCreated = await _accountService.AddAccount(account);
+                if (!isAccountCreated)
                     return StatusCode(500, "An error occurred while creating the account.");
 
-                return Ok("CreateAccount successfully.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+                // Save employee
+                var isEmployeeCreated = await _employeeService.AddEmployee(employee);
+                if (!isEmployeeCreated)
+                    return StatusCode(500, "An error occurred while registering the employee.");
+
+                return Ok(new { msg = "Employee registered successfully." });
+            
         }
 
-        [HttpPost("Register")]
+
+        [HttpPost("RegisterCustomer")]
         public async Task<ActionResult> Register([FromBody] dynamic request)
         {
-            try
-            {
                 var jsonElement = (JsonElement)request;
 
                 // Lấy thông tin tài khoản
@@ -182,16 +226,32 @@ namespace API.Controllers
                 string email = jsonElement.GetProperty("email").GetString();
                 DateTime dateOfBirth = jsonElement.GetProperty("dateOfBirth").GetDateTime();
 
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(gender) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(dateOfBirth.ToString()))
                     return BadRequest("Account details are incomplete.");
+
+                if (!Util.IsPhoneFormatted(phone.Trim()))
+                    return BadRequest(new { msg = "Phone number is not properly formatted" });
+
+                if (!Util.IsMailFormatted(email))
+                    return BadRequest(new { msg = "Email is not properly formatted" });
+                if (!Util.IsPasswordSecure(password))
+                    return BadRequest(new { msg = "Password is not secure enough" });
 
                 // Kiểm tra tài khoản đã tồn tại
                 var existingAccount = await _accountService.GetAccountByUsername(username);
                 if (existingAccount != null)
                     return Conflict("Username already exists.");
 
-                // Tạo đối tượng tài khoản
-                var account = new Account
+                var existingPhone = await _customerService.GetCustomerByPhone(phone);
+                if (existingPhone != null)
+                return Conflict("Phone is used.");
+
+            var existingEmail = await _customerService.GetCustomerByEmail(email);
+            if (existingEmail != null)
+                return Conflict("Email is used.");
+
+            // Tạo đối tượng tài khoản
+            var account = new Account
                 {
                     AccountId = Guid.NewGuid().ToString("N"),
                     Username = username,
@@ -201,11 +261,6 @@ namespace API.Controllers
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 };
-
-                // Lưu tài khoản
-                var isAccountCreated = await _accountService.AddAccount(account);
-                if (!isAccountCreated)
-                    return StatusCode(500, "An error occurred while registering the account.");
 
                 // Tạo đối tượng khách hàng
                 var customer = new Customer
@@ -220,17 +275,25 @@ namespace API.Controllers
                     MembershipId = null // Mặc định chưa có membership
                 };
 
+
+                if (customer == null || account == null)
+                {
+                    return StatusCode(500, "Customer or Account is null.");
+                }
+                // Lưu tài khoản
+                var isAccountCreated = await _accountService.AddAccount(account);
+                if (!isAccountCreated)
+                    return StatusCode(500, "An error occurred while registering the account.");
+
+
+
                 // Lưu khách hàng
                 var isCustomerCreated = await _customerService.AddCustomer(customer);
                 if (!isCustomerCreated)
                     return StatusCode(500, "An error occurred while registering the customer.");
 
-                return Ok("Register successfully.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+                return Ok(new { msg = "Register successfully." });
+         
         }
 
 
