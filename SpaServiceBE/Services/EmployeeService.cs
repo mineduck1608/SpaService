@@ -21,6 +21,16 @@ namespace Services
             return await _repository.GetById(employeeId);
         }
 
+        public async Task<Employee> GetEmployeeByPhone(string phone)
+        {
+            return await _repository.GetEmployeeByPhone(phone);
+        }
+
+        public async Task<Employee> GetEmployeeByEmail(string email)
+        {
+            return await _repository.GetEmployeeByEmail(email);
+        }
+
         // Lấy tất cả Employees
         public async Task<List<Employee>> GetAllEmployees()
         {

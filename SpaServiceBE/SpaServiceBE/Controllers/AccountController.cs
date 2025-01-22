@@ -157,8 +157,16 @@ namespace API.Controllers
                 if (existingAccount != null)
                     return Conflict("Username already exists.");
 
-                // Create account object
-                var account = new Account
+            var existingPhone = await _employeeService.GetEmployeeByPhone(phone);
+            if (existingPhone != null)
+                return Conflict("Phone is used.");
+
+            var existingEmail = await _employeeService.GetEmployeeByEmail(email);
+            if (existingEmail != null)
+                return Conflict("Email is used.");
+
+            // Create account object
+            var account = new Account
                 {
                     AccountId = Guid.NewGuid().ToString("N"),
                     Username = username,
@@ -234,8 +242,16 @@ namespace API.Controllers
                 if (existingAccount != null)
                     return Conflict("Username already exists.");
 
-                // Tạo đối tượng tài khoản
-                var account = new Account
+                var existingPhone = await _customerService.GetCustomerByPhone(phone);
+                if (existingPhone != null)
+                return Conflict("Phone is used.");
+
+            var existingEmail = await _customerService.GetCustomerByEmail(email);
+            if (existingEmail != null)
+                return Conflict("Email is used.");
+
+            // Tạo đối tượng tài khoản
+            var account = new Account
                 {
                     AccountId = Guid.NewGuid().ToString("N"),
                     Username = username,
