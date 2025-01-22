@@ -1,22 +1,6 @@
 [
   {
     "ContainingType": "API.Controllers.AccountController",
-    "Method": "CreateAccount",
-    "RelativePath": "api/accounts/Create",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "System.Object",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AccountController",
     "Method": "DeleteAccount",
     "RelativePath": "api/accounts/Delete/{id}",
     "HttpMethod": "DELETE",
@@ -97,6 +81,22 @@
     "ContainingType": "API.Controllers.AccountController",
     "Method": "Register",
     "RelativePath": "api/accounts/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
+    "Method": "RegisterEmployee",
+    "RelativePath": "api/accounts/RegisterEmployee",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

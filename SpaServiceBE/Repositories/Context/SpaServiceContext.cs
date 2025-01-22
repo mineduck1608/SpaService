@@ -64,7 +64,6 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("accountId");
-       
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
@@ -240,11 +239,21 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("accountId");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.FullName)
                 .HasMaxLength(50)
                 .HasColumnName("fullName");
-            entity.Property(e => e.HireDate).HasColumnName("hireDate");
-            entity.Property(e => e.Image).HasColumnName("image");
+            entity.Property(e => e.HireDate)
+                .HasColumnType("datetime")
+                .HasColumnName("hireDate");
+            entity.Property(e => e.Image)
+                .HasMaxLength(255)
+                .HasColumnName("image");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(20)
+                .IsUnicode(false);
             entity.Property(e => e.Position)
                 .HasMaxLength(50)
                 .IsUnicode(false)
