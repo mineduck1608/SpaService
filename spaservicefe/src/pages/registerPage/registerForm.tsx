@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/button.tsx'
 import { Card, CardContent } from '../../components/ui/card.tsx'
 import { Input } from '../../components/ui/input.tsx'
 import { Label } from '../../components/ui/label.tsx'
-
+import logo from '../../images/logos/logoBlack.png'
 import { toast, ToastContainer } from 'react-toastify'
 import { register } from './registerPage.util.ts'
 
@@ -38,8 +38,11 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
 
   return (
     <div className={cn('items-center justify-center', className)} {...props}>
-      <form className='p-6 md:p-8 justify-center content-center min-w-fit h-full' onSubmit={submit}>
+      <form className='h-full min-w-fit content-center justify-center p-6 md:p-8' onSubmit={submit}>
         <div className='flex flex-col gap-6'>
+          <div className='w-full flex justify-center'>
+            <img src={logo} className='w-1/3 bg-black' />
+          </div>
           <div className='flex flex-col items-center text-center'>
             <h1 className='text-2xl font-bold'>Create your Account</h1>
             <p className='text-balance text-muted-foreground'>Sign up to join our platform</p>
@@ -144,7 +147,11 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
           <Button
             type='submit'
             className='w-full'
-            disabled={fetching || Object.values(data).some((value) => value.length === 0 || value === '')}
+            disabled={
+              fetching ||
+              (Object.values(data).some((value) => value.length === 0 || value === '') ||
+                data.confirmPassword !== data.password)
+            }
           >
             Sign Up
           </Button>
@@ -162,13 +169,11 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
         </div>
       </form>
       <div className='mt-2 text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary'>
-        By clicking continue, you agree to our <a href='#'>Terms of Service</a> and{' '}
-        <a href='#'>Privacy Policy</a>.
+        By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
       </div>
       <ToastContainer />
     </div>
   )
-
 }
 
 // return (
