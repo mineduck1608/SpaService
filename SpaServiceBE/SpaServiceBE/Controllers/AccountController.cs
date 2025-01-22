@@ -202,7 +202,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPost("Register")]
+        [HttpPost("RegisterCustomer")]
         public async Task<ActionResult> Register([FromBody] dynamic request)
         {
                 var jsonElement = (JsonElement)request;
