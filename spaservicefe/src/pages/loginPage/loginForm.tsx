@@ -8,7 +8,7 @@ import loginBg from '../../images/loginBgs/loginBg.jpg'
 import loginBg2 from '../../images/loginBgs/loginBg2.jpg'
 import loginBg3 from '../../images/loginBgs/loginBg3.jpg'
 import loginBg4 from '../../images/loginBgs/loginBg4.jpg'
-import logo from '../../images/logos/logoBlack.png'
+import logo from '../../images/logos/logoColor.png'
 import { authenticate } from './loginPage.util'
 import { toast, ToastContainer } from 'react-toastify'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel'
@@ -39,9 +39,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className='p-6 md:p-8 justify-center content-center' onSubmit={submit}>
             <div className='w-full flex justify-center'>
-              <img src={logo} className='w-1/3 bg-black' />
+              <img src={logo} className='w-2/3' />
             </div>
-            <div className='flex flex-col gap-6'>
+            <div className='flex flex-col gap-6 -translate-y-20'>
               <div className='flex flex-col items-center text-center'>
                 <h1 className='text-2xl font-bold'>Welcome back</h1>
                 <p className='text-balance text-muted-foreground'>Login to your Acme Inc account</p>
