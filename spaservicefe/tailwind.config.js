@@ -39,13 +39,18 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
-        }
+        },
       },
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: 'calc(var(--radius) - 4px)'
-      }
+      },
+      backgroundImage: {
+        'custom-bg1': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bf_slider.png')",
+        'custom-bg2': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bf_site.png')",
+        'custom-bg3': "url('https://senspa.com.vn/wp-content/uploads/2020/11/bg_about_us.png')"
+    },
     }
   },
   plugins: [require('tailwindcss-animate')]
