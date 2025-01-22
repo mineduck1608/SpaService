@@ -41,7 +41,7 @@ export default function RegisterPage() {
         <div className='flex justify-center gap-2 md:justify-start self-end'>
           <a
             href='/login'
-            className='flex items-center gap-2 rounded border-2 border-[#a7a7ab] bg-[#a7a7ab] p-2 font-medium text-white hover:bg-black hover:text-white hover:border-black'
+            className='flex items-center gap-2 rounded border-2 border-[#858589] bg-[#858589] p-2 font-medium text-white hover:bg-black hover:text-white hover:border-black'
           >
             <TooltipProvider>
               <Tooltip>
