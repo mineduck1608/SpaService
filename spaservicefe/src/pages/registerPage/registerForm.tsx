@@ -5,9 +5,7 @@ import { Card, CardContent } from '../../components/ui/card.tsx'
 import { Input } from '../../components/ui/input.tsx'
 import { Label } from '../../components/ui/label.tsx'
 import bg1 from '../../images/registerBg/bg1.jpg'
-
 import bg2 from '../../images/registerBg/bg2.jpg'
-
 import bg3 from '../../images/registerBg/bg3.jpg'
 
 import { toast, ToastContainer } from 'react-toastify'
