@@ -36,10 +36,10 @@ export default function RegisterPage() {
         </Carousel>
       </div>
       <div className='flex flex-col gap-4 p-6 md:p-10'>
-        <div className='flex justify-center gap-2 md:justify-start self-end'>
+        <div className='flex justify-center gap-2 self-end md:justify-start'>
           <a
             href='/login'
-            className='flex items-center gap-2 rounded border-2 border-[#858589] bg-[#858589] p-2 font-medium text-white hover:bg-black hover:text-white hover:border-black'
+            className='flex items-center gap-2 rounded border-2 border-[#858589] bg-[#858589] p-2 font-medium text-white hover:border-black hover:bg-black hover:text-white'
           >
             <TooltipProvider>
               <Tooltip>
