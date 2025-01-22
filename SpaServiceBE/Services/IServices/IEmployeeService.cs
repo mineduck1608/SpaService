@@ -11,5 +11,11 @@ namespace Services.IServices
         Task<bool> AddEmployee(Employee employee);
         Task<bool> UpdateEmployee(string employeeId, Employee employee);
         Task<bool> DeleteEmployee(string employeeId);
+
+        Task<Employee> GetEmployeeByPhone(string phone);
+
+
+        Task<Employee> GetEmployeeByEmail(string email);
+  
     }
 }

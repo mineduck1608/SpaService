@@ -39,6 +39,16 @@ namespace Repositories
                 .ToListAsync();
         }
 
+        public async Task<Customer> GetCustomerByPhone(string phone)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(a => a.Phone == phone);
+        }
+
+        public async Task<Customer> GetCustomerByEmail(string email)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(a => a.Email == email);
+        }
+
         // Thêm một Customer mới
         public async Task<bool> Add(Customer customer)
         {

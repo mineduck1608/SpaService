@@ -11,5 +11,9 @@ namespace Services.IServices
         Task<bool> AddCustomer(Customer customer);
         Task<bool> UpdateCustomer(string customerId, Customer customer);
         Task<bool> DeleteCustomer(string customerId);
+        Task<Customer> GetCustomerByPhone(string phone);
+
+
+        Task<Customer> GetCustomerByEmail(string email);
     }
 }
