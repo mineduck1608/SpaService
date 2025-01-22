@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import RegisterPage from './pages/registerPage/registerPage.tsx'
 import LoginPage from './pages/loginPage/loginPage.tsx'
+import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
           <Route path='services/:id' />
           <Route path='reset-password' />
           <Route path='profile' />
+          <Route path='intro' element={<AboutUsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
