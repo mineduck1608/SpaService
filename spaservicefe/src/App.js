@@ -1,19 +1,24 @@
-
-import React, { useState, useEffect } from "react";
-import Header from "./components/Header/header.tsx"; // Import the Header component
-import Footer from "./components/Footer/footer.tsx";
-import Carousel from "./components/Carousel/Carousel.tsx";
-import Main from "./components/Main/main.tsx"
-
-const App = () => {
+import logo from './logo.svg'
+import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginPage from './pages/loginPage/loginPage.tsx'
+import RegisterPage from './pages/registerPage/registerPage.tsx'
+function App() {
   return (
-    <div>
-      <Header />
-      <Carousel />
-      <Main/>
-      <Footer />
-    </div>
-  );
-};
+    <BrowserRouter>
+      <Routes>
+        <Route path='/'>
+          <Route index />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='register' element={<RegisterPage />} />
+          <Route path='services' />
+          <Route path='services/:id' />
+          <Route path='reset-password' />
+          <Route path='profile' />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
-export default App;
+export default App
