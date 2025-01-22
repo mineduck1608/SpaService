@@ -338,8 +338,7 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AccountController.cs",
               "ViewState": "AgIAADcAAAAAAAAAAAAUwEAAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T05:40:11.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T05:40:11.767Z"
             },
             {
               "$type": "Document",
@@ -349,7 +348,7 @@
               "RelativeDocumentMoniker": "Repositories\\AccountRepository.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AccountRepository.cs",
               "RelativeToolTip": "Repositories\\AccountRepository.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAA1wBcAAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwBcAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T05:32:26.723Z",
               "EditorCaption": ""
@@ -376,8 +375,7 @@
               "RelativeToolTip": "Repositories\\Entities\\Schedule.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAmwB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T01:12:40.369Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T01:12:40.369Z"
             },
             {
               "$type": "Document",
@@ -389,8 +387,7 @@
               "RelativeToolTip": "Services\\AccountService.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T10:42:47.725Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T10:42:47.725Z"
             },
             {
               "$type": "Document",
@@ -402,8 +399,7 @@
               "RelativeToolTip": "Repositories\\AppointmentRepository.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAIwCEAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T00:46:23.547Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T00:46:23.547Z"
             },
             {
               "$type": "Document",
@@ -415,8 +411,7 @@
               "RelativeToolTip": "Repositories\\Entities\\Appointment.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T00:22:07.378Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T00:22:07.378Z"
             },
             {
               "$type": "Document",
@@ -428,8 +423,7 @@
               "RelativeToolTip": "Repositories\\Entities\\Account.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T00:21:19.212Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T00:21:19.212Z"
             },
             {
               "$type": "Document",
@@ -453,8 +447,7 @@
               "RelativeToolTip": "SpaServiceBE\\Program.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAAwDsAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T05:41:10.371Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T05:41:10.371Z"
             },
             {
               "$type": "Document",
@@ -466,8 +459,7 @@
               "RelativeToolTip": "Repositories\\Entities\\Customer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T00:19:28.116Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T00:19:28.116Z"
             },
             {
               "$type": "Document",
