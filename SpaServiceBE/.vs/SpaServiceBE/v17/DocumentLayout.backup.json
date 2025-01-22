@@ -389,8 +389,7 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AccountController.cs",
               "ViewState": "AgIAAI4AAAAAAAAAAAAUwKYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T05:40:11.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T05:40:11.767Z"
             },
             {
               "$type": "Document",
@@ -400,7 +399,11 @@
               "RelativeDocumentMoniker": "Repositories\\AccountRepository.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AccountRepository.cs",
               "RelativeToolTip": "Repositories\\AccountRepository.cs",
+<<<<<<< HEAD
               "ViewState": "AgIAABYAAAAAAAAAAAAgwB8AAAAIAAAAAAAAAA==",
+=======
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwBcAAAA+AAAAAAAAAA==",
+>>>>>>> feature/introduction
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T05:32:26.723Z",
               "EditorCaption": ""
@@ -428,8 +431,12 @@
               "RelativeToolTip": "Repositories\\MembershipRepository.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAcwDsAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2025-01-18T00:48:06.619Z",
               "EditorCaption": ""
+=======
+              "WhenOpened": "2025-01-18T01:12:40.369Z"
+>>>>>>> feature/introduction
             },
             {
               "$type": "Document",
@@ -503,8 +510,7 @@
               "RelativeToolTip": "Services\\AccountService.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T10:42:47.725Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T10:42:47.725Z"
             },
             {
               "$type": "Document",
@@ -516,11 +522,43 @@
               "RelativeToolTip": "SpaServiceBE\\Program.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAAwDsAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2025-01-15T05:41:10.371Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 24,
+=======
+              "WhenOpened": "2025-01-18T00:46:23.547Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Appointment.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Appointment.cs",
+              "RelativeDocumentMoniker": "Repositories\\Entities\\Appointment.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Appointment.cs",
+              "RelativeToolTip": "Repositories\\Entities\\Appointment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-17T00:22:07.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Account.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Account.cs",
+              "RelativeDocumentMoniker": "Repositories\\Entities\\Account.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Account.cs",
+              "RelativeToolTip": "Repositories\\Entities\\Account.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-17T00:21:19.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+>>>>>>> feature/introduction
               "Title": "IRoleService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\IRoleService.cs",
               "RelativeDocumentMoniker": "Services\\IServices\\IRoleService.cs",
@@ -540,7 +578,11 @@
               "RelativeToolTip": "Repositories\\Entities\\Account.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAowA0AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2025-01-17T00:21:19.212Z"
+=======
+              "WhenOpened": "2025-01-15T05:41:10.371Z"
+>>>>>>> feature/introduction
             },
             {
               "$type": "Document",
@@ -552,7 +594,11 @@
               "RelativeToolTip": "Repositories\\Entities\\Appointment.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2025-01-17T00:22:07.378Z"
+=======
+              "WhenOpened": "2025-01-17T00:19:28.116Z"
+>>>>>>> feature/introduction
             },
             {
               "$type": "Document",
