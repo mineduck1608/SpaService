@@ -45,7 +45,6 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
           </div>
           <div className='-translate-y-24'>
             <div className='flex flex-col items-center text-center mb-6'>
-
               <h1 className='text-2xl font-bold'>Create your Account</h1>
               <p className='text-balance text-muted-foreground'>Sign up to join our platform</p>
             </div>
@@ -60,7 +59,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, username: e.currentTarget.value })}
                 />
               </div>
-
+  
               {/* Full Name */}
               <div className='grid gap-2'>
                 <Label htmlFor='fullName'>Full Name</Label>
@@ -71,7 +70,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, fullName: e.currentTarget.value })}
                 />
               </div>
-
+  
               {/* Password */}
               <div className='grid gap-2'>
                 <Label htmlFor='password'>Password</Label>
@@ -82,7 +81,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, password: e.currentTarget.value })}
                 />
               </div>
-
+  
               {/* Confirm Password */}
               <div className='grid gap-2'>
                 <Label htmlFor='confirmPassword'>Confirm Password</Label>
@@ -93,7 +92,14 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, confirmPassword: e.currentTarget.value })}
                 />
               </div>
-
+  
+              {/* Error Message for Large Screens */}
+              {data.password !== data.confirmPassword && (
+                <div className='lg:col-span-2'>
+                  <p className='text-red-500 text-sm mt-2'>Confirm password does not match</p>
+                </div>
+              )}
+  
               {/* Email */}
               <div className='grid gap-2'>
                 <Label htmlFor='email'>Email</Label>
@@ -104,7 +110,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, email: e.currentTarget.value })}
                 />
               </div>
-
+  
               {/* Phone */}
               <div className='grid gap-2'>
                 <Label htmlFor='phone'>Phone</Label>
@@ -115,7 +121,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, phone: e.currentTarget.value })}
                 />
               </div>
-
+  
               {/* Date of Birth */}
               <div className='grid gap-2'>
                 <Label htmlFor='dateOfBirth'>Date of Birth</Label>
@@ -126,7 +132,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, dateOfBirth: e.currentTarget.value })}
                 />
               </div>
-
+  
               {/* Gender */}
               <div className='grid gap-2'>
                 <Label htmlFor='gender'>Gender</Label>
@@ -145,7 +151,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                 </select>
               </div>
             </div>
-
+  
             <Button
               type='submit'
               className='w-full mt-4 mb-4'
@@ -158,8 +164,8 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
               Sign Up
             </Button>
             <div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
-                <span className='relative z-10 bg-background px-2 text-muted-foreground '>Or continue with</span>
-              </div>
+              <span className='relative z-10 bg-background px-2 text-muted-foreground '>Or continue with</span>
+            </div>
             <div className='grid mt-4'>
               <Button variant='outline' className='w-full'>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
@@ -179,5 +185,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
       </div>
       <ToastContainer />
     </div>
-  )
+  );
+  
+
 }
