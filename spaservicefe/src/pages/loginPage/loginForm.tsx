@@ -1,15 +1,17 @@
 import React, { FormEvent, useState } from 'react'
-import { cn } from '../lib/utils'
-import { Button } from './ui/button'
-import { Card, CardContent } from './ui/card'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
-import loginBg from '../images/loginBgs/loginBg.jpg'
-import loginBg2 from '../images/loginBgs/loginBg2.jpg'
-import loginBg3 from '../images/loginBgs/loginBg3.jpg'
-import { authenticate } from '../pages/loginPage/loginPage.util'
+import { cn } from '../../lib/utils'
+import { Button } from '../../components/ui/button'
+import { Card, CardContent } from '../../components/ui/card'
+import { Input } from '../../components/ui/input'
+import { Label } from '../../components/ui/label'
+import loginBg from '../../images/loginBgs/loginBg.jpg'
+import loginBg2 from '../../images/loginBgs/loginBg2.jpg'
+import loginBg3 from '../../images/loginBgs/loginBg3.jpg'
+import loginBg4 from '../../images/loginBgs/loginBg4.jpg'
+import logo from '../../images/logos/logoBlack.png'
+import { authenticate } from './loginPage.util'
 import { toast, ToastContainer } from 'react-toastify'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../components/ui/carousel'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
@@ -18,7 +20,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     password: ''
   })
   const [fetching, setFetching] = useState(false)
-  const images = [loginBg, loginBg2, loginBg3]
+  const images = [loginBg, loginBg2, loginBg3, loginBg4]
   const submit = async (e: FormEvent) => {
     e.preventDefault()
     setFetching(true)
@@ -32,10 +34,13 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     setFetching(false)
   }
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card className='overflow-hidden'>
-        <CardContent className='grid p-0 md:grid-cols-2'>
-          <form className='p-6 md:p-8' onSubmit={submit}>
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
+      <Card className="overflow-hidden">
+        <CardContent className="grid p-0 md:grid-cols-2">
+          <form className='p-6 md:p-8 justify-center content-center' onSubmit={submit}>
+            <div className='w-full flex justify-center'>
+              <img src={logo} className='w-1/3 bg-black' />
+            </div>
             <div className='flex flex-col gap-6'>
               <div className='flex flex-col items-center text-center'>
                 <h1 className='text-2xl font-bold'>Welcome back</h1>
@@ -94,7 +99,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
               </div>
             </div>
           </form>
-          <div className='relative bg-muted md:block'>
+          <div className="relative hidden bg-muted md:block">
             <Carousel
               className='flex min-h-full'
               opts={{
@@ -110,7 +115,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
               <CarouselContent className='min-h-full'>
                 {images.map((v, i) => (
                   <CarouselItem key={i} className='min-h-full'>
-                    <img src={v} className='min-h-full' />
+                    <img src={v} className='min-h-full w-full md:max-h-[600px]' />
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -120,8 +125,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
           </div>
         </CardContent>
       </Card>
-      <div className='text-balance text-white text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary'>
-        By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
+      <div className="text-white text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
+        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        and <a href="#">Privacy Policy</a>.
       </div>
       <ToastContainer />
     </div>
