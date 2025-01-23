@@ -8,6 +8,7 @@ import { IoSparklesSharp } from 'react-icons/io5'
 import { FaCheese } from 'react-icons/fa6'
 import EmbedVideo from '../../components/embedVideo'
 import ArrowButton from '../../components/ui/arrowButton'
+import History from './history'
 
 const SpaData = [
     { id: 1, icon: <MdHearing/>, title: "Hearing",  description: "Calming melodies help relieve stress and depression so you can slowly drift into deep sleep.", aosDelay: "200" },
@@ -21,7 +22,7 @@ const slides = [
     { id: 1, image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
     { id: 2, image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
     { id: 3, image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
-    { id: 4, image: "https://i.pinimg.com/originals/4d/19/3a/4d193acd9793a60040246a0f0b1de23d.jpg", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
+    { id: 4, image: "https://cdn.marriottnetwork.com/uploads/sites/23/2021/01/the-phoenician-luxury-collection-resort-spa-treatment-room-1440x900.jpg", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
 ]
 const AboutUsPage = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -70,7 +71,7 @@ const AboutUsPage = () => {
             </div>
 
             {/* About Us */}
-            <div className='container mx-auto my-16 bg-custom-bg3 bg-cover bg-center bg-fixed'>
+            <div className='container mx-auto my-16'>
                 <div className='grid grid-cols-1 lg:grid-cols-2'>
                     <div className='flex flex-col items-center text-center'>
                         <IntroHeader title={"About Us"}/>
@@ -82,7 +83,7 @@ const AboutUsPage = () => {
                                 Located in the center of HCM City via an alley entrance, SenSpa is separated from the noisy atmosphere to open into a gentle and serene space.
                             </p>
                             <p className='text-gray-600 text-lg opacity-80 mt-6'>
-                            With almost 30 therapists being professionally trained and certified following international standards, SenSpa is proud to be a perfect wellness destination that meets the needs of the most fastidious guests from all around the world.
+                                With almost 30 therapists being professionally trained and certified following international standards, SenSpa is proud to be a perfect wellness destination that meets the needs of the most fastidious guests from all around the world.
                             </p>
                         </div>
                     </div>
@@ -97,7 +98,7 @@ const AboutUsPage = () => {
                             className='mt-12 rounded-tl-[5rem] rounded-br-[5rem] h-48 w-52 object-cover' />
                         <div className='relative'>
                             <div className='bg-purple-900 absolute inset-0 -translate-x-2 translate-y-3 p-6 text-white rounded-tl-[5rem] rounded-br-[5rem] h-44 flex flex-col justify-center items-center text-l'>
-                                <div className='text-4xl font-bold'>49</div>
+                                <div className='text-4xl font-bold'>21</div>
                                     <div className='text-3xl'>years</div>
                                 <div className='mt-2'>dedication to customers</div></div>   
                             <div className='bg-pink-800 p-6 text-white rounded-tl-[5rem] rounded-br-[5rem] h-44 object-cover'>
@@ -112,11 +113,7 @@ const AboutUsPage = () => {
             </div>
             
             {/* History */}
-            <div>
-                <div className=''>
-                    <IntroHeader title={"History"}/>
-                </div>
-            </div>
+            <History />
 
             {/* Video */}
             <EmbedVideo />
@@ -156,14 +153,14 @@ const AboutUsPage = () => {
 
             {/* Why choose us */}
             <div className='container mx-auto my-20 space-y-4'>
-                <div className='max-w-6xl h-96 mx-auto px-4 py-8 flex gap-6 items-center 
-                        bg-gray-50 rounded-2xl overflow-hidden bg-custom-bg1 bg-no-repeat bg-right-bottom shadow-purple-200 shadow-2xl'>
+                <div className='max-w-6xl mx-auto px-4 py-8 flex gap-6 items-center 
+                        bg-white rounded-2xl overflow-hidden bg-custom-bg1 bg-no-repeat bg-right-bottom shadow-purple-200 shadow-lg'>
                     <ArrowButton direction='right' onClick={prevSlide}/>
-                    <div className='relative flex-1 md:block hidden'>
+                    <div className='relative md:block hidden'>
                         <img 
                             src={slides[currentSlide].image}
                             alt=''
-                            className={`rounded-lg w-full h-64 object-cover transition-opacity duration-300 ${
+                            className={`rounded-lg w-full h-96 object-cover transition-opacity duration-300 ${
                                 isChanging ? 'opacity-0' : 'opacity-100'
                             }`}
                         />
@@ -203,6 +200,11 @@ const AboutUsPage = () => {
                         />
                     ))}
                 </div>
+            </div>
+
+            {/* Gallery */}
+            <div>
+                <IntroHeader title={'Facilities'}/>
             </div>
         </main>
     )

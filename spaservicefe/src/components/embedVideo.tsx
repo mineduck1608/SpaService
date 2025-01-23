@@ -12,7 +12,7 @@ export default function EmbedVideo() {
     };
 
     return (
-        <div className='relative overflow-hidden'>
+        <div className='relative overflow-hidden mt-10'>
             <div className='group'>
                 <img
                     src='https://senspa.com.vn/wp-content/uploads/2021/01/banner8.jpg'
