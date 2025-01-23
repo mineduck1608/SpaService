@@ -1,6 +1,6 @@
 import React from 'react'
 import { CCarousel, CCarouselItem, CImage } from '@coreui/react'
-import  login from '../../images/loginBg.jpg'
+import login from '../../images/loginBg.jpg'
 export const CarouselControl = () => {
   return (
     <CCarousel controls indicators>

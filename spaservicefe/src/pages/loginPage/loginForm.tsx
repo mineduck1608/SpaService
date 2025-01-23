@@ -34,15 +34,14 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     setFetching(false)
   }
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden">
-        <CardContent className="grid p-0 md:grid-cols-2">
+    <div className={cn('flex flex-col gap-6', className)} {...props}>
+      <Card className='overflow-hidden'>
+        <CardContent className='grid p-0 md:grid-cols-2'>
           <form className='p-6 md:p-8' onSubmit={submit}>
-            <div className='w-full flex justify-center'>
+            <div className='flex w-full justify-center'>
               <img src={logo} className='w-1/4 translate-y-2' />
             </div>
-            <div className='flex flex-col gap-6 mt-2'>
-
+            <div className='mt-2 flex flex-col gap-6'>
               <div className='flex flex-col items-center text-center'>
                 <h1 className='text-2xl font-bold'>Welcome back</h1>
                 <p className='text-balance text-muted-foreground'>Login to use our service</p>
@@ -100,7 +99,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
               </div>
             </div>
           </form>
-          <div className="relative hidden bg-muted md:block">
+          <div className='relative hidden bg-muted md:block'>
             <Carousel
               className='flex min-h-full'
               opts={{
@@ -126,9 +125,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
           </div>
         </CardContent>
       </Card>
-      <div className="text-white text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+      <div className='text-balance text-center text-xs text-muted-foreground text-white [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary'>
+        By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
       </div>
       <ToastContainer />
     </div>
