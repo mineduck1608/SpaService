@@ -11,14 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("1401df4c-aafd-4194-ade0-9965949e4ddd")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("SpaServiceBE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+83a0c390830ee55ec076d3ddc987aa0b079c6bc7")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+075be601a27df4895bbc98b75356d848c2d2a370")]
->>>>>>> feature/introduction
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72496242432aacc58b38c344c7471b6960f0d1cc")]
 [assembly: System.Reflection.AssemblyProductAttribute("SpaServiceBE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SpaServiceBE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
