@@ -6,6 +6,7 @@ import { Label } from '../../components/ui/label.tsx'
 import logo from '../../images/logos/logoColor.png'
 import { toast, ToastContainer } from 'react-toastify'
 import { register } from './registerPage.util.ts'
+import { Tooltip } from 'react-tooltip'
 
 export default function RegisterForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({
@@ -38,6 +39,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
   return (
     <div className={cn('items-center justify-center', className)} {...props}>
       <form className='h-full min-w-fit content-center justify-center p-6 md:p-8' onSubmit={submit}>
+        <Tooltip id='confirm-password' className='z-10'/>
         <div className='flex flex-col gap-10'>
           <div className='flex w-full justify-center'>
             <img src={logo} className='w-1/2 -translate-y-20' />
@@ -58,7 +60,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, username: e.currentTarget.value })}
                 />
               </div>
-  
+
               {/* Full Name */}
               <div className='grid gap-2'>
                 <Label htmlFor='fullName'>Full Name</Label>
@@ -69,7 +71,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, fullName: e.currentTarget.value })}
                 />
               </div>
-  
+
               {/* Password */}
               <div className='grid gap-2'>
                 <Label htmlFor='password'>Password</Label>
@@ -80,9 +82,8 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, password: e.currentTarget.value })}
                 />
               </div>
-  
-              {/* Confirm Password */}
-              <div className='grid gap-2'>
+
+              <div className='relative grid gap-2'>
                 <Label htmlFor='confirmPassword'>Confirm Password</Label>
                 <Input
                   id='confirmPassword'
@@ -90,15 +91,21 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   required
                   onChange={(e) => setData({ ...data, confirmPassword: e.currentTarget.value })}
                 />
+                {data.confirmPassword !== data.password && (
+                  <>
+                    {/* The (!) symbol */}
+                    <span
+                      className='absolute transform right-2 top-1/2 rounded-full bg-red-500 px-2 text-sm text-white hover:cursor-default'
+                      data-tooltip-content={'Confirm password does not match'}
+                      data-tooltip-place='right'
+                      data-tooltip-id='confirm-password'
+                    >
+                      !
+                    </span>
+                  </>
+                )}
               </div>
-  
-              {/* Error Message for Large Screens */}
-              {data.password !== data.confirmPassword && (
-                <div className='lg:col-span-2'>
-                  <p className='text-red-500 text-sm mt-2'>Confirm password does not match</p>
-                </div>
-              )}
-  
+
               {/* Email */}
               <div className='grid gap-2'>
                 <Label htmlFor='email'>Email</Label>
@@ -109,7 +116,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, email: e.currentTarget.value })}
                 />
               </div>
-  
+
               {/* Phone */}
               <div className='grid gap-2'>
                 <Label htmlFor='phone'>Phone</Label>
@@ -120,7 +127,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, phone: e.currentTarget.value })}
                 />
               </div>
-  
+
               {/* Date of Birth */}
               <div className='grid gap-2'>
                 <Label htmlFor='dateOfBirth'>Date of Birth</Label>
@@ -131,7 +138,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   onChange={(e) => setData({ ...data, dateOfBirth: e.currentTarget.value })}
                 />
               </div>
-  
+
               {/* Gender */}
               <div className='grid gap-2'>
                 <Label htmlFor='gender'>Gender</Label>
@@ -150,7 +157,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                 </select>
               </div>
             </div>
-  
+
             <Button
               type='submit'
               className='mb-4 mt-4 w-full'
