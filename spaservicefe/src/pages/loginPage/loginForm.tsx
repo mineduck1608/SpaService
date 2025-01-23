@@ -31,7 +31,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
       sessionStorage.setItem('token', rs.token)
       window.location.assign('/')
     } else {
-      toast('An error occured: ' + rs.msg)
+      toast.error(rs.msg)
     }
     setFetching(false)
   }
