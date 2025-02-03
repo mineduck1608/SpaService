@@ -6,12 +6,13 @@ import { GiNoseSide } from 'react-icons/gi'
 import { MdHearing, MdOutlineTouchApp } from 'react-icons/md'
 import { IoSparklesSharp } from 'react-icons/io5'
 import { FaCheese } from 'react-icons/fa6'
-import EmbedVideo from '../../components/embedVideo'
+import EmbedVideo from './embedVideo'
 import ArrowButton from '../../components/ui/arrowButton'
 import History from './history'
+import Facilities from './facilities'
 
 const SpaData = [
-    { id: 1, icon: <MdHearing/>, title: "Hearing",  description: "Calming melodies help relieve stress and depression so you can slowly drift into deep sleep.", aosDelay: "200" },
+    { id: 1, icon: <MdHearing/>, title: "Hearing",  description: "Calming melodies help relieve stress and depression so you can slowly drift into deep sleep."},
     { id: 2, icon: <GiNoseSide/>, title: "Smell", description: "The nose is welcomed by the pleasant aroma of plants and natural essential oil covering the entire floors.", aosDelay: "300" },
     { id: 3, icon: <MdOutlineTouchApp/>, title: "Touch", description: "Your bright smooth skin will be well cared for with gentle strokes to remove all muscle knots.", aosDelay: "400" },
     { id: 4, icon: <IoSparklesSharp/>, title: "Visual", description: "Minimalistic decoration and gentle lighting help transcend your spirit to another realm and drown your body in deep relaxing moments.", aosDelay: "500" },
@@ -19,22 +20,22 @@ const SpaData = [
 ]
 
 const slides = [
-    { id: 1, image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
-    { id: 2, image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
-    { id: 3, image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
-    { id: 4, image: "https://cdn.marriottnetwork.com/uploads/sites/23/2021/01/the-phoenician-luxury-collection-resort-spa-treatment-room-1440x900.jpg", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
+    { image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
+    { image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
+    { image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
+    { image: "https://cdn.marriottnetwork.com/uploads/sites/23/2021/01/the-phoenician-luxury-collection-resort-spa-treatment-room-1440x900.jpg", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
 ]
 const AboutUsPage = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
 
-    useEffect(() => {
+    useEffect (() => {
         const interval = setInterval(() => {
             nextSlide();
         }, 5000);
 
         return () => clearInterval(interval);
-    }, [currentSlide]);
+    }, [currentSlide])
 
     const nextSlide = () => {
         setIsChanging(true);
@@ -42,7 +43,7 @@ const AboutUsPage = () => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
             setIsChanging(false);
         }, 600);
-    };
+    }
 
     const prevSlide = () => {
         setIsChanging(true);
@@ -50,7 +51,7 @@ const AboutUsPage = () => {
             setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
             setIsChanging(false);
         }, 600);
-    };
+    }
 
     return (
         <main className='overflow-x-hidden'>
@@ -128,11 +129,11 @@ const AboutUsPage = () => {
                     </p>
                 </div>
                 <div className='gap-10 flex flex-row justify-center flex-wrap'>
-                    {SpaData.map(({ id, icon, title, description, aosDelay }) => (
+                    {SpaData.map(({ id, icon, title, description }) => (
                         <div 
                             key={id} 
                             data-aos='fade-up' 
-                            data-aos-delay={aosDelay} 
+                            // data-aos-delay={aosDelay} 
                             className='space-y-7 flex flex-col items-center transition-all duration-300 hover:-translate-y-7' 
                             style={{ maxWidth: '200px', marginTop: '2rem' }}>
                                 
@@ -160,7 +161,7 @@ const AboutUsPage = () => {
                         <img 
                             src={slides[currentSlide].image}
                             alt=''
-                            className={`rounded-lg w-full h-96 object-cover transition-opacity duration-300 ${
+                            className={`rounded-lg w-full h-96 max-w-[580px] object-cover transition-opacity duration-300 ${
                                 isChanging ? 'opacity-0' : 'opacity-100'
                             }`}
                         />
@@ -203,9 +204,7 @@ const AboutUsPage = () => {
             </div>
 
             {/* Gallery */}
-            <div>
-                <IntroHeader title={'Facilities'}/>
-            </div>
+            <Facilities />
         </main>
     )
 }

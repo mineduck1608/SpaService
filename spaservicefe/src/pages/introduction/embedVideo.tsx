@@ -6,13 +6,13 @@ export default function EmbedVideo() {
     const [isPlayed, setIsPlayed] = useState(false);
     const showVideo = () => {
         setIsPlayed(true);
-    };
+    }
     const hideVideo = () => {
         setIsPlayed(false);
-    };
+    }
 
     return (
-        <div className='relative overflow-hidden mt-10'>
+        <div className='relative overflow-hidden mt-32'>
             <div className='group'>
                 <img
                     src='https://senspa.com.vn/wp-content/uploads/2021/01/banner8.jpg'
@@ -55,5 +55,5 @@ export default function EmbedVideo() {
                 </div>
             )}
         </div>
-    );
+    )
 }
