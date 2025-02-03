@@ -102,13 +102,12 @@ const AboutUsPage = () => {
                                 <div className='text-4xl font-bold'>21</div>
                                     <div className='text-3xl'>years</div>
                                 <div className='mt-2'>dedication to customers</div></div>   
-                            <div className='bg-pink-800 p-6 text-white rounded-tl-[5rem] rounded-br-[5rem] h-44 object-cover'>
-                            </div>
+                            <div className='bg-pink-800 p-6 text-white rounded-tl-[5rem] rounded-br-[5rem] h-44 object-cover'></div>
                         </div>
                         <img 
                             src='https://2.bp.blogspot.com/-lSnHcuHJJWM/WD9pG-bIVeI/AAAAAAAAAOg/pxlMGhQi10gXxG0qKBNuU8vw5_jRIKteACLcB/s1600/first.jpg' 
                             alt='' 
-                            className='rounded-tr-[5rem] rounded-bl-[5rem] h-56 object-cover' />
+                            className='rounded-tr-[5rem] rounded-bl-[5rem] h-56 object-cover'/>
                     </div>
                 </div>
             </div>
@@ -130,13 +129,10 @@ const AboutUsPage = () => {
                 </div>
                 <div className='gap-10 flex flex-row justify-center flex-wrap'>
                     {SpaData.map(({ id, icon, title, description }) => (
-                        <div 
-                            key={id} 
-                            data-aos='fade-up' 
+                        <div key={id} 
+                            // data-aos='fade-up' 
                             // data-aos-delay={aosDelay} 
-                            className='space-y-7 flex flex-col items-center transition-all duration-300 hover:-translate-y-7' 
-                            style={{ maxWidth: '200px', marginTop: '2rem' }}>
-                                
+                            className='max-w-[200px] space-y-7 flex flex-col items-center transition-all duration-300 hover:-translate-y-7 mt-8'>
                             <div className='relative'>
                                 <div className='bg-purple-900 absolute inset-0 -translate-x-2 translate-y-3 rounded-tl-3xl rounded-br-3xl'></div>
                                 <div className='bg-pink-800 text-white p-5 rounded-tl-3xl rounded-br-3xl relative transition-all duration-300 hover:-translate-y-3 hover:bg-pink-950'>
@@ -158,37 +154,26 @@ const AboutUsPage = () => {
                         bg-white rounded-2xl overflow-hidden bg-custom-bg1 bg-no-repeat bg-right-bottom shadow-purple-200 shadow-lg'>
                     <ArrowButton direction='right' onClick={prevSlide}/>
                     <div className='relative md:block hidden'>
-                        <img 
-                            src={slides[currentSlide].image}
-                            alt=''
+                        <img src={slides[currentSlide].image} alt=''
                             className={`rounded-lg w-full h-96 max-w-[580px] object-cover transition-opacity duration-300 ${
-                                isChanging ? 'opacity-0' : 'opacity-100'
-                            }`}
+                                isChanging ? 'opacity-0' : 'opacity-100'}`}
                         />
                     </div>
                     <div className={`flex-1 space-y-0 max-w-[350px] transition-opacity duration-300 ${
-                        isChanging ? 'opacity-0' : 'opacity-100'
-                    }`}>
+                        isChanging ? 'opacity-0' : 'opacity-100'}`}>
                         <div className='text-center md:block hidden'>
                             <IntroHeader title={'Why choose us?'}/>
                         </div>
                         <div className='ml-3'>
-                            <p className='text-xl font-normal'>
-                                {slides[currentSlide].title}
-                            </p>
-                            <p className='text-gray-600 text-sm opacity-80 mt-4'>
-                                {slides[currentSlide].description}
-                            </p>
+                            <p className='text-xl font-normal'>{slides[currentSlide].title}</p>
+                            <p className='text-gray-600 text-sm opacity-80 mt-4'>{slides[currentSlide].description}</p>
                         </div>
                     </div>
                     <ArrowButton direction='left' onClick={nextSlide}/>
                 </div>
-                
                 <div className='flex justify-center gap-2'>
                     {slides.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => {
+                        <button key={index} onClick={() => {
                                 setIsChanging(true);
                                 setTimeout(() => {
                                     setCurrentSlide(index);
@@ -196,8 +181,7 @@ const AboutUsPage = () => {
                                 }, 300);
                             }}
                             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                currentSlide === index ? 'bg-purple-900 w-4' : 'bg-purple-300'
-                            }`}
+                                currentSlide === index ? 'bg-purple-900 w-4' : 'bg-purple-300' }`}
                         />
                     ))}
                 </div>

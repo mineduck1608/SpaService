@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CiPlay1 } from 'react-icons/ci'
-import { IoMdClose } from 'react-icons/io'
+import { X } from 'lucide-react'
 
 export default function EmbedVideo() {
     const [isPlayed, setIsPlayed] = useState(false);
@@ -37,11 +37,8 @@ export default function EmbedVideo() {
             ) : (
                 <div className='fixed inset-0 bg-black bg-opacity-85 flex items-center justify-center z-50'>
                     <div className='relative max-w-7xl w-full aspect-video'>
-                        <button
-                            onClick={hideVideo}
-                            className="absolute top-2 -right-10 text-white text-3xl font-bold"
-                        >
-                            <IoMdClose/>
+                        <button onClick={hideVideo} className='absolute top-2 -right-10 text-white text-3xl font-bold'>
+                            <X />
                         </button>
                         <iframe
                             className='w-full h-full bg-transparent'
