@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-// import AOS from 'aos'
-// import 'aos/dist/aos.css'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import IntroHeader from '../../components/introductionHeader'
 import { GiNoseSide } from 'react-icons/gi'
 import { MdHearing, MdOutlineTouchApp } from 'react-icons/md'
@@ -36,6 +36,13 @@ const AboutUsPage = () => {
 
         return () => clearInterval(interval);
     }, [currentSlide])
+
+    useEffect(() => {
+        AOS.init({
+          duration: 800,
+          once: true
+        });
+      }, []);
 
     const nextSlide = () => {
         setIsChanging(true);
@@ -76,7 +83,7 @@ const AboutUsPage = () => {
                 <div className='grid grid-cols-1 lg:grid-cols-2'>
                     <div className='flex flex-col items-center text-center'>
                         <IntroHeader title={"About Us"}/>
-                        <div className='max-w-lg text-left ml-14'>
+                        <div className='max-w-lg text-left ml-14' data-aos='fade-down' data-aos-delay='600'>
                             <p className='text-gray-600 text-lg opacity-80'>
                                 Associated with the beauty of a sincere, romantic, yet very resilient flower, SenSpa is designed and decorated in a rustic and simple style, featuring bold traditional characteristics of Vietnam.
                             </p>
@@ -92,12 +99,18 @@ const AboutUsPage = () => {
                         <img 
                             src='http://4.bp.blogspot.com/-OsmPR1OeXjM/UgwAo1EgmEI/AAAAAAAAABQ/SFHlnU1583c/s1600/Small-treatment-room.jpg' 
                             alt='' 
-                            className='rounded-tr-[5rem] rounded-bl-[5rem] h-60 object-cover' />
+                            className='rounded-tr-[5rem] rounded-bl-[5rem] h-60 object-cover'
+                            data-aos='fade-up' 
+                            data-aos-delay='200' 
+                        />
                         <img 
                             src='https://wallpapercave.com/wp/wp4085230.jpg' 
                             alt='' 
-                            className='mt-12 rounded-tl-[5rem] rounded-br-[5rem] h-48 w-52 object-cover' />
-                        <div className='relative'>
+                            className='mt-12 rounded-tl-[5rem] rounded-br-[5rem] h-48 w-52 object-cover'
+                            data-aos='fade-up' 
+                            data-aos-delay='300' 
+                        />
+                        <div className='relative' data-aos='fade-up' data-aos-delay='400'>
                             <div className='bg-purple-900 absolute inset-0 -translate-x-2 translate-y-3 p-6 text-white rounded-tl-[5rem] rounded-br-[5rem] h-44 flex flex-col justify-center items-center text-l'>
                                 <div className='text-4xl font-bold'>21</div>
                                     <div className='text-3xl'>years</div>
@@ -107,7 +120,10 @@ const AboutUsPage = () => {
                         <img 
                             src='https://2.bp.blogspot.com/-lSnHcuHJJWM/WD9pG-bIVeI/AAAAAAAAAOg/pxlMGhQi10gXxG0qKBNuU8vw5_jRIKteACLcB/s1600/first.jpg' 
                             alt='' 
-                            className='rounded-tr-[5rem] rounded-bl-[5rem] h-56 object-cover'/>
+                            className='rounded-tr-[5rem] rounded-bl-[5rem] h-56 object-cover'
+                            data-aos='fade-up' 
+                            data-aos-delay='500'
+                        />
                     </div>
                 </div>
             </div>
@@ -122,16 +138,16 @@ const AboutUsPage = () => {
             <div className='container mx-auto my-16 space-y-4'>
                 <div className='text-center max-w-[100vh] mx-auto space-y-1'>
                     <IntroHeader title={"What is SPA?"}/>
-                    <p className='text-gray-600 text-lg opacity-80'>
+                    <p className='text-gray-600 text-lg opacity-80' data-aos='fade-right' data-aos-delay='500'>
                         Today, SPA is defined as health and beauty treatments that helps balance the body and spirit. 
                         A true spa must be able to influence these senses and help re-energize the customers so they can become healthier and younger.
                     </p>
                 </div>
                 <div className='gap-10 flex flex-row justify-center flex-wrap'>
-                    {SpaData.map(({ id, icon, title, description }) => (
+                    {SpaData.map(({ id, icon, title, description, aosDelay }) => (
                         <div key={id} 
-                            // data-aos='fade-up' 
-                            // data-aos-delay={aosDelay} 
+                            data-aos='fade-up' 
+                            data-aos-delay={aosDelay} 
                             className='max-w-[200px] space-y-7 flex flex-col items-center transition-all duration-300 hover:-translate-y-7 mt-8'>
                             <div className='relative'>
                                 <div className='bg-purple-900 absolute inset-0 -translate-x-2 translate-y-3 rounded-tl-3xl rounded-br-3xl'></div>
@@ -149,7 +165,7 @@ const AboutUsPage = () => {
             </div>
 
             {/* Why choose us */}
-            <div className='container mx-auto my-20 space-y-4'>
+            <div className='container mx-auto my-20 space-y-4' data-aos='zoom-in'>
                 <div className='max-w-6xl mx-auto px-4 py-8 flex gap-6 items-center 
                         bg-white rounded-2xl overflow-hidden bg-custom-bg1 bg-no-repeat bg-right-bottom shadow-purple-200 shadow-lg'>
                     <ArrowButton direction='right' onClick={prevSlide}/>

@@ -38,7 +38,7 @@ const History = () => {
         <div className='relative min-w-full mb-10'>
             <IntroHeader title={"History"}/>
             <div className='absolute inset-0 w-full h-full bg-custom-bg2 bg-repeat-x bg-bottom -z-10'/>
-            <div className='relative mb-10 mt-10 max-w-3xl mx-auto'>
+            <div className='relative mb-10 mt-10 max-w-3xl mx-auto' data-aos='fade-right' data-aos-delay='400'>
                 <div className='absolute top-14 left-0 right-0 h-px bg-red-600'/>
                 <div className='relative flex flex-col md:flex-row justify-between items-center max-w-3xl mx-auto'>
                     {timeline.map((i) => (
@@ -60,7 +60,7 @@ const History = () => {
                     ))}
                 </div>
             </div>
-            <div className='max-w-5xl mx-auto mt-11'>
+            <div className='max-w-5xl mx-auto mt-11' data-aos='zoom-in' data-aos-delay='500'>
                 <div className='flex flex-col md:flex-row gap-8 items-center transition-all duration-300
                              bg-white rounded-3xl bg-custom-bg1 bg-no-repeat bg-right-bottom z-10
                              shadow-pink-200 shadow-lg'>
