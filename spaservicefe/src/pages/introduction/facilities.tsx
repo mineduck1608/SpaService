@@ -87,6 +87,7 @@ const Facilities = () => {
         image: string;
         additionalImages: string[];
     } | null>(null);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     return (
         <div className='mx-auto w-full'>
@@ -113,19 +114,40 @@ const Facilities = () => {
                 ))}
             </div>
             {selectedFacility && (
-                <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
+                <div className='fixed inset-0 bg-black bg-opacity-65 flex items-center justify-center z-50'>
                     <div className='bg-white rounded-lg max-w-2xl w-full mx-4'>
-                        <div className='flex justify-between items-start p-4 border-b'>
-                            <button onClick={() => setSelectedFacility(null)} className='p-1 hover:bg-gray-100 rounded-full'>
+                        <div className='p-4 border-b flex items-end justify-end'>
+                            <button onClick={() => setSelectedFacility(null)} className='hover:bg-gray-100 rounded-full'>
                                 <X className='w-6 h-6'/>
                             </button>
                         </div>
-                        <div className='p-4'>
-                            <img src={selectedFacility.image} alt={selectedFacility.title} 
-                                className='w-full h-80 object-cover rounded mb-4'/>
-                        </div>
-                        <div>
-                            
+                        <div className='relative p-4'>
+                            <div className='w-full h-80 relative'>
+                                <img src={selectedFacility.additionalImages[currentImageIndex]} alt='' 
+                                    className='w-full h-full object-cover rounded'/>
+                            </div>
+                            <div className='relative mt-4'>
+                                <div className='absolute left-28 top-1/2 -translate-y-1/2 z-10'>
+                                    <ArrowButton direction="right" onClick={() => setCurrentImageIndex(prev => 
+                                        prev === 0 ? selectedFacility.additionalImages.length - 1 : prev - 1)}
+                                    />
+                                </div>
+                                <div className='flex gap-2 mt-4 justify-center'>
+                                    {selectedFacility.additionalImages.map((image, index) => (
+                                        <button key={index} onClick={() => setCurrentImageIndex(index)}className='w-16 h-16 flex-shrink-0'>
+                                            <img src={image} alt=''
+                                                className={`w-72 h-full object-cover rounded ${
+                                                currentImageIndex === index ? 'ring-2 ring-purple-600' : 'opacity-50 hover:opacity-80'}`}
+                                            />
+                                        </button>
+                                    ))}
+                                </div>
+                                <div className='absolute right-28 top-1/2 -translate-y-1/2 z-10'>
+                                    <ArrowButton direction="left" onClick={() => setCurrentImageIndex(prev => 
+                                        prev === selectedFacility.additionalImages.length - 1 ? 0 : prev + 1)}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
