@@ -13,8 +13,8 @@ import { authenticate } from './loginPage.util'
 import { toast, ToastContainer } from 'react-toastify'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel'
 import Autoplay from 'embla-carousel-autoplay'
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
+import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({
@@ -36,15 +36,15 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     setFetching(false)
   }
   const handleSuccess = (response: any) => {
-    console.log('Login Success:', response.credential);
+    console.log('Login Success:', response.credential)
     // Gửi JWT token (response.credential) tới backend để xử lý
-    const user = jwtDecode(response.credential);
-    console.log('User Info:', user); // { name, email, picture, ... }
-  };
+    const user = jwtDecode(response.credential)
+    console.log('User Info:', user) // { name, email, picture, ... }
+  }
 
   const handleError = () => {
-    console.log('Login Failed');
-  };
+    console.log('Login Failed')
+  }
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
@@ -93,10 +93,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                 <span className='relative z-10 bg-background px-2 text-muted-foreground'>Or continue with</span>
               </div>
               <div className='grid '>
-               
-            
-                  <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
-       
+                <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
               </div>
               <div className='text-center text-sm'>
                 Don&apos;t have an account?{' '}
