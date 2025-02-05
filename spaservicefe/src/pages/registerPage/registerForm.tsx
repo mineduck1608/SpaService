@@ -39,20 +39,20 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
   }
 
   const handleSuccess = (response: any) => {
-      console.log('Login Success:', response.credential);
-      // Gửi JWT token (response.credential) tới backend để xử lý
-      const user = jwtDecode(response.credential);
-      console.log('User Info:', user); // { name, email, picture, ... }
-    };
-  
-    const handleError = () => {
-      console.log('Login Failed');
-    };
+    console.log('Login Success:', response.credential)
+    // Gửi JWT token (response.credential) tới backend để xử lý
+    const user = jwtDecode(response.credential)
+    console.log('User Info:', user) // { name, email, picture, ... }
+  }
+
+  const handleError = () => {
+    console.log('Login Failed')
+  }
 
   return (
     <div className={cn('items-center justify-center', className)} {...props}>
       <form className='h-full min-w-fit content-center justify-center p-6 md:p-8' onSubmit={submit}>
-        <Tooltip id='confirm-password' className='z-10'/>
+        <Tooltip id='confirm-password' className='z-10' />
         <div className='flex flex-col gap-10'>
           <div className='flex w-full justify-center'>
             <img src={logo} className='w-1/2 -translate-y-20' />
@@ -108,7 +108,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   <>
                     {/* The (!) symbol */}
                     <span
-                      className='absolute transform right-2 top-1/2 rounded-full bg-red-500 px-2 text-sm text-white hover:cursor-default'
+                      className='absolute right-2 top-1/2 transform rounded-full bg-red-500 px-2 text-sm text-white hover:cursor-default'
                       data-tooltip-content={'Confirm password does not match'}
                       data-tooltip-place='right'
                       data-tooltip-id='confirm-password'
@@ -186,7 +186,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
               <span className='relative z-10 bg-background px-2 text-muted-foreground '>Or continue with</span>
             </div>
             <div className='mt-4 grid'>
-            <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+              <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
             </div>
           </div>
         </div>

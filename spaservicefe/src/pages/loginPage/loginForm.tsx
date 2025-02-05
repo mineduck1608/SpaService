@@ -1,19 +1,20 @@
-import React, { FormEvent, useState } from 'react';
-import { cn } from '../../lib/utils';
-import { Button } from '../../components/ui/button';
-import { Card, CardContent } from '../../components/ui/card';
-import { Input } from '../../components/ui/input';
-import { Label } from '../../components/ui/label';
-import loginBg from '../../images/loginBgs/loginBg.jpg';
-import loginBg2 from '../../images/loginBgs/loginBg2.jpg';
-import loginBg3 from '../../images/loginBgs/loginBg3.jpg';
-import loginBg4 from '../../images/loginBgs/loginBg4.jpg';
-import logo from '../../images/logos/logoColor.png';
-import { authenticate } from './loginPage.util';
-import { toast, ToastContainer } from 'react-toastify';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import React, { FormEvent, useState } from 'react'
+import { cn } from '../../lib/utils'
+import { Button } from '../../components/ui/button'
+import { Card, CardContent } from '../../components/ui/card'
+import { Input } from '../../components/ui/input'
+import { Label } from '../../components/ui/label'
+import loginBg from '../../images/loginBgs/loginBg.jpg'
+import loginBg2 from '../../images/loginBgs/loginBg2.jpg'
+import loginBg3 from '../../images/loginBgs/loginBg3.jpg'
+import loginBg4 from '../../images/loginBgs/loginBg4.jpg'
+import logo from '../../images/logos/logoColor.png'
+import { authenticate } from './loginPage.util'
+import { toast, ToastContainer } from 'react-toastify'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel'
+import Autoplay from 'embla-carousel-autoplay'
+import {GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({ username: '', password: '' });
@@ -27,9 +28,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
       const rs = await authenticate(data.username, data.password);
       if (rs.success) {
         sessionStorage.setItem('token', rs.token);
-        window.location.assign('http://localhost:3000/home');
+        window.location.assign('/');
       } else {
-        toast('An error occurred: ' + rs.msg);
+        toast.error(rs.msg);
       }
     } catch (error) {
       toast('An unexpected error occurred.');
@@ -39,6 +40,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
   };
 
   const handleGoogleSuccess = async (response: any) => {
+    console.log('Login Success:', response.credential);
     const token = response.credential;
     try {
       const res = await fetch('https://localhost:7205/api/GoogleAuth/decode-and-check-or-create', {
@@ -49,7 +51,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
       if (res.ok) {
         const data = await res.json();
         sessionStorage.setItem('token', data.accessToken);
-        window.location.assign('http://localhost:3000/home');
+        window.location.assign('/home');
       } else {
         toast('Google login failed.');
       }
@@ -58,55 +60,60 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     }
   };
 
-  return (
-    <GoogleOAuthProvider clientId="397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com">
-      <div className={cn('flex flex-col gap-6', className)} {...props}>
-        <Card className='overflow-hidden'>
-          <CardContent className='grid p-0 md:grid-cols-2'>
-            <form className='p-6 md:p-8' onSubmit={submit}>
-              <div className='flex w-full justify-center'>
-                <img src={logo} className='w-1/4 translate-y-2' />
-              </div>
-              <div className='mt-2 flex flex-col gap-6'>
-                <div className='text-center'>
-                  <h1 className='text-2xl font-bold'>Welcome back</h1>
-                  <p className='text-muted-foreground'>Login to use our service</p>
-                </div>
-                <div className='grid gap-2'>
-                  <Label htmlFor='email'>Username</Label>
-                  <Input id='username' required onChange={(e) => setData({ ...data, username: e.target.value })} />
-                </div>
-                <div className='grid gap-2'>
-                  <Label htmlFor='password'>Password</Label>
-                  <Input id='password' type='password' required onChange={(e) => setData({ ...data, password: e.target.value })} />
-                </div>
-                <Button type='submit' className='w-full' disabled={fetching || !data.username || !data.password}>
-                  Login
-                </Button>
-                <div className='relative text-center text-sm after:border-t after:border-border'>
-                  <span className='bg-background px-2 text-muted-foreground'>Or continue with</span>
-                </div>
-                <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast('Google login failed.')} />
-                <div className='text-center text-sm'>
-                  Don&apos;t have an account? <a href='/register' className='underline'>Sign up</a>
-                </div>
-              </div>
-            </form>
-            <div className='hidden bg-muted md:block'>
-              <Carousel opts={{ align: 'start', loop: true }} plugins={[Autoplay({ delay: 5000 })]}>
-                <CarouselContent>
-                  {images.map((v, i) => (
-                    <CarouselItem key={i}><img src={v} className='w-full md:max-h-[600px]' /></CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className='translate-x-14' />
-                <CarouselNext className='-translate-x-14' />
-              </Carousel>
+  const handleGoogleError = () => {
+    console.log('Login Failed');
+  };
+
+return (
+  <GoogleOAuthProvider clientId="397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com">
+    <div className={cn('flex flex-col gap-6', className)} {...props}>
+      <Card className='overflow-hidden'>
+        <CardContent className='grid p-0 md:grid-cols-2'>
+          <form className='p-6 md:p-8' onSubmit={submit}>
+            <div className='flex w-full justify-center'>
+              <img src={logo} className='w-1/4 translate-y-2' />
             </div>
-          </CardContent>
-        </Card>
-        <ToastContainer />
-      </div>
-    </GoogleOAuthProvider>
-  );
+            <div className='mt-2 flex flex-col gap-6'>
+              <div className='text-center'>
+                <h1 className='text-2xl font-bold'>Welcome back</h1>
+                <p className='text-muted-foreground'>Login to use our service</p>
+              </div>
+              <div className='grid gap-2'>
+                <Label htmlFor='email'>Username</Label>
+                <Input id='username' required onChange={(e) => setData({ ...data, username: e.target.value })} />
+              </div>
+              <div className='grid gap-2'>
+                <Label htmlFor='password'>Password</Label>
+                <Input id='password' type='password' required onChange={(e) => setData({ ...data, password: e.currentTarget.value })} />
+              </div>
+              <Button type='submit' className='w-full' disabled={fetching || !data.username || !data.password}>
+                Login
+              </Button>
+              <div className='relative text-center text-sm after:border-t after:border-border'>
+                <span className='bg-background px-2 text-muted-foreground'>Or continue with</span>
+              </div>
+              <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
+              <div className='text-center text-sm'>
+                Don&apos;t have an account? <a href='/register' className='underline'>Sign up</a>
+              </div>
+            </div>
+          </form>
+          <div className='hidden bg-muted md:block'>
+            <Carousel opts={{ align: 'start', loop: true }} plugins={[Autoplay({ delay: 5000 })]}>
+              <CarouselContent>
+                {images.map((v, i) => (
+                  <CarouselItem key={i}><img src={v} className='w-full md:max-h-[600px]' /></CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className='translate-x-14' />
+              <CarouselNext className='-translate-x-14' />
+            </Carousel>
+          </div>
+        </CardContent>
+      </Card>
+      <ToastContainer />
+    </div>
+  </GoogleOAuthProvider>
+);
+
 }

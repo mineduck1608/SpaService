@@ -36,8 +36,6 @@ namespace API.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<object>> Login([FromBody] object request)
         {
-            try
-            {
                 // Chuyển đổi request sang JsonElement
                 var jsonElement = (JsonElement)request;
 
@@ -59,7 +57,7 @@ namespace API.Controllers
 
                 if (account == null)
                 {
-                    return NotFound("Account not found.");
+                    return NotFound("Username or password is incorrect.");
                 }
 
                 // Tạo Access Token
@@ -70,19 +68,6 @@ namespace API.Controllers
                 {
                     accessToken,
                 });
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return BadRequest($"Missing property: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
         }
 
 
