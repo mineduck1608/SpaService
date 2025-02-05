@@ -21,15 +21,14 @@ export default function EmbedVideo() {
                 />
                 <button
                     onClick={showVideo}
-                    className='absolute bg-transparent text-white rounded-full w-[10vw] h-[20vh] border border-spacing-5 
-                                duration-300 bg-black bg-opacity-30 group-hover:bg-opacity-40
-                                flex items-center justify-center'
+                    className='absolute bg-black/30 text-white rounded-full w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24
+                            border border-white hover:bg-black/40 transition-all flex items-center justify-center'
                     style={{
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                     }}>
-                    <CiPlay1 className='text-[4vw]'/>
+                    <CiPlay1 className='w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12'/>
                 </button>
             </div>
             {!isPlayed ? (

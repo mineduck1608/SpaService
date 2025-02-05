@@ -31,7 +31,7 @@ const History = () => {
     ]
     const [selectedYear, setSelectedYear] = useState(2004);
     const getCurrentData = () => {
-        return timeline.find(i => i.year == selectedYear);
+        return timeline.find(i => i.year === selectedYear);
     }
 
     return (
@@ -42,7 +42,7 @@ const History = () => {
                 <div className='absolute top-14 left-0 right-0 h-px bg-red-600'/>
                 <div className='relative flex flex-col md:flex-row justify-between items-center max-w-3xl mx-auto'>
                     {timeline.map((i) => (
-                        <div key={i.year} className='text-center -mt-1'>
+                        <div key={i.year} className='text-center -mt-1 px-8'>
                             <button onClick={() => setSelectedYear(i.year)}
                                     className={`relative mb-2 px-6 py-2 rounded-full rounded-tr-3xl rounded-bl-3xl text-lg font-semibold transition-all duration-300 hover:-translate-y-3 ${
                                     selectedYear == i.year
@@ -60,10 +60,10 @@ const History = () => {
                     ))}
                 </div>
             </div>
-            <div className='max-w-5xl mx-auto mt-11' data-aos='zoom-in' data-aos-delay='500'>
+            <div className='max-w-5xl mx-auto mt-11 px-4' data-aos='zoom-in' data-aos-delay='500'>
                 <div className='flex flex-col md:flex-row gap-8 items-center transition-all duration-300
                              bg-white rounded-3xl bg-custom-bg1 bg-no-repeat bg-right-bottom z-10
-                             shadow-pink-200 shadow-lg'>
+                             shadow-pink-200 shadow-lg p-6'>
                     <div className='w-full'>
                         <img src={getCurrentData()?.image} className='w-full h-96 object-cover rounded-lg shadow-md'/>
                     </div>

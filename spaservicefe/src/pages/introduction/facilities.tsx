@@ -91,7 +91,7 @@ const Facilities = () => {
 
     return (
         <div className='mx-auto w-full'>
-            <div className='grid grid-cols-2 md:grid-cols-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
                 <div className='relative bg-pink-700 flex items-center justify-center' data-aos="zoom-in">
                     <div className='absolute inset-0 bg-custom-bg1 bg-white bg-no-repeat bg-right-top opacity-0'></div>
                     <div className='text-left p-5 text-white'>

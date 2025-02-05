@@ -13,11 +13,28 @@ const IntroHeader : React.FC<HeaderProps> = ({ title }) => {
             data-aos='fade-down' data-aos-delay='200'
         >
             <h1 className={`${isFacilities ? 'text-white' : 'text-pink-700'}`}>{title}</h1>
-            <div className={`${isFacilities ? 'flex items-center justify-start space-x-2 ml-3' : 'flex items-center justify-center space-x-2'}`}>
-                <div className={`${isFacilities ? 'h-px w-10 bg-white' : 'h-px w-10 bg-purple-600'}`}></div>
-                <FaSpa className={`${isFacilities ? 'h-6 w-6' : 'text-purple-600 h-6 w-6'}`}/>
-                <div className={`${isFacilities ? 'h-px w-10 bg-white' : 'h-px w-10 bg-purple-600'}`}></div>
-            </div>
+            {isFacilities ? (
+                // <div className='flex items-center justify-center space-x-4 mt-2'>
+                //     <img 
+                //         src='https://senspa.com.vn/wp-content/themes/thuythu/images/before_heading.png'
+                //         alt=''
+                //         className='h-6 w-auto'
+                //     />
+                // </div>
+                <div className='flex items-center justify-start space-x-2 ml-3'>
+                    <div className='h-px w-10 bg-white'></div>
+                    <FaSpa className='h-6 w-6'/>
+                    <div className='h-px w-10 bg-white'></div>
+                </div>
+            ):(
+                <div className='flex items-center justify-center space-x-4 mt-2'>
+                    <img 
+                        src='https://senspa.com.vn/wp-content/themes/thuythu/images/before_heading.png'
+                        alt=''
+                        className='h-6 w-auto'
+                    />
+                </div>
+            )}
         </div>
     )
 }

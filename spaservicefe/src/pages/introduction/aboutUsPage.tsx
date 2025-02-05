@@ -11,21 +11,20 @@ import ArrowButton from '../../components/ui/arrowButton'
 import History from './history'
 import Facilities from './facilities'
 
-const SpaData = [
-    { id: 1, icon: <MdHearing/>, title: "Hearing",  description: "Calming melodies help relieve stress and depression so you can slowly drift into deep sleep."},
-    { id: 2, icon: <GiNoseSide/>, title: "Smell", description: "The nose is welcomed by the pleasant aroma of plants and natural essential oil covering the entire floors.", aosDelay: "300" },
-    { id: 3, icon: <MdOutlineTouchApp/>, title: "Touch", description: "Your bright smooth skin will be well cared for with gentle strokes to remove all muscle knots.", aosDelay: "400" },
-    { id: 4, icon: <IoSparklesSharp/>, title: "Visual", description: "Minimalistic decoration and gentle lighting help transcend your spirit to another realm and drown your body in deep relaxing moments.", aosDelay: "500" },
-    { id: 5, icon: <FaCheese/>, title: "Taste", description: "Not only is our special drink delicious, but it is also rejuvenating for your health and skin.", aosDelay: "500" },
-]
-
-const slides = [
-    { image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
-    { image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
-    { image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
-    { image: "https://cdn.marriottnetwork.com/uploads/sites/23/2021/01/the-phoenician-luxury-collection-resort-spa-treatment-room-1440x900.jpg", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
-]
 const AboutUsPage = () => {
+    const SpaData = [
+        { id: 1, icon: <MdHearing/>, title: "Hearing",  description: "Calming melodies help relieve stress and depression so you can slowly drift into deep sleep."},
+        { id: 2, icon: <GiNoseSide/>, title: "Smell", description: "The nose is welcomed by the pleasant aroma of plants and natural essential oil covering the entire floors.", aosDelay: "300" },
+        { id: 3, icon: <MdOutlineTouchApp/>, title: "Touch", description: "Your bright smooth skin will be well cared for with gentle strokes to remove all muscle knots.", aosDelay: "400" },
+        { id: 4, icon: <IoSparklesSharp/>, title: "Visual", description: "Minimalistic decoration and gentle lighting help transcend your spirit to another realm and drown your body in deep relaxing moments.", aosDelay: "500" },
+        { id: 5, icon: <FaCheese/>, title: "Taste", description: "Not only is our special drink delicious, but it is also rejuvenating for your health and skin.", aosDelay: "500" },
+    ]
+    const slides = [
+        { image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
+        { image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
+        { image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
+        { image: "https://cdn.marriottnetwork.com/uploads/sites/23/2021/01/the-phoenician-luxury-collection-resort-spa-treatment-room-1440x900.jpg", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
+    ]
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
 
@@ -39,7 +38,7 @@ const AboutUsPage = () => {
 
     useEffect(() => {
         AOS.init({
-          duration: 800,
+          duration: 1000,
           once: true
         });
       }, []);
@@ -65,25 +64,27 @@ const AboutUsPage = () => {
             {/* Top Page */}
             <div className='relative'>
                 <img
-                    src='https://i.pinimg.com/originals/53/bf/fc/53bffc774772840dc0992d589e3e6e60.jpg'
-                    alt='Spa'
+                    src='https://senspa.com.vn/wp-content/uploads/2020/11/banner_gioithieu.jpg'
+                    alt=''
                     className='w-full h-[40vh] object-cover'
                 />
             </div>
-            <div className='container mx-auto px-4 py-4'>
-                <div className='ml-32 mt-6 text-lg'>
-                    <a href='/' className='text-gray-500 hover:text-purple-600'>Home</a>
+            <div className='w-full'>
+            <div className='container mx-auto px-4 py-3 flex justify-center md:justify-start'>
+                <div className='text-lg whitespace-nowrap'>
+                    <a href='/' className='text-gray-500'>Home</a>
                     <span className='mx-2 text-gray-400'>&gt;</span>
                     <span className='text-gray-500'>About Us</span>
                 </div>
             </div>
+            </div>
 
             {/* About Us */}
-            <div className='container mx-auto my-16'>
-                <div className='grid grid-cols-1 lg:grid-cols-2'>
+            <div className='container mx-auto my-10 px-4'>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
                     <div className='flex flex-col items-center text-center'>
                         <IntroHeader title={"About Us"}/>
-                        <div className='max-w-lg text-left ml-14' data-aos='fade-down' data-aos-delay='600'>
+                        <div className='max-w-lg' data-aos='fade-down' data-aos-delay='600'>
                             <p className='text-gray-600 text-lg opacity-80'>
                                 Associated with the beauty of a sincere, romantic, yet very resilient flower, SenSpa is designed and decorated in a rustic and simple style, featuring bold traditional characteristics of Vietnam.
                             </p>
