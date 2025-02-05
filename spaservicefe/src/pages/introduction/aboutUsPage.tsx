@@ -2,65 +2,28 @@ import React, {useState, useEffect} from 'react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import IntroHeader from '../../components/introductionHeader'
-import { GiNoseSide } from 'react-icons/gi'
-import { MdHearing, MdOutlineTouchApp } from 'react-icons/md'
-import { IoSparklesSharp } from 'react-icons/io5'
-import { FaCheese } from 'react-icons/fa6'
 import EmbedVideo from './embedVideo'
-import ArrowButton from '../../components/ui/arrowButton'
 import History from './history'
 import Facilities from './facilities'
+import ChooseUs from './whyChooseUs'
 
 const AboutUsPage = () => {
     const SpaData = [
-        { id: 1, icon: <MdHearing/>, title: "Hearing",  description: "Calming melodies help relieve stress and depression so you can slowly drift into deep sleep."},
-        { id: 2, icon: <GiNoseSide/>, title: "Smell", description: "The nose is welcomed by the pleasant aroma of plants and natural essential oil covering the entire floors.", aosDelay: "300" },
-        { id: 3, icon: <MdOutlineTouchApp/>, title: "Touch", description: "Your bright smooth skin will be well cared for with gentle strokes to remove all muscle knots.", aosDelay: "400" },
-        { id: 4, icon: <IoSparklesSharp/>, title: "Visual", description: "Minimalistic decoration and gentle lighting help transcend your spirit to another realm and drown your body in deep relaxing moments.", aosDelay: "500" },
-        { id: 5, icon: <FaCheese/>, title: "Taste", description: "Not only is our special drink delicious, but it is also rejuvenating for your health and skin.", aosDelay: "500" },
+        { id: 1, image: "https://senspa.com.vn/wp-content/uploads/2020/12/icon-5.png", title: "Hearing",  description: "Calming melodies help relieve stress and depression so you can slowly drift into deep sleep."},
+        { id: 2, image: "https://senspa.com.vn/wp-content/uploads/2020/12/icon-1.png", title: "Smell", description: "The nose is welcomed by the pleasant aroma of plants and natural essential oil covering the entire floors.", aosDelay: "300" },
+        { id: 3, image: "https://senspa.com.vn/wp-content/uploads/2020/12/icon-4.png", title: "Touch", description: "Your bright smooth skin will be well cared for with gentle strokes to remove all muscle knots.", aosDelay: "400" },
+        { id: 4, image: "https://senspa.com.vn/wp-content/uploads/2020/12/icon-2.png", title: "Visual", description: "Minimalistic decoration and gentle lighting help transcend your spirit to another realm and drown your body in deep relaxing moments.", aosDelay: "500" },
+        { id: 5, image: "https://senspa.com.vn/wp-content/uploads/2020/12/icon-3.png", title: "Taste", description: "Not only is our special drink delicious, but it is also rejuvenating for your health and skin.", aosDelay: "500" },
     ]
-    const slides = [
-        { image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
-        { image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
-        { image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
-        { image: "https://cdn.marriottnetwork.com/uploads/sites/23/2021/01/the-phoenician-luxury-collection-resort-spa-treatment-room-1440x900.jpg", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
-    ]
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [isChanging, setIsChanging] = useState(false);
-
-    useEffect (() => {
-        const interval = setInterval(() => {
-            nextSlide();
-        }, 5000);
-
-        return () => clearInterval(interval);
-    }, [currentSlide])
-
     useEffect(() => {
         AOS.init({
-          duration: 1000,
-          once: true
+            duration: 1000,
+            once: true
         });
-      }, []);
-
-    const nextSlide = () => {
-        setIsChanging(true);
-        setTimeout(() => {
-            setCurrentSlide((prev) => (prev + 1) % slides.length);
-            setIsChanging(false);
-        }, 600);
-    }
-
-    const prevSlide = () => {
-        setIsChanging(true);
-        setTimeout(() => {
-            setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-            setIsChanging(false);
-        }, 600);
-    }
+    }, [])
 
     return (
-        <main className='overflow-x-hidden'>
+        <main className='overflow-x-hidden font-montserrat'>
             {/* Top Page */}
             <div className='relative'>
                 <img
@@ -145,16 +108,17 @@ const AboutUsPage = () => {
                     </p>
                 </div>
                 <div className='gap-10 flex flex-row justify-center flex-wrap'>
-                    {SpaData.map(({ id, icon, title, description, aosDelay }) => (
+                    {SpaData.map(({ id, image, title, description, aosDelay }) => (
                         <div key={id} 
                             data-aos='fade-up' 
                             data-aos-delay={aosDelay} 
                             className='max-w-[200px] space-y-7 flex flex-col items-center transition-all duration-300 hover:-translate-y-7 mt-8'>
-                            <div className='relative'>
-                                <div className='bg-purple-900 absolute inset-0 -translate-x-2 translate-y-3 rounded-tl-3xl rounded-br-3xl'></div>
-                                <div className='bg-pink-800 text-white p-5 rounded-tl-3xl rounded-br-3xl relative transition-all duration-300 hover:-translate-y-3 hover:bg-pink-950'>
-                                    <div className='text-5xl'>{icon}</div>
-                                </div>
+                            <div className='relative transition-all duration-300 hover:-translate-y-3'>
+                                {/* <div className='text-5xl'>{icon}</div> */}
+                                <img
+                                    src={image}
+                                    alt=''
+                                />
                             </div>
                             <div className='text-center'>
                                 <h3 className='text-xl font-bold text-gray-800 mb-2'>{title}</h3>
@@ -166,43 +130,7 @@ const AboutUsPage = () => {
             </div>
 
             {/* Why choose us */}
-            <div className='container mx-auto my-20 space-y-4' data-aos='zoom-in'>
-                <div className='max-w-6xl mx-auto px-4 py-8 flex gap-6 items-center 
-                        bg-white rounded-2xl overflow-hidden bg-custom-bg1 bg-no-repeat bg-right-bottom shadow-purple-200 shadow-lg'>
-                    <ArrowButton direction='right' onClick={prevSlide}/>
-                    <div className='relative md:block hidden'>
-                        <img src={slides[currentSlide].image} alt=''
-                            className={`rounded-lg w-full h-96 max-w-[580px] object-cover transition-opacity duration-300 ${
-                                isChanging ? 'opacity-0' : 'opacity-100'}`}
-                        />
-                    </div>
-                    <div className={`flex-1 space-y-0 max-w-[350px] transition-opacity duration-300 ${
-                        isChanging ? 'opacity-0' : 'opacity-100'}`}>
-                        <div className='text-center md:block hidden'>
-                            <IntroHeader title={'Why choose us?'}/>
-                        </div>
-                        <div className='ml-3'>
-                            <p className='text-xl font-normal'>{slides[currentSlide].title}</p>
-                            <p className='text-gray-600 text-sm opacity-80 mt-4'>{slides[currentSlide].description}</p>
-                        </div>
-                    </div>
-                    <ArrowButton direction='left' onClick={nextSlide}/>
-                </div>
-                <div className='flex justify-center gap-2'>
-                    {slides.map((_, index) => (
-                        <button key={index} onClick={() => {
-                                setIsChanging(true);
-                                setTimeout(() => {
-                                    setCurrentSlide(index);
-                                    setIsChanging(false);
-                                }, 300);
-                            }}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                currentSlide === index ? 'bg-purple-900 w-4' : 'bg-purple-300' }`}
-                        />
-                    ))}
-                </div>
-            </div>
+            <ChooseUs />
 
             {/* Gallery */}
             <Facilities />

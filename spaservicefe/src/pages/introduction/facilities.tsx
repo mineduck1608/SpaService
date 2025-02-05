@@ -96,7 +96,7 @@ const Facilities = () => {
                     <div className='absolute inset-0 bg-custom-bg1 bg-white bg-no-repeat bg-right-top opacity-0'></div>
                     <div className='text-left p-5 text-white'>
                         <IntroHeader title={"Facilities"}/>
-                        <p className='ml-1' data-aos='fade-down' data-aos-delay='100'>Seven separate floors bring an ultimate sense of complete privacy and comfort.</p>
+                        <p className='ml-1 px-1' data-aos='fade-down' data-aos-delay='100'>Seven separate floors bring an ultimate sense of complete privacy and comfort.</p>
                     </div>
                 </div>
                 {facilities.map((facility) => (
@@ -127,14 +127,14 @@ const Facilities = () => {
                                     className='w-full h-full object-cover rounded'/>
                             </div>
                             <div className='relative mt-4'>
-                                <div className='absolute left-28 top-1/2 -translate-y-1/2 z-10'>
+                                <div className='absolute left-0 top-1/2 -translate-y-1/2 z-10'>
                                     <ArrowButton direction="right" onClick={() => setCurrentImageIndex(prev => 
                                         prev === 0 ? selectedFacility.additionalImages.length - 1 : prev - 1)}
                                     />
                                 </div>
-                                <div className='flex gap-2 mt-4 justify-center'>
+                                <div className='flex gap-2 mt-4 justify-center px-16'>
                                     {selectedFacility.additionalImages.map((image, index) => (
-                                        <button key={index} onClick={() => setCurrentImageIndex(index)}className='w-16 h-16 flex-shrink-0'>
+                                        <button key={index} onClick={() => setCurrentImageIndex(index)} className='w-16 h-16 flex-shrink-0'>
                                             <img src={image} alt=''
                                                 className={`w-72 h-full object-cover rounded ${
                                                 currentImageIndex === index ? 'ring-2 ring-purple-600' : 'opacity-50 hover:opacity-80'}`}
@@ -142,7 +142,7 @@ const Facilities = () => {
                                         </button>
                                     ))}
                                 </div>
-                                <div className='absolute right-28 top-1/2 -translate-y-1/2 z-10'>
+                                <div className='absolute right-0 top-1/2 -translate-y-1/2 z-10'>
                                     <ArrowButton direction="left" onClick={() => setCurrentImageIndex(prev => 
                                         prev === selectedFacility.additionalImages.length - 1 ? 0 : prev + 1)}
                                     />

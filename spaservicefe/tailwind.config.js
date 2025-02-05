@@ -50,7 +50,10 @@ module.exports = {
         'custom-bg1': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bf_slider.png')",
         'custom-bg2': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bf_site.png')",
         'custom-bg3': "url('https://senspa.com.vn/wp-content/uploads/2020/11/bg_about_us.png')"
-    },
+      },
+      fontFamily: {
+        'montserrat': ['Montserrat', 'sans-serif'],
+      },
     }
   },
   plugins: [require('tailwindcss-animate')]
