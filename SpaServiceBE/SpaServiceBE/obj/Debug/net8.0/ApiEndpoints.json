@@ -80,7 +80,7 @@
   {
     "ContainingType": "API.Controllers.AccountController",
     "Method": "Register",
-    "RelativePath": "api/accounts/Register",
+    "RelativePath": "api/accounts/RegisterCustomer",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
