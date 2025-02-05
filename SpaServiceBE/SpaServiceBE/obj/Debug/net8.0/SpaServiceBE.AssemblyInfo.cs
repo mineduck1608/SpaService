@@ -15,11 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SpaServiceBE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4cc86efea750434567f246568b6b47f0c37b9ba")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b39b92df4454cc2228204ced9742807f2a5f2dc6")]
->>>>>>> aa13d0072ba1828fc53c153bcd2efd438aaa3776
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f17645e79c4615d0fa11ccf57804f837497b9ca3")]
 [assembly: System.Reflection.AssemblyProductAttribute("SpaServiceBE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SpaServiceBE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

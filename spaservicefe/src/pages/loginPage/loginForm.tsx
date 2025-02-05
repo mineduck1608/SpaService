@@ -30,7 +30,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         sessionStorage.setItem('token', rs.token);
         window.location.assign('/');
       } else {
-        toast.error(rs.msg);
+        toast.error('Login failed!');
       }
     } catch (error) {
       toast('An unexpected error occurred.');
@@ -53,7 +53,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         sessionStorage.setItem('token', data.accessToken);
         window.location.assign('/home');
       } else {
-        toast('Google login failed.');
+        toast.error('Google login failed!');
       }
     } catch (error) {
       console.error('Google login error:', error);
