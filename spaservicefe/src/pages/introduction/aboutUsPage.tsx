@@ -29,33 +29,34 @@ const AboutUsPage = () => {
                 <img
                     src='https://senspa.com.vn/wp-content/uploads/2020/11/banner_gioithieu.jpg'
                     alt=''
-                    className='w-full h-[40vh] object-cover'
+                    className='w-full h-[50vh] object-cover'
                 />
             </div>
-            <div className='w-full'>
-            <div className='container mx-auto px-4 py-3 flex justify-center md:justify-start'>
-                <div className='text-lg whitespace-nowrap'>
-                    <a href='/' className='text-gray-500'>Home</a>
-                    <span className='mx-2 text-gray-400'>&gt;</span>
-                    <span className='text-gray-500'>About Us</span>
+            <div className='w-full' data-aos='fade-down-right' data-aos-delay='200'>
+                <div className='container mx-auto px-28 py-3 flex justify-center md:justify-start'>
+                    <div className='text-lg whitespace-nowrap'>
+                        <a href='/' className='text-gray-500'>Home</a>
+                        <span className='mx-2 text-gray-400'>&gt;</span>
+                        <span className='text-gray-500'>About Us</span>
+                    </div>
                 </div>
-            </div>
             </div>
 
             {/* About Us */}
-            <div className='container mx-auto my-10 px-4'>
+            <div className='container mx-auto my-10 px-4 bg-custom-bg5 bg-no-repeat bg-right-top pb-5'>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+                <div className='absolute inset-0 w-full h-full bg-custom-bg3 bg-no-repeat bg-contain bg-left-top -z-10'/>
                     <div className='flex flex-col items-center text-center'>
-                        <IntroHeader title={"About Us"}/>
-                        <div className='max-w-lg' data-aos='fade-down' data-aos-delay='600'>
+                        <IntroHeader title={"About Us"} position='middle'/>
+                        <div className='max-w-lg' data-aos='fade-down' data-aos-delay='200'>
                             <p className='text-gray-600 text-lg opacity-80'>
                                 Associated with the beauty of a sincere, romantic, yet very resilient flower, SenSpa is designed and decorated in a rustic and simple style, featuring bold traditional characteristics of Vietnam.
                             </p>
                             <p className='text-gray-600 text-lg opacity-80 mt-6'>
                                 Located in the center of HCM City via an alley entrance, SenSpa is separated from the noisy atmosphere to open into a gentle and serene space.
                             </p>
-                            <p className='text-gray-600 text-lg opacity-80 mt-6'>
-                                With almost 30 therapists being professionally trained and certified following international standards, SenSpa is proud to be a perfect wellness destination that meets the needs of the most fastidious guests from all around the world.
+                            <p className='text-gray-600 text-lg opacity-80 mt-6' data-aos='fade-down' data-aos-delay='200'>
+                                With almost <span className='font-extrabold'>30 therapists</span> being professionally trained and certified following <span className='font-bold'>international standards</span>, SenSpa is proud to be a perfect wellness destination that meets the needs of the most fastidious guests from all around the world.
                             </p>
                         </div>
                     </div>
@@ -101,7 +102,7 @@ const AboutUsPage = () => {
             {/* What is spa */}
             <div className='container mx-auto my-16 space-y-4'>
                 <div className='text-center max-w-[100vh] mx-auto space-y-1'>
-                    <IntroHeader title={"What is SPA?"}/>
+                    <IntroHeader title={"What is SPA?"} position='middle'/>
                     <p className='text-gray-600 text-lg opacity-80' data-aos='fade-right' data-aos-delay='500'>
                         Today, SPA is defined as health and beauty treatments that helps balance the body and spirit. 
                         A true spa must be able to influence these senses and help re-energize the customers so they can become healthier and younger.

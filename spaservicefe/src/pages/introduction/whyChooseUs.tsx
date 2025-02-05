@@ -4,11 +4,11 @@ import IntroHeader from '../../components/introductionHeader'
 
 const ChooseUs = () => {
     const slides = [
-            { image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
-            { image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
-            { image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
-            { image: "https://cdn.marriottnetwork.com/uploads/sites/23/2021/01/the-phoenician-luxury-collection-resort-spa-treatment-room-1440x900.jpg", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
-        ]
+        { image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
+        { image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
+        { image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
+        { image: "https://senspa.com.vn/wp-content/uploads/2021/01/1.1.png", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
+    ]
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
 
@@ -36,27 +36,34 @@ const ChooseUs = () => {
     }
         
     return (
-        <div className='container mx-auto my-20 space-y-4' data-aos='zoom-in'>
-            <div className='max-w-6xl mx-auto px-4 py-8 flex gap-6 items-center 
-                    bg-white rounded-2xl overflow-hidden bg-custom-bg1 bg-no-repeat bg-right-bottom shadow-purple-200 shadow-lg'>
-                <ArrowButton direction='right' onClick={prevSlide}/>
-                <div className='relative md:block'>
-                    <img src={slides[currentSlide].image} alt=''
-                        className={`rounded-lg w-full h-96 max-w-[580px] object-cover transition-opacity duration-300 ${
-                            isChanging ? 'opacity-0' : 'opacity-100'}`}
-                    />
+        <div className='mx-auto my-20 space-y-4' data-aos='zoom-in'>
+            <div className='flex justify-center items-center gap-8 px-4'>
+                <div className='hidden lg:block'>
+                    <ArrowButton direction='right' onClick={prevSlide}/>
                 </div>
-                <div className={`flex-1 space-y-0 max-w-[350px] transition-opacity duration-300 ${
-                    isChanging ? 'opacity-0' : 'opacity-100'}`}>
-                    <div className='text-center md:block hidden'>
-                        <IntroHeader title={'Why choose us?'}/>
+                <div className='px-5 py-8 flex flex-col lg:flex-row gap-6 items-center 
+                        bg-white rounded-2xl overflow-hidden bg-custom-bg1 bg-no-repeat bg-right-bottom shadow-purple-200 shadow-lg'>
+                    <div className='lg:hidden'>
+                        <IntroHeader title={'Why choose us?'} position='middle'/>
                     </div>
-                    <div className='ml-3'>
-                        <p className='text-xl font-normal'>{slides[currentSlide].title}</p>
-                        <p className='text-gray-600 text-sm opacity-80 mt-4'>{slides[currentSlide].description}</p>
+                    <div className='relative'>
+                        <img src={slides[currentSlide].image} alt=''
+                            className={`rounded-lg w-full h-96 max-w-[580px] object-cover transition-opacity duration-300 ${
+                                isChanging ? 'opacity-0' : 'opacity-100'}`}
+                        />
+                    </div>
+                    <div className={`flex-1 space-y-4 max-w-[350px] transition-opacity duration-300 text-center lg:text-left ${
+                        isChanging ? 'opacity-0' : 'opacity-100'}`}>
+                        <div className='hidden lg:block'>
+                            <IntroHeader title={'Why choose us?'} position='left'/>
+                        </div>
+                        <h3 className='text-xl font-semibold'>{slides[currentSlide].title}</h3>
+                        <p className='text-gray-600 text-sm opacity-80'>{slides[currentSlide].description}</p>
                     </div>
                 </div>
-                <ArrowButton direction='left' onClick={nextSlide}/>
+                <div className='hidden lg:block'>
+                    <ArrowButton direction='left' onClick={nextSlide}/>
+                </div>
             </div>
             <div className='flex justify-center gap-2'>
                 {slides.map((_, index) => (

@@ -92,16 +92,16 @@ const Facilities = () => {
     return (
         <div className='mx-auto w-full'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-                <div className='relative bg-pink-700 flex items-center justify-center' data-aos="zoom-in">
+                <div className='relative bg-pink-700 flex items-center justify-center' data-aos='zoom-in' data-aos-delay='200'>
                     <div className='absolute inset-0 bg-custom-bg1 bg-white bg-no-repeat bg-right-top opacity-0'></div>
                     <div className='text-left p-5 text-white'>
-                        <IntroHeader title={"Facilities"}/>
+                        <IntroHeader title={"Facilities"} position='left'/>
                         <p className='ml-1 px-1' data-aos='fade-down' data-aos-delay='100'>Seven separate floors bring an ultimate sense of complete privacy and comfort.</p>
                     </div>
                 </div>
                 {facilities.map((facility) => (
                 <div key={facility.id} onClick={() => setSelectedFacility(facility)}
-                    className='relative cursor-pointer group' data-aos="zoom-in">
+                    className='relative cursor-pointer group' data-aos='zoom-in' data-aos-delay='200'>
                     <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300'/>
                     <img src={facility.image} alt='' className='w-full h-full object-cover'/>
                     <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
