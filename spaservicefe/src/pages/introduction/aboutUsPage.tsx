@@ -21,7 +21,7 @@ const AboutUsPage = () => {
             delay: 200,
             duration: 1200,
             once: true
-        });
+        })
     }, [])
 
     return (
@@ -34,12 +34,12 @@ const AboutUsPage = () => {
                     className='w-full h-[50vh] object-cover'
                 />
             </div>
-            <div className='w-full' data-aos='fade-down-right' data-aos-delay='600'>
-                <div className='container mx-auto px-28 py-5 flex justify-center md:justify-start'>
-                    <div className='text-lg'>
-                        <a href='/' className='text-gray-500'>Home</a>
-                        <span className='mx-2 text-gray-400'>&gt;</span>
-                        <span className='text-gray-500'>About Us</span>
+            <div className='w-full' data-aos='fade-right' data-aos-delay='400'>
+                <div className='container mx-auto px-32 py-5 flex justify-center md:justify-start'>
+                    <div className='text-lg text-gray-900 '>
+                        <a href='/'>Home</a>
+                        <span className='mx-2'>&gt;</span>
+                        <span>About Us</span>
                     </div>
                 </div>
             </div>
@@ -50,15 +50,15 @@ const AboutUsPage = () => {
                 <div className='absolute inset-0 w-full h-full bg-custom-bg3 bg-no-repeat bg-contain bg-left-top -z-10'/>
                     <div className='flex flex-col items-center text-center'>
                         <IntroHeader title={"About Us"} position='middle'/>
-                        <div className='max-w-lg'>
-                            <p className='text-gray-600 text-lg opacity-80' data-aos='fade-down' data-aos-delay='300'>
+                        <div className='max-w-lg text-gray-900 text-lg'>
+                            <p className='' data-aos='fade-down' data-aos-delay='300'>
                                 Associated with the beauty of a sincere, romantic, yet very resilient flower, SenSpa is designed and decorated in a rustic and simple style, featuring bold traditional characteristics of Vietnam.
                             </p>
-                            <p className='text-gray-600 text-lg opacity-80 mt-6' data-aos='fade-down' data-aos-delay='200'>
+                            <p className='mt-6' data-aos='fade-down' data-aos-delay='200'>
                                 Located in the center of HCM City via an alley entrance, SenSpa is separated from the noisy atmosphere to open into a gentle and serene space.
                             </p>
-                            <p className='text-gray-600 text-lg opacity-80 mt-6' data-aos='fade-down' data-aos-delay='400'>
-                                With almost <span className='font-extrabold'>30 therapists</span> being professionally trained and certified following <span className='font-bold'>international standards</span>, SenSpa is proud to be a perfect wellness destination that meets the needs of the most fastidious guests from all around the world.
+                            <p className='mt-6' data-aos='fade-down' data-aos-delay='400'>
+                                With almost <span className='font-semibold'>30 therapists</span> being professionally trained and certified following <span className='font-bold'>international standards</span>, SenSpa is proud to be a perfect wellness destination that meets the needs of the most fastidious guests from all around the world.
                             </p>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ const AboutUsPage = () => {
             <div className='container mx-auto my-16 space-y-4'>
                 <div className='text-center max-w-[100vh] mx-auto space-y-1'>
                     <IntroHeader title={"What is SPA?"} position='middle'/>
-                    <p className='text-gray-600 text-lg opacity-80' data-aos='fade-right' data-aos-delay='400'>
+                    <p className='text-gray-900 text-lg' data-aos='fade-right' data-aos-delay='400'>
                         Today, SPA is defined as health and beauty treatments that helps balance the body and spirit. 
                         A true spa must be able to influence these senses and help re-energize the customers so they can become healthier and younger.
                     </p>
@@ -124,8 +124,8 @@ const AboutUsPage = () => {
                                 />
                             </div>
                             <div className='text-center'>
-                                <h3 className='text-xl font-bold text-gray-800 mb-2'>{title}</h3>
-                                <p className='text-gray-600 text-sm opacity-80'>{description}</p>
+                                <h3 className='text-xl font-extrabold text-black mb-3'>{title}</h3>
+                                <p className='text-black text-sm'>{description}</p>
                             </div>
                         </div>
                     ))}

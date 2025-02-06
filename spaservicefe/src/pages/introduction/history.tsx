@@ -47,18 +47,18 @@ const History = () => {
             <IntroHeader title='History' position='middle'/>
             <div className='absolute inset-0 w-full h-full bg-custom-bg2 bg-repeat-x bg-bottom -z-10'/>
             <div className='relative mb-10 mt-10 max-w-3xl mx-auto' data-aos='fade-right' data-aos-delay='600'>
-                <div className='absolute top-14 left-0 right-0 h-px bg-red-600'/>
+                <div className='absolute top-14 left-0 right-0 h-px bg-purple1'/>
                 <div className='relative flex flex-col md:flex-row justify-between items-center max-w-3xl mx-auto'>
                     {timeline.map((i) => (
                         <div key={i.year} className='text-center -mt-1 px-8'>
                             <button 
                                 onClick={() => handleYearChange(i.year)}
                                 className={`relative mb-2 px-6 py-2 rounded-full rounded-tr-3xl rounded-bl-3xl text-lg font-semibold transition-all duration-300 hover:-translate-y-3 ${
-                                    selectedYear == i.year ? 'bg-pink-600 text-white': 'bg-white text-pink-600 border border-pink-600'}`}>
+                                    selectedYear == i.year ? 'bg-purple1 text-white': 'bg-white text-purple1 border border-purple1'}`}>
                                 {i.year}
                             </button>
-                            <div className={`w-4 h-4 rounded-full mx-auto border-2 transition-all duration-300 border-pink-600 ${
-                                selectedYear == i.year? 'bg-pink-600': 'bg-white'}`}>
+                            <div className={`w-4 h-4 rounded-full mx-auto border-2 transition-all duration-300 border-purple1 ${
+                                selectedYear == i.year? 'bg-purple1': 'bg-white'}`}>
                             </div>
                         </div>
                     ))}
@@ -72,10 +72,10 @@ const History = () => {
                         <img src={getCurrentYear()?.image} className='w-full h-96 object-cover rounded-lg shadow-md'/>
                     </div>
                     <div className={`w-full md:w-1/2 space-y-4 pb-20 transition-opacity duration-300 ${isChanging ? 'opacity-0' : 'opacity-100'}`}>
-                        <h2 className='text-6xl font-bold text-pink-700'>
+                        <h2 className='text-6xl font-bold text-purple1'>
                             {selectedYear}
                         </h2>
-                        <p className='text-gray-600 text-lg'>
+                        <p className='text-gray-900 text-lg'>
                             {getCurrentYear()?.description}
                         </p>
                     </div>

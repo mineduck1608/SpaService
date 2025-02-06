@@ -4,10 +4,10 @@ import IntroHeader from '../../components/introductionHeader'
 
 const ChooseUs = () => {
     const slides = [
-        { image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "Being recognized as one of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
+        { image: "https://cdn-wechotel.pressidium.com/wp-content/uploads/2021/06/reservations.jpg", title: "One of the first pioneers that brought true Spa services into Vietnam",  description: "SenSpa with its sophisticated minimalist design takes customers to a serene dimension to provide the most comfortable and relaxing experience."},
         { image: "https://i.pinimg.com/originals/db/2d/31/db2d3151f50986589815054faed9c855.jpg", title: "Beauty without surgery",  description: "Our team of specialists are dedicated to help 100% of our customers feel their bodies full of vitality after just one treatment."},
         { image: "https://i.pinimg.com/originals/07/05/e7/0705e7566c7921e0e95a95c2d0821223.jpg", title: "Dedicated specialist",  description: "With more than 30 technicians being professionally trained and certified following international standards."},
-        { image: "https://senspa.com.vn/wp-content/uploads/2021/01/1.1.png", title: "SenSpa has been leading the trend of healthy living and nature loving",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
+        { image: "https://senspa.com.vn/wp-content/uploads/2021/01/1.1.png", title: "Healthy living and nature loving trend",  description: "Born in 2004, SenSpa has been leading the trend of healthy living and nature loving to maintain a fulfilling life and unclouded spirit."},
     ]
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
@@ -53,8 +53,8 @@ const ChooseUs = () => {
                         <div className='hidden lg:block'>
                             <IntroHeader title={'Why choose us?'} position='left'/>
                         </div>
-                        <h3 className='text-xl font-semibold'>{slides[currentSlide].title}</h3>
-                        <p className='text-gray-600 text-sm opacity-80'>{slides[currentSlide].description}</p>
+                        <h3 className='text-xl text-gray-600 font-semibold'>{slides[currentSlide].title}</h3>
+                        <p className='text-gray-900 text-sm'>{slides[currentSlide].description}</p>
                     </div>
                 </div>
                 <div className='hidden lg:block'>

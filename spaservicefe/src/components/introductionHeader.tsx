@@ -15,7 +15,7 @@ const IntroHeader : React.FC<HeaderProps> = ({ title, position }) => {
             isFacilities ? 'text-left max-w-2xl mx-auto py-3 px-2' : 
             isLeft ? 'text-left py-6' : 'text-center max-w-2xl mx-auto py-6'
         }`} data-aos='fade-down' data-aos-delay='1000'>
-            <h1 className={`text-5xl ${isFacilities ? 'text-white' : 'text-pink-700'}`}>{title}</h1>
+            <h1 className={`text-5xl ${isFacilities ? 'text-white' : 'text-purple1'}`}>{title}</h1>
             {isFacilities ? (
                 <div className='flex items-center justify-start space-x-2 ml-3'>
                     <div className='h-px w-10 bg-white'></div>
