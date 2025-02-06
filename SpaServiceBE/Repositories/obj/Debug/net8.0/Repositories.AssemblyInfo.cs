@@ -14,15 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Repositories")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+743cee00a0ef16c4238a0b83558a801570d6dc2a")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b39b92df4454cc2228204ced9742807f2a5f2dc6")]
->>>>>>> feature/googleOAuth
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f17645e79c4615d0fa11ccf57804f837497b9ca3")]
->>>>>>> feature/googleOAuth
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c61e8aa2f5a9d892bc13f0baf603924caf1b0cad")]
 [assembly: System.Reflection.AssemblyProductAttribute("Repositories")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Repositories")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
