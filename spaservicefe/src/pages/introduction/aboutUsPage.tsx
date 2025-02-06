@@ -36,7 +36,7 @@ const AboutUsPage = () => {
             </div>
             <div className='w-full' data-aos='fade-right' data-aos-delay='400'>
                 <div className='container mx-auto px-32 py-5 flex justify-center md:justify-start'>
-                    <div className='text-lg text-gray-900 '>
+                    <div className='text-lg text-black'>
                         <a href='/'>Home</a>
                         <span className='mx-2'>&gt;</span>
                         <span>About Us</span>

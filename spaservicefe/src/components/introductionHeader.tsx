@@ -11,10 +11,11 @@ const IntroHeader : React.FC<HeaderProps> = ({ title, position }) => {
     const isLeft = position === "left";
 
     return (
-        <div className={`font-serif ${
-            isFacilities ? 'text-left max-w-2xl mx-auto py-3 px-2' : 
-            isLeft ? 'text-left py-6' : 'text-center max-w-2xl mx-auto py-6'
-        }`} data-aos='fade-down' data-aos-delay='1000'>
+        <div 
+            className={`${isFacilities ? 'text-left max-w-2xl mx-auto py-3 px-2' : 
+            isLeft ? 'text-left py-6' : 'text-center max-w-2xl mx-auto py-6'}`} 
+            data-aos='fade-down' data-aos-delay='1000'
+        >
             <h1 className={`text-5xl ${isFacilities ? 'text-white' : 'text-purple1'}`}>{title}</h1>
             {isFacilities ? (
                 <div className='flex items-center justify-start space-x-2 ml-3'>

@@ -55,7 +55,7 @@ module.exports = {
         'custom-bg5': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bg_spa.png')"
       },
       fontFamily: {
-        'montserrat': ['Montserrat', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     }
   },
