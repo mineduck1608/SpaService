@@ -3,36 +3,32 @@ import { imgs, sample } from './servicesPage.util'
 import { Link } from 'react-router-dom'
 
 export default function ServicesPage() {
-  const [currentService, setCurrentService] = useState('')
+  const [currentService, setCurrentService] = useState('XXX')
   return (
     <div>
-      <img src={imgs.headerBg} alt='Header' />
-      <div className='mb-5 p-2 md:ml-28 xl:ml-50'>
+      <img src={imgs.headerBg} alt='Header' className='w-full' />
+      <div className='mb-20 mb-5 p-2 md:ml-28  lg:ml-5 xl:ml-40'>
         <span className='font-normal text-gray-400'>
           <Link to={'/'}>Home</Link>
-          &nbsp;&gt; 'XXX'
+          &nbsp;&gt; {currentService}
         </span>
       </div>
       {/* Main container */}
-      <div className='flex md:ml-28 xl:ml-50'>
-        {/* Left menu */}
-        <div id={'left-menu'} className='hidden w-2/5 justify-center lg:flex bg-red-100'>
-          <LeftMenu
-            items={sample}
-            onClickItem={(v) => {
-              setCurrentService(v)
-            }}
-          />
-        </div>
-        {/* Services available */}
-        <div className='mr-28 w-full lg:w-3/5 xl:mr-60'>
-          <LeftMenu
-            items={sample}
-            onClickItem={(v) => {
-              setCurrentService(v)
-            }}
-          />
-          A
+      <div className='flex md:ml-24 md:mr-24 lg:ml-5 lg:mr-5 '>
+        <div className='flex w-full bg-purple-200 sm:justify-center lg:justify-normal'>
+          {/* Left menu */}
+          <div className='w-[310px] hidden lg:flex xl:ml-[17.5vw]'>
+            <div id={'left-menu'} className='hidden justify-center lg:flex'>
+              <LeftMenu
+                items={sample}
+                onClickItem={(v) => {
+                  setCurrentService(v)
+                }}
+              />
+            </div>
+          </div>
+          {/* Services available */}
+          <div className='w-5/6 bg-red-100 lg:ml-[5vw] xl:w-2/5'>Body</div>
         </div>
       </div>
     </div>
@@ -40,13 +36,13 @@ export default function ServicesPage() {
 }
 function LeftMenu(params: { items: { name: string; val: string }[]; onClickItem: (value: string) => void }) {
   return (
-    <div className='w-5/6'>
+    <div className='w-[310px]'>
       {/* Header */}
       <div className='flex justify-center rounded-tl-[40px] bg-[#8D388A] p-5 text-2xl font-bold text-white'>
         <img src={imgs.logo} className='inline' />
         &nbsp;Services
       </div>
-      <div className='flex flex-col shadow-lg rounded-br-[40px]'>
+      <div className='flex flex-col rounded-br-[40px] shadow-lg'>
         {params.items.map((v, i) => (
           <div
             className={`flex flex-col
