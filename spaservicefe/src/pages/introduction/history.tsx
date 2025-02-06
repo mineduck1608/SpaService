@@ -30,49 +30,53 @@ const History = () => {
         }
     ]
     const [selectedYear, setSelectedYear] = useState(2004);
-    const getCurrentData = () => {
+    const [isChanging, setIsChanging] = useState(false);
+    const getCurrentYear = () => {
         return timeline.find(i => i.year === selectedYear);
     }
-
+    const handleYearChange = (year: number) => {
+        setIsChanging(true);
+        setTimeout(() => {
+            setSelectedYear(year);
+            setIsChanging(false);
+        }, 600)
+    }
+    
     return (
         <div className='relative min-w-full mb-10'>
-            <IntroHeader title={"History"} position='middle'/>
+            <IntroHeader title='History' position='middle'/>
             <div className='absolute inset-0 w-full h-full bg-custom-bg2 bg-repeat-x bg-bottom -z-10'/>
-            <div className='relative mb-10 mt-10 max-w-3xl mx-auto' data-aos='fade-right' data-aos-delay='400'>
+            <div className='relative mb-10 mt-10 max-w-3xl mx-auto' data-aos='fade-right' data-aos-delay='600'>
                 <div className='absolute top-14 left-0 right-0 h-px bg-red-600'/>
                 <div className='relative flex flex-col md:flex-row justify-between items-center max-w-3xl mx-auto'>
                     {timeline.map((i) => (
                         <div key={i.year} className='text-center -mt-1 px-8'>
-                            <button onClick={() => setSelectedYear(i.year)}
-                                    className={`relative mb-2 px-6 py-2 rounded-full rounded-tr-3xl rounded-bl-3xl text-lg font-semibold transition-all duration-300 hover:-translate-y-3 ${
-                                    selectedYear == i.year
-                                        ? 'bg-pink-600 text-white'
-                                        : 'bg-white text-pink-600 border border-pink-600'
-                                }`}>
+                            <button 
+                                onClick={() => handleYearChange(i.year)}
+                                className={`relative mb-2 px-6 py-2 rounded-full rounded-tr-3xl rounded-bl-3xl text-lg font-semibold transition-all duration-300 hover:-translate-y-3 ${
+                                    selectedYear == i.year ? 'bg-pink-600 text-white': 'bg-white text-pink-600 border border-pink-600'}`}>
                                 {i.year}
                             </button>
                             <div className={`w-4 h-4 rounded-full mx-auto border-2 transition-all duration-300 border-pink-600 ${
-                                selectedYear == i.year
-                                    ? 'bg-pink-600'
-                                    : 'bg-white'
-                            }`}></div>
+                                selectedYear == i.year? 'bg-pink-600': 'bg-white'}`}>
+                            </div>
                         </div>
                     ))}
                 </div>
             </div>
-            <div className='max-w-5xl mx-auto mt-11 px-4' data-aos='zoom-in' data-aos-delay='500'>
+            <div className='max-w-5xl mx-auto mt-11 px-2' data-aos='zoom-in' data-aos-delay='800'>
                 <div className='flex flex-col md:flex-row gap-8 items-center transition-all duration-300
                              bg-white rounded-3xl bg-custom-bg4 bg-no-repeat z-10 bg-right-bottom
                              shadow-pink-200 shadow-lg p-6'>
-                    <div className='w-full'>
-                        <img src={getCurrentData()?.image} className='w-full h-96 object-cover rounded-lg shadow-md'/>
+                    <div className={`w-full transition-opacity ${isChanging ? 'opacity-0' : 'opacity-100'}`}>
+                        <img src={getCurrentYear()?.image} className='w-full h-96 object-cover rounded-lg shadow-md'/>
                     </div>
-                    <div className='w-full md:w-1/2 space-y-4 pb-20'>
+                    <div className={`w-full md:w-1/2 space-y-4 pb-20 transition-opacity duration-300 ${isChanging ? 'opacity-0' : 'opacity-100'}`}>
                         <h2 className='text-6xl font-bold text-pink-700'>
                             {selectedYear}
                         </h2>
                         <p className='text-gray-600 text-lg'>
-                            {getCurrentData()?.description}
+                            {getCurrentYear()?.description}
                         </p>
                     </div>
                 </div>

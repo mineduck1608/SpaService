@@ -11,14 +11,11 @@ const ChooseUs = () => {
     ]
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
-
     useEffect (() => {
         const interval = setInterval(() => {
-            nextSlide();
-        }, 5000)
+            nextSlide()}, 5000)
         return () => clearInterval(interval);
     }, [currentSlide])
-
     const nextSlide = () => {
         setIsChanging(true);
         setTimeout(() => {
@@ -26,17 +23,16 @@ const ChooseUs = () => {
             setIsChanging(false);
         }, 600)
     }
-
     const prevSlide = () => {
         setIsChanging(true);
         setTimeout(() => {
             setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
             setIsChanging(false);
         }, 600)
-    }
-        
+    } 
+
     return (
-        <div className='mx-auto my-20 space-y-4' data-aos='zoom-in'>
+        <div className='mx-auto my-20 space-y-4' data-aos='zoom-in'  data-aos-delay='1000'>
             <div className='flex justify-center items-center gap-8 px-4'>
                 <div className='hidden lg:block'>
                     <ArrowButton direction='right' onClick={prevSlide}/>

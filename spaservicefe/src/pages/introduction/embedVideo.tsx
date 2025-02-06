@@ -36,7 +36,7 @@ export default function EmbedVideo() {
             ) : (
                 <div className='fixed inset-0 bg-black bg-opacity-85 flex items-center justify-center z-50'>
                     <div className='relative max-w-7xl w-full aspect-video'>
-                        <button onClick={hideVideo} className='absolute top-2 -right-10 text-white text-3xl font-bold'>
+                        <button onClick={hideVideo} className='absolute top-2 right-2 text-white text-3xl font-bold'>
                             <X />
                         </button>
                         <iframe

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import IntroHeader from '../../components/introductionHeader'
 import ArrowButton from '../../components/ui/arrowButton'
+// import { motion, AnimatePresence } from 'framer-motion'
 
 const Facilities = () => {
     const facilities = [
@@ -88,11 +89,19 @@ const Facilities = () => {
         additionalImages: string[];
     } | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isChanging, setIsChanging] = useState(false);
+    const handleImageChange = (index: number) => {
+        setIsChanging(true);
+        setTimeout(() => {
+            setCurrentImageIndex(index);
+            setIsChanging(false);
+        }, 800)
+    }
 
     return (
         <div className='mx-auto w-full'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-                <div className='relative bg-pink-700 flex items-center justify-center' data-aos='zoom-in' data-aos-delay='200'>
+                <div className='relative bg-pink-700 flex items-center justify-center' data-aos='zoom-in' data-aos-delay='1000' data-aos-offset='-500'>
                     <div className='absolute inset-0 bg-custom-bg1 bg-white bg-no-repeat bg-right-top opacity-0'></div>
                     <div className='text-left p-5 text-white'>
                         <IntroHeader title={"Facilities"} position='left'/>
@@ -101,7 +110,7 @@ const Facilities = () => {
                 </div>
                 {facilities.map((facility) => (
                 <div key={facility.id} onClick={() => setSelectedFacility(facility)}
-                    className='relative cursor-pointer group' data-aos='zoom-in' data-aos-delay='200'>
+                    className='relative cursor-pointer group' data-aos='zoom-in' data-aos-delay='1000' data-aos-offset='-500'>
                     <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300'/>
                     <img src={facility.image} alt='' className='w-full h-full object-cover'/>
                     <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
@@ -123,16 +132,19 @@ const Facilities = () => {
                         </div>
                         <div className='relative p-4'>
                             <div className='w-full h-80 relative'>
-                                <img src={selectedFacility.additionalImages[currentImageIndex]} alt='' 
-                                    className='w-full h-full object-cover rounded'/>
+                                <img 
+                                    src={selectedFacility.additionalImages[currentImageIndex]} 
+                                    alt='' 
+                                    className={`w-full h-full object-cover rounded transition-opacity ${isChanging ? 'opacity-0' : 'opacity-100'}`}
+                                />
                             </div>
                             <div className='relative mt-4'>
                                 <div className='absolute left-0 top-1/2 -translate-y-1/2 z-10'>
-                                    <ArrowButton direction="right" onClick={() => setCurrentImageIndex(prev => 
-                                        prev === 0 ? selectedFacility.additionalImages.length - 1 : prev - 1)}
+                                    <ArrowButton direction="right" 
+                                        onClick={() => handleImageChange(currentImageIndex === 0 ? selectedFacility.additionalImages.length - 1 : currentImageIndex - 1)}
                                     />
                                 </div>
-                                <div className='flex gap-2 mt-4 justify-center px-16'>
+                                <div className='flex gap-2 justify-center px-16'>
                                     {selectedFacility.additionalImages.map((image, index) => (
                                         <button key={index} onClick={() => setCurrentImageIndex(index)} className='w-16 h-16 flex-shrink-0'>
                                             <img src={image} alt=''
@@ -143,8 +155,8 @@ const Facilities = () => {
                                     ))}
                                 </div>
                                 <div className='absolute right-0 top-1/2 -translate-y-1/2 z-10'>
-                                    <ArrowButton direction="left" onClick={() => setCurrentImageIndex(prev => 
-                                        prev === selectedFacility.additionalImages.length - 1 ? 0 : prev + 1)}
+                                    <ArrowButton direction="left" 
+                                        onClick={() => handleImageChange(currentImageIndex === selectedFacility.additionalImages.length - 1 ? 0 : currentImageIndex + 1)}
                                     />
                                 </div>
                             </div>
