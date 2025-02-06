@@ -7,16 +7,16 @@ export default function ServicesPage() {
   return (
     <div>
       <img src={imgs.headerBg} alt='Header' />
-      <div className='mb-5 p-2 md:ml-28 xl:ml-60'>
+      <div className='mb-5 p-2 md:ml-28 xl:ml-50'>
         <span className='font-normal text-gray-400'>
           <Link to={'/'}>Home</Link>
           &nbsp;&gt; 'XXX'
         </span>
       </div>
       {/* Main container */}
-      <div className='flex md:ml-28 xl:ml-60'>
+      <div className='flex md:ml-28 xl:ml-50'>
         {/* Left menu */}
-        <div className='hidden w-1/3 lg:flex'>
+        <div id={'left-menu'} className='hidden w-2/5 justify-center lg:flex bg-red-100'>
           <LeftMenu
             items={sample}
             onClickItem={(v) => {
@@ -24,13 +24,15 @@ export default function ServicesPage() {
             }}
           />
         </div>
-        <div className='mr-28 w-full lg:w-2/3 xl:mr-60'>
+        {/* Services available */}
+        <div className='mr-28 w-full lg:w-3/5 xl:mr-60'>
           <LeftMenu
             items={sample}
             onClickItem={(v) => {
               setCurrentService(v)
             }}
           />
+          A
         </div>
       </div>
     </div>
@@ -38,20 +40,21 @@ export default function ServicesPage() {
 }
 function LeftMenu(params: { items: { name: string; val: string }[]; onClickItem: (value: string) => void }) {
   return (
-    <div>
+    <div className='w-5/6'>
       {/* Header */}
-      <div className='rounded-tl-[40px] bg-[#8D388A] p-5 text-2xl font-bold text-white flex justify-center'>
+      <div className='flex justify-center rounded-tl-[40px] bg-[#8D388A] p-5 text-2xl font-bold text-white'>
         <img src={imgs.logo} className='inline' />
         &nbsp;Services
       </div>
-      <div className='flex flex-col rounded-br-[20%]'>
+      <div className='flex flex-col shadow-lg rounded-br-[40px]'>
         {params.items.map((v, i) => (
-          <div className='flex flex-col'>
+          <div
+            className={`flex flex-col
+            ${i === params.items.length - 1 ? 'rounded-br-[40px]' : ''}
+          `}
+          >
             {/* Item container */}
-            <div
-              className={`flex justify-center 
-            `}
-            >
+            <div className={`flex justify-center`}>
               <button
                 className={`p-3 pl-6 pr-6`}
                 onClick={() => {
@@ -64,7 +67,7 @@ function LeftMenu(params: { items: { name: string; val: string }[]; onClickItem:
             {/* Line */}
             <div
               className={`w-11/12 self-center 
-              ${i !== params.items.length ? 'border-b-2 rounded-br-[40px]' : ''}
+              ${i !== params.items.length - 1 ? ' border-b-2 ' : ''}
               `}
             ></div>
           </div>
