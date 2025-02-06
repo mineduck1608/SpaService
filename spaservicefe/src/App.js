@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/loginPage/loginPage.tsx'
 import RegisterPage from './pages/registerPage/registerPage.tsx'
+import MediaPage from './pages/mediaPage/mediaPage.tsx'
 import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React from 'react'
@@ -15,6 +16,7 @@ function App() {
             <Route index />
             <Route path='login' element={<LoginPage />} />
             <Route path='register' element={<RegisterPage />} />
+            <Route path='media' element={<MediaPage />} />
             <Route path='services' />
             <Route path='services/:id' />
             <Route path='reset-password' />
