@@ -30,6 +30,7 @@
     "react-tooltip": "^5.28.0",
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
+    "spaservicerfe": "file:",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "web-vitals": "^4.2.4"
