@@ -85,14 +85,15 @@
   cursor: not-allowed;
 }
 
-.heading_line, .heading_line_center {
+.heading_line,
+.heading_line_center {
   padding-bottom: 40px;
 }
 
 .heading_h2 {
-  color: #8D388A;
+  color: #8d388a;
   font-size: 55px;
-  font-family: "Lora-Regular";
+  font-family: 'Lora-Regular';
   position: relative;
 }
 
@@ -125,15 +126,17 @@
 }
 
 .brochure-container {
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
 }
 .brochure-container:hover {
   transform: scale(1.05);
   background-color: purple; /* Màu tím nhạt */
+}
 
 .footer {
-  background-color: #1a1a1a;
-  background-image: url('https://senspa.com.vn/wp-content/uploads/2020/11/bg_footer.jpg');
+  background-color: black;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -148,6 +151,7 @@
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 40px;
 }
 
 .footer-logo {
@@ -161,7 +165,6 @@
   align-items: center;
 }
 
-
 .footer-logo-image {
   height: 250px;
   width: auto;
@@ -173,7 +176,8 @@
   margin-top: -100px;
 }
 
-.footer-info, .footer-quick-links {
+.footer-info,
+.footer-quick-links {
   flex: 1;
   margin: 10px 20px;
 }
@@ -188,7 +192,7 @@
   font-size: 14px;
   margin-bottom: 10px;
   line-height: 1.6;
-  color:#b1aeaa;
+  color: #b1aeaa;
 }
 
 .footer-quick-links ul {
@@ -211,7 +215,7 @@
 
 .footer-bottom {
   text-align: center;
-  padding-top: 10px;
+  justify-content: center;
   border-top: 1px solid #444;
   font-size: 14px;
   margin: 10px -20px -20px -20px;
@@ -224,7 +228,9 @@
   position: fixed;
   top: 0;
   width: 100%;
-  transition: background-color 1s ease, background-image 1s ease;
+  transition:
+    background-color 1s ease,
+    background-image 1s ease;
   z-index: 1000;
 }
 
@@ -233,7 +239,7 @@
 }
 
 .header:not(.at-top) {
-  background-color: #1a1a1a; /* Màu nền cố định khi cuộn xuống */
+  background-color: black; /* Màu nền cố định khi cuộn xuống */
 }
 
 .header-container {
@@ -241,6 +247,7 @@
   justify-content: center;
   align-items: center;
   transition: height 0.3s ease;
+  color: #fff;
 }
 
 .header-container.large {
@@ -261,7 +268,9 @@
   height: 200px;
   width: auto;
   object-fit: contain;
-  transition: height 0.3s ease, width 0.3s ease;
+  transition:
+    height 0.3s ease,
+    width 0.3s ease;
 }
 
 .large-logo {
@@ -292,7 +301,7 @@
 }
 
 .nav-link:hover {
-  color: #8D388A;
+  color: #8d388a;
 }
 
 .dropdown {
@@ -323,4 +332,4 @@
 
 .dropdown-link:hover {
   background-color: #555;
-}}
+}

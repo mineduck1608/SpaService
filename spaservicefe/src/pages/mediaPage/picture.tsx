@@ -12,11 +12,11 @@ const Picture = () => {
           <div className='row g-4 justify-content-center'>
             {/* Ảnh lớn bên trái */}
             <div className='col-md-7'>
-              <img 
-                src={images[0]} 
-                alt='Spa Image' 
-                className='img-fluid w-100-lg' 
-                style={{ height: '500px', objectFit: 'cover' }} 
+              <img
+                src={images[0]}
+                alt='Spa Image'
+                className='img-fluid w-100-lg'
+                style={{ height: '500px', objectFit: 'cover' }}
               />
             </div>
 
@@ -24,47 +24,46 @@ const Picture = () => {
             <div className='col-md-4'>
               <div className='row mb-4'>
                 <div className='col-12'>
-                  <img 
-                    src={images[1]} 
-                    alt='Spa Image' 
-                    className='img-fluid w-100' 
-                    style={{ height: '238px', objectFit: 'cover' }} 
+                  <img
+                    src={images[1]}
+                    alt='Spa Image'
+                    className='img-fluid w-100'
+                    style={{ height: '238px', objectFit: 'cover' }}
                   />
                 </div>
               </div>
               <div className='row'>
                 <div className='col-12'>
-                  <img 
-                    src={images[2]} 
-                    alt='Spa Image' 
-                    className='img-fluid w-100' 
-                    style={{ height: '238px', objectFit: 'cover' }} 
+                  <img
+                    src={images[2]}
+                    alt='Spa Image'
+                    className='img-fluid w-100'
+                    style={{ height: '238px', objectFit: 'cover' }}
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className='row g-4 mt-1 justify-content-center'>
-            
+          <div className='row g-4 justify-content-center mt-1'>
             {/* 2 ảnh nhỏ bên trái */}
             <div className='col-md-4'>
               <div className='row mb-4'>
                 <div className='col-12'>
-                  <img 
-                    src={images[1]} 
-                    alt='Spa Image' 
-                    className='img-fluid w-100' 
-                    style={{ height: '238px', objectFit: 'cover' }} 
+                  <img
+                    src={images[1]}
+                    alt='Spa Image'
+                    className='img-fluid w-100'
+                    style={{ height: '238px', objectFit: 'cover' }}
                   />
                 </div>
               </div>
               <div className='row'>
                 <div className='col-12'>
-                  <img 
-                    src={images[2]} 
-                    alt='Spa Image' 
-                    className='img-fluid w-100' 
-                    style={{ height: '238px', objectFit: 'cover' }} 
+                  <img
+                    src={images[2]}
+                    alt='Spa Image'
+                    className='img-fluid w-100'
+                    style={{ height: '238px', objectFit: 'cover' }}
                   />
                 </div>
               </div>
@@ -72,14 +71,13 @@ const Picture = () => {
 
             {/* Ảnh lớn bên phải */}
             <div className='col-md-7'>
-              <img 
-                src={images[0]} 
-                alt='Spa Image' 
-                className='img-fluid w-100-lg' 
-                style={{ height: '500px', objectFit: 'cover' }} 
+              <img
+                src={images[0]}
+                alt='Spa Image'
+                className='img-fluid w-100-lg'
+                style={{ height: '500px', objectFit: 'cover' }}
               />
             </div>
-
           </div>
         </div>
       </div>

@@ -1,9 +1,3 @@
-const videos = [
-  'https://youtu.be/U0kpKmENnLA?si=mu9R-mMImmd6yvI8',
-  'https://www.youtube.com/embed/LXb3EKWsInQ',
-  'https://www.youtube.com/embed/ScMzIvxBSi4'
-];
-
 const Video = () => {
   return (
     <div className='d-flex justify-content-center align-items-start min-vh-100 pt-5'>
@@ -24,7 +18,7 @@ const Video = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Video;
+export default Video

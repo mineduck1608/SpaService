@@ -50,9 +50,9 @@ const MediaPage = () => {
           <h2 className='heading_h2 heading_line heading_h2_line_center text_center'>Media</h2>
 
           {/* Tabs */}
-          <div className='flex justify-center gap-4 my-6'>
+          <div className='my-6 flex justify-center gap-4'>
             <button
-              className={`px-8 py-2 border border-gray-300 rounded-tr-[23px] rounded-bl-[23px] transition-all duration-1000 ${
+              className={`rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
                 activeTab === 'picture' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
               }`}
               onClick={() => navigate('/media/picture')}
@@ -61,7 +61,7 @@ const MediaPage = () => {
             </button>
 
             <button
-              className={`px-8 py-2 border border-gray-300 rounded-tr-[23px] rounded-bl-[23px] transition-all duration-1000 ${
+              className={`rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
                 activeTab === 'video' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
               }`}
               onClick={() => navigate('/media/video')}
@@ -70,7 +70,7 @@ const MediaPage = () => {
             </button>
 
             <button
-              className={`px-8 py-2 border border-gray-300 rounded-tr-[23px] rounded-bl-[23px] transition-all duration-1000 ${
+              className={`rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
                 activeTab === 'e-brochure' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
               }`}
               onClick={() => navigate('/media/e-brochure')}
