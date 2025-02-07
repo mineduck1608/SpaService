@@ -3,9 +3,6 @@ import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse } from '@fortawesome/free-solid-svg-icons'
 import logoColor from '../../images/logos/logoColor.png'
-import logoBlack from '../../images/logos/logoBlack.png'
-
-
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState(true)
