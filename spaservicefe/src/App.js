@@ -22,6 +22,12 @@ function App() {
             <Route path='reset-password' />
             <Route path='profile' />
             <Route path='intro' element={<AboutUsPage />} />
+            <Route path='footer' element={ 
+              <>
+              <Footer />
+              <AboutUsPage />
+              </>
+              }/>
           </Route>
         </Routes>
       </BrowserRouter>
