@@ -1,22 +1,6 @@
 [
   {
     "ContainingType": "API.Controllers.AccountController",
-    "Method": "CreateAccount",
-    "RelativePath": "api/accounts/Create",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "System.Object",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AccountController",
     "Method": "DeleteAccount",
     "RelativePath": "api/accounts/Delete/{id}",
     "HttpMethod": "DELETE",
@@ -96,7 +80,23 @@
   {
     "ContainingType": "API.Controllers.AccountController",
     "Method": "Register",
-    "RelativePath": "api/accounts/Register",
+    "RelativePath": "api/accounts/RegisterCustomer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
+    "Method": "RegisterEmployee",
+    "RelativePath": "api/accounts/RegisterEmployee",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -848,6 +848,22 @@
       {
         "Name": "feedback",
         "Type": "Repositories.Entities.Feedback",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.GoogleAuthController",
+    "Method": "DecodeAndCheckOrCreateUser",
+    "RelativePath": "api/GoogleAuth/decode-and-check-or-create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SpaServiceBE.Controllers.TokenRequest",
         "IsRequired": true
       }
     ],

@@ -11,13 +11,17 @@ public partial class Employee
 
     public string Position { get; set; } = null!;
 
-    public DateOnly HireDate { get; set; }
+    public DateTime? HireDate { get; set; }
 
     public string Status { get; set; } = null!;
 
-    public string Image { get; set; } = null!;
+    public string? Image { get; set; }
 
     public string AccountId { get; set; } = null!;
+
+    public string? Phone { get; set; }
+
+    public string? Email { get; set; }
 
     public virtual Account Account { get; set; } = null!;
 

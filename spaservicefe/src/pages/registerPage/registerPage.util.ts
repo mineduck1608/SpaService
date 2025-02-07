@@ -7,12 +7,10 @@ const register = async (params: {
   gender: string
   phone: string
   email: string
-  dateOfBirth: Date
+  dateOfBirth: string
 }) => {
-  console.log('Wait')
-
   try {
-    const resp = await fetch(`${apiUrl}/accounts/Register`, {
+    const resp = await fetch(`${apiUrl}/accounts/RegisterCustomer`, {
       headers: {
         'content-type': 'application/json'
       },

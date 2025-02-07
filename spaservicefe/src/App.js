@@ -1,23 +1,90 @@
-import logo from './logo.svg'
 import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginPage from './pages/loginPage/loginPage.tsx'
+import RegisterPage from './pages/registerPage/registerPage.tsx'
+import MediaPage from './pages/mediaPage/mediaPage.tsx'
+import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
+import Footer from './components/ui/footer.tsx'
+import Header from './components/ui/header.tsx'
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import React from 'react'
+
+function Layout({ children }) {
+  return (
+    <>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </>
+  )
+}
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
-      <div className='flex h-screen flex-col items-center justify-center bg-gray-100'>
-        <h1 className='text-3xl font-bold text-blue-500'>Hello, Tailwind CSS & SCSS!</h1>
-        <button className='custom-button mt-4'>Click Me</button>
-      </div>
-    </div>
+    <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <Layout>
+                <div>Home Page</div>
+              </Layout>
+            }
+          />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='register' element={<RegisterPage />} />
+          <Route
+            path='/media/:tab'
+            element={
+              <Layout>
+                <MediaPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='services'
+            element={
+              <Layout>
+                <div>Services Page</div>
+              </Layout>
+            }
+          />
+          <Route
+            path='services/:id'
+            element={
+              <Layout>
+                <div>Service Details</div>
+              </Layout>
+            }
+          />
+          <Route
+            path='reset-password'
+            element={
+              <Layout>
+                <div>Reset Password Page</div>
+              </Layout>
+            }
+          />
+          <Route
+            path='profile'
+            element={
+              <Layout>
+                <div>Profile Page</div>
+              </Layout>
+            }
+          />
+          <Route
+            path='intro'
+            element={
+              <Layout>
+                <AboutUsPage />
+              </Layout>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   )
 }
 

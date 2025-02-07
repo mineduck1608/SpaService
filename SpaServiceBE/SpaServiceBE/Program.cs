@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Repositories.Context;
 using Repositories.Repositories;
@@ -8,6 +8,7 @@ using Services.Services;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
+using Repositories.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +50,8 @@ builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<ISpaServiceService, SpaServiceService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 
+// Add secret
+builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container
 builder.Services.AddControllers()
@@ -63,12 +66,24 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
+
 // Enable CORS
 builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
         policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
+
+
 var app = builder.Build();
+
+
+
+
+
+
+
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -77,8 +92,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
+
+
+
+
+
+
+app.UseHttpsRedirection();
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.UseCors();
