@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React from 'react'
 import { LoginForm } from './loginForm.tsx'
 import mainBg from '../../images/loginBgs/mainBg.jpg'
 export default function LoginPage() {
