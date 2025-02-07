@@ -5,13 +5,31 @@ CREATE TABLE Account (
   status    bit NOT NULL, 
   createdAt datetime NOT NULL, 
   roleId    varchar(50) NOT NULL, 
+  updatedAt datetime NULL, 
   PRIMARY KEY (accountId));
+CREATE TABLE Application (
+  applicationId varchar(50) NOT NULL, 
+  content       nvarchar(255) NOT NULL, 
+  isPending     bit NOT NULL, 
+  isApproved    bit NULL, 
+  createdBy     varchar(50) NOT NULL, 
+  createdAt     int NULL, 
+  PRIMARY KEY (applicationId));
 CREATE TABLE Appointment (
-  appointmentId varchar(50) NOT NULL, 
-  status        varchar(10) NOT NULL, 
-  requestId     varchar(50) NOT NULL, 
-  employeeId    varchar(50) NOT NULL, 
+  appointmentId       varchar(50) NOT NULL, 
+  startTime           datetime NOT NULL, 
+  endTime             datetime NOT NULL, 
+  status              varchar(10) NOT NULL, 
+  requestId           varchar(50) NOT NULL, 
+  employeeId          varchar(50) NOT NULL, 
+  replacementEmployee varchar(50) NULL, 
+  updatedAt           datetime NULL, 
   PRIMARY KEY (appointmentId));
+EXEC sp_addextendedproperty 
+  @NAME = N'MS_Description', @VALUE = N'manually by manager', 
+  @LEVEL0TYPE = N'Schema', @LEVEL0NAME = N'dbo', 
+  @LEVEL1TYPE = N'Table', @LEVEL1NAME = N'Appointment', 
+  @LEVEL2TYPE = N'Column', @LEVEL2NAME = N'replacementEmployee';
 CREATE TABLE Category (
   categoryId          varchar(50) NOT NULL, 
   categoryName        varchar(50) NOT NULL, 
@@ -47,6 +65,8 @@ CREATE TABLE Employee (
   status     varchar(50) NOT NULL, 
   image      nvarchar(max) NOT NULL, 
   accountId  varchar(50) NOT NULL, 
+  phone      varchar(20) NULL, 
+  email      varchar(50) NULL, 
   PRIMARY KEY (employeeId));
 CREATE TABLE EmployeeCommission (
   employeeId      varchar(50) NOT NULL, 
@@ -58,8 +78,8 @@ CREATE TABLE EmployeeCommission (
   transactionId));
 CREATE TABLE Feedback (
   feedbackId      varchar(50) NOT NULL, 
-  feedbackMessage nvarchar(255) NOT NULL, 
-  rating          int NOT NULL, 
+  feedbackMessage nvarchar(100) NOT NULL, 
+  rating          tinyint NOT NULL, 
   createdAt       datetime NOT NULL, 
   createdBy       varchar(50) NOT NULL, 
   serviceId       varchar(50) NOT NULL, 
@@ -67,8 +87,7 @@ CREATE TABLE Feedback (
 CREATE TABLE Membership (
   membershipId varchar(50) NOT NULL, 
   type         varchar(50) NOT NULL, 
-  min          float(10) NOT NULL, 
-  max          float(10) NOT NULL, 
+  totalPayment float(10) NOT NULL, 
   discount     int NOT NULL, 
   PRIMARY KEY (membershipId));
 CREATE TABLE Promotion (
@@ -83,34 +102,27 @@ CREATE TABLE Request (
   startTime    datetime NOT NULL, 
   endTime      datetime NOT NULL, 
   status       varchar(10) NOT NULL, 
-  customerNote nvarchar(255) NULL, 
+  customerNote nvarchar(255) NOT NULL, 
   managerNote  nvarchar(255) NULL, 
   serviceId    varchar(50) NOT NULL, 
   customerId   varchar(50) NOT NULL, 
+  employeeId   varchar(50) NULL, 
   PRIMARY KEY (requestId));
 CREATE TABLE Role (
   roleId   varchar(50) NOT NULL, 
   roleName nvarchar(50) NOT NULL, 
   PRIMARY KEY (roleId));
-CREATE TABLE Schedule (
-  scheduleId   varchar(50) NOT NULL, 
-  startTime    datetime NOT NULL, 
-  endTime      datetime NOT NULL, 
-  checkInTime  datetime NULL, 
-  checkOutTime datetime NULL, 
-  status       varchar(50) NOT NULL, 
-  employeeId   varchar(50) NOT NULL, 
-  PRIMARY KEY (scheduleId));
+CREATE TABLE Shift (
+  shiftId   varchar(50) NOT NULL, 
+  shiftName varchar(50) NOT NULL, 
+  startTime datetime NOT NULL, 
+  endTime   datetime NOT NULL, 
+  status    bit NOT NULL, 
+  PRIMARY KEY (shiftId));
 EXEC sp_addextendedproperty 
-  @NAME = N'MS_Description', @VALUE = N'null if hasn''t checked in', 
+  @NAME = N'MS_Description', @VALUE = N'A slot', 
   @LEVEL0TYPE = N'Schema', @LEVEL0NAME = N'dbo', 
-  @LEVEL1TYPE = N'Table', @LEVEL1NAME = N'Schedule', 
-  @LEVEL2TYPE = N'Column', @LEVEL2NAME = N'checkInTime';
-EXEC sp_addextendedproperty 
-  @NAME = N'MS_Description', @VALUE = N'null if hasn''t checked out', 
-  @LEVEL0TYPE = N'Schema', @LEVEL0NAME = N'dbo', 
-  @LEVEL1TYPE = N'Table', @LEVEL1NAME = N'Schedule', 
-  @LEVEL2TYPE = N'Column', @LEVEL2NAME = N'checkOutTime';
+  @LEVEL1TYPE = N'Table', @LEVEL1NAME = N'Shift';
 CREATE TABLE SpaService (
   serviceId    varchar(50) NOT NULL, 
   serviceName  varchar(50) NOT NULL, 
@@ -119,6 +131,7 @@ CREATE TABLE SpaService (
   description  nvarchar(255) NOT NULL, 
   serviceImage nvarchar(max) NOT NULL, 
   categoryId   varchar(50) NOT NULL, 
+  noOfSessions int NOT NULL CHECK(noOfSession >= 1), 
   PRIMARY KEY (serviceId));
 CREATE TABLE [Transaction] (
   transactionId   varchar(50) NOT NULL, 
@@ -129,6 +142,25 @@ CREATE TABLE [Transaction] (
   promotionId     varchar(50) NULL, 
   membershipId    varchar(50) NULL, 
   PRIMARY KEY (transactionId));
+CREATE TABLE WorkingSchedule (
+  workingScheduleId varchar(50) NOT NULL, 
+  [date]            date NOT NULL, 
+  checkInTime       datetime NULL, 
+  checkOutTime      datetime NULL, 
+  status            varchar(50) NOT NULL, 
+  employeeId        varchar(50) NOT NULL, 
+  shiftId           varchar(50) NOT NULL, 
+  PRIMARY KEY (workingScheduleId));
+EXEC sp_addextendedproperty 
+  @NAME = N'MS_Description', @VALUE = N'null if hasn''t checked in', 
+  @LEVEL0TYPE = N'Schema', @LEVEL0NAME = N'dbo', 
+  @LEVEL1TYPE = N'Table', @LEVEL1NAME = N'WorkingSchedule', 
+  @LEVEL2TYPE = N'Column', @LEVEL2NAME = N'checkInTime';
+EXEC sp_addextendedproperty 
+  @NAME = N'MS_Description', @VALUE = N'null if hasn''t checked out', 
+  @LEVEL0TYPE = N'Schema', @LEVEL0NAME = N'dbo', 
+  @LEVEL1TYPE = N'Table', @LEVEL1NAME = N'WorkingSchedule', 
+  @LEVEL2TYPE = N'Column', @LEVEL2NAME = N'checkOutTime';
 ALTER TABLE Account ADD CONSTRAINT FKAccount946763 FOREIGN KEY (roleId) REFERENCES Role (roleId);
 ALTER TABLE Customer ADD CONSTRAINT FKCustomer62882 FOREIGN KEY (accountId) REFERENCES Account (accountId);
 ALTER TABLE Employee ADD CONSTRAINT FKEmployee613705 FOREIGN KEY (accountId) REFERENCES Account (accountId);
@@ -137,7 +169,7 @@ ALTER TABLE CategoryEmployee ADD CONSTRAINT FKCategoryEm89344 FOREIGN KEY (categ
 ALTER TABLE CategoryEmployee ADD CONSTRAINT FKCategoryEm127434 FOREIGN KEY (employeeId) REFERENCES Employee (employeeId);
 ALTER TABLE SpaService ADD CONSTRAINT FKSpaService221665 FOREIGN KEY (categoryId) REFERENCES Category (categoryId);
 ALTER TABLE Request ADD CONSTRAINT FKRequest464370 FOREIGN KEY (serviceId) REFERENCES SpaService (serviceId);
-ALTER TABLE Schedule ADD CONSTRAINT FKSchedule904727 FOREIGN KEY (employeeId) REFERENCES Employee (employeeId);
+ALTER TABLE WorkingSchedule ADD CONSTRAINT FKWorkingSch960436 FOREIGN KEY (employeeId) REFERENCES Employee (employeeId);
 ALTER TABLE Appointment ADD CONSTRAINT FKAppointmen118448 FOREIGN KEY (requestId) REFERENCES Request (requestId);
 ALTER TABLE Feedback ADD CONSTRAINT FKFeedback851355 FOREIGN KEY (createdBy) REFERENCES Customer (customerId);
 ALTER TABLE Feedback ADD CONSTRAINT FKFeedback300803 FOREIGN KEY (serviceId) REFERENCES SpaService (serviceId);
@@ -149,3 +181,7 @@ ALTER TABLE EmployeeCommission ADD CONSTRAINT FKEmployeeCo818088 FOREIGN KEY (co
 ALTER TABLE EmployeeCommission ADD CONSTRAINT FKEmployeeCo831824 FOREIGN KEY (transactionId) REFERENCES [Transaction] (transactionId);
 ALTER TABLE Request ADD CONSTRAINT FKRequest796587 FOREIGN KEY (customerId) REFERENCES Customer (customerId);
 ALTER TABLE Appointment ADD CONSTRAINT FKAppointmen55642 FOREIGN KEY (employeeId) REFERENCES Employee (employeeId);
+ALTER TABLE Application ADD CONSTRAINT FKApplicatio674237 FOREIGN KEY (createdBy) REFERENCES Employee (employeeId);
+ALTER TABLE Request ADD CONSTRAINT FKRequest559498 FOREIGN KEY (employeeId) REFERENCES Employee (employeeId);
+ALTER TABLE WorkingSchedule ADD CONSTRAINT FKWorkingSch240631 FOREIGN KEY (shiftId) REFERENCES Shift (shiftId);
+ALTER TABLE Appointment ADD CONSTRAINT FKAppointmen998763 FOREIGN KEY (replacementEmployee) REFERENCES Employee (employeeId);
