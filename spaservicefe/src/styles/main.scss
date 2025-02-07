@@ -102,7 +102,7 @@
 }
 
 .gallery_category_page {
-  padding: 0 0 100px 0;
+  padding: 0 0 30px 0;
 }
 .grid-container {
   margin-left: auto;
@@ -142,8 +142,8 @@
   background-position: center;
   background-repeat: no-repeat;
   color: #fff;
-  padding: 20px 20px;
   font-family: Arial, sans-serif;
+  padding-top: 40px;
 }
 
 .footer-container {
@@ -152,7 +152,6 @@
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 40px;
 }
 
 .footer-logo {
@@ -219,8 +218,8 @@
   justify-content: center;
   border-top: 1px solid #444;
   font-size: 14px;
-  margin: 10px -20px -20px -20px;
-  width: calc(100% + 40px);
+  width: 100%;
+  padding: 10px;
 }
 
 /* Header */

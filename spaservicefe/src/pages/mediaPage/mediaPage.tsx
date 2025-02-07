@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
+
 // Import các component
 import Picture from './picture'
 import Video from './video'
