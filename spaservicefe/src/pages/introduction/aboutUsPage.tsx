@@ -172,11 +172,13 @@ const AboutUsPage = () => {
         </div>
       </div>
 
+{/* Gallery */}
+<Facilities />
+
       {/* Why choose us */}
       <ChooseUs />
 
-      {/* Gallery */}
-      <Facilities />
+      
     </main>
   )
 }

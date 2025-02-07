@@ -27,7 +27,7 @@
   }
 
   .dark {
-    --background: 224 71% 4%;
+    --background: 400 10% 4%;
     --foreground: 213 31% 91%;
     --muted: 223 47% 11%;
     --muted-foreground: 215.4 16.3% 56.9%;
@@ -57,6 +57,7 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
 
 .custom-button {
   width: 100%;
@@ -136,7 +137,8 @@
 }
 
 .footer {
-  background-color: black;
+  background-color: #1a1a1a;
+  background-image: url('https://senspa.com.vn/wp-content/uploads/2020/11/bg_footer.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -230,16 +232,23 @@
   width: 100%;
   transition:
     background-color 1s ease,
-    background-image 1s ease;
+    background-image 1s ease,
+    box-shadow 0.3s ease; /* Thêm transition cho shadow */
   z-index: 1000;
 }
 
 .header.at-top {
   background: linear-gradient(to bottom, #000, transparent);
+  box-shadow: none; /* Không có shadow khi ở trên cùng */
 }
 
 .header:not(.at-top) {
-  background-color: black; /* Màu nền cố định khi cuộn xuống */
+  background-color: white; /* Màu nền cố định khi cuộn xuống */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Thêm shadow */
+}
+
+.header.at-top .header-container {
+  color: white;
 }
 
 .header-container {
@@ -247,7 +256,7 @@
   justify-content: center;
   align-items: center;
   transition: height 0.3s ease;
-  color: #fff;
+  color: black;
 }
 
 .header-container.large {
@@ -264,7 +273,7 @@
 }
 
 .logo-image {
-  margin-top: 25px;
+  margin-top: 5px;
   height: 200px;
   width: auto;
   object-fit: contain;
@@ -274,12 +283,12 @@
 }
 
 .large-logo {
-  height: 230px;
+  height: 100px;
   width: auto;
 }
 
 .small-logo {
-  height: 150px;
+  height: 80px;
   width: auto;
 }
 
@@ -295,14 +304,18 @@
 }
 
 .nav-link {
-  color: #fff;
   text-decoration: none;
   margin: 0 15px;
+  transition: color 0.5s ease-in-out !important; /* Đảm bảo transition không bị ghi đè */
 }
 
 .nav-link:hover {
-  color: #8d388a;
+  color: #8d388a !important;
 }
+
+
+
+
 
 .dropdown {
   position: relative;

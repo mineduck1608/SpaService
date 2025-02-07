@@ -34,18 +34,14 @@ function App() {
           />
           <Route
             path='login'
-            element={
-              <Layout>
+            element={     
                 <LoginPage />
-              </Layout>
             }
           />
           <Route
             path='register'
             element={
-              <Layout>
                 <RegisterPage />
-              </Layout>
             }
           />
           <Route

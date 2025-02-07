@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react'
 import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse } from '@fortawesome/free-solid-svg-icons'
+import logoColor from '../../images/logos/logoColor.png'
+import logoBlack from '../../images/logos/logoBlack.png'
+
+
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState(true)
@@ -59,7 +63,7 @@ const Header = () => {
               </li>
               <div className='logo'>
                 <img
-                  src={isAtTop ? './Logo/SenSpa(Black).png' : './Logo/SenSpa(White).png'}
+                  src={logoColor}
                   alt='Sen Spa Logo'
                   className={`logo-image ${isAtTop ? 'large-logo' : 'small-logo'}`}
                 />

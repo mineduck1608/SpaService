@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faYoutube, faInstagram, faSquareFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faMap, faPhone, faEnvelope, faClock } from '@fortawesome/free-solid-svg-icons'
+import logoBlack from '../../images/logos/logoBlack.png'
 
 const Footer = () => {
   return (
     <footer className='footer'>
       <div className='footer-container'>
         <div className='footer-logo'>
-          <img src='./Logo/SenSpa(White).png' alt='Sen Spa Logo' className='footer-logo-image' />
+          <img src={logoBlack} alt='Sen Spa Logo' className='footer-logo-image' />
           <p className='footer-tagline'>VIETNAM SPA EXPERIENCE</p>
           <img
             src='https://senspa.com.vn/wp-content/themes/thuythu/images/before_heading.png'
