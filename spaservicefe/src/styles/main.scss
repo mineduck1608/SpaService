@@ -130,4 +130,197 @@
 .brochure-container:hover {
   transform: scale(1.05);
   background-color: purple; /* Màu tím nhạt */
+
+.footer {
+  background-color: #1a1a1a;
+  background-image: url('https://senspa.com.vn/wp-content/uploads/2020/11/bg_footer.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  padding: 20px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  flex: 1;
+  margin-top: -100px;
+  margin-right: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.footer-logo-image {
+  height: 250px;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+.footer-tagline {
+  font-size: 16px;
+  margin-top: -100px;
+}
+
+.footer-info, .footer-quick-links {
+  flex: 1;
+  margin: 10px 20px;
+}
+
+.footer-info h4,
+.footer-quick-links h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.footer-info p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+  color:#b1aeaa;
+}
+
+.footer-quick-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-quick-links li {
+  margin-bottom: 10px;
+}
+
+.footer-quick-links a {
+  color: #b1aeaa;
+  text-decoration: none;
+}
+
+.footer-quick-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+  font-size: 14px;
+  margin: 10px -20px -20px -20px;
+  width: calc(100% + 40px);
+}
+
+/* Header */
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: background-color 1s ease, background-image 1s ease;
+  z-index: 1000;
+}
+
+.header.at-top {
+  background: linear-gradient(to bottom, #000, transparent);
+}
+
+.header:not(.at-top) {
+  background-color: #1a1a1a; /* Màu nền cố định khi cuộn xuống */
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: height 0.3s ease;
+}
+
+.header-container.large {
+  height: 130px;
+}
+
+.header-container.small {
+  height: 80px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  margin-top: 25px;
+  height: 200px;
+  width: auto;
+  object-fit: contain;
+  transition: height 0.3s ease, width 0.3s ease;
+}
+
+.large-logo {
+  height: 230px;
+  width: auto;
+}
+
+.small-logo {
+  height: 150px;
+  width: auto;
+}
+
+.nav-list {
+  list-style: none;
+
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 30px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.nav-link:hover {
+  color: #8D388A;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #333;
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-link {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+}
+
+.dropdown-link:hover {
+  background-color: #555;
 }
