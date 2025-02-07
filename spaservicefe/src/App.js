@@ -16,7 +16,7 @@ function App() {
             <Route index />
             <Route path='login' element={<LoginPage />} />
             <Route path='register' element={<RegisterPage />} />
-            <Route path='media' element={<MediaPage />} />
+            <Route path='/media/:tab' element={<MediaPage />} />
             <Route path='services' />
             <Route path='services/:id' />
             <Route path='reset-password' />

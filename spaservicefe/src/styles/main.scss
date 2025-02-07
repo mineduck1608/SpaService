@@ -93,7 +93,6 @@
   color: #8D388A;
   font-size: 55px;
   font-family: "Lora-Regular";
-  margin-bottom: 40px;
   position: relative;
 }
 
@@ -123,4 +122,12 @@
   left: 50%;
   transform: translateX(-50%);
   background-repeat: no-repeat;
+}
+
+.brochure-container {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.brochure-container:hover {
+  transform: scale(1.05);
+  background-color: purple; /* Màu tím nhạt */
 }
