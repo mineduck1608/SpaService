@@ -47,7 +47,7 @@ function App() {
             path='services'
             element={
               <Layout>
-                <div>Services Page</div>
+                <ServicesPage />
               </Layout>
             }
           />
