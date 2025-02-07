@@ -1,4 +1,4 @@
-import { imgs } from "./servicesPage.util";
+import { imgs } from './servicesPage.util'
 
 export function CategoryMenu(params: { items: { name: string; val: string }[]; onClickItem: (value: string) => void }) {
   return (

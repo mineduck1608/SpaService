@@ -1,8 +1,9 @@
 import headerBg from '../../images/serviceBg/bg1.jpg'
 import footer from '../../images/serviceBg/footer.jpg'
 import logo from '../../images/logos/tiny.png'
+import { Service } from '@/types/services'
 
-export const imgs ={headerBg, footer, logo}
+export const imgs = { headerBg, footer, logo }
 export const sample = [
   { "name": "Deep Tissue Massage", "val": "XJ29DF" },
   { "name": "Hot Stone Therapy", "val": "LM74QZ" },
@@ -15,3 +16,14 @@ export const sample = [
   { "name": "Scalp and Hair Treatment", "val": "MD52XQ" },
   { "name": "Rejuvenating Seaweed Wrap", "val": "TY84WC" }
 ]
+
+export const service: Service = {
+  categoryId: '',
+  description: 'Sample service',
+  duration: new Date(),
+  noOfSessions: 1,
+  price: 123456,
+  serviceId: 'SERVICE',
+  serviceImage: 'img',
+  serviceName: 'Service Test'
+}
