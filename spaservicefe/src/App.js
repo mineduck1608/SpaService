@@ -3,9 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/loginPage/loginPage.tsx'
 import RegisterPage from './pages/registerPage/registerPage.tsx'
 import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
-import Footer from './components/ui/Footer/footer.tsx'
+import Footer from './components/ui/footer.tsx'
+import Header from './components/ui/header.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React from 'react'
+
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
               <AboutUsPage />
               </>
               }/>
+            <Route path='header' element={<Header />} />
           </Route>
         </Routes>
       </BrowserRouter>
