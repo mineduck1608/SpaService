@@ -854,6 +854,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SpaServiceBE.Controllers.GoogleAuthController",
+    "Method": "DecodeAndCheckOrCreateUser",
+    "RelativePath": "api/GoogleAuth/decode-and-check-or-create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SpaServiceBE.Controllers.TokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "API.Controllers.MembershipController",
     "Method": "CreateMembership",
     "RelativePath": "api/memberships/Create",
