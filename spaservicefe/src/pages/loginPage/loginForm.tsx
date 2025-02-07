@@ -13,107 +13,116 @@ import { authenticate } from './loginPage.util'
 import { toast, ToastContainer } from 'react-toastify'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel'
 import Autoplay from 'embla-carousel-autoplay'
-import {GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
-  const [data, setData] = useState({ username: '', password: '' });
-  const [fetching, setFetching] = useState(false);
-  const images = [loginBg, loginBg2, loginBg3, loginBg4];
+  const [data, setData] = useState({ username: '', password: '' })
+  const [fetching, setFetching] = useState(false)
+  const images = [loginBg, loginBg2, loginBg3, loginBg4]
 
   const submit = async (e: FormEvent) => {
-    e.preventDefault();
-    setFetching(true);
+    e.preventDefault()
+    setFetching(true)
     try {
-      const rs = await authenticate(data.username, data.password);
+      const rs = await authenticate(data.username, data.password)
       if (rs.success) {
-        sessionStorage.setItem('token', rs.token);
-        window.location.assign('/');
+        sessionStorage.setItem('token', rs.token)
+        window.location.assign('/')
       } else {
-        toast.error('Login failed!');
+        toast.error('Login failed!')
       }
     } catch (error) {
-      toast('An unexpected error occurred.');
+      toast('An unexpected error occurred.')
     } finally {
-      setFetching(false);
+      setFetching(false)
     }
-  };
+  }
 
   const handleGoogleSuccess = async (response: any) => {
-    console.log('Login Success:', response.credential);
-    const token = response.credential;
+    console.log('Login Success:', response.credential)
+    const token = response.credential
     try {
       const res = await fetch('https://localhost:7205/api/GoogleAuth/decode-and-check-or-create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token })
-      });
+      })
       if (res.ok) {
-        const data = await res.json();
-        sessionStorage.setItem('token', data.accessToken);
-        window.location.assign('/home');
+        const data = await res.json()
+        sessionStorage.setItem('token', data.accessToken)
+        window.location.assign('/home')
       } else {
-        toast.error('Google login failed!');
+        toast.error('Google login failed!')
       }
     } catch (error) {
-      console.error('Google login error:', error);
+      console.error('Google login error:', error)
     }
-  };
+  }
 
   const handleGoogleError = () => {
-    console.log('Login Failed');
-  };
+    console.log('Login Failed')
+  }
 
-return (
-  <GoogleOAuthProvider clientId="397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com">
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card className='overflow-hidden'>
-        <CardContent className='grid p-0 md:grid-cols-2'>
-          <form className='p-6 md:p-8' onSubmit={submit}>
-            <div className='flex w-full justify-center'>
-              <img src={logo} className='w-1/4 translate-y-2' />
+  return (
+    <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
+      <div className={cn('flex flex-col gap-6', className)} {...props}>
+        <Card className='overflow-hidden'>
+          <CardContent className='grid p-0 md:grid-cols-2'>
+            <form className='p-6 md:p-8' onSubmit={submit}>
+              <div className='flex w-full justify-center'>
+                <img src={logo} className='w-1/4 translate-y-2' />
+              </div>
+              <div className='mt-2 flex flex-col gap-6'>
+                <div className='text-center'>
+                  <h1 className='text-2xl font-bold'>Welcome back</h1>
+                  <p className='text-muted-foreground'>Login to use our service</p>
+                </div>
+                <div className='grid gap-2'>
+                  <Label htmlFor='email'>Username</Label>
+                  <Input id='username' required onChange={(e) => setData({ ...data, username: e.target.value })} />
+                </div>
+                <div className='grid gap-2'>
+                  <Label htmlFor='password'>Password</Label>
+                  <Input
+                    id='password'
+                    type='password'
+                    required
+                    onChange={(e) => setData({ ...data, password: e.currentTarget.value })}
+                  />
+                </div>
+                <Button type='submit' className='w-full' disabled={fetching || !data.username || !data.password}>
+                  Login
+                </Button>
+                <div className='relative text-center text-sm after:border-t after:border-border'>
+                  <span className='bg-background px-2 text-muted-foreground'>Or continue with</span>
+                </div>
+                <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
+                <div className='text-center text-sm'>
+                  Don&apos;t have an account?{' '}
+                  <a href='/register' className='underline'>
+                    Sign up
+                  </a>
+                </div>
+              </div>
+            </form>
+            <div className='hidden bg-muted md:block'>
+              <Carousel opts={{ align: 'start', loop: true }} plugins={[Autoplay({ delay: 5000 })]}>
+                <CarouselContent>
+                  {images.map((v, i) => (
+                    <CarouselItem key={i}>
+                      <img src={v} className='w-full md:max-h-[600px]' />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className='translate-x-14' />
+                <CarouselNext className='-translate-x-14' />
+              </Carousel>
             </div>
-            <div className='mt-2 flex flex-col gap-6'>
-              <div className='text-center'>
-                <h1 className='text-2xl font-bold'>Welcome back</h1>
-                <p className='text-muted-foreground'>Login to use our service</p>
-              </div>
-              <div className='grid gap-2'>
-                <Label htmlFor='email'>Username</Label>
-                <Input id='username' required onChange={(e) => setData({ ...data, username: e.target.value })} />
-              </div>
-              <div className='grid gap-2'>
-                <Label htmlFor='password'>Password</Label>
-                <Input id='password' type='password' required onChange={(e) => setData({ ...data, password: e.currentTarget.value })} />
-              </div>
-              <Button type='submit' className='w-full' disabled={fetching || !data.username || !data.password}>
-                Login
-              </Button>
-              <div className='relative text-center text-sm after:border-t after:border-border'>
-                <span className='bg-background px-2 text-muted-foreground'>Or continue with</span>
-              </div>
-              <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
-              <div className='text-center text-sm'>
-                Don&apos;t have an account? <a href='/register' className='underline'>Sign up</a>
-              </div>
-            </div>
-          </form>
-          <div className='hidden bg-muted md:block'>
-            <Carousel opts={{ align: 'start', loop: true }} plugins={[Autoplay({ delay: 5000 })]}>
-              <CarouselContent>
-                {images.map((v, i) => (
-                  <CarouselItem key={i}><img src={v} className='w-full md:max-h-[600px]' /></CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className='translate-x-14' />
-              <CarouselNext className='-translate-x-14' />
-            </Carousel>
-          </div>
-        </CardContent>
-      </Card>
-      <ToastContainer />
-    </div>
-  </GoogleOAuthProvider>
-);
-
+          </CardContent>
+        </Card>
+        <ToastContainer />
+      </div>
+    </GoogleOAuthProvider>
+  )
 }

@@ -41,7 +41,7 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
-        'purple1': '#9E5CA6'
+        purple1: '#9E5CA6'
       },
       borderRadius: {
         lg: `var(--radius)`,
@@ -56,8 +56,8 @@ module.exports = {
         'custom-bg5': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bg_spa.png')"
       },
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
-      },
+        montserrat: ['Montserrat', 'sans-serif']
+      }
     }
   },
   plugins: [require('tailwindcss-animate')]
