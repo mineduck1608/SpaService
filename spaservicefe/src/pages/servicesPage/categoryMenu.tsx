@@ -5,7 +5,7 @@ export function CategoryMenu(params: { items: { name: string; val: string }[]; o
     <div className='w-[310px]'>
       {/* Header */}
       <div className='flex justify-center rounded-tl-[40px] bg-[#8D388A] p-5 text-2xl font-bold text-white'>
-        <img src={imgs.logo} className='inline' />
+        <img src={imgs.logo} alt='Lotus logo' className='inline' />
         &nbsp;Services
       </div>
       <div className='flex flex-col rounded-br-[40px] shadow-lg'>

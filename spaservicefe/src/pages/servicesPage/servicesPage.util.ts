@@ -25,5 +25,15 @@ export const service: Service = {
   price: 123456,
   serviceId: 'SERVICE',
   serviceImage: 'img',
+  serviceName: 'Service Test long ABCDEFGHIJKLMNOPQRSTUV'
+}
+export const service2: Service = {
+  categoryId: '',
+  description: 'Sample service',
+  duration: new Date(),
+  noOfSessions: 1,
+  price: 123456,
+  serviceId: 'SERVICE',
+  serviceImage: 'img',
   serviceName: 'Service Test'
 }
