@@ -21,7 +21,7 @@ function Layout({ children }) {
   )
 }
 
-function App() {
+function App() {  
   return (
     <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
       <BrowserRouter>
@@ -45,10 +45,18 @@ function App() {
             }
           />
           <Route
+            path='services'
+            element={
+              <Layout>
+                <ServicesPage />
+              </Layout>
+            }
+          />
+          <Route
             path='services/:id'
             element={
               <Layout>
-                <ServicesPage/>
+                <ServicesPage />
               </Layout>
             }
           />

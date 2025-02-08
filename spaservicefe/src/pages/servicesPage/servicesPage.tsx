@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getCategory, imgs, sample, service, service2 } from './servicesPage.util'
+import { getAll, getCategory, getServices, imgs, sample, service, service2 } from './servicesPage.util'
 import { Link, Navigate, useNavigate, useNavigation, useParams } from 'react-router-dom'
 import { CategoryMenu } from './categoryMenu'
 import ServiceList, { ServiceCard } from './serviceList'
@@ -7,19 +7,30 @@ import { Service } from '@/types/services'
 import { Category } from '@/types/category'
 
 export default function ServicesPage() {
-  const nav = useNavigate()
   const { id } = useParams()
   const [currentCategory, setCurrentCategory] = useState<Category>()
   const [services, setServices] = useState<Service[]>()
+  const [categories, setCategories] = useState<Category[]>()
   useEffect(() => {
-    async function findById() {
-      var s = await getCategory(id ?? '')
+    async function fetchData() {
+      var c = await getAll()
+      setCategories(c)
+      if (!id) {
+        window.location.assign('services/' + c[0].categoryId)
+        return
+      }
+      var s = await getCategory(id)
       if (!s) {
         return;
       }
       setCurrentCategory(s)
+      var serviceFetch = await getServices(id)
+      if (!serviceFetch) {
+        return;
+      }
+      setServices(serviceFetch)
     }
-    findById()
+    fetchData()
   }, [])
   return (
     <div>
@@ -37,7 +48,7 @@ export default function ServicesPage() {
           <div className='hidden w-[310px] lg:flex 2xl:ml-[17.5vw]'>
             <div id={'left-menu'} className='hidden justify-center lg:flex'>
               <CategoryMenu
-                items={sample}
+                items={categories ?? []}
                 onClickItem={(v) => {
                   window.location.assign(v)
                 }}
@@ -46,7 +57,7 @@ export default function ServicesPage() {
           </div>
           {/* Services available */}
           <div className='w-5/6 lg:ml-[5vw] 2xl:w-[45%]'>
-            <ServiceList service={[service, service2]} />
+            <ServiceList service={services ?? []} />
           </div>
         </div>
       </div>

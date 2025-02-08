@@ -42,13 +42,34 @@ export const service2: Service = {
   serviceImage: 'img',
   serviceName: 'Service Test'
 }
-export async function getCategory(id: string){
-  try{
+export async function getCategory(id: string) {
+  try {
     var res = await fetch(`${apiUrl}/categories/GetById/${id}`)
     var json = await res.json() as Category
     return json
   }
-  catch(e){
+  catch (e) {
     return null
+  }
+}
+export async function getServices(id: string) {
+  try {
+    var res = await fetch(`${apiUrl}/spaservices/ServiceOfCategory?categoryId=${id}`)
+    var json = await res.json() as Service[]
+    return json
+  }
+  catch (e) {
+    return []
+  }
+}
+
+export async function getAll() {
+  try {
+    var res = await fetch(`${apiUrl}/categories/GetAll`)
+    var json = await res.json() as Category[]
+    return json
+  }
+  catch (e) {
+    return []
   }
 }

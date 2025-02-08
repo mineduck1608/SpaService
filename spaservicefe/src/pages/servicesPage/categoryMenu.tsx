@@ -1,6 +1,7 @@
+import { Category } from '@/types/category';
 import { imgs } from './servicesPage.util'
 
-export function CategoryMenu(params: { items: { name: string; val: string }[]; onClickItem: (value: string) => void }) {
+export function CategoryMenu(params: { items: Category[]; onClickItem: (value: string) => void }) {
   return (
     <div className='w-[310px]'>
       {/* Header */}
@@ -20,10 +21,10 @@ export function CategoryMenu(params: { items: { name: string; val: string }[]; o
               <button
                 className={`p-3 pl-6 pr-6`}
                 onClick={() => {
-                  params.onClickItem(v.val)
+                  params.onClickItem(v.categoryId)
                 }}
               >
-                {v.name}
+                {v.categoryName}
               </button>
             </div>
             {/* Line */}
