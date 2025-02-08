@@ -19,7 +19,7 @@ export default function ServicesPage() {
       <div className='mb-20 flex md:ml-24 md:mr-24 lg:ml-5 lg:mr-5'>
         <div className='flex w-full justify-center bg-purple-200 lg:justify-normal'>
           {/* Left menu */}
-          <div className='hidden w-[310px] lg:flex xl:ml-[17.5vw]'>
+          <div className='hidden w-[310px] lg:flex 2xl:ml-[17.5vw]'>
             <div id={'left-menu'} className='hidden justify-center lg:flex'>
               <CategoryMenu
                 items={sample}
@@ -30,7 +30,7 @@ export default function ServicesPage() {
             </div>
           </div>
           {/* Services available */}
-          <div className='w-3/4 bg-red-100 lg:ml-[5vw] xl:w-2/5'>
+          <div className='w-5/6 bg-red-100 lg:ml-[5vw] 2xl:w-[45%]'>
             <ServiceList/>
           </div>
         </div>

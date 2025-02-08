@@ -4,6 +4,9 @@ import logo from '../../images/logos/tiny.png'
 import { Service } from '@/types/services'
 
 export const imgs = { headerBg, footer, logo }
+export function formatNumber(num: number): string {
+  return new Intl.NumberFormat('de-DE').format(num);
+}
 export const sample = [
   { "name": "Deep Tissue Massage", "val": "XJ29DF" },
   { "name": "Hot Stone Therapy", "val": "LM74QZ" },
