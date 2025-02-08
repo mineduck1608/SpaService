@@ -1,7 +1,9 @@
 import headerBg from '../../images/serviceBg/bg1.jpg'
 import footer from '../../images/serviceBg/footer.jpg'
 import logo from '../../images/logos/tiny.png'
-import { Service } from '@/types/services'
+import { Service } from '../../types/services'
+import { apiUrl } from '../../types/constants'
+import { Category } from '@/types/category'
 
 export const imgs = { headerBg, footer, logo }
 export function formatNumber(num: number): string {
@@ -39,4 +41,14 @@ export const service2: Service = {
   serviceId: 'SERVICE',
   serviceImage: 'img',
   serviceName: 'Service Test'
+}
+export async function getCategory(id: string){
+  try{
+    var res = await fetch(`${apiUrl}/categories/GetById/${id}`)
+    var json = await res.json() as Category
+    return json
+  }
+  catch(e){
+    return null
+  }
 }
