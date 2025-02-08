@@ -44,15 +44,15 @@ function App() {
             }
           />
           <Route
-            path='services'
+            path='services/:id'
             element={
               <Layout>
-                <ServicesPage />
+                <ServicesPage/>
               </Layout>
             }
           />
           <Route
-            path='services/:id'
+            path='service/:id'
             element={
               <Layout>
                 <div>Service Details</div>
