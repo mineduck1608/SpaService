@@ -258,41 +258,43 @@
 }
 
 .header-container.large {
-  height: 130px;
+  height: 150px;
 }
 
 .header-container.small {
-  height: 80px;
+  height: 100px;
 }
 
 .logo {
   display: flex;
   align-items: center;
+  margin-left: -20px;
+  margin-right: -20px;
 }
 
+
 .logo-image {
-  margin-top: 5px;
-  height: 200px;
+  margin-top: 15px;
+  margin-bottom: -10px;
   width: auto;
   object-fit: contain;
   transition:
-    height 0.3s ease,
-    width 0.3s ease;
+  height 0.3s ease,
+  width 0.3s ease;
 }
 
 .large-logo {
-  height: 100px;
+  height: 240px;
   width: auto;
 }
 
 .small-logo {
-  height: 80px;
+  height: 170px;
   width: auto;
 }
 
 .nav-list {
   list-style: none;
-
   align-items: center;
   justify-content: center;
   display: flex;
