@@ -2,11 +2,12 @@
 module.exports = {
   darkMode: ['class'],
   content: [
-    './src/**/*.{js,jsx,ts,tsx,scss}' // Thêm đuôi .scss
+    './src/**/*.{js,jsx,ts,tsx}' // Thêm đuôi .scss
   ],
+  mode: 'jit',
+  important: true,
   theme: {
     extend: {
-      backgroundColor: ['hover'],
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
