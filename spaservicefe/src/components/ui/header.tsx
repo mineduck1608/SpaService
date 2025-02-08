@@ -78,20 +78,20 @@ const Header = () => {
                 </a>
                 <ul className="dropdown-menu bg-white/20 backdrop-blur-sm rounded-tl-lg rounded-br-lg min-w-[150px]">
                   <li>
-                    <a href="/media/gallery" className="dropdown-link font-semibold text-base group flex items-center transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mr-2">-</span>
+                    <a href="/media/gallery" className="dropdown-link text-base group flex items-center transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">-</span>
                       Gallery
                     </a>
                   </li>
                   <li>
-                    <a href="/media/videos" className="dropdown-link font-semibold text-base group flex items-center transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mr-2">-</span>
+                    <a href="/media/videos" className="dropdown-link text-base group flex items-center transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">-</span>
                       Videos
                     </a>
                   </li>
                   <li>
-                    <a href="/media/news" className="dropdown-link font-semibold text-base group flex items-center transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mr-2">-</span>
+                    <a href="/media/news" className="dropdown-link text-base group flex items-center transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">-</span>
                       E-Brochure
                     </a>
                   </li>

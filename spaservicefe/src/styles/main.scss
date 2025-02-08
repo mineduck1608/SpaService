@@ -258,20 +258,24 @@
 }
 
 .header-container.large {
-  height: 130px;
+  height: 140px;
 }
 
 .header-container.small {
-  height: 80px;
+  height: 90px;
 }
 
 .logo {
   display: flex;
   align-items: center;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
+
+
 .logo-image {
-  margin-top: 20px;
+  margin-top: 23px;
   height: 200px;
   width: auto;
   object-fit: contain;
@@ -286,7 +290,7 @@
 }
 
 .small-logo {
-  height: 150px;
+  height: 180px;
   width: auto;
 }
 
