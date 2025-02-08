@@ -107,7 +107,7 @@
 .grid-container {
   margin-left: auto;
   margin-right: auto;
-  max-width: 1200px;
+  max-width: 100%;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -339,4 +339,8 @@
 
 .dropdown-link:hover {
   background-color: #555;
+}
+
+.modal-bg{
+  background-color: rgba(0, 0, 0, 0.65); /* Đen với 65% độ mờ */
 }

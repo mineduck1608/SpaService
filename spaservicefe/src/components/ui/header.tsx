@@ -65,27 +65,32 @@ const Header = () => {
                   className={`logo-image ${isAtTop ? 'large-logo' : 'small-logo'}`}
                 />
               </div>
-              <li>
-                <a href='/recruitment' className='nav-link text-base'>
-                  RECRUITMENT
-                </a>
-              </li>
               <li className='dropdown'>
-                <a href='/media' className='nav-link text-base'>
+                <a href='/media/picture' className='nav-link text-base'>
                   MEDIA
                 </a>
                 <ul className='dropdown-menu'>
                   <li>
-                    <a href='/media/gallery' className='dropdown-link text-xl font-semibold'>
-                      Gallery
+                    <a href='/media/picture' className='dropdown-link text-xl font-semibold'>
+                      Pictures
                     </a>
                   </li>
                   <li>
-                    <a href='/media/videos' className='dropdown-link text-xl font-semibold'>
+                    <a href='/media/video' className='dropdown-link text-xl font-semibold'>
                       Videos
                     </a>
                   </li>
+                  <li>
+                    <a href='/media/e-brochure' className='dropdown-link text-xl font-semibold'>
+                      E-Brochure
+                    </a>
+                  </li>
                 </ul>
+              </li>
+              <li>
+                <a href='/recruitment' className='nav-link text-base'>
+                  RECRUITMENT
+                </a>
               </li>
               <li>
                 <a href='/news' className='nav-link text-base'>

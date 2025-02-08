@@ -76,7 +76,7 @@ function App() {
             }
           />
           <Route
-            path='intro'
+            path='about'
             element={
               <Layout>
                 <AboutUsPage />
