@@ -4,6 +4,7 @@ import LoginPage from './pages/loginPage/loginPage.tsx'
 import RegisterPage from './pages/registerPage/registerPage.tsx'
 import MediaPage from './pages/mediaPage/mediaPage.tsx'
 import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
+import ServicesPage from './pages/servicesPage/servicesPage.tsx'
 import Footer from './components/ui/footer.tsx'
 import Header from './components/ui/header.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -20,7 +21,7 @@ function Layout({ children }) {
   )
 }
 
-function App() {
+function App() {  
   return (
     <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
       <BrowserRouter>
@@ -47,12 +48,20 @@ function App() {
             path='services'
             element={
               <Layout>
-                <div>Services Page</div>
+                <ServicesPage />
               </Layout>
             }
           />
           <Route
             path='services/:id'
+            element={
+              <Layout>
+                <ServicesPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='service/:id'
             element={
               <Layout>
                 <div>Service Details</div>

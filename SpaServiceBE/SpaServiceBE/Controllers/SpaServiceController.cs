@@ -139,5 +139,21 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("ServiceOfCategory")]
+        public async Task<ActionResult> GetServicesOfCategory(string categoryId)
+        {
+            if (string.IsNullOrEmpty(categoryId))
+            {
+                return BadRequest("Category Id is required.");
+            }
+            try
+            {
+                return Ok((await _service.GetAll()).Where(x => x.CategoryId == categoryId));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
