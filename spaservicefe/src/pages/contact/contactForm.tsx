@@ -70,8 +70,6 @@ const ContactForm = () => {
             try {
 
 
-
-
                 setFormData({
                     fullName: '',
                     phone: '',
@@ -88,7 +86,11 @@ const ContactForm = () => {
     }
 
     return (
-        <div className='flex flex-col lg:flex-row font-montserrat mt-4 bg-custom-bg6 w-full max-w-6xl mx-auto shadow-xl' data-aos='fade-left' data-aos-delay='500'>
+        <div 
+            className='flex flex-col lg:flex-row font-montserrat mt-4 bg-custom-bg6 w-full max-w-6xl mx-auto shadow-xl border border-gray-200' 
+            data-aos='fade-left' 
+            data-aos-delay='500'
+        >
             <div className='p-8 text-white lg:w-1/2'>
                 <div className='max-w-full ml-7 mb-10'>
                     <div className='mb-8 mt-16 font-bold'>
