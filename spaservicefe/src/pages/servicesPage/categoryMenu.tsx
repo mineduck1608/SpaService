@@ -1,7 +1,11 @@
 import { Category } from '@/types/category'
 import { imgs } from './servicesPage.util'
 
-export function CategoryMenu(params: { items: Category[]; onClickItem: (value: string) => void, currentItem?: string }) {
+export function CategoryMenu(params: {
+  items: Category[]
+  onClickItem: (value: string) => void
+  currentItem?: string
+}) {
   return (
     <div className='w-[310px]'>
       {/* Header */}
@@ -19,12 +23,20 @@ export function CategoryMenu(params: { items: Category[]; onClickItem: (value: s
             {/* Item container */}
             <div className={`flex justify-center`}>
               <button
-                className={`bg-slate-300 p-3 pl-6 pr-6 text-left min-w-[75%]`}
+                className={`${v.categoryId === params.currentItem ? 'hover:cursor-default' : ''} min-w-[75%] p-3 pl-6 pr-6 text-left`}
                 onClick={() => {
-                  params.onClickItem(v.categoryId)
+                  if (v.categoryId !== params.currentItem) {
+                    params.onClickItem(v.categoryId)
+                  }
                 }}
               >
-                <span>
+                {v.categoryId === params.currentItem && (
+                  <span>
+                    <img src={imgs.selected} alt='selected' className='inline' />
+                    &nbsp;
+                  </span>
+                )}
+                <span className={`${v.categoryId === params.currentItem ? 'font-bold text-[#8D388A]' : ''}`}>
                   {v.categoryName}
                 </span>
               </button>
@@ -32,7 +44,7 @@ export function CategoryMenu(params: { items: Category[]; onClickItem: (value: s
             {/* Line */}
             <div
               className={`w-11/12 self-center 
-              ${i !== params.items.length - 1 ? ' border-b-2 ' : ''}
+              ${i !== params.items.length - 1 ? ' border-b-2 border-dotted ' : ''}
               `}
             ></div>
           </div>

@@ -1,13 +1,13 @@
 import headerBg from '../../images/serviceBg/bg1.jpg'
-import footer from '../../images/serviceBg/footer.jpg'
 import logo from '../../images/logos/tiny.png'
+import selected from '../../images/serviceBg/selected.png'
 import { Service } from '../../types/services'
 import { apiUrl } from '../../types/constants'
 import { Category } from '@/types/category'
 
-export const imgs = { headerBg, footer, logo }
+export const imgs = { headerBg, logo, selected }
 export function formatNumber(num: number): string {
-  return new Intl.NumberFormat('de-DE').format(num);
+  return new Intl.NumberFormat('de-DE').format(num).replace('.', ',');
 }
 export async function getCategory(id: string) {
   try {

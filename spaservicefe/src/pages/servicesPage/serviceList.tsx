@@ -13,10 +13,10 @@ export default function ServiceList(params?: { service: Service[] }) {
 
 export function ServiceCard(params?: { s: Service }) {
   return (
-    <div className='w-full min-w-[300px] rounded-sm shadow'>
+    <div className='w-full min-w-[300px] rounded-md shadow'>
       {/* Container */}
       <div className='flex flex-col'>
-        <img src={imgs.headerBg} alt='img' className='rounded-t-sm aspect-[1/0.5] w-full ' />
+        <img src={imgs.headerBg} alt='img' className='rounded-t-md aspect-[1/0.5] w-full ' />
         <div className='block p-1'>
           <p className='w-full text-center text-lg font-bold'>{params?.s.serviceName}</p>
         </div>
