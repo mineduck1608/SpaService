@@ -16,7 +16,7 @@ export function ServiceCard(params?: { s: Service }) {
     <div className='w-full min-w-[300px] rounded-md shadow'>
       {/* Container */}
       <div className='flex flex-col'>
-        <img src={imgs.headerBg} alt='img' className='rounded-t-md aspect-[1/0.5] w-full ' />
+        <img src={imgs.headerBg} alt='img' className='aspect-[1/0.5] w-full rounded-t-md ' />
         <div className='block p-1'>
           <p className='w-full text-center text-lg font-bold'>{params?.s.serviceName}</p>
         </div>
@@ -25,7 +25,10 @@ export function ServiceCard(params?: { s: Service }) {
           <p className='text-center text-lg font-bold text-[#8D388A]'>{formatNumber(params?.s.price ?? 0)} VND</p>
         </div>
         <div className='mb-4 flex justify-center'>
-          <button className='w-1/2 rounded-br-xl rounded-tl-xl border-2 border-[#8D388A] bg-white p-2 text-[#8D388A]'>
+          <button
+            className={`w-1/2 rounded-br-2xl rounded-tl-2xl border-2 border-[#8D388A] bg-white p-2 text-[#8D388A] 
+            hover:shadow-[1px_1px_#8D388A,2px_2px_#8D388A] hover:-translate-x-1 duration-300`}
+          >
             Read More &gt;
           </button>
         </div>
