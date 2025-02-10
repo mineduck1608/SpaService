@@ -43,7 +43,7 @@ export default function ServicesPage() {
       <img src={imgs.headerBg} alt='Header' className='w-full' />
       <div className='mb-20 p-2 md:ml-28 lg:ml-5 xl:ml-72'>
         <span className='font-normal text-gray-400'>
-          <Link to={'/'}>Home</Link>
+          <Link to={'/'} className='text-gray-400 no-underline'>Home</Link>
           &nbsp;&gt; {currentCategory?.categoryName}
         </span>
       </div>
