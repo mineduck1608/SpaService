@@ -7,7 +7,6 @@ import { Service } from '@/types/services'
 import { Category } from '@/types/category'
 
 export default function ServicesPage() {
-  const nav = useNavigate()
   const { id } = useParams()
   const [currentCategory, setCurrentCategory] = useState<Category>()
   const [services, setServices] = useState<Service[]>()

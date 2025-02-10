@@ -7,25 +7,23 @@ import { Category } from '@/types/category'
 
 export const imgs = { headerBg, logo, selected }
 export function formatNumber(num: number): string {
-  return new Intl.NumberFormat('de-DE').format(num).replace('.', ',');
+  return new Intl.NumberFormat('de-DE').format(num).replace('.', ',')
 }
 export async function getCategory(id: string) {
   try {
     var res = await fetch(`${apiUrl}/categories/GetById/${id}`)
-    var json = await res.json() as Category
+    var json = (await res.json()) as Category
     return json
-  }
-  catch (e) {
+  } catch (e) {
     return null
   }
 }
 export async function getServices(id: string) {
   try {
     var res = await fetch(`${apiUrl}/spaservices/ServiceOfCategory?categoryId=${id}`)
-    var json = await res.json() as Service[]
+    var json = (await res.json()) as Service[]
     return json
-  }
-  catch (e) {
+  } catch (e) {
     return []
   }
 }
@@ -33,20 +31,21 @@ export async function getServices(id: string) {
 async function getAllCategories() {
   try {
     var res = await fetch(`${apiUrl}/categories/GetAll`)
-    var json = await res.json() as Category[]
+    var json = (await res.json()) as Category[]
     return json
-  }
-  catch (e) {
+  } catch (e) {
     return []
   }
 }
 
-export async function findCategories(){
+export async function findCategories() {
   const sessionCat = sessionStorage.getItem('CATEGORIES')
-  if(sessionCat){
+  if (sessionCat) {
     return JSON.parse(sessionCat) as Category[]
   }
   var s = await getAllCategories()
-  sessionStorage.setItem('CATEGORIES', JSON.stringify(s))
+  if (s.length !== 0) {
+    sessionStorage.setItem('CATEGORIES', JSON.stringify(s))
+  }
   return s
 }
