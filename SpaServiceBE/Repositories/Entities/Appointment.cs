@@ -13,7 +13,17 @@ public partial class Appointment
 
     public string EmployeeId { get; set; } = null!;
 
+    public DateTime? StartTime { get; set; }
+
+    public DateTime? EndTime { get; set; }
+
+    public string? ReplacementEmployee { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
+
     public virtual Employee Employee { get; set; } = null!;
+
+    public virtual Employee? ReplacementEmployeeNavigation { get; set; }
 
     public virtual Request Request { get; set; } = null!;
 

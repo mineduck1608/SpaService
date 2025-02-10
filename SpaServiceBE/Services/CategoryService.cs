@@ -21,6 +21,11 @@ namespace Services
             return await _repository.GetById(categoryId);
         }
 
+        public async Task<Category> GetCategoryByName(string categoryName)
+        {
+            return await _repository.GetByName(categoryName);
+        }
+
         // Lấy tất cả Categories
         public async Task<List<Category>> GetAllCategories()
         {
