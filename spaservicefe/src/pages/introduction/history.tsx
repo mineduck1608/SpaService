@@ -37,14 +37,14 @@ const History = () => {
     const handleYearChange = (year: number) => {
         setIsChanging(true);
         setTimeout(() => {
-            setSelectedYear(year);
-            setIsChanging(false);
+            setSelectedYear(year)
+            setIsChanging(false)
         }, 600)
     }
     
     return (
         <div className='relative min-w-full mb-10'>
-            <IntroHeader title='History' position='middle'/>
+            <IntroHeader title='History' position='middle' size='big'/>
             <div className='absolute inset-0 w-full h-full bg-custom-bg2 bg-repeat-x bg-bottom -z-10'/>
             <div className='relative mb-10 mt-10 max-w-3xl mx-auto' data-aos='fade-right' data-aos-delay='600'>
                 <div className='absolute top-14 left-0 right-0 h-px bg-purple1'/>

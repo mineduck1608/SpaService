@@ -82,19 +82,19 @@ const Facilities = () => {
         }
     ]
     const [selectedFacility, setSelectedFacility] = useState<{
-        id: number;
-        title: string;
-        description: string;
-        image: string;
-        additionalImages: string[];
+        id: number,
+        title: string,
+        description: string,
+        image: string,
+        additionalImages: string[],
     } | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
     const handleImageChange = (index: number) => {
         setIsChanging(true);
         setTimeout(() => {
-            setCurrentImageIndex(index);
-            setIsChanging(false);
+            setCurrentImageIndex(index)
+            setIsChanging(false)
         }, 800)
     }
 
@@ -104,7 +104,7 @@ const Facilities = () => {
                 <div className='relative bg-purple1 flex items-center justify-center' data-aos='zoom-in' data-aos-delay='1000' data-aos-offset='-500'>
                     <div className='absolute inset-0 bg-custom-bg1 bg-white bg-no-repeat bg-right-top opacity-0'></div>
                     <div className='text-left p-5 text-white'>
-                        <IntroHeader title={"Facilities"} position='left'/>
+                        <IntroHeader title={"Facilities"} position='left' size='big'/>
                         <p className='ml-1 px-1' data-aos='fade-down' data-aos-delay='100'>Seven separate floors bring an ultimate sense of complete privacy and comfort.</p>
                     </div>
                 </div>
