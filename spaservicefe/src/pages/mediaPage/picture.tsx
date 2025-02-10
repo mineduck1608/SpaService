@@ -1,102 +1,106 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import React, { useState } from 'react'
-
-const images = [
-  'https://img5.thuthuatphanmem.vn/uploads/2021/11/20/hinh-anh-spa-thien-nhien-tuyet-dep_104538239.jpg',
-  'https://senspa.com.vn/wp-content/uploads/2020/11/DSC2549-1.png',
-  'https://senspa.com.vn/wp-content/uploads/2020/11/DSC5881-2.jpg',
-  'https://senspa.com.vn/wp-content/uploads/2020/11/G-sảnh-17.jpg',
-  'https://img1.kienthucvui.vn/uploads/2021/01/13/anh-dep-ve-spa_022205055.jpg',
-  'https://senspa.com.vn/wp-content/uploads/2020/11/DSC5837.jpg'
-]
-
-const facilities = [
-  {
-    id: 2,
-    title: '1st floor',
-    description: 'Exclusive area for Foot massages',
-    image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-1-1.jpg',
-    additionalImages: [
-      'https://senspa.com.vn/wp-content/uploads/2021/01/foot-1.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/foot-2.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/foot-3.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/foot-4.jpg'
-    ]
-  },
-  {
-    id: 3,
-    title: '2nd floor',
-    description: 'Spa area (steam bath, sauna, soaking in spa pools) and facial for female customers',
-    image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-2.jpg',
-    additionalImages: [
-      'https://senspa.com.vn/wp-content/uploads/2021/01/xonghoinuoc.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-2-2.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-2-1.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/xonghoikhoc.jpg'
-    ]
-  },
-  {
-    id: 4,
-    title: '3rd floor',
-    description: 'Massage area for female customers',
-    image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-3.jpg',
-    additionalImages: [
-      'https://senspa.com.vn/wp-content/uploads/2021/01/MS-2.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/MS-3.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/MS-4.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/MS-5.jpg'
-    ]
-  },
-  {
-    id: 5,
-    title: '4th floor',
-    description: 'Spa area (steam bath, sauna, soaking in spa pools) and facial for male customers',
-    image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-4.jpg',
-    additionalImages: [
-      'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-4-3.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-4-1.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-4-2.jpg'
-    ]
-  },
-  {
-    id: 6,
-    title: '5th floor',
-    description: 'Massage area for male customers',
-    image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-5.jpg',
-    additionalImages: [
-      'https://senspa.com.vn/wp-content/uploads/2021/01/nam-1.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/nam-2.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/nam-3.jpg'
-    ]
-  },
-  {
-    id: 7,
-    title: '6th floor',
-    description: 'VIP rooms provide an intimate and private spaces for couples',
-    image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-6.jpg',
-    additionalImages: [
-      'https://senspa.com.vn/wp-content/uploads/2021/01/couple-1.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/couple-2.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2021/01/couple-3.jpg'
-    ]
-  },
-  {
-    id: 8,
-    title: '7th floor',
-    description:
-      'Serviced apartment for long-term stay guests with easy access to all the convenient places in central HCMC',
-    image: 'https://senspa.com.vn/wp-content/uploads/2020/11/DSC01715_1.jpg',
-    additionalImages: [
-      'https://senspa.com.vn/wp-content/uploads/2020/10/DSC01689.jpg',
-      'https://senspa.com.vn/wp-content/uploads/2020/10/sec2.png',
-      'https://senspa.com.vn/wp-content/uploads/2020/10/sec4.png'
-    ]
-  }
-]
+import ArrowButton from '../../components/ui/arrowButton'
+import { X } from 'lucide-react'
 
 const Picture = () => {
-  const [selectedFacility, setSelectedFacility] = useState<{
+  const images = [
+    {
+      id: 2,
+      title: '1st floor',
+      description: 'Exclusive area for Foot massages',
+      image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-1-1.jpg',
+      additionalImages: [
+        'https://senspa.com.vn/wp-content/uploads/2021/01/foot-1.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/foot-2.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/foot-3.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/foot-4.jpg'
+      ]
+    },
+    {
+      id: 3,
+      title: '2nd floor',
+      description: 'Spa area (steam bath, sauna, soaking in spa pools) and facial for female customers',
+      image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-2.jpg',
+      additionalImages: [
+        'https://senspa.com.vn/wp-content/uploads/2021/01/xonghoinuoc.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-2-2.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-2-1.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/xonghoikhoc.jpg'
+      ]
+    },
+    {
+      id: 4,
+      title: '3rd floor',
+      description: 'Massage area for female customers',
+      image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-3.jpg',
+      additionalImages: [
+        'https://senspa.com.vn/wp-content/uploads/2021/01/MS-2.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/MS-3.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/MS-4.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/MS-5.jpg'
+      ]
+    },
+    {
+      id: 5,
+      title: '4th floor',
+      description: 'Spa area (steam bath, sauna, soaking in spa pools) and facial for male customers',
+      image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-4.jpg',
+      additionalImages: [
+        'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-4-3.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-4-1.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-4-2.jpg'
+      ]
+    },
+    {
+      id: 6,
+      title: '5th floor',
+      description: 'Massage area for male customers',
+      image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-5.jpg',
+      additionalImages: [
+        'https://senspa.com.vn/wp-content/uploads/2021/01/nam-1.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/nam-2.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/nam-3.jpg'
+      ]
+    },
+    {
+      id: 7,
+      title: '6th floor',
+      description: 'VIP rooms provide an intimate and private spaces for couples',
+      image: 'https://senspa.com.vn/wp-content/uploads/2021/01/co-so-vat-chat-tang-6.jpg',
+      additionalImages: [
+        'https://senspa.com.vn/wp-content/uploads/2021/01/couple-1.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/couple-2.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2021/01/couple-3.jpg'
+      ]
+    },
+    {
+      id: 8,
+      title: '7th floor',
+      description:
+        'Serviced apartment for long-term stay guests with easy access to all the convenient places in central HCMC',
+      image: 'https://senspa.com.vn/wp-content/uploads/2020/11/DSC01715_1.jpg',
+      additionalImages: [
+        'https://senspa.com.vn/wp-content/uploads/2020/10/DSC01689.jpg',
+        'https://senspa.com.vn/wp-content/uploads/2020/10/sec2.png',
+        'https://senspa.com.vn/wp-content/uploads/2020/10/sec4.png'
+      ]
+    },
+    {
+      id: 9,
+      title: '8th floor',
+      description: 'Rooftop pool offering a luxurious escape with city views and a serene ambiance.',
+      image: 'https://goop-img.com/wp-content/uploads/2023/07/image-2.png',
+      additionalImages: [
+        'https://www.whitepoint.com/content/uploads/2020/11/spa-6-1920x898.jpg',
+        'https://acihome.vn/uploads/1/tuvan/spa-resort-la-gi-cac1670558199.jpg',
+        'https://info.ehl.edu/hubfs/Blog-EHL-Insights/Blog-Header-EHL-Insights/spa-trends.jpg'
+      ]
+    }
+  ]
+
+  const [selectedImage, setSelectedImage] = useState<{
     id: number
     title: string
     description: string
@@ -114,81 +118,86 @@ const Picture = () => {
   }
 
   return (
-    <div className='d-flex justify-content-center align-items-center min-vh-100'>
-      <div className='container py-4 text-center'>
-        <div className='w-100'>
-          <div className='row g-4 justify-content-center'>
-            {/* Ảnh lớn bên trái */}
-            <div className='col-md-7'>
-              <img
-                src={images[0]}
-                alt='Spa Image'
-                className='img-fluid w-100-lg'
-                style={{ height: '500px', objectFit: 'cover' }}
-              />
-            </div>
-
-            {/* 2 ảnh nhỏ bên phải */}
-            <div className='col-md-4'>
-              <div className='row mb-4'>
-                <div className='col-12'>
-                  <img
-                    src={images[1]}
-                    alt='Spa Image'
-                    className='img-fluid w-100'
-                    style={{ height: '238px', objectFit: 'cover' }}
-                  />
-                </div>
-              </div>
-              <div className='row'>
-                <div className='col-12'>
-                  <img
-                    src={images[2]}
-                    alt='Spa Image'
-                    className='img-fluid w-100'
-                    style={{ height: '238px', objectFit: 'cover' }}
-                  />
-                </div>
+    <div className='py-4 text-center'>
+      {/* Grid hiển thị danh sách các cơ sở */}
+      <div className='grid grid-cols-1 md:grid-cols-4 gap-2'>
+        {images.map((image) => (
+          <div
+            key={image.id}
+            onClick={() => setSelectedImage(image)}
+            className='group relative cursor-pointer'
+            data-aos='zoom-in'
+            data-aos-delay='1000'
+            data-aos-offset='-500'
+          >
+            <div className='absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+            <img src={image.image} alt='' className='h-full w-full object-cover' />
+            <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
+              <div className='p-4 text-center text-white'>
+                <h3 className='mb-2 text-xl font-bold'>{image.title}</h3>
+                <p className='text-sm'>{image.description}</p>
               </div>
             </div>
           </div>
-          <div className='row g-4 justify-content-center mt-1'>
-            {/* 2 ảnh nhỏ bên trái */}
-            <div className='col-md-4'>
-              <div className='row mb-4'>
-                <div className='col-12'>
-                  <img
-                    src={images[3]}
-                    alt='Spa Image'
-                    className='img-fluid w-100'
-                    style={{ height: '238px', objectFit: 'cover' }}
-                  />
-                </div>
-              </div>
-              <div className='row'>
-                <div className='col-12'>
-                  <img
-                    src={images[5]}
-                    alt='Spa Image'
-                    className='img-fluid w-100'
-                    style={{ height: '238px', objectFit: 'cover' }}
-                  />
-                </div>
-              </div>
-            </div>
+        ))}
+      </div>
 
-            {/* Ảnh lớn bên phải */}
-            <div className='col-md-7'>
-              <img
-                src={images[4]}
-                alt='Spa Image'
-                className='img-fluid w-100-lg'
-                style={{ height: '500px', objectFit: 'cover' }}
-              />
+      {/* Hiển thị chi tiết cơ sở được chọn */}
+      {selectedImage && (
+        <div className='modal-bg !important fixed inset-0 z-50 flex items-center justify-center'>
+          <div className='mx-4 w-full max-w-2xl rounded-lg bg-white'>
+            <div className='flex items-end justify-end border-b p-4'>
+              <button onClick={() => setSelectedImage(null)} className='rounded-full hover:bg-gray-100'>
+                <X className='h-6 w-6' />
+              </button>
+            </div>
+            <div className='relative p-4'>
+              <div className='relative h-80 w-full'>
+                <img
+                  src={selectedImage.additionalImages[currentImageIndex]}
+                  alt=''
+                  className={`h-full w-full rounded object-cover transition-opacity ${isChanging ? 'opacity-0' : 'opacity-100'}`}
+                />
+              </div>
+              <div className='relative mt-4'>
+                <div className='absolute left-0 top-1/2 z-10 -translate-y-1/2'>
+                  <ArrowButton
+                    direction='right'
+                    onClick={() =>
+                      handleImageChange(
+                        currentImageIndex === 0 ? selectedImage.additionalImages.length - 1 : currentImageIndex - 1
+                      )
+                    }
+                  />
+                </div>
+                <div className='flex justify-center gap-2 px-16'>
+                  {selectedImage.additionalImages.map((image, index) => (
+                    <button key={index} onClick={() => setCurrentImageIndex(index)} className='h-16 w-16 flex-shrink-0'>
+                      <img
+                        src={image}
+                        alt=''
+                        className={`h-full w-72 rounded object-cover ${
+                          currentImageIndex === index ? 'ring-2 ring-purple-600' : 'opacity-50 hover:opacity-80'
+                        }`}
+                      />
+                    </button>
+                  ))}
+                </div>
+                <div className='absolute right-0 top-1/2 z-10 -translate-y-1/2'>
+                  <ArrowButton
+                    direction='left'
+                    onClick={() =>
+                      handleImageChange(
+                        currentImageIndex === selectedImage.additionalImages.length - 1 ? 0 : currentImageIndex + 1
+                      )
+                    }
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
