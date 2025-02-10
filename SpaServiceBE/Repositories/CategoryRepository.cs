@@ -21,9 +21,14 @@ namespace Repositories
         public async Task<Category> GetById(string categoryId)
         {
             return await _context.Categories
-                .Include(c => c.SpaServices)  // Bao gồm SpaServices liên quan đến Category
-                .Include(c => c.Employees)    // Bao gồm Employees liên quan đến Category
                 .FirstOrDefaultAsync(c => c.CategoryId == categoryId);
+        }
+
+        public async Task<Category> GetByName(string categoryName)
+        {
+            return await _context.Categories
+                
+                .FirstOrDefaultAsync(c => c.CategoryName == categoryName);
         }
 
         // Lấy tất cả Categories với các thực thể liên quan

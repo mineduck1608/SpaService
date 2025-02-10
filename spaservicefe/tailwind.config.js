@@ -5,6 +5,7 @@ module.exports = {
     './src/**/*.{js,jsx,ts,tsx}' // Thêm đuôi .scss
   ],
   mode: 'jit',
+  important: true,
   theme: {
     extend: {
       colors: {

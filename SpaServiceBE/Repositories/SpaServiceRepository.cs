@@ -21,10 +21,13 @@ namespace Repositories
         public async Task<SpaService> GetById(string serviceId)
         {
             return await _context.SpaServices
-                .Include(s => s.Category)    // Bao gồm thông tin Category liên quan
-                .Include(s => s.Feedbacks)   // Bao gồm các Feedback liên quan đến dịch vụ
-                .Include(s => s.Requests)    // Bao gồm các Request liên quan đến dịch vụ
                 .FirstOrDefaultAsync(s => s.ServiceId == serviceId);
+        }
+
+        public async Task<SpaService> GetByName(string serviceName)
+        {
+            return await _context.SpaServices
+                .FirstOrDefaultAsync(s => s.ServiceName == serviceName);
         }
 
         // Lấy tất cả SpaServices với các thông tin liên quan đến Category, Feedback, và Request

@@ -19,6 +19,11 @@ namespace Services
             return await _spaServiceRepository.GetById(serviceId);
         }
 
+        public async Task<SpaService> GetByName(string serviceName)
+        {
+            return await _spaServiceRepository.GetByName(serviceName);
+        }
+
         public async Task<List<SpaService>> GetAll()
         {
             return await _spaServiceRepository.GetAll();

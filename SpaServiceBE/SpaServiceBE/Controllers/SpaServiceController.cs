@@ -4,6 +4,7 @@ using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -13,10 +14,12 @@ namespace API.Controllers
     public class SpaServiceController : ControllerBase
     {
         private readonly ISpaServiceService _service;
+        private readonly ICategoryService _categoryService;
 
-        public SpaServiceController(ISpaServiceService service)
+        public SpaServiceController(ISpaServiceService service, ICategoryService categoryService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
         }
 
         // GET: api/spaservices/GetAll
@@ -56,36 +59,73 @@ namespace API.Controllers
             }
         }
 
-        // POST: api/spaservices/Create
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateSpaService([FromBody] SpaService spaService)
+        public async Task<ActionResult> CreateSpaService([FromBody] dynamic request)
         {
-            if (spaService == null ||
-                string.IsNullOrEmpty(spaService.ServiceName) ||
-                spaService.Price <= 0 ||
-                spaService.Duration == default(TimeOnly) ||
-                string.IsNullOrEmpty(spaService.Description) ||
-                string.IsNullOrEmpty(spaService.CategoryId))
-            {
-                return BadRequest("Spa service details are incomplete or invalid.");
-            }
-
-            spaService.ServiceId = Guid.NewGuid().ToString(); // Generate unique ID
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string serviceName = jsonElement.GetProperty("serviceName").GetString();
+                float price = jsonElement.GetProperty("price").GetSingle();
+                string durationString = jsonElement.GetProperty("duration").GetString();
+                string description = jsonElement.GetProperty("description").GetString();
+                string serviceImage = jsonElement.GetProperty("serviceImage").GetString();
+                string categoryId = jsonElement.GetProperty("categoryId").GetString();
+
+                // Chuyển đổi Duration từ string sang TimeOnly
+                TimeOnly duration;
+                if (!TimeOnly.TryParse(durationString, out duration))
+                {
+                    return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
+                }
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(serviceName) || price <= 0 ||
+                    string.IsNullOrEmpty(description) || string.IsNullOrEmpty(serviceImage) ||
+                    string.IsNullOrEmpty(categoryId))
+                {
+                    return BadRequest(new { msg = "Spa service details are incomplete or invalid." });
+                }
+
+                // Kiểm tra danh mục có tồn tại không
+                var category = await _categoryService.GetCategoryById(categoryId);
+                if (category == null)
+                    return NotFound(new { msg = "Category not found." });
+
+                // Kiểm tra trùng lặp dịch vụ spa
+                var existingService = await _service.GetByName(serviceName);
+                if (existingService != null)
+                    return Conflict(new { msg = "Spa service already exists." });
+
+                // Tạo đối tượng SpaService
+                var spaService = new SpaService
+                {
+                    ServiceId = Guid.NewGuid().ToString("N"),
+                    ServiceName = serviceName,
+                    Price = price,
+                    Duration = duration,
+                    Description = description,
+                    ServiceImage = serviceImage,
+                    CategoryId = categoryId
+                };
+
+                // Gọi service để thêm vào database
                 var isCreated = await _service.Add(spaService);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the spa service.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the spa service." });
 
                 return CreatedAtAction(nameof(GetSpaServiceById), new { id = spaService.ServiceId }, spaService);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
+
 
         // PUT: api/spaservices/Update/{id}
         [HttpPut("Update/{id}")]
@@ -133,6 +173,22 @@ namespace API.Controllers
                     return NotFound($"SpaService with ID = {id} not found.");
 
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("ServiceOfCategory")]
+        public async Task<ActionResult> GetServicesOfCategory(string categoryId)
+        {
+            if (string.IsNullOrEmpty(categoryId))
+            {
+                return BadRequest("Category Id is required.");
+            }
+            try
+            {
+                return Ok((await _service.GetAll()).Where(x => x.CategoryId == categoryId));
             }
             catch (Exception ex)
             {

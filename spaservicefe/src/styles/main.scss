@@ -102,12 +102,12 @@
 }
 
 .gallery_category_page {
-  padding: 0 0 100px 0;
+  padding: 0 0 30px 0;
 }
 .grid-container {
   margin-left: auto;
   margin-right: auto;
-  max-width: 1200px;
+  max-width: 100%;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -142,8 +142,8 @@
   background-position: center;
   background-repeat: no-repeat;
   color: #fff;
-  padding: 20px 20px;
   font-family: Arial, sans-serif;
+  padding-top: 40px;
 }
 
 .footer-container {
@@ -152,7 +152,6 @@
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 40px;
 }
 
 .footer-logo {
@@ -219,8 +218,8 @@
   justify-content: center;
   border-top: 1px solid #444;
   font-size: 14px;
-  margin: 10px -20px -20px -20px;
-  width: calc(100% + 40px);
+  width: 100%;
+  padding: 10px;
 }
 
 /* Header */
@@ -259,20 +258,22 @@
 }
 
 .header-container.large {
-  height: 130px;
+  height: 140px;
 }
 
 .header-container.small {
-  height: 80px;
+  height: 90px;
 }
 
 .logo {
   display: flex;
   align-items: center;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .logo-image {
-  margin-top: 5px;
+  margin-top: 23px;
   height: 200px;
   width: auto;
   object-fit: contain;
@@ -282,12 +283,12 @@
 }
 
 .large-logo {
-  height: 100px;
+  height: 220px;
   width: auto;
 }
 
 .small-logo {
-  height: 80px;
+  height: 180px;
   width: auto;
 }
 
@@ -332,12 +333,16 @@
 }
 
 .dropdown-link {
-  color: #fff;
   text-decoration: none;
   display: block;
   padding: 5px 10px;
 }
 
+
 .dropdown-link:hover {
   background-color: #555;
+}
+
+.modal-bg {
+  background-color: rgba(0, 0, 0, 0.65); /* Đen với 65% độ mờ */
 }

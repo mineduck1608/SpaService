@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse } from '@fortawesome/free-solid-svg-icons'
-import logoColor from '../../images/logos/logoColor.png'
+import { faHouse, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState(true)
@@ -38,17 +37,52 @@ const Header = () => {
               </li>
               <li className='dropdown'>
                 <a href='/services' className='nav-link text-base'>
-                  SERVICE
+                  SERVICE <FontAwesomeIcon icon={faAngleDown} className='mb-0.5 ml-2 text-xs' />
                 </a>
-                <ul className='dropdown-menu'>
+                <ul className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}>
                   <li>
-                    <a href='/services/massage' className='dropdown-link text-base font-semibold'>
-                      Massage
+                    <a
+                      href='/services/fullbody'
+                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                    >
+                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                      Chăm sóc toàn thân
                     </a>
                   </li>
                   <li>
-                    <a href='/services/sauna' className='dropdown-link text-base font-semibold'>
-                      Sauna
+                    <a
+                      href='/services/facial'
+                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                    >
+                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                      Chăm sóc da mặt
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href='/services/hand&foot'
+                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                    >
+                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                      Hand & Foot Relaxation
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href='/services/package'
+                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                    >
+                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                      Package Service
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href='/services/vip'
+                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                    >
+                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                      VIP service
                     </a>
                   </li>
                 </ul>
@@ -60,7 +94,7 @@ const Header = () => {
               </li>
               <div className='logo'>
                 <img
-                  src={logoColor}
+                  src={isAtTop ? './Logo/SenSpa(White).png' : './Logo/SenSpa(Black).png'}
                   alt='Sen Spa Logo'
                   className={`logo-image ${isAtTop ? 'large-logo' : 'small-logo'}`}
                 />
@@ -71,18 +105,36 @@ const Header = () => {
                 </a>
               </li>
               <li className='dropdown'>
-                <a href='/media' className='nav-link text-base'>
+                <a href='/media/pictures' className='nav-link text-base'>
                   MEDIA
+                  <FontAwesomeIcon icon={faAngleDown} className='mb-0.5 ml-2 text-xs' />
                 </a>
-                <ul className='dropdown-menu'>
+                <ul className='dropdown-menu min-w-[150px] rounded-br-lg rounded-tl-lg bg-white/20 backdrop-blur-sm'>
                   <li>
-                    <a href='/media/gallery' className='dropdown-link text-xl font-semibold'>
-                      Gallery
+                    <a
+                      href='/media/pictures'
+                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                    >
+                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                      Pictures
                     </a>
                   </li>
                   <li>
-                    <a href='/media/videos' className='dropdown-link text-xl font-semibold'>
+                    <a
+                      href='/media/videos'
+                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                    >
+                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
                       Videos
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href='/media/news'
+                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                    >
+                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                      E-Brochure
                     </a>
                   </li>
                 </ul>

@@ -1,4 +1,3 @@
-D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\appsettings.json
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\SpaServiceBE.exe
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\SpaServiceBE.deps.json
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\SpaServiceBE.runtimeconfig.json

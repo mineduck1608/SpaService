@@ -6,6 +6,7 @@
     "@coreui/coreui": "^5.2.0",
     "@coreui/react": "^5.4.1",
     "@eslint/js": "^9.18.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -36,6 +37,7 @@
     "react-tooltip": "^5.28.0",
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
+    "spaservicerfe": "file:",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "web-vitals": "^4.2.4"
@@ -70,6 +72,7 @@
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
+    "@types/react": "^19.0.8",
     "autoprefixer": "^10.4.20",
     "globals": "^15.14.0",
     "postcss": "^8.5.1",

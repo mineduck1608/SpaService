@@ -25,11 +25,15 @@ public partial class Employee
 
     public virtual Account Account { get; set; } = null!;
 
-    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+
+    public virtual ICollection<Appointment> AppointmentEmployees { get; set; } = new List<Appointment>();
+
+    public virtual ICollection<Appointment> AppointmentReplacementEmployeeNavigations { get; set; } = new List<Appointment>();
 
     public virtual ICollection<EmployeeCommission> EmployeeCommissions { get; set; } = new List<EmployeeCommission>();
 
-    public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+    public virtual ICollection<WorkingSchedule> WorkingSchedules { get; set; } = new List<WorkingSchedule>();
 
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 }

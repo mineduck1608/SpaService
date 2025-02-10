@@ -11,5 +11,6 @@ namespace Services
         Task<bool> Add(SpaService spaService);
         Task<bool> Update(string serviceId, SpaService spaService);
         Task<bool> Delete(string serviceId);
+        Task<SpaService> GetByName(string serviceName);
     }
 }
