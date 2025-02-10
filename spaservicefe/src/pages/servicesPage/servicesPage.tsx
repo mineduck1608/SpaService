@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAll, getCategory, getServices, imgs, sample, service, service2 } from './servicesPage.util'
+import { findCategories, getAllCategories, getCategory, getServices, imgs } from './servicesPage.util'
 import { Link, Navigate, useNavigate, useNavigation, useParams } from 'react-router-dom'
 import { CategoryMenu } from './categoryMenu'
 import ServiceList, { ServiceCard } from './serviceList'
@@ -13,20 +13,25 @@ export default function ServicesPage() {
   const [categories, setCategories] = useState<Category[]>()
   useEffect(() => {
     async function fetchData() {
-      var c = await getAll()
+      var c = await findCategories()
       setCategories(c)
+      if (c.length === 0) {
+        c.push({
+          categoryId: '',
+          categoryDescription: '',
+          categoryImage: '',
+          categoryName: 'No categories found...'
+        })
+        return
+      }
       if (!id) {
         window.location.assign('services/' + c[0].categoryId)
         return
       }
-      var s = await getCategory(id)
-      if (!s) {
-        return;
-      }
-      setCurrentCategory(s)
+      setCurrentCategory(c.find(v => v.categoryId === id))
       var serviceFetch = await getServices(id)
       if (!serviceFetch) {
-        return;
+        return
       }
       setServices(serviceFetch)
     }
@@ -52,6 +57,7 @@ export default function ServicesPage() {
                 onClickItem={(v) => {
                   window.location.assign(v)
                 }}
+                currentItem={currentCategory?.categoryId}
               />
             </div>
           </div>

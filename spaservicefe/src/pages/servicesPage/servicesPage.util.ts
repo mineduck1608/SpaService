@@ -9,39 +9,6 @@ export const imgs = { headerBg, footer, logo }
 export function formatNumber(num: number): string {
   return new Intl.NumberFormat('de-DE').format(num);
 }
-export const sample = [
-  { "name": "Deep Tissue Massage", "val": "XJ29DF" },
-  { "name": "Hot Stone Therapy", "val": "LM74QZ" },
-  { "name": "Aromatherapy Relaxation Massage", "val": "PT58VK" },
-  { "name": "Hydrating Facial Treatment", "val": "WY62BN" },
-  { "name": "Revitalizing Body Scrub", "val": "QF83MJ" },
-  { "name": "Full Body Detox Wrap", "val": "ZA47XN" },
-  { "name": "Luxury Foot Reflexology", "val": "RC91TY" },
-  { "name": "Anti-Aging Skin Rejuvenation", "val": "VK36PL" },
-  { "name": "Scalp and Hair Treatment", "val": "MD52XQ" },
-  { "name": "Rejuvenating Seaweed Wrap", "val": "TY84WC" }
-]
-
-export const service: Service = {
-  categoryId: '',
-  description: 'Sample service',
-  duration: new Date(),
-  noOfSessions: 1,
-  price: 123456,
-  serviceId: 'SERVICE',
-  serviceImage: 'img',
-  serviceName: 'Service Test long ABCDEFGHIJKLMNOPQRSTUV'
-}
-export const service2: Service = {
-  categoryId: '',
-  description: 'Sample service',
-  duration: new Date(),
-  noOfSessions: 1,
-  price: 123456,
-  serviceId: 'SERVICE',
-  serviceImage: 'img',
-  serviceName: 'Service Test'
-}
 export async function getCategory(id: string) {
   try {
     var res = await fetch(`${apiUrl}/categories/GetById/${id}`)
@@ -63,7 +30,7 @@ export async function getServices(id: string) {
   }
 }
 
-export async function getAll() {
+async function getAllCategories() {
   try {
     var res = await fetch(`${apiUrl}/categories/GetAll`)
     var json = await res.json() as Category[]
@@ -72,4 +39,14 @@ export async function getAll() {
   catch (e) {
     return []
   }
+}
+
+export async function findCategories(){
+  const sessionCat = sessionStorage.getItem('CATEGORIES')
+  if(sessionCat){
+    return JSON.parse(sessionCat) as Category[]
+  }
+  var s = await getAllCategories()
+  sessionStorage.setItem('CATEGORIES', JSON.stringify(s))
+  return s
 }

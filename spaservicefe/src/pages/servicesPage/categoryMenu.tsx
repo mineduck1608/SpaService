@@ -1,7 +1,7 @@
-import { Category } from '@/types/category';
+import { Category } from '@/types/category'
 import { imgs } from './servicesPage.util'
 
-export function CategoryMenu(params: { items: Category[]; onClickItem: (value: string) => void }) {
+export function CategoryMenu(params: { items: Category[]; onClickItem: (value: string) => void, currentItem?: string }) {
   return (
     <div className='w-[310px]'>
       {/* Header */}
@@ -19,12 +19,14 @@ export function CategoryMenu(params: { items: Category[]; onClickItem: (value: s
             {/* Item container */}
             <div className={`flex justify-center`}>
               <button
-                className={`p-3 pl-6 pr-6`}
+                className={`bg-slate-300 p-3 pl-6 pr-6 text-left min-w-[75%]`}
                 onClick={() => {
                   params.onClickItem(v.categoryId)
                 }}
               >
-                {v.categoryName}
+                <span>
+                  {v.categoryName}
+                </span>
               </button>
             </div>
             {/* Line */}
