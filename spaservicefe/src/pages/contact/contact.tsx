@@ -17,6 +17,7 @@ const ContactPage = () => {
 
     return (
         <main className='overflow-x-hidden font-montserrat'>
+            <div className='absolute inset-0 w-full h-full bg-custom-bg3 bg-no-repeat bg-contain bg-left-top -z-10'/>
             {/* Top Page */}
             <div className='relative'>
                 <img
