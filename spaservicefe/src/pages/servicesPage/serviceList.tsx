@@ -6,13 +6,7 @@ import sep from '../../images/serviceBg/separator.png'
 export default function ServiceList(params?: { service: Service[] }) {
   return (
     <div className='p-1'>
-      <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
-        {
-          params?.service.map(v => (
-            <ServiceCard s={v} />
-          ))
-        }
-      </div>
+      <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>{params?.service.map((v) => <ServiceCard s={v} />)}</div>
     </div>
   )
 }
@@ -30,7 +24,7 @@ export function ServiceCard(params?: { s: Service }) {
         <div className=''>
           <p className='text-center text-lg font-bold text-[#8D388A]'>{formatNumber(params?.s.price ?? 0)} Đ</p>
         </div>
-        <div className='flex justify-center mb-2'>
+        <div className='mb-2 flex justify-center'>
           <button className='w-1/2 rounded-br-xl rounded-tl-xl border-2 border-[#8D388A] bg-white p-2 text-[#8D388A] shadow'>
             Read More &gt;
           </button>

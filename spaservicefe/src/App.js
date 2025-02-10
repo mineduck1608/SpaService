@@ -10,7 +10,6 @@ import Header from './components/ui/header.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React from 'react'
 
-
 function Layout({ children }) {
   return (
     <>
@@ -21,7 +20,7 @@ function Layout({ children }) {
   )
 }
 
-function App() {  
+function App() {
   return (
     <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
       <BrowserRouter>

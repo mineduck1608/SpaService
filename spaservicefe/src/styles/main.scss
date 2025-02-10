@@ -272,16 +272,14 @@
   margin-right: -15px;
 }
 
-
-
 .logo-image {
   margin-top: 23px;
   height: 200px;
   width: auto;
   object-fit: contain;
   transition:
-  height 0.3s ease,
-  width 0.3s ease;
+    height 0.3s ease,
+    width 0.3s ease;
 }
 
 .large-logo {
@@ -335,16 +333,16 @@
 }
 
 .dropdown-link {
-  color: #fff;
   text-decoration: none;
   display: block;
   padding: 5px 10px;
 }
 
+
 .dropdown-link:hover {
   background-color: #555;
 }
 
-.modal-bg{
+.modal-bg {
   background-color: rgba(0, 0, 0, 0.65); /* Đen với 65% độ mờ */
 }

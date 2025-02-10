@@ -7,19 +7,19 @@ import { Category } from '@/types/category'
 
 export const imgs = { headerBg, footer, logo }
 export function formatNumber(num: number): string {
-  return new Intl.NumberFormat('de-DE').format(num);
+  return new Intl.NumberFormat('de-DE').format(num)
 }
 export const sample = [
-  { "name": "Deep Tissue Massage", "val": "XJ29DF" },
-  { "name": "Hot Stone Therapy", "val": "LM74QZ" },
-  { "name": "Aromatherapy Relaxation Massage", "val": "PT58VK" },
-  { "name": "Hydrating Facial Treatment", "val": "WY62BN" },
-  { "name": "Revitalizing Body Scrub", "val": "QF83MJ" },
-  { "name": "Full Body Detox Wrap", "val": "ZA47XN" },
-  { "name": "Luxury Foot Reflexology", "val": "RC91TY" },
-  { "name": "Anti-Aging Skin Rejuvenation", "val": "VK36PL" },
-  { "name": "Scalp and Hair Treatment", "val": "MD52XQ" },
-  { "name": "Rejuvenating Seaweed Wrap", "val": "TY84WC" }
+  { name: 'Deep Tissue Massage', val: 'XJ29DF' },
+  { name: 'Hot Stone Therapy', val: 'LM74QZ' },
+  { name: 'Aromatherapy Relaxation Massage', val: 'PT58VK' },
+  { name: 'Hydrating Facial Treatment', val: 'WY62BN' },
+  { name: 'Revitalizing Body Scrub', val: 'QF83MJ' },
+  { name: 'Full Body Detox Wrap', val: 'ZA47XN' },
+  { name: 'Luxury Foot Reflexology', val: 'RC91TY' },
+  { name: 'Anti-Aging Skin Rejuvenation', val: 'VK36PL' },
+  { name: 'Scalp and Hair Treatment', val: 'MD52XQ' },
+  { name: 'Rejuvenating Seaweed Wrap', val: 'TY84WC' }
 ]
 
 export const service: Service = {
@@ -45,20 +45,18 @@ export const service2: Service = {
 export async function getCategory(id: string) {
   try {
     var res = await fetch(`${apiUrl}/categories/GetById/${id}`)
-    var json = await res.json() as Category
+    var json = (await res.json()) as Category
     return json
-  }
-  catch (e) {
+  } catch (e) {
     return null
   }
 }
 export async function getServices(id: string) {
   try {
     var res = await fetch(`${apiUrl}/spaservices/ServiceOfCategory?categoryId=${id}`)
-    var json = await res.json() as Service[]
+    var json = (await res.json()) as Service[]
     return json
-  }
-  catch (e) {
+  } catch (e) {
     return []
   }
 }
@@ -66,10 +64,9 @@ export async function getServices(id: string) {
 export async function getAll() {
   try {
     var res = await fetch(`${apiUrl}/categories/GetAll`)
-    var json = await res.json() as Category[]
+    var json = (await res.json()) as Category[]
     return json
-  }
-  catch (e) {
+  } catch (e) {
     return []
   }
 }

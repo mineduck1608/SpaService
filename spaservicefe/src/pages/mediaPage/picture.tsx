@@ -2,15 +2,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import React, { useState } from 'react'
 
-
 const images = [
   'https://img5.thuthuatphanmem.vn/uploads/2021/11/20/hinh-anh-spa-thien-nhien-tuyet-dep_104538239.jpg',
   'https://senspa.com.vn/wp-content/uploads/2020/11/DSC2549-1.png',
   'https://senspa.com.vn/wp-content/uploads/2020/11/DSC5881-2.jpg',
   'https://senspa.com.vn/wp-content/uploads/2020/11/G-sảnh-17.jpg',
   'https://img1.kienthucvui.vn/uploads/2021/01/13/anh-dep-ve-spa_022205055.jpg',
-  'https://senspa.com.vn/wp-content/uploads/2020/11/DSC5837.jpg',
-  
+  'https://senspa.com.vn/wp-content/uploads/2020/11/DSC5837.jpg'
 ]
 
 const facilities = [
@@ -97,27 +95,24 @@ const facilities = [
   }
 ]
 
-
-
 const Picture = () => {
-  
   const [selectedFacility, setSelectedFacility] = useState<{
-      id: number
-      title: string
-      description: string
-      image: string
-      additionalImages: string[]
-    } | null>(null)
-    const [currentImageIndex, setCurrentImageIndex] = useState(0)
-    const [isChanging, setIsChanging] = useState(false)
-    const handleImageChange = (index: number) => {
-      setIsChanging(true)
-      setTimeout(() => {
-        setCurrentImageIndex(index)
-        setIsChanging(false)
-      }, 800)
-    }
-    
+    id: number
+    title: string
+    description: string
+    image: string
+    additionalImages: string[]
+  } | null>(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isChanging, setIsChanging] = useState(false)
+  const handleImageChange = (index: number) => {
+    setIsChanging(true)
+    setTimeout(() => {
+      setCurrentImageIndex(index)
+      setIsChanging(false)
+    }, 800)
+  }
+
   return (
     <div className='d-flex justify-content-center align-items-center min-vh-100'>
       <div className='container py-4 text-center'>

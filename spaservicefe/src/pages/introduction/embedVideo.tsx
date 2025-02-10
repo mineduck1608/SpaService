@@ -35,7 +35,7 @@ export default function EmbedVideo() {
       {!isPlayed ? (
         <div></div>
       ) : (
-        <div className='fixed mt-20 inset-0 z-50 flex items-center justify-center modal-bg'>
+        <div className='modal-bg fixed inset-0 z-50 mt-20 flex items-center justify-center'>
           <div className='relative aspect-video w-full max-w-7xl'>
             <button onClick={hideVideo} className='absolute right-2 top-2 text-3xl font-bold text-white'>
               <X />

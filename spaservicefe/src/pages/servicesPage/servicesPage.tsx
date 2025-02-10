@@ -21,12 +21,12 @@ export default function ServicesPage() {
       }
       var s = await getCategory(id)
       if (!s) {
-        return;
+        return
       }
       setCurrentCategory(s)
       var serviceFetch = await getServices(id)
       if (!serviceFetch) {
-        return;
+        return
       }
       setServices(serviceFetch)
     }
