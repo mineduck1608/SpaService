@@ -48,7 +48,7 @@ const PostGrid = () => {
   }
 
   return (
-    <div className='mx-auto max-w-7xl p-4'>
+    <div className='mx-auto max-w-7xl p-4' data-aos='zoom-in' data-aos-delay='1000' data-aos-offset='-500'>
       {/* Hàng đầu tiên: 1 khung to bên trái, 2 khung nhỏ bên phải */}
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
         {/* Khung lớn bên trái */}
@@ -99,7 +99,7 @@ const PostGrid = () => {
             </div>
           </div>
         ))}
-      </div> 
+      </div>
     </div>
   )
 }

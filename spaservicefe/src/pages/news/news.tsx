@@ -4,6 +4,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { FaRegNewspaper, FaTags, FaCalendarAlt } from 'react-icons/fa'
 import PostGrid from './postGrid'
+import IntroHeader from '../../components/introductionHeader'
 
 const NewsPage = () => {
   const navigate = useNavigate()
@@ -44,49 +45,43 @@ const NewsPage = () => {
       {/* Tiêu đề & Tabs */}
       <section className='section gallery_category_page'>
         <div className='grid-container'>
-          <h2 className='heading_h2 heading_line heading_h2_line_center text_center'>Blogs</h2>
-
+          <IntroHeader title='News' position='middle' size='big' />
           {/* Tabs */}
-          <div className='my-6 flex justify-center gap-4'>
-            <button
-              className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
-                activeTab === 'blog' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
-              }`}
-              onClick={() => navigate('/news/blog')}
-            >
-              <FaRegNewspaper size={18} />
-              Blogs
-            </button>
+          <div className='w-full' data-aos='zoom-in' data-aos-delay='1000' data-aos-offset='-500'>
+            <div className='my-2 flex justify-center gap-4'>
+              <button
+                className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
+                  activeTab === 'blog' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
+                }`}
+                onClick={() => navigate('/news/blog')}
+              >
+                <FaRegNewspaper size={18} />
+                Blogs
+              </button>
 
-            <button
-              className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
-                activeTab === 'promotion' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
-              }`}
-              onClick={() => navigate('/news/promotion')}
-            >
-              <FaTags size={18} />
-              Promotions
-            </button>
+              <button
+                className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
+                  activeTab === 'promotion' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
+                }`}
+                onClick={() => navigate('/news/promotion')}
+              >
+                <FaTags size={18} />
+                Promotions
+              </button>
 
-            <button
-              className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
-                activeTab === 'event' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
-              }`}
-              onClick={() => navigate('/news/event')}
-            >
-              <FaCalendarAlt size={18} />
-              Events
-            </button>
+              <button
+                className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
+                  activeTab === 'event' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
+                }`}
+                onClick={() => navigate('/news/event')}
+              >
+                <FaCalendarAlt size={18} />
+                Events
+              </button>
+            </div>
           </div>
-
-           <div>
-            <PostGrid/>
-           </div>
-          {/* Hiển thị nội dung theo tab */}
-          <div>
-            {/* {activeTab === 'picture' && <Picture />}
-            {activeTab === 'video' && <Video />}
-            {activeTab === 'e-brochure' && <EBrochure />} */}
+          <div className='mt-3'>
+            <PostGrid />
           </div>
         </div>
       </section>
