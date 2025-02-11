@@ -10,6 +10,7 @@ import NewsPage from './pages/news/news.tsx'
 import Footer from './components/ui/footer.tsx'
 import ContactPage from './pages/contact/contact.tsx'
 import Header from './components/ui/header.tsx'
+import Home from './pages/home/home.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
@@ -36,7 +37,7 @@ function App() {
             path='/'
             element={
               <Layout>
-                <div>Home Page</div>
+                <Home/>
               </Layout>
             }
           />
