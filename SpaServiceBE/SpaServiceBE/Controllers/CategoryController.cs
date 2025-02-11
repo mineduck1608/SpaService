@@ -101,27 +101,44 @@ namespace API.Controllers
 
         // PUT: api/categories/Update/{id}
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateCategory(string id, [FromBody] Category category)
+        public async Task<ActionResult> UpdateCategory(string id, [FromBody] dynamic request)
         {
-            if (category == null || string.IsNullOrEmpty(category.CategoryName))
-                return BadRequest("Category details are incomplete.");
-
-            category.CategoryId = id; // Assign the ID for the update
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string categoryName = jsonElement.GetProperty("categoryName").GetString();
+                string categoryImage = jsonElement.GetProperty("categoryImage").GetString();
+                string categoryDescription = jsonElement.GetProperty("categoryDescription").GetString();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(categoryName) || string.IsNullOrEmpty(categoryImage) || string.IsNullOrEmpty(categoryDescription))
+                    return BadRequest(new { msg = "Category details are incomplete." });
+
+                // Tạo đối tượng danh mục với dữ liệu đã cập nhật
+                var category = new Category
+                {
+                    CategoryId = id, // Assign the ID for the update
+                    CategoryName = categoryName,
+                    CategoryImage = categoryImage,
+                    CategoryDescription = categoryDescription
+                };
+
+                // Gọi service để cập nhật danh mục
                 var isUpdated = await _service.UpdateCategory(category.CategoryId, category);
 
                 if (!isUpdated)
-                    return NotFound($"Category with ID = {id} not found.");
+                    return NotFound(new { msg = $"Category with ID = {id} not found." });
 
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // DELETE: api/categories/Delete/{id}
         [HttpDelete("Delete/{id}")]

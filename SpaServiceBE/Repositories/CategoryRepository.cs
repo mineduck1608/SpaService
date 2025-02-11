@@ -35,8 +35,6 @@ namespace Repositories
         public async Task<List<Category>> GetAll()
         {
             return await _context.Categories
-                .Include(c => c.SpaServices)  // Bao gồm SpaServices liên quan đến Category
-                .Include(c => c.Employees)    // Bao gồm Employees liên quan đến Category
                 .ToListAsync();
         }
 

@@ -129,34 +129,66 @@ namespace API.Controllers
 
         // PUT: api/spaservices/Update/{id}
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateSpaService(string id, [FromBody] SpaService spaService)
+        public async Task<ActionResult> UpdateSpaService(string id, [FromBody] dynamic request)
         {
-            if (spaService == null ||
-                string.IsNullOrEmpty(spaService.ServiceName) ||
-                spaService.Price <= 0 ||
-                spaService.Duration == default(TimeOnly) ||
-                string.IsNullOrEmpty(spaService.Description) ||
-                string.IsNullOrEmpty(spaService.CategoryId))
-            {
-                return BadRequest("Spa service details are incomplete or invalid.");
-            }
-
-            spaService.ServiceId = id; // Assign the ID for the update
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string serviceName = jsonElement.GetProperty("serviceName").GetString();
+                float price = jsonElement.GetProperty("price").GetSingle();
+                string durationString = jsonElement.GetProperty("duration").GetString();
+                string description = jsonElement.GetProperty("description").GetString();
+                string serviceImage = jsonElement.GetProperty("serviceImage").GetString();
+                string categoryId = jsonElement.GetProperty("categoryId").GetString();
+
+                // Chuyển đổi Duration từ string sang TimeOnly
+                TimeOnly duration;
+                if (!TimeOnly.TryParse(durationString, out duration))
+                {
+                    return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
+                }
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(serviceName) || price <= 0 ||
+                    string.IsNullOrEmpty(description) || string.IsNullOrEmpty(serviceImage) ||
+                    string.IsNullOrEmpty(categoryId))
+                {
+                    return BadRequest(new { msg = "Spa service details are incomplete or invalid." });
+                }
+
+                // Kiểm tra danh mục có tồn tại không
+                var category = await _categoryService.GetCategoryById(categoryId);
+                if (category == null)
+                    return NotFound(new { msg = "Category not found." });
+
+                // Tạo đối tượng SpaService với ID đã cho
+                var spaService = new SpaService
+                {
+                    ServiceId = id, // Assign the ID for the update
+                    ServiceName = serviceName,
+                    Price = price,
+                    Duration = duration,
+                    Description = description,
+                    ServiceImage = serviceImage,
+                    CategoryId = categoryId
+                };
+
+                // Gọi service để cập nhật spa service
                 var isUpdated = await _service.Update(id, spaService);
 
                 if (!isUpdated)
-                    return NotFound($"SpaService with ID = {id} not found.");
+                    return NotFound(new { msg = $"Spa service with ID = {id} not found." });
 
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // DELETE: api/spaservices/Delete/{id}
         [HttpDelete("Delete/{id}")]
