@@ -13,7 +13,7 @@ export function CategoryMenu(params: {
         <img src={imgs.logo} alt='Lotus logo' className='inline' />
         &nbsp;Services
       </div>
-      <div className='flex flex-col rounded-br-[40px] shadow-lg'>
+      <div className='bg-[bottom_50px_right] flex flex-col rounded-br-[40px] bg-[url(https://senspa.com.vn/wp-content/themes/thuythu/images/background1.png)] bg-no-repeat shadow-lg'>
         {params.items.map((v, i) => (
           <div
             className={`flex flex-col
@@ -44,7 +44,7 @@ export function CategoryMenu(params: {
             {/* Line */}
             <div
               className={`w-11/12 self-center 
-              ${i !== params.items.length - 1 ? ' border-b-2 border-dotted ' : ''}
+              ${i !== params.items.length - 1 ? ' border-b-[1.5px]  border-dotted border-purple3' : ''}
               `}
             ></div>
           </div>
