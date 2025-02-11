@@ -28,7 +28,7 @@ const Header = () => {
           <nav className='navigation'>
             <ul className='nav-list'>
               <li>
-                <a href='/home' className='nav-link text-base'>
+                <a href='/' className='nav-link text-base'>
                   <FontAwesomeIcon icon={faHouse} className='mb-0.5 mr-3' />
                   HOME
                 </a>
@@ -90,11 +90,6 @@ const Header = () => {
                   </li>
                 </ul>
               </li>
-              <li>
-                <a href='/products' className='nav-link text-base'>
-                  PRODUCT
-                </a>
-              </li>
               <div className='logo'>
                 <img
                   src={isAtTop ? logoBlack : logoColor}
@@ -102,11 +97,6 @@ const Header = () => {
                   className={`logo-image ${isAtTop ? 'large-logo' : 'small-logo'}`}
                 />
               </div>
-              <li>
-                <a href='/recruitment' className='nav-link text-base'>
-                  RECRUITMENT
-                </a>
-              </li>
               <li className='dropdown'>
                 <a href='/media/pictures' className='nav-link text-base'>
                   MEDIA
@@ -133,7 +123,7 @@ const Header = () => {
                   </li>
                   <li>
                     <a
-                      href='/media/news'
+                      href='/media/e-brochure'
                       className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
                     >
                       <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
@@ -143,7 +133,7 @@ const Header = () => {
                 </ul>
               </li>
               <li>
-                <a href='/news' className='nav-link text-base'>
+                <a href='/news/blog' className='nav-link text-base'>
                   NEWS
                 </a>
               </li>

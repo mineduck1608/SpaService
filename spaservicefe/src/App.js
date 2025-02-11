@@ -5,6 +5,7 @@ import RegisterPage from './pages/registerPage/registerPage.tsx'
 import MediaPage from './pages/mediaPage/mediaPage.tsx'
 import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
 import ServicesPage from './pages/servicesPage/servicesPage.tsx'
+import NewsPage from './pages/news/news.tsx'
 import Footer from './components/ui/footer.tsx'
 import Header from './components/ui/header.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -60,7 +61,7 @@ function App() {
             }
           />
           <Route
-            path='service/:id'
+            path='services-detail/:id'
             element={
               <Layout>
                 <div>Service Details</div>
@@ -88,6 +89,22 @@ function App() {
             element={
               <Layout>
                 <AboutUsPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='/news/:tabs'
+            element={
+              <Layout>
+                <NewsPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='/news/detail/:id'
+            element={
+              <Layout>
+                <NewsPage />
               </Layout>
             }
           />
