@@ -29,7 +29,7 @@ export function ServiceCard(params?: { s: Service }) {
             className={`w-1/2 rounded-br-2xl rounded-tl-2xl border-2 border-[#8D388A] bg-white p-2 text-[#8D388A] 
             hover:shadow-[1px_1px_#8D388A,2px_2px_#8D388A] hover:-translate-x-1 duration-300`}
           >
-            Read More &gt;
+            Detail &gt;
           </button>
         </div>
       </div>
