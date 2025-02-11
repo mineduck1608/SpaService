@@ -3,19 +3,24 @@ import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import logoBlack from '../../images/logos/logoBlack.png'
+import { Category } from '@/types/category'
+import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 import logoColor from '../../images/logos/logoColor.png'
 
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState(true)
-
+  const [category, setCategory] = useState<Category[]>([])
   useEffect(() => {
     const handleScroll = () => {
       setIsAtTop(window.scrollY === 0)
     }
-
+    async function getCategory() {
+      let x = await findCategories()
+      setCategory(x)
+    }
     window.addEventListener('scroll', handleScroll)
-
+    getCategory()
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
@@ -42,52 +47,20 @@ const Header = () => {
                 <a href='/services' className='nav-link text-base'>
                   SERVICE <FontAwesomeIcon icon={faAngleDown} className='mb-0.5 ml-2 text-xs' />
                 </a>
-                <ul className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}>
-                  <li>
-                    <a
-                      href='/services/fullbody'
-                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
-                    >
-                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
-                      Chăm sóc toàn thân
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href='/services/facial'
-                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
-                    >
-                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
-                      Chăm sóc da mặt
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href='/services/hand&foot'
-                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
-                    >
-                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
-                      Hand & Foot Relaxation
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href='/services/package'
-                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
-                    >
-                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
-                      Package Service
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href='/services/vip'
-                      className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
-                    >
-                      <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
-                      VIP service
-                    </a>
-                  </li>
+                <ul
+                  className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}
+                >
+                  {category.map((x) => (
+                    <li>
+                      <a
+                        href={'/services/' + x.categoryId}
+                        className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                      >
+                        <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                        {x.categoryName}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </li>
               <div className='logo'>

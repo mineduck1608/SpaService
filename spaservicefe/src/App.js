@@ -9,7 +9,8 @@ import NewsPage from './pages/news/news.tsx'
 import Footer from './components/ui/footer.tsx'
 import Header from './components/ui/header.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
 
 function Layout({ children }) {
   return (
@@ -22,6 +23,9 @@ function Layout({ children }) {
 }
 
 function App() {
+  useEffect(() => {
+    findCategories()
+  }, [])
   return (
     <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
       <BrowserRouter>

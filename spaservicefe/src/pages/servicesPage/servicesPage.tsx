@@ -67,16 +67,18 @@ export default function ServicesPage() {
             </div>
           </div>
           {/* Services available */}
-          <div className='w-5/6 lg:ml-[5vw] 2xl:w-[45%]'>
+          <div className='w-5/6 lg:ml-[5vw] 2xl:w-[55%]'>
             <ServiceList service={take<Service>(services, pageNum, PAGE_SIZE) ?? []} />
-            <div className='mt-4'>
-              <PageNumber
-                n={Math.ceil(services.length / PAGE_SIZE) ?? 0}
-                onClick={(n) => {
-                  setPageNum(n)
-                }}
-                cur={pageNum}
-              />
+            <div className='translate-y-8'>
+              {services.length > PAGE_SIZE && (
+                <PageNumber
+                  n={Math.ceil(services.length / PAGE_SIZE) ?? 0}
+                  onClick={(n) => {
+                    setPageNum(n)
+                  }}
+                  cur={pageNum}
+                />
+              )}
             </div>
           </div>
         </div>
