@@ -2,7 +2,7 @@ export type Service = {
   serviceId: string
   serviceName: string
   price: number
-  duration: Date
+  duration: string
   description: string
   serviceImage: string
   categoryId: string
