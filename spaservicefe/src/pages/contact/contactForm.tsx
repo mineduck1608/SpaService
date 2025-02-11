@@ -25,7 +25,6 @@ const ContactForm = () => {
     const [errors, setErrors] = useState<Partial<Form>>({});
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
     const [captchaError, setCaptchaError] = useState<string | null>(null);
-
     const handleCaptchaChange = (token: string | null) => { 
         setCaptchaToken(token) 
         setCaptchaError(null)
@@ -79,6 +78,7 @@ const ContactForm = () => {
 
                 if (response.ok) {
                     const data = await response.json()
+                    toast.success('Thank you for your message.')
                     setFormData({
                         fullName: '',
                         phoneNumber: '',
