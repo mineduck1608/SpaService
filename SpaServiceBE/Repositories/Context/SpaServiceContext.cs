@@ -111,7 +111,9 @@ public partial class SpaServiceContext : DbContext
             entity.Property(e => e.Content)
                 .HasMaxLength(255)
                 .HasColumnName("content");
-            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.CreatedBy)
                 .HasMaxLength(50)
                 .IsUnicode(false)
