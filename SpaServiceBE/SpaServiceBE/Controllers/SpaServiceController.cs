@@ -181,7 +181,7 @@ namespace API.Controllers
                 if (!isUpdated)
                     return NotFound(new { msg = $"Spa service with ID = {id} not found." });
 
-                return NoContent();
+                return Ok(new { msg = "Update spa service successfully."});
             }
             catch (Exception ex)
             {

@@ -4,6 +4,7 @@ using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -55,51 +56,81 @@ namespace API.Controllers
 
         // POST: api/commissions/Create
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateCommission([FromBody] Commission commission)
+        public async Task<ActionResult> CreateCommission([FromBody] dynamic request)
         {
-            if (commission == null || commission.Percentage <= 0)
-                return BadRequest("Commission details are incomplete or invalid.");
-
-            commission.CommissionId = Guid.NewGuid().ToString(); // Generate unique ID
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                int percentage = jsonElement.GetProperty("percentage").GetInt32();
+
+                // Validate input
+                if (percentage <= 0)
+                {
+                    return BadRequest(new { msg = "Commission details are incomplete or invalid." });
+                }
+
+                // Create Commission object
+                var commission = new Commission
+                {
+                    CommissionId = Guid.NewGuid().ToString(), // Generate unique ID
+                    Percentage = percentage
+                };
+
+                // Call service to add commission
                 var isCreated = await _service.AddCommission(commission);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the commission.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the commission." });
 
                 return CreatedAtAction(nameof(GetCommissionById), new { id = commission.CommissionId }, commission);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // PUT: api/commissions/Update/{id}
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateCommission(string id, [FromBody] Commission commission)
+        public async Task<ActionResult> UpdateCommission(string id, [FromBody] dynamic request)
         {
-            if (commission == null || commission.Percentage <= 0)
-                return BadRequest("Commission details are incomplete or invalid.");
-
-            commission.CommissionId = id; // Assign the ID for the update
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                int percentage = jsonElement.GetProperty("percentage").GetInt32();
+
+                // Validate input
+                if (percentage <= 0)
+                {
+                    return BadRequest(new { msg = "Commission details are incomplete or invalid." });
+                }
+
+                // Create Commission object and assign ID for update
+                var commission = new Commission
+                {
+                    CommissionId = id, // Use the provided ID for the update
+                    Percentage = percentage
+                };
+
+                // Call service to update commission
                 var isUpdated = await _service.UpdateCommission(id, commission);
 
                 if (!isUpdated)
-                    return NotFound($"Commission with ID = {id} not found.");
+                    return NotFound(new { msg = $"Commission with ID = {id} not found." });
 
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // DELETE: api/commissions/Delete/{id}
         [HttpDelete("Delete/{id}")]

@@ -131,7 +131,7 @@ namespace API.Controllers
                 if (!isUpdated)
                     return NotFound(new { msg = $"Category with ID = {id} not found." });
 
-                return NoContent();
+                return Ok(new { msg = "Update category successfully."});
             }
             catch (Exception ex)
             {

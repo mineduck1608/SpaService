@@ -356,7 +356,9 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("transactionId");
-            entity.Property(e => e.CommissionValue).HasColumnName("commissionValue");
+            entity.Property(e => e.CommissionValue)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("commissionValue");
 
             entity.HasOne(d => d.Commission).WithMany(p => p.EmployeeCommissions)
                 .HasForeignKey(d => d.CommissionId)
