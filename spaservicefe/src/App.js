@@ -2,13 +2,11 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/loginPage/loginPage.tsx'
 import RegisterPage from './pages/registerPage/registerPage.tsx'
-
 import MediaPage from './pages/mediaPage/mediaPage.tsx'
 import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
 import ServicesPage from './pages/servicesPage/servicesPage.tsx'
 import NewsPage from './pages/news/news.tsx'
 import Footer from './components/ui/footer.tsx'
-import ContactPage from './pages/contact/contact.tsx'
 import Header from './components/ui/header.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
@@ -111,14 +109,6 @@ function App() {
             element={
               <Layout>
                 <NewsPage />
-              </Layout>
-            }
-          />
-          <Route
-            path='contact'
-            element={
-              <Layout>
-                <ContactPage />
               </Layout>
             }
           />
