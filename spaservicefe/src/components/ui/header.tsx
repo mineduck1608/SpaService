@@ -103,22 +103,6 @@ const Header = () => {
           </nav>
         </div>
       </header>
-
-      <main className="content">
-        <section style={{ padding: "50px", backgroundColor: "#f5f5f5", textAlign: "center" }}>
-          <h1>Welcome to Sen Spa</h1>
-          <p>Relax and rejuvenate with our premium spa services.</p>
-        </section>
-        <section style={{ height: "1000px", backgroundColor: "#eaeaea", textAlign: "center", paddingTop: "50px" }}>
-          <h2>Our Services</h2>
-          <p>Explore a wide range of relaxing and rejuvenating experiences tailored just for you.</p>
-        </section>
-        <section style={{ height: "800px", backgroundColor: "#dcdcdc", textAlign: "center", paddingTop: "50px" }}>
-          <h2>Contact Us</h2>
-          <p>We are here to help you. Reach out to us for more information.</p>
-        </section>
-      </main>
-
     </>
   );
 };

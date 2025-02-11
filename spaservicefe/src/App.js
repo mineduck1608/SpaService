@@ -7,6 +7,7 @@ import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
 import ServicesPage from './pages/servicesPage/servicesPage.tsx'
 import Footer from './components/ui/footer.tsx'
 import Header from './components/ui/header.tsx'
+import Home from './pages/home/home.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React from 'react'
 
@@ -30,7 +31,7 @@ function App() {
             path='/'
             element={
               <Layout>
-                <div>Home Page</div>
+                <Home/>
               </Layout>
             }
           />
