@@ -26,6 +26,8 @@ public partial class SpaServiceContext : DbContext
 
     public virtual DbSet<Commission> Commissions { get; set; }
 
+    public virtual DbSet<Contact> Contacts { get; set; }
+
     public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
@@ -238,6 +240,29 @@ public partial class SpaServiceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("commissionId");
             entity.Property(e => e.Percentage).HasColumnName("percentage");
+        });
+
+        modelBuilder.Entity<Contact>(entity =>
+        {
+            entity.HasKey(e => e.ContactId).HasName("PK__Contact__7121FD35AD0C12AD");
+
+            entity.ToTable("Contact");
+
+            entity.Property(e => e.ContactId)
+                .HasMaxLength(50)
+                .HasColumnName("contactId");
+            entity.Property(e => e.ContactContent).HasColumnName("contactContent");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("email");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(255)
+                .HasColumnName("fullName");
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("phoneNumber");
         });
 
         modelBuilder.Entity<Customer>(entity =>
