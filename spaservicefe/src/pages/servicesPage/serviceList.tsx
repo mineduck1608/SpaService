@@ -1,6 +1,6 @@
 import { Service } from '@/types/services'
 import React from 'react'
-import { formatNumber, imgs, service, service2 } from './servicesPage.util'
+import { formatNumber, imgs, } from './servicesPage.util'
 import sep from '../../images/serviceBg/separator.png'
 
 export default function ServiceList(params?: { service: Service[] }) {

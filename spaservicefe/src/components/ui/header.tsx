@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { Category } from '@/types/category'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
+import logoColor from '../../images/logos/logoColor.png'
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState(true)
