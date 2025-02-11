@@ -273,7 +273,6 @@
 }
 
 .logo-image {
-  margin-top: 23px;
   height: 200px;
   width: auto;
   object-fit: contain;
@@ -283,12 +282,13 @@
 }
 
 .large-logo {
+  margin-top: 15px;
   height: 220px;
   width: auto;
 }
 
 .small-logo {
-  height: 180px;
+  height: 80px;
   width: auto;
 }
 
