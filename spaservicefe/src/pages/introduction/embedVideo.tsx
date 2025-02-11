@@ -32,9 +32,12 @@ export default function EmbedVideo() {
                 </button>
             </div>
             {isPlayed && (
-                <div className='fixed inset-0 bg-black bg-opacity-85 flex items-center justify-center z-[1001]'>
+                <div 
+                    className='fixed inset-0 flex items-center justify-center z-[1001]'
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}
+                >
                     <div className='relative max-w-7xl w-full aspect-video'>
-                        <button onClick={hideVideo} className='absolute top-2 right-2 text-white text-3xl font-bold'>
+                        <button onClick={hideVideo} className='absolute top-6 right-4 text-white text-3xl font-bold'>
                             <X />
                         </button>
                         <iframe

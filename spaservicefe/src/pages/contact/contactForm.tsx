@@ -79,6 +79,7 @@ const ContactForm = () => {
 
                 if (response.ok) {
                     const data = await response.json()
+                    toast.success('Thank you for your message.')
                     setFormData({
                         fullName: '',
                         phoneNumber: '',
@@ -104,10 +105,10 @@ const ContactForm = () => {
             <div className='p-8 text-white lg:w-1/2'>
                 <div className='max-w-full ml-7 mb-10'>
                     <div className='mb-8 mt-16 font-bold'>
-                        <h2 className='text-3xl mb-3'>Sen Spa</h2>
-                        <h3 className='text-2xl'>Service Company Limited</h3>
+                        <h2 className='text-3xl mb-3 font-bold'>Sen Spa</h2>
+                        <h3 className='text-2xl font-bold'>Service Company Limited</h3>
                     </div>
-                    <div className='space-y-8 opacity-80'>
+                    <div className='space-y-6 opacity-80'>
                         <div className='flex items-start gap-2'>
                             <MdMap className='text-2xl'/>
                             <div className='flex gap-2'>
@@ -133,14 +134,14 @@ const ContactForm = () => {
                             <MdAddLink className='text-2xl'/>
                             <div className='flex gap-2'>
                                 <span className=''>Website: </span>
-                                <a href='/'>senspa.com.vn</a>
+                                <a className='text-white' href='/'>senspa.com.vn</a>
                             </div>
                         </div>
                     </div>
                     <div className='flex gap-12 mt-10 text-3xl'>
-                        <a href='https://www.facebook.com/senspa.vietnam/'><FaFacebookSquare/></a>
-                        <a href=''><FaTwitterSquare/></a>
-                        <a href=''><FaYoutubeSquare/></a>
+                        <a className='text-white' href='https://www.facebook.com/senspa.vietnam/'><FaFacebookSquare/></a>
+                        <a className='text-white' href=''><FaTwitterSquare/></a>
+                        <a className='text-white' href=''><FaYoutubeSquare/></a>
                     </div>
                 </div>
             </div>
