@@ -107,7 +107,7 @@ function App() {
             }
           />
           <Route
-            path='/news/detail/:id'
+            path='/news/:tabs/:id'
             element={
               <Layout>
                 <NewsPage />

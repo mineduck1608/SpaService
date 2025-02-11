@@ -32,6 +32,8 @@ builder.Services.AddScoped<RequestRepository>();
 builder.Services.AddScoped<SpaServiceRepository>();
 builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddScoped<ContactRepository>();
+builder.Services.AddScoped<NewsRepository>();
+
 
 
 // Add services to DI
@@ -50,6 +52,8 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ISpaServiceService, SpaServiceService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<INewsService, NewsService>();
+
 
 
 // Add secret
