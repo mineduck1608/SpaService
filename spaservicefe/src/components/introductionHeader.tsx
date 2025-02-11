@@ -20,10 +20,12 @@ const IntroHeader : React.FC<HeaderProps> = ({ title, position, size }) => {
         >
             <h1 className={`${isBig ? 'text-5xl' : 'text-3xl'} ${isFacilities ? 'text-white' : 'text-purple1'}`}>{title}</h1>
             {isFacilities ? (
-                <div className='flex items-center justify-start space-x-2 ml-3'>
-                    <div className='h-px w-10 bg-white'></div>
-                    <FaSpa className='h-6 w-6'/>
-                    <div className='h-px w-10 bg-white'></div>
+                <div className='flex items-center justify-start space-x-2 mt-1'>
+                    <img 
+                        src='https://senspa.com.vn/wp-content/themes/thuythu/images/before_heading.png'
+                        alt=''
+                        className='h-6 w-auto brightness-0 invert'
+                    />
                 </div>
             ) : (
                 <div className={`flex items-center ${isLeft ? 'justify-start ml-2' : 'justify-center'} space-x-4 mt-2`}>

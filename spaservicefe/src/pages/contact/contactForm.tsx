@@ -2,13 +2,13 @@ import React, { useEffect, useState, PropsWithChildren } from 'react'
 import { MdOutlineEmail, MdPhone, MdMap, MdAddLink } from "react-icons/md"
 import { FaFacebookSquare, FaYoutubeSquare, FaTwitterSquare } from "react-icons/fa"
 import ReCAPTCHA from 'react-google-recaptcha'
+import { toast, ToastContainer } from 'react-toastify'
 
 interface Form {
     fullName: string,
-    phone: string,
+    phoneNumber: string,
     email: string,
-    content: string,
-    recaptcha: string
+    contactContent: string
 }
 const ReCAPTCHAFixed = ReCAPTCHA as unknown as React.FC<PropsWithChildren<{
     sitekey: string,
@@ -18,15 +18,18 @@ const ReCAPTCHAFixed = ReCAPTCHA as unknown as React.FC<PropsWithChildren<{
 const ContactForm = () => {
     const [formData, setFormData] = useState<Form>({
         fullName: '',
-        phone: '',
+        phoneNumber: '',
         email: '',
-        content: '',
-        recaptcha: ''
+        contactContent: ''
     });
     const [errors, setErrors] = useState<Partial<Form>>({});
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+    const [captchaError, setCaptchaError] = useState<string | null>(null);
 
-    const handleCaptchaChange = (token: string | null) => { setCaptchaToken(token)}
+    const handleCaptchaChange = (token: string | null) => { 
+        setCaptchaToken(token) 
+        setCaptchaError(null)
+    }
     const validateForm = () => {
         const tempErrors : Partial<Form> = {}
         let isValid = true
@@ -36,8 +39,8 @@ const ContactForm = () => {
             isValid = false
         }
         const phoneRegex = /^[0-9]+$/;
-        if (!formData.phone.trim() || !phoneRegex.test(formData.phone)) {
-            tempErrors.phone = 'Valid phone number is required'
+        if (!formData.phoneNumber.trim() || !phoneRegex.test(formData.phoneNumber)) {
+            tempErrors.phoneNumber = 'Valid phone number is required'
             isValid = false
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,12 +48,12 @@ const ContactForm = () => {
             tempErrors.email = 'Valid email is required'
             isValid = false
         }
-        if (!formData.content.trim()) {
-            tempErrors.content = 'Content is required'
+        if (!formData.contactContent.trim()) {
+            tempErrors.contactContent = 'Content is required'
             isValid = false
         }
         if (!captchaToken) {
-            tempErrors.recaptcha = 'reCAPTCHA verification is required'
+            setCaptchaError('reCAPTCHA verification is required')
             isValid = false
         }
 
@@ -64,23 +67,30 @@ const ContactForm = () => {
             [name]: value
         }))
     }
-    const handleSubmit = async (e : any) => {
+    const handleSubmit = async (e : React.FormEvent) => {
         e.preventDefault();
         if (validateForm()) {
             try {
-
-
-                setFormData({
-                    fullName: '',
-                    phone: '',
-                    email: '',
-                    content: '',
-                    recaptcha: ''
+                const response = await fetch('https://localhost:7205/api/contacts/Create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
                 })
-                window.location.reload();
-                
+
+                if (response.ok) {
+                    const data = await response.json()
+                    setFormData({
+                        fullName: '',
+                        phoneNumber: '',
+                        email: '',
+                        contactContent: ''
+                    })
+                    setCaptchaToken(null)
+                } else {
+                    toast.error('Failed! Please try again.')
+                }
             } catch (error) {
-                
+                console.error('Form submitted error: ', error)
             }
         }
     }
@@ -153,13 +163,13 @@ const ContactForm = () => {
                         <div>
                             <input
                                 type='tel'
-                                name='phone'
+                                name='phoneNumber'
                                 placeholder='Phone'
                                 className='w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple1'
-                                value={formData.phone}
+                                value={formData.phoneNumber}
                                 onChange={handleInputChange}
                             />
-                            {errors.phone && <p className='text-red-500 text-sm mt-1 ml-2'>{errors.phone}</p>}
+                            {errors.phoneNumber && <p className='text-red-500 text-sm mt-1 ml-2'>{errors.phoneNumber}</p>}
                         </div>
                         <div>
                             <input
@@ -174,21 +184,21 @@ const ContactForm = () => {
                         </div>
                         <div>
                             <textarea
-                                name='content'
+                                name='contactContent'
                                 placeholder='Content'
                                 rows={3}
                                 className='w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple1'
-                                value={formData.content}
+                                value={formData.contactContent}
                                 onChange={handleInputChange}
                             />
-                            {errors.content && <p className='text-red-500 text-sm ml-2'>{errors.content}</p>}
+                            {errors.contactContent && <p className='text-red-500 text-sm ml-2'>{errors.contactContent}</p>}
                         </div>
-                        <div>
+                        <div className='flex flex-col items-center justify-center'>
                             <ReCAPTCHAFixed 
                                 sitekey='6LeUZdIqAAAAAPlUPWL-M5n_aaSahKjHd8rfsoB_'
                                 onChange={handleCaptchaChange}
                             />
-                            {errors.recaptcha && <p className='text-red-500 text-sm mt-2 ml-2'>{errors.recaptcha}</p>}
+                            {captchaError && <p className='text-red-500 text-sm mt-2 ml-2'>{captchaError}</p>}
                         </div>
                         <div className='flex justify-center items-center'> 
                             <button type='submit' className='px-6 py-3 text-sm text-white bg-purple1 rounded-full'>
@@ -197,6 +207,7 @@ const ContactForm = () => {
                         </div>
                     </form>
                 </div>
+                <ToastContainer />
             </div>
         </div>
     )
