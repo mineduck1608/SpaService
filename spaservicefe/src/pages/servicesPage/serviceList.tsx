@@ -1,6 +1,6 @@
 import { Service } from '@/types/services'
 import React from 'react'
-import { formatNumber, imgs, } from './servicesPage.util'
+import { formatNumber, imgs } from './servicesPage.util'
 import sep from '../../images/serviceBg/separator.png'
 
 export default function ServiceList(params?: { service: Service[] }) {
@@ -16,8 +16,12 @@ export function ServiceCard(params?: { s: Service }) {
     <div className='w-full min-w-[300px] rounded-md shadow'>
       {/* Container */}
       <div className='flex flex-col'>
-        <img src={imgs.headerBg} alt='img' className='aspect-[1/0.4] w-full rounded-t-md ' />
-        <div className='flex pt-4 items-center justify-center'>
+        <img
+          src={params?.s?.serviceImage}
+          alt={params?.s?.serviceName}
+          className='aspect-[1/0.65] w-full rounded-t-md '
+        />
+        <div className='flex items-center justify-center pt-4'>
           <p className='text-center text-lg font-bold'>{params?.s.serviceName}</p>
         </div>
 
