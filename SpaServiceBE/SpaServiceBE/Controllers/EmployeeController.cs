@@ -3,6 +3,7 @@ using Repositories.Entities;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -57,65 +58,101 @@ namespace API.Controllers
 
         // POST: api/employees/Create
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateEmployee([FromBody] Employee employee)
+        public async Task<ActionResult> CreateEmployee([FromBody] dynamic request)
         {
-            if (employee == null ||
-                string.IsNullOrEmpty(employee.FullName) ||
-                string.IsNullOrEmpty(employee.Position) ||
-                string.IsNullOrEmpty(employee.Status) ||
-                string.IsNullOrEmpty(employee.Image) ||
-                string.IsNullOrEmpty(employee.AccountId))
-            {
-                return BadRequest("Employee details are incomplete or invalid.");
-            }
-
-            employee.EmployeeId = Guid.NewGuid().ToString(); // Generate unique ID
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string fullName = jsonElement.GetProperty("fullName").GetString();
+                string position = jsonElement.GetProperty("position").GetString();
+                string status = jsonElement.GetProperty("status").GetString();
+                string image = jsonElement.GetProperty("image").GetString();
+                string accountId = jsonElement.GetProperty("accountId").GetString();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(position) ||
+                    string.IsNullOrEmpty(status) || string.IsNullOrEmpty(image) ||
+                    string.IsNullOrEmpty(accountId))
+                {
+                    return BadRequest(new { msg = "Employee details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng Employee
+                var employee = new Employee
+                {
+                    EmployeeId = Guid.NewGuid().ToString(), // Generate unique ID
+                    FullName = fullName,
+                    Position = position,
+                    Status = status,
+                    Image = image,
+                    AccountId = accountId
+                };
+
+                // Gọi service để thêm employee
                 var isCreated = await _service.AddEmployee(employee);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the employee.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the employee." });
 
                 return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.EmployeeId }, employee);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // PUT: api/employees/Update/{id}
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateEmployee(string id, [FromBody] Employee employee)
+        public async Task<ActionResult> UpdateEmployee(string id, [FromBody] dynamic request)
         {
-            if (employee == null ||
-                string.IsNullOrEmpty(employee.FullName) ||
-                string.IsNullOrEmpty(employee.Position) ||
-                string.IsNullOrEmpty(employee.Status) ||
-                string.IsNullOrEmpty(employee.Image) ||
-                string.IsNullOrEmpty(employee.AccountId))
-            {
-                return BadRequest("Employee details are incomplete or invalid.");
-            }
-
-            employee.EmployeeId = id; // Assign the ID for the update
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string fullName = jsonElement.GetProperty("fullName").GetString();
+                string position = jsonElement.GetProperty("position").GetString();
+                string status = jsonElement.GetProperty("status").GetString();
+                string image = jsonElement.GetProperty("image").GetString();
+                string accountId = jsonElement.GetProperty("accountId").GetString();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(position) ||
+                    string.IsNullOrEmpty(status) || string.IsNullOrEmpty(image) ||
+                    string.IsNullOrEmpty(accountId))
+                {
+                    return BadRequest(new { msg = "Employee details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng Employee và gán ID cho update
+                var employee = new Employee
+                {
+                    EmployeeId = id, // Use the provided ID for the update
+                    FullName = fullName,
+                    Position = position,
+                    Status = status,
+                    Image = image,
+                    AccountId = accountId
+                };
+
+                // Gọi service để cập nhật employee
                 var isUpdated = await _service.UpdateEmployee(id, employee);
 
                 if (!isUpdated)
-                    return NotFound($"Employee with ID = {id} not found.");
+                    return NotFound(new { msg = $"Employee with ID = {id} not found." });
 
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // DELETE: api/employees/Delete/{id}
         [HttpDelete("Delete/{id}")]

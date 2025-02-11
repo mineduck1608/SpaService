@@ -18,11 +18,15 @@ public partial class SpaServiceContext : DbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
 
+    public virtual DbSet<Application> Applications { get; set; }
+
     public virtual DbSet<Appointment> Appointments { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Commission> Commissions { get; set; }
+
+    public virtual DbSet<Contact> Contacts { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
 
@@ -40,15 +44,17 @@ public partial class SpaServiceContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Schedule> Schedules { get; set; }
+    public virtual DbSet<Shift> Shifts { get; set; }
 
     public virtual DbSet<SpaService> SpaServices { get; set; }
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
+    public virtual DbSet<WorkingSchedule> WorkingSchedules { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=spaservice.database.windows.net;Database=SpaService;UID=spaservice;PWD=Passmonanhemeii@;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=tcp:spaservice.database.windows.net;Database=SpaService;UID=spaservice;PWD=Passmonanhemeii@;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,6 +63,8 @@ public partial class SpaServiceContext : DbContext
             entity.HasKey(e => e.AccountId).HasName("PK__Account__F267251EDC136022");
 
             entity.ToTable("Account");
+
+            entity.HasIndex(e => e.RoleId, "IX_Account_roleId");
 
             entity.HasIndex(e => e.Username, "UQ__Account__F3DBC572F6F4CF80").IsUnique();
 
@@ -67,7 +75,9 @@ public partial class SpaServiceContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
-            entity.Property(e => e.Password).HasColumnName("password");
+            entity.Property(e => e.Password)
+                .HasMaxLength(255)
+                .HasColumnName("password");
             entity.Property(e => e.RoleId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -75,7 +85,8 @@ public partial class SpaServiceContext : DbContext
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+                .HasColumnType("datetime")
+                .HasColumnName("updatedAt");
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -87,11 +98,42 @@ public partial class SpaServiceContext : DbContext
                 .HasConstraintName("FKAccount946763");
         });
 
+        modelBuilder.Entity<Application>(entity =>
+        {
+            entity.HasKey(e => e.ApplicationId).HasName("PK__Applicat__79FDB1CF07D56196");
+
+            entity.ToTable("Application");
+
+            entity.Property(e => e.ApplicationId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("applicationId");
+            entity.Property(e => e.Content)
+                .HasMaxLength(255)
+                .HasColumnName("content");
+            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.IsApproved).HasColumnName("isApproved");
+            entity.Property(e => e.IsPending).HasColumnName("isPending");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.Applications)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKApplicatio674237");
+        });
+
         modelBuilder.Entity<Appointment>(entity =>
         {
             entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__D06765FEFE7307EE");
 
             entity.ToTable("Appointment");
+
+            entity.HasIndex(e => e.EmployeeId, "IX_Appointment_employeeId");
+
+            entity.HasIndex(e => e.RequestId, "IX_Appointment_requestId");
 
             entity.Property(e => e.AppointmentId)
                 .HasMaxLength(50)
@@ -101,19 +143,39 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("employeeId");
+            entity.Property(e => e.EndTime)
+                .HasDefaultValueSql("(NULL)")
+                .HasColumnType("datetime")
+                .HasColumnName("endTime");
+            entity.Property(e => e.ReplacementEmployee)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValueSql("(NULL)")
+                .HasColumnName("replacementEmployee");
             entity.Property(e => e.RequestId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("requestId");
+            entity.Property(e => e.StartTime)
+                .HasDefaultValueSql("(NULL)")
+                .HasColumnType("datetime")
+                .HasColumnName("startTime");
             entity.Property(e => e.Status)
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("status");
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("updatedAt");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.Appointments)
+            entity.HasOne(d => d.Employee).WithMany(p => p.AppointmentEmployees)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKAppointmen55642");
+
+            entity.HasOne(d => d.ReplacementEmployeeNavigation).WithMany(p => p.AppointmentReplacementEmployeeNavigations)
+                .HasForeignKey(d => d.ReplacementEmployee)
+                .HasConstraintName("FK__Appointme__repla__44CA3770");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.RequestId)
@@ -155,6 +217,7 @@ public partial class SpaServiceContext : DbContext
                     {
                         j.HasKey("CategoryId", "EmployeeId").HasName("PK__Category__2FD9BD442CF73D8A");
                         j.ToTable("CategoryEmployee");
+                        j.HasIndex(new[] { "EmployeeId" }, "IX_CategoryEmployee_employeeId");
                         j.IndexerProperty<string>("CategoryId")
                             .HasMaxLength(50)
                             .IsUnicode(false)
@@ -179,11 +242,38 @@ public partial class SpaServiceContext : DbContext
             entity.Property(e => e.Percentage).HasColumnName("percentage");
         });
 
+        modelBuilder.Entity<Contact>(entity =>
+        {
+            entity.HasKey(e => e.ContactId).HasName("PK__Contact__7121FD35AD0C12AD");
+
+            entity.ToTable("Contact");
+
+            entity.Property(e => e.ContactId)
+                .HasMaxLength(50)
+                .HasColumnName("contactId");
+            entity.Property(e => e.ContactContent).HasColumnName("contactContent");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("email");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(255)
+                .HasColumnName("fullName");
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("phoneNumber");
+        });
+
         modelBuilder.Entity<Customer>(entity =>
         {
             entity.HasKey(e => e.CustomerId).HasName("PK__Customer__B611CB7DD123CF42");
 
             entity.ToTable("Customer");
+
+            entity.HasIndex(e => e.AccountId, "IX_Customer_accountId");
+
+            entity.HasIndex(e => e.MembershipId, "IX_Customer_membershipId");
 
             entity.Property(e => e.CustomerId)
                 .HasMaxLength(50)
@@ -203,16 +293,14 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("fullName");
             entity.Property(e => e.Gender)
-                .HasMaxLength(10)
-                .IsUnicode(false)
+                .HasMaxLength(50)
                 .HasColumnName("gender");
             entity.Property(e => e.MembershipId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("membershipId");
             entity.Property(e => e.Phone)
-                .HasMaxLength(10)
-                .IsUnicode(false)
+                .HasMaxLength(20)
                 .HasColumnName("phone");
 
             entity.HasOne(d => d.Account).WithMany(p => p.Customers)
@@ -230,6 +318,8 @@ public partial class SpaServiceContext : DbContext
             entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__C134C9C148E32653");
 
             entity.ToTable("Employee");
+
+            entity.HasIndex(e => e.AccountId, "IX_Employee_accountId");
 
             entity.Property(e => e.EmployeeId)
                 .HasMaxLength(50)
@@ -275,6 +365,10 @@ public partial class SpaServiceContext : DbContext
 
             entity.ToTable("EmployeeCommission");
 
+            entity.HasIndex(e => e.CommissionId, "IX_EmployeeCommission_commissionId");
+
+            entity.HasIndex(e => e.TransactionId, "IX_EmployeeCommission_transactionId");
+
             entity.Property(e => e.EmployeeId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -287,7 +381,9 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("transactionId");
-            entity.Property(e => e.CommissionValue).HasColumnName("commissionValue");
+            entity.Property(e => e.CommissionValue)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("commissionValue");
 
             entity.HasOne(d => d.Commission).WithMany(p => p.EmployeeCommissions)
                 .HasForeignKey(d => d.CommissionId)
@@ -310,6 +406,10 @@ public partial class SpaServiceContext : DbContext
             entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__2613FD2480E83971");
 
             entity.ToTable("Feedback");
+
+            entity.HasIndex(e => e.CreatedBy, "IX_Feedback_createdBy");
+
+            entity.HasIndex(e => e.ServiceId, "IX_Feedback_serviceId");
 
             entity.Property(e => e.FeedbackId)
                 .HasMaxLength(50)
@@ -388,6 +488,10 @@ public partial class SpaServiceContext : DbContext
 
             entity.ToTable("Request");
 
+            entity.HasIndex(e => e.CustomerId, "IX_Request_customerId");
+
+            entity.HasIndex(e => e.ServiceId, "IX_Request_serviceId");
+
             entity.Property(e => e.RequestId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -443,43 +547,27 @@ public partial class SpaServiceContext : DbContext
                 .HasColumnName("roleName");
         });
 
-        modelBuilder.Entity<Schedule>(entity =>
+        modelBuilder.Entity<Shift>(entity =>
         {
-            entity.HasKey(e => e.ScheduleId).HasName("PK__Schedule__A532EDD49C495185");
+            entity.HasKey(e => e.ShiftId).HasName("PK__Shift__F2F06B02B4E8FE24");
 
-            entity.ToTable("Schedule");
+            entity.ToTable("Shift");
 
-            entity.Property(e => e.ScheduleId)
+            entity.Property(e => e.ShiftId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("scheduleId");
-            entity.Property(e => e.CheckInTime)
-                .HasComment("null if hasn't checked in")
-                .HasColumnType("datetime")
-                .HasColumnName("checkInTime");
-            entity.Property(e => e.CheckOutTime)
-                .HasComment("null if hasn't checked out")
-                .HasColumnType("datetime")
-                .HasColumnName("checkOutTime");
-            entity.Property(e => e.EmployeeId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("employeeId");
+                .HasColumnName("shiftId");
             entity.Property(e => e.EndTime)
                 .HasColumnType("datetime")
                 .HasColumnName("endTime");
+            entity.Property(e => e.ShiftName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("shiftName");
             entity.Property(e => e.StartTime)
                 .HasColumnType("datetime")
                 .HasColumnName("startTime");
-            entity.Property(e => e.Status)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("status");
-
-            entity.HasOne(d => d.Employee).WithMany(p => p.Schedules)
-                .HasForeignKey(d => d.EmployeeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKSchedule904727");
+            entity.Property(e => e.Status).HasColumnName("status");
         });
 
         modelBuilder.Entity<SpaService>(entity =>
@@ -487,6 +575,8 @@ public partial class SpaServiceContext : DbContext
             entity.HasKey(e => e.ServiceId).HasName("PK__SpaServi__455070DFB8D54B16");
 
             entity.ToTable("SpaService");
+
+            entity.HasIndex(e => e.CategoryId, "IX_SpaService_categoryId");
 
             entity.Property(e => e.ServiceId)
                 .HasMaxLength(50)
@@ -500,6 +590,9 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Duration).HasColumnName("duration");
+            entity.Property(e => e.NoOfSessions)
+                .HasDefaultValue(1)
+                .HasColumnName("noOfSessions");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ServiceImage).HasColumnName("serviceImage");
             entity.Property(e => e.ServiceName)
@@ -518,6 +611,12 @@ public partial class SpaServiceContext : DbContext
             entity.HasKey(e => e.TransactionId).HasName("PK__Transact__9B57CF725A7D221F");
 
             entity.ToTable("Transaction");
+
+            entity.HasIndex(e => e.AppointmentId, "IX_Transaction_appointmentId");
+
+            entity.HasIndex(e => e.MembershipId, "IX_Transaction_membershipId");
+
+            entity.HasIndex(e => e.PromotionId, "IX_Transaction_promotionId");
 
             entity.Property(e => e.TransactionId)
                 .HasMaxLength(50)
@@ -553,6 +652,47 @@ public partial class SpaServiceContext : DbContext
             entity.HasOne(d => d.Promotion).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.PromotionId)
                 .HasConstraintName("FKTransactio965842");
+        });
+
+        modelBuilder.Entity<WorkingSchedule>(entity =>
+        {
+            entity.HasKey(e => e.WorkingScheduleId).HasName("PK__WorkingS__FA6ABE96E5425908");
+
+            entity.ToTable("WorkingSchedule");
+
+            entity.Property(e => e.WorkingScheduleId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("workingScheduleId");
+            entity.Property(e => e.CheckInTime)
+                .HasColumnType("datetime")
+                .HasColumnName("checkInTime");
+            entity.Property(e => e.CheckOutTime)
+                .HasColumnType("datetime")
+                .HasColumnName("checkOutTime");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.EmployeeId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("employeeId");
+            entity.Property(e => e.ShiftId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("shiftId");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("status");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.WorkingSchedules)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKWorkingSch960436");
+
+            entity.HasOne(d => d.Shift).WithMany(p => p.WorkingSchedules)
+                .HasForeignKey(d => d.ShiftId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKWorkingSch240631");
         });
 
         OnModelCreatingPartial(modelBuilder);

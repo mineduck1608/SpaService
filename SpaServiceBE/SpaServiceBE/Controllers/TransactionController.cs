@@ -4,6 +4,7 @@ using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -58,61 +59,89 @@ namespace API.Controllers
 
         // POST: api/transactions/Create
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateTransaction([FromBody] Transaction transaction)
+        public async Task<ActionResult> CreateTransaction([FromBody] dynamic request)
         {
-            if (transaction == null ||
-                string.IsNullOrEmpty(transaction.TransactionType) ||
-                transaction.TotalPrice <= 0 ||
-                string.IsNullOrEmpty(transaction.Status.ToString()))
-            {
-                return BadRequest("Transaction details are incomplete or invalid.");
-            }
-
-            transaction.TransactionId = Guid.NewGuid().ToString(); // Generate unique ID
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string transactionType = jsonElement.GetProperty("transactionType").GetString();
+                float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
+                bool status = jsonElement.GetProperty("status").GetBoolean();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0 || status != null)
+                {
+                    return BadRequest(new { msg = "Transaction details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng Transaction
+                var transaction = new Transaction
+                {
+                    TransactionId = Guid.NewGuid().ToString(), // Generate unique ID
+                    TransactionType = transactionType,
+                    TotalPrice = totalPrice,
+                    Status = status
+                };
+
+                // Gọi service để thêm transaction
                 var isCreated = await _service.Add(transaction);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the transaction.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
 
                 return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // PUT: api/transactions/Update/{id}
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateTransaction(string id, [FromBody] Transaction transaction)
+        public async Task<ActionResult> UpdateTransaction(string id, [FromBody] dynamic request)
         {
-            if (transaction == null ||
-                string.IsNullOrEmpty(transaction.TransactionType) ||
-                transaction.TotalPrice <= 0 ||
-                string.IsNullOrEmpty(transaction.Status.ToString()))
-            {
-                return BadRequest("Transaction details are incomplete or invalid.");
-            }
-
-            transaction.TransactionId = id; // Assign the ID for the update
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string transactionType = jsonElement.GetProperty("transactionType").GetString();
+                float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
+                bool status = jsonElement.GetProperty("status").GetBoolean();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0 || status != null)
+                {
+                    return BadRequest(new { msg = "Transaction details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng Transaction và gán ID cho update
+                var transaction = new Transaction
+                {
+                    TransactionId = id, // Use the provided ID for the update
+                    TransactionType = transactionType,
+                    TotalPrice = totalPrice,
+                    Status = status
+                };
+
+                // Gọi service để cập nhật transaction
                 var isUpdated = await _service.Update(id, transaction);
 
                 if (!isUpdated)
-                    return NotFound($"Transaction with ID = {id} not found.");
+                    return NotFound(new { msg = $"Transaction with ID = {id} not found." });
 
-                return NoContent();
+                return Ok(new { msg = "Update transaction successfully." });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // DELETE: api/transactions/Delete/{id}
         [HttpDelete("Delete/{id}")]

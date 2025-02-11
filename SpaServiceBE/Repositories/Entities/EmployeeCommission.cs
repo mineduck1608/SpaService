@@ -11,7 +11,7 @@ public partial class EmployeeCommission
 
     public string TransactionId { get; set; } = null!;
 
-    public float CommissionValue { get; set; }
+    public decimal? CommissionValue { get; set; }
 
     public virtual Commission Commission { get; set; } = null!;
 

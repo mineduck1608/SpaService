@@ -21,11 +21,6 @@ namespace Repositories
         public async Task<Employee> GetById(string employeeId)
         {
             return await _context.Employees
-                .Include(e => e.Account)                 // Bao gồm Account liên quan đến Employee
-                .Include(e => e.Appointments)            // Bao gồm Appointments liên quan đến Employee
-                .Include(e => e.EmployeeCommissions)     // Bao gồm EmployeeCommissions liên quan đến Employee
-                .Include(e => e.Schedules)               // Bao gồm Schedules liên quan đến Employee
-                .Include(e => e.Categories)              // Bao gồm Categories liên quan đến Employee
                 .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
         }
 
@@ -43,11 +38,6 @@ namespace Repositories
         public async Task<List<Employee>> GetAll()
         {
             return await _context.Employees
-                .Include(e => e.Account)                 // Bao gồm Account liên quan đến Employee
-                .Include(e => e.Appointments)            // Bao gồm Appointments liên quan đến Employee
-                .Include(e => e.EmployeeCommissions)     // Bao gồm EmployeeCommissions liên quan đến Employee
-                .Include(e => e.Schedules)               // Bao gồm Schedules liên quan đến Employee
-                .Include(e => e.Categories)              // Bao gồm Categories liên quan đến Employee
                 .ToListAsync();
         }
 

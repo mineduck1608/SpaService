@@ -68,9 +68,10 @@ namespace API.Controllers
                 double totalPayment = jsonElement.GetProperty("totalPayment").GetDouble();
                 int discount = jsonElement.GetProperty("discount").GetInt32();
 
+                // Validate input
                 if (string.IsNullOrEmpty(type) || totalPayment <= 0 || discount < 0 || discount > 100)
                 {
-                    return BadRequest("Membership details are incomplete or invalid.");
+                    return BadRequest(new { msg = "Membership details are incomplete or invalid." });
                 }
 
                 var membership = new Membership
@@ -81,18 +82,20 @@ namespace API.Controllers
                     Discount = discount
                 };
 
+                // Call service to add membership
                 var isCreated = await _service.AddMembership(membership);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the membership.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the membership." });
 
                 return CreatedAtAction(nameof(GetMembershipById), new { id = membership.MembershipId }, membership);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // PUT: api/memberships/Update/{id}
         [HttpPut("Update/{id}")]
@@ -106,31 +109,34 @@ namespace API.Controllers
                 double totalPayment = jsonElement.GetProperty("totalPayment").GetDouble();
                 int discount = jsonElement.GetProperty("discount").GetInt32();
 
+                // Validate input
                 if (string.IsNullOrEmpty(type) || totalPayment <= 0 || discount < 0 || discount > 100)
                 {
-                    return BadRequest("Membership details are incomplete or invalid.");
+                    return BadRequest(new { msg = "Membership details are incomplete or invalid." });
                 }
 
                 var membership = new Membership
                 {
-                    MembershipId = id,
+                    MembershipId = id,  // Set the ID for the update
                     Type = type,
                     TotalPayment = totalPayment,
                     Discount = discount
                 };
 
+                // Call service to update membership
                 var isUpdated = await _service.UpdateMembership(id, membership);
 
                 if (!isUpdated)
-                    return NotFound($"Membership with ID = {id} not found.");
+                    return NotFound(new { msg = $"Membership with ID = {id} not found." });
 
-                return Ok("Update membership successfully.");
+                return Ok(new { msg = "Update membership successfully." });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // DELETE: api/memberships/Delete/{id}
         [HttpDelete("Delete/{id}")]
