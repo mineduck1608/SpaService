@@ -116,7 +116,7 @@ const Home = () => {
                     <p className="text-2xl mb-2">Luxurious space, </p>
                     <p className="text-2xl mb-8">blending modernity and classic elegance.</p>
                     <button className="px-8 py-3 bg-[#a040a0] text-white rounded-tl-[1rem] rounded-br-[1rem] hover:bg-[#8a3b8a] transition-colors duration-1000">
-                        Khám phá <span className="ml-2">›</span>
+                        Explore <span className="ml-2">›</span>
                     </button>
                 </div>
 
@@ -339,7 +339,7 @@ const Home = () => {
                                         />
                                         <p className="text-white text-base">{item.description}</p>
                                         <button className="mt-6 px-6 py-2 border-2 border-white text-white rounded-tl-[1rem] rounded-br-[1rem] hover:bg-white hover:text-[#a040a0] transition-colors duration-300">
-                                            Xem tất cả <span className="ml-1">›</span>
+                                            View all <span className="ml-1">›</span>
                                         </button>
                                     </div>
                                     {/* Default gradient overlay */}
