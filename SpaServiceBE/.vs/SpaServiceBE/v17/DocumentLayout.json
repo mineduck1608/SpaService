@@ -362,6 +362,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 1,
           "Children": [
             {
@@ -392,6 +393,13 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
+=======
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+>>>>>>> 4c0588929d5e59aa6251860a85645c4d8448f68e
               "Title": "News.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\News.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\News.cs",
@@ -399,8 +407,7 @@
               "RelativeToolTip": "Repositories\\Entities\\News.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T15:47:45.398Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T15:47:45.398Z"
             },
             {
               "$type": "Document",
@@ -412,8 +419,12 @@
               "RelativeToolTip": "Services\\NewsService.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAYwBgAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2025-02-11T15:48:58.686Z",
               "EditorCaption": ""
+=======
+              "WhenOpened": "2025-02-11T04:11:30.782Z"
+>>>>>>> 4c0588929d5e59aa6251860a85645c4d8448f68e
             },
             {
               "$type": "Document",
@@ -425,8 +436,12 @@
               "RelativeToolTip": "Services\\IServices\\INewsService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2025-02-11T15:49:32.516Z",
               "EditorCaption": ""
+=======
+              "WhenOpened": "2025-01-18T01:19:38.5Z"
+>>>>>>> 4c0588929d5e59aa6251860a85645c4d8448f68e
             },
             {
               "$type": "Document",
@@ -475,7 +490,11 @@
               "RelativeToolTip": "Services\\MembershipService.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAuwCwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2025-01-18T01:19:38.5Z"
+=======
+              "WhenOpened": "2025-01-15T05:32:26.723Z"
+>>>>>>> 4c0588929d5e59aa6251860a85645c4d8448f68e
             },
             {
               "$type": "Document",
@@ -487,7 +506,11 @@
               "RelativeToolTip": "Repositories\\Entities\\Application.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2025-02-11T04:11:30.782Z"
+=======
+              "WhenOpened": "2025-01-18T07:09:21.321Z"
+>>>>>>> 4c0588929d5e59aa6251860a85645c4d8448f68e
             },
             {
               "$type": "Document",
@@ -515,7 +538,60 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 9,
+=======
+              "DocumentIndex": 5,
+              "Title": "INewsService.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\INewsService.cs",
+              "RelativeDocumentMoniker": "Services\\IServices\\INewsService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\INewsService.cs",
+              "RelativeToolTip": "Services\\IServices\\INewsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T15:49:32.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NewsController.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\NewsController.cs",
+              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\NewsController.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\NewsController.cs",
+              "RelativeToolTip": "SpaServiceBE\\Controllers\\NewsController.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAAwKYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T15:50:42.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NewsRepository.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\NewsRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\NewsRepository.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\NewsRepository.cs",
+              "RelativeToolTip": "Repositories\\NewsRepository.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAwwFoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T15:48:36.644Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NewsService.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\NewsService.cs",
+              "RelativeDocumentMoniker": "Services\\NewsService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\NewsService.cs",
+              "RelativeToolTip": "Services\\NewsService.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwDEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T15:48:58.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+>>>>>>> 4c0588929d5e59aa6251860a85645c4d8448f68e
               "Title": "AccountService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\AccountService.cs",
               "RelativeDocumentMoniker": "Services\\AccountService.cs",
