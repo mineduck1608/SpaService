@@ -362,34 +362,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 9,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NewsService.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\NewsService.cs",
-              "RelativeDocumentMoniker": "Services\\NewsService.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\NewsService.cs",
-              "RelativeToolTip": "Services\\NewsService.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwDEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T15:48:58.686Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "NewsRepository.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\NewsRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\NewsRepository.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\NewsRepository.cs",
-              "RelativeToolTip": "Repositories\\NewsRepository.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAwwFoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T15:48:36.644Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 12,
@@ -400,8 +374,7 @@
               "RelativeToolTip": "Repositories\\Entities\\News.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T15:47:45.398Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T15:47:45.398Z"
             },
             {
               "$type": "Document",
@@ -413,8 +386,7 @@
               "RelativeToolTip": "Repositories\\Entities\\Application.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T04:11:30.782Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T04:11:30.782Z"
             },
             {
               "$type": "Document",
@@ -426,8 +398,7 @@
               "RelativeToolTip": "Services\\MembershipService.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAuwCwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T01:19:38.5Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T01:19:38.5Z"
             },
             {
               "$type": "Document",
@@ -439,8 +410,7 @@
               "RelativeToolTip": "Repositories\\Entities\\Membership.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T01:11:37.849Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T01:11:37.849Z"
             },
             {
               "$type": "Document",
@@ -452,8 +422,7 @@
               "RelativeToolTip": "Repositories\\AccountRepository.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAgwB8AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T05:32:26.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T05:32:26.723Z"
             },
             {
               "$type": "Document",
@@ -465,8 +434,7 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\ComsissionController.cs",
               "ViewState": "AgIAAG4AAAAAAAAAAAAuwJoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T07:09:21.321Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T07:09:21.321Z"
             },
             {
               "$type": "Document",
@@ -490,8 +458,7 @@
               "RelativeToolTip": "SpaServiceBE\\Program.cs",
               "ViewState": "AgIAABYAAAAAAAAAAADwvy8AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T05:41:10.371Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T05:41:10.371Z"
             },
             {
               "$type": "Document",
@@ -503,8 +470,7 @@
               "RelativeToolTip": "Services\\IServices\\INewsService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T15:49:32.516Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T15:49:32.516Z"
             },
             {
               "$type": "Document",
@@ -521,6 +487,30 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NewsRepository.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\NewsRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\NewsRepository.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\NewsRepository.cs",
+              "RelativeToolTip": "Repositories\\NewsRepository.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAwwFoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T15:48:36.644Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NewsService.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\NewsService.cs",
+              "RelativeDocumentMoniker": "Services\\NewsService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\NewsService.cs",
+              "RelativeToolTip": "Services\\NewsService.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwDEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T15:48:58.686Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
               "Title": "AccountService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\AccountService.cs",
@@ -529,8 +519,7 @@
               "RelativeToolTip": "Services\\AccountService.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T10:42:47.725Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T10:42:47.725Z"
             },
             {
               "$type": "Document",
@@ -542,8 +531,7 @@
               "RelativeToolTip": "Services\\ComissionService.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAA5wDEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T01:18:50.476Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T01:18:50.476Z"
             },
             {
               "$type": "Document",
@@ -567,8 +555,7 @@
               "RelativeToolTip": "Repositories\\AppointmentRepository.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAIwCEAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T00:46:23.547Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T00:46:23.547Z"
             },
             {
               "$type": "Document",
@@ -580,8 +567,7 @@
               "RelativeToolTip": "Repositories\\ComissionRepository.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAwwDIAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T00:47:00.138Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T00:47:00.138Z"
             },
             {
               "$type": "Document",

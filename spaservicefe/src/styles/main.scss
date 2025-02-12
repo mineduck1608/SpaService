@@ -227,7 +227,7 @@
 .header {
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   transition:
     background-color 1s ease,
     background-image 1s ease,
@@ -277,18 +277,18 @@
   width: auto;
   object-fit: contain;
   transition:
-    height 0.3s ease,
-    width 0.3s ease;
+    height 0.3s ease-in-out,
+    width 0.3s ease-in-out;
 }
 
 .large-logo {
   margin-top: 25px;
-  height: 220px;
+  height: 250px;
   width: auto;
 }
 
 .small-logo {
-  height: 80px;
+  height: 85px;
   width: auto;
 }
 

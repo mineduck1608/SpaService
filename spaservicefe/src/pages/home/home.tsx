@@ -124,13 +124,13 @@ const Home = () => {
                 <div className="absolute top-1/2 w-full flex justify-between transform -translate-y-1/2 z-10 px-24">
                     <button
                         onClick={prevImage}
-                        className="bg-[#a040a0] text-white text-lg cursor-pointer hover:bg-[#8a3b8a] border-none rounded-tl-[1rem] rounded-br-[1rem] mx-4 flex items-center justify-center w-10 h-10"
+                        className="bg-[#a040a0] text-white text-lg cursor-pointer hover:bg-[#8a3b8a] transition-colors duration-700 border-none rounded-tl-[1rem] rounded-br-[1rem] mx-4 flex items-center justify-center w-10 h-10"
                     >
                         <span>←</span>
                     </button>
                     <button
                         onClick={nextImage}
-                        className="bg-[#a040a0] text-white text-lg cursor-pointer hover:bg-[#8a3b8a] border-none rounded-tl-[1rem] rounded-br-[1rem] mx-4 flex items-center justify-center w-10 h-10"
+                        className="bg-[#a040a0] text-white text-lg cursor-pointer hover:bg-[#8a3b8a] transition-colors duration-700 border-none rounded-tl-[1rem] rounded-br-[1rem] mx-4 flex items-center justify-center w-10 h-10"
                     >
                         <span>→</span>
                     </button>
@@ -149,7 +149,7 @@ const Home = () => {
 
             {/* About Us Section */}
             <div
-                className="absolute right-0 translate-x-1/2 w-1/2 h-full"
+                className="absolute right-0 w-1/2 h-full"
                 style={{
                     backgroundImage: `url(https://senspa.com.vn/wp-content/themes/thuythu/images/bg_spa.png)`,
                     backgroundRepeat: 'no-repeat',
@@ -185,7 +185,7 @@ const Home = () => {
                             <p className='mt-6' data-aos='fade-down' data-aos-delay='200'>
                                 Located in the heart of Ho Chi Minh City, Sen Spa is separated from the noisy, bustling atmosphere, offering a peaceful and serene space."
                             </p>
-                            <button className="mt-1 px-6 py-2 text-[#a040a0] border-2 border-[#a040a0] rounded-tl-[1rem] rounded-br-[1rem] hover:bg-[#a040a0] hover:text-white transition-colors duration-100" data-aos='fade-down'>
+                            <button className="mt-1 px-6 py-2 text-[#a040a0] border-2 border-[#a040a0] rounded-tl-[1rem] rounded-br-[1rem] hover:bg-[#a040a0] hover:text-white transition-colors duration-700" data-aos='fade-down'>
                                 More <span className="ml-1">›</span>
                             </button>
                         </div>
@@ -275,7 +275,7 @@ const Home = () => {
                                     <button
                                         key={index}
                                         className={`w-2.5 h-2.5 rounded-full border-none cursor-pointer
-                                        ${index === currentServiceIndex ? 'bg-pink-400' : 'bg-white/50'}`}
+                                        ${index === currentServiceIndex ? 'bg-light' : 'bg-white/50'}`}
                                         onClick={() => setCurrentServiceIndex(index)}
                                     ></button>
                                 ))}
