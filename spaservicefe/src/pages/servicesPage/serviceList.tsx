@@ -2,6 +2,7 @@ import { Service } from '@/types/services'
 import React from 'react'
 import { formatNumber, imgs } from './servicesPage.util'
 import sep from '../../images/serviceBg/separator.png'
+import { useNavigate } from 'react-router-dom'
 
 export default function ServiceList(params?: { service: Service[] }) {
   return (
@@ -12,6 +13,7 @@ export default function ServiceList(params?: { service: Service[] }) {
 }
 
 export function ServiceCard(params?: { s: Service }) {
+  const nav = useNavigate()
   return (
     <div className='w-full min-w-[300px] rounded-md shadow'>
       {/* Container */}
@@ -31,6 +33,9 @@ export function ServiceCard(params?: { s: Service }) {
         </div>
         <div className='mb-4 flex justify-center'>
           <button
+            onClick={(e) => {
+              nav('/services-detail/' + params?.s.serviceId)
+            }}
             className={`w-1/2 rounded-br-2xl rounded-tl-2xl border-2 border-[#8D388A] bg-white p-2 text-[#8D388A] 
             duration-300 hover:-translate-x-1 hover:shadow-[1px_1px_#8D388A,2px_2px_#8D388A]`}
           >
