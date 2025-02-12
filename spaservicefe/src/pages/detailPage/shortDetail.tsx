@@ -1,28 +1,62 @@
 import { Category } from '@/types/category'
 import { Service } from '@/types/services'
 import { Link } from 'react-router-dom'
-import React from 'react'
+import React, { useState } from 'react'
 import { formatNumber } from '../servicesPage/servicesPage.util'
+import seperator from '../../images/serviceBg/separator.png'
 
 export default function ShortDetail(params: { d: Service }) {
   const CATEGORY = JSON.parse(sessionStorage.getItem('CATEGORIES') ?? '{}') as Category[]
+  const [val, setVal] = useState(1)
 
   return (
-    <>
+    <div className='p-2'>
       <p className='text-2xl font-bold'>
         {params.d.serviceName} ({params.d.duration})
       </p>
-      <p className='text-lg font-bold text-purple1'>{formatNumber(params.d.price)} VND</p>
+      <img src={seperator} />
+      <p className='mt-3 text-lg font-bold text-purple1'>{formatNumber(params.d.price)} VND</p>
       <p className='font-bold'>Description:</p>
-      <p>{params.d.description}</p>
+      <p className='mb-5'>{params.d.description}</p>
+      {/* Add cart */}
+      <div className='flex justify-between mb-3 bg-red-100 w-1/2'>
+        {/* Input */}
+        <span className='relative w-[45%]'>
+          <button
+            onClick={() => {
+              setVal((v) => Math.max(v - 1, 1))
+            }}
+            className='left absolute left-2 top-1/4 rounded-full px-2 text-center'
+          >
+            -
+          </button>
+          <input
+            type='number'
+            className='border-purple1 border-[1px] w-full cursor-default rounded-br-3xl rounded-tl-3xl p-[0.625rem] text-center'
+            min={1}
+            max={10}
+            value={val}
+            readOnly
+          />
+          <button
+            onClick={() => {
+              setVal((v) => Math.min(v + 1, 10))
+            }}
+            className='absolute right-2 top-1/4 rounded-full px-[0.375rem] text-center'
+          >
+            +
+          </button>
+        </span>
+        <button className='w-[45%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'>
+          Add to cart
+        </button>
+      </div>
       <p className='text-black'>
         Category:&nbsp;
-        <Link
-          className='no-underline'
-          to={'/services/' + params.d.categoryId}>
+        <Link className='no-underline' to={'/services/' + params.d.categoryId}>
           {CATEGORY.find((x) => x.categoryId === params.d.categoryId)?.categoryName}
         </Link>
       </p>
-    </>
+    </div>
   )
 }

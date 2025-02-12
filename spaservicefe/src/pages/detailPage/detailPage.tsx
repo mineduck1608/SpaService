@@ -24,7 +24,7 @@ export default function DetailPage() {
       <div>
         <div className='flex w-full justify-center bg-red-200 pt-5'>
           {/* Detail is here */}
-          <div className='w-11/12 shadow-lg lg:w-3/4'>
+          <div className='w-11/12 shadow-lg lg:w-3/5'>
             {/* Short intro and img */}
             <div className='flex justify-between'>
               <div className='w-[49.5%] bg-blue-200'>
