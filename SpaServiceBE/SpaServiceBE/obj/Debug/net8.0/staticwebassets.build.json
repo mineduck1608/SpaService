@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "7lu0+xsJ94PGHOjnO6+etBcHsiKery7iB9vZ4eF6pRg=",
+  "Hash": "Ci0/QdaA5Ch0BUqmKRLW/RHpJ6TbwjxPDMymeZZAGlw=",
   "Source": "SpaServiceBE",
   "BasePath": "_content/SpaServiceBE",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }
