@@ -1,50 +1,51 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom' // Nếu dùng React Router
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const posts = [
-  {
-    id: 1,
-    title: 'Chăm sóc da mặt giúp da mịn giúp sáng da',
-    date: '17/11/2020',
-    image: '/images/post1.jpg'
-  },
-  {
-    id: 2,
-    title: 'Những lợi ích của foot massage mà bạn nên biết',
-    date: '17/11/2020',
-    image: '/images/post2.jpg'
-  },
-  {
-    id: 3,
-    title: 'Những loại mặt nạ trị mụn cực hiệu quả các nàng nên nhớ',
-    date: '17/11/2020',
-    image: '/images/post3.jpg'
-  },
-  {
-    id: 4,
-    title: 'Bí quyết chăm sóc da từ thiên nhiên',
-    date: '17/11/2020',
-    image: '/images/post4.jpg'
-  },
-  {
-    id: 5,
-    title: 'Tác dụng của massage toàn thân',
-    date: '17/11/2020',
-    image: '/images/post5.jpg'
-  },
-  {
-    id: 6,
-    title: 'Mặt nạ dưỡng da tự nhiên',
-    date: '17/11/2020',
-    image: '/images/post6.jpg'
+const PostGrid = ({ activeTab }) => {
+  const navigate = useNavigate()
+  const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  // Function to fetch data based on the active tab
+  const fetchPosts = async () => {
+    try {
+      let response
+      if (activeTab === 'blog') {
+        response = await fetch('/api/getAllBlogs')
+      } else if (activeTab === 'promotion') {
+        response = await fetch('/api/getAllPromotions')
+      } else if (activeTab === 'event') {
+        response = await fetch('/api/getAllEvents')
+      }
+
+      if (response.ok) {
+        const data = await response.json()
+        setPosts(data)
+      } else {
+        throw new Error('Failed to fetch posts')
+      }
+    } catch (error) {
+      setError(error.message)
+    } finally {
+      setLoading(false)
+    }
   }
-]
 
-const PostGrid = () => {
-  const navigate = useNavigate() // Nếu dùng React Router
+  useEffect(() => {
+    fetchPosts()
+  }, [activeTab]) // Fetch data whenever the activeTab changes
 
-  const handleClick = (id: any) => {
-    navigate(`${id}`) // React Router
+  const handleClick = (id) => {
+    navigate(`/news/${activeTab}/${id}`)
+  }
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>
   }
 
   return (

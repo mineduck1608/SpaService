@@ -162,5 +162,50 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        // New GetAllBlog method
+        [HttpGet("GetAllBlog")]
+        public async Task<ActionResult<IEnumerable<News>>> GetAllBlogs()
+        {
+            try
+            {
+                var blogs = await _service.GetNewsByType("Blog"); // Filter news by type "Blog"
+                return Ok(blogs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // New GetAllPromotion method
+        [HttpGet("GetAllPromotion")]
+        public async Task<ActionResult<IEnumerable<News>>> GetAllPromotions()
+        {
+            try
+            {
+                var promotions = await _service.GetNewsByType("Promotion"); // Filter news by type "Promotion"
+                return Ok(promotions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // New GetAllEvent method
+        [HttpGet("GetAllEvent")]
+        public async Task<ActionResult<IEnumerable<News>>> GetAllEvents()
+        {
+            try
+            {
+                var events = await _service.GetNewsByType("Event"); // Filter news by type "Event"
+                return Ok(events);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

@@ -81,7 +81,7 @@ const NewsPage = () => {
             </div>
           </div>
           <div className='mt-3'>
-            <PostGrid />
+          <PostGrid activeTab={activeTab} />
           </div>
         </div>
       </section>

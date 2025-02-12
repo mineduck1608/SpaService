@@ -22,6 +22,11 @@ namespace Services
             return await _repository.GetById(newsId);
         }
 
+        public async Task<News> GetNewsByType(string type)
+        {
+            return await _repository.GetNewsByType(type);
+        }
+
         // Get all News
         public async Task<List<News>> GetAllNews()
         {
