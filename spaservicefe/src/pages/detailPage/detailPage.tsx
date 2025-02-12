@@ -6,6 +6,7 @@ import { Service } from '@/types/services'
 import { sampleService } from './detailPage.util'
 import { Category } from '@/types/category'
 import ShortDetail from './shortDetail'
+import seperator from '../../images/serviceBg/separator.png'
 
 export default function DetailPage() {
   const [data, setData] = useState<Service>(sampleService)
@@ -22,9 +23,10 @@ export default function DetailPage() {
         </span>
       </div>
       <div>
-        <div className='flex w-full justify-center bg-red-200 pt-5'>
+        {/* Long detail */}
+        <div className='flex w-full justify-center bg-red-300 mb-10 pt-5'>
           {/* Detail is here */}
-          <div className='w-11/12 shadow-lg lg:w-3/5'>
+          <div className='w-11/12 shadow-lg lg:w-3/5 bg-blue-300'>
             {/* Short intro and img */}
             <div className='flex justify-between'>
               <div className='w-[49.5%] bg-blue-200'>
@@ -35,8 +37,11 @@ export default function DetailPage() {
               </div>
             </div>
             {/* Service intro */}
-            <div className='w-full bg-teal-200 p-2 mb-20'>
+            <div className='w-full bg-teal-200 p-2'>
               <p className='p-3 text-center text-2xl font-bold'>Service introduction</p>
+              <div className='flex justify-center mb-4'>
+                <img src={seperator} />
+              </div>
               {/* Sample text */}
               <div >
                 <div id="lipsum">
@@ -56,6 +61,19 @@ export default function DetailPage() {
                     Quisque porttitor at diam vitae placerat. Donec euismod neque in justo placerat dapibus. Proin finibus, dolor bibendum viverra consectetur, lorem neque pulvinar elit, vitae auctor urna urna ac leo. Phasellus ac suscipit velit, non malesuada ante. Ut fringilla est non lorem posuere pellentesque. Aenean vel diam dapibus, vestibulum enim pellentesque, gravida libero. Morbi luctus nisi sit amet tellus euismod lobortis. Nulla facilisi. Integer in leo lectus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam lectus purus, maximus eu ligula non, condimentum gravida erat. Etiam efficitur congue urna, ut lobortis neque fringilla id. Integer porttitor eros est, sed congue sapien accumsan vel.
                   </p></div>
               </div>
+            </div>
+          </div>
+        </div>
+        {/* Related services */}
+        <div className='w-full shadow-lg bg-blue-400'>
+          <p className='p-3 text-center text-2xl font-bold'>Related services</p>
+          <div className='flex justify-center mb-4'>
+            <img src={seperator} className='mb-3' />
+          </div>
+          {/* Related service carousel */}
+          <div className='flex justify-center'>
+            <div className='w-11/12 lg:w-3/5 bg-purple-100'>
+              A
             </div>
           </div>
         </div>

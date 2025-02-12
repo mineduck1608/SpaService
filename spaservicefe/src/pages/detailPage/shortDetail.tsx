@@ -14,8 +14,8 @@ export default function ShortDetail(params: { d: Service }) {
       <p className='text-2xl font-bold'>
         {params.d.serviceName} ({params.d.duration})
       </p>
-      <img src={seperator} />
-      <p className='mt-3 text-lg font-bold text-purple1'>{formatNumber(params.d.price)} VND</p>
+      <img src={seperator} className='mb-3'/>
+      <p className='text-lg font-bold text-purple1'>{formatNumber(params.d.price)} VND</p>
       <p className='font-bold'>Description:</p>
       <p className='mb-5'>{params.d.description}</p>
       {/* Add cart */}
