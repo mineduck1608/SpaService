@@ -50,10 +50,6 @@ const ContactForm = () => {
       tempErrors.email = 'Valid email is required'
       isValid = false
     }
-    if (!formData.contactContent.trim()) {
-      tempErrors.contactContent = 'Content is required'
-      isValid = false
-    }
     if (!captchaToken) {
       setCaptchaError('reCAPTCHA verification is required')
       isValid = false
@@ -209,7 +205,10 @@ const ContactForm = () => {
               {captchaError && <p className='text-red-500 text-sm mt-2 ml-2'>{captchaError}</p>}
             </div>
             <div className='flex justify-center items-center'>
-              <button type='submit' className='px-6 py-3 text-sm text-white bg-purple1 rounded-full'>
+              <button
+                type='submit'
+                className='px-6 py-3 mt-3 text-sm text-white bg-purple1 rounded-full hover:bg-purple-800 transition-colors duration-700'
+              >
                 SEND
               </button>
             </div>
