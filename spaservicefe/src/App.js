@@ -17,6 +17,7 @@ import Products from './pages/home/products.tsx'
 import News from './pages/home/news.tsx'
 import OurServices from './pages/home/ourServices.tsx'
 import DetailPage from './pages/detailPage/detailPage.tsx'
+import DashboardPage from './pages/admin/dashboardPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
@@ -52,6 +53,7 @@ function App() {
               </Layout>
             }
           />
+          <Route path='admin' element={<DashboardPage />} />
           <Route path='login' element={<LoginPage />} />
           <Route path='register' element={<RegisterPage />} />
           <Route
