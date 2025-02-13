@@ -11,6 +11,7 @@ import Footer from './components/ui/footer.tsx'
 import ContactPage from './pages/contact/contact.tsx'
 import Header from './components/ui/header.tsx'
 import Home from './pages/home/home.tsx'
+import DetailPage from './pages/detailPage/detailPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
@@ -71,7 +72,7 @@ function App() {
             path='services-detail/:id'
             element={
               <Layout>
-                <div>Service Details</div>
+                <DetailPage />
               </Layout>
             }
           />

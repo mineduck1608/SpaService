@@ -1,0 +1,82 @@
+import { Link, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { formatNumber, getServicesOfCategory, imgs } from '../servicesPage/servicesPage.util'
+import StockImg from './stockImg'
+import { Service } from '@/types/services'
+import { getService, sampleService } from './detailPage.util'
+import { Category } from '@/types/category'
+import ShortDetail from './shortDetail'
+import seperator from '../../images/serviceBg/separator.png'
+import DetailPageCarousel from './detailPageCarousel'
+import ServiceIntro from './serviceIntro'
+
+export default function DetailPage() {
+  const { id } = useParams()
+  const [data, setData] = useState<Service>()
+  const [related, setRelated] = useState<Service[]>([])
+  const CATEGORY = JSON.parse(sessionStorage.getItem('CATEGORIES') ?? '{}') as Category[]
+  useEffect(() => {
+    async function fetchData() {
+      const x = await getService(id ?? '')
+      if (x) {
+        setData(x)
+        const y = await getServicesOfCategory(x.categoryId)
+        setRelated(y)
+      }
+    }
+    fetchData()
+  }, [])
+
+  return (
+    <div>
+      <img src={imgs.headerBg} alt='Header' className='w-full' />
+      <div className='mb-20 p-2 md:ml-28 lg:ml-5 xl:ml-72'>
+        <span className='font-normal text-gray-400'>
+          <Link to={'/'} className='text-gray-400 no-underline'>
+            Home
+          </Link>
+          &nbsp;&gt;
+          <Link to={'/services/' + sampleService.categoryId} className='text-gray-400 no-underline'>
+            {CATEGORY.find((x) => x.categoryId === data?.categoryId)?.categoryName}
+          </Link>
+          &nbsp;&gt;
+          {data?.serviceName}
+        </span>
+      </div>
+      <div>
+        {/* Long detail */}
+        <div className='flex w-full justify-center  mb-10 pt-5'>
+          {/* Detail is here */}
+          <div className='w-11/12 shadow-lg lg:w-3/5 '>
+            {/* Short intro and img */}
+            <div className='flex justify-between'>
+              <div className='w-[49.5%] '>
+                <StockImg s={data}/>
+              </div>
+              <div className='w-[49.5%] '>
+                <ShortDetail d={data} />
+              </div>
+            </div>
+            {/* Service intro */}
+            <div className='w-full  p-2'>
+              <ServiceIntro s={data}/>
+            </div>
+          </div>
+        </div>
+        {/* Related services */}
+        <div className='w-full mb-10 '>
+          <p className='p-3 text-center text-2xl font-bold'>Related services</p>
+          <div className='flex justify-center mb-4'>
+            <img src={seperator} className='mb-3' />
+          </div>
+          {/* Related service carousel */}
+          <div className='flex justify-center'>
+            <div className='w-11/12 lg:w-3/5 '>
+              <DetailPageCarousel list={related} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
