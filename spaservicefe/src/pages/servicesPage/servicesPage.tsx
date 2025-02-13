@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
-import { findCategories, getServices, imgs, take } from './servicesPage.util'
+import { findCategories, getServicesOfCategory, imgs, take } from './servicesPage.util'
 import { Link, useParams } from 'react-router-dom'
 import { CategoryMenu } from './categoryMenu'
 import ServiceList from './serviceList'
 import { Service } from '@/types/services'
 import { Category } from '@/types/category'
 import PageNumber from './pageNumber'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default function ServicesPage() {
   const { id } = useParams()
@@ -32,7 +34,7 @@ export default function ServicesPage() {
         return
       }
       setCurrentCategory(c.find((v) => v.categoryId === id))
-      var serviceFetch = await getServices(id)
+      var serviceFetch = await getServicesOfCategory(id)
       if (!serviceFetch) {
         return
       }
@@ -40,10 +42,19 @@ export default function ServicesPage() {
     }
     fetchData()
   }, [])
+
+   useEffect(() => {
+      AOS.init({
+        offset: 0,
+        delay: 200,
+        duration: 1200,
+        once: true
+      })
+    }, [])
   return (
     <div>
       <img src={imgs.headerBg} alt='Header' className='w-full' />
-      <div className='mb-20 p-2 md:ml-28 lg:ml-5 xl:ml-72'>
+      <div className='mb-20 p-2 md:ml-28 lg:ml-5 xl:ml-72' data-aos='fade-right' data-aos-delay='400'>
         <span className='font-normal text-gray-400'>
           <Link to={'/'} className='text-gray-400 no-underline'>
             Home
@@ -56,7 +67,7 @@ export default function ServicesPage() {
         <div className='flex w-full justify-center lg:justify-normal'>
           {/* Left menu */}
           <div className='hidden w-[310px] lg:flex 2xl:ml-[14.5vw]'>
-            <div id={'left-menu'} className='hidden justify-center lg:flex'>
+            <div id={'left-menu'} className='hidden justify-center lg:flex' data-aos='fade-right' data-aos-delay='400'>
               <CategoryMenu
                 items={categories ?? []}
                 onClickItem={(v) => {
@@ -67,7 +78,7 @@ export default function ServicesPage() {
             </div>
           </div>
           {/* Services available */}
-          <div className='w-5/6 lg:ml-[5vw] 2xl:w-[55%]'>
+          <div className='w-5/6 lg:ml-[5vw] 2xl:w-[55%]' data-aos='fade' data-aos-delay='400'>
             <ServiceList service={take<Service>(services, pageNum, PAGE_SIZE) ?? []} />
             <div className='translate-y-8'>
               {services.length > PAGE_SIZE && (

@@ -39,9 +39,12 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
     fetchPosts()
   }, [activeTab])
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error}</div>
-  if (!posts.length) return <div>No posts available.</div>
+  if (loading) return <div  className="flex justify-center">Loading...</div>
+  if (error) return <div  className="flex justify-center">Error: {error}</div>
+  if (!posts.length) return <div className="flex justify-center">
+  No news available.
+</div>
+
 
   const formatDate = (date: Date) => {
     const day = String(date.getDate()).padStart(2, '0') // Đảm bảo luôn có 2 chữ số
@@ -56,7 +59,7 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
   }
 
   return (
-    <div className='mx-auto max-w-7xl p-4' data-aos-delay='1000' data-aos-offset='500'>
+    <div className='mx-auto max-w-7xl p-4'>
       {/* First row: 1 large post on the left, 2 smaller posts on the right */}
       <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
         {/* Large post on the left (spans 2 columns on medium screens and above) */}
