@@ -30,7 +30,7 @@ export default function DetailPage() {
   return (
     <div>
       <img src={imgs.headerBg} alt='Header' className='w-full' />
-      <div className='mb-20 p-2 md:ml-28 lg:ml-5 xl:ml-72'>
+      <div className='mb-10 p-2 md:ml-28 lg:ml-5 xl:ml-[23rem]'>
         <span className='font-normal text-gray-400'>
           <Link to={'/'} className='text-gray-400 no-underline'>
             Home
@@ -43,11 +43,11 @@ export default function DetailPage() {
           {data?.serviceName}
         </span>
       </div>
-      <div>
-        {/* Long detail */}
-        <div className='flex w-full justify-center  mb-10 pt-5'>
-          {/* Detail is here */}
-          <div className='w-11/12 shadow-lg lg:w-3/5 '>
+      <div className=''>
+        {/* Service detail (img, short intro + long intro) */}
+        <div className='flex w-full justify-center  mb-10'>
+          {/* Outer container for img + short intro */}
+          <div className='w-11/12 shadow-lg lg:w-3/5 p-4'>
             {/* Short intro and img */}
             <div className='flex justify-between'>
               <div className='w-[49.5%] '>
@@ -65,7 +65,7 @@ export default function DetailPage() {
         </div>
         {/* Related services */}
         <div className='w-full mb-10 '>
-          <p className='p-3 text-center text-2xl font-bold'>Related services</p>
+          <p className='p-3 text-center text-[3rem] text-purple1'>Related services</p>
           <div className='flex justify-center mb-4'>
             <img src={seperator} className='mb-3' />
           </div>

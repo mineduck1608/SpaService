@@ -11,6 +11,11 @@ import Footer from './components/ui/footer.tsx'
 import ContactPage from './pages/contact/contact.tsx'
 import Header from './components/ui/header.tsx'
 import Home from './pages/home/home.tsx'
+import AboutSection from './pages/home/aboutUs.tsx'
+import Services from './pages/home/services.tsx'
+import Products from './pages/home/products.tsx'
+import News from './pages/home/news.tsx'
+import OurServices from './pages/home/ourServices.tsx'
 import DetailPage from './pages/detailPage/detailPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
@@ -39,6 +44,11 @@ function App() {
             element={
               <Layout>
                 <Home />
+                <AboutSection/>
+                <Services/>
+                <OurServices/>
+                <Products/>
+                <News/>
               </Layout>
             }
           />
