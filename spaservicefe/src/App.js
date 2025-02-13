@@ -2,7 +2,6 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/loginPage/loginPage.tsx'
 import RegisterPage from './pages/registerPage/registerPage.tsx'
-
 import MediaPage from './pages/mediaPage/mediaPage.tsx'
 import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
 import ServicesPage from './pages/servicesPage/servicesPage.tsx'
@@ -11,6 +10,7 @@ import Footer from './components/ui/footer.tsx'
 import ContactPage from './pages/contact/contact.tsx'
 import Header from './components/ui/header.tsx'
 import Home from './pages/home/home.tsx'
+import DashboardPage from './pages/admin/dashboardPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
@@ -41,6 +41,7 @@ function App() {
               </Layout>
             }
           />
+          <Route path='admin' element={<DashboardPage />} />
           <Route path='login' element={<LoginPage />} />
           <Route path='register' element={<RegisterPage />} />
           <Route
