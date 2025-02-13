@@ -1,3 +1,4 @@
+import { apiUrl } from '../../types/constants'
 import { Service } from '@/types/services'
 
 export const sampleService: Service = {
@@ -10,4 +11,14 @@ export const sampleService: Service = {
   serviceImage: 'https://senspa.com.vn/wp-content/uploads/2020/11/massage-thai.jpg',
   categoryId: 'cat_1_AI_GEN',
   noOfSessions: 1
+}
+export async function getService(id: string){
+  try{
+    var s = await fetch(`${apiUrl}/spaservices/GetById/${id}`)
+    var rs = (await s.json()) as Service
+    return rs
+  }
+  catch(e){
+    return null
+  }
 }

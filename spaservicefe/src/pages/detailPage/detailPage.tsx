@@ -1,15 +1,27 @@
-import { Link } from 'react-router-dom'
-import React, { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import { formatNumber, imgs } from '../servicesPage/servicesPage.util'
 import StockImg from './stockImg'
 import { Service } from '@/types/services'
-import { sampleService } from './detailPage.util'
+import { getService, sampleService } from './detailPage.util'
 import { Category } from '@/types/category'
 import ShortDetail from './shortDetail'
 import seperator from '../../images/serviceBg/separator.png'
+import DetailPageCarousel from './detailPageCarousel'
 
 export default function DetailPage() {
+  const { id } = useParams()
   const [data, setData] = useState<Service>(sampleService)
+  const CATEGORY = JSON.parse(sessionStorage.getItem('CATEGORIES') ?? '{}') as Category[]
+  useEffect(() => {
+    async function fetchData() {
+      const x = await getService(id ?? '')
+      if (x) {
+        setData(x)
+      }
+    }
+    fetchData()
+  }, [])
 
   return (
     <div>
@@ -19,7 +31,12 @@ export default function DetailPage() {
           <Link to={'/'} className='text-gray-400 no-underline'>
             Home
           </Link>
-          &nbsp;&gt; AAA
+          &nbsp;&gt;
+          <Link to={'/services/' + sampleService.categoryId} className='text-gray-400 no-underline'>
+            {CATEGORY.find((x) => x.categoryId === data.categoryId)?.categoryName}
+          </Link>
+          &nbsp;&gt;
+          {data.serviceName}
         </span>
       </div>
       <div>
@@ -73,7 +90,7 @@ export default function DetailPage() {
           {/* Related service carousel */}
           <div className='flex justify-center'>
             <div className='w-11/12 lg:w-3/5 bg-purple-100'>
-              A
+              <DetailPageCarousel />
             </div>
           </div>
         </div>

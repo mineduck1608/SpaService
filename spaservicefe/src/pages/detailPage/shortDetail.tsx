@@ -14,12 +14,12 @@ export default function ShortDetail(params: { d: Service }) {
       <p className='text-2xl font-bold'>
         {params.d.serviceName} ({params.d.duration})
       </p>
-      <img src={seperator} className='mb-3'/>
+      <img src={seperator} className='mb-3' />
       <p className='text-lg font-bold text-purple1'>{formatNumber(params.d.price)} VND</p>
       <p className='font-bold'>Description:</p>
       <p className='mb-5'>{params.d.description}</p>
       {/* Add cart */}
-      <div className='flex justify-between mb-3 bg-red-100 w-1/2'>
+      <div className='mb-3 flex w-1/2 justify-between bg-red-100'>
         {/* Input */}
         <span className='relative w-[45%]'>
           <button
@@ -32,7 +32,7 @@ export default function ShortDetail(params: { d: Service }) {
           </button>
           <input
             type='number'
-            className='border-purple1 border-[1px] w-full cursor-default rounded-br-3xl rounded-tl-3xl p-[0.625rem] text-center'
+            className='w-full cursor-default rounded-br-3xl rounded-tl-3xl border-[1px] border-purple1 p-[0.625rem] text-center'
             min={1}
             max={10}
             value={val}
