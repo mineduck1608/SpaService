@@ -35,11 +35,11 @@ export default function DetailPage() {
           <Link to={'/'} className='text-gray-400 no-underline'>
             Home
           </Link>
-          &nbsp;&gt;
+          &nbsp;&gt;&nbsp;
           <Link to={'/services/' + sampleService.categoryId} className='text-gray-400 no-underline'>
             {CATEGORY.find((x) => x.categoryId === data?.categoryId)?.categoryName}
           </Link>
-          &nbsp;&gt;
+          &nbsp;&gt;&nbsp;
           {data?.serviceName}
         </span>
       </div>
@@ -71,7 +71,7 @@ export default function DetailPage() {
           </div>
           {/* Related service carousel */}
           <div className='flex justify-center'>
-            <div className='w-11/12 lg:w-3/5 '>
+            <div className='w-11/12 lg:w-3/5'>
               <DetailPageCarousel list={related} />
             </div>
           </div>
