@@ -13,9 +13,9 @@ export default function ServiceList(params?: { service: Service[] }) {
 
 export function ServiceCard(params?: { s: Service }) {
   return (
-    <div className='w-full min-w-[300px] rounded-md shadow'>
+    <div className='w-full min-w-[300px] '>
       {/* Container */}
-      <div className='flex flex-col'>
+      <div className='flex flex-col rounded-md shadow'>
         <img
           src={params?.s?.serviceImage}
           alt={params?.s?.serviceName}
