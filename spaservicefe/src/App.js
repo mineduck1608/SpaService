@@ -2,7 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/loginPage/loginPage.tsx'
 import RegisterPage from './pages/registerPage/registerPage.tsx'
-
+import NewsDetail from './pages/news/newsDetail.tsx'
 import MediaPage from './pages/mediaPage/mediaPage.tsx'
 import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
 import ServicesPage from './pages/servicesPage/servicesPage.tsx'
@@ -111,7 +111,7 @@ function App() {
             path='/news/:tabs/:id'
             element={
               <Layout>
-                <NewsPage />
+                <NewsDetail />
               </Layout>
             }
           />

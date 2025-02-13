@@ -37,7 +37,7 @@ const NewsPage = () => {
               Home
             </a>
             <span className='mx-1'>&gt;</span>
-            <span>{activeTab === 'blog' ? 'Blogs' : activeTab === 'promotion' ? 'Promotions' : 'Events'}</span>
+            <span>{activeTab === 'blog' ? 'Blog' : activeTab === 'promotion' ? 'Promotion' : 'Event'}</span>
           </div>
         </div>
       </div>
@@ -80,7 +80,9 @@ const NewsPage = () => {
               </button>
             </div>
           </div>
-          <div className='mt-3'>
+          <div className='mt-3' data-aos='zoom-in'
+          data-aos-delay='1000'
+          data-aos-offset='-500'>
             <PostGrid activeTab={activeTab} />
           </div>
         </div>
