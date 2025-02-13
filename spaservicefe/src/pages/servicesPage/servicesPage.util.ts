@@ -18,7 +18,7 @@ export async function getCategory(id: string) {
     return null
   }
 }
-export async function getServices(id: string) {
+export async function getServicesOfCategory(id: string) {
   try {
     var res = await fetch(`${apiUrl}/spaservices/ServiceOfCategory?categoryId=${id}`)
     var json = (await res.json()) as Service[]

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { findCategories, getServices, imgs, take } from './servicesPage.util'
+import { findCategories, getServicesOfCategory, imgs, take } from './servicesPage.util'
 import { Link, useParams } from 'react-router-dom'
 import { CategoryMenu } from './categoryMenu'
 import ServiceList from './serviceList'
@@ -32,7 +32,7 @@ export default function ServicesPage() {
         return
       }
       setCurrentCategory(c.find((v) => v.categoryId === id))
-      var serviceFetch = await getServices(id)
+      var serviceFetch = await getServicesOfCategory(id)
       if (!serviceFetch) {
         return
       }
