@@ -258,11 +258,11 @@
 }
 
 .header-container.large {
-  height: 140px;
+  height: 150px;
 }
 
 .header-container.small {
-  height: 90px;
+  height: 100px;
 }
 
 .logo {
@@ -277,13 +277,13 @@
   width: auto;
   object-fit: contain;
   transition:
-    height 0.3s ease-in-out,
-    width 0.3s ease-in-out;
+    height 0.7s ease-in-out,
+    width 0.7s ease-in-out,
+    filter 0.7s ease-in-out;
 }
 
 .large-logo {
-  margin-top: 25px;
-  height: 250px;
+  height: 110px;
   width: auto;
 }
 
@@ -300,7 +300,7 @@
   display: flex;
   margin: 0;
   padding: 0;
-  gap: 30px;
+  gap: 40px;
 }
 
 .nav-link {

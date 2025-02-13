@@ -25,6 +25,7 @@ const serviceItems = [
 ]
 
 const OurServices = () => {
+    return (
     <section className='ourServices'>
         <div className='relative w-full bg-white py-20'>
             <div
@@ -93,6 +94,7 @@ const OurServices = () => {
             </div>
         </div>
     </section>
+    )
 }
 
 export default OurServices;

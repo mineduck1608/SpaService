@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react'
 import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import logoBlack from '../../images/logos/logoBlack.png'
+import logoColor from '../../images/logos/logoColor.png'
 import { Category } from '@/types/category.ts'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
-import logoColor from '../../images/logos/logoColor.png'
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState(true)
@@ -64,9 +63,9 @@ const Header = () => {
               </li>
               <div className='logo'>
                 <img
-                  src={isAtTop ? logoBlack : logoColor}
+                  src={logoColor}
                   alt='Sen Spa Logo'
-                  className={`logo-image ${isAtTop ? 'large-logo' : 'small-logo'}`}
+                  className={`logo-image ${isAtTop ? 'large-logo brightness-0 invert' : 'small-logo'}`}
                 />
               </div>
               <li className='dropdown'>
