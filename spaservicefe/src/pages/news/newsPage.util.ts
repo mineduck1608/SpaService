@@ -21,6 +21,16 @@ export async function getAllPromotion() {
   }
 }
 
+export async function getNewsById(id: string) {
+  try {
+    var res = await fetch(`${apiUrl}/news/GetById/${id}`)
+    var json = (await res.json()) as News[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
 export async function getAllBlog() {
   try {
     var res = await fetch(`${apiUrl}/news/GetAllBlog`)
