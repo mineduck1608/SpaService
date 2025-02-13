@@ -2,7 +2,6 @@ import { Service } from '@/types/services'
 import React from 'react'
 import { formatNumber } from './servicesPage.util'
 import sep from '../../images/serviceBg/separator.png'
-import { useNavigate } from 'react-router-dom'
 
 export default function ServiceList(params?: { service: Service[] }) {
   return (
@@ -13,11 +12,10 @@ export default function ServiceList(params?: { service: Service[] }) {
 }
 
 export function ServiceCard(params?: { s: Service }) {
-  const nav = useNavigate()
   return (
-    <div className='w-full min-w-[300px] rounded-md shadow'>
+    <div className='w-full min-w-[300px] '>
       {/* Container */}
-      <div className='flex flex-col'>
+      <div className='flex flex-col rounded-md shadow'>
         <img
           src={params?.s?.serviceImage}
           alt={params?.s?.serviceName}
