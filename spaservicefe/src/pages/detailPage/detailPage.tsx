@@ -30,16 +30,16 @@ export default function DetailPage() {
   return (
     <div>
       <img src={imgs.headerBg} alt='Header' className='w-full' />
-      <div className='mb-20 p-2 md:ml-28 lg:ml-5 xl:ml-72'>
+      <div className='mb-20 p-2 md:ml-28 lg:ml-5 xl:ml-[23rem]'>
         <span className='font-normal text-gray-400'>
           <Link to={'/'} className='text-gray-400 no-underline'>
             Home
           </Link>
-          &nbsp;&gt;
+          &nbsp;&gt;&nbsp;
           <Link to={'/services/' + sampleService.categoryId} className='text-gray-400 no-underline'>
             {CATEGORY.find((x) => x.categoryId === data?.categoryId)?.categoryName}
           </Link>
-          &nbsp;&gt;
+          &nbsp;&gt;&nbsp;
           {data?.serviceName}
         </span>
       </div>
