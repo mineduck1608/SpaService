@@ -12,13 +12,12 @@ export const sampleService: Service = {
   categoryId: 'cat_1_AI_GEN',
   noOfSessions: 1
 }
-export async function getService(id: string){
-  try{
+export async function getService(id: string) {
+  try {
     var s = await fetch(`${apiUrl}/spaservices/GetById/${id}`)
     var rs = (await s.json()) as Service
     return rs
-  }
-  catch(e){
+  } catch (e) {
     return null
   }
 }

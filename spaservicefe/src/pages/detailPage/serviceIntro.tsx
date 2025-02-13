@@ -1,7 +1,8 @@
 import React from 'react'
 import seperator from '../../images/serviceBg/separator.png'
+import { Service } from '@/types/services'
 
-export default function ServiceIntro() {
+export default function ServiceIntro(params: { s?: Service }) {
   return (
     <div>
       <p className='p-3 text-center text-2xl font-bold'>Service introduction</p>

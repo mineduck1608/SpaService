@@ -5,19 +5,19 @@ import React, { useState } from 'react'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import seperator from '../../images/serviceBg/separator.png'
 
-export default function ShortDetail(params: { d: Service }) {
+export default function ShortDetail(params: { d?: Service }) {
   const CATEGORY = JSON.parse(sessionStorage.getItem('CATEGORIES') ?? '{}') as Category[]
   const [val, setVal] = useState(1)
 
   return (
     <div className='p-2'>
       <p className='text-2xl font-bold'>
-        {params.d.serviceName} ({params.d.duration})
+        {params.d?.serviceName} ({params.d?.duration})
       </p>
       <img src={seperator} className='mb-3' />
-      <p className='text-lg font-bold text-purple1'>{formatNumber(params.d.price)} VND</p>
+      <p className='text-lg font-bold text-purple1'>{formatNumber(params.d?.price ?? 0)} VND</p>
       <p className='font-bold'>Description:</p>
-      <p className='mb-5'>{params.d.description}</p>
+      <p className='mb-5'>{params.d?.description}</p>
       {/* Add cart */}
       <div className='mb-3 flex w-1/2 justify-between '>
         {/* Input */}
@@ -53,8 +53,8 @@ export default function ShortDetail(params: { d: Service }) {
       </div>
       <p className='text-black'>
         Category:&nbsp;
-        <Link className='no-underline text-black' to={'/services/' + params.d.categoryId}>
-          {CATEGORY.find((x) => x.categoryId === params.d.categoryId)?.categoryName}
+        <Link className='no-underline text-black' to={'/services/' + params.d?.categoryId}>
+          {CATEGORY.find((x) => x.categoryId === params.d?.categoryId)?.categoryName}
         </Link>
       </p>
     </div>

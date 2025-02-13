@@ -12,7 +12,7 @@ import ServiceIntro from './serviceIntro'
 
 export default function DetailPage() {
   const { id } = useParams()
-  const [data, setData] = useState<Service>(sampleService)
+  const [data, setData] = useState<Service>()
   const [related, setRelated] = useState<Service[]>([])
   const CATEGORY = JSON.parse(sessionStorage.getItem('CATEGORIES') ?? '{}') as Category[]
   useEffect(() => {
@@ -37,10 +37,10 @@ export default function DetailPage() {
           </Link>
           &nbsp;&gt;
           <Link to={'/services/' + sampleService.categoryId} className='text-gray-400 no-underline'>
-            {CATEGORY.find((x) => x.categoryId === data.categoryId)?.categoryName}
+            {CATEGORY.find((x) => x.categoryId === data?.categoryId)?.categoryName}
           </Link>
           &nbsp;&gt;
-          {data.serviceName}
+          {data?.serviceName}
         </span>
       </div>
       <div>
@@ -51,7 +51,7 @@ export default function DetailPage() {
             {/* Short intro and img */}
             <div className='flex justify-between'>
               <div className='w-[49.5%] '>
-                <StockImg />
+                <StockImg s={data}/>
               </div>
               <div className='w-[49.5%] '>
                 <ShortDetail d={data} />
@@ -59,7 +59,7 @@ export default function DetailPage() {
             </div>
             {/* Service intro */}
             <div className='w-full  p-2'>
-              <ServiceIntro />
+              <ServiceIntro s={data}/>
             </div>
           </div>
         </div>

@@ -1,7 +1,10 @@
+import { Service } from '@/types/services'
 import React from 'react'
 
-export default function StockImg() {
+export default function StockImg(params: { s?: Service }) {
   return (
-    <div>StockImg</div>
+    <div>
+      <img src={params?.s?.serviceImage} alt='Image' />
+    </div>
   )
 }
