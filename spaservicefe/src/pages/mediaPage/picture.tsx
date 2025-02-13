@@ -120,7 +120,7 @@ const Picture = () => {
   return (
     <div className='py-4 text-center'>
       {/* Grid hiển thị danh sách các cơ sở */}
-      <div className='grid grid-cols-1 md:grid-cols-4 gap-2'>
+      <div className='grid grid-cols-1 gap-2 md:grid-cols-4'>
         {images.map((image) => (
           <div
             key={image.id}

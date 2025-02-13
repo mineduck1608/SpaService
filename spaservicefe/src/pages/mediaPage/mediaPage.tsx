@@ -5,7 +5,6 @@ import 'aos/dist/aos.css'
 import { FaImage, FaVideo, FaFilePdf } from 'react-icons/fa'
 import IntroHeader from '../../components/introductionHeader'
 
-
 // Import các component
 import Picture from './picture'
 import Video from './video'
@@ -50,43 +49,41 @@ const MediaPage = () => {
       {/* Tiêu đề & Tabs */}
       <section className='section gallery_category_page'>
         <div className='grid-container'>
-        <IntroHeader title='Media' position='middle' size='big' />
+          <IntroHeader title='Media' position='middle' size='big' />
 
           {/* Tabs */}
-          <div className='w-full' data-aos='zoom-in'
-            data-aos-delay='1000'
-            data-aos-offset='-500'>
-          <div className='my-2 flex justify-center gap-4'>
-            <button
-              className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
-                activeTab === 'picture' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
-              }`}
-              onClick={() => navigate('/media/picture')}
-            >
-              <FaImage size={18} />
-              Picture
-            </button>
+          <div className='w-full' data-aos='zoom-in' data-aos-delay='1000' data-aos-offset='-500'>
+            <div className='my-2 flex justify-center gap-4'>
+              <button
+                className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
+                  activeTab === 'picture' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
+                }`}
+                onClick={() => navigate('/media/picture')}
+              >
+                <FaImage size={18} />
+                Picture
+              </button>
 
-            <button
-              className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
-                activeTab === 'video' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
-              }`}
-              onClick={() => navigate('/media/video')}
-            >
-              <FaVideo size={18} />
-              Video
-            </button>
+              <button
+                className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
+                  activeTab === 'video' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
+                }`}
+                onClick={() => navigate('/media/video')}
+              >
+                <FaVideo size={18} />
+                Video
+              </button>
 
-            <button
-              className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
-                activeTab === 'e-brochure' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
-              }`}
-              onClick={() => navigate('/media/e-brochure')}
-            >
-              <FaFilePdf size={18} />
-              E-Brochure
-            </button>
-          </div>
+              <button
+                className={`flex items-center gap-2 rounded-bl-[23px] rounded-tr-[23px] border border-gray-300 px-8 py-2 transition-all duration-1000 ${
+                  activeTab === 'e-brochure' ? 'bg-[#8D388A] text-white' : 'bg-white text-gray-700'
+                }`}
+                onClick={() => navigate('/media/e-brochure')}
+              >
+                <FaFilePdf size={18} />
+                E-Brochure
+              </button>
+            </div>
           </div>
 
           {/* Hiển thị nội dung theo tab */}

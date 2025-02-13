@@ -57,7 +57,7 @@ module.exports = {
         'custom-bg3': "url('https://senspa.com.vn/wp-content/uploads/2020/11/bg_about_us.png')",
         'custom-bg4': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bf_process_history.png')",
         'custom-bg5': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bg_spa.png')",
-        'custom-bg6': "url('https://senspa.com.vn/wp-content/uploads/2020/12/G-sa%CC%89nh-13.jpg')",
+        'custom-bg6': "url('https://senspa.com.vn/wp-content/uploads/2020/12/G-sa%CC%89nh-13.jpg')"
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif']

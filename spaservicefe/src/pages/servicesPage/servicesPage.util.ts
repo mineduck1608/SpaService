@@ -49,7 +49,7 @@ export async function findCategories() {
   }
   return s
 }
-export function take<T>(arr: T[], pageNum: number, pageSize: number): T[]{
+export function take<T>(arr: T[], pageNum: number, pageSize: number): T[] {
   let start = pageNum * pageSize
   let end = start + pageSize
   return arr.slice(start, end)

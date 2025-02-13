@@ -7,7 +7,6 @@ import { Category } from '@/types/category.ts'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 import logoColor from '../../images/logos/logoColor.png'
 
-
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState(true)
   const [category, setCategory] = useState<Category[]>([])
@@ -75,7 +74,9 @@ const Header = () => {
                   MEDIA
                   <FontAwesomeIcon icon={faAngleDown} className='mb-0.5 ml-2 text-xs' />
                 </a>
-                <ul className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}>
+                <ul
+                  className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}
+                >
                   <li>
                     <a
                       href='/media/pictures'

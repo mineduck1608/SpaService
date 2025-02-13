@@ -76,7 +76,6 @@ const ContactForm = () => {
         })
 
         if (response.ok) {
-          const data = await response.json()
           toast.success('Thank you for your message.')
           setFormData({
             fullName: '',
@@ -96,14 +95,14 @@ const ContactForm = () => {
 
   return (
     <div
-      className='flex flex-col lg:flex-row font-montserrat mt-4 bg-custom-bg6 w-full max-w-6xl mx-auto shadow-xl border border-gray-200'
+      className='mx-auto mt-4 flex w-full max-w-6xl flex-col border border-gray-200 bg-custom-bg6 font-montserrat shadow-xl lg:flex-row'
       data-aos='fade-left'
       data-aos-delay='500'
     >
       <div className='p-8 text-white lg:w-1/2'>
-        <div className='max-w-full ml-7 mb-10'>
+        <div className='mb-10 ml-7 max-w-full'>
           <div className='mb-8 mt-16 font-bold'>
-            <h2 className='text-3xl mb-3 font-bold'>Sen Spa</h2>
+            <h2 className='mb-3 text-3xl font-bold'>Sen Spa</h2>
             <h3 className='text-2xl font-bold'>Service Company Limited</h3>
           </div>
           <div className='space-y-6 opacity-80'>
@@ -138,7 +137,7 @@ const ContactForm = () => {
               </div>
             </div>
           </div>
-          <div className='flex gap-12 mt-10 text-3xl'>
+          <div className='mt-10 flex gap-12 text-3xl'>
             <a className='text-white' href='https://www.facebook.com/senspa.vietnam/'>
               <FaFacebookSquare />
             </a>
@@ -151,63 +150,63 @@ const ContactForm = () => {
           </div>
         </div>
       </div>
-      <div className='bg-white lg:w-1/2 p-8 flex items-center'>
-        <div className='w-[500px] mx-auto'>
-          <h2 className='text-2xl mb-2 font-bold'>Contact Form</h2>
-          <p className='text-gray-600 mb-8'>Contact us so we can best support you</p>
+      <div className='flex items-center bg-white p-8 lg:w-1/2'>
+        <div className='mx-auto w-[500px]'>
+          <h2 className='mb-2 text-2xl font-bold'>Contact Form</h2>
+          <p className='mb-8 text-gray-600'>Contact us so we can best support you</p>
           <form className='space-y-4' onSubmit={handleSubmit}>
             <div>
               <input
                 type='text'
                 name='fullName'
                 placeholder='Full name'
-                className='w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple1'
+                className='w-full rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-purple1'
                 value={formData.fullName}
                 onChange={handleInputChange}
               />
-              {errors.fullName && <p className='text-red-500 text-sm mt-1 ml-2'>{errors.fullName}</p>}
+              {errors.fullName && <p className='ml-2 mt-1 text-sm text-red-500'>{errors.fullName}</p>}
             </div>
             <div>
               <input
                 type='tel'
                 name='phoneNumber'
                 placeholder='Phone'
-                className='w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple1'
+                className='w-full rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-purple1'
                 value={formData.phoneNumber}
                 onChange={handleInputChange}
               />
-              {errors.phoneNumber && <p className='text-red-500 text-sm mt-1 ml-2'>{errors.phoneNumber}</p>}
+              {errors.phoneNumber && <p className='ml-2 mt-1 text-sm text-red-500'>{errors.phoneNumber}</p>}
             </div>
             <div>
               <input
                 type='email'
                 name='email'
                 placeholder='Email'
-                className='w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple1'
+                className='w-full rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-purple1'
                 value={formData.email}
                 onChange={handleInputChange}
               />
-              {errors.email && <p className='text-red-500 text-sm mt-1 ml-2'>{errors.email}</p>}
+              {errors.email && <p className='ml-2 mt-1 text-sm text-red-500'>{errors.email}</p>}
             </div>
             <div>
               <textarea
                 name='contactContent'
                 placeholder='Content'
                 rows={3}
-                className='w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple1'
+                className='w-full rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-purple1'
                 value={formData.contactContent}
                 onChange={handleInputChange}
               />
-              {errors.contactContent && <p className='text-red-500 text-sm ml-2'>{errors.contactContent}</p>}
+              {errors.contactContent && <p className='ml-2 text-sm text-red-500'>{errors.contactContent}</p>}
             </div>
             <div className='flex flex-col items-center justify-center'>
               <ReCAPTCHAFixed sitekey='6LeUZdIqAAAAAPlUPWL-M5n_aaSahKjHd8rfsoB_' onChange={handleCaptchaChange} />
-              {captchaError && <p className='text-red-500 text-sm mt-2 ml-2'>{captchaError}</p>}
+              {captchaError && <p className='ml-2 mt-2 text-sm text-red-500'>{captchaError}</p>}
             </div>
-            <div className='flex justify-center items-center'>
+            <div className='flex items-center justify-center'>
               <button
                 type='submit'
-                className='px-6 py-3 mt-3 text-sm text-white bg-purple1 rounded-full hover:bg-purple-800 transition-colors duration-700'
+                className='mt-3 rounded-full bg-purple1 px-6 py-3 text-sm text-white transition-colors duration-700 hover:bg-purple-800'
               >
                 SEND
               </button>

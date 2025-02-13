@@ -52,22 +52,22 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
   }
 
   const handleClick = (postId: string) => {
-    navigate(`/news/${activeTab}/${postId}`); // Điều hướng tới trang chi tiết của bài viết
-  };
+    navigate(`/news/${activeTab}/${postId}`) // Điều hướng tới trang chi tiết của bài viết
+  }
 
   return (
     <div className='mx-auto max-w-7xl p-4' data-aos-delay='1000' data-aos-offset='500'>
       {/* First row: 1 large post on the left, 2 smaller posts on the right */}
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
         {/* Large post on the left (spans 2 columns on medium screens and above) */}
         <div
-          className='md:col-span-2 relative rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl'
+          className='relative transform cursor-pointer overflow-hidden rounded-lg shadow-lg transition duration-300 hover:scale-105 hover:shadow-2xl md:col-span-2'
           onClick={() => handleClick(posts[0].newsId)}
         >
-          <img src={posts[0].image} alt={posts[0].header} className='w-full h-[524px] object-cover' />
+          <img src={posts[0].image} alt={posts[0].header} className='h-[524px] w-full object-cover' />
           <div className='bgblur absolute inset-0 flex flex-col justify-end p-4'>
-            <p className='text-lg font-bold text-light my-1'>{formatDate(new Date(posts[0].createAt))}</p>
-            <h3 className='text-2xl font-bold text-light'>{posts[0].header}</h3>
+            <p className='text-light my-1 text-lg font-bold'>{formatDate(new Date(posts[0].createAt))}</p>
+            <h3 className='text-light text-2xl font-bold'>{posts[0].header}</h3>
           </div>
         </div>
 
@@ -76,13 +76,13 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
           {posts.slice(1, 3).map((post) => (
             <div
               key={post.newsId}
-              className='relative rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl'
+              className='relative transform cursor-pointer overflow-hidden rounded-lg shadow-lg transition duration-300 hover:scale-105 hover:shadow-2xl'
               onClick={() => handleClick(post.newsId)}
             >
-              <img src={post.image} alt={post.header} className='w-full h-[250px] object-cover' />
+              <img src={post.image} alt={post.header} className='h-[250px] w-full object-cover' />
               <div className='bgblur absolute inset-0  flex flex-col justify-end p-4'>
-                <p className='text-sm font-bold text-light my-1'>{formatDate(new Date(post.createAt))}</p>
-                <h3 className='text-lg font-bold text-light'>{post.header}</h3>
+                <p className='text-light my-1 text-sm font-bold'>{formatDate(new Date(post.createAt))}</p>
+                <h3 className='text-light text-lg font-bold'>{post.header}</h3>
               </div>
             </div>
           ))}
@@ -90,21 +90,21 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
       </div>
 
       {/* Remaining posts in a 3-column grid */}
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
+      <div className='mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
         {posts.slice(3).map((post) => (
           <div
             key={post.newsId}
-            className='rounded-lg overflow-hidden shadow-lg bg-white cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl'
+            className='transform cursor-pointer overflow-hidden rounded-lg bg-white shadow-lg transition duration-300 hover:scale-105 hover:shadow-2xl'
             onClick={() => handleClick(post.newsId)}
           >
             {/* Image on top */}
-            <img src={post.image} alt={post.header} className='w-full h-[200px] object-cover' />
+            <img src={post.image} alt={post.header} className='h-[200px] w-full object-cover' />
 
             {/* Content below */}
             <div className='p-4'>
-              <p className='text-gray-500 text-sm'>{formatDate(new Date(post.createAt))}</p>
-              <h3 className='text-lg font-semibold text-gray-800 mt-1'>{post.header}</h3>
-              <a href='/news/detail/:id' className='text-[#8B3A8B] hover:text-[#a040a0] transition-colors duration-300'>
+              <p className='text-sm text-gray-500'>{formatDate(new Date(post.createAt))}</p>
+              <h3 className='mt-1 text-lg font-semibold text-gray-800'>{post.header}</h3>
+              <a href='/news/detail/:id' className='text-[#8B3A8B] transition-colors duration-300 hover:text-[#a040a0]'>
                 Details
               </a>
             </div>
