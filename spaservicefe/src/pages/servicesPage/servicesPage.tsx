@@ -43,14 +43,14 @@ export default function ServicesPage() {
     fetchData()
   }, [])
 
-   useEffect(() => {
-      AOS.init({
-        offset: 0,
-        delay: 200,
-        duration: 1200,
-        once: true
-      })
-    }, [])
+  useEffect(() => {
+    AOS.init({
+      offset: 0,
+      delay: 200,
+      duration: 1200,
+      once: true
+    })
+  }, [])
   return (
     <div>
       <img src={imgs.headerBg} alt='Header' className='w-full' />
