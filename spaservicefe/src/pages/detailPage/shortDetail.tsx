@@ -19,7 +19,7 @@ export default function ShortDetail(params: { d: Service }) {
       <p className='font-bold'>Description:</p>
       <p className='mb-5'>{params.d.description}</p>
       {/* Add cart */}
-      <div className='mb-3 flex w-1/2 justify-between bg-red-100'>
+      <div className='mb-3 flex w-1/2 justify-between '>
         {/* Input */}
         <span className='relative w-[45%]'>
           <button
@@ -53,7 +53,7 @@ export default function ShortDetail(params: { d: Service }) {
       </div>
       <p className='text-black'>
         Category:&nbsp;
-        <Link className='no-underline' to={'/services/' + params.d.categoryId}>
+        <Link className='no-underline text-black' to={'/services/' + params.d.categoryId}>
           {CATEGORY.find((x) => x.categoryId === params.d.categoryId)?.categoryName}
         </Link>
       </p>
