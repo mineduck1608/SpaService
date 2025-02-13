@@ -19,7 +19,7 @@ import {
 export default function Page() {
   return (
     <SidebarProvider>
-      <SidebarLeft/>
+      <SidebarLeft />
       <SidebarInset>
         <header className="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background">
           <div className="flex flex-1 items-center gap-2 px-3">

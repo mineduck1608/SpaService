@@ -40,10 +40,12 @@ export function NavFavorites({
         {favorites.map((item) => (
           <SidebarMenuItem key={item.name} className="-ml-4">
             <SidebarMenuButton asChild>
-              <a href={item.url} title={item.name} className="no-underline text-black">
+              <button onClick={(e) => {
+                window.location.assign(item.url)
+              }} title={item.name} className="no-underline text-black">
                 {item.icon && <item.icon className='w-4 h-4 mr-1'/>}
                 <span className="mb-0.5 text-base">{item.name}</span>
-              </a>
+              </button>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

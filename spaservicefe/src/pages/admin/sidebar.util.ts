@@ -1,8 +1,6 @@
-import * as React from 'react'
 import {
   Calendar,
   Home,
-  Inbox,
   MessageCircleQuestion,
   Trash2,
   Users,
@@ -22,18 +20,16 @@ import {
   GaugeCircle,
   LineChart,
   DollarSign,
-  Lock
+  Lock,
+  LucideIcon
 } from 'lucide-react'
-
-import { NavFavorites } from 'src/components/nav-favorites'
-import { NavMain } from 'src/components/nav-main'
-import { NavSecondary } from 'src/components/nav-secondary'
-import { NavWorkspaces } from 'src/components/nav-workspaces'
-import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from 'src/components/ui/sidebar'
-import { SideBarItem } from '@/pages/admin/sidebar.util'
-
-// This is sample data.
-const data = {
+export type SideBarItem = {
+  title: string
+  url: string
+  icon: any
+  isActive?: LucideIcon
+}
+export const sideData = {
   navMain: [
     {
       title: 'Home',
@@ -42,22 +38,10 @@ const data = {
       isActive: true
     }
   ],
-  navSecondary: [
-    {
-      title: 'Trash',
-      url: '#',
-      icon: Trash2
-    },
-    {
-      title: 'Help',
-      url: '#',
-      icon: MessageCircleQuestion
-    }
-  ],
   favorites: [
     {
       name: 'Appointments',
-      url: '#',
+      url: '/admin/appointment',
       icon: Calendar
     },
     {
@@ -78,7 +62,7 @@ const data = {
       pages: [
         {
           name: 'Appointment Management',
-          url: '#',
+          url: '/admin/appointment',
           icon: CalendarRange
         },
         {
@@ -174,24 +158,4 @@ const data = {
       ]
     }
   ]
-}
-
-export function SidebarLeft(params: {
-  favourite: SideBarItem[]
-  items: SideBarItem[]
-  props: React.ComponentProps<typeof Sidebar>
-}) {
-  return (
-    <Sidebar className='border-r-0' {...params.props}>
-      <SidebarHeader>
-        <NavMain items={data.navMain} />
-      </SidebarHeader>
-      <SidebarContent>
-        <NavFavorites favorites={data.favorites} />
-        <NavWorkspaces workspaces={data.workspaces} />
-        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
-      </SidebarContent>
-      <SidebarRail />
-    </Sidebar>
-  )
 }
