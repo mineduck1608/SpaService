@@ -24,7 +24,11 @@ export function ServiceCard(params?: { s: Service }) {
           className='aspect-[1/0.65] w-full rounded-t-md '
         />
         <div className='flex items-center justify-center pt-4'>
-          <p className='text-center text-lg font-bold'>{params?.s.serviceName}</p>
+          <button onClick={(e) => {
+              window.location.assign('/services-detail/' + params?.s.serviceId)
+          }}>
+            <p className='text-center text-lg font-bold'>{params?.s.serviceName}</p>
+          </button>
         </div>
 
         <img src={sep} className='mb-2 mt-2 w-1/4 self-center' />
