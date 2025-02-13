@@ -39,15 +39,16 @@ const OurServices = () => {
 
             <div className='relative mx-auto max-w-7xl px-4'>
                 <div className='mb-16 text-center'>
-                    <h2 className='mb-4 text-5xl font-bold text-[#8B3A8B]'>Services</h2>
+                    <h2 className='mb-4 text-5xl font-bold text-[#8B3A8B]' data-aos='fade-down' data-aos-delay='300'>Services</h2>
                     <div className='flex items-center justify-center'>
                         <img
                             src='https://senspa.com.vn/wp-content/themes/thuythu/images/before_heading.png'
                             alt='lotus'
                             className='h-5'
+                            data-aos='fade-down' data-aos-delay='300'
                         />
                     </div>
-                    <p className='mt-4 text-gray-600'>
+                    <p className='mt-4 text-gray-600' data-aos='fade-down' data-aos-delay='300'>
                         Experience the refined and relaxing ambiance
                         <br />
                         with premium services at Sen Spa.

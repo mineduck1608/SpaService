@@ -18,22 +18,22 @@ const Products = () => {
                 <div className="max-w-7xl mx-auto px-4 relative">
                     {/* Section Header */}
                     <div className="text-center mb-16">
-                        <h2 className="text-5xl font-bold text-[#8B3A8B] mb-4">Products</h2>
-                        <div className="flex justify-center items-center">
+                        <h2 className="text-5xl font-bold text-[#8B3A8B] mb-4" data-aos='fade-down' data-aos-delay='300'>Products</h2>
+                        <div className="flex justify-center items-center" data-aos='fade-down' data-aos-delay='300'>
                             <img
                                 src="https://senspa.com.vn/wp-content/themes/thuythu/images/before_heading.png"
                                 alt="lotus"
                                 className="h-5"
                             />
                         </div>
-                        <p className="text-gray-600 mt-4">
+                        <p className="text-gray-600 mt-4" data-aos='fade-down' data-aos-delay='300'>
                         Enjoy the refined and tranquil space at the luxury serviced apartment.
                             <br />at Sen Spa
                         </p>
                     </div>
 
                     {/* Products Grid */}
-                    <div className="grid grid-cols-3 gap-8">
+                    <div className="grid grid-cols-3 gap-8" data-aos='fade-up' data-aos-delay='300'>
                         <div className="group cursor-pointer">
                             <div className="relative overflow-hidden">
                                 <img

@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import bgAbout from '../../images/background/bg_about.jpg';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const AboutSection = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true
+        });
+    }, []);
+
     return (
         <section className='about-section'>
-        <div
+            <div
                 className="absolute right-0 w-1/2 h-full"
                 style={{
                     backgroundImage: `url(https://senspa.com.vn/wp-content/themes/thuythu/images/bg_spa.png)`,
@@ -34,17 +44,20 @@ const AboutSection = () => {
                                 />
                             </div>
                         </div>
-                        <div className='max-w-lg text-lg text-gray-900'>
+                        <div className='max-w-lg text-lg text-gray-900' data-aos='fade-down' data-aos-delay='300'>
                             <p className='' data-aos='fade-down' data-aos-delay='300'>
                                 Associated with the beauty of a simple, sincere, and romantic flower, but with a strong will to live, Sen Spa is designed and arranged in a rustic, simple style that embodies the traditional characteristics of Vietnam.
                             </p>
                             <p className='mt-6' data-aos='fade-down' data-aos-delay='200'>
                                 Located in the heart of Ho Chi Minh City, Sen Spa is separated from the noisy, bustling atmosphere, offering a peaceful and serene space."
                             </p>
-                            <button className="mt-1 px-6 py-2 text-[#a040a0] border-2 border-[#a040a0] rounded-tl-[1rem] rounded-br-[1rem] hover:bg-[#a040a0] hover:text-white transition-colors duration-700" data-aos='fade-down'>
+                            <button
+                                className="mt-8 px-6 py-2 text-[#a040a0] border-2 border-[#a040a0] rounded-tl-[1rem] rounded-br-[1rem] hover:bg-[#a040a0] hover:text-white transition-colors duration-700"
+                            >
                                 More <span className="ml-1">›</span>
                             </button>
                         </div>
+
                     </div>
 
                     <div className='mx-auto mt-32 grid max-w-lg grid-cols-2 gap-2'>
@@ -80,7 +93,7 @@ const AboutSection = () => {
                     </div>
                 </div>
             </div>
-            </section>
+        </section>
     )
 }
 
