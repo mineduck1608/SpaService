@@ -11,15 +11,15 @@ export default function ShortDetail(params: { d?: Service }) {
 
   return (
     <div className='p-2'>
-      <p className='text-2xl font-bold'>
+      <p className='text-3xl font-bold'>
         {params.d?.serviceName} ({params.d?.duration})
       </p>
       <img src={seperator} className='mb-3' />
-      <p className='text-lg font-bold text-purple1'>{formatNumber(params.d?.price ?? 0)} VND</p>
+      <p className='text-2xl font-bold text-purple1'>{formatNumber(params.d?.price ?? 0)} VND</p>
       <p className='font-bold'>Description:</p>
       <p className='mb-5'>{params.d?.description}</p>
       {/* Add cart */}
-      <div className='mb-3 flex w-1/2 justify-between '>
+      <div className='mb-3 flex w-3/5 justify-between '>
         {/* Input */}
         <span className='relative w-[45%]'>
           <button

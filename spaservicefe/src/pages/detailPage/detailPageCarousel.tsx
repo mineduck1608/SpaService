@@ -34,6 +34,7 @@ export default function DetailPageCarousel(params: { list: Service[] }) {
     <div>
       <div className='relative'>
         <Carousel
+          className='bg-[rgba(255,255,255,0)]'
           ref={carouselRef}
           responsive={responsive}
           autoPlay={true}
@@ -43,7 +44,7 @@ export default function DetailPageCarousel(params: { list: Service[] }) {
           arrows={false}
         >
           {(params.list ?? []).map((v) => (
-            <div className='px-1'>
+            <div className='p-1 shadow-inner'>
               <ServiceCard s={v} />
             </div>
           ))}
