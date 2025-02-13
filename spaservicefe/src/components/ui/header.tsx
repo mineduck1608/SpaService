@@ -3,7 +3,7 @@ import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import logoBlack from '../../images/logos/logoBlack.png'
-import { Category } from '@/types/category'
+import { Category } from '@/types/category.ts'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 import logoColor from '../../images/logos/logoColor.png'
 

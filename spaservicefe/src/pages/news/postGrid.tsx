@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { News } from '@/types/news'
+import { getAllBlog, getAllEvent, getAllPromotion } from './newsPage.util'
 
-const PostGrid = ({ activeTab }) => {
+interface PostGridProps {
+  activeTab: string
+}
+
+const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
   const navigate = useNavigate()
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState<News[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Function to fetch data based on the active tab
   const fetchPosts = async () => {
     try {
-      let response
+      let response: News[] | null = null
       if (activeTab === 'blog') {
-        response = await fetch('/api/getAllBlogs')
+        response = await getAllBlog()
       } else if (activeTab === 'promotion') {
-        response = await fetch('/api/getAllPromotions')
+        response = await getAllPromotion()
       } else if (activeTab === 'event') {
-        response = await fetch('/api/getAllEvents')
+        response = await getAllEvent()
       }
-
-      if (response.ok) {
-        const data = await response.json()
-        setPosts(data)
+      if (response != null) {
+        setPosts(response)
       } else {
         throw new Error('Failed to fetch posts')
       }
-    } catch (error) {
+    } catch (error: any) {
       setError(error.message)
     } finally {
       setLoading(false)
@@ -34,69 +37,76 @@ const PostGrid = ({ activeTab }) => {
 
   useEffect(() => {
     fetchPosts()
-  }, [activeTab]) // Fetch data whenever the activeTab changes
+  }, [activeTab])
 
-  const handleClick = (id) => {
-    navigate(`/news/${activeTab}/${id}`)
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error}</div>
+  if (!posts.length) return <div>No posts available.</div>
+
+  const formatDate = (date: Date) => {
+    const day = String(date.getDate()).padStart(2, '0') // Đảm bảo luôn có 2 chữ số
+    const month = String(date.getMonth() + 1).padStart(2, '0') // Tháng bắt đầu từ 0, vì vậy cộng thêm 1
+    const year = date.getFullYear()
+
+    return `${day}.${month}.${year}`
   }
 
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>
-  }
+  const handleClick = (postId: string) => {
+    navigate(`/news/${activeTab}/${postId}`); // Điều hướng tới trang chi tiết của bài viết
+  };
 
   return (
-    <div className='mx-auto max-w-7xl p-4' data-aos='zoom-in' data-aos-delay='1000' data-aos-offset='-500'>
-      {/* Hàng đầu tiên: 1 khung to bên trái, 2 khung nhỏ bên phải */}
+    <div className='mx-auto max-w-7xl p-4' data-aos-delay='1000' data-aos-offset='500'>
+      {/* First row: 1 large post on the left, 2 smaller posts on the right */}
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-        {/* Khung lớn bên trái */}
+        {/* Large post on the left (spans 2 columns on medium screens and above) */}
         <div
           className='md:col-span-2 relative rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl'
-          onClick={() => handleClick(posts[0].id)}
+          onClick={() => handleClick(posts[0].newsId)}
         >
-          <img src={posts[0].image} alt={posts[0].title} className='w-full h-[500px] object-cover' />
-          <div className='absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4'>
-            <p className='text-sm text-gray-300'>{posts[0].date}</p>
-            <h3 className='text-xl font-semibold text-white'>{posts[0].title}</h3>
+          <img src={posts[0].image} alt={posts[0].header} className='w-full h-[524px] object-cover' />
+          <div className='bgblur absolute inset-0 flex flex-col justify-end p-4'>
+            <p className='text-lg font-bold text-light my-1'>{formatDate(new Date(posts[0].createAt))}</p>
+            <h3 className='text-2xl font-bold text-light'>{posts[0].header}</h3>
           </div>
         </div>
 
-        {/* Hai khung nhỏ bên phải */}
+        {/* Two smaller posts on the right */}
         <div className='grid grid-rows-2 gap-4'>
           {posts.slice(1, 3).map((post) => (
             <div
-              key={post.id}
+              key={post.newsId}
               className='relative rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl'
-              onClick={() => handleClick(post.id)}
+              onClick={() => handleClick(post.newsId)}
             >
-              <img src={post.image} alt={post.title} className='w-full h-[250px] object-cover' />
-              <div className='absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4'>
-                <p className='text-sm text-gray-300'>{post.date}</p>
-                <h3 className='text-lg font-semibold text-white'>{post.title}</h3>
+              <img src={post.image} alt={post.header} className='w-full h-[250px] object-cover' />
+              <div className='bgblur absolute inset-0  flex flex-col justify-end p-4'>
+                <p className='text-sm font-bold text-light my-1'>{formatDate(new Date(post.createAt))}</p>
+                <h3 className='text-lg font-bold text-light'>{post.header}</h3>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Các bài viết còn lại xếp thành hàng 3, có bố cục khác */}
+      {/* Remaining posts in a 3-column grid */}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
         {posts.slice(3).map((post) => (
           <div
-            key={post.id}
+            key={post.newsId}
             className='rounded-lg overflow-hidden shadow-lg bg-white cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl'
-            onClick={() => handleClick(post.id)}
+            onClick={() => handleClick(post.newsId)}
           >
-            {/* Ảnh trên cùng */}
-            <img src={post.image} alt={post.title} className='w-full h-[200px] object-cover' />
+            {/* Image on top */}
+            <img src={post.image} alt={post.header} className='w-full h-[200px] object-cover' />
 
-            {/* Nội dung bên dưới */}
+            {/* Content below */}
             <div className='p-4'>
-              <p className='text-gray-500 text-sm'>{post.date}</p>
-              <h3 className='text-lg font-semibold text-gray-800 mt-1'>{post.title}</h3>
+              <p className='text-gray-500 text-sm'>{formatDate(new Date(post.createAt))}</p>
+              <h3 className='text-lg font-semibold text-gray-800 mt-1'>{post.header}</h3>
+              <a href='/news/detail/:id' className='text-[#8B3A8B] hover:text-[#a040a0] transition-colors duration-300'>
+                Details
+              </a>
             </div>
           </div>
         ))}

@@ -126,15 +126,6 @@ namespace API.Controllers
                 if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email))
                     return BadRequest(new { msg = "Contact details are incomplete." });
 
-                // Check if the phone number or email is already used
-                var existingPhone = await _service.GetContactByPhone(phoneNumber);
-                if (existingPhone != null)
-                    return Conflict(new { msg = "Phone number already exists." });
-
-                var existingEmail = await _service.GetContactByEmail(email);
-                if (existingEmail != null)
-                    return Conflict(new { msg = "Email already exists." });
-
                 // Create contact object
                 var contact = new Contact
                 {
