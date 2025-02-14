@@ -15,19 +15,19 @@ import {
   ChartTooltipContent,
 } from "src/components/ui/chart"
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "January", female: 186, male: 80 },
+  { month: "February", female: 305, male: 200 },
+  { month: "March", female: 237, male: 120 },
+  { month: "April", female: 73, male: 190 },
+  { month: "May", female: 209, male: 130 },
+  { month: "June", female: 214, male: 140 },
 ]
 const chartConfig = {
-  desktop: {
+  female: {
     label: "Female",
     color: "hsl(var(--chart-1))",
   },
-  mobile: {
+  male: {
     label: "Male",
     color: "hsl(var(--chart-2))",
   },
@@ -35,7 +35,7 @@ const chartConfig = {
 export function BarChartComp() {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="mt-4 text-lg">
         <CardTitle>Customer Trends</CardTitle>
         <CardDescription>January - June 2025</CardDescription>
       </CardHeader>
@@ -54,8 +54,8 @@ export function BarChartComp() {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <Bar dataKey="female" fill="var(--color-female)" radius={4} />
+            <Bar dataKey="male" fill="var(--color-male)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>

@@ -18,6 +18,7 @@ import {
 const chartData = [
   { name: "massage", visitors: 275, fill: "var(--color-massage)" },
   { name: "facial", visitors: 200, fill: "var(--color-facial)" },
+  { name: "package", visitors: 200, fill: "var(--color-package)" },
   { name: "removal", visitors: 173, fill: "var(--color-removal)" },
   { name: "other", visitors: 190, fill: "var(--color-other)" },
 ]
@@ -32,6 +33,10 @@ const chartConfig = {
   facial: {
     label: "Facial",
     color: "hsl(var(--chart-2))",
+  },
+  package: {
+    label: "VIP package",
+    color: "hsl(var(--chart-3))",
   },
   removal: {
     label: "Hair Removal",
@@ -48,7 +53,7 @@ export function PieChartComp() {
   }, [])
   return (
     <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0">
+      <CardHeader className="items-center pb-0 text-lg">
         <CardTitle>Revenue Breakdown</CardTitle>
         <CardDescription>January - June 2025</CardDescription>
       </CardHeader>
@@ -103,10 +108,10 @@ export function PieChartComp() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
+        <div className="flex items-center text-center gap-2 font-medium leading-none">
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
-        <div className="leading-none text-muted-foreground">
+        <div className="flex items-center text-center leading-none text-muted-foreground">
           Showing total visitors for the last 6 months
         </div>
       </CardFooter>

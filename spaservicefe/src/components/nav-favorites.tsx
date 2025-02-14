@@ -61,11 +61,6 @@ export function NavFavorites({
                   <StarOff className="text-muted-foreground" />
                   <span>Remove from Favorites</span>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2 className="text-muted-foreground" />
-                  <span>Delete</span>
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>

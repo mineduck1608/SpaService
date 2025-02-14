@@ -15,30 +15,30 @@ import {
   ChartTooltipContent,
 } from "src/components/ui/chart"
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "January", facebook: 186, google: 80 },
+  { month: "February", facebook: 305, google: 200 },
+  { month: "March", facebook: 237, google: 120 },
+  { month: "April", facebook: 73, google: 190 },
+  { month: "May", facebook: 209, google: 130 },
+  { month: "June", facebook: 214, google: 140 },
 ]
 const chartConfig = {
-  desktop: {
-    label: "Income",
+  facebook: {
+    label: "Facebook Ads",
     color: "hsl(var(--chart-1))",
   },
-  mobile: {
-    label: "Outcome",
+  google: {
+    label: "Google Ads",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 export function AreaChartComp() {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Booking Trends</CardTitle>
+      <CardHeader className="mt-4 text-lg">
+        <CardTitle>Revenue</CardTitle>
         <CardDescription>
-          Showing total visitors for the last 6 months
+          Showing total visitors via ads for the last 6 months
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -64,19 +64,19 @@ export function AreaChartComp() {
               content={<ChartTooltipContent indicator="dot" />}
             />
             <Area
-              dataKey="mobile"
+              dataKey="facebook"
               type="natural"
-              fill="var(--color-mobile)"
+              fill="var(--color-facebook)"
               fillOpacity={0.4}
-              stroke="var(--color-mobile)"
+              stroke="var(--color-facebook)"
               stackId="a"
             />
             <Area
-              dataKey="desktop"
+              dataKey="google"
               type="natural"
-              fill="var(--color-desktop)"
+              fill="var(--color-google)"
               fillOpacity={0.4}
-              stroke="var(--color-desktop)"
+              stroke="var(--color-google)"
               stackId="a"
             />
           </AreaChart>
