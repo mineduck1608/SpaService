@@ -21,13 +21,14 @@ import {
   LineChart,
   DollarSign,
   Lock,
-  LucideIcon
+  LucideIcon,
+  PaperclipIcon
 } from 'lucide-react'
 export type SideBarItem = {
   title: string
   url?: string
   icon: LucideIcon
-  isActive?: boolean,
+  isActive?: boolean
   pages?: SideBarItem[]
 }
 export const sideData = {
@@ -58,105 +59,136 @@ export const sideData = {
   ],
   workspaces: [
     {
-      title: 'Appointments',
+      title: 'Account',
+      icon: Calendar,
+      url: '/account'
+    },
+    {
+      title: 'Customers',
       icon: Calendar,
       pages: [
         {
-          title: 'Appointment Management',
-          url: '/admin/appointment',
+          title: 'Customers',
+          url: '/customers',
           icon: CalendarRange
         },
         {
-          title: 'Cancellations/Reschedules',
-          url: '#',
+          title: 'Memberships',
+          url: '/memberships',
           icon: XCircle
         }
       ]
     },
     {
-      title: 'Customers',
+      title: 'Employees',
       icon: Users,
       pages: [
         {
-          title: 'Customer Management',
-          url: '#',
+          title: 'Employees',
+          url: '/employees',
           icon: UserCog
         },
         {
-          title: 'Customer Reviews',
-          url: '#',
+          title: 'Shift',
+          url: '/shifts',
           icon: MessageSquare
         },
         {
-          title: 'Contact History',
-          url: '#',
-          icon: History
+          title: 'Schedule',
+          url: '/schedules',
+          icon: MessageSquare
         }
       ]
     },
     {
-      title: 'Services',
+      title: 'Appointments',
       icon: Package,
       pages: [
         {
-          title: 'Service Management',
-          url: '#',
+          title: 'Customer requests',
+          url: '/requests',
           icon: Boxes
         },
         {
-          title: 'Promotions',
-          url: '#',
+          title: 'Appointments',
+          url: '/appointments',
           icon: Tag
         }
       ]
     },
     {
-      title: 'Staffs',
+      title: 'Products',
       icon: Clock,
       pages: [
         {
-          title: "Today's Schedule",
-          url: '#',
+          title: 'Categories',
+          url: '/categories',
           icon: ClipboardList
         },
         {
-          title: 'Staff Management',
-          url: '#',
+          title: 'Employees categories',
+          url: '/employees-categories',
           icon: GanttChart
         },
         {
-          title: 'Performance',
-          url: '#',
-          icon: GaugeCircle
+          title: 'Services',
+          url: '/services',
+          icon: ClipboardList
         }
       ]
     },
     {
-      title: 'Reports',
-      icon: BarChart,
+      title: 'Applications',
+      icon: Settings,
       pages: [
         {
-          title: 'Booking Analytics',
-          url: '#',
+          title: 'Applications',
+          url: '/applications',
+          icon: Lock
+        },
+        {
+          title: 'Contacts',
+          url: '/contacts',
+          icon: Lock
+        }
+      ]
+    },
+    {
+      title: 'Transactions',
+      icon: Settings,
+      pages: [
+        {
+          title: 'Transactions',
+          url: '/transactions',
           icon: LineChart
         },
         {
-          title: 'Revenue Reports',
-          url: '#',
+          title: 'Commission types',
+          url: '/commissions',
+          icon: LineChart
+        },
+        {
+          title: 'Employees commissions',
+          url: '/employees-commissions',
           icon: DollarSign
         }
       ]
     },
     {
-      title: 'Settings',
+      title: 'News & Promotions',
       icon: Settings,
       pages: [
         {
-          title: 'User Access Control',
-          url: '#',
+          title: 'News',
+          url: '/news',
+          icon: Lock
+        },
+        {
+          title: 'Promotions',
+          url: '/promotions',
           icon: Lock
         }
       ]
-    }
+    },
   ]
 }

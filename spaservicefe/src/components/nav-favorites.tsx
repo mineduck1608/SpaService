@@ -36,7 +36,7 @@ export function NavFavorites(params: { favorite: SideBarItem[] }) {
           <SidebarMenuItem key={item.title} className="-ml-4">
             <SidebarMenuButton asChild>
               <button onClick={(e) => {
-                window.location.assign(item.url)
+                window.location.assign(item.url ?? '/admin')
               }} title={item.title} className="no-underline text-black">
                 {item.icon && <item.icon className='w-4 h-4 mr-1' />}
                 <span className="mb-0.5 text-base">{item.title}</span>

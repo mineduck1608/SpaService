@@ -45,7 +45,7 @@ export function SidebarLeft(params: {
         <NavMain items={params.header ?? []} />
       </SidebarHeader>
       <SidebarContent>
-        <NavFavorites favorite={params.favourite ?? []} />
+        {/* <NavFavorites favorite={params.favourite ?? []} /> */}
         <NavWorkspaces items={params.main ?? []} />
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
