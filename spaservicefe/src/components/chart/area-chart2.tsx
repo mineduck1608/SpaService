@@ -120,7 +120,7 @@ const chartConfig = {
     label: "Visitors",
   },
   sales: {
-    label: "Sales",
+    label: "Reservations",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig
@@ -143,9 +143,9 @@ export function AreaChart2Comp() {
     <Card>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1text-center ml-5 text-lg sm:text-left">
-          <CardTitle className="mb-1">Sales Overiew</CardTitle>
+          <CardTitle className="mb-1">Reservation Overiew</CardTitle>
           <CardDescription>
-            Showing total sales for the last 3 months
+            Showing total reservations for the last 3 months
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>

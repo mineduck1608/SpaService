@@ -36,7 +36,7 @@ export function AreaChartComp() {
   return (
     <Card>
       <CardHeader className="mt-4 text-lg">
-        <CardTitle>Revenue</CardTitle>
+        <CardTitle>Ad Performance Overview</CardTitle>
         <CardDescription>
           Showing total visitors via ads for the last 6 months
         </CardDescription>
