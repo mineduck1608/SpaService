@@ -1,6 +1,6 @@
 import { SideBarItem } from '@/pages/admin/sidebar.util'
-import { LucideIcon, ChevronRight, MoreHorizontal, Plus } from 'lucide-react'
-import React, { useState } from 'react'
+import { ChevronRight, MoreHorizontal } from 'lucide-react'
+import { useState } from 'react'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
 import {
   SidebarGroup,
@@ -62,12 +62,6 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
               </SidebarMenuItem>
             </Collapsible>
           ))}
-          <SidebarMenuItem>
-            <SidebarMenuButton className='text-sidebar-foreground/70'>
-              <MoreHorizontal />
-              <span className='text-base'>More</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

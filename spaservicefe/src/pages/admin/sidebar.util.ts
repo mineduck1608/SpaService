@@ -1,29 +1,30 @@
 import {
-  Calendar,
   Home,
-  MessageCircleQuestion,
-  Trash2,
   Users,
   Package,
   Clock,
-  BarChart,
-  Settings,
-  CalendarRange,
-  XCircle,
   UserCog,
-  MessageSquare,
-  History,
   Boxes,
-  Tag,
   ClipboardList,
-  GanttChart,
-  GaugeCircle,
   LineChart,
   DollarSign,
-  Lock,
   LucideIcon,
-  PaperclipIcon
+  User,
+  TicketPercent,
+  Calendar1,
+  CalendarCheck,
+  LetterText,
+  Folder,
+  Table,
+  Clipboard,
+  Contact2,
+  ArrowLeftRight,
+  Receipt,
+  CalendarClock,
+  Newspaper,
+  Gem
 } from 'lucide-react'
+import { MdMeetingRoom, MdPersonSearch } from 'react-icons/md'
 export type SideBarItem = {
   title: string
   url?: string
@@ -35,47 +36,30 @@ export const sideData = {
   navMain: [
     {
       title: 'Home',
-      url: '#',
+      url: '/admin',
       icon: Home,
       isActive: true
-    }
-  ],
-  favorites: [
-    {
-      title: 'Appointments',
-      url: '/admin/appointment',
-      icon: Calendar
-    },
-    {
-      title: 'Customers',
-      url: '#',
-      icon: Users
-    },
-    {
-      title: 'Analytics',
-      url: '#',
-      icon: BarChart
     }
   ],
   workspaces: [
     {
       title: 'Account',
-      icon: Calendar,
+      icon: Users,
       url: '/account'
     },
     {
       title: 'Customers',
-      icon: Calendar,
+      icon: User,
       pages: [
         {
           title: 'Customers',
           url: '/customers',
-          icon: CalendarRange
+          icon: MdPersonSearch
         },
         {
           title: 'Memberships',
           url: '/memberships',
-          icon: XCircle
+          icon: TicketPercent
         }
       ]
     },
@@ -91,71 +75,71 @@ export const sideData = {
         {
           title: 'Shift',
           url: '/shifts',
-          icon: MessageSquare
+          icon: Calendar1
         },
         {
           title: 'Schedule',
           url: '/schedules',
-          icon: MessageSquare
+          icon: CalendarCheck
         }
       ]
     },
     {
       title: 'Appointments',
-      icon: Package,
+      icon: MdMeetingRoom,
       pages: [
         {
           title: 'Customer requests',
           url: '/requests',
-          icon: Boxes
+          icon: LetterText
         },
         {
           title: 'Appointments',
           url: '/appointments',
-          icon: Tag
+          icon: Clock
         }
       ]
     },
     {
       title: 'Products',
-      icon: Clock,
+      icon: Boxes,
       pages: [
         {
           title: 'Categories',
           url: '/categories',
-          icon: ClipboardList
+          icon: Folder
         },
         {
           title: 'Employees categories',
           url: '/employees-categories',
-          icon: GanttChart
+          icon: Table
         },
         {
           title: 'Services',
           url: '/services',
-          icon: ClipboardList
+          icon: Package
         }
       ]
     },
     {
       title: 'Applications',
-      icon: Settings,
+      icon: ClipboardList,
       pages: [
         {
           title: 'Applications',
           url: '/applications',
-          icon: Lock
+          icon: Clipboard
         },
         {
           title: 'Contacts',
           url: '/contacts',
-          icon: Lock
+          icon: Contact2
         }
       ]
     },
     {
       title: 'Transactions',
-      icon: Settings,
+      icon: ArrowLeftRight,
       pages: [
         {
           title: 'Transactions',
@@ -165,7 +149,7 @@ export const sideData = {
         {
           title: 'Commission types',
           url: '/commissions',
-          icon: LineChart
+          icon: Receipt
         },
         {
           title: 'Employees commissions',
@@ -176,19 +160,19 @@ export const sideData = {
     },
     {
       title: 'News & Promotions',
-      icon: Settings,
+      icon: CalendarClock,
       pages: [
         {
           title: 'News',
           url: '/news',
-          icon: Lock
+          icon: Newspaper
         },
         {
           title: 'Promotions',
           url: '/promotions',
-          icon: Lock
+          icon: Gem
         }
       ]
-    },
+    }
   ]
 }
