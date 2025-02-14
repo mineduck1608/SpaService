@@ -57,7 +57,7 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                               <span className='mb-0.5'>{page.title}</span>
                             </a>
                             <button >
-                              <Star fill='#ff0' strokeWidth={1} />
+                              <Star fill={workspace.isFavorite ? '#ff0' : '#fff'} strokeWidth={1} />
                             </button>
                           </div>
                         </SidebarMenuSubButton>

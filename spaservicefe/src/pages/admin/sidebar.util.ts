@@ -36,8 +36,8 @@ export type SideBarItem = {
   url?: string
   icon: LucideIcon
   isActive?: boolean
-  pages?: SideBarItem[],
-  id?: string,
+  pages?: SideBarItem[]
+  id?: string
   isFavorite?: boolean
 }
 export const sideData = {
@@ -45,7 +45,7 @@ export const sideData = {
     {
       title: 'Home',
       url: '/admin',
-      icon: Home,
+      icon: Home
     }
   ],
   workspaces: [
@@ -56,8 +56,8 @@ export const sideData = {
         {
           title: 'Accounts',
           url: '/accounts',
-          icon: UserCircle,
-        },
+          icon: UserCircle
+        }
       ]
     },
     {
@@ -199,5 +199,60 @@ export const sideData = {
       url: '#',
       icon: MessageCircleQuestion
     }
-  ],
+  ]
+}
+
+export function getFav() {
+  let x = getCookie('FAVORITE')
+  if (x.length === 0) {
+    setCookie('FAVORITE', '[]')
+    return []
+  }
+  return JSON.parse(x) as string[]
+}
+export function setFav(url: string, fav: boolean) {
+  let x = getFav()
+  if (fav) {
+    x.push(url)
+  } else {
+    x = x.filter((v) => v === url)
+  }
+}
+
+function setCookie(cname: string, cvalue: string) {
+  document.cookie = cname + '=' + cvalue + ';'
+}
+
+function getCookie(cname: string) {
+  let name = cname + '='
+  let decodedCookie = decodeURIComponent(document.cookie)
+  let ca = decodedCookie.split(';')
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i]
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1)
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return ''
+}
+
+export function getUrlsFromWorkplace(wp: SideBarItem[]) {
+  const urls = wp
+    .map((v) => v.pages)
+    .map((u) => {
+      if (!u) {
+        return []
+      }
+      return u.map((k) => k.url).filter(y => y !== undefined)
+    })
+  const urlsTransform = []
+  for (let i in urls) {
+    for (let j in urls[i]) {
+      urlsTransform.push(urls[i][j])
+    }
+  }
+  return urlsTransform
 }
