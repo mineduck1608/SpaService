@@ -19,8 +19,6 @@ import {
 } from 'src/components/ui/sidebar'
 
 export function NavFavorites(params: { favorite: SideBarItem[] }) {
-  console.log(params.favorite)
-
   const { isMobile } = useSidebar()
 
   return (

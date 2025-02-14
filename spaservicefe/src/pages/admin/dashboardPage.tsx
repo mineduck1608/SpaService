@@ -6,17 +6,19 @@ import { BarChartComp } from 'src/components/bar-chart'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from 'src/components/ui/breadcrumb'
 import { Separator } from 'src/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from 'src/components/ui/sidebar'
-import { sideData } from './sidebar.util'
+import { getFav, sideData } from './sidebar.util'
+import { useState } from 'react'
 
 export default function Page() {
+  const [data, setData] = useState(sideData)
   
   return (
     <SidebarProvider>
-      <SidebarLeft 
-      favourite={[]} 
-      main={sideData.workspaces} 
-      header={sideData.navMain} props={{}} 
-      secondary={sideData.navSecondary}
+      <SidebarLeft
+        favourite={[]}
+        main={data.workspaces}
+        header={data.navMain} props={{}}
+        secondary={data.navSecondary}
       />
       <SidebarInset>
         <header className='sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background'>
