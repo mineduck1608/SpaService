@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
@@ -22,7 +22,6 @@ namespace API.Controllers
         }
 
         // GET: api/categories/GetAll
-       
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Category>>> GetAllCategories()
         {

@@ -24,7 +24,7 @@ namespace API.Controllers
         }
 
         // GET: api/spaservices/GetAll
-        [Authorize]
+     
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<SpaService>>> GetAllSpaServices()
         {
@@ -40,7 +40,6 @@ namespace API.Controllers
         }
 
         // GET: api/spaservices/GetById/{id}
-        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<SpaService>> GetSpaServiceById(string id)
         {
@@ -216,7 +215,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [Authorize]
+ 
         [HttpGet("ServiceOfCategory")]
         public async Task<ActionResult> GetServicesOfCategory(string categoryId)
         {
