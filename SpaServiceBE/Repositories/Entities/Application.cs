@@ -15,7 +15,7 @@ public partial class Application
 
     public string CreatedBy { get; set; } = null!;
 
-    public int? CreatedAt { get; set; }
+    public int CreatedAt { get; set; }
 
     public virtual Employee CreatedByNavigation { get; set; } = null!;
 }
