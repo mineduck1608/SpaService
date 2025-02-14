@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -20,6 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/employeecommissions/GetAll
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<EmployeeCommission>>> GetAllEmployeeCommissions()
         {
@@ -35,6 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/employeecommissions/GetById/{employeeId}/{commissionId}/{transactionId}
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetById/{employeeId}/{commissionId}/{transactionId}")]
         public async Task<ActionResult<EmployeeCommission>> GetEmployeeCommissionById(string employeeId, string commissionId, string transactionId)
         {
@@ -57,6 +60,7 @@ namespace API.Controllers
         }
 
         // POST: api/employeecommissions/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateEmployeeCommission([FromBody] dynamic request)
         {
@@ -104,6 +108,7 @@ namespace API.Controllers
 
 
         // PUT: api/employeecommissions/Update/{employeeId}/{commissionId}/{transactionId}
+        [Authorize(Roles = "Admin")]
         [HttpPut("Update/{employeeId}/{commissionId}/{transactionId}")]
         public async Task<ActionResult> UpdateEmployeeCommission(string employeeId, string commissionId, string transactionId, [FromBody] dynamic request)
         {
@@ -155,6 +160,7 @@ namespace API.Controllers
 
 
         // DELETE: api/employeecommissions/Delete/{employeeId}/{commissionId}/{transactionId}
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{employeeId}/{commissionId}/{transactionId}")]
         public async Task<ActionResult> DeleteEmployeeCommission(string employeeId, string commissionId, string transactionId)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
@@ -21,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/transactions/GetAll
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Transaction>>> GetAllTransactions()
         {
@@ -36,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/transactions/GetById/{id}
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Transaction>> GetTransactionById(string id)
         {
@@ -58,6 +61,7 @@ namespace API.Controllers
         }
 
         // POST: api/transactions/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateTransaction([FromBody] dynamic request)
         {
@@ -101,6 +105,7 @@ namespace API.Controllers
 
 
         // PUT: api/transactions/Update/{id}
+        [Authorize(Roles = "Admin")]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateTransaction(string id, [FromBody] dynamic request)
         {
@@ -144,6 +149,7 @@ namespace API.Controllers
 
 
         // DELETE: api/transactions/Delete/{id}
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteTransaction(string id)
         {
