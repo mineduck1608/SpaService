@@ -23,7 +23,12 @@ import {
   CalendarClock,
   Newspaper,
   Gem,
-  Search
+  Search,
+  User2,
+  HandHelping,
+  UserCircle,
+  MessageCircleQuestion,
+  Trash2
 } from 'lucide-react'
 import { MdMeetingRoom, MdPersonSearch } from 'react-icons/md'
 export type SideBarItem = {
@@ -31,7 +36,9 @@ export type SideBarItem = {
   url?: string
   icon: LucideIcon
   isActive?: boolean
-  pages?: SideBarItem[]
+  pages?: SideBarItem[],
+  id?: string,
+  isFavorite?: boolean
 }
 export const sideData = {
   navMain: [
@@ -39,14 +46,19 @@ export const sideData = {
       title: 'Home',
       url: '/admin',
       icon: Home,
-      isActive: true
     }
   ],
   workspaces: [
     {
       title: 'Account',
       icon: Users,
-      url: '/account'
+      pages: [
+        {
+          title: 'Accounts',
+          url: '/accounts',
+          icon: UserCircle,
+        },
+      ]
     },
     {
       title: 'Customers',
@@ -87,7 +99,7 @@ export const sideData = {
     },
     {
       title: 'Appointments',
-      icon: MdMeetingRoom,
+      icon: HandHelping,
       pages: [
         {
           title: 'Customer requests',
@@ -175,5 +187,17 @@ export const sideData = {
         }
       ]
     }
-  ]
+  ],
+  navSecondary: [
+    {
+      title: 'Trash',
+      url: '#',
+      icon: Trash2
+    },
+    {
+      title: 'Help',
+      url: '#',
+      icon: MessageCircleQuestion
+    }
+  ],
 }
