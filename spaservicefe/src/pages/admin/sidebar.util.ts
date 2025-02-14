@@ -22,7 +22,8 @@ import {
   Receipt,
   CalendarClock,
   Newspaper,
-  Gem
+  Gem,
+  Search
 } from 'lucide-react'
 import { MdMeetingRoom, MdPersonSearch } from 'react-icons/md'
 export type SideBarItem = {
@@ -54,7 +55,7 @@ export const sideData = {
         {
           title: 'Customers',
           url: '/customers',
-          icon: MdPersonSearch
+          icon: Search
         },
         {
           title: 'Memberships',
