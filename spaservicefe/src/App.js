@@ -18,6 +18,7 @@ import News from './pages/home/news.tsx'
 import OurServices from './pages/home/ourServices.tsx'
 import DetailPage from './pages/detailPage/detailPage.tsx'
 import DashboardPage from './pages/admin/dashboardPage.tsx'
+import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
@@ -45,11 +46,11 @@ function App() {
             element={
               <Layout>
                 <Home />
-                <AboutSection/>
-                <Services/>
-                <OurServices/>
-                <Products/>
-                <News/>
+                <AboutSection />
+                <Services />
+                <OurServices />
+                <Products />
+                <News />
               </Layout>
             }
           />
@@ -92,7 +93,7 @@ function App() {
             path='reset-password'
             element={
               <Layout>
-                <div>Reset Password Page</div>
+                <ResetPasswordPage />
               </Layout>
             }
           />
