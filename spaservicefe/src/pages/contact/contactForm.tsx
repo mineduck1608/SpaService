@@ -40,7 +40,7 @@ const ContactForm = () => {
       tempErrors.fullName = 'Full name is required'
       isValid = false
     }
-    const phoneRegex = /^[0-9]+$/
+    const phoneRegex = /^[0-9]{10}$/
     if (!formData.phoneNumber.trim() || !phoneRegex.test(formData.phoneNumber)) {
       tempErrors.phoneNumber = 'Valid phone number is required'
       isValid = false
@@ -74,7 +74,6 @@ const ContactForm = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         })
-
         if (response.ok) {
           toast.success('Thank you for your message.')
           setFormData({

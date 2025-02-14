@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
+using SpaServiceBE.Utils;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -126,6 +128,11 @@ namespace API.Controllers
                 if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email))
                     return BadRequest(new { msg = "Contact details are incomplete." });
 
+                if (!Util.IsPhoneFormatted(phoneNumber.Trim()))
+                    return BadRequest(new { msg = "Phone number is not properly formatted" });
+
+                if (!Util.IsMailFormatted(email))
+                    return BadRequest(new { msg = "Email is not properly formatted" });
                 // Create contact object
                 var contact = new Contact
                 {

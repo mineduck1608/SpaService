@@ -263,6 +263,7 @@ public partial class SpaServiceContext : DbContext
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
                 .HasColumnName("fullName");
+            entity.Property(e => e.IsProcessed).HasColumnName("isProcessed");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(15)
                 .IsUnicode(false)
