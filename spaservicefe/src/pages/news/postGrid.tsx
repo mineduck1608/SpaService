@@ -39,12 +39,9 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
     fetchPosts()
   }, [activeTab])
 
-  if (loading) return <div  className="flex justify-center">Loading...</div>
-  if (error) return <div  className="flex justify-center">Error: {error}</div>
-  if (!posts.length) return <div className="flex justify-center">
-  No news available.
-</div>
-
+  if (loading) return <div className='flex justify-center'>Loading...</div>
+  if (error) return <div className='flex justify-center'>Error: {error}</div>
+  if (!posts.length) return <div className='flex justify-center'>No news available.</div>
 
   const formatDate = (date: Date) => {
     const day = String(date.getDate()).padStart(2, '0') // Đảm bảo luôn có 2 chữ số

@@ -53,7 +53,7 @@ export default function ShortDetail(params: { d?: Service }) {
       </div>
       <p className='text-black'>
         Category:&nbsp;
-        <Link className='no-underline text-black' to={'/services/' + params.d?.categoryId}>
+        <Link className='text-black no-underline' to={'/services/' + params.d?.categoryId}>
           {CATEGORY.find((x) => x.categoryId === params.d?.categoryId)?.categoryName}
         </Link>
       </p>

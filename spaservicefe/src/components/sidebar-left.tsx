@@ -1,8 +1,7 @@
-import * as React from "react"
+import * as React from 'react'
 import {
   Calendar,
   Home,
-  Inbox,
   MessageCircleQuestion,
   Trash2,
   Users,
@@ -23,175 +22,168 @@ import {
   LineChart,
   DollarSign,
   Lock
-} from "lucide-react"
+} from 'lucide-react'
 
-import { NavFavorites } from "src/components/nav-favorites"
-import { NavMain } from "src/components/nav-main"
-import { NavSecondary } from "src/components/nav-secondary"
-import { NavWorkspaces } from "src/components/nav-workspaces"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarRail,
-} from "src/components/ui/sidebar"
+import { NavFavorites } from 'src/components/nav-favorites'
+import { NavMain } from 'src/components/nav-main'
+import { NavSecondary } from 'src/components/nav-secondary'
+import { NavWorkspaces } from 'src/components/nav-workspaces'
+import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from 'src/components/ui/sidebar'
 
 // This is sample data.
 const data = {
   navMain: [
     {
-      title: "Home",
-      url: "#",
+      title: 'Home',
+      url: '#',
       icon: Home,
-      isActive: true,
+      isActive: true
     }
   ],
   navSecondary: [
     {
-      title: "Trash",
-      url: "#",
-      icon: Trash2,
+      title: 'Trash',
+      url: '#',
+      icon: Trash2
     },
     {
-      title: "Help",
-      url: "#",
-      icon: MessageCircleQuestion,
-    },
+      title: 'Help',
+      url: '#',
+      icon: MessageCircleQuestion
+    }
   ],
   favorites: [
     {
-      name: "Appointments",
-      url: "#",
+      name: 'Appointments',
+      url: '#',
       icon: Calendar
     },
     {
-      name: "Customers",
-      url: "#",
+      name: 'Customers',
+      url: '#',
       icon: Users
     },
     {
-      name: "Analytics",
-      url: "#",
+      name: 'Analytics',
+      url: '#',
       icon: BarChart
     }
   ],
   workspaces: [
     {
-      name: "Appointments",
+      name: 'Appointments',
       icon: Calendar,
       pages: [
         {
-          name: "Appointment Management",
-          url: "#",
+          name: 'Appointment Management',
+          url: '#',
           icon: CalendarRange
         },
         {
-          name: "Cancellations/Reschedules",
-          url: "#",
+          name: 'Cancellations/Reschedules',
+          url: '#',
           icon: XCircle
-        },
-      ],
+        }
+      ]
     },
     {
-      name: "Customers",
+      name: 'Customers',
       icon: Users,
       pages: [
         {
-          name: "Customer Management",
-          url: "#",
-          icon: UserCog 
+          name: 'Customer Management',
+          url: '#',
+          icon: UserCog
         },
         {
-          name: "Customer Reviews",
-          url: "#",
-          icon: MessageSquare 
+          name: 'Customer Reviews',
+          url: '#',
+          icon: MessageSquare
         },
         {
-          name: "Contact History",
-          url: "#",
-          icon: History 
+          name: 'Contact History',
+          url: '#',
+          icon: History
         }
-      ],
+      ]
     },
     {
-      name: "Services",
+      name: 'Services',
       icon: Package,
       pages: [
         {
-          name: "Service Management",
-          url: "#",
+          name: 'Service Management',
+          url: '#',
           icon: Boxes
         },
         {
-          name: "Promotions",
-          url: "#",
-          icon: Tag 
+          name: 'Promotions',
+          url: '#',
+          icon: Tag
         }
-      ],
+      ]
     },
     {
-      name: "Staffs",
+      name: 'Staffs',
       icon: Clock,
       pages: [
         {
           name: "Today's Schedule",
-          url: "#",
+          url: '#',
           icon: ClipboardList
         },
         {
-          name: "Staff Management",
-          url: "#",
+          name: 'Staff Management',
+          url: '#',
           icon: GanttChart
         },
         {
-          name: "Performance",
-          url: "#",
-          icon: GaugeCircle 
-        },
-      ],
+          name: 'Performance',
+          url: '#',
+          icon: GaugeCircle
+        }
+      ]
     },
     {
-      name: "Reports",
+      name: 'Reports',
       icon: BarChart,
       pages: [
         {
-          name: "Booking Analytics",
-          url: "#",
+          name: 'Booking Analytics',
+          url: '#',
           icon: LineChart
         },
         {
-          name: "Revenue Reports",
-          url: "#",
-          icon: DollarSign 
+          name: 'Revenue Reports',
+          url: '#',
+          icon: DollarSign
         }
-      ],
+      ]
     },
     {
-      name: "Settings",
+      name: 'Settings',
       icon: Settings,
       pages: [
         {
-          name: "User Access Control",
-          url: "#",
+          name: 'User Access Control',
+          url: '#',
           icon: Lock
         }
-      ],
-    },
+      ]
+    }
   ]
 }
 
-export function SidebarLeft({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function SidebarLeft({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar className="border-r-0" {...props}>
+    <Sidebar className='border-r-0' {...props}>
       <SidebarHeader>
         <NavMain items={data.navMain} />
       </SidebarHeader>
       <SidebarContent>
         <NavFavorites favorites={data.favorites} />
         <NavWorkspaces workspaces={data.workspaces} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary items={data.navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

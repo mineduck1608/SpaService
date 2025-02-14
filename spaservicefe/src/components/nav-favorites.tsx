@@ -1,17 +1,12 @@
-import {
-  LucideIcon,
-  MoreHorizontal,
-  StarOff,
-  Trash2,
-} from "lucide-react"
+import { LucideIcon, MoreHorizontal, StarOff, Trash2 } from 'lucide-react'
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "src/components/ui/dropdown-menu"
+  DropdownMenuTrigger
+} from 'src/components/ui/dropdown-menu'
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -19,11 +14,11 @@ import {
   SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
-} from "src/components/ui/sidebar"
+  useSidebar
+} from 'src/components/ui/sidebar'
 
 export function NavFavorites({
-  favorites,
+  favorites
 }: {
   favorites: {
     name: string
@@ -34,36 +29,36 @@ export function NavFavorites({
   const { isMobile } = useSidebar()
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel className="text-lg mb-2">Favorites</SidebarGroupLabel>
+    <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
+      <SidebarGroupLabel className='mb-2 text-lg'>Favorites</SidebarGroupLabel>
       <SidebarMenu>
         {favorites.map((item) => (
-          <SidebarMenuItem key={item.name} className="-ml-4">
+          <SidebarMenuItem key={item.name} className='-ml-4'>
             <SidebarMenuButton asChild>
-              <a href={item.url} title={item.name} className="no-underline text-black">
-                {item.icon && <item.icon className='w-4 h-4 mr-1'/>}
-                <span className="mb-0.5 text-base">{item.name}</span>
+              <a href={item.url} title={item.name} className='text-black no-underline'>
+                {item.icon && <item.icon className='mr-1 h-4 w-4' />}
+                <span className='mb-0.5 text-base'>{item.name}</span>
               </a>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuAction showOnHover>
                   <MoreHorizontal />
-                  <span className="sr-only">More</span>
+                  <span className='sr-only'>More</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-56 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
+                className='w-56 rounded-lg'
+                side={isMobile ? 'bottom' : 'right'}
+                align={isMobile ? 'end' : 'start'}
               >
                 <DropdownMenuItem>
-                  <StarOff className="text-muted-foreground" />
+                  <StarOff className='text-muted-foreground' />
                   <span>Remove from Favorites</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Trash2 className="text-muted-foreground" />
+                  <Trash2 className='text-muted-foreground' />
                   <span>Delete</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>

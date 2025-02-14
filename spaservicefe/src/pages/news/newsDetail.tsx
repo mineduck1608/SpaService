@@ -87,12 +87,12 @@ const NewsDetail = () => {
       {loading ? (
         <div className='mb-10 flex justify-center'>Loading...</div> // Hoặc có thể dùng một spinner ở đây
       ) : (
-        <div className='py-10 flex justify-center text-center'>
+        <div className='flex justify-center py-10 text-center'>
           {/* Nội dung bài viết hoặc các phần khác sẽ được render ở đây */}
-          <div className='text-left w-[60%] max-w-[60%]'>
+          <div className='w-[60%] max-w-[60%] text-left'>
             <p>{formatDate(new Date(posts.createAt))}</p>
-            <h1 className='text-purple1 font-bold'>{posts.header}</h1>
-            <hr className="border-t-1 border-gray-500 my-4" />
+            <h1 className='font-bold text-purple1'>{posts.header}</h1>
+            <hr className='border-t-1 my-4 border-gray-500' />
             <div>{posts.content}</div>
           </div>
         </div>

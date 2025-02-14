@@ -80,9 +80,7 @@ const NewsPage = () => {
               </button>
             </div>
           </div>
-          <div className='mt-3' data-aos='zoom-in'
-          data-aos-delay='1000'
-          data-aos-offset='-500'>
+          <div className='mt-3' data-aos='zoom-in' data-aos-delay='1000' data-aos-offset='-500'>
             <PostGrid activeTab={activeTab} />
           </div>
         </div>

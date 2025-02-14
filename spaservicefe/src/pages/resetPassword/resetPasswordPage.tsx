@@ -13,14 +13,14 @@ const ReCAPTCHAFixed = ReCAPTCHA as unknown as React.FC<
   }>
 >
 export type CPData = {
-  email: string,
-  token: string | null,
+  email: string
+  token: string | null
   error?: string | null
 }
 export default function ResetPasswordPage() {
   const [data, setData] = useState<CPData>({
     email: '',
-    token: null,
+    token: null
   })
   useEffect(() => {
     AOS.init({
@@ -30,9 +30,7 @@ export default function ResetPasswordPage() {
       once: true
     })
   }, [])
-  async function onSubmit(e: FormEvent) {
-
-  }
+  async function onSubmit(e: FormEvent) {}
 
   return (
     <div>
@@ -47,9 +45,12 @@ export default function ResetPasswordPage() {
       </div>
       <IntroHeader position='middle' size='big' title='Reset password' />
       <div className='flex justify-center' data-aos={'fade-left'} data-aos-delay='400'>
-        <form onSubmit={(e) => {
-          onSubmit(e)
-        }} className='relative mb-10 w-3/5 p-3 shadow-md xl:w-1/4'>
+        <form
+          onSubmit={(e) => {
+            onSubmit(e)
+          }}
+          className='relative mb-10 w-3/5 p-3 shadow-md xl:w-1/4'
+        >
           <input
             type='email'
             name='email'
@@ -73,7 +74,7 @@ export default function ResetPasswordPage() {
               type='submit'
               className={`w-1/3 rounded-br-2xl rounded-tl-2xl border-2 border-[#8D388A] bg-white p-2 text-[#8D388A] 
               duration-300 hover:-translate-x-1 hover:shadow-[1px_1px_#8D388A,2px_2px_#8D388A] disabled:text-gray-400`}
-              disabled={!data.token || (data.email === '')}
+              disabled={!data.token || data.email === ''}
               value='Submit'
             />
           </div>

@@ -45,13 +45,13 @@ export default function DetailPage() {
       </div>
       <div>
         {/* Service detail (img, short intro + long intro) */}
-        <div className='flex w-full justify-center  mb-10'>
+        <div className='mb-10 flex w-full  justify-center'>
           {/* Outer container for img + short intro */}
-          <div className='w-11/12 shadow-lg lg:w-3/5 p-4  rounded-lg shadow-md'>
+          <div className='w-11/12 rounded-lg p-4 shadow-lg  shadow-md lg:w-3/5'>
             {/* Short intro and img */}
             <div className='flex justify-between'>
               <div className='w-[49.5%] '>
-                <StockImg s={data}/>
+                <StockImg s={data} />
               </div>
               <div className='w-[49.5%] '>
                 <ShortDetail d={data} />
@@ -59,14 +59,14 @@ export default function DetailPage() {
             </div>
             {/* Service intro */}
             <div className='w-full  p-2'>
-              <ServiceIntro s={data}/>
+              <ServiceIntro s={data} />
             </div>
           </div>
         </div>
         {/* Related services */}
-        <div className='w-full mb-10 '>
+        <div className='mb-10 w-full '>
           <p className='p-3 text-center text-[3rem] text-purple1'>Related services</p>
-          <div className='flex justify-center mb-4'>
+          <div className='mb-4 flex justify-center'>
             <img src={seperator} className='mb-3' />
           </div>
           {/* Related service carousel */}
