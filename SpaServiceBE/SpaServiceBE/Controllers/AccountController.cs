@@ -75,7 +75,7 @@ namespace API.Controllers
 
 
         // GET: api/accounts/GetAll
-        [Authorize(Roles = "Admin")]
+        
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Account>>> GetAllAccounts()
         {
@@ -91,7 +91,7 @@ namespace API.Controllers
         }
 
         // GET: api/accounts/GetById/{id}
-        [Authorize(Roles = "Admin")]
+       
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Account>> GetAccountById(string id)
         {
@@ -286,7 +286,7 @@ namespace API.Controllers
 
 
         // PUT: api/accounts/Update/{id}
-        [Authorize]
+        
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateAccount(string id, [FromBody] dynamic request)
         {
@@ -324,7 +324,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/accounts/Delete/{id}
-        [Authorize(Roles = "Admin")]
+       
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteAccount(string id)
         {

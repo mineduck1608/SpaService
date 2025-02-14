@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/roles
-        [Authorize(Roles = "Admin")]
+       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetAllRoles()
         {
@@ -37,7 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/roles/GetById/{id}
-        [Authorize(Roles = "Admin")]
+     
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Role>> GetRoleById(string id)
         {
@@ -57,7 +57,7 @@ namespace API.Controllers
         }
 
         // POST: api/roles/Create
-        [Authorize(Roles = "Admin")]
+      
         [HttpPost("Create")]
         public async Task<ActionResult> CreateRole([FromBody] dynamic request)
         {
@@ -91,7 +91,7 @@ namespace API.Controllers
         }
 
         // PUT: api/roles/Update/{id}
-        [Authorize(Roles = "Admin")]
+      
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateRole(string id, [FromBody] dynamic request)
         {
@@ -124,7 +124,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/roles/Delete/{id}
-        [Authorize(Roles = "Admin")]
+      
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteRole(string id)
         {
