@@ -22,7 +22,6 @@ namespace API.Controllers
         }
 
         // GET: api/categories/GetAll
-        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Category>>> GetAllCategories()
         {
