@@ -56,9 +56,6 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                               {page.icon && <page.icon className='mr-1 h-4 w-4 inline' />}
                               <span className='mb-0.5'>{page.title}</span>
                             </a>
-                            <button >
-                              <Star fill='#ff0' strokeWidth={1} />
-                            </button>
                           </div>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>

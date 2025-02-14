@@ -54,7 +54,6 @@ function App() {
               </Layout>
             }
           />
-          <Route path='admin' element={<DashboardPage />} />
           <Route path='login' element={<LoginPage />} />
           <Route path='register' element={<RegisterPage />} />
           <Route
@@ -137,7 +136,27 @@ function App() {
               </Layout>
             }
           />
+          <Route path='admin' element={<DashboardPage />} />
+          <Route path='admin/accounts' element={<div>ABC</div>} />
+          <Route path='admin/customers' element={<div>ABC</div>} />
+          <Route path='admin/memberships' element={<div>ABC</div>} />
+          <Route path='admin/employees' element={<div>ABC</div>} />
+          <Route path='admin/shifts' element={<div>ABC</div>} />
+          <Route path='admin/schedules' element={<div>ABC</div>} />
+          <Route path='admin/requests' element={<div>ABC</div>} />
+          <Route path='admin/appointments' element={<div>ABC</div>} />
+          <Route path='admin/categories' element={<div>ABC</div>} />
+          <Route path='admin/employees-categories' element={<div>ABC</div>} />
+          <Route path='admin/services' element={<div>ABC</div>} />
+          <Route path='admin/applications' element={<div>ABC</div>} />
+          <Route path='admin/contacts' element={<div>ABC</div>} />
+          <Route path='admin/transactions' element={<div>ABC</div>} />
+          <Route path='admin/commissions' element={<div>ABC</div>} />
+          <Route path='admin/employees-commissions' element={<div>ABC</div>} />
+          <Route path='admin/news' element={<div>ABC</div>} />
+          <Route path='admin/promotions' element={<div>ABC</div>} />
         </Routes>
+        
       </BrowserRouter>
     </GoogleOAuthProvider>
   )
