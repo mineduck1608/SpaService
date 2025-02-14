@@ -1,3 +1,4 @@
+import { SideBarItem } from "@/pages/admin/sidebar.util";
 import { LucideIcon, ChevronRight, MoreHorizontal, Plus } from "lucide-react"
 import React, { useState } from 'react'
 import {
@@ -18,31 +19,20 @@ import {
   SidebarMenuSubItem,
 } from "src/components/ui/sidebar"
 
-export function NavWorkspaces({
-  workspaces,
-}: {
-  workspaces: {
-    name: string
-    icon: LucideIcon
-    pages: {
-      name: string
-      icon: LucideIcon
-    }[]
-  }[]
-}) {
+export function NavWorkspaces(params: { items: SideBarItem[] }) {
   const [activePage, setActivePage] = useState<string | null>(null);
   return (
     <SidebarGroup>
       <SidebarGroupLabel className="text-lg mb-2">Workspaces</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          {workspaces.map((workspace) => (
-            <Collapsible key={workspace.name} className="-ml-4">
+          {params.items?.map((workspace) => (
+            <Collapsible key={workspace.title} className="-ml-4">
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <a href="#" className="no-underline text-black">
-                    {workspace.icon && <workspace.icon className='w-4 h-4 mr-1'/>}  
-                    <span className="mb-0.5 text-base">{workspace.name}</span>
+                    {workspace.icon && <workspace.icon className='w-4 h-4 mr-1' />}
+                    <span className="mb-0.5 text-base">{workspace.title}</span>
                   </a>
                 </SidebarMenuButton>
                 <CollapsibleTrigger asChild>
@@ -55,20 +45,19 @@ export function NavWorkspaces({
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
-                    {workspace.pages.map((page) => (
-                      <SidebarMenuSubItem key={page.name}>
+                    {(workspace.pages??[]).map((page) => (
+                      <SidebarMenuSubItem key={page.title}>
                         <SidebarMenuSubButton asChild>
-                        <a
+                          <a
                             href="#"
-                            onClick={() => setActivePage(page.name)}
-                            className={`no-underline -ml-3 ${
-                              activePage === page.name
+                            onClick={() => setActivePage(page.title)}
+                            className={`no-underline -ml-3 ${activePage === page.name
                                 ? "bg-gray-200 text-black"
                                 : "text-black"
-                            }`}
+                              }`}
                           >
-                            {page.icon && <page.icon className='w-4 h-4 mr-1'/>}
-                            <span className="mb-0.5">{page.name}</span>
+                            {page.icon && <page.icon className='w-4 h-4 mr-1' />}
+                            <span className="mb-0.5">{page.title}</span>
                           </a>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>

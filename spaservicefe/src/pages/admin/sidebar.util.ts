@@ -25,9 +25,10 @@ import {
 } from 'lucide-react'
 export type SideBarItem = {
   title: string
-  url: string
-  icon: any
-  isActive?: LucideIcon
+  url?: string
+  icon: LucideIcon
+  isActive?: boolean,
+  pages?: SideBarItem[]
 }
 export const sideData = {
   navMain: [
@@ -40,118 +41,118 @@ export const sideData = {
   ],
   favorites: [
     {
-      name: 'Appointments',
+      title: 'Appointments',
       url: '/admin/appointment',
       icon: Calendar
     },
     {
-      name: 'Customers',
+      title: 'Customers',
       url: '#',
       icon: Users
     },
     {
-      name: 'Analytics',
+      title: 'Analytics',
       url: '#',
       icon: BarChart
     }
   ],
   workspaces: [
     {
-      name: 'Appointments',
+      title: 'Appointments',
       icon: Calendar,
       pages: [
         {
-          name: 'Appointment Management',
+          title: 'Appointment Management',
           url: '/admin/appointment',
           icon: CalendarRange
         },
         {
-          name: 'Cancellations/Reschedules',
+          title: 'Cancellations/Reschedules',
           url: '#',
           icon: XCircle
         }
       ]
     },
     {
-      name: 'Customers',
+      title: 'Customers',
       icon: Users,
       pages: [
         {
-          name: 'Customer Management',
+          title: 'Customer Management',
           url: '#',
           icon: UserCog
         },
         {
-          name: 'Customer Reviews',
+          title: 'Customer Reviews',
           url: '#',
           icon: MessageSquare
         },
         {
-          name: 'Contact History',
+          title: 'Contact History',
           url: '#',
           icon: History
         }
       ]
     },
     {
-      name: 'Services',
+      title: 'Services',
       icon: Package,
       pages: [
         {
-          name: 'Service Management',
+          title: 'Service Management',
           url: '#',
           icon: Boxes
         },
         {
-          name: 'Promotions',
+          title: 'Promotions',
           url: '#',
           icon: Tag
         }
       ]
     },
     {
-      name: 'Staffs',
+      title: 'Staffs',
       icon: Clock,
       pages: [
         {
-          name: "Today's Schedule",
+          title: "Today's Schedule",
           url: '#',
           icon: ClipboardList
         },
         {
-          name: 'Staff Management',
+          title: 'Staff Management',
           url: '#',
           icon: GanttChart
         },
         {
-          name: 'Performance',
+          title: 'Performance',
           url: '#',
           icon: GaugeCircle
         }
       ]
     },
     {
-      name: 'Reports',
+      title: 'Reports',
       icon: BarChart,
       pages: [
         {
-          name: 'Booking Analytics',
+          title: 'Booking Analytics',
           url: '#',
           icon: LineChart
         },
         {
-          name: 'Revenue Reports',
+          title: 'Revenue Reports',
           url: '#',
           icon: DollarSign
         }
       ]
     },
     {
-      name: 'Settings',
+      title: 'Settings',
       icon: Settings,
       pages: [
         {
-          name: 'User Access Control',
+          title: 'User Access Control',
           url: '#',
           icon: Lock
         }
