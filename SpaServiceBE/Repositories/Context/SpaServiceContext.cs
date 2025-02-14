@@ -38,6 +38,8 @@ public partial class SpaServiceContext : DbContext
 
     public virtual DbSet<Membership> Memberships { get; set; }
 
+    public virtual DbSet<News> News { get; set; }
+
     public virtual DbSet<Promotion> Promotions { get; set; }
 
     public virtual DbSet<Request> Requests { get; set; }
@@ -111,7 +113,9 @@ public partial class SpaServiceContext : DbContext
             entity.Property(e => e.Content)
                 .HasMaxLength(255)
                 .HasColumnName("content");
-            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.CreatedBy)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -259,6 +263,7 @@ public partial class SpaServiceContext : DbContext
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
                 .HasColumnName("fullName");
+            entity.Property(e => e.IsProcessed).HasColumnName("isProcessed");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(15)
                 .IsUnicode(false)
@@ -453,6 +458,32 @@ public partial class SpaServiceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("membershipId");
             entity.Property(e => e.Discount).HasColumnName("discount");
+            entity.Property(e => e.Type)
+                .HasMaxLength(50)
+                .HasColumnName("type");
+        });
+
+        modelBuilder.Entity<News>(entity =>
+        {
+            entity.HasKey(e => e.NewsId).HasName("PK__news__5218041ED44A4756");
+
+            entity.ToTable("news");
+
+            entity.Property(e => e.NewsId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("newsId");
+            entity.Property(e => e.Content).HasColumnName("content");
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("createAt");
+            entity.Property(e => e.Header)
+                .HasMaxLength(255)
+                .HasColumnName("header");
+            entity.Property(e => e.Image)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("image");
             entity.Property(e => e.Type)
                 .HasMaxLength(50)
                 .HasColumnName("type");

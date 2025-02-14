@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Repositories.Entities;
+
+public partial class News
+{
+    public string NewsId { get; set; } = null!;
+
+    public string Header { get; set; } = null!;
+
+    public string Content { get; set; } = null!;
+
+    public DateTime CreateAt { get; set; }
+
+    public string Type { get; set; } = null!;
+
+    public string? Image { get; set; }
+}

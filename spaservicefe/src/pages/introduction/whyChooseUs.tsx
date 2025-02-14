@@ -53,7 +53,7 @@ const ChooseUs = () => {
   }
 
   return (
-    <div className='mx-auto my-20 space-y-4' data-aos='zoom-in' data-aos-delay='1000'>
+    <div className='mx-auto my-20 space-y-4' data-aos='zoom-in' data-aos-delay='600'>
       <div className='flex items-center justify-center gap-8 px-4'>
         <div className='hidden lg:block'>
           <ArrowButton direction='right' onClick={prevSlide} />
@@ -63,7 +63,7 @@ const ChooseUs = () => {
                         bg-custom-bg1 bg-right-bottom bg-no-repeat px-5 py-8 shadow-lg shadow-purple-200 lg:flex-row'
         >
           <div className='lg:hidden'>
-            <IntroHeader title={'Why choose us?'} position='middle' />
+            <IntroHeader title={'Why choose us?'} position='middle' size='big' />
           </div>
           <div className='relative'>
             <img
@@ -75,12 +75,12 @@ const ChooseUs = () => {
             />
           </div>
           <div
-            className={`max-w-[350px] flex-1 space-y-4 text-center transition-opacity duration-300 lg:text-left ${
+            className={`max-w-[350px] flex-1 space-y-4 text-left transition-opacity duration-300 sm:text-center${
               isChanging ? 'opacity-0' : 'opacity-100'
             }`}
           >
             <div className='hidden lg:block'>
-              <IntroHeader title={'Why choose us?'} position='left' />
+              <IntroHeader title={'Why choose us?'} position='left' size='big' />
             </div>
             <h3 className='text-xl font-semibold text-gray-600'>{slides[currentSlide].title}</h3>
             <p className='text-sm text-gray-900'>{slides[currentSlide].description}</p>

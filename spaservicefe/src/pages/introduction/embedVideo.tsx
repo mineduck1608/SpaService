@@ -32,12 +32,13 @@ export default function EmbedVideo() {
           <CiPlay1 className='h-8 w-8 md:h-10 md:w-10 lg:h-12 lg:w-12' />
         </button>
       </div>
-      {!isPlayed ? (
-        <div></div>
-      ) : (
-        <div className='modal-bg fixed inset-0 z-50 mt-20 flex items-center justify-center'>
+      {isPlayed && (
+        <div
+          className='fixed inset-0 z-[1001] flex items-center justify-center'
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}
+        >
           <div className='relative aspect-video w-full max-w-7xl'>
-            <button onClick={hideVideo} className='absolute right-2 top-2 text-3xl font-bold text-white'>
+            <button onClick={hideVideo} className='absolute right-4 top-6 text-3xl font-bold text-white'>
               <X />
             </button>
             <iframe

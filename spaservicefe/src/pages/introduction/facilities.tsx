@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { X } from 'lucide-react'
 import IntroHeader from '../../components/introductionHeader'
 import ArrowButton from '../../components/ui/arrowButton'
-//import { motion, AnimatePresence } from 'framer-motion'
+// import { motion, AnimatePresence } from 'framer-motion'
 
 const Facilities = () => {
   const facilities = [
@@ -116,7 +116,7 @@ const Facilities = () => {
         >
           <div className='absolute inset-0 bg-white bg-custom-bg1 bg-right-top bg-no-repeat opacity-0'></div>
           <div className='p-5 text-left text-white'>
-            <IntroHeader title={'Facilities'} position='left' />
+            <IntroHeader title={'Facilities'} position='left' size='big' />
             <p className='ml-1 px-1' data-aos='fade-down' data-aos-delay='100'>
               Seven separate floors bring an ultimate sense of complete privacy and comfort.
             </p>
@@ -143,7 +143,10 @@ const Facilities = () => {
         ))}
       </div>
       {selectedFacility && (
-        <div className='modal-bg !important fixed inset-0 z-50 flex items-center justify-center'>
+        <div
+          className='fixed inset-0 z-[1001] flex items-center justify-center'
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}
+        >
           <div className='mx-4 w-full max-w-2xl rounded-lg bg-white'>
             <div className='flex items-end justify-end border-b p-4'>
               <button onClick={() => setSelectedFacility(null)} className='rounded-full hover:bg-gray-100'>

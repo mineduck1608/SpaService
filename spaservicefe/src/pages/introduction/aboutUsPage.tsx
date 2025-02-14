@@ -65,15 +65,15 @@ const AboutUsPage = () => {
           alt=''
           className='h-[50vh] w-full object-cover'
         />
-      </div>
-      <div className='w-full' data-aos='fade-right' data-aos-delay='400'>
-        <div className='container mx-auto flex justify-center px-1 py-3 md:justify-start'>
-          <div className='text-md text-gray-400'>
-            <a className='text-md text-gray-400 no-underline' href='/'>
-              Home
-            </a>
-            <span className='mx-1'>&gt;</span>
-            <span>About Us</span>
+        <div className='w-full' data-aos='fade-right' data-aos-delay='400'>
+          <div className='container mx-auto flex justify-center px-1 py-3 md:justify-start'>
+            <div className='text-md text-gray-400'>
+              <a className='text-md text-gray-400 no-underline' href='/'>
+                Home
+              </a>
+              <span className='mx-2'>&gt;</span>
+              <span>About Us</span>
+            </div>
           </div>
         </div>
       </div>
@@ -83,17 +83,17 @@ const AboutUsPage = () => {
         <div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
           <div className='absolute inset-0 -z-10 h-full w-full bg-custom-bg3 bg-contain bg-left-top bg-no-repeat' />
           <div className='flex flex-col items-center text-center'>
-            <IntroHeader title={'About Us'} position='middle' />
+            <IntroHeader title={'About Us'} position='middle' size='big' />
             <div className='max-w-lg text-lg text-gray-900'>
-              <p className='' data-aos='fade-down' data-aos-delay='300'>
+              <p data-aos='fade-down' data-aos-delay='400'>
                 Associated with the beauty of a sincere, romantic, yet very resilient flower, SenSpa is designed and
                 decorated in a rustic and simple style, featuring bold traditional characteristics of Vietnam.
               </p>
-              <p className='mt-6' data-aos='fade-down' data-aos-delay='200'>
+              <p className='mt-6' data-aos='fade-down' data-aos-delay='400'>
                 Located in the center of HCM City via an alley entrance, SenSpa is separated from the noisy atmosphere
                 to open into a gentle and serene space.
               </p>
-              <p className='mt-6' data-aos='fade-down' data-aos-delay='400'>
+              <p className='mt-6' data-aos='fade-down' data-aos-delay='800'>
                 With almost <span className='font-semibold'>30 therapists</span> being professionally trained and
                 certified following <span className='font-bold'>international standards</span>, SenSpa is proud to be a
                 perfect wellness destination that meets the needs of the most fastidious guests from all around the
@@ -144,7 +144,7 @@ const AboutUsPage = () => {
       {/* What is spa */}
       <div className='container mx-auto my-16 space-y-4'>
         <div className='mx-auto max-w-[100vh] space-y-1 text-center'>
-          <IntroHeader title={'What is SPA?'} position='middle' />
+          <IntroHeader title={'What is SPA?'} position='middle' size='big' />
           <p className='text-lg text-gray-900' data-aos='fade-right' data-aos-delay='400'>
             Today, SPA is defined as health and beauty treatments that helps balance the body and spirit. A true spa
             must be able to influence these senses and help re-energize the customers so they can become healthier and
@@ -172,11 +172,11 @@ const AboutUsPage = () => {
         </div>
       </div>
 
-      {/* Gallery */}
-      <Facilities />
-
       {/* Why choose us */}
       <ChooseUs />
+
+      {/* Gallery */}
+      <Facilities />
     </main>
   )
 }

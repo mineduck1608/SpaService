@@ -45,11 +45,6 @@ namespace Services
             return await _repository.AddContact(contact);
         }
 
-        public async Task<bool> UpdateContact(Contact contact, string contactId)
-        {
-            return await _repository.UpdateContact(contact, contactId);
-        }
-
         public async Task<bool> DeleteContact(string contactId)
         {
             return await _repository.DeleteContact(contactId);

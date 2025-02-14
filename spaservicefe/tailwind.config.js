@@ -43,7 +43,18 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))'
         },
         purple1: '#8D388A',
-        purple2: '#8D388A'
+        purple2: '#8D388A',
+        purple3: '#E5D2E6',
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))'
+        }
       },
       borderRadius: {
         lg: `var(--radius)`,
@@ -55,7 +66,8 @@ module.exports = {
         'custom-bg2': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bf_site.png')",
         'custom-bg3': "url('https://senspa.com.vn/wp-content/uploads/2020/11/bg_about_us.png')",
         'custom-bg4': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bf_process_history.png')",
-        'custom-bg5': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bg_spa.png')"
+        'custom-bg5': "url('https://senspa.com.vn/wp-content/themes/thuythu/images/bg_spa.png')",
+        'custom-bg6': "url('https://senspa.com.vn/wp-content/uploads/2020/12/G-sa%CC%89nh-13.jpg')"
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif']

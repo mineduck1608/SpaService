@@ -47,13 +47,13 @@ const History = () => {
 
   return (
     <div className='relative mb-10 min-w-full'>
-      <IntroHeader title='History' position='middle' />
+      <IntroHeader title='History' position='middle' size='big' />
       <div className='absolute inset-0 -z-10 h-full w-full bg-custom-bg2 bg-bottom bg-repeat-x' />
       <div className='relative mx-auto mb-10 mt-10 max-w-3xl' data-aos='fade-right' data-aos-delay='600'>
-        <div className='absolute left-0 right-0 top-14 h-px bg-purple1' />
+        <div className='absolute left-0 right-0 top-10 h-px bg-purple1' />
         <div className='relative mx-auto flex max-w-3xl flex-col items-center justify-between md:flex-row'>
           {timeline.map((i) => (
-            <div key={i.year} className='-mt-1 px-8 text-center'>
+            <div key={i.year} className='-mt-5 px-8 text-center'>
               <button
                 onClick={() => handleYearChange(i.year)}
                 className={`relative mb-2 rounded-full rounded-bl-3xl rounded-tr-3xl px-6 py-2 text-lg font-semibold transition-all duration-300 hover:-translate-y-3 ${

@@ -72,7 +72,7 @@ namespace API.Controllers
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
                 string commissionId = jsonElement.GetProperty("commissionId").GetString();
                 string transactionId = jsonElement.GetProperty("transactionId").GetString();
-                double commissionValue = jsonElement.GetProperty("commissionValue").GetDouble();
+                decimal commissionValue = jsonElement.GetProperty("commissionValue").GetDecimal();
 
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(employeeId) || string.IsNullOrEmpty(commissionId) ||

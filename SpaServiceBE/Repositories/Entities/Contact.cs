@@ -14,4 +14,6 @@ public partial class Contact
     public string Email { get; set; } = null!;
 
     public string? ContactContent { get; set; }
+
+    public bool IsProcessed { get; set; }
 }
