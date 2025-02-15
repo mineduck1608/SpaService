@@ -16,6 +16,7 @@ import {
   SidebarMenuItem,
   useSidebar
 } from 'src/components/ui/sidebar'
+import { Link } from 'react-router-dom'
 
 export function NavFavorites(params: { favorite: SideBarItem[] }) {
   console.log(params.favorite)
@@ -29,16 +30,13 @@ export function NavFavorites(params: { favorite: SideBarItem[] }) {
         {params.favorite.map((item) => (
           <SidebarMenuItem key={item.title} className='-ml-4'>
             <SidebarMenuButton asChild>
-              <button
-                onClick={(e) => {
-                  window.location.assign(item.url ?? '/admin')
-                }}
-                title={item.title}
-                className='text-black no-underline'
+              <Link
+                to={'/admin' + (item.url ?? '')}
+                className='no-underline text-black'
               >
                 {item.icon && <item.icon className='mr-1 h-4 w-4' />}
                 <span className='mb-0.5 text-base'>{item.title}</span>
-              </button>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

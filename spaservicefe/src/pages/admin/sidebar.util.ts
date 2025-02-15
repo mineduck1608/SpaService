@@ -202,17 +202,17 @@ export const sideData = {
   favorite: [
     {
       title: 'Schedule',
-      url: '/admin/schedules',
+      url: '/schedules',
       icon: CalendarCheck
     },
     {
       title: 'Transactions',
-      url: '/admin/transactions',
+      url: '/transactions',
       icon: LineChart
     },
     {
       title: 'Employees commissions',
-      url: '/admin/employees-commissions',
+      url: '/employees-commissions',
       icon: DollarSign
     }
   ]

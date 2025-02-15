@@ -4,9 +4,14 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from 'src/
 import { Separator } from 'src/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from 'src/components/ui/sidebar'
 import { sideData } from './sidebar.util'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
 export default function Page() {
+  const location = useLocation()
+  const currentPath = location.pathname
+  const currentWorkspace = sideData.workspaces.find(workspace => workspace.pages.some(page => '/admin' + page.url === currentPath))
+  const currentPage = currentWorkspace?.pages.find(page => '/admin' + page.url === currentPath)
+
   return (
     <SidebarProvider>
       <SidebarLeft
@@ -24,11 +29,21 @@ export default function Page() {
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbPage className='mt-3 line-clamp-1 text-base'>
-                    <a className='text-black no-underline' href='#'>
+                    <Link to="/admin" className='text-black no-underline'>
                       Home
-                    </a>
-                    <span className='mx-2'>&gt;</span>
-                    <span></span>
+                    </Link>
+                    {currentWorkspace && (
+                      <>
+                        <span className='mx-2'>&gt;</span>
+                        <span>Manage {currentWorkspace.title}</span>
+                      </>
+                    )}
+                    {currentPage && (
+                      <>
+                        <span className='mx-2'>&gt;</span>
+                        <span>{currentPage.title}</span>
+                      </>
+                    )}
                   </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
