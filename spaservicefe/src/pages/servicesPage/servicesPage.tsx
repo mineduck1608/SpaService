@@ -8,6 +8,7 @@ import { Category } from '@/types/category'
 import PageNumber from './pageNumber'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { jwtDecode } from 'jwt-decode'
 
 export default function ServicesPage() {
   const { id } = useParams()
