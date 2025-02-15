@@ -1,25 +1,9 @@
 import { TrendingUp } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-const chartData = [
-  { month: "January", female: 186, male: 80 },
-  { month: "February", female: 305, male: 200 },
-  { month: "March", female: 237, male: 120 },
-  { month: "April", female: 73, male: 190 },
-  { month: "May", female: 209, male: 130 },
-  { month: "June", female: 214, male: 140 },
-]
-const chartConfig = {
-  female: {
-    label: "Female",
-    color: "hsl(var(--chart-1))",
-  },
-  male: {
-    label: "Male",
-    color: "hsl(var(--chart-2))",
-  }
-} satisfies ChartConfig
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
+import { barChartData, barChartConfig } from './chart.util'
+
 export function BarChartComp() {
   return (
     <Card>
@@ -28,8 +12,8 @@ export function BarChartComp() {
         <CardDescription>January - June 2025</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+        <ChartContainer config={barChartConfig}>
+          <BarChart accessibilityLayer data={barChartData}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey='month'

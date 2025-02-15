@@ -1,34 +1,14 @@
-import { TrendingUp } from "lucide-react"
-import { Line, LineChart, XAxis, CartesianGrid } from "recharts"
-
+import { TrendingUp } from 'lucide-react'
+import { Line, LineChart, XAxis, CartesianGrid } from 'recharts'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "src/components/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "src/components/ui/chart"
-const chartData = [
-  { month: "January", views: 186 },
-  { month: "February", views: 305 },
-  { month: "March", views: 237 },
-  { month: "April", views: 72 },
-  { month: "May", views: 209 },
-  { month: "June", views: 214 },
-]
-
-const chartConfig = {
-  views: {
-    label: "Views",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig
+} from 'src/components/ui/card'
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
+import { lineChartData, lineChartConfig } from './chart.util'
 
 export function LineChartComp() {
   return (
@@ -43,10 +23,10 @@ export function LineChartComp() {
         <CardDescription className="text-base text-green-500">+ 20.1% from last month</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={lineChartConfig}>
           <LineChart
             accessibilityLayer
-            data={chartData}
+            data={lineChartData}
             margin={{
               left: 12,
               right: 12,

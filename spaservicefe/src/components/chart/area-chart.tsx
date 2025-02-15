@@ -1,25 +1,9 @@
 import { TrendingUp } from 'lucide-react'
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-const chartData = [
-  { month: "January", facebook: 186, google: 80 },
-  { month: "February", facebook: 305, google: 200 },
-  { month: "March", facebook: 237, google: 120 },
-  { month: "April", facebook: 73, google: 190 },
-  { month: "May", facebook: 209, google: 130 },
-  { month: "June", facebook: 214, google: 140 },
-]
-const chartConfig = {
-  facebook: {
-    label: "Facebook Ads",
-    color: "hsl(var(--chart-1))",
-  },
-  google: {
-    label: "Google Ads",
-    color: "hsl(var(--chart-2))",
-  }
-} satisfies ChartConfig
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
+import { areaChartData1, areaChartConfig1 } from './chart.util'
+
 export function AreaChartComp() {
   return (
     <Card>
@@ -30,10 +14,10 @@ export function AreaChartComp() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={areaChartConfig1}>
           <AreaChart
             accessibilityLayer
-            data={chartData}
+            data={areaChartData1}
             margin={{
               left: 12,
               right: 12

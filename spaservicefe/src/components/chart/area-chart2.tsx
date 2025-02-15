@@ -1,132 +1,31 @@
-import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import * as React from 'react'
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "src/components/ui/card"
+} from 'src/components/ui/card'
 import {
-  ChartConfig,
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "src/components/ui/chart"
+} from 'src/components/ui/chart'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "src/components/ui/select"
-const chartData = [
-  { date: "2024-04-01", sales: 222},
-  { date: "2024-04-02", sales: 97},
-  { date: "2024-04-03", sales: 167},
-  { date: "2024-04-04", sales: 242},
-  { date: "2024-04-05", sales: 373},
-  { date: "2024-04-06", sales: 301},
-  { date: "2024-04-07", sales: 245},
-  { date: "2024-04-08", sales: 409},
-  { date: "2024-04-09", sales: 59},
-  { date: "2024-04-10", sales: 261},
-  { date: "2024-04-11", sales: 327},
-  { date: "2024-04-12", sales: 292},
-  { date: "2024-04-13", sales: 342},
-  { date: "2024-04-14", sales: 137},
-  { date: "2024-04-15", sales: 120},
-  { date: "2024-04-16", sales: 138},
-  { date: "2024-04-17", sales: 446},
-  { date: "2024-04-18", sales: 364},
-  { date: "2024-04-19", sales: 243},
-  { date: "2024-04-20", sales: 89},
-  { date: "2024-04-21", sales: 137},
-  { date: "2024-04-22", sales: 224},
-  { date: "2024-04-23", sales: 138},
-  { date: "2024-04-24", sales: 387},
-  { date: "2024-04-25", sales: 215},
-  { date: "2024-04-26", sales: 75},
-  { date: "2024-04-27", sales: 383},
-  { date: "2024-04-28", sales: 122},
-  { date: "2024-04-29", sales: 315, mobile: 240 },
-  { date: "2024-04-30", sales: 454, mobile: 380 },
-  { date: "2024-05-01", sales: 165, mobile: 220 },
-  { date: "2024-05-02", sales: 293, mobile: 310 },
-  { date: "2024-05-03", sales: 247, mobile: 190 },
-  { date: "2024-05-04", sales: 385, mobile: 420 },
-  { date: "2024-05-05", sales: 481, mobile: 390 },
-  { date: "2024-05-06", sales: 498, mobile: 520 },
-  { date: "2024-05-07", sales: 388, mobile: 300 },
-  { date: "2024-05-08", sales: 149, mobile: 210 },
-  { date: "2024-05-09", sales: 227, mobile: 180 },
-  { date: "2024-05-10", sales: 293, mobile: 330 },
-  { date: "2024-05-11", sales: 335, mobile: 270 },
-  { date: "2024-05-12", sales: 197, mobile: 240 },
-  { date: "2024-05-13", sales: 197, mobile: 160 },
-  { date: "2024-05-14", sales: 448, mobile: 490 },
-  { date: "2024-05-15", sales: 473, mobile: 380 },
-  { date: "2024-05-16", sales: 338, mobile: 400 },
-  { date: "2024-05-17", sales: 499, mobile: 420 },
-  { date: "2024-05-18", sales: 315, mobile: 350 },
-  { date: "2024-05-19", sales: 235, mobile: 180 },
-  { date: "2024-05-20", sales: 177, mobile: 230 },
-  { date: "2024-05-21", sales: 82, mobile: 140 },
-  { date: "2024-05-22", sales: 81, mobile: 120 },
-  { date: "2024-05-23", sales: 252, mobile: 290 },
-  { date: "2024-05-24", sales: 294, mobile: 220 },
-  { date: "2024-05-25", sales: 201, mobile: 250 },
-  { date: "2024-05-26", sales: 213, mobile: 170 },
-  { date: "2024-05-27", sales: 420, mobile: 460 },
-  { date: "2024-05-28", sales: 233, mobile: 190 },
-  { date: "2024-05-29", sales: 78, mobile: 130 },
-  { date: "2024-05-30", sales: 340, mobile: 280 },
-  { date: "2024-05-31", sales: 178, mobile: 230 },
-  { date: "2024-06-01", sales: 178, mobile: 200 },
-  { date: "2024-06-02", sales: 470, mobile: 410 },
-  { date: "2024-06-03", sales: 103, mobile: 160 },
-  { date: "2024-06-04", sales: 439, mobile: 380 },
-  { date: "2024-06-05", sales: 88, mobile: 140 },
-  { date: "2024-06-06", sales: 294, mobile: 250 },
-  { date: "2024-06-07", sales: 323, mobile: 370 },
-  { date: "2024-06-08", sales: 385, mobile: 320 },
-  { date: "2024-06-09", sales: 438, mobile: 480 },
-  { date: "2024-06-10", sales: 155, mobile: 200 },
-  { date: "2024-06-11", sales: 92, mobile: 150 },
-  { date: "2024-06-12", sales: 492, mobile: 420 },
-  { date: "2024-06-13", sales: 81, mobile: 130 },
-  { date: "2024-06-14", sales: 426, mobile: 380 },
-  { date: "2024-06-15", sales: 307, mobile: 350 },
-  { date: "2024-06-16", sales: 371, mobile: 310 },
-  { date: "2024-06-17", sales: 475, mobile: 520 },
-  { date: "2024-06-18", sales: 107, mobile: 170 },
-  { date: "2024-06-19", sales: 341, mobile: 290 },
-  { date: "2024-06-20", sales: 408, mobile: 450 },
-  { date: "2024-06-21", sales: 169, mobile: 210 },
-  { date: "2024-06-22", sales: 317, mobile: 270 },
-  { date: "2024-06-23", sales: 480, mobile: 530 },
-  { date: "2024-06-24", sales: 132, mobile: 180 },
-  { date: "2024-06-25", sales: 141, mobile: 190 },
-  { date: "2024-06-26", sales: 434, mobile: 380 },
-  { date: "2024-06-27", sales: 448, mobile: 490 },
-  { date: "2024-06-28", sales: 149, mobile: 200 },
-  { date: "2024-06-29", sales: 103, mobile: 160 },
-  { date: "2024-06-30", sales: 446, mobile: 400 },
-]
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  sales: {
-    label: "Reservations",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig
+} from 'src/components/ui/select'
+import { areaChartData, areaChartConfig } from './chart.util'
+
 export function AreaChart2Comp() {
   const [timeRange, setTimeRange] = React.useState("90d")
-  const filteredData = chartData.filter((item) => {
+  const filteredData = areaChartData.filter((item) => {
     const date = new Date(item.date)
     const referenceDate = new Date("2024-06-30")
     let daysToSubtract = 90
@@ -170,7 +69,7 @@ export function AreaChart2Comp() {
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
-          config={chartConfig}
+          config={areaChartConfig}
           className="aspect-auto h-[250px] w-full"
         >
           <AreaChart data={filteredData}>

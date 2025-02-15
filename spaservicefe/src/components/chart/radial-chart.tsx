@@ -1,32 +1,20 @@
-import { TrendingUp } from "lucide-react"
 import {
   Label,
   PolarGrid,
   PolarRadiusAxis,
   RadialBar,
   RadialBarChart,
-} from "recharts"
+} from 'recharts'
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
-} from "src/components/ui/card"
-import { ChartConfig, ChartContainer } from "src/components/ui/chart"
-const chartData = [
-  { browser: "safari", visitors: 245, fill: "var(--color-safari)" },
-]
-const chartConfig = {
-  visitors: {
-    label: "Users",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-} satisfies ChartConfig
+  CardTitle
+} from 'src/components/ui/card'
+import { ChartContainer } from 'src/components/ui/chart'
+import { radialChartData, radialChartConfig } from './chart.util'
+
 export function RadialChartComp() {
   return (
     <Card className="flex flex-col">
@@ -36,11 +24,11 @@ export function RadialChartComp() {
       </CardHeader>
       <CardContent className="flex-1 pb-0 -mt-3">
         <ChartContainer
-          config={chartConfig}
+          config={radialChartConfig}
           className="mx-auto aspect-square max-h-[250px]"
         >
           <RadialBarChart
-            data={chartData}
+            data={radialChartData}
             endAngle={100}
             innerRadius={80}
             outerRadius={140}
@@ -69,7 +57,7 @@ export function RadialChartComp() {
                           y={viewBox.cy}
                           className="fill-foreground text-4xl font-bold"
                         >
-                          {chartData[0].visitors.toLocaleString()}
+                          {radialChartData[0].visitors.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
