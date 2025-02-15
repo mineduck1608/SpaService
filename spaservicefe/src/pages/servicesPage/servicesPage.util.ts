@@ -18,7 +18,7 @@ export async function getCategory(id: string) {
     return null
   }
 }
-export async function getServices(id: string) {
+export async function getServicesOfCategory(id: string) {
   try {
     var res = await fetch(`${apiUrl}/spaservices/ServiceOfCategory?categoryId=${id}`)
     var json = (await res.json()) as Service[]
@@ -49,7 +49,7 @@ export async function findCategories() {
   }
   return s
 }
-export function take<T>(arr: T[], pageNum: number, pageSize: number): T[]{
+export function take<T>(arr: T[], pageNum: number, pageSize: number): T[] {
   let start = pageNum * pageSize
   let end = start + pageSize
   return arr.slice(start, end)

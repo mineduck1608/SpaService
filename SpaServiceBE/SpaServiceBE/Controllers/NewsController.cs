@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
@@ -55,6 +56,7 @@ namespace API.Controllers
         }
 
         // POST: api/news/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateNews([FromBody] dynamic request)
         {
@@ -100,6 +102,7 @@ namespace API.Controllers
         }
 
         // PUT: api/news/Update/{id}
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateNews(string id, [FromBody] dynamic request)
         {
@@ -145,6 +148,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/news/Delete/{id}
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteNews(string id)
         {
@@ -156,6 +160,54 @@ namespace API.Controllers
                     return NotFound($"News with ID = {id} not found.");
 
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // New GetAllBlog method
+       
+        [HttpGet("GetAllBlog")]
+        public async Task<ActionResult<IEnumerable<News>>> GetAllBlogs()
+        {
+            try
+            {
+                var blogs = await _service.GetNewsByType("Blog"); // Filter news by type "Blog"
+                return Ok(blogs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // New GetAllPromotion method
+        
+        [HttpGet("GetAllPromotion")]
+        public async Task<ActionResult<IEnumerable<News>>> GetAllPromotions()
+        {
+            try
+            {
+                var promotions = await _service.GetNewsByType("Promotion"); // Filter news by type "Promotion"
+                return Ok(promotions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // New GetAllEvent method
+       
+        [HttpGet("GetAllEvent")]
+        public async Task<ActionResult<IEnumerable<News>>> GetAllEvents()
+        {
+            try
+            {
+                var events = await _service.GetNewsByType("Event"); // Filter news by type "Event"
+                return Ok(events);
             }
             catch (Exception ex)
             {

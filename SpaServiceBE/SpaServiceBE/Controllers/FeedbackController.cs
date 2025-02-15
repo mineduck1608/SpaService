@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -20,6 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/feedbacks/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Feedback>>> GetAllFeedbacks()
         {
@@ -35,6 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/feedbacks/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Feedback>> GetFeedbackById(string id)
         {
@@ -57,6 +60,7 @@ namespace API.Controllers
         }
 
         // POST: api/feedbacks/Create
+        [Authorize (Roles = "Customer")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateFeedback([FromBody] dynamic request)
         {
@@ -104,6 +108,7 @@ namespace API.Controllers
 
 
         // PUT: api/feedbacks/Update/{id}
+        [Authorize (Roles = "Customer")]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateFeedback(string id, [FromBody] dynamic request)
         {
@@ -151,6 +156,7 @@ namespace API.Controllers
 
 
         // DELETE: api/feedbacks/Delete/{id}
+        [Authorize (Roles ="Admin, Customer")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteFeedback(string id)
         {

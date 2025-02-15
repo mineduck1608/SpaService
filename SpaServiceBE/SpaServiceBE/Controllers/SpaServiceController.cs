@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
@@ -23,6 +24,7 @@ namespace API.Controllers
         }
 
         // GET: api/spaservices/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<SpaService>>> GetAllSpaServices()
         {
@@ -38,6 +40,7 @@ namespace API.Controllers
         }
 
         // GET: api/spaservices/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<SpaService>> GetSpaServiceById(string id)
         {
@@ -58,7 +61,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
+        [Authorize (Roles ="Admin, Manager")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateSpaService([FromBody] dynamic request)
         {
@@ -128,6 +131,7 @@ namespace API.Controllers
 
 
         // PUT: api/spaservices/Update/{id}
+        [Authorize(Roles = "Admin, Manager")]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateSpaService(string id, [FromBody] dynamic request)
         {
@@ -190,7 +194,8 @@ namespace API.Controllers
         }
 
 
-        // DELETE: api/spaservices/Delete/{id}
+        // DELETE: api/spaservices/Delete/{id}\
+        [Authorize(Roles = "Admin, Manager")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteSpaService(string id)
         {
@@ -211,6 +216,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+ 
         [HttpGet("ServiceOfCategory")]
         public async Task<ActionResult> GetServicesOfCategory(string categoryId)
         {

@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react'
 import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import logoBlack from '../../images/logos/logoBlack.png'
-import { Category } from '@/types/category'
-import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 import logoColor from '../../images/logos/logoColor.png'
-
+import { Category } from '@/types/category.ts'
+import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState(true)
@@ -65,9 +63,9 @@ const Header = () => {
               </li>
               <div className='logo'>
                 <img
-                  src={isAtTop ? logoBlack : logoColor}
+                  src={logoColor}
                   alt='Sen Spa Logo'
-                  className={`logo-image ${isAtTop ? 'large-logo' : 'small-logo'}`}
+                  className={`logo-image ${isAtTop ? 'large-logo brightness-0 invert' : 'small-logo'}`}
                 />
               </div>
               <li className='dropdown'>
@@ -75,7 +73,9 @@ const Header = () => {
                   MEDIA
                   <FontAwesomeIcon icon={faAngleDown} className='mb-0.5 ml-2 text-xs' />
                 </a>
-                <ul className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}>
+                <ul
+                  className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}
+                >
                   <li>
                     <a
                       href='/media/pictures'

@@ -1,101 +1,64 @@
-import * as React from "react"
-import { TrendingUp } from "lucide-react"
-import { Label, Pie, PieChart } from "recharts"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "src/components/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "src/components/ui/chart"
+import * as React from 'react'
+import { TrendingUp } from 'lucide-react'
+import { Label, Pie, PieChart } from 'recharts'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
 const chartData = [
   { name: "massage", visitors: 275, fill: "var(--color-massage)" },
   { name: "facial", visitors: 200, fill: "var(--color-facial)" },
   { name: "package", visitors: 200, fill: "var(--color-package)" },
   { name: "removal", visitors: 173, fill: "var(--color-removal)" },
-  { name: "other", visitors: 190, fill: "var(--color-other)" },
+  { name: "other", visitors: 190, fill: "var(--color-other)" }
 ]
 const chartConfig = {
   visitors: {
-    label: "Visitors",
+    label: 'Visitors'
   },
   massage: {
-    label: "Massage",
-    color: "hsl(var(--chart-1))",
+    label: 'Massage',
+    color: 'hsl(var(--chart-1))'
   },
   facial: {
-    label: "Facial",
-    color: "hsl(var(--chart-2))",
+    label: 'Facial',
+    color: 'hsl(var(--chart-2))'
   },
   package: {
     label: "VIP package",
     color: "hsl(var(--chart-3))",
   },
   removal: {
-    label: "Hair Removal",
-    color: "hsl(var(--chart-4))",
+    label: 'Hair Removal',
+    color: 'hsl(var(--chart-4))'
   },
   other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
+    label: 'Other',
+    color: 'hsl(var(--chart-5))'
+  }
 } satisfies ChartConfig
 export function PieChartComp() {
   const totalVisitors = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
   }, [])
   return (
-    <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0 text-lg">
+    <Card className='flex flex-col'>
+      <CardHeader className='items-center pb-0 text-lg'>
         <CardTitle>Revenue Breakdown</CardTitle>
         <CardDescription>January - June 2025</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
+      <CardContent className='flex-1 pb-0'>
+        <ChartContainer config={chartConfig} className='mx-auto aspect-square max-h-[250px]'>
           <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Pie
-              data={chartData}
-              dataKey="visitors"
-              nameKey="name"
-              innerRadius={60}
-              strokeWidth={5}
-            >
+            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+            <Pie data={chartData} dataKey='visitors' nameKey='name' innerRadius={60} strokeWidth={5}>
               <Label
                 content={({ viewBox }) => {
-                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                     return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                      >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
-                        >
+                      <text x={viewBox.cx} y={viewBox.cy} textAnchor='middle' dominantBaseline='middle'>
+                        <tspan x={viewBox.cx} y={viewBox.cy} className='fill-foreground text-3xl font-bold'>
                           {totalVisitors.toLocaleString()}
                         </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
-                        >
+                        <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className='fill-muted-foreground'>
                           Visitors
                         </tspan>
                       </text>
@@ -107,13 +70,14 @@ export function PieChartComp() {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center text-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+      <CardFooter className='flex-col gap-2 text-sm'>
+        <div className='flex items-center text-center gap-2 font-medium leading-none'>
+          Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
         </div>
-        <div className="flex items-center text-center leading-none text-muted-foreground">
+        <div className='flex items-center text-center leading-none text-muted-foreground'>
           Showing total visitors for the last 6 months
         </div>
+        <div className='leading-none text-muted-foreground'>Showing total visitors for the last 6 months</div>
       </CardFooter>
     </Card>
   )

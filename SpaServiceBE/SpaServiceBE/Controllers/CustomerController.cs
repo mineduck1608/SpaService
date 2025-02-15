@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -20,6 +21,8 @@ namespace API.Controllers
         }
 
         // GET: api/customers/GetAll
+
+        [Authorize(Roles = "Admin, Manager")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Customer>>> GetAllCustomers()
         {
@@ -35,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/customers/GetById/{id}
+        [Authorize(Roles = "Admin, Manager")]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Customer>> GetCustomerById(string id)
         {
@@ -53,6 +57,7 @@ namespace API.Controllers
             }
         }
         // POST: api/customers/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCustomer([FromBody] dynamic request)
         {
@@ -96,6 +101,7 @@ namespace API.Controllers
 
 
         // PUT: api/customers/Update/{id}
+        [Authorize(Roles = "Admin, Customer")]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateCustomer(string id, [FromBody] dynamic request)
         {
@@ -138,6 +144,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/customers/Delete/{id}
+        [Authorize(Roles = "Admin, Customer")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteCustomer(string id)
         {

@@ -24,6 +24,14 @@ namespace Repositories
                 .FirstOrDefaultAsync(n => n.NewsId == newsId);
         }
 
+        public async Task<List<News>> GetNewsByType(string type)
+        {
+            return await _context.News
+                                 .Where(n => n.Type == type)
+                                 .ToListAsync();
+        }
+
+
         // Lấy tất cả News
         public async Task<List<News>> GetAll()
         {

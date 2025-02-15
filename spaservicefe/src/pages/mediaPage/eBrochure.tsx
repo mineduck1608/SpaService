@@ -5,7 +5,9 @@ import brochure2 from '../../images/brochure/brochure2.jpg'
 
 const EBrochure = () => {
   return (
-    <div className='d-flex justify-content-center align-items-center mt-10'>
+    <div className='d-flex justify-content-center align-items-center mt-10' data-aos='zoom-in'
+    data-aos-delay='1000'
+    data-aos-offset='-500'>
       <div className='container text-center'>
         {/* Hộp tải xuống E-Brochure */}
         <div className='row justify-content-center gap-y-5'>

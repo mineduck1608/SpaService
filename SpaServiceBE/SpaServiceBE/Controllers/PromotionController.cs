@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
@@ -21,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/promotions/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Promotion>>> GetAllPromotions()
         {
@@ -36,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/promotions/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Promotion>> GetPromotionById(string id)
         {
@@ -58,6 +61,7 @@ namespace API.Controllers
         }
 
         // POST: api/promotions/Create
+        [Authorize(Roles = "Admin, Manager")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreatePromotion([FromBody] dynamic request)
         {
@@ -103,6 +107,7 @@ namespace API.Controllers
 
 
         // PUT: api/promotions/Update/{id}
+        [Authorize(Roles = "Admin, Manager")]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdatePromotion(string id, [FromBody] dynamic request)
         {
@@ -148,6 +153,7 @@ namespace API.Controllers
 
 
         // DELETE: api/promotions/Delete/{id}
+        [Authorize(Roles = "Admin, Manager")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeletePromotion(string id)
         {

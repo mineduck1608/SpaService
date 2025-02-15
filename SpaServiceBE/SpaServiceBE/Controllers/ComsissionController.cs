@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
@@ -21,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/commissions/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Commission>>> GetAllCommissions()
         {
@@ -36,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/commissions/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Commission>> GetCommissionById(string id)
         {
@@ -55,6 +58,7 @@ namespace API.Controllers
         }
 
         // POST: api/commissions/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCommission([FromBody] dynamic request)
         {
@@ -94,6 +98,7 @@ namespace API.Controllers
 
 
         // PUT: api/commissions/Update/{id}
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateCommission(string id, [FromBody] dynamic request)
         {
@@ -133,6 +138,7 @@ namespace API.Controllers
 
 
         // DELETE: api/commissions/Delete/{id}
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteCommission(string id)
         {

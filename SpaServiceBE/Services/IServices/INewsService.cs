@@ -11,5 +11,6 @@ namespace Services.IServices
         Task<bool> AddNews(News news);
         Task<bool> UpdateNews(string newsId, News news);
         Task<bool> DeleteNews(string newsId);
+        Task<List<News>> GetNewsByType(string type);
     }
 }

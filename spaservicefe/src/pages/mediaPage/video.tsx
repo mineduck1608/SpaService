@@ -1,6 +1,8 @@
 const Video = () => {
   return (
-    <div className='d-flex justify-content-center align-items-start pb-4 pt-4'>
+    <div className='d-flex justify-content-center align-items-start pb-4 pt-4' data-aos='zoom-in'
+    data-aos-delay='1000'
+    data-aos-offset='-500'>
       <div className='container text-center'>
         <div className='row justify-content-center'>
           <div className='col-md-12 d-flex justify-content-center'>

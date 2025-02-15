@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -20,6 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/appointments/GetAll
+        [Authorize (Roles ="Customer")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments()
         {
@@ -35,6 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/appointments/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Appointment>> GetAppointmentById(string id)
         {
@@ -54,6 +57,7 @@ namespace API.Controllers
         }
 
         // POST: api/appointments/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateAppointment([FromBody] dynamic request)
         {
@@ -100,6 +104,7 @@ namespace API.Controllers
 
 
         // PUT: api/appointments/Update/{id}
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateAppointment(string id, [FromBody] dynamic request)
         {
@@ -147,6 +152,7 @@ namespace API.Controllers
 
 
         // DELETE: api/appointments/Delete/{id}
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteAppointment(string id)
         {

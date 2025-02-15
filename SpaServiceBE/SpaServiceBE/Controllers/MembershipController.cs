@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -20,6 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/memberships/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Membership>>> GetAllMemberships()
         {
@@ -35,6 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/memberships/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Membership>> GetMembershipById(string id)
         {
@@ -57,6 +60,7 @@ namespace API.Controllers
         }
 
         // POST: api/memberships/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateMembership([FromBody] dynamic request)
         {
@@ -98,6 +102,7 @@ namespace API.Controllers
 
 
         // PUT: api/memberships/Update/{id}
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateMembership(string id, [FromBody] dynamic request)
         {
@@ -139,6 +144,7 @@ namespace API.Controllers
 
 
         // DELETE: api/memberships/Delete/{id}
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteMembership(string id)
         {
