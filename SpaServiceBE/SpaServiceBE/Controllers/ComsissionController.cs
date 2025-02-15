@@ -58,7 +58,7 @@ namespace API.Controllers
         }
 
         // POST: api/commissions/Create
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCommission([FromBody] dynamic request)
         {
@@ -98,7 +98,7 @@ namespace API.Controllers
 
 
         // PUT: api/commissions/Update/{id}
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateCommission(string id, [FromBody] dynamic request)
         {
@@ -138,7 +138,7 @@ namespace API.Controllers
 
 
         // DELETE: api/commissions/Delete/{id}
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteCommission(string id)
         {

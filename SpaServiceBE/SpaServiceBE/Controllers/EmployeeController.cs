@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/employees/GetAll
-       
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
@@ -37,7 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/employees/GetById/{id}
-       
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Employee>> GetEmployeeById(string id)
         {
@@ -60,7 +60,7 @@ namespace API.Controllers
         }
 
         // POST: api/employees/Create
-     
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateEmployee([FromBody] dynamic request)
         {
@@ -110,7 +110,7 @@ namespace API.Controllers
 
 
         // PUT: api/employees/Update/{id}
-   
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateEmployee(string id, [FromBody] dynamic request)
         {
@@ -160,7 +160,7 @@ namespace API.Controllers
 
 
         // DELETE: api/employees/Delete/{id}
-       
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteEmployee(string id)
         {

@@ -36,13 +36,13 @@ namespace SpaServiceBE.Utils
             {
         new Claim("UserId", id),
         new Claim("Username", name),
-        new Claim("Role", roleName)
+        new Claim(ClaimTypes.Role, roleName)
     };
 
             // Tạo token
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],       // Issuer từ cấu hình
-                audience: _config["Jwt:Audience"],   // Audience từ cấu hình
+                issuer: _config["AccessToken:Issuer"],       // Issuer từ cấu hình
+                audience: _config["AccessToken:Audience"],   // Audience từ cấu hình
                 claims: claims,                      // Claims
                 expires: DateTime.Now.AddMinutes(expireMinutes), // Hạn sử dụng token (UTC)
                 signingCredentials: credentials      // Chữ ký

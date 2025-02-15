@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -20,6 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/shifts
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Shift>>> GetAllShifts()
         {
@@ -35,6 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/shifts/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Shift>> GetShiftById(string id)
         {
@@ -54,6 +57,7 @@ namespace API.Controllers
         }
 
         // POST: api/shifts/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateShift([FromBody] dynamic request)
         {
@@ -92,6 +96,7 @@ namespace API.Controllers
         }
 
         // PUT: api/shifts/Update/{id}
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateShift(string id, [FromBody] dynamic request)
         {
@@ -129,6 +134,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/shifts/Delete/{id}
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteShift(string id)
         {

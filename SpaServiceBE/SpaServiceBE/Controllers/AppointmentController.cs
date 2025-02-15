@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/appointments/GetAll
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize (Roles ="Customer")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments()
         {
@@ -37,7 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/appointments/GetById/{id}
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Appointment>> GetAppointmentById(string id)
         {
@@ -57,7 +57,7 @@ namespace API.Controllers
         }
 
         // POST: api/appointments/Create
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateAppointment([FromBody] dynamic request)
         {
@@ -104,7 +104,7 @@ namespace API.Controllers
 
 
         // PUT: api/appointments/Update/{id}
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateAppointment(string id, [FromBody] dynamic request)
         {
@@ -152,7 +152,7 @@ namespace API.Controllers
 
 
         // DELETE: api/appointments/Delete/{id}
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteAppointment(string id)
         {

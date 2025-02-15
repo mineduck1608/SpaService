@@ -9,6 +9,10 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using Repositories.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,7 +74,64 @@ builder.Services.AddControllers()
 
 // Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+    {
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            Description = "Enter JWT Bearer token (e.g., 'Bearer {your token}')"
+        });
+
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+    });
+//list for audience
+//var validAudiences = new List<string>
+//{
+//    "http://localhost:5266/" // Your server's audience
+//    /*"397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com"*/,
+//     // Google Audience
+//};
+//var validIssuers = new List<string>
+//{
+//    "http://localhost:5266/"  // Your own issuer
+//    /*"https://accounts.google.com"*/  // Google issuer
+//};
+// Add JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["AccessToken:Issuer"],  // JWT Issuer from configuration
+            ValidAudience = builder.Configuration["AccessToken:Audience"], // JWT Audience from configuration
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AccessToken:Key"])) // JWT signing key
+        };
+    });
+
+
+
 
 
 

@@ -23,6 +23,7 @@ namespace API.Controllers
         }
 
         // GET: api/contacts/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Contact>>> GetAllContacts()
         {
@@ -58,6 +59,7 @@ namespace API.Controllers
         }
 
         // GET: api/contacts/GetByPhone/{phone}
+        [Authorize]
         [HttpGet("GetByPhone/{phone}")]
         public async Task<ActionResult<Contact>> GetContactByPhone(string phone)
         {
@@ -77,6 +79,7 @@ namespace API.Controllers
         }
 
         // GET: api/contacts/GetByEmail/{email}
+        [Authorize]
         [HttpGet("GetByEmail/{email}")]
         public async Task<ActionResult<Contact>> GetContactByEmail(string email)
         {
@@ -96,6 +99,7 @@ namespace API.Controllers
         }
 
         // GET: api/contacts/GetByFullName/{fullName}
+        [Authorize]
         [HttpGet("GetByFullName/{fullName}")]
         public async Task<ActionResult<Contact>> GetContactByFullName(string fullName)
         {
@@ -115,6 +119,7 @@ namespace API.Controllers
         }
 
         // POST: api/contacts/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateContact([FromBody] dynamic request)
         {
@@ -159,7 +164,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/contacts/Delete/{id}
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteContact(string id)
         {

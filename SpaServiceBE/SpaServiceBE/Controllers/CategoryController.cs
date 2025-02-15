@@ -22,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/categories/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Category>>> GetAllCategories()
         {
@@ -37,7 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/categories/GetById/{id}
-    
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Category>> GetCategoryById(string id)
         {
@@ -55,7 +56,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-      
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCategory([FromBody] dynamic request)
         {
@@ -102,7 +103,7 @@ namespace API.Controllers
 
 
         // PUT: api/categories/Update/{id}
- 
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateCategory(string id, [FromBody] dynamic request)
         {
@@ -144,7 +145,7 @@ namespace API.Controllers
 
 
         // DELETE: api/categories/Delete/{id}
-    
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteCategory(string id)
         {

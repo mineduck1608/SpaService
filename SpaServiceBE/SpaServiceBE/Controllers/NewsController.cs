@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
@@ -55,6 +56,7 @@ namespace API.Controllers
         }
 
         // POST: api/news/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateNews([FromBody] dynamic request)
         {
@@ -100,6 +102,7 @@ namespace API.Controllers
         }
 
         // PUT: api/news/Update/{id}
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateNews(string id, [FromBody] dynamic request)
         {
@@ -145,6 +148,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/news/Delete/{id}
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteNews(string id)
         {
@@ -164,6 +168,7 @@ namespace API.Controllers
         }
 
         // New GetAllBlog method
+       
         [HttpGet("GetAllBlog")]
         public async Task<ActionResult<IEnumerable<News>>> GetAllBlogs()
         {
@@ -179,6 +184,7 @@ namespace API.Controllers
         }
 
         // New GetAllPromotion method
+        
         [HttpGet("GetAllPromotion")]
         public async Task<ActionResult<IEnumerable<News>>> GetAllPromotions()
         {
@@ -194,6 +200,7 @@ namespace API.Controllers
         }
 
         // New GetAllEvent method
+       
         [HttpGet("GetAllEvent")]
         public async Task<ActionResult<IEnumerable<News>>> GetAllEvents()
         {

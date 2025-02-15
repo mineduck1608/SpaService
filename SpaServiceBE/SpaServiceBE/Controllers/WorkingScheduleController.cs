@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
@@ -21,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/workingSchedules
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WorkingSchedule>>> GetAllWorkingSchedules()
         {
@@ -36,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/workingSchedules/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<WorkingSchedule>> GetWorkingScheduleById(string id)
         {
@@ -55,6 +58,7 @@ namespace API.Controllers
         }
 
         // POST: api/workingSchedules/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateWorkingSchedule([FromBody] dynamic request)
         {
@@ -103,6 +107,7 @@ namespace API.Controllers
         }
 
         // PUT: api/workingSchedules/Update/{id}
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateWorkingSchedule(string id, [FromBody] dynamic request)
         {
@@ -151,6 +156,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/workingSchedules/Delete/{id}
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteWorkingSchedule(string id)
         {
