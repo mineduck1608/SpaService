@@ -1,35 +1,19 @@
 import { TrendingUp } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 }
-]
-const chartConfig = {
-  desktop: {
-    label: 'Female',
-    color: 'hsl(var(--chart-1))'
-  },
-  mobile: {
-    label: 'Male',
-    color: 'hsl(var(--chart-2))'
-  }
-} satisfies ChartConfig
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
+import { barChartData, barChartConfig } from './chart.util'
+
 export function BarChartComp() {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='mt-4 text-lg'>
         <CardTitle>Customer Trends</CardTitle>
         <CardDescription>January - June 2025</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+        <ChartContainer config={barChartConfig}>
+          <BarChart accessibilityLayer data={barChartData}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey='month'
@@ -38,9 +22,12 @@ export function BarChartComp() {
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator='dashed' />} />
-            <Bar dataKey='desktop' fill='var(--color-desktop)' radius={4} />
-            <Bar dataKey='mobile' fill='var(--color-mobile)' radius={4} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator='dashed' />}
+            />
+            <Bar dataKey='female' fill='var(--color-female)' radius={4} />
+            <Bar dataKey='male' fill='var(--color-male)' radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>

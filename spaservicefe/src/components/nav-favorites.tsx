@@ -1,6 +1,5 @@
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { MoreHorizontal, StarOff, Trash2 } from 'lucide-react'
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -56,11 +55,6 @@ export function NavFavorites(params: { favorite: SideBarItem[] }) {
                 <DropdownMenuItem>
                   <StarOff className='text-muted-foreground' />
                   <span>Remove from Favorites</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2 className='text-muted-foreground' />
-                  <span>Delete</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

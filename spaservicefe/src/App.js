@@ -17,11 +17,12 @@ import Products from './pages/home/products.tsx'
 import News from './pages/home/news.tsx'
 import OurServices from './pages/home/ourServices.tsx'
 import DetailPage from './pages/detailPage/detailPage.tsx'
-import DashboardPage from './pages/admin/dashboardPage.tsx'
+import AdminPage from './pages/admin/adminPage.tsx'
 import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
+import { Dashboard } from './pages/admin/dashboard.tsx'
 
 function Layout({ children }) {
   return (
@@ -136,25 +137,27 @@ function App() {
               </Layout>
             }
           />
-          <Route path='admin' element={<DashboardPage />} />
-          <Route path='admin/accounts' element={<div>ABC</div>} />
-          <Route path='admin/customers' element={<div>ABC</div>} />
-          <Route path='admin/memberships' element={<div>ABC</div>} />
-          <Route path='admin/employees' element={<div>ABC</div>} />
-          <Route path='admin/shifts' element={<div>ABC</div>} />
-          <Route path='admin/schedules' element={<div>ABC</div>} />
-          <Route path='admin/requests' element={<div>ABC</div>} />
-          <Route path='admin/appointments' element={<div>ABC</div>} />
-          <Route path='admin/categories' element={<div>ABC</div>} />
-          <Route path='admin/employees-categories' element={<div>ABC</div>} />
-          <Route path='admin/services' element={<div>ABC</div>} />
-          <Route path='admin/applications' element={<div>ABC</div>} />
-          <Route path='admin/contacts' element={<div>ABC</div>} />
-          <Route path='admin/transactions' element={<div>ABC</div>} />
-          <Route path='admin/commissions' element={<div>ABC</div>} />
-          <Route path='admin/employees-commissions' element={<div>ABC</div>} />
-          <Route path='admin/news' element={<div>ABC</div>} />
-          <Route path='admin/promotions' element={<div>ABC</div>} />
+          <Route path='admin' element={<AdminPage />}>
+            <Route index element={<Dashboard />} />
+            <Route path='accounts' element={<div>ABC</div>} />
+            <Route path='customers' element={<div>ABC</div>} />
+            <Route path='memberships' element={<div>ABC</div>} />
+            <Route path='employees' element={<div>ABC</div>} />
+            <Route path='shifts' element={<div>ABC</div>} />
+            <Route path='schedules' element={<div>ABC</div>} />
+            <Route path='requests' element={<div>ABC</div>} />
+            <Route path='appointments' element={<div>ABC</div>} />
+            <Route path='categories' element={<div>ABC</div>} />
+            <Route path='employees-categories' element={<div>ABC</div>} />
+            <Route path='services' element={<div>ABC</div>} />
+            <Route path='applications' element={<div>ABC</div>} />
+            <Route path='contacts' element={<div>ABC</div>} />
+            <Route path='transactions' element={<div>ABC</div>} />
+            <Route path='commissions' element={<div>ABC</div>} />
+            <Route path='employees-commissions' element={<div>ABC</div>} />
+            <Route path='news' element={<div>ABC</div>} />
+            <Route path='promotions' element={<div>ABC</div>} />
+          </Route>
         </Routes>
         
       </BrowserRouter>

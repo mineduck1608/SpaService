@@ -30,7 +30,6 @@ import {
   MessageCircleQuestion,
   Trash2
 } from 'lucide-react'
-import { MdMeetingRoom, MdPersonSearch } from 'react-icons/md'
 export type SideBarItem = {
   title: string
   url?: string
@@ -203,17 +202,17 @@ export const sideData = {
   favorite: [
     {
       title: 'Schedule',
-      url: '/schedules',
+      url: '/admin/schedules',
       icon: CalendarCheck
     },
     {
       title: 'Transactions',
-      url: '/transactions',
+      url: '/admin/transactions',
       icon: LineChart
     },
     {
       title: 'Employees commissions',
-      url: '/employees-commissions',
+      url: '/admin/employees-commissions',
       icon: DollarSign
     }
   ]
