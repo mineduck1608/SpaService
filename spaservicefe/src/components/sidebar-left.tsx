@@ -15,6 +15,8 @@ export function SidebarLeft(params: {
   secondary: SideBarItem[]
   props: React.ComponentProps<typeof Sidebar>
 }) {
+  console.log(params.favourite);
+
   return (
     <Sidebar className='border-r-0' {...params.props}>
       <SidebarHeader>

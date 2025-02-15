@@ -9,14 +9,14 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from 'src/components/ui
 import { sideData } from './sidebar.util'
 
 export default function Page() {
-  
+
   return (
     <SidebarProvider>
-      <SidebarLeft 
-      favourite={[]} 
-      main={sideData.workspaces} 
-      header={sideData.navMain} props={{}} 
-      secondary={sideData.navSecondary}
+      <SidebarLeft
+        favourite={sideData.favorite}
+        main={sideData.workspaces}
+        header={sideData.navMain} props={{}}
+        secondary={sideData.navSecondary}
       />
       <SidebarInset>
         <header className='sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background'>

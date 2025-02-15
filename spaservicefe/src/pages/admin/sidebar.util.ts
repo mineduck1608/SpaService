@@ -200,4 +200,21 @@ export const sideData = {
       icon: MessageCircleQuestion
     }
   ],
+  favorite: [
+    {
+      title: 'Schedule',
+      url: '/schedules',
+      icon: CalendarCheck
+    },
+    {
+      title: 'Transactions',
+      url: '/transactions',
+      icon: LineChart
+    },
+    {
+      title: 'Employees commissions',
+      url: '/employees-commissions',
+      icon: DollarSign
+    }
+  ]
 }
