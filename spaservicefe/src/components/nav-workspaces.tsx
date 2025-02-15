@@ -25,8 +25,8 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
             <Collapsible key={workspace.title} className='-ml-4'>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a className='text-black no-underline'
-                    href={workspace.url ? ('/admin' + workspace.url) : '/admin#'}
+                  <a className='text-black no-underline cursor-pointer'
+
                   >
                     {workspace.icon && <workspace.icon className='mr-1 h-4 w-4' />}
                     <span className='mb-0.5 text-base'>Manage {workspace.title}</span>
