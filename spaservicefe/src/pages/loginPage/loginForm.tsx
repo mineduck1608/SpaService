@@ -30,6 +30,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         window.location.assign('/')
       } else {
         toast.error('Login failed!')
+        console.log('error' + rs.msg)
       }
     } catch (error) {
       toast('An unexpected error occurred.')
