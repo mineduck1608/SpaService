@@ -30,7 +30,7 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                 <SidebarMenuButton asChild>
                   <a className='cursor-pointer text-black no-underline'>
                     {workspace.icon && <workspace.icon className='mr-1 h-4 w-4' />}
-                    <span className='mb-0.5 text-base'>Manage {workspace.title}</span>
+                    <span className='mb-0.5 text-base'>{workspace.title}</span>
                   </a>
                 </SidebarMenuButton>
                 <CollapsibleTrigger asChild>

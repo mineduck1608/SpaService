@@ -35,8 +35,8 @@ export type SideBarItem = {
   url?: string
   icon: LucideIcon
   isActive?: boolean
-  pages?: SideBarItem[],
-  id?: string,
+  pages?: SideBarItem[]
+  id?: string
   isFavorite?: boolean
 }
 export const sideData = {
@@ -44,19 +44,18 @@ export const sideData = {
     {
       title: 'Home',
       url: '/admin',
-      icon: Home,
+      icon: Home
     }
   ],
   workspaces: [
     {
       title: 'Account',
-      icon: Users,
+      icon: UserCircle,
       pages: [
         {
           title: 'Accounts',
-          url: '/accounts',
-          icon: UserCircle,
-        },
+          url: '/accounts'
+        }
       ]
     },
     {
@@ -65,13 +64,11 @@ export const sideData = {
       pages: [
         {
           title: 'Customers',
-          url: '/customers',
-          icon: Search
+          url: '/customers'
         },
         {
           title: 'Memberships',
-          url: '/memberships',
-          icon: TicketPercent
+          url: '/memberships'
         }
       ]
     },
@@ -81,18 +78,15 @@ export const sideData = {
       pages: [
         {
           title: 'Employees',
-          url: '/employees',
-          icon: UserCog
+          url: '/employees'
         },
         {
           title: 'Shift',
-          url: '/shifts',
-          icon: Calendar1
+          url: '/shifts'
         },
         {
           title: 'Schedule',
-          url: '/schedules',
-          icon: CalendarCheck
+          url: '/schedules'
         }
       ]
     },
@@ -101,14 +95,12 @@ export const sideData = {
       icon: HandHelping,
       pages: [
         {
-          title: 'Customer requests',
-          url: '/requests',
-          icon: LetterText
+          title: 'Customer Requests',
+          url: '/requests'
         },
         {
           title: 'Appointments',
-          url: '/appointments',
-          icon: Clock
+          url: 'appointments'
         }
       ]
     },
@@ -118,18 +110,15 @@ export const sideData = {
       pages: [
         {
           title: 'Categories',
-          url: '/categories',
-          icon: Folder
+          url: '/categories'
         },
         {
-          title: 'Employees categories',
-          url: '/employees-categories',
-          icon: Table
+          title: 'Employees Categories',
+          url: '/employees-categories'
         },
         {
           title: 'Services',
-          url: '/services',
-          icon: Package
+          url: '/services'
         }
       ]
     },
@@ -139,13 +128,11 @@ export const sideData = {
       pages: [
         {
           title: 'Applications',
-          url: '/applications',
-          icon: Clipboard
+          url: '/applications'
         },
         {
           title: 'Contacts',
-          url: '/contacts',
-          icon: Contact2
+          url: '/contacts'
         }
       ]
     },
@@ -155,18 +142,15 @@ export const sideData = {
       pages: [
         {
           title: 'Transactions',
-          url: '/transactions',
-          icon: LineChart
+          url: '/transactions'
         },
         {
-          title: 'Commission types',
-          url: '/commissions',
-          icon: Receipt
+          title: 'Commission Types',
+          url: '/commissions'
         },
         {
-          title: 'Employees commissions',
-          url: '/employees-commissions',
-          icon: DollarSign
+          title: 'Employees Commissions',
+          url: '/employees-commissions'
         }
       ]
     },
@@ -176,13 +160,11 @@ export const sideData = {
       pages: [
         {
           title: 'News',
-          url: '/news',
-          icon: Newspaper
+          url: '/news'
         },
         {
           title: 'Promotions',
-          url: '/promotions',
-          icon: Gem
+          url: '/promotions'
         }
       ]
     }
@@ -211,7 +193,7 @@ export const sideData = {
       icon: LineChart
     },
     {
-      title: 'Employees commissions',
+      title: 'Employees Commissions',
       url: '/admin/employees-commissions',
       icon: DollarSign
     }
