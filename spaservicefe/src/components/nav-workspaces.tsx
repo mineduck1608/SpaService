@@ -1,5 +1,7 @@
+import { CurrentItemContext } from '../pages/admin/context/currentItemContext'
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { ChevronRight, Heart, MoreHorizontal, Star } from 'lucide-react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
 import {
@@ -16,6 +18,7 @@ import {
 } from 'src/components/ui/sidebar'
 
 export function NavWorkspaces(params: { items: SideBarItem[] }) {
+  const context = useContext(CurrentItemContext)
   return (
     <SidebarGroup>
       <SidebarGroupLabel className='mb-2 text-lg'>Workspaces</SidebarGroupLabel>
@@ -25,9 +28,7 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
             <Collapsible key={workspace.title} className='-ml-4'>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a className='text-black no-underline cursor-pointer'
-
-                  >
+                  <a className='cursor-pointer text-black no-underline'>
                     {workspace.icon && <workspace.icon className='mr-1 h-4 w-4' />}
                     <span className='mb-0.5 text-base'>Manage {workspace.title}</span>
                   </a>
@@ -47,9 +48,12 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                         <SidebarMenuSubButton asChild>
                           <Link
                             to={'/admin' + (page.url ?? '')}
-                            className='no-underline text-black'
+                            onClick={(e) => {
+                              context.setCurrentItem(page.title)
+                            }}
+                            className='text-black no-underline'
                           >
-                            {page.icon && <page.icon className='mr-1 h-4 w-4 inline' />}
+                            {page.icon && <page.icon className='mr-1 inline h-4 w-4' />}
                             <span className='mb-0.5'>{page.title}</span>
                           </Link>
                         </SidebarMenuSubButton>

@@ -139,24 +139,24 @@ function App() {
           />
           <Route path='admin' element={<AdminPage />}>
             <Route index element={<Dashboard />} />
-            <Route path='accounts' element={<div>ABC</div>} />
-            <Route path='customers' element={<div>ABC</div>} />
-            <Route path='memberships' element={<div>ABC</div>} />
-            <Route path='employees' element={<div>ABC</div>} />
-            <Route path='shifts' element={<div>ABC</div>} />
-            <Route path='schedules' element={<div>ABC</div>} />
-            <Route path='requests' element={<div>ABC</div>} />
-            <Route path='appointments' element={<div>ABC</div>} />
-            <Route path='categories' element={<div>ABC</div>} />
-            <Route path='employees-categories' element={<div>ABC</div>} />
-            <Route path='services' element={<div>ABC</div>} />
-            <Route path='applications' element={<div>ABC</div>} />
-            <Route path='contacts' element={<div>ABC</div>} />
-            <Route path='transactions' element={<div>ABC</div>} />
+            <Route path='accounts' element={<div>ABCD</div>} />
+            <Route path='customers' element={<div>ABCE</div>} />
+            <Route path='memberships' element={<div>ABCF</div>} />
+            <Route path='employees' element={<div>ABCG</div>} />
+            <Route path='shifts' element={<div>ABCH</div>} />
+            <Route path='schedules' element={<div>AB</div>} />
+            <Route path='requests' element={<div>AC</div>} />
+            <Route path='appointments' element={<div>BC</div>} />
+            <Route path='categories' element={<div>A</div>} />
+            <Route path='employees-categories' element={<div>B</div>} />
+            <Route path='services' element={<div>C</div>} />
+            <Route path='applications' element={<div>D</div>} />
+            <Route path='contacts' element={<div>E</div>} />
+            <Route path='transactions' element={<div>F</div>} />
             <Route path='commissions' element={<div>ABC</div>} />
-            <Route path='employees-commissions' element={<div>ABC</div>} />
-            <Route path='news' element={<div>ABC</div>} />
-            <Route path='promotions' element={<div>ABC</div>} />
+            <Route path='employees-commissions' element={<div>BE</div>} />
+            <Route path='news' element={<div>BF</div>} />
+            <Route path='promotions' element={<div>CF</div>} />
           </Route>
         </Routes>
         
