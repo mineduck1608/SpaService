@@ -2,7 +2,6 @@ import { CurrentItemContext } from '../pages/admin/context/currentItemContext'
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { MoreHorizontal, StarOff, Trash2 } from 'lucide-react'
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +18,7 @@ import {
   SidebarMenuItem,
   useSidebar
 } from 'src/components/ui/sidebar'
+import { Link } from 'react-router-dom'
 
 export function NavFavorites(params: { favorite: SideBarItem[] }) {
   const { isMobile } = useSidebar()
