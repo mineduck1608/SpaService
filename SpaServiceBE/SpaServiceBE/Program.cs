@@ -72,6 +72,16 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
     });
 
+// Enable CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder
+            .AllowAnyOrigin() // Allows requests from any origin
+            .AllowAnyMethod()  // Allows any HTTP method (GET, POST, PUT, DELETE, etc.)
+            .AllowAnyHeader()); // Allows any HTTP headers
+});
+
 // Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -136,10 +146,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 
-// Enable CORS
-builder.Services.AddCors(options =>
-    options.AddDefaultPolicy(policy =>
-        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
 
 
 
@@ -170,7 +177,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();
 
-app.UseCors();
+app.UseCors("AllowAllOrigins"); // Enable the CORS policy
 
 app.MapControllers();
 

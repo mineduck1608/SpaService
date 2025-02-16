@@ -1,37 +1,23 @@
 import { TrendingUp } from 'lucide-react'
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 }
-]
-const chartConfig = {
-  desktop: {
-    label: 'Income',
-    color: 'hsl(var(--chart-1))'
-  },
-  mobile: {
-    label: 'Outcome',
-    color: 'hsl(var(--chart-2))'
-  }
-} satisfies ChartConfig
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
+import { areaChartData1, areaChartConfig1 } from './chart.util'
+
 export function AreaChartComp() {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Booking Trends</CardTitle>
-        <CardDescription>Showing total visitors for the last 6 months</CardDescription>
+      <CardHeader className="mt-4 text-lg">
+        <CardTitle>Ad Performance Overview</CardTitle>
+        <CardDescription>
+          Showing total visitors via ads for the last 6 months
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={areaChartConfig1}>
           <AreaChart
             accessibilityLayer
-            data={chartData}
+            data={areaChartData1}
             margin={{
               left: 12,
               right: 12
@@ -55,12 +41,20 @@ export function AreaChartComp() {
               stackId='a'
             />
             <Area
-              dataKey='desktop'
-              type='natural'
-              fill='var(--color-desktop)'
+              dataKey="facebook"
+              type="natural"
+              fill="var(--color-facebook)"
               fillOpacity={0.4}
-              stroke='var(--color-desktop)'
-              stackId='a'
+              stroke="var(--color-facebook)"
+              stackId="a"
+            />
+            <Area
+              dataKey="google"
+              type="natural"
+              fill="var(--color-google)"
+              fillOpacity={0.4}
+              stroke="var(--color-google)"
+              stackId="a"
             />
           </AreaChart>
         </ChartContainer>

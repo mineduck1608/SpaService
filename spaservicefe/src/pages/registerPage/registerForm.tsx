@@ -27,16 +27,19 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
     e.preventDefault()
     setFetching(true)
     const rs = await register(data)
+    
     if (rs.success) {
-      toast('Register success. Redirect you to login page')
+      toast('Register success. Redirecting to login page...')
       setTimeout(() => {
-        window.location.assign('/login')
-      }, 1000)
+        window.location.assign('/login') // This will now happen after 2 seconds
+      }, 2000) // Wait 2 seconds before redirecting
     } else {
-      toast('An error occured: ' + rs.msg)
+      toast('An error occurred: ' + rs.msg)
     }
+    
     setFetching(false)
   }
+  
 
   const handleSuccess = (response: any) => {
     console.log('Login Success:', response.credential)

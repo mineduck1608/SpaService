@@ -1,5 +1,4 @@
 import { BadgeCheck, ChevronsUpDown, CreditCard, LogOut } from 'lucide-react'
-
 import { Avatar, AvatarFallback, AvatarImage } from 'src/components/ui/avatar'
 import {
   DropdownMenu,
@@ -11,6 +10,7 @@ import {
   DropdownMenuTrigger
 } from 'src/components/ui/dropdown-menu'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from 'src/components/ui/sidebar'
+
 
 export function NavUser({
   user

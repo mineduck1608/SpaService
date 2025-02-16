@@ -35,6 +35,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         window.location.assign(routeByRole(role))
       } else {
         toast.error('Login failed!')
+        console.log('error' + rs.msg)
       }
     } catch (error) {
       toast('An unexpected error occurred.')
