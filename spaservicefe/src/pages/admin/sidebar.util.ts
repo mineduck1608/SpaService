@@ -1,30 +1,15 @@
 import {
   Home,
   Users,
-  Package,
-  Clock,
-  UserCog,
   Boxes,
   ClipboardList,
   LineChart,
   DollarSign,
   LucideIcon,
   User,
-  TicketPercent,
-  Calendar1,
   CalendarCheck,
-  LetterText,
-  Folder,
-  Table,
-  Clipboard,
-  Contact2,
   ArrowLeftRight,
-  Receipt,
   CalendarClock,
-  Newspaper,
-  Gem,
-  Search,
-  User2,
   HandHelping,
   UserCircle,
   MessageCircleQuestion,
@@ -100,7 +85,7 @@ export const sideData = {
         },
         {
           title: 'Appointments',
-          url: 'appointments'
+          url: '/appointments'
         }
       ]
     },
