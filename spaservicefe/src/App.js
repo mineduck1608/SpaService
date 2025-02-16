@@ -23,6 +23,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
 import { Dashboard } from './pages/admin/dashboard.tsx'
+import DemoPage from './pages/admin/dataTable/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -139,7 +140,7 @@ function App() {
           />
           <Route path='admin' element={<AdminPage />}>
             <Route index element={<Dashboard />} />
-            <Route path='accounts' element={<div>ABCD</div>} />
+            <Route path='accounts' element={<DemoPage />} />
             <Route path='customers' element={<div>ABCE</div>} />
             <Route path='memberships' element={<div>ABCF</div>} />
             <Route path='employees' element={<div>ABCG</div>} />
