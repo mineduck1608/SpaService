@@ -23,7 +23,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
 import { Dashboard } from './pages/admin/dashboard.tsx'
-import DemoPage from './pages/admin/dataTable/page.tsx'
+import DemoPage from './pages/admin/accounts/page.tsx'
 
 function Layout({ children }) {
   return (
