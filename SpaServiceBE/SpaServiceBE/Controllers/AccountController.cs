@@ -75,7 +75,7 @@ namespace API.Controllers
 
 
         // GET: api/accounts/GetAll
-        [Authorize]
+         [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Account>>> GetAllAccounts()
         {

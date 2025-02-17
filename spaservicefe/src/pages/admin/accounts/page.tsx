@@ -1,199 +1,47 @@
 import { useState, useEffect } from 'react'
-import { Payment, columns } from './columns'
+import { columns } from './columns'
 import { DataTable } from './data-table'
-
-async function getData(): Promise<Payment[]> {
-  // Lấy dữ liệu từ API ở đây.
-  return [
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    }
-
-    // ...
-  ]
-}
+import { Account } from '@/types/type'
+import { getAllAccounts } from '../accounts/account.util'
+import { getAllRoles } from '../accounts/account.util'
+import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 
 export default function DemoPage() {
-  const [data, setData] = useState<Payment[]>([])
+  const [data, setData] = useState<Account[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getData()
-        setData(data)
+        const [accounts, roles] = await Promise.all([getAllAccounts(), getAllRoles()])
+  
+        const roleMap = roles.reduce((acc, role) => {
+          acc[role.roleId] = role.roleName
+          return acc
+        }, {} as Record<number, string>)
+  
+        const formattedAccounts = accounts.map((account) => ({
+          ...account,
+          createdAt: format(new Date(account.createdAt), 'dd/MM/yyyy HH:mm:ss'), // Format ngày tháng
+          updatedAt: format(new Date(account.updatedAt), 'dd/MM/yyyy HH:mm:ss'),
+          roleName: roleMap[account.roleId] || "Unknown",
+          status: account.status ? "Active" : "Locked" // Chuyển status về text
+        }))
+  
+        setData(formattedAccounts)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
         setLoading(false)
       }
     }
-
     fetchData()
   }, [])
+  
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>{error}</div>
+  if (loading) return <div className='ml-5'>Loading...</div>
+  if (error) return <div  className='ml-5'>{error}</div>
 
   return (
     <div className='items-center justify-center h-[96%]'>

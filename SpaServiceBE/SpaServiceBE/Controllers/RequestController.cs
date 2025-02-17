@@ -92,7 +92,6 @@ namespace API.Controllers
                     CustomerId = customerId,
                     ServiceId = serviceId,
                     StartTime = startTime,
-                    EndTime = endTime,
                     Status = status,
                     CustomerNote = customerNote,
                     ManagerNote = managerNote
@@ -145,7 +144,6 @@ namespace API.Controllers
                     CustomerId = customerId,
                     ServiceId = serviceId,
                     StartTime = startTime,
-                    EndTime = endTime,
                     Status = status,
                     CustomerNote = customerNote,
                     ManagerNote = managerNote

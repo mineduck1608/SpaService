@@ -192,8 +192,8 @@ export default function DemoPage() {
     fetchData()
   }, [])
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>{error}</div>
+  if (loading) return <div  className='ml-5'>Loading...</div>
+  if (error) return <div  className='ml-5'>{error}</div>
 
   return (
     <div className='items-center justify-center h-[96%]'>

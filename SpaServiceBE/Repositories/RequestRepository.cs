@@ -59,7 +59,7 @@ namespace Repositories
             if (existingRequest == null) return false;
 
             existingRequest.StartTime = request.StartTime;
-            existingRequest.EndTime = request.EndTime;
+  
             existingRequest.Status = request.Status;
             existingRequest.CustomerNote = request.CustomerNote;
             existingRequest.ManagerNote = request.ManagerNote;
