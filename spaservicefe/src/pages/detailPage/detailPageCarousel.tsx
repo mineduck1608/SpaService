@@ -42,8 +42,8 @@ export default function DetailPageCarousel(params: { list: Service[] }) {
           infinite={true}
           arrows={false}
         >
-          {(params.list ?? []).map((v) => (
-            <div className='p-1'>
+          {(params.list ?? []).map((v, i) => (
+            <div className='p-1' key={i}>
               <ServiceCard s={v} />
             </div>
           ))}
