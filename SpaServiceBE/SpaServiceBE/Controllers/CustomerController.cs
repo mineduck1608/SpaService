@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -19,6 +21,8 @@ namespace API.Controllers
         }
 
         // GET: api/customers/GetAll
+
+        [Authorize(Roles = "Admin, Manager")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Customer>>> GetAllCustomers()
         {
@@ -34,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/customers/GetById/{id}
+        [Authorize(Roles = "Admin, Manager")]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Customer>> GetCustomerById(string id)
         {
@@ -51,56 +56,95 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
         // POST: api/customers/Create
+        [Authorize]
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateCustomer([FromBody] Customer customer)
+        public async Task<ActionResult> CreateCustomer([FromBody] dynamic request)
         {
-            if (customer == null || string.IsNullOrEmpty(customer.FullName) || string.IsNullOrEmpty(customer.Phone) || string.IsNullOrEmpty(customer.Email))
-                return BadRequest("Customer details are incomplete or invalid.");
-
-            customer.CustomerId = Guid.NewGuid().ToString(); // Generate unique ID
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string fullName = jsonElement.GetProperty("fullName").GetString();
+                string phone = jsonElement.GetProperty("phone").GetString();
+                string email = jsonElement.GetProperty("email").GetString();
+
+                // Validate input
+                if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
+                {
+                    return BadRequest(new { msg = "Customer details are incomplete or invalid." });
+                }
+
+                // Create Customer object
+                var customer = new Customer
+                {
+                    CustomerId = Guid.NewGuid().ToString(), // Generate unique ID
+                    FullName = fullName,
+                    Phone = phone,
+                    Email = email
+                };
+
+                // Call service to add customer
                 var isCreated = await _service.AddCustomer(customer);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the customer.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the customer." });
 
                 return CreatedAtAction(nameof(GetCustomerById), new { id = customer.CustomerId }, customer);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // PUT: api/customers/Update/{id}
+        [Authorize(Roles = "Admin, Customer")]
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateCustomer(string id, [FromBody] Customer customer)
+        public async Task<ActionResult> UpdateCustomer(string id, [FromBody] dynamic request)
         {
-            if (customer == null || string.IsNullOrEmpty(customer.FullName) || string.IsNullOrEmpty(customer.Phone) || string.IsNullOrEmpty(customer.Email))
-                return BadRequest("Customer details are incomplete or invalid.");
-
-            customer.CustomerId = id; // Assign the ID for the update
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string fullName = jsonElement.GetProperty("fullName").GetString();
+                string phone = jsonElement.GetProperty("phone").GetString();
+                string email = jsonElement.GetProperty("email").GetString();
+
+                // Validate input
+                if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
+                {
+                    return BadRequest(new { msg = "Customer details are incomplete or invalid." });
+                }
+
+                // Assign the ID for the update
+                var customer = new Customer
+                {
+                    CustomerId = id, // Use the provided ID
+                    FullName = fullName,
+                    Phone = phone,
+                    Email = email
+                };
+
+                // Call service to update customer
                 var isUpdated = await _service.UpdateCustomer(id, customer);
 
                 if (!isUpdated)
-                    return NotFound($"Customer with ID = {id} not found.");
+                    return NotFound(new { msg = $"Customer with ID = {id} not found." });
 
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
         // DELETE: api/customers/Delete/{id}
+        [Authorize(Roles = "Admin, Customer")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteCustomer(string id)
         {

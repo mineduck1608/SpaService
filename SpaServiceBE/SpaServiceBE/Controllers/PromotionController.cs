@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -20,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/promotions/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Promotion>>> GetAllPromotions()
         {
@@ -35,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/promotions/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Promotion>> GetPromotionById(string id)
         {
@@ -57,64 +61,99 @@ namespace API.Controllers
         }
 
         // POST: api/promotions/Create
+        [Authorize(Roles = "Admin, Manager")]
         [HttpPost("Create")]
-        public async Task<ActionResult> CreatePromotion([FromBody] Promotion promotion)
+        public async Task<ActionResult> CreatePromotion([FromBody] dynamic request)
         {
-            if (promotion == null ||
-                string.IsNullOrEmpty(promotion.PromotionCode) ||
-                string.IsNullOrEmpty(promotion.PromotionName) ||
-                promotion.DiscountValue <= 0)
-            {
-                return BadRequest("Promotion details are incomplete or invalid.");
-            }
-
-            promotion.PromotionId = Guid.NewGuid().ToString(); // Generate unique ID
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string promotionCode = jsonElement.GetProperty("promotionCode").GetString();
+                string promotionName = jsonElement.GetProperty("promotionName").GetString();
+                float discountValue = jsonElement.GetProperty("discountValue").GetSingle();
+                bool isActive = jsonElement.GetProperty("isActive").GetBoolean();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(promotionCode) || string.IsNullOrEmpty(promotionName) || discountValue <= 0)
+                {
+                    return BadRequest(new { msg = "Promotion details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng Promotion
+                var promotion = new Promotion
+                {
+                    PromotionId = Guid.NewGuid().ToString(), // Generate unique ID
+                    PromotionCode = promotionCode,
+                    PromotionName = promotionName,
+                    DiscountValue = discountValue,
+                    IsActive = isActive
+                };
+
+                // Gọi service để thêm promotion
                 var isCreated = await _service.Add(promotion);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the promotion.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the promotion." });
 
                 return CreatedAtAction(nameof(GetPromotionById), new { id = promotion.PromotionId }, promotion);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // PUT: api/promotions/Update/{id}
+        [Authorize(Roles = "Admin, Manager")]
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdatePromotion(string id, [FromBody] Promotion promotion)
+        public async Task<ActionResult> UpdatePromotion(string id, [FromBody] dynamic request)
         {
-            if (promotion == null ||
-                string.IsNullOrEmpty(promotion.PromotionCode) ||
-                string.IsNullOrEmpty(promotion.PromotionName) ||
-                promotion.DiscountValue <= 0)
-            {
-                return BadRequest("Promotion details are incomplete or invalid.");
-            }
-
-            promotion.PromotionId = id; // Assign the ID for the update
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string promotionCode = jsonElement.GetProperty("promotionCode").GetString();
+                string promotionName = jsonElement.GetProperty("promotionName").GetString();
+                float discountValue = jsonElement.GetProperty("discountValue").GetSingle();
+                bool isActive = jsonElement.GetProperty("isActive").GetBoolean();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(promotionCode) || string.IsNullOrEmpty(promotionName) || discountValue <= 0)
+                {
+                    return BadRequest(new { msg = "Promotion details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng Promotion và gán ID cho update
+                var promotion = new Promotion
+                {
+                    PromotionId = id, // Assign the ID for the update
+                    PromotionCode = promotionCode,
+                    PromotionName = promotionName,
+                    DiscountValue = discountValue,
+                    IsActive = isActive
+                };
+
+                // Gọi service để cập nhật promotion
                 var isUpdated = await _service.Update(id, promotion);
 
                 if (!isUpdated)
-                    return NotFound($"Promotion with ID = {id} not found.");
+                    return NotFound(new { msg = $"Promotion with ID = {id} not found." });
 
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // DELETE: api/promotions/Delete/{id}
+        [Authorize(Roles = "Admin, Manager")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeletePromotion(string id)
         {

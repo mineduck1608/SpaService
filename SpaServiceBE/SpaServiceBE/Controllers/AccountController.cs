@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Repositories.Entities;
 using Services;
@@ -36,44 +37,45 @@ namespace API.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<object>> Login([FromBody] object request)
         {
-                // Chuyển đổi request sang JsonElement
-                var jsonElement = (JsonElement)request;
+            // Chuyển đổi request sang JsonElement
+            var jsonElement = (JsonElement)request;
 
-                // Lấy username và password từ JSON request
-                string username = jsonElement.GetProperty("username").GetString();
-                string password = jsonElement.GetProperty("password").GetString();
+            // Lấy username và password từ JSON request
+            string username = jsonElement.GetProperty("username").GetString();
+            string password = jsonElement.GetProperty("password").GetString();
 
-                // Kiểm tra dữ liệu đầu vào
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                {
-                    return BadRequest("Username and password are required.");
-                }
+            // Kiểm tra dữ liệu đầu vào
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return BadRequest("Username and password are required.");
+            }
 
-                // Mã hóa mật khẩu
-                password = Util.ToHashString(password);
+            // Mã hóa mật khẩu
+            password = Util.ToHashString(password);
 
-                // Lấy thông tin tài khoản
-                var account = await _accountService.GetAccountByLogin(username, password);
+            // Lấy thông tin tài khoản
+            var account = await _accountService.GetAccountByLogin(username, password);
 
-                if (account == null)
-                {
-                    return NotFound("Username or password is incorrect.");
-                }
+            if (account == null)
+            {
+                return NotFound("Username or password is incorrect.");
+            }
 
-                // Tạo Access Token
-                var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName);
+            // Tạo Access Token
+            var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName);
 
-                // Trả về Access Token
-                return Ok(new
-                {
-                    accessToken,
-                });
+            // Trả về Access Token
+            return Ok(new
+            {
+                accessToken,
+            });
         }
 
 
 
 
         // GET: api/accounts/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Account>>> GetAllAccounts()
         {
@@ -89,6 +91,7 @@ namespace API.Controllers
         }
 
         // GET: api/accounts/GetById/{id}
+       
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Account>> GetAccountById(string id)
         {
@@ -283,6 +286,7 @@ namespace API.Controllers
 
 
         // PUT: api/accounts/Update/{id}
+        
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateAccount(string id, [FromBody] dynamic request)
         {
@@ -320,6 +324,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/accounts/Delete/{id}
+       
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteAccount(string id)
         {

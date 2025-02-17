@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -20,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/requests/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Request>>> GetAllRequests()
         {
@@ -35,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/requests/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Request>> GetRequestById(string id)
         {
@@ -57,68 +61,113 @@ namespace API.Controllers
         }
 
         // POST: api/requests/Create
+        [Authorize(Roles = "Admin, Customer")]
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateRequest([FromBody] Request request)
+        public async Task<ActionResult> CreateRequest([FromBody] dynamic request)
         {
-            if (request == null ||
-                string.IsNullOrEmpty(request.CustomerId) ||
-                string.IsNullOrEmpty(request.ServiceId) ||
-                request.StartTime == default(DateTime) ||
-                request.EndTime == default(DateTime) ||
-                string.IsNullOrEmpty(request.Status))
-            {
-                return BadRequest("Request details are incomplete or invalid.");
-            }
-
-            request.RequestId = Guid.NewGuid().ToString(); // Generate unique ID
-
             try
             {
-                var isCreated = await _service.Add(request);
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string customerId = jsonElement.GetProperty("customerId").GetString();
+                string serviceId = jsonElement.GetProperty("serviceId").GetString();
+                DateTime startTime = jsonElement.GetProperty("startTime").GetDateTime();
+                DateTime endTime = jsonElement.GetProperty("endTime").GetDateTime();
+                string status = jsonElement.GetProperty("status").GetString();
+                string? customerNote = jsonElement.TryGetProperty("customerNote", out var customerNoteProp) ? customerNoteProp.GetString() : null;
+                string? managerNote = jsonElement.TryGetProperty("managerNote", out var managerNoteProp) ? managerNoteProp.GetString() : null;
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
+                    startTime == default(DateTime) || endTime == default(DateTime) || string.IsNullOrEmpty(status))
+                {
+                    return BadRequest(new { msg = "Request details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng Request
+                var newRequest = new Request
+                {
+                    RequestId = Guid.NewGuid().ToString(), // Generate unique ID
+                    CustomerId = customerId,
+                    ServiceId = serviceId,
+                    StartTime = startTime,
+                    EndTime = endTime,
+                    Status = status,
+                    CustomerNote = customerNote,
+                    ManagerNote = managerNote
+                };
+
+                // Gọi service để thêm request
+                var isCreated = await _service.Add(newRequest);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the request.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the request." });
 
-                return CreatedAtAction(nameof(GetRequestById), new { id = request.RequestId }, request);
+                return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.RequestId }, newRequest);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
         // PUT: api/requests/Update/{id}
+        [Authorize(Roles = "Admin, Customer")]
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateRequest(string id, [FromBody] Request request)
+        public async Task<ActionResult> UpdateRequest(string id, [FromBody] dynamic request)
         {
-            if (request == null ||
-                string.IsNullOrEmpty(request.CustomerId) ||
-                string.IsNullOrEmpty(request.ServiceId) ||
-                request.StartTime == default(DateTime) ||
-                request.EndTime == default(DateTime) ||
-                string.IsNullOrEmpty(request.Status))
-            {
-                return BadRequest("Request details are incomplete or invalid.");
-            }
-
-            request.RequestId = id; // Assign the ID for the update
-
             try
             {
-                var isUpdated = await _service.Update(id, request);
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string customerId = jsonElement.GetProperty("customerId").GetString();
+                string serviceId = jsonElement.GetProperty("serviceId").GetString();
+                DateTime startTime = jsonElement.GetProperty("startTime").GetDateTime();
+                DateTime endTime = jsonElement.GetProperty("endTime").GetDateTime();
+                string status = jsonElement.GetProperty("status").GetString();
+                string? customerNote = jsonElement.TryGetProperty("customerNote", out var customerNoteProp) ? customerNoteProp.GetString() : null;
+                string? managerNote = jsonElement.TryGetProperty("managerNote", out var managerNoteProp) ? managerNoteProp.GetString() : null;
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
+                    startTime == default(DateTime) || endTime == default(DateTime) || string.IsNullOrEmpty(status))
+                {
+                    return BadRequest(new { msg = "Request details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng Request và gán ID cho update
+                var updatedRequest = new Request
+                {
+                    RequestId = id, // Assign the ID for the update
+                    CustomerId = customerId,
+                    ServiceId = serviceId,
+                    StartTime = startTime,
+                    EndTime = endTime,
+                    Status = status,
+                    CustomerNote = customerNote,
+                    ManagerNote = managerNote
+                };
+
+                // Gọi service để cập nhật request
+                var isUpdated = await _service.Update(id, updatedRequest);
 
                 if (!isUpdated)
-                    return NotFound($"Request with ID = {id} not found.");
+                    return NotFound(new { msg = $"Request with ID = {id} not found." });
 
-                return NoContent();
+                return Ok(new { msg = "Update request successfully." });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // DELETE: api/requests/Delete/{id}
+        [Authorize(Roles = "Admin, Customer")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteRequest(string id)
         {

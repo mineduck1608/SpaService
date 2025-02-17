@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -19,6 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/employeecommissions/GetAll
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<EmployeeCommission>>> GetAllEmployeeCommissions()
         {
@@ -34,6 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/employeecommissions/GetById/{employeeId}/{commissionId}/{transactionId}
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetById/{employeeId}/{commissionId}/{transactionId}")]
         public async Task<ActionResult<EmployeeCommission>> GetEmployeeCommissionById(string employeeId, string commissionId, string transactionId)
         {
@@ -56,24 +60,41 @@ namespace API.Controllers
         }
 
         // POST: api/employeecommissions/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateEmployeeCommission([FromBody] EmployeeCommission employeeCommission)
+        public async Task<ActionResult> CreateEmployeeCommission([FromBody] dynamic request)
         {
-            if (employeeCommission == null ||
-                string.IsNullOrEmpty(employeeCommission.EmployeeId) ||
-                string.IsNullOrEmpty(employeeCommission.CommissionId) ||
-                string.IsNullOrEmpty(employeeCommission.TransactionId) ||
-                employeeCommission.CommissionValue <= 0)
-            {
-                return BadRequest("EmployeeCommission details are incomplete or invalid.");
-            }
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string employeeId = jsonElement.GetProperty("employeeId").GetString();
+                string commissionId = jsonElement.GetProperty("commissionId").GetString();
+                string transactionId = jsonElement.GetProperty("transactionId").GetString();
+                decimal commissionValue = jsonElement.GetProperty("commissionValue").GetDecimal();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(employeeId) || string.IsNullOrEmpty(commissionId) ||
+                    string.IsNullOrEmpty(transactionId) || commissionValue <= 0)
+                {
+                    return BadRequest(new { msg = "EmployeeCommission details are incomplete or invalid." });
+                }
+
+                // Tạo đối tượng EmployeeCommission
+                var employeeCommission = new EmployeeCommission
+                {
+                    EmployeeId = employeeId,
+                    CommissionId = commissionId,
+                    TransactionId = transactionId,
+                    CommissionValue = commissionValue
+                };
+
+                // Gọi service để thêm EmployeeCommission
                 var isCreated = await _service.AddEmployeeCommission(employeeCommission);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the employee commission.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the employee commission." });
 
                 return CreatedAtAction(nameof(GetEmployeeCommissionById),
                     new { employeeId = employeeCommission.EmployeeId, commissionId = employeeCommission.CommissionId, transactionId = employeeCommission.TransactionId },
@@ -81,44 +102,65 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // PUT: api/employeecommissions/Update/{employeeId}/{commissionId}/{transactionId}
+        [Authorize(Roles = "Admin")]
         [HttpPut("Update/{employeeId}/{commissionId}/{transactionId}")]
-        public async Task<ActionResult> UpdateEmployeeCommission(string employeeId, string commissionId, string transactionId, [FromBody] EmployeeCommission employeeCommission)
+        public async Task<ActionResult> UpdateEmployeeCommission(string employeeId, string commissionId, string transactionId, [FromBody] dynamic request)
         {
-            if (employeeCommission == null ||
-                string.IsNullOrEmpty(employeeCommission.EmployeeId) ||
-                string.IsNullOrEmpty(employeeCommission.CommissionId) ||
-                string.IsNullOrEmpty(employeeCommission.TransactionId) ||
-                employeeCommission.CommissionValue <= 0)
-            {
-                return BadRequest("EmployeeCommission details are incomplete or invalid.");
-            }
-
-            // Ensure that the provided keys match the employeeCommission object
-            employeeCommission.EmployeeId = employeeId;
-            employeeCommission.CommissionId = commissionId;
-            employeeCommission.TransactionId = transactionId;
-
             try
             {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string requestEmployeeId = jsonElement.GetProperty("employeeId").GetString();
+                string requestCommissionId = jsonElement.GetProperty("commissionId").GetString();
+                string requestTransactionId = jsonElement.GetProperty("transactionId").GetString();
+                decimal commissionValue = jsonElement.GetProperty("commissionValue").GetDecimal();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(requestEmployeeId) || string.IsNullOrEmpty(requestCommissionId) ||
+                    string.IsNullOrEmpty(requestTransactionId) || commissionValue <= 0)
+                {
+                    return BadRequest(new { msg = "EmployeeCommission details are incomplete or invalid." });
+                }
+
+                // Ensure that the provided keys match the employeeCommission object
+                if (requestEmployeeId != employeeId || requestCommissionId != commissionId || requestTransactionId != transactionId)
+                {
+                    return BadRequest(new { msg = "Provided IDs do not match the data." });
+                }
+
+                // Tạo đối tượng EmployeeCommission và gán ID cho update
+                var employeeCommission = new EmployeeCommission
+                {
+                    EmployeeId = employeeId,
+                    CommissionId = commissionId,
+                    TransactionId = transactionId,
+                    CommissionValue = commissionValue
+                };
+
+                // Gọi service để cập nhật EmployeeCommission
                 var isUpdated = await _service.UpdateEmployeeCommission(employeeId, commissionId, transactionId, employeeCommission);
 
                 if (!isUpdated)
-                    return NotFound($"EmployeeCommission with EmployeeID = {employeeId}, CommissionID = {commissionId}, and TransactionID = {transactionId} not found.");
+                    return NotFound(new { msg = $"EmployeeCommission with EmployeeID = {employeeId}, CommissionID = {commissionId}, and TransactionID = {transactionId} not found." });
 
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // DELETE: api/employeecommissions/Delete/{employeeId}/{commissionId}/{transactionId}
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{employeeId}/{commissionId}/{transactionId}")]
         public async Task<ActionResult> DeleteEmployeeCommission(string employeeId, string commissionId, string transactionId)
         {

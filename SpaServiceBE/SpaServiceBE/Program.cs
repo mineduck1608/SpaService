@@ -9,6 +9,10 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using Repositories.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +35,10 @@ builder.Services.AddScoped<PromotionRepository>();
 builder.Services.AddScoped<RequestRepository>();
 builder.Services.AddScoped<SpaServiceRepository>();
 builder.Services.AddScoped<TransactionRepository>();
+builder.Services.AddScoped<ContactRepository>();
+builder.Services.AddScoped<NewsRepository>();
+
+
 
 // Add services to DI
 builder.Services.AddScoped<IAccountService, AccountService>();
@@ -47,6 +55,10 @@ builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ISpaServiceService, SpaServiceService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<INewsService, NewsService>();
+
+
 
 // Add secret
 builder.Configuration.AddUserSecrets<Program>();
@@ -60,17 +72,81 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
     });
 
-// Configure Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-
-
-
 // Enable CORS
 builder.Services.AddCors(options =>
-    options.AddDefaultPolicy(policy =>
-        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder
+            .AllowAnyOrigin() // Allows requests from any origin
+            .AllowAnyMethod()  // Allows any HTTP method (GET, POST, PUT, DELETE, etc.)
+            .AllowAnyHeader()); // Allows any HTTP headers
+});
+
+// Configure Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+    {
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            Description = "Enter JWT Bearer token (e.g., 'Bearer {your token}')"
+        });
+
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+    });
+//list for audience
+//var validAudiences = new List<string>
+//{
+//    "http://localhost:5266/" // Your server's audience
+//    /*"397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com"*/,
+//     // Google Audience
+//};
+//var validIssuers = new List<string>
+//{
+//    "http://localhost:5266/"  // Your own issuer
+//    /*"https://accounts.google.com"*/  // Google issuer
+//};
+// Add JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["AccessToken:Issuer"],  // JWT Issuer from configuration
+            ValidAudience = builder.Configuration["AccessToken:Audience"], // JWT Audience from configuration
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AccessToken:Key"])) // JWT signing key
+        };
+    });
+
+
+
+
+
+
+
+
 
 
 
@@ -101,7 +177,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();
 
-app.UseCors();
+app.UseCors("AllowAllOrigins"); // Enable the CORS policy
 
 app.MapControllers();
 

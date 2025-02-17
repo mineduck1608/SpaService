@@ -2,13 +2,28 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/loginPage/loginPage.tsx'
 import RegisterPage from './pages/registerPage/registerPage.tsx'
+import NewsDetail from './pages/news/newsDetail.tsx'
 import MediaPage from './pages/mediaPage/mediaPage.tsx'
 import AboutUsPage from './pages/introduction/aboutUsPage.tsx'
 import ServicesPage from './pages/servicesPage/servicesPage.tsx'
+import NewsPage from './pages/news/news.tsx'
 import Footer from './components/ui/footer.tsx'
+import ContactPage from './pages/contact/contact.tsx'
 import Header from './components/ui/header.tsx'
+import Home from './pages/home/home.tsx'
+import AboutSection from './pages/home/aboutUs.tsx'
+import Services from './pages/home/services.tsx'
+import Products from './pages/home/products.tsx'
+import News from './pages/home/news.tsx'
+import OurServices from './pages/home/ourServices.tsx'
+import DetailPage from './pages/detailPage/detailPage.tsx'
+import AdminPage from './pages/admin/adminPage.tsx'
+import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
+import { Dashboard } from './pages/admin/dashboard.tsx'
+import DemoPage from './pages/admin/accounts/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -21,6 +36,9 @@ function Layout({ children }) {
 }
 
 function App() {
+  useEffect(() => {
+    findCategories()
+  }, [])
   return (
     <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
       <BrowserRouter>
@@ -29,7 +47,12 @@ function App() {
             path='/'
             element={
               <Layout>
-                <div>Home Page</div>
+                <Home />
+                <AboutSection />
+                <Services />
+                <OurServices />
+                <Products />
+                <News />
               </Layout>
             }
           />
@@ -60,10 +83,10 @@ function App() {
             }
           />
           <Route
-            path='service/:id'
+            path='services-detail/:id'
             element={
               <Layout>
-                <div>Service Details</div>
+                <DetailPage />
               </Layout>
             }
           />
@@ -71,7 +94,7 @@ function App() {
             path='reset-password'
             element={
               <Layout>
-                <div>Reset Password Page</div>
+                <ResetPasswordPage />
               </Layout>
             }
           />
@@ -91,7 +114,53 @@ function App() {
               </Layout>
             }
           />
+          <Route
+            path='/news/:tabs'
+            element={
+              <Layout>
+                <NewsPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='/news/:tabs/:id'
+            element={
+              <Layout>
+                <NewsDetail />
+              </Layout>
+            }
+          />
+          <Route
+            path='contact'
+            element={
+              <Layout>
+                <ContactPage />
+              </Layout>
+            }
+          />
+          <Route path='admin' element={<AdminPage />}>
+            <Route index element={<Dashboard />} />
+            <Route path='accounts' element={<DemoPage />} />
+            <Route path='customers' element={<div>ABCE</div>} />
+            <Route path='memberships' element={<div>ABCF</div>} />
+            <Route path='employees' element={<div>ABCG</div>} />
+            <Route path='shifts' element={<div>ABCH</div>} />
+            <Route path='schedules' element={<div>AB</div>} />
+            <Route path='requests' element={<div>AC</div>} />
+            <Route path='appointments' element={<div>BC</div>} />
+            <Route path='categories' element={<div>A</div>} />
+            <Route path='employees-categories' element={<div>B</div>} />
+            <Route path='services' element={<div>C</div>} />
+            <Route path='applications' element={<div>D</div>} />
+            <Route path='contacts' element={<div>E</div>} />
+            <Route path='transactions' element={<div>F</div>} />
+            <Route path='commissions' element={<div>ABC</div>} />
+            <Route path='employees-commissions' element={<div>BE</div>} />
+            <Route path='news' element={<div>BF</div>} />
+            <Route path='promotions' element={<div>CF</div>} />
+          </Route>
         </Routes>
+        
       </BrowserRouter>
     </GoogleOAuthProvider>
   )

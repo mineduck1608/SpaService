@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -20,6 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/memberships/GetAll
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Membership>>> GetAllMemberships()
         {
@@ -35,6 +37,7 @@ namespace API.Controllers
         }
 
         // GET: api/memberships/GetById/{id}
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Membership>> GetMembershipById(string id)
         {
@@ -57,6 +60,7 @@ namespace API.Controllers
         }
 
         // POST: api/memberships/Create
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateMembership([FromBody] dynamic request)
         {
@@ -68,9 +72,10 @@ namespace API.Controllers
                 double totalPayment = jsonElement.GetProperty("totalPayment").GetDouble();
                 int discount = jsonElement.GetProperty("discount").GetInt32();
 
+                // Validate input
                 if (string.IsNullOrEmpty(type) || totalPayment <= 0 || discount < 0 || discount > 100)
                 {
-                    return BadRequest("Membership details are incomplete or invalid.");
+                    return BadRequest(new { msg = "Membership details are incomplete or invalid." });
                 }
 
                 var membership = new Membership
@@ -81,20 +86,23 @@ namespace API.Controllers
                     Discount = discount
                 };
 
+                // Call service to add membership
                 var isCreated = await _service.AddMembership(membership);
 
                 if (!isCreated)
-                    return StatusCode(500, "An error occurred while creating the membership.");
+                    return StatusCode(500, new { msg = "An error occurred while creating the membership." });
 
                 return CreatedAtAction(nameof(GetMembershipById), new { id = membership.MembershipId }, membership);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // PUT: api/memberships/Update/{id}
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateMembership(string id, [FromBody] dynamic request)
         {
@@ -106,33 +114,37 @@ namespace API.Controllers
                 double totalPayment = jsonElement.GetProperty("totalPayment").GetDouble();
                 int discount = jsonElement.GetProperty("discount").GetInt32();
 
+                // Validate input
                 if (string.IsNullOrEmpty(type) || totalPayment <= 0 || discount < 0 || discount > 100)
                 {
-                    return BadRequest("Membership details are incomplete or invalid.");
+                    return BadRequest(new { msg = "Membership details are incomplete or invalid." });
                 }
 
                 var membership = new Membership
                 {
-                    MembershipId = id,
+                    MembershipId = id,  // Set the ID for the update
                     Type = type,
                     TotalPayment = totalPayment,
                     Discount = discount
                 };
 
+                // Call service to update membership
                 var isUpdated = await _service.UpdateMembership(id, membership);
 
                 if (!isUpdated)
-                    return NotFound($"Membership with ID = {id} not found.");
+                    return NotFound(new { msg = $"Membership with ID = {id} not found." });
 
-                return Ok("Update membership successfully.");
+                return Ok(new { msg = "Update membership successfully." });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
 
+
         // DELETE: api/memberships/Delete/{id}
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteMembership(string id)
         {

@@ -9,11 +9,13 @@ import loginBg2 from '../../images/loginBgs/loginBg2.jpg'
 import loginBg3 from '../../images/loginBgs/loginBg3.jpg'
 import loginBg4 from '../../images/loginBgs/loginBg4.jpg'
 import logo from '../../images/logos/logoColor.png'
-import { authenticate } from './loginPage.util'
+import { authenticate, routeByRole } from './loginPage.util'
 import { toast, ToastContainer } from 'react-toastify'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
+import { roleJWT } from '../../types/constants'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({ username: '', password: '' })
@@ -26,10 +28,14 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     try {
       const rs = await authenticate(data.username, data.password)
       if (rs.success) {
-        sessionStorage.setItem('token', rs.token)
-        window.location.assign('/')
+        const token = rs.token
+        sessionStorage.setItem('token', token)
+        var jwtData = jwtDecode(token)
+        const role = jwtData[roleJWT] as string
+        window.location.assign(routeByRole(role))
       } else {
         toast.error('Login failed!')
+        console.log('error' + rs.msg)
       }
     } catch (error) {
       toast('An unexpected error occurred.')
@@ -49,7 +55,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
       })
       if (res.ok) {
         const data = await res.json()
-        sessionStorage.setItem('token', data.accessToken)
+        const token = data.accessToken as string
+        var jwtData = jwtDecode(token)
+        sessionStorage.setItem('token', token)
         window.location.assign('/home')
       } else {
         toast.error('Google login failed!')
