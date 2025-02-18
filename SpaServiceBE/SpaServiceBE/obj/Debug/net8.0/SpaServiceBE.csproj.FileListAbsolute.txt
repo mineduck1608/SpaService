@@ -372,13 +372,10 @@ D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\zh-Hans\Microsof
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-<<<<<<< HEAD
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\MailKit.dll
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\MimeKit.dll
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
-=======
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\appsettings.json
->>>>>>> f1846fbf6bb4965a6c14b14f9e8035ea5d88e27a

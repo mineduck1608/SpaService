@@ -72,12 +72,13 @@ namespace API.Controllers
         }
 
         // POST: api/requests/Create
-        [Authorize(Roles = "Admin, Customer")]
+        
         [HttpPost("Create")]
         public async Task<ActionResult> CreateRequest([FromBody] dynamic request)
         {
             try
             {
+                //lay json cho bao mat
                 var jsonElement = (JsonElement)request;
 
                 // Lấy dữ liệu từ request
