@@ -33,7 +33,7 @@ import {
 export type SideBarItem = {
   title: string
   url?: string
-  icon: LucideIcon
+  icon?: LucideIcon
   isActive?: boolean
   pages?: SideBarItem[]
   id?: string
@@ -90,7 +90,7 @@ export const sideData = {
       pages: [
         {
           title: 'Customer Requests',
-          url: '/requests'
+          url: '/customer-requests'
         },
         {
           title: 'Contacts',
@@ -146,17 +146,17 @@ export const sideData = {
   favorite: [
     {
       title: 'Schedule',
-      url: '/admin/schedules',
+      url: '/schedules',
       icon: CalendarCheck
     },
     {
       title: 'Transactions',
-      url: '/admin/transactions',
+      url: '/transactions',
       icon: LineChart
     },
     {
       title: 'Customer Requests',
-      url: '/requests',
+      url: '/customer-requests',
       icon: HandHelping
     },
     {

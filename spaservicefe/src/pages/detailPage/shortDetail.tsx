@@ -18,13 +18,14 @@ export default function ShortDetail(params: { d?: Service }) {
       <p className='mb-5'>{params.d?.description}</p>
       {/* Add cart */}
       <div className='mb-3 flex w-3/5 justify-between '>
-        <button 
-        onClick={(e) => {
-          sessionStorage.setItem('booked', JSON.stringify(params.d) ?? '')
-          window.location.assign('/check-out')
-
-        }}
-        className='w-[45%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'>Check out</button>
+        <button
+          onClick={(e) => {
+            sessionStorage.setItem('booked', JSON.stringify(params.d) ?? '')
+            if (params.d) {
+              window.location.assign('/check-out')
+            }
+          }}
+          className='w-[45%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'>Check out</button>
       </div>
       <p className='text-black'>
         Category:&nbsp;

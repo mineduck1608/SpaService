@@ -164,7 +164,7 @@ function App() {
             <Route path='employees' element={<div>ABCG</div>} />
             <Route path='shifts' element={<div>ABCH</div>} />
             <Route path='schedules' element={<div>AB</div>} />
-            <Route path='requests' element={<div>AC</div>} />
+            <Route path='customer-requests' element={<div>AC</div>} />
             <Route path='appointments' element={<div>BC</div>} />
             <Route path='categories' element={<div>A</div>} />
             <Route path='employees-categories' element={<div>B</div>} />

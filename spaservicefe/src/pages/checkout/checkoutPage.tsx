@@ -12,7 +12,7 @@ export default function CheckoutPage() {
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
-  useEffect(()=>{
+  useEffect(() => {
     async function fetchData() {
       var s = await getEmployees(booked.categoryId)
       setEmp(s)
@@ -50,22 +50,21 @@ export default function CheckoutPage() {
             </label>
             <label className='grid 2xl:w-[45%]'>
               Request employee:
-              <select 
-              onChange={(e) => {
-                setReq({...req, employeeId: e.currentTarget.value})
-              }}
-              className='mt-2 w-full border-[1px] p-2'>
+              <select
+                onChange={(e) => {
+                  setReq({ ...req, employeeId: e.currentTarget.value })
+                }}
+                className='mt-2 w-full border-[1px] p-2'
+              >
                 <option key={'Default'} hidden defaultChecked>
                   Select an employee you want
                 </option>
-                <option key={'None'}>
-                  None
-                </option>
-                {
-                  emp.map((v, i) =>
-                    <option key={v.employeeId} value={v.employeeId}>{v.fullName}</option>
-                  )
-                }
+                <option key={'None'}>None</option>
+                {emp.map((v, i) => (
+                  <option key={v.employeeId} value={v.employeeId}>
+                    {v.fullName}
+                  </option>
+                ))}
               </select>
             </label>
           </div>

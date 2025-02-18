@@ -1,8 +1,7 @@
-import { CurrentItemContext } from '../pages/admin/context/currentItemContext'
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { ChevronRight, Heart, MoreHorizontal, Star } from 'lucide-react'
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
 import {
   SidebarGroup,
@@ -18,7 +17,7 @@ import {
 } from 'src/components/ui/sidebar'
 
 export function NavWorkspaces(params: { items: SideBarItem[] }) {
-  const context = useContext(CurrentItemContext)
+  const nav = useNavigate()
   return (
     <SidebarGroup>
       <SidebarGroupLabel className='mb-2 text-lg'>Workspaces</SidebarGroupLabel>
@@ -49,7 +48,7 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                           <Link
                             to={'/admin' + (page.url ?? '')}
                             onClick={(e) => {
-                              context.setCurrentItem(page.title)
+                              nav(page.url ?? '')
                             }}
                             className='text-black no-underline'
                           >
