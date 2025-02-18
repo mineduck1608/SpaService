@@ -1,4 +1,3 @@
-import { CurrentItemContext } from '../pages/admin/context/currentItemContext'
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { MoreHorizontal, StarOff, Trash2 } from 'lucide-react'
 import { useContext } from 'react'
@@ -22,7 +21,6 @@ import { Link } from 'react-router-dom'
 
 export function NavFavorites(params: { favorite: SideBarItem[] }) {
   const { isMobile } = useSidebar()
-  const context = useContext(CurrentItemContext)
 
   return (
     <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
@@ -31,16 +29,11 @@ export function NavFavorites(params: { favorite: SideBarItem[] }) {
         {params.favorite.map((item) => (
           <SidebarMenuItem key={item.title} className='-ml-4'>
             <SidebarMenuButton asChild>
-              <Link
-                to={item.url ?? ''}
-                onClick={(e) => {
-                  context.setCurrentItem(item.title)
-                }}
-                className='text-black no-underline'
-              >
+              <a href={'/admin' + (item.url ?? '')}
+                className='text-black no-underline'>
                 {item.icon && <item.icon className='mr-1 h-4 w-4' />}
                 <span className='mb-0.5 text-base'>{item.title}</span>
-              </Link>
+              </a>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
