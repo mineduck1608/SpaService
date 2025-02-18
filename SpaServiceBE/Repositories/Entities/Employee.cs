@@ -35,5 +35,9 @@ public partial class Employee
 
     public virtual ICollection<EmployeeCommission> EmployeeCommissions { get; set; } = new List<EmployeeCommission>();
 
+    public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
+
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
+
+    public ICollection<CategoryEmployee> CategoryEmployees { get; set; }
 }

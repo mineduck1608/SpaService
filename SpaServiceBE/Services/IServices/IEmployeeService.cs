@@ -16,6 +16,5 @@ namespace Services.IServices
 
 
         Task<Employee> GetEmployeeByEmail(string email);
-  
     }
 }

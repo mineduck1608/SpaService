@@ -51,6 +51,9 @@ public partial class SpaServiceContext : DbContext
     public virtual DbSet<SpaService> SpaServices { get; set; }
 
     public virtual DbSet<Transaction> Transactions { get; set; }
+    public virtual DbSet<CategoryEmployee> CategoryEmployees { get; set; }
+
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -58,6 +61,23 @@ public partial class SpaServiceContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CategoryEmployee>(entity =>
+        {
+            entity.HasKey(e => new { e.CategoryId, e.EmployeeId }).HasName("PK__Category__2FD9BD442CF73D8A");
+
+            entity.ToTable("CategoryEmployee");
+
+            entity.HasIndex(e => e.EmployeeId, "IX_CategoryEmployee_employeeId");
+
+            entity.Property(e => e.CategoryId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("categoryId");
+            entity.Property(e => e.EmployeeId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("employeeId");
+        });
         modelBuilder.Entity<Account>(entity =>
         {
             entity.HasKey(e => e.AccountId).HasName("PK__Account__F267251EDC136022");
@@ -558,6 +578,12 @@ public partial class SpaServiceContext : DbContext
             entity.Property(e => e.CustomerNote)
                 .HasMaxLength(255)
                 .HasColumnName("customerNote");
+            entity.Property(e => e.EmployeeId)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.EndTime)
+                .HasColumnType("datetime")
+                .HasColumnName("endTime");
             entity.Property(e => e.ManagerNote)
                 .HasMaxLength(255)
                 .HasColumnName("managerNote");
@@ -577,6 +603,10 @@ public partial class SpaServiceContext : DbContext
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKRequest796587");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.Requests)
+                .HasForeignKey(d => d.EmployeeId)
+                .HasConstraintName("FK_Request_Employee");
 
             entity.HasOne(d => d.Service).WithMany(p => p.Requests)
                 .HasForeignKey(d => d.ServiceId)

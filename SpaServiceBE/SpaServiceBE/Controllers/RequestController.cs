@@ -83,6 +83,7 @@ namespace API.Controllers
 
                 // Lấy dữ liệu từ request
                 string customerId = jsonElement.GetProperty("customerId").GetString();
+                string employeeId = jsonElement.GetProperty("employeeId").GetString();
                 string serviceId = jsonElement.GetProperty("serviceId").GetString();
                 DateTime startTime = jsonElement.GetProperty("startTime").GetDateTime();
                 DateTime endTime = jsonElement.GetProperty("endTime").GetDateTime();
@@ -106,7 +107,8 @@ namespace API.Controllers
                     StartTime = startTime,
                     Status = status,
                     CustomerNote = customerNote,
-                    ManagerNote = managerNote
+                    ManagerNote = managerNote,
+                    EmployeeId = employeeId,
                 };
 
                 // Gọi service để thêm request

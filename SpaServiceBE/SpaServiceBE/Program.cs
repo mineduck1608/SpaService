@@ -38,6 +38,7 @@ builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddScoped<ContactRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<AttendanceRecordRepository>();
+builder.Services.AddScoped<CategoryEmployeeRepository>();
 
 
 
@@ -60,6 +61,7 @@ builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IAttendanceRecordService, AttendanceRecordService>();
+builder.Services.AddScoped<ICategoryEmployeeService, CategoryEmployeeService>();
 
 
 
