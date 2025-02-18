@@ -35,7 +35,7 @@ export default function EmployeePage() {
 
   return (
     <div className='h-[96%] items-center justify-center'>
-      <h2 className='my-4 ml-11'>Employee Management</h2> {/* Đổi thành Employee Management */}
+      <h2 className='container mx-auto my-4 ml-11'>Employee Management</h2> {/* Đổi thành Employee Management */}
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

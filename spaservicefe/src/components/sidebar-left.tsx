@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { NavMain } from 'src/components/nav-main'
 import { NavWorkspaces } from 'src/components/nav-workspaces'
@@ -16,14 +14,7 @@ export function SidebarLeft(params: {
   secondary: SideBarItem[]
   props: React.ComponentProps<typeof Sidebar>
 }) {
-  const navigate = useNavigate() // Sử dụng navigate để chuyển hướng
 
-  useEffect(() => {
-    const token = sessionStorage.getItem('token') // Lấy token từ sessionStorage
-    if (!token) {
-      navigate('/login', { replace: true }) // Chuyển hướng về login nếu không có token
-    }
-  }, [navigate])
 
   return (
     <Sidebar className='border-r-0' {...params.props}>

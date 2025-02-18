@@ -3,7 +3,7 @@ import { Employee } from "@/types/type";
 
 export async function getEmployees(id: string) {
   try {
-    var s = await fetch(`${apiUrl}/categoryemployees/GetByCategoryId/${id}`, {
+    var s = await fetch(`${apiUrl}/employees/GetEmployeeByCategoryId/${id}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem('token')}`
       }
