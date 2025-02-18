@@ -11,7 +11,7 @@ public partial class SpaService
 
     public float Price { get; set; }
 
-    public TimeOnly Duration { get; set; }
+    public TimeSpan Duration { get; set; }
 
     public string Description { get; set; } = null!;
 
