@@ -47,10 +47,20 @@ export const columns: ColumnDef<Request>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
-      const statusColor = status === 'Active' ? 'text-green-500' : 'text-red-500'
+      let statusColor = ''
+  
+      // Set the color based on the status value
+      if (status === 'Completed') {
+        statusColor = 'text-green-500'
+      } else if (status === 'Cancelled') {
+        statusColor = 'text-red-500'
+      } else if (status === 'Pending') {
+        statusColor = 'text-gray-500'
+      }
+  
       return <span className={statusColor}>{status}</span>
     }
-  },
+  },  
   {
     accessorKey: 'customerNote',
     header: 'Customer Note',

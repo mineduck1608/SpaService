@@ -52,3 +52,12 @@ export type Request = {
   serviceId: string
   customerId: string
 }
+
+export type Contact = {
+  contactId: string
+  fullName: string
+  phoneNumber: string
+  email: string
+  contactContent: string
+  isProcessed: boolean
+}

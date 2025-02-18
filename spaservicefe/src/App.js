@@ -28,6 +28,7 @@ import DemoPage from './pages/admin/accounts/page.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
+import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 
 function Layout({ children }) {
@@ -172,7 +173,7 @@ function App() {
             <Route path='employees-categories' element={<div>B</div>} />
             <Route path='services' element={<div>C</div>} />
             <Route path='applications' element={<div>D</div>} />
-            <Route path='contacts' element={<div>E</div>} />
+            <Route path='contacts' element={<ContactAdminPage/>} />
             <Route path='transactions' element={<div>F</div>} />
             <Route path='commissions' element={<div>ABC</div>} />
             <Route path='employees-commissions' element={<div>BE</div>} />
