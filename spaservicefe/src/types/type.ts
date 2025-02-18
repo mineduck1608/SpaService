@@ -61,14 +61,16 @@ export type Contact = {
   customer: Customer
 }
 
-export type Appointment = {
+export interface Appointment {
   appointmentId: string
   status: string
   requestId: string
   employeeId: string
-  startTime: Date
-  endTime: Date
+  startTime: string
+  endTime: string
   replacementEmployee: string
   updatedAt: Date
-  employee: Employee
+  employee: {
+    fullName: string
+  }
 }
