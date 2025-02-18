@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
-import { Employee } from '@/types/employee.ts'
 import { getEmployees } from './checkoutPage.util.ts'
+import { Employee } from '@/types/type.ts'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service

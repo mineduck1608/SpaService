@@ -49,5 +49,10 @@ namespace Services
         {
             return await _repository.Delete(categoryId);
         }
+
+        public async Task<Category> GetWithEmployee(string categoryId)
+        {
+            return await _repository.GetWithEmployee(categoryId);
+        }
     }
 }
