@@ -3,12 +3,12 @@ import { Employee } from "@/types/type";
 
 export async function getEmployees(id: string) {
   try {
-    var s = await fetch(`${apiUrl}/categories/EmployeesOf/${id}`, {
+    var s = await fetch(`${apiUrl}/categoryemployees/GetByCategoryId/${id}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem('token')}`
       }
     })
-    return (await s.json()).employees as Employee[]
+    return (await s.json()) as Employee[]
   }
   catch (e) {
     return []
