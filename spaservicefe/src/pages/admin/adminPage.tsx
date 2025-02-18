@@ -7,6 +7,14 @@ import { sideData } from './sidebar.util'
 import { Outlet } from 'react-router-dom'
 
 export default function AdminPage() {
+  const x = window.location.pathname.substring(7).replace(/-/g, ' ')
+  function capitalizeEachWord(sentence: string): string {
+    return sentence
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+
   return (
     <SidebarProvider>
       <SidebarLeft
@@ -29,7 +37,7 @@ export default function AdminPage() {
                       Home
                     </a>
                     <span className='mx-2'>&gt;</span>
-                    <span></span>
+                    <span>{capitalizeEachWord(x)}</span>
                   </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>

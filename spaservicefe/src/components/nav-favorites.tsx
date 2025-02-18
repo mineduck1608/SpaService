@@ -29,11 +29,11 @@ export function NavFavorites(params: { favorite: SideBarItem[] }) {
         {params.favorite.map((item) => (
           <SidebarMenuItem key={item.title} className='-ml-4'>
             <SidebarMenuButton asChild>
-              <Link to={'/admin' + (item.url ?? '')}
+              <a href={'/admin' + (item.url ?? '')}
                 className='text-black no-underline'>
                 {item.icon && <item.icon className='mr-1 h-4 w-4' />}
                 <span className='mb-0.5 text-base'>{item.title}</span>
-              </Link>
+              </a>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
