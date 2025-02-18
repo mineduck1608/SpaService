@@ -13,9 +13,7 @@ public partial class Category
 
     public string CategoryDescription { get; set; } = null!;
 
+    public virtual ICollection<CategoryEmployee> CategoryEmployees { get; set; } = new List<CategoryEmployee>();
+
     public virtual ICollection<SpaService> SpaServices { get; set; } = new List<SpaService>();
-
-    public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
-
-    public ICollection<CategoryEmployee> CategoryEmployees { get; set; }
 }

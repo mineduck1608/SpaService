@@ -1,11 +1,17 @@
-﻿using Repositories.Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class CategoryEmployee
+namespace Repositories.Entities;
+
+public partial class CategoryEmployee
 {
-    public string CategoryId { get; set; }
-    public string EmployeeId { get; set; }
+    public int Id { get; set; }
 
-    // Navigation properties
-    public virtual Category Category { get; set; }
-    public virtual Employee Employee { get; set; }
+    public string? CategoryId { get; set; }
+
+    public string? EmployeeId { get; set; }
+
+    public virtual Category? Category { get; set; }
+
+    public virtual Employee? Employee { get; set; }
 }

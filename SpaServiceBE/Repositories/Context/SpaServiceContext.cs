@@ -26,6 +26,8 @@ public partial class SpaServiceContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<CategoryEmployee> CategoryEmployees { get; set; }
+
     public virtual DbSet<Commission> Commissions { get; set; }
 
     public virtual DbSet<Contact> Contacts { get; set; }
@@ -51,9 +53,6 @@ public partial class SpaServiceContext : DbContext
     public virtual DbSet<SpaService> SpaServices { get; set; }
 
     public virtual DbSet<Transaction> Transactions { get; set; }
-    public virtual DbSet<CategoryEmployee> CategoryEmployees { get; set; }
-
-
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -61,23 +60,6 @@ public partial class SpaServiceContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CategoryEmployee>(entity =>
-        {
-            entity.HasKey(e => new { e.CategoryId, e.EmployeeId }).HasName("PK__Category__2FD9BD442CF73D8A");
-
-            entity.ToTable("CategoryEmployee");
-
-            entity.HasIndex(e => e.EmployeeId, "IX_CategoryEmployee_employeeId");
-
-            entity.Property(e => e.CategoryId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("categoryId");
-            entity.Property(e => e.EmployeeId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("employeeId");
-        });
         modelBuilder.Entity<Account>(entity =>
         {
             entity.HasKey(e => e.AccountId).HasName("PK__Account__F267251EDC136022");
@@ -249,32 +231,33 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("categoryName");
+        });
 
-            entity.HasMany(d => d.Employees).WithMany(p => p.Categories)
-                .UsingEntity<Dictionary<string, object>>(
-                    "CategoryEmployee",
-                    r => r.HasOne<Employee>().WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FKCategoryEm127434"),
-                    l => l.HasOne<Category>().WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FKCategoryEm89344"),
-                    j =>
-                    {
-                        j.HasKey("CategoryId", "EmployeeId").HasName("PK__Category__2FD9BD442CF73D8A");
-                        j.ToTable("CategoryEmployee");
-                        j.HasIndex(new[] { "EmployeeId" }, "IX_CategoryEmployee_employeeId");
-                        j.IndexerProperty<string>("CategoryId")
-                            .HasMaxLength(50)
-                            .IsUnicode(false)
-                            .HasColumnName("categoryId");
-                        j.IndexerProperty<string>("EmployeeId")
-                            .HasMaxLength(50)
-                            .IsUnicode(false)
-                            .HasColumnName("employeeId");
-                    });
+        modelBuilder.Entity<CategoryEmployee>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__category__3213E83FB60BE45E");
+
+            entity.ToTable("categoryEmployee");
+
+            entity.HasIndex(e => new { e.CategoryId, e.EmployeeId }, "unique_category_employee").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CategoryId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("categoryId");
+            entity.Property(e => e.EmployeeId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("employeeId");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.CategoryEmployees)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("FK__categoryE__categ__12FDD1B2");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.CategoryEmployees)
+                .HasForeignKey(d => d.EmployeeId)
+                .HasConstraintName("FK__categoryE__emplo__13F1F5EB");
         });
 
         modelBuilder.Entity<Commission>(entity =>

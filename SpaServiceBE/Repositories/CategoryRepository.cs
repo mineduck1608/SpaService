@@ -40,7 +40,7 @@ namespace Repositories
 
         public async Task<Category> GetWithEmployee(string id)
         {
-            return await _context.Categories.Include(x => x.Employees).FirstOrDefaultAsync(x => x.CategoryId == id);
+            return await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
         }
 
         // Thêm một Category mới

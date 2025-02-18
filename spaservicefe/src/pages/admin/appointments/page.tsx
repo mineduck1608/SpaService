@@ -8,7 +8,6 @@ import {
 } from '@schedule-x/calendar'
 import { createEventsServicePlugin } from '@schedule-x/events-service'
 import { Appointment } from '../../../types/type' // Đảm bảo đường dẫn import đúng
-
 import '@schedule-x/theme-default/dist/index.css'
 
 function CalendarApp() {
