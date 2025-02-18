@@ -12,6 +12,7 @@ using System.Net.Mail;
 using Microsoft.IdentityModel.Tokens;
 using MimeKit;
 using MimeKit.Utils;
+using Microsoft.VisualBasic;
 
 
 namespace API.Controllers
@@ -85,18 +86,38 @@ namespace API.Controllers
                 string customerId = jsonElement.GetProperty("customerId").GetString();
                 string serviceId = jsonElement.GetProperty("serviceId").GetString();
                 DateTime startTime = jsonElement.GetProperty("startTime").GetDateTime();
-                DateTime endTime = jsonElement.GetProperty("endTime").GetDateTime();
                 string status = jsonElement.GetProperty("status").GetString();
                 string? customerNote = jsonElement.TryGetProperty("customerNote", out var customerNoteProp) ? customerNoteProp.GetString() : null;
                 string? managerNote = jsonElement.TryGetProperty("managerNote", out var managerNoteProp) ? managerNoteProp.GetString() : null;
 
+                //get request info for duration 
+                var SpaServiceInfo = await _paService.GetById(serviceId);
+                if (SpaServiceInfo == null)
+                    return BadRequest("Spa Service is missing.");
+
+                //create endtime
+
+                DateTime endTime= startTime.Add(SpaServiceInfo.Duration);
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
-                    startTime == default(DateTime) || endTime == default(DateTime) || string.IsNullOrEmpty(status))
+                    startTime == default(DateTime) || string.IsNullOrEmpty(status))
                 {
                     return BadRequest(new { msg = "Request details are incomplete or invalid." });
                 }
-
+                //handle Start time
+                if (startTime < DateTime.Now.AddHours(1))
+                {
+                    return BadRequest(new { msg = "Start time must be at least 1 hour in the future." });
+                }
+                if (startTime > DateTime.Now.AddMonths(1))
+                {
+                    return BadRequest(new { msg = "The Start should be booked 1 months early." });
+                }
+                //handle duration
+                if (endTime.Hour > 22 )
+                {
+                    return BadRequest(new { msg = "The duration can not last until 10PM or later" });
+                }
                 // Tạo đối tượng Request
                 var newRequest = new Request
                 {
@@ -137,16 +158,39 @@ namespace API.Controllers
                 string customerId = jsonElement.GetProperty("customerId").GetString();
                 string serviceId = jsonElement.GetProperty("serviceId").GetString();
                 DateTime startTime = jsonElement.GetProperty("startTime").GetDateTime();
-                DateTime endTime = jsonElement.GetProperty("endTime").GetDateTime();
                 string status = jsonElement.GetProperty("status").GetString();
                 string? customerNote = jsonElement.TryGetProperty("customerNote", out var customerNoteProp) ? customerNoteProp.GetString() : null;
                 string? managerNote = jsonElement.TryGetProperty("managerNote", out var managerNoteProp) ? managerNoteProp.GetString() : null;
+                var SpaServiceInfo = await _paService.GetById(serviceId);
+                if (SpaServiceInfo == null)
+                    return BadRequest("Spa Service is missing.");
 
+                //create endtime
+
+                DateTime endTime = startTime.Add(SpaServiceInfo.Duration);
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
-                    startTime == default(DateTime) || endTime == default(DateTime) || string.IsNullOrEmpty(status))
+                    startTime == default(DateTime) || string.IsNullOrEmpty(status))
                 {
                     return BadRequest(new { msg = "Request details are incomplete or invalid." });
+                }
+                //handle Start time
+                if (startTime < DateTime.Now.AddMinutes(15))
+                {
+                    return BadRequest(new { msg = "Start time must be at least 15 minutes in the future." });
+                }
+                if (startTime > DateTime.Now.AddMonths(1))
+                {
+                    return BadRequest(new { msg= "The Start should be booked 1 months early."});
+                }
+                if (startTime.Hour > 22 || startTime.Hour < 8)
+                {
+                    return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 10:00 PM." });
+                }
+                //handle duration
+                if (endTime.Hour > 22)
+                {
+                    return BadRequest(new { msg = "The duration can not last until 10PM or later" });
                 }
 
                 // Tạo đối tượng Request và gán ID cho update
