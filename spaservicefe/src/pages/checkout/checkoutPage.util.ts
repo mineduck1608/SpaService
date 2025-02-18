@@ -8,7 +8,7 @@ export async function getEmployees(id: string) {
         Authorization: `Bearer ${sessionStorage.getItem('token')}`
       }
     })
-    return (await s.json()) as Employee[]
+    return (await s.json()).employees as Employee[]
   }
   catch (e) {
     return []
