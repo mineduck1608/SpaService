@@ -51,13 +51,13 @@ async function getAllCategories() {
 }
 
 export async function findCategories() {
-  const sessionCat = sessionStorage.getItem('CATEGORIES')
+  const sessionCat = sessionStorage.getItem('categories')
   if (sessionCat) {
     return JSON.parse(sessionCat) as Category[]
   }
   var s = await getAllCategories()
   if (s.length !== 0) {
-    sessionStorage.setItem('CATEGORIES', JSON.stringify(s))
+    sessionStorage.setItem('categories', JSON.stringify(s))
   }
   return s
 }

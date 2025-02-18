@@ -6,8 +6,7 @@ import { formatNumber } from '../servicesPage/servicesPage.util'
 import seperator from '../../images/serviceBg/separator.png'
 
 export default function ShortDetail(params: { d?: Service }) {
-  const CATEGORY = JSON.parse(sessionStorage.getItem('CATEGORIES') ?? '{}') as Category[]
-
+  const CATEGORY = JSON.parse(sessionStorage.getItem('categories') ?? '[]') as Category[]
   return (
     <div className='p-2'>
       <p className='text-3xl font-bold'>
@@ -21,7 +20,7 @@ export default function ShortDetail(params: { d?: Service }) {
       <div className='mb-3 flex w-3/5 justify-between '>
         <button 
         onClick={(e) => {
-          sessionStorage.setItem('BOOKED', JSON.stringify(params.d) ?? '')
+          sessionStorage.setItem('booked', JSON.stringify(params.d) ?? '')
           window.location.assign('/check-out')
 
         }}

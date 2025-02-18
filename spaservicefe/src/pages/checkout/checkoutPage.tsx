@@ -1,14 +1,24 @@
 import { Service } from '../../types/services.ts'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
+import { Employee } from '@/types/employee.ts'
+import { getEmployees } from './checkoutPage.util.ts'
 
 export default function CheckoutPage() {
-  const booked = JSON.parse(sessionStorage.getItem('BOOKED') ?? '{}') as Service
-  if(!booked.serviceId){
+  const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
+  const [emp, setEmp] = useState<Employee[]>([])
+  if (!booked.serviceId) {
     window.location.assign('/services')
   }
+  useEffect(()=>{
+    async function fetchData() {
+      var s = await getEmployees(booked.categoryId)
+      setEmp(s)
+    }
+    fetchData()
+  }, [])
   const { TextArea } = Input
   const [req, setReq] = useState<SpaRequest>({
     customerId: '',
@@ -32,7 +42,7 @@ export default function CheckoutPage() {
                 showSecond={false}
                 minuteStep={30}
                 className='mt-2 border-[1px] p-2'
-                onChange={(date, dateString) => {
+                onChange={(date) => {
                   setReq({ ...req, startTime: date?.toDate() })
                 }}
                 required
@@ -64,14 +74,20 @@ export default function CheckoutPage() {
             </label>
           </div>
         </div>
-        <div className='w-1/3 rounded-br-lg rounded-tr-lg bg-purple1 px-3 py-4'>
+        <div className='flex w-1/3 flex-col items-center rounded-br-lg rounded-tr-lg bg-purple1 px-5 py-4'>
           <p className='text-white'>You can pay immediately or at 10B1 Le Thanh Ton, Ben Nghe Ward, District 1, HCMC</p>
-          <div className='flex justify-around'>
-            <button type='submit' className='w-1/3 rounded-br-lg rounded-tl-lg bg-white p-1 text-purple1'>Submit request</button>
-            <button className='w-1/3 rounded-br-lg rounded-tl-lg bg-white p-1 text-purple1'>Pay now</button>
+          <div className='my-3 w-1/2'>
+            <button type='submit' className='w-full rounded-br-2xl rounded-tl-2xl bg-white p-1 text-purple1'>
+              Submit request
+            </button>
+          </div>
+          <div className='my-3 w-1/2'>
+            <button type='button' className='w-full rounded-br-2xl rounded-tl-2xl bg-white p-1 text-purple1'>
+              Pay now
+            </button>
           </div>
         </div>
       </form>
-    </div >
+    </div>
   )
 }
