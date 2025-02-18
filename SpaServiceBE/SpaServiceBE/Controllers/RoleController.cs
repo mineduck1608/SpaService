@@ -21,8 +21,8 @@ namespace API.Controllers
         }
 
         // GET: api/roles
-       
-        [HttpGet]
+
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Role>>> GetAllRoles()
         {
             try

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Repositories.Entities;
 
-public partial class WorkingSchedule
+public partial class AttendanceRecord
 {
-    public string WorkingScheduleId { get; set; } = null!;
+    public string AttendanceId { get; set; } = null!;
 
     public DateOnly Date { get; set; }
 
@@ -13,13 +13,7 @@ public partial class WorkingSchedule
 
     public DateTime? CheckOutTime { get; set; }
 
-    public string Status { get; set; } = null!;
-
     public string EmployeeId { get; set; } = null!;
 
-    public string ShiftId { get; set; } = null!;
-
     public virtual Employee Employee { get; set; } = null!;
-
-    public virtual Shift Shift { get; set; } = null!;
 }
