@@ -5,7 +5,7 @@ import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
 import { getEmployees } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
-
+import main from '../../images/stockImage/5.jpg'
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
   const [emp, setEmp] = useState<Employee[]>([])
@@ -27,8 +27,9 @@ export default function CheckoutPage() {
     startTime: new Date()
   })
   return (
-    <div className='mb-32 mt-32 flex justify-center'>
-      <form className='mt-32 flex w-3/5 justify-center'>
+    <div className='mb-32 mb-32 flex justify-center items-center'>
+      <img src={main} className='absolute -z-20  w-full h-full '/>
+      <form className='mt-48 flex w-3/5 justify-center bg-white mb-48'>
         <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg p-20 shadow-lg'>
           <ServiceOverview s={booked} />
           <div className='mb-4 gap-6 pt-4 2xl:flex 2xl:justify-between'>
@@ -85,17 +86,19 @@ export default function CheckoutPage() {
             </label>
           </div>
         </div>
-        <div className='flex w-1/3 flex-col items-center rounded-br-lg rounded-tr-lg bg-purple1 px-5 py-4'>
+        <div className='w-1/3 items-center rounded-br-lg rounded-tr-lg bg-purple1 px-5 py-4'>
           <p className='text-white'>You can pay immediately or at 10B1 Le Thanh Ton, Ben Nghe Ward, District 1, HCMC</p>
-          <div className='my-3 w-1/2'>
-            <button type='submit' className='w-full rounded-br-2xl rounded-tl-2xl bg-white p-1 text-purple1'>
-              Submit request
-            </button>
-          </div>
-          <div className='my-3 w-1/2'>
-            <button type='button' className='w-full rounded-br-2xl rounded-tl-2xl bg-white p-1 text-purple1'>
-              Pay now
-            </button>
+          <div className='flex justify-between'>
+            <div className='my-3 w-2/5'>
+              <button type='submit' className='w-full rounded-br-2xl rounded-tl-2xl bg-white p-1 text-purple1'>
+                Submit request
+              </button>
+            </div>
+            <div className='my-3 w-2/5 min-h-full'>
+              <button type='button' className='w-full rounded-br-2xl rounded-tl-2xl bg-white p-1 text-purple1 h-full'>
+                Pay now
+              </button>
+            </div>
           </div>
         </div>
       </form>
