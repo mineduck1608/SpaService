@@ -22,10 +22,7 @@ export function BarChartComp() {
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator='dashed' />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator='dashed' />} />
             <Bar dataKey='female' fill='var(--color-female)' radius={4} />
             <Bar dataKey='male' fill='var(--color-male)' radius={4} />
           </BarChart>

@@ -1,24 +1,22 @@
 import {
   Home,
-  Users,
   Boxes,
   ClipboardList,
   LineChart,
-  DollarSign,
   LucideIcon,
-  User,
   CalendarCheck,
+  LetterText,
   ArrowLeftRight,
-  CalendarClock,
   HandHelping,
   UserCircle,
+  Contact2,
   MessageCircleQuestion,
   Trash2
 } from 'lucide-react'
 export type SideBarItem = {
   title: string
   url?: string
-  icon: LucideIcon
+  icon?: LucideIcon
   isActive?: boolean
   pages?: SideBarItem[]
   id?: string
@@ -34,58 +32,48 @@ export const sideData = {
   ],
   workspaces: [
     {
-      title: 'Account',
+      title: 'User List',
       icon: UserCircle,
       pages: [
         {
           title: 'Accounts',
           url: '/accounts'
-        }
-      ]
-    },
-    {
-      title: 'Customers',
-      icon: User,
-      pages: [
+        },
         {
           title: 'Customers',
           url: '/customers'
         },
         {
-          title: 'Memberships',
-          url: '/memberships'
-        }
-      ]
-    },
-    {
-      title: 'Employees',
-      icon: Users,
-      pages: [
-        {
           title: 'Employees',
           url: '/employees'
-        },
-        {
-          title: 'Shift',
-          url: '/shifts'
-        },
-        {
-          title: 'Schedule',
-          url: '/schedules'
         }
       ]
     },
     {
-      title: 'Appointments',
-      icon: HandHelping,
+      title: 'Workings',
+      icon: ClipboardList,
       pages: [
         {
-          title: 'Customer Requests',
-          url: '/requests'
+          title: 'Applications',
+          url: '/applications'
         },
         {
           title: 'Appointments',
           url: '/appointments'
+        }
+      ]
+    },
+    {
+      title: 'Requests',
+      icon: Contact2,
+      pages: [
+        {
+          title: 'Customer Requests',
+          url: '/customer-requests'
+        },
+        {
+          title: 'Contacts',
+          url: '/contacts'
         }
       ]
     },
@@ -98,26 +86,12 @@ export const sideData = {
           url: '/categories'
         },
         {
-          title: 'Employees Categories',
-          url: '/employees-categories'
-        },
-        {
           title: 'Services',
           url: '/services'
-        }
-      ]
-    },
-    {
-      title: 'Applications',
-      icon: ClipboardList,
-      pages: [
-        {
-          title: 'Applications',
-          url: '/applications'
         },
         {
-          title: 'Contacts',
-          url: '/contacts'
+          title: 'News',
+          url: '/news'
         }
       ]
     },
@@ -128,24 +102,6 @@ export const sideData = {
         {
           title: 'Transactions',
           url: '/transactions'
-        },
-        {
-          title: 'Commission Types',
-          url: '/commissions'
-        },
-        {
-          title: 'Employees Commissions',
-          url: '/employees-commissions'
-        }
-      ]
-    },
-    {
-      title: 'News & Promotions',
-      icon: CalendarClock,
-      pages: [
-        {
-          title: 'News',
-          url: '/news'
         },
         {
           title: 'Promotions',
@@ -169,18 +125,23 @@ export const sideData = {
   favorite: [
     {
       title: 'Schedule',
-      url: '/admin/schedules',
+      url: '/schedules',
       icon: CalendarCheck
     },
     {
       title: 'Transactions',
-      url: '/admin/transactions',
+      url: '/transactions',
       icon: LineChart
     },
     {
-      title: 'Employees Commissions',
-      url: '/admin/employees-commissions',
-      icon: DollarSign
+      title: 'Customer Requests',
+      url: '/customer-requests',
+      icon: HandHelping
+    },
+    {
+      title: 'Contacts',
+      url: '/contacts',
+      icon: LetterText
     }
   ]
 }

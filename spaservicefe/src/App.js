@@ -18,11 +18,19 @@ import News from './pages/home/news.tsx'
 import OurServices from './pages/home/ourServices.tsx'
 import DetailPage from './pages/detailPage/detailPage.tsx'
 import AdminPage from './pages/admin/adminPage.tsx'
+import CheckOutPage from './pages/checkout/checkoutPage.tsx'
 import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
 import { Dashboard } from './pages/admin/dashboard.tsx'
+import DemoPage from './pages/admin/accounts/page.tsx'
+import CalendarApp from './pages/admin/appointments/page.tsx'
+import CustomerPage from './pages/admin/customers/page.tsx'
+import EmployeePage from './pages/admin/employees/page.tsx'
+import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
+import ContactAdminPage from './pages/admin/contacts/page.tsx'
+import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 
 function Layout({ children }) {
   return (
@@ -90,6 +98,14 @@ function App() {
             }
           />
           <Route
+            path='check-out'
+            element={
+              <Layout>
+                <CheckOutPage />
+              </Layout>
+            }
+          />
+          <Route
             path='reset-password'
             element={
               <Layout>
@@ -137,21 +153,28 @@ function App() {
               </Layout>
             }
           />
-          <Route path='admin' element={<AdminPage />}>
+
+          <Route
+            path='admin'
+            element={
+              <ProtectedAdmin>
+                <AdminPage />
+              </ProtectedAdmin>
+            }
+          >
             <Route index element={<Dashboard />} />
-            <Route path='accounts' element={<div>ABCD</div>} />
-            <Route path='customers' element={<div>ABCE</div>} />
-            <Route path='memberships' element={<div>ABCF</div>} />
-            <Route path='employees' element={<div>ABCG</div>} />
-            <Route path='shifts' element={<div>ABCH</div>} />
+            <Route path='accounts' element={<DemoPage />} />
+            <Route path='customers' element={<CustomerPage />} />
+            <Route path='employees' element={<EmployeePage />} />
+            <Route path='shifts' element={<></>} />
             <Route path='schedules' element={<div>AB</div>} />
             <Route path='requests' element={<div>AC</div>} />
-            <Route path='appointments' element={<div>BC</div>} />
+            <Route path='appointments' element={<CalendarApp/>} />
             <Route path='categories' element={<div>A</div>} />
             <Route path='employees-categories' element={<div>B</div>} />
             <Route path='services' element={<div>C</div>} />
             <Route path='applications' element={<div>D</div>} />
-            <Route path='contacts' element={<div>E</div>} />
+            <Route path='contacts' element={<ContactAdminPage/>} />
             <Route path='transactions' element={<div>F</div>} />
             <Route path='commissions' element={<div>ABC</div>} />
             <Route path='employees-commissions' element={<div>BE</div>} />
@@ -159,7 +182,6 @@ function App() {
             <Route path='promotions' element={<div>CF</div>} />
           </Route>
         </Routes>
-        
       </BrowserRouter>
     </GoogleOAuthProvider>
   )

@@ -36,6 +36,20 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("EmployeesOf/{id}")]
+        public async Task<ActionResult<Category>> GetEmployeesOf(string id)
+        {
+            try
+            {
+                var categories = await _service.GetWithEmployee(id);
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // GET: api/categories/GetById/{id}
         [Authorize]
         [HttpGet("GetById/{id}")]

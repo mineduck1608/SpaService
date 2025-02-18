@@ -9,8 +9,6 @@ public partial class Request
 
     public DateTime StartTime { get; set; }
 
-    public DateTime EndTime { get; set; }
-
     public string Status { get; set; } = null!;
 
     public string? CustomerNote { get; set; }
@@ -21,9 +19,15 @@ public partial class Request
 
     public string CustomerId { get; set; } = null!;
 
+    public DateTime? EndTime { get; set; }
+
+    public string? EmployeeId { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual Customer Customer { get; set; } = null!;
+
+    public virtual Employee? Employee { get; set; }
 
     public virtual SpaService Service { get; set; } = null!;
 }

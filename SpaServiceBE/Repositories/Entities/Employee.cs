@@ -31,9 +31,11 @@ public partial class Employee
 
     public virtual ICollection<Appointment> AppointmentReplacementEmployeeNavigations { get; set; } = new List<Appointment>();
 
+    public virtual ICollection<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
+
+    public virtual ICollection<CategoryEmployee> CategoryEmployees { get; set; } = new List<CategoryEmployee>();
+
     public virtual ICollection<EmployeeCommission> EmployeeCommissions { get; set; } = new List<EmployeeCommission>();
 
-    public virtual ICollection<WorkingSchedule> WorkingSchedules { get; set; } = new List<WorkingSchedule>();
-
-    public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
+    public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 }

@@ -38,6 +38,11 @@ namespace Repositories
                 .ToListAsync();
         }
 
+        public async Task<Category> GetWithEmployee(string id)
+        {
+            return await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
+        }
+
         // Thêm một Category mới
         public async Task<bool> Add(Category category)
         {

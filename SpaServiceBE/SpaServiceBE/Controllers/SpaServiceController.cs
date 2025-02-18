@@ -40,7 +40,6 @@ namespace API.Controllers
         }
 
         // GET: api/spaservices/GetById/{id}
-        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<SpaService>> GetSpaServiceById(string id)
         {
@@ -77,9 +76,9 @@ namespace API.Controllers
                 string serviceImage = jsonElement.GetProperty("serviceImage").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
-                // Chuyển đổi Duration từ string sang TimeOnly
-                TimeOnly duration;
-                if (!TimeOnly.TryParse(durationString, out duration))
+                // Chuyển đổi Duration từ string sang TimeSpan
+                TimeSpan duration;
+                if (!TimeSpan.TryParse(durationString, out duration))
                 {
                     return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
                 }
@@ -147,9 +146,9 @@ namespace API.Controllers
                 string serviceImage = jsonElement.GetProperty("serviceImage").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
-                // Chuyển đổi Duration từ string sang TimeOnly
-                TimeOnly duration;
-                if (!TimeOnly.TryParse(durationString, out duration))
+                // Chuyển đổi Duration từ string sang TimeSpan
+                TimeSpan duration;
+                if (!TimeSpan.TryParse(durationString, out duration))
                 {
                     return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
                 }

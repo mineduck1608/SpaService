@@ -21,9 +21,6 @@ namespace Repositories
         public async Task<Appointment> GetById(string appointmentId)
         {
             return await _context.Appointments
-                .Include(a => a.Employee)
-                .Include(a => a.Request)
-                .Include(a => a.Transactions)
                 .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
         }
 
@@ -31,9 +28,6 @@ namespace Repositories
         public async Task<List<Appointment>> GetAll()
         {
             return await _context.Appointments
-                .Include(a => a.Employee)
-                .Include(a => a.Request)
-                .Include(a => a.Transactions)
                 .ToListAsync();
         }
 

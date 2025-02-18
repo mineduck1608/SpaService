@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj": {}
+    "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj": {}
   },
   "projects": {
-    "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj": {
+    "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj",
+        "projectUniqueName": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj",
         "projectName": "Repositories",
-        "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj",
-        "packagesPath": "C:\\Users\\ducco\\.nuget\\packages\\",
-        "outputPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\obj\\",
+        "projectPath": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj",
+        "packagesPath": "C:\\Users\\Minh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Repositories\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ducco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Minh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -23,6 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\Minh\\.nuget\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -95,21 +100,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj": {
+    "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj",
-        "packagesPath": "C:\\Users\\ducco\\.nuget\\packages\\",
-        "outputPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\obj\\",
+        "projectPath": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\Minh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Services\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ducco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Minh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -118,14 +127,15 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\Minh\\.nuget\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj": {
-                "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj"
+              "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj": {
+                "projectPath": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj"
               }
             }
           }
@@ -160,21 +170,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj": {
+    "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
+        "projectUniqueName": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
         "projectName": "SpaServiceBE",
-        "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
-        "packagesPath": "C:\\Users\\ducco\\.nuget\\packages\\",
-        "outputPath": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\obj\\",
+        "projectPath": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
+        "packagesPath": "C:\\Users\\Minh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\SpaServiceBE\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ducco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Minh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -183,14 +197,15 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\Minh\\.nuget\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj": {
-                "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj"
+              "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Services\\Services.csproj": {
+                "projectPath": "C:\\Users\\Minh\\Desktop\\New folder (4)\\SpaService\\SpaServiceBE\\Services\\Services.csproj"
               }
             }
           }
@@ -213,6 +228,10 @@
             "Google.Apis.Auth": {
               "target": "Package",
               "version": "[1.68.0, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.10.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -248,7 +267,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

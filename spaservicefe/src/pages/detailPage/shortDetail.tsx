@@ -6,9 +6,7 @@ import { formatNumber } from '../servicesPage/servicesPage.util'
 import seperator from '../../images/serviceBg/separator.png'
 
 export default function ShortDetail(params: { d?: Service }) {
-  const CATEGORY = JSON.parse(sessionStorage.getItem('CATEGORIES') ?? '{}') as Category[]
-  const [val, setVal] = useState(1)
-
+  const CATEGORY = JSON.parse(sessionStorage.getItem('categories') ?? '[]') as Category[]
   return (
     <div className='p-2'>
       <p className='text-3xl font-bold'>
@@ -20,36 +18,14 @@ export default function ShortDetail(params: { d?: Service }) {
       <p className='mb-5'>{params.d?.description}</p>
       {/* Add cart */}
       <div className='mb-3 flex w-3/5 justify-between '>
-        {/* Input */}
-        <span className='relative w-[45%]'>
-          <button
-            onClick={() => {
-              setVal((v) => Math.max(v - 1, 1))
-            }}
-            className='left absolute left-2 top-1/4 rounded-full px-2 text-center'
-          >
-            -
-          </button>
-          <input
-            type='number'
-            className='w-full cursor-default rounded-br-3xl rounded-tl-3xl border-[1px] border-purple1 p-[0.625rem] text-center'
-            min={1}
-            max={10}
-            value={val}
-            readOnly
-          />
-          <button
-            onClick={() => {
-              setVal((v) => Math.min(v + 1, 10))
-            }}
-            className='absolute right-2 top-1/4 rounded-full px-[0.375rem] text-center'
-          >
-            +
-          </button>
-        </span>
-        <button className='w-[45%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'>
-          Add to cart
-        </button>
+        <button
+          onClick={(e) => {
+            sessionStorage.setItem('booked', JSON.stringify(params.d) ?? '')
+            if (params.d) {
+              window.location.assign('/check-out')
+            }
+          }}
+          className='w-[45%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'>Check out</button>
       </div>
       <p className='text-black'>
         Category:&nbsp;
