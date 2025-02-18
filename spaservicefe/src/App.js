@@ -18,6 +18,7 @@ import News from './pages/home/news.tsx'
 import OurServices from './pages/home/ourServices.tsx'
 import DetailPage from './pages/detailPage/detailPage.tsx'
 import AdminPage from './pages/admin/adminPage.tsx'
+import CheckOutPage from './pages/checkout/checkoutPage.tsx'
 import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
@@ -90,6 +91,14 @@ function App() {
             element={
               <Layout>
                 <DetailPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='check-out'
+            element={
+              <Layout>
+                <CheckOutPage />
               </Layout>
             }
           />
