@@ -14,7 +14,7 @@ export default function DetailPage() {
   const { id } = useParams()
   const [data, setData] = useState<Service>()
   const [related, setRelated] = useState<Service[]>([])
-  const CATEGORY = JSON.parse(sessionStorage.getItem('CATEGORIES') ?? '{}') as Category[]
+  const CATEGORY = JSON.parse(sessionStorage.getItem('categories') ?? '{}') as Category[]
   useEffect(() => {
     async function fetchData() {
       const x = await getService(id ?? '')

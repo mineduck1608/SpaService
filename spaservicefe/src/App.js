@@ -167,7 +167,7 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
             <Route path='shifts' element={<></>} />
             <Route path='schedules' element={<div>AB</div>} />
-            <Route path='requests' element={<CustomerRequestPage/>} />
+            <Route path='customer-requests' element={<div>AC</div>} />
             <Route path='appointments' element={<div>BC</div>} />
             <Route path='categories' element={<div>A</div>} />
             <Route path='employees-categories' element={<div>B</div>} />

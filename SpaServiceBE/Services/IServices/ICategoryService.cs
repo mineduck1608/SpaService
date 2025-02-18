@@ -12,6 +12,6 @@ namespace Services.IServices
         Task<bool> UpdateCategory(string categoryId, Category category);
         Task<bool> DeleteCategory(string categoryId);
         Task<Category> GetCategoryByName(string categoryName);
-
+        Task<Category> GetWithEmployee(string categoryId);
     }
 }
