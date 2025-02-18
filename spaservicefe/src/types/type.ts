@@ -41,18 +41,6 @@ export type Member = {
   totalPayment: number
 }
 
-export type Employee = {
-  employeeId: string
-  fullName: string
-  position: string
-  hireDate: Date
-  status: string
-  image: string
-  accountId: string
-  phone: string
-  email: string
-}
-
 export type Request = {
   requestId: string
   startTime: Date
@@ -70,4 +58,17 @@ export type Contact = {
   email: string
   contactContent: string
   isProcessed: boolean
+  customer: Customer
+}
+
+export type Appointment = {
+  appointmentId: string
+  status: string
+  requestId: string
+  employeeId: string
+  startTime: Date
+  endTime: Date
+  replacementEmployee: string
+  updatedAt: Date
+  employee: Employee
 }

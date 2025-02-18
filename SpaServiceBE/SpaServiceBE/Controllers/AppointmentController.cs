@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/appointments/GetAll
-        [Authorize (Roles ="Customer")]
+        [Authorize (Roles ="Customer, Admin")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments()
         {

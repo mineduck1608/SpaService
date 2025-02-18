@@ -37,11 +37,11 @@ namespace API.Controllers
         }
 
         [HttpGet("EmployeesOf/{id}")]
-        public async Task<ActionResult<IEnumerable<Category>>> GetEmployeesOf(string id)
+        public async Task<ActionResult<Category>> GetEmployeesOf(string id)
         {
             try
             {
-                var categories = await _service.GetAllCategories();
+                var categories = await _service.GetWithEmployee(id);
                 return Ok(categories);
             }
             catch (Exception ex)

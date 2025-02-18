@@ -16,4 +16,6 @@ public partial class Category
     public virtual ICollection<SpaService> SpaServices { get; set; } = new List<SpaService>();
 
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
+    public ICollection<CategoryEmployee> CategoryEmployees { get; set; }
 }
