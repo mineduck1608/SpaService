@@ -27,9 +27,9 @@ export default function CheckoutPage() {
     startTime: new Date()
   })
   return (
-    <div className='mb-32 mb-32 flex justify-center items-center'>
-      <img src={main} className='absolute -z-20  w-full h-full '/>
-      <form className='mt-48 flex w-3/5 justify-center bg-white mb-48'>
+    <div className=' flex justify-center items-center '>
+      <img src={main} className='absolute -z-10  w-full h-[110%] '/>
+      <form className='rounded-lg bg-white mt-64 flex w-3/5 justify-center mb-48 z-10'>
         <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg p-20 shadow-lg'>
           <ServiceOverview s={booked} />
           <div className='mb-4 gap-6 pt-4 2xl:flex 2xl:justify-between'>
