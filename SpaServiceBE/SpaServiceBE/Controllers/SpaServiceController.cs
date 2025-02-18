@@ -40,7 +40,6 @@ namespace API.Controllers
         }
 
         // GET: api/spaservices/GetById/{id}
-        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<SpaService>> GetSpaServiceById(string id)
         {

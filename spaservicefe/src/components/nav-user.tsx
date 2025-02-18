@@ -1,5 +1,4 @@
 import { BadgeCheck, ChevronsUpDown, CreditCard, LogOut } from 'lucide-react'
-
 import { Avatar, AvatarFallback, AvatarImage } from 'src/components/ui/avatar'
 import {
   DropdownMenu,

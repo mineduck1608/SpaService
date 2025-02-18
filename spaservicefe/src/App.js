@@ -17,11 +17,18 @@ import Products from './pages/home/products.tsx'
 import News from './pages/home/news.tsx'
 import OurServices from './pages/home/ourServices.tsx'
 import DetailPage from './pages/detailPage/detailPage.tsx'
-import DashboardPage from './pages/admin/dashboardPage.tsx'
+import AdminPage from './pages/admin/adminPage.tsx'
+import CheckOutPage from './pages/checkout/checkoutPage.tsx'
 import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
+import { Dashboard } from './pages/admin/dashboard.tsx'
+import DemoPage from './pages/admin/accounts/page.tsx'
+import CustomerPage from './pages/admin/customers/page.tsx'
+import EmployeePage from './pages/admin/employees/page.tsx'
+import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
+import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 
 function Layout({ children }) {
   return (
@@ -89,6 +96,14 @@ function App() {
             }
           />
           <Route
+            path='check-out'
+            element={
+              <Layout>
+                <CheckOutPage />
+              </Layout>
+            }
+          />
+          <Route
             path='reset-password'
             element={
               <Layout>
@@ -136,27 +151,35 @@ function App() {
               </Layout>
             }
           />
-          <Route path='admin' element={<DashboardPage />} />
-          <Route path='admin/accounts' element={<div>ABC</div>} />
-          <Route path='admin/customers' element={<div>ABC</div>} />
-          <Route path='admin/memberships' element={<div>ABC</div>} />
-          <Route path='admin/employees' element={<div>ABC</div>} />
-          <Route path='admin/shifts' element={<div>ABC</div>} />
-          <Route path='admin/schedules' element={<div>ABC</div>} />
-          <Route path='admin/requests' element={<div>ABC</div>} />
-          <Route path='admin/appointments' element={<div>ABC</div>} />
-          <Route path='admin/categories' element={<div>ABC</div>} />
-          <Route path='admin/employees-categories' element={<div>ABC</div>} />
-          <Route path='admin/services' element={<div>ABC</div>} />
-          <Route path='admin/applications' element={<div>ABC</div>} />
-          <Route path='admin/contacts' element={<div>ABC</div>} />
-          <Route path='admin/transactions' element={<div>ABC</div>} />
-          <Route path='admin/commissions' element={<div>ABC</div>} />
-          <Route path='admin/employees-commissions' element={<div>ABC</div>} />
-          <Route path='admin/news' element={<div>ABC</div>} />
-          <Route path='admin/promotions' element={<div>ABC</div>} />
+
+          <Route
+            path='admin'
+            element={
+              <ProtectedAdmin>
+                <AdminPage />
+              </ProtectedAdmin>
+            }
+          >
+            <Route index element={<Dashboard />} />
+            <Route path='accounts' element={<DemoPage />} />
+            <Route path='customers' element={<CustomerPage />} />
+            <Route path='employees' element={<EmployeePage />} />
+            <Route path='shifts' element={<></>} />
+            <Route path='schedules' element={<div>AB</div>} />
+            <Route path='requests' element={<CustomerRequestPage/>} />
+            <Route path='appointments' element={<div>BC</div>} />
+            <Route path='categories' element={<div>A</div>} />
+            <Route path='employees-categories' element={<div>B</div>} />
+            <Route path='services' element={<div>C</div>} />
+            <Route path='applications' element={<div>D</div>} />
+            <Route path='contacts' element={<div>E</div>} />
+            <Route path='transactions' element={<div>F</div>} />
+            <Route path='commissions' element={<div>ABC</div>} />
+            <Route path='employees-commissions' element={<div>BE</div>} />
+            <Route path='news' element={<div>BF</div>} />
+            <Route path='promotions' element={<div>CF</div>} />
+          </Route>
         </Routes>
-        
       </BrowserRouter>
     </GoogleOAuthProvider>
   )

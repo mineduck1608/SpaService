@@ -2,7 +2,7 @@ import headerBg from '../../images/serviceBg/bg1.jpg'
 import logo from '../../images/logos/tiny.png'
 import selected from '../../images/serviceBg/selected.png'
 import { Service } from '../../types/services'
-import { apiUrl } from '../../types/constants'
+import { apiUrl, getToken } from '../../types/constants'
 import { Category } from '@/types/category'
 
 export const imgs = { headerBg, logo, selected }
@@ -11,7 +11,11 @@ export function formatNumber(num: number): string {
 }
 export async function getCategory(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/categories/GetById/${id}`)
+    var res = await fetch(`${apiUrl}/categories/GetById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
     var json = (await res.json()) as Category
     return json
   } catch (e) {
@@ -20,7 +24,11 @@ export async function getCategory(id: string) {
 }
 export async function getServicesOfCategory(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/spaservices/ServiceOfCategory?categoryId=${id}`)
+    var res = await fetch(`${apiUrl}/spaservices/ServiceOfCategory?categoryId=${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
     var json = (await res.json()) as Service[]
     return json
   } catch (e) {
@@ -30,7 +38,11 @@ export async function getServicesOfCategory(id: string) {
 
 async function getAllCategories() {
   try {
-    var res = await fetch(`${apiUrl}/categories/GetAll`)
+    var res = await fetch(`${apiUrl}/categories/GetAll`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
     var json = (await res.json()) as Category[]
     return json
   } catch (e) {

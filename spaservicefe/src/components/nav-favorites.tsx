@@ -1,6 +1,7 @@
+import { CurrentItemContext } from '../pages/admin/context/currentItemContext'
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { MoreHorizontal, StarOff, Trash2 } from 'lucide-react'
-
+import { useContext } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,11 +18,11 @@ import {
   SidebarMenuItem,
   useSidebar
 } from 'src/components/ui/sidebar'
+import { Link } from 'react-router-dom'
 
 export function NavFavorites(params: { favorite: SideBarItem[] }) {
-  console.log(params.favorite)
-
   const { isMobile } = useSidebar()
+  const context = useContext(CurrentItemContext)
 
   return (
     <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
@@ -30,16 +31,16 @@ export function NavFavorites(params: { favorite: SideBarItem[] }) {
         {params.favorite.map((item) => (
           <SidebarMenuItem key={item.title} className='-ml-4'>
             <SidebarMenuButton asChild>
-              <button
+              <Link
+                to={item.url ?? ''}
                 onClick={(e) => {
-                  window.location.assign(item.url ?? '/admin')
+                  context.setCurrentItem(item.title)
                 }}
-                title={item.title}
                 className='text-black no-underline'
               >
                 {item.icon && <item.icon className='mr-1 h-4 w-4' />}
                 <span className='mb-0.5 text-base'>{item.title}</span>
-              </button>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -56,11 +57,6 @@ export function NavFavorites(params: { favorite: SideBarItem[] }) {
                 <DropdownMenuItem>
                   <StarOff className='text-muted-foreground' />
                   <span>Remove from Favorites</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2 className='text-muted-foreground' />
-                  <span>Delete</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

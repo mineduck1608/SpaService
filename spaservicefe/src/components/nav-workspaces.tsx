@@ -1,6 +1,8 @@
+import { CurrentItemContext } from '../pages/admin/context/currentItemContext'
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { ChevronRight, Heart, MoreHorizontal, Star } from 'lucide-react'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
 import {
   SidebarGroup,
@@ -16,7 +18,7 @@ import {
 } from 'src/components/ui/sidebar'
 
 export function NavWorkspaces(params: { items: SideBarItem[] }) {
-  const [activePage, setActivePage] = useState<string | null>(null)
+  const context = useContext(CurrentItemContext)
   return (
     <SidebarGroup>
       <SidebarGroupLabel className='mb-2 text-lg'>Workspaces</SidebarGroupLabel>
@@ -26,11 +28,9 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
             <Collapsible key={workspace.title} className='-ml-4'>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a className='text-black no-underline'
-                    href={workspace.url ? ('/admin' + workspace.url) : '/admin#'}
-                  >
+                  <a className='cursor-pointer text-black no-underline'>
                     {workspace.icon && <workspace.icon className='mr-1 h-4 w-4' />}
-                    <span className='mb-0.5 text-base'>Manage {workspace.title}</span>
+                    <span className='mb-0.5 text-base'>{workspace.title}</span>
                   </a>
                 </SidebarMenuButton>
                 <CollapsibleTrigger asChild>
@@ -46,17 +46,16 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                     {(workspace.pages ?? []).map((page) => (
                       <SidebarMenuSubItem key={page.title}>
                         <SidebarMenuSubButton asChild>
-                          <div className='flex justify-between'>
-                            <a
-                              href={'/admin' + (page.url ?? '')}
-                              onClick={() => setActivePage(page.title)}
-                              className={`no-underline ${activePage === page.title ? 'bg-gray-200 text-black' : 'text-black'}`}
-
-                            >
-                              {page.icon && <page.icon className='mr-1 h-4 w-4 inline' />}
-                              <span className='mb-0.5'>{page.title}</span>
-                            </a>
-                          </div>
+                          <Link
+                            to={'/admin' + (page.url ?? '')}
+                            onClick={(e) => {
+                              context.setCurrentItem(page.title)
+                            }}
+                            className='text-black no-underline'
+                          >
+                            {page.icon && <page.icon className='mr-1 inline h-4 w-4' />}
+                            <span className='mb-0.5'>{page.title}</span>
+                          </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}

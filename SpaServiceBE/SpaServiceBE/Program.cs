@@ -37,6 +37,8 @@ builder.Services.AddScoped<SpaServiceRepository>();
 builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddScoped<ContactRepository>();
 builder.Services.AddScoped<NewsRepository>();
+builder.Services.AddScoped<AttendanceRecordRepository>();
+
 
 
 
@@ -57,6 +59,8 @@ builder.Services.AddScoped<ISpaServiceService, SpaServiceService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<IAttendanceRecordService, AttendanceRecordService>();
+
 
 
 
@@ -71,6 +75,16 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
     });
+
+// Enable CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder
+            .AllowAnyOrigin() // Allows requests from any origin
+            .AllowAnyMethod()  // Allows any HTTP method (GET, POST, PUT, DELETE, etc.)
+            .AllowAnyHeader()); // Allows any HTTP headers
+});
 
 // Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -136,10 +150,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 
-// Enable CORS
-builder.Services.AddCors(options =>
-    options.AddDefaultPolicy(policy =>
-        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
 
 
 
@@ -170,7 +181,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();
 
-app.UseCors();
+app.UseCors("AllowAllOrigins"); // Enable the CORS policy
 
 app.MapControllers();
 

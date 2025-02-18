@@ -1,3 +1,4 @@
+import { RoleName } from '../../types/role'
 import { apiUrl } from '../../types/constants'
 
 const authenticate = async (username: string, password: string) => {
@@ -27,5 +28,18 @@ const authenticate = async (username: string, password: string) => {
     }
   }
 }
+const routeByRole = (id: string) => {
+  switch (id) {
+    case RoleName.ADMIN:
+      return '/admin'
+    case RoleName.CUSTOMER:
+      return '/'
+    case RoleName.EMPLOYEE:
+      return '/employee'
+    case RoleName.MANAGER:
+      return '/manager'
+  }
+  return '/'
+}
 
-export { authenticate }
+export { authenticate, routeByRole }
