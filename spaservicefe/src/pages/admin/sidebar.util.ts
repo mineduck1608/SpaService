@@ -71,10 +71,6 @@ export const sideData = {
       icon: ClipboardList,
       pages: [
         {
-          title: 'Schedule',
-          url: '/schedules'
-        },
-        {
           title: 'Applications',
           url: '/applications'
         },

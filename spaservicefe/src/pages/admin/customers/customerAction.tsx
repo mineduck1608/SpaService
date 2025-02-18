@@ -2,21 +2,21 @@ import { useState } from 'react'
 import { Button } from '../../../components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Account } from '@/types/type'
+import { Customer } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 
-interface AccountActionsProps {
-  account: Account;
+interface CustomerActionsProps {
+  customer: Customer;
 }
 
-const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
+const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
   const [isModalOpen, setModalOpen] = useState(false)
 
   const openModal = () => setModalOpen(true)
   const closeModal = () => setModalOpen(false)
 
   const handleConfirmDelete = () => {
-    console.log(`Deleting account with id: ${account.accountId}`)
+    console.log(`Deleting customer with id: ${customer.customerId}`)
     closeModal()
   }
 
@@ -31,8 +31,8 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(account.accountId)}>
-            Copy account ID
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(customer.customerId)}>
+            Copy customer ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Update</DropdownMenuItem>
@@ -45,4 +45,4 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
   )
 }
 
-export default AccountActions
+export default CustomerActions

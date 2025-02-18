@@ -24,6 +24,8 @@ import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
 import { Dashboard } from './pages/admin/dashboard.tsx'
 import DemoPage from './pages/admin/accounts/page.tsx'
+import CustomerPage from './pages/admin/customers/page.tsx'
+import EmployeePage from './pages/admin/employees/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 
 function Layout({ children }) {
@@ -150,9 +152,8 @@ function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path='accounts' element={<DemoPage />} />
-            <Route path='customers' element={<div>ABCE</div>} />
-            <Route path='memberships' element={<div>ABCF</div>} />
-            <Route path='employees' element={<div>ABCG</div>} />
+            <Route path='customers' element={<CustomerPage/>} />
+            <Route path='employees' element={<EmployeePage/>} />
             <Route path='shifts' element={<div>ABCH</div>} />
             <Route path='schedules' element={<div>AB</div>} />
             <Route path='requests' element={<div>AC</div>} />

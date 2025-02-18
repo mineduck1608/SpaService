@@ -428,8 +428,7 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\RequestController.cs",
               "ViewState": "AgIAAEcAAAAAAAAAAAAjwF4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T07:10:36.273Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T07:10:36.273Z"
             },
             {
               "$type": "Document",
@@ -441,8 +440,7 @@
               "RelativeToolTip": "Repositories\\Entities\\Account.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T00:21:19.212Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T00:21:19.212Z"
             },
             {
               "$type": "Document",
@@ -450,12 +448,11 @@
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AccountController.cs*",
-              "RelativeToolTip": "SpaServiceBE\\Controllers\\AccountController.cs*",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "SpaServiceBE\\Controllers\\AccountController.cs",
               "ViewState": "AgIAADMAAAAAAAAAAAAowE4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T05:40:11.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T05:40:11.767Z"
             },
             {
               "$type": "Document",
@@ -463,12 +460,11 @@
               "Title": "RoleController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\RoleController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\RoleController.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\RoleController.cs*",
-              "RelativeToolTip": "SpaServiceBE\\Controllers\\RoleController.cs*",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\RoleController.cs",
+              "RelativeToolTip": "SpaServiceBE\\Controllers\\RoleController.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAQwBgAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T02:00:43.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T02:00:43.404Z"
             },
             {
               "$type": "Document",
@@ -480,8 +476,7 @@
               "RelativeToolTip": "Repositories\\Entities\\Role.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T04:17:10.682Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T04:17:10.682Z"
             },
             {
               "$type": "Document",
