@@ -42,4 +42,17 @@ export type Employee = {
   accountId: string
   phone: string
   email: string
+  customer: Customer
+}
+
+export type Appointment = {
+  appointmentId: string
+  status: string
+  requestId: string
+  employeeId: string
+  startTime: Date
+  endTime: Date
+  replacementEmployee: string
+  updatedAt: Date
+  employee: Employee
 }

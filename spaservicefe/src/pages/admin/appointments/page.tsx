@@ -1,206 +1,58 @@
 import { useState, useEffect } from 'react'
-import { Payment, columns } from './columns'
-import { DataTable } from './data-table'
+import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react'
+import {
+  createViewDay,
+  createViewMonthAgenda,
+  createViewMonthGrid,
+  createViewWeek,
+} from '@schedule-x/calendar'
+import { createEventsServicePlugin } from '@schedule-x/events-service'
+import { Appointment } from '../../../types/type' // Đảm bảo đường dẫn import đúng
 
-async function getData(): Promise<Payment[]> {
-  // Lấy dữ liệu từ API ở đây.
-  return [
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    }
+import '@schedule-x/theme-default/dist/index.css'
 
-    // ...
-  ]
-}
+function CalendarApp() {
+  const eventsService = useState(() => createEventsServicePlugin())[0]
 
-export default function DemoPage() {
-  const [data, setData] = useState<Payment[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const calendar = useCalendarApp({
+    views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
+    events: [], // Bắt đầu với danh sách rỗng
+    plugins: [eventsService]
+  })
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchEvents = async () => {
       try {
-        const data = await getData()
-        setData(data)
-      } catch (err) {
-        setError("Can't load the data.")
-      } finally {
-        setLoading(false)
+        const response = await fetch('https://localhost:7205/api/appointments/GetAll')
+        const data: Appointment[] = await response.json() // Xác định kiểu dữ liệu API trả về
+
+        // Chuyển đổi dữ liệu từ API thành danh sách phù hợp
+        const formattedEvents = data.map((event: Appointment) => ({
+          id: event.appointmentId,
+          title: event.employee?.fullName || "Unknown Employee",
+          start: new Date(event.startTime).toISOString(),
+          end: new Date(event.endTime).toISOString(),
+        }))
+
+        // Cập nhật sự kiện trực tiếp vào lịch
+        if (typeof calendar.addEvents === 'function') {
+          calendar.addEvents(formattedEvents)
+        } else {
+          console.error('calendar.addEvents không tồn tại')
+        }
+      } catch (error) {
+        console.error('Lỗi khi fetch dữ liệu:', error)
       }
     }
 
-    fetchData()
+    fetchEvents()
   }, [])
 
-  if (loading) return <div  className='ml-5'>Loading...</div>
-  if (error) return <div  className='ml-5'>{error}</div>
-
   return (
-    <div className='items-center justify-center h-[96%]'>
-      <h2 className='ml-11 my-4'>Accounts Management</h2>
-      <div className='container mx-auto rounded-md border w-[96%]'>
-        <DataTable columns={columns} data={data} />
-      </div>
+    <div>
+      <ScheduleXCalendar calendarApp={calendar} />
     </div>
   )
 }
+
+export default CalendarApp

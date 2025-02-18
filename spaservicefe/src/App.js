@@ -25,6 +25,7 @@ import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
 import { Dashboard } from './pages/admin/dashboard.tsx'
 import DemoPage from './pages/admin/accounts/page.tsx'
+import CalendarApp from './pages/admin/appointments/page.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -166,7 +167,7 @@ function App() {
             <Route path='shifts' element={<div>ABCH</div>} />
             <Route path='schedules' element={<div>AB</div>} />
             <Route path='requests' element={<div>AC</div>} />
-            <Route path='appointments' element={<div>BC</div>} />
+            <Route path='appointments' element={<CalendarApp/>} />
             <Route path='categories' element={<div>A</div>} />
             <Route path='employees-categories' element={<div>B</div>} />
             <Route path='services' element={<div>C</div>} />
