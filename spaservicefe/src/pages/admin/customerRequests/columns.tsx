@@ -1,44 +1,24 @@
-'use client'
-
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
-import { MoreHorizontal } from 'lucide-react'
-
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
+import RequestActions from './customerRequestAction' // Updated to reflect customer request actions
+import { Request } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '../../../components/ui/dropdown-menu'
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string
-  amount: number
-  status: 'pending' | 'processing' | 'success' | 'failed'
-  email: string
-}
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Request>[] = [
   {
     id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-        onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value: boolean) => table.toggleAllPageRowsSelected(!!value)}
         aria-label='Select all'
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: boolean) => row.toggleSelected(!!value)}
         aria-label='Select row'
       />
     ),
@@ -46,57 +26,56 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'status',
-    header: 'Status'
+    accessorKey: 'requestId',
+    header: ({ column }) => (
+      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        Request ID
+        <ArrowUpDown className='ml-2 h-4 w-4' />
+      </Button>
+    )
   },
   {
-    accessorKey: 'email',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Email
-          <ArrowUpDown className='ml-2 h-4 w-4' />
-        </Button>
-      )
-    }
-  },
-  {
-    accessorKey: 'amount',
-    header: () => <div className='text-right'>Amount</div>,
+    accessorKey: 'startTime',
+    header: 'Start Time',
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue('amount'))
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(amount)
-
-      return <div className='text-right font-medium'>{formatted}</div>
+      const startTime = new Date(row.getValue('startTime')).toLocaleString()
+      return <span>{startTime}</span>
     }
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => {
+      const status = row.getValue<string>('status')
+      const statusColor = status === 'Active' ? 'text-green-500' : 'text-red-500'
+      return <span className={statusColor}>{status}</span>
+    }
+  },
+  {
+    accessorKey: 'customerNote',
+    header: 'Customer Note',
+    cell: ({ row }) => row.getValue('customerNote') || 'No notes provided'
+  },
+  {
+    accessorKey: 'managerNote',
+    header: 'Manager Note',
+    cell: ({ row }) => row.getValue('managerNote') || 'No notes provided'
+  },
+  {
+    accessorKey: 'serviceId',
+    header: 'Service ID',
+    cell: ({ row }) => row.getValue('serviceId')
+  },
+  {
+    accessorKey: 'customerId',
+    header: 'Customer ID',
+    cell: ({ row }) => row.getValue('customerId')
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <MoreHorizontal className='h-4 w-4' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+      const request = row.original
+      return <RequestActions request={request} /> // Assuming this component handles the actions for the request
     }
   }
 ]

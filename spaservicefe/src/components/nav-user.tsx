@@ -11,7 +11,6 @@ import {
 } from 'src/components/ui/dropdown-menu'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from 'src/components/ui/sidebar'
 
-
 export function NavUser({
   user
 }: {

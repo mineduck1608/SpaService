@@ -6,7 +6,7 @@ import { Input, DatePicker } from 'antd'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('BOOKED') ?? '{}') as Service
-  if(!booked.serviceId){
+  if (!booked.serviceId) {
     window.location.assign('/services')
   }
   const { TextArea } = Input
@@ -67,11 +67,13 @@ export default function CheckoutPage() {
         <div className='w-1/3 rounded-br-lg rounded-tr-lg bg-purple1 px-3 py-4'>
           <p className='text-white'>You can pay immediately or at 10B1 Le Thanh Ton, Ben Nghe Ward, District 1, HCMC</p>
           <div className='flex justify-around'>
-            <button type='submit' className='w-1/3 rounded-br-lg rounded-tl-lg bg-white p-1 text-purple1'>Submit request</button>
+            <button type='submit' className='w-1/3 rounded-br-lg rounded-tl-lg bg-white p-1 text-purple1'>
+              Submit request
+            </button>
             <button className='w-1/3 rounded-br-lg rounded-tl-lg bg-white p-1 text-purple1'>Pay now</button>
           </div>
         </div>
       </form>
-    </div >
+    </div>
   )
 }

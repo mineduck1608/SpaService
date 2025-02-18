@@ -9,22 +9,27 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Employee } from '@/types/type' // Đổi kiểu dữ liệu thành Employee
+import { Account } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 
-interface EmployeeActionsProps {
-  employee: Employee // Đổi từ Customer sang Employee
+interface AccountActionsProps {
+  account: Account
 }
 
-const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
+const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
   const [isModalOpen, setModalOpen] = useState(false)
 
   const openModal = () => setModalOpen(true)
   const closeModal = () => setModalOpen(false)
 
   const handleConfirmDelete = () => {
-    console.log(`Deleting employee with id: ${employee.employeeId}`) // In ra ID nhân viên thay vì khách hàng
+    console.log(`Deleting account with id: ${account.accountId}`)
     closeModal()
+  }
+
+  const handleUpdate = () => {
+    // Redirect to an update page or open a modal for updating the account
+    console.log(`Updating account with id: ${account.accountId}`)
   }
 
   return (
@@ -38,14 +43,12 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employee.employeeId)}>
-            {' '}
-            {/* Sao chép ID nhân viên */}
-            Copy employee ID
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(account.accountId)}>
+            Copy account ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Update</DropdownMenuItem> {/* Cập nhật thông tin nhân viên */}
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}
+          <DropdownMenuItem onClick={handleUpdate}>Update</DropdownMenuItem> {/* Update action */}
+          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -54,4 +57,4 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   )
 }
 
-export default EmployeeActions
+export default AccountActions

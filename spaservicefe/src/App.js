@@ -27,6 +27,7 @@ import { Dashboard } from './pages/admin/dashboard.tsx'
 import DemoPage from './pages/admin/accounts/page.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
+import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 
 function Layout({ children }) {
@@ -161,11 +162,11 @@ function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path='accounts' element={<DemoPage />} />
-            <Route path='customers' element={<CustomerPage/>} />
-            <Route path='employees' element={<EmployeePage/>} />
-            <Route path='shifts' element={<div>ABCH</div>} />
+            <Route path='customers' element={<CustomerPage />} />
+            <Route path='employees' element={<EmployeePage />} />
+            <Route path='shifts' element={<></>} />
             <Route path='schedules' element={<div>AB</div>} />
-            <Route path='requests' element={<div>AC</div>} />
+            <Route path='requests' element={<CustomerRequestPage/>} />
             <Route path='appointments' element={<div>BC</div>} />
             <Route path='categories' element={<div>A</div>} />
             <Route path='employees-categories' element={<div>B</div>} />

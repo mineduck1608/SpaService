@@ -14,12 +14,12 @@ export default function EmployeePage() {
     const fetchData = async () => {
       try {
         const employees = await getAllEmployees() // Fetch tất cả nhân viên
-        
+
         const formattedEmployees = employees.map((employee) => ({
           ...employee,
-          hireDate: format(new Date(employee.hireDate), 'dd/MM/yyyy'), // Format ngày tuyển dụng
+          hireDate: format(new Date(employee.hireDate), 'dd/MM/yyyy') // Format ngày tuyển dụng
         }))
-  
+
         setData(formattedEmployees) // Set dữ liệu cho bảng
       } catch (err) {
         setError("Can't load the data.") // Xử lý lỗi nếu có
@@ -34,9 +34,9 @@ export default function EmployeePage() {
   if (error) return <div className='ml-5'>{error}</div>
 
   return (
-    <div className='items-center justify-center h-[96%]'>
-      <h2 className='ml-11 my-4'>Employee Management</h2> {/* Đổi thành Employee Management */}
-      <div className='container mx-auto rounded-md border w-[96%]'>
+    <div className='h-[96%] items-center justify-center'>
+      <h2 className='my-4 ml-11'>Employee Management</h2> {/* Đổi thành Employee Management */}
+      <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>
     </div>

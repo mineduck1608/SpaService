@@ -3,7 +3,7 @@ export type Account = {
   username: string
   password: string
   status: boolean
-  createAt: Date
+  createdAt: Date
   roleId: string
   updatedAt: Date
 }
@@ -12,7 +12,6 @@ export type Role = {
   roleId: string
   roleName: string
 }
-
 
 export type Customer = {
   customerId: string
@@ -42,4 +41,14 @@ export type Employee = {
   accountId: string
   phone: string
   email: string
+}
+
+export type Request = {
+  requestId: string
+  startTime: Date
+  status: string
+  customerNote: string
+  managerNote: string
+  serviceId: string
+  customerId: string
 }

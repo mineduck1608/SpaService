@@ -32,7 +32,12 @@ interface DataTableProps<TData, TValue> {
   filterKey2?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey1 = 'phone', filterKey2 = 'email' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  filterKey1 = 'phone',
+  filterKey2 = 'email'
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -70,7 +75,7 @@ export function DataTable<TData, TValue>({ columns, data, filterKey1 = 'phone', 
           placeholder={`Filter by ${filterKey2}...`}
           value={(table.getColumn(filterKey2)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey2)?.setFilterValue(event.target.value)}
-          className='max-w-sm ml-2'
+          className='ml-2 max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
           <AddModal />

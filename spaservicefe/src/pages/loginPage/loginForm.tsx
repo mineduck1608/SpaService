@@ -56,9 +56,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
       if (res.ok) {
         const data = await res.json()
         const token = data.accessToken as string
-        var jwtData = jwtDecode(token)
         sessionStorage.setItem('token', token)
-        window.location.assign('/home')
+        window.location.assign('/')
       } else {
         toast.error('Google login failed!')
       }

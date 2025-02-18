@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import { Button } from '../../../components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../../../components/ui/dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Account } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 
 interface AccountActionsProps {
-  account: Account;
+  account: Account
 }
 
 const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {

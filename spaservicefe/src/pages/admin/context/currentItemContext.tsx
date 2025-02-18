@@ -7,5 +7,5 @@ export type CurrentItemContextType = {
 
 export const CurrentItemContext = createContext<CurrentItemContextType>({
   currentItem: '',
-  setCurrentItem: (i) => { }
+  setCurrentItem: (i) => {}
 })

@@ -5,7 +5,6 @@ import { DataTable } from './data-table'
 async function getData(): Promise<Payment[]> {
   // Lấy dữ liệu từ API ở đây.
   return [
-    
     {
       id: '728ed52f',
       amount: 100,
@@ -41,8 +40,7 @@ async function getData(): Promise<Payment[]> {
       amount: 100,
       status: 'pending',
       email: 'm@example.com'
-    },
-    
+    }
 
     // ...
   ]
@@ -68,13 +66,13 @@ export default function DemoPage() {
     fetchData()
   }, [])
 
-  if (loading) return <div  className='ml-5'>Loading...</div>
-  if (error) return <div  className='ml-5'>{error}</div>
+  if (loading) return <div className='ml-5'>Loading...</div>
+  if (error) return <div className='ml-5'>{error}</div>
 
   return (
-    <div className='items-center justify-center h-[96%]'>
-      <h2 className='ml-11 my-4'>Accounts Management</h2>
-      <div className='container mx-auto rounded-md border w-[96%]'>
+    <div className='h-[96%] items-center justify-center'>
+      <h2 className='my-4 ml-11'>Accounts Management</h2>
+      <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>
     </div>

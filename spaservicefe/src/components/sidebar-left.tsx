@@ -33,7 +33,7 @@ export function SidebarLeft(params: {
       <SidebarContent>
         <NavFavorites favorite={params.favourite ?? []} />
         <NavWorkspaces items={params.main ?? []} />
-        <NavSecondary items={params.secondary ?? []} className="mt-auto" />
+        <NavSecondary items={params.secondary ?? []} className='mt-auto' />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

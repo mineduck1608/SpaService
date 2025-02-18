@@ -1,5 +1,5 @@
-import { apiUrl, getToken } from "../../../types/constants"
-import { Account, Role } from "../../../types/type"
+import { apiUrl, getToken } from '../../../types/constants'
+import { Account, Role } from '../../../types/type'
 
 export async function getAllAccounts() {
   try {

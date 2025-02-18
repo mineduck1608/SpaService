@@ -31,11 +31,13 @@ export function NavFavorites(params: { favorite: SideBarItem[] }) {
         {params.favorite.map((item) => (
           <SidebarMenuItem key={item.title} className='-ml-4'>
             <SidebarMenuButton asChild>
-              <Link to={item.url ?? ''}
+              <Link
+                to={item.url ?? ''}
                 onClick={(e) => {
                   context.setCurrentItem(item.title)
                 }}
-                className='text-black no-underline'>
+                className='text-black no-underline'
+              >
                 {item.icon && <item.icon className='mr-1 h-4 w-4' />}
                 <span className='mb-0.5 text-base'>{item.title}</span>
               </Link>

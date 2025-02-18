@@ -15,18 +15,21 @@ export default function CustomerPage() {
     const fetchData = async () => {
       try {
         const [customers, members] = await Promise.all([getAllCustomers(), getAllMemberships()])
-  
-        const memberMap = members.reduce((acc, member) => {
-          acc[member.membershipId] = member.type
-          return acc
-        }, {} as Record<string, string>)
-  
+
+        const memberMap = members.reduce(
+          (acc, member) => {
+            acc[member.membershipId] = member.type
+            return acc
+          },
+          {} as Record<string, string>
+        )
+
         const formattedCustomers = customers.map((customer) => ({
           ...customer,
           dateOfBirth: format(new Date(customer.dateOfBirth), 'dd/MM/yyyy'), // Format ngày tháng sinh
-          type: memberMap[customer.membershipId] || "Unknown", // Lấy memberName từ map
+          type: memberMap[customer.membershipId] || 'Unknown' // Lấy memberName từ map
         }))
-  
+
         setData(formattedCustomers)
       } catch (err) {
         setError("Can't load the data.")
@@ -41,9 +44,9 @@ export default function CustomerPage() {
   if (error) return <div className='ml-5'>{error}</div>
 
   return (
-    <div className='items-center justify-center h-[96%]'>
-      <h2 className='ml-11 my-4'>Customer Management</h2>
-      <div className='container mx-auto rounded-md border w-[96%]'>
+    <div className='h-[96%] items-center justify-center'>
+      <h2 className='my-4 ml-11'>Customer Management</h2>
+      <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>
     </div>
