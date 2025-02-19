@@ -17,7 +17,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add SpaServiceContext to DI
-builder.Services.AddDbContext<SpaServiceContext>(options =>
+builder.Services.AddDbContext<SpaserviceContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add repositories to DI

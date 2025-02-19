@@ -26,6 +26,4 @@ public partial class Appointment
     public virtual Employee? ReplacementEmployeeNavigation { get; set; }
 
     public virtual Request Request { get; set; } = null!;
-
-    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

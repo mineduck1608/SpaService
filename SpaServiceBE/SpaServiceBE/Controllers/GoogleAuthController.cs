@@ -14,9 +14,9 @@ namespace SpaServiceBE.Controllers
     [ApiController]
     public class GoogleAuthController : ControllerBase
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public GoogleAuthController(SpaServiceContext context)
+        public GoogleAuthController(SpaserviceContext context)
         {
             _context = context;
         }
@@ -43,7 +43,7 @@ namespace SpaServiceBE.Controllers
                 var employee = _context.Employees.FirstOrDefault(e => e.Email == email);
                 if (employee != null)
                 {
-                    var account = _context.Accounts.FirstOrDefault(a => a.AccountId == employee.AccountId);
+                    var account = _context.Accounts.Include(r => r.Role).FirstOrDefault(a => a.AccountId == employee.AccountId);
                      // Generate access token
                 var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName);
 

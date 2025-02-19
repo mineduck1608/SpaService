@@ -56,7 +56,6 @@ namespace API.Controllers
         }
 
         // POST: api/news/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateNews([FromBody] dynamic request)
         {

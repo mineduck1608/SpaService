@@ -11,7 +11,7 @@ using Repositories.Context;
 
 namespace Repositories.Migrations
 {
-    [DbContext(typeof(SpaServiceContext))]
+    [DbContext(typeof(SpaserviceContext))]
     [Migration("20250205050106_InitialCreate")]
     partial class InitialCreate
     {

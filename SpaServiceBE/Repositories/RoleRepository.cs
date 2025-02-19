@@ -8,9 +8,9 @@ namespace Repositories.Repositories
 {
     public class RoleRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public RoleRepository(SpaServiceContext context)
+        public RoleRepository(SpaserviceContext context)
         {
             _context = context;
         }

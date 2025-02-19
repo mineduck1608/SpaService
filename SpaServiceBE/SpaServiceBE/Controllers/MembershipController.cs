@@ -60,7 +60,6 @@ namespace API.Controllers
         }
 
         // POST: api/memberships/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateMembership([FromBody] dynamic request)
         {

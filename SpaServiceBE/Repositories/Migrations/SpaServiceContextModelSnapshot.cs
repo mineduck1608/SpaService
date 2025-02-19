@@ -10,7 +10,7 @@ using Repositories.Context;
 
 namespace Repositories.Migrations
 {
-    [DbContext(typeof(SpaServiceContext))]
+    [DbContext(typeof(SpaserviceContext))]
     partial class SpaServiceContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

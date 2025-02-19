@@ -6,13 +6,13 @@ using Repositories.Entities;
 
 namespace Repositories.Context;
 
-public partial class SpaServiceContext : DbContext
+public partial class SpaserviceContext : DbContext
 {
-    public SpaServiceContext()
+    public SpaserviceContext()
     {
     }
 
-    public SpaServiceContext(DbContextOptions<SpaServiceContext> options)
+    public SpaserviceContext(DbContextOptions<SpaserviceContext> options)
         : base(options)
     {
     }
@@ -114,7 +114,7 @@ public partial class SpaServiceContext : DbContext
 
         modelBuilder.Entity<Application>(entity =>
         {
-            entity.HasKey(e => e.ApplicationId).HasName("PK__Applicat__79FDB1CF07D56196");
+            entity.HasKey(e => e.ApplicationId).HasName("PK__Applicat__79FDB1CF7D0985B1");
 
             entity.ToTable("Application");
 
@@ -191,7 +191,7 @@ public partial class SpaServiceContext : DbContext
 
             entity.HasOne(d => d.ReplacementEmployeeNavigation).WithMany(p => p.AppointmentReplacementEmployeeNavigations)
                 .HasForeignKey(d => d.ReplacementEmployee)
-                .HasConstraintName("FK__Appointme__repla__44CA3770");
+                .HasConstraintName("FK__Appointme__repla__1EA48E88");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.RequestId)
@@ -201,7 +201,7 @@ public partial class SpaServiceContext : DbContext
 
         modelBuilder.Entity<AttendanceRecord>(entity =>
         {
-            entity.HasKey(e => e.AttendanceId).HasName("PK__WorkingS__FA6ABE96E5425908");
+            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__0F09E0E6CB14EE2B");
 
             entity.Property(e => e.AttendanceId)
                 .HasMaxLength(50)
@@ -247,7 +247,7 @@ public partial class SpaServiceContext : DbContext
 
         modelBuilder.Entity<CategoryEmployee>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__category__3213E83FB60BE45E");
+            entity.HasKey(e => e.Id).HasName("PK__category__3213E83FB5E02B84");
 
             entity.ToTable("categoryEmployee");
 
@@ -265,11 +265,11 @@ public partial class SpaServiceContext : DbContext
 
             entity.HasOne(d => d.Category).WithMany(p => p.CategoryEmployees)
                 .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK__categoryE__categ__12FDD1B2");
+                .HasConstraintName("FK__categoryE__categ__1F98B2C1");
 
             entity.HasOne(d => d.Employee).WithMany(p => p.CategoryEmployees)
                 .HasForeignKey(d => d.EmployeeId)
-                .HasConstraintName("FK__categoryE__emplo__13F1F5EB");
+                .HasConstraintName("FK__categoryE__emplo__208CD6FA");
         });
 
         modelBuilder.Entity<Commission>(entity =>
@@ -287,7 +287,7 @@ public partial class SpaServiceContext : DbContext
 
         modelBuilder.Entity<Contact>(entity =>
         {
-            entity.HasKey(e => e.ContactId).HasName("PK__Contact__7121FD35AD0C12AD");
+            entity.HasKey(e => e.ContactId).HasName("PK__Contact__7121FD3593158F10");
 
             entity.ToTable("Contact");
 
@@ -504,7 +504,7 @@ public partial class SpaServiceContext : DbContext
 
         modelBuilder.Entity<News>(entity =>
         {
-            entity.HasKey(e => e.NewsId).HasName("PK__news__5218041ED44A4756");
+            entity.HasKey(e => e.NewsId).HasName("PK__news__5218041EC0043D8E");
 
             entity.ToTable("news");
 
@@ -666,8 +666,6 @@ public partial class SpaServiceContext : DbContext
 
             entity.ToTable("Transaction");
 
-            entity.HasIndex(e => e.AppointmentId, "IX_Transaction_appointmentId");
-
             entity.HasIndex(e => e.MembershipId, "IX_Transaction_membershipId");
 
             entity.HasIndex(e => e.PromotionId, "IX_Transaction_promotionId");
@@ -676,10 +674,6 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("transactionId");
-            entity.Property(e => e.AppointmentId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("appointmentId");
             entity.Property(e => e.MembershipId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -688,16 +682,16 @@ public partial class SpaServiceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("promotionId");
+            entity.Property(e => e.RequestId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("requestId");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalPrice).HasColumnName("totalPrice");
             entity.Property(e => e.TransactionType)
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("transactionType");
-
-            entity.HasOne(d => d.Appointment).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.AppointmentId)
-                .HasConstraintName("FKTransactio520442");
 
             entity.HasOne(d => d.Membership).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.MembershipId)
@@ -706,6 +700,10 @@ public partial class SpaServiceContext : DbContext
             entity.HasOne(d => d.Promotion).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.PromotionId)
                 .HasConstraintName("FKTransactio965842");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.Transactions)
+                .HasForeignKey(d => d.RequestId)
+                .HasConstraintName("FK__Transacti__reque__07C12930");
         });
 
         OnModelCreatingPartial(modelBuilder);

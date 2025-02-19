@@ -60,7 +60,6 @@ namespace API.Controllers
         }
 
         // POST: api/feedbacks/Create
-        [Authorize (Roles = "Customer")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateFeedback([FromBody] dynamic request)
         {

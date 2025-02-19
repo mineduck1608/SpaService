@@ -57,7 +57,6 @@ namespace API.Controllers
             }
         }
         // POST: api/customers/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCustomer([FromBody] dynamic request)
         {

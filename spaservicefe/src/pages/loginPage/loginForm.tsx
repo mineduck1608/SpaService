@@ -47,6 +47,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
   const handleGoogleSuccess = async (response: any) => {
     console.log('Login Success:', response.credential)
     const token = response.credential
+    setFetching(true)
     try {
       const res = await fetch('https://localhost:7205/api/GoogleAuth/decode-and-check-or-create', {
         method: 'POST',
@@ -57,12 +58,16 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         const data = await res.json()
         const token = data.accessToken as string
         sessionStorage.setItem('token', token)
-        window.location.assign('/')
+        var jwtData = jwtDecode(token)
+        const role = jwtData[roleJWT] as string
+        window.location.assign(routeByRole(role))
       } else {
         toast.error('Google login failed!')
       }
     } catch (error) {
       console.error('Google login error:', error)
+    } finally {
+      setFetching(false)
     }
   }
 
