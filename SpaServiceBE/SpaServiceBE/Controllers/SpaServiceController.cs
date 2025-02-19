@@ -60,7 +60,6 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [Authorize (Roles ="Admin, Manager")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateSpaService([FromBody] dynamic request)
         {

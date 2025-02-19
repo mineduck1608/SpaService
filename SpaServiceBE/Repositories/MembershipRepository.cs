@@ -10,9 +10,9 @@ namespace Repositories
 {
     public class MembershipRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public MembershipRepository(SpaServiceContext context)
+        public MembershipRepository(SpaserviceContext context)
         {
             _context = context;
         }

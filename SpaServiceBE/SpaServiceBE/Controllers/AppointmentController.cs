@@ -57,7 +57,6 @@ namespace API.Controllers
         }
 
         // POST: api/appointments/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateAppointment([FromBody] dynamic request)
         {

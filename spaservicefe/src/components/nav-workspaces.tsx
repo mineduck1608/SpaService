@@ -1,7 +1,6 @@
 import { SideBarItem } from '@/pages/admin/sidebar.util'
-import { ChevronRight, Heart, MoreHorizontal, Star } from 'lucide-react'
-import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { ChevronRight } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
 import {
   SidebarGroup,
@@ -15,6 +14,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem
 } from 'src/components/ui/sidebar'
+import { Link } from 'react-router-dom'
 
 export function NavWorkspaces(params: { items: SideBarItem[] }) {
   const nav = useNavigate()
@@ -27,10 +27,10 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
             <Collapsible key={workspace.title} className='-ml-4'>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a className='cursor-pointer text-black no-underline'>
+                  <Link to="#" className='cursor-pointer text-black no-underline'>
                     {workspace.icon && <workspace.icon className='mr-1 h-4 w-4' />}
                     <span className='mb-0.5 text-base'>{workspace.title}</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuAction
@@ -45,11 +45,13 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                     {(workspace.pages ?? []).map((page) => (
                       <SidebarMenuSubItem key={page.title}>
                         <SidebarMenuSubButton asChild>
-                          <a href={'/admin' + (page.url ?? '')} className='text-black no-underline'
+                          <Link
+                            to={'/admin' + (page.url ?? '')}
+                            className='text-black no-underline'
                           >
                             {page.icon && <page.icon className='mr-1 inline h-4 w-4' />}
                             <span className='mb-0.5'>{page.title}</span>
-                          </a>
+                          </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}

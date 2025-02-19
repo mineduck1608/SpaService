@@ -119,7 +119,6 @@ namespace API.Controllers
         }
 
         // POST: api/contacts/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateContact([FromBody] dynamic request)
         {

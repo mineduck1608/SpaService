@@ -60,7 +60,6 @@ namespace API.Controllers
         }
 
         // POST: api/employees/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateEmployee([FromBody] dynamic request)
         {
@@ -175,6 +174,25 @@ namespace API.Controllers
                     return NotFound($"Employee with ID = {id} not found.");
 
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // API lấy danh sách nhân viên theo CategoryId
+        [HttpGet("GetEmployeeByCategoryId/{categoryId}")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeeByCategoryId(string categoryId)
+        {
+            try
+            {
+                var employees = await _service.GetEmployeesByCategoryIdAsync(categoryId);
+
+                if (employees == null || employees.Count == 0)
+                    return NotFound($"No employees found for Category ID = {categoryId}.");
+
+                return Ok(employees);
             }
             catch (Exception ex)
             {

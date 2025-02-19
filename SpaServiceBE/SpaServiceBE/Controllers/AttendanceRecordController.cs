@@ -58,7 +58,6 @@ namespace API.Controllers
         }
 
         // POST: api/attendanceRecords/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateAttendanceRecord([FromBody] dynamic request)
         {

@@ -55,5 +55,11 @@ namespace Services
         {
             return await _repository.Delete(employeeId);
         }
+
+        public async Task<List<Employee>> GetEmployeesByCategoryIdAsync(string categoryId)
+        {
+            // Lấy danh sách nhân viên theo CategoryId từ repository
+            return await _repository.GetEmployeesByCategoryId(categoryId);
+        }
     }
 }
