@@ -28,6 +28,7 @@ import DemoPage from './pages/admin/accounts/page.tsx'
 import CalendarApp from './pages/admin/appointments/page.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
+import PayResultPage from './pages/payResult/payResultPage.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -150,6 +151,14 @@ function App() {
             element={
               <Layout>
                 <ContactPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='pay-result'
+            element={
+              <Layout>
+                <PayResultPage />
               </Layout>
             }
           />

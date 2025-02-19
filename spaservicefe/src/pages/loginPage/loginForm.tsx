@@ -47,6 +47,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
   const handleGoogleSuccess = async (response: any) => {
     console.log('Login Success:', response.credential)
     const token = response.credential
+    setFetching(true)
     try {
       const res = await fetch('https://localhost:7205/api/GoogleAuth/decode-and-check-or-create', {
         method: 'POST',
@@ -65,6 +66,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
       }
     } catch (error) {
       console.error('Google login error:', error)
+    } finally {
+      setFetching(false)
     }
   }
 
