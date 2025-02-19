@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using SpaServiceBE;
+using SpaServiceBE.PaymentService;
 
 var builder = WebApplication.CreateBuilder(args);
 
