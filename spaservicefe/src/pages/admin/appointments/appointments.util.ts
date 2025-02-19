@@ -11,3 +11,4 @@ export async function getAllAppointments() {
   return json
 }
 
+
