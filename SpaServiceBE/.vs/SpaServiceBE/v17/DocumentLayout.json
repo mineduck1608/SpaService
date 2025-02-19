@@ -372,21 +372,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ICategoryEmployeeService.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\ICategoryEmployeeService.cs",
-              "RelativeDocumentMoniker": "Services\\IServices\\ICategoryEmployeeService.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\ICategoryEmployeeService.cs",
-              "RelativeToolTip": "Services\\IServices\\ICategoryEmployeeService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T14:48:35.031Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 5,
@@ -397,8 +384,7 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\CategoryEmployeeController.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAkwCcAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T14:45:14.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-18T14:45:14.607Z"
             },
             {
               "$type": "Document",
@@ -410,8 +396,7 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\CategoryController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAJIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T07:08:52.259Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T07:08:52.259Z"
             },
             {
               "$type": "Document",
@@ -423,8 +408,7 @@
               "RelativeToolTip": "Services\\IServices\\IEmployeeService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T01:23:10.238Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T01:23:10.238Z"
             },
             {
               "$type": "Document",
@@ -436,8 +420,7 @@
               "RelativeToolTip": "Services\\EmployeeService.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAwwD0AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T01:19:19.671Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T01:19:19.671Z"
             },
             {
               "$type": "Document",
@@ -449,8 +432,7 @@
               "RelativeToolTip": "Repositories\\EmployeeRepository.cs",
               "ViewState": "AgIAAB8AAAAAAAAAAAAAwHgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T00:47:26.436Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T00:47:26.436Z"
             },
             {
               "$type": "Document",
@@ -462,8 +444,7 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\EmployeeController.cs",
               "ViewState": "AgIAAKgAAAAAAAAAAAAUwMUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T07:09:56.241Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T07:09:56.241Z"
             },
             {
               "$type": "Document",
@@ -480,6 +461,18 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ICategoryEmployeeService.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\ICategoryEmployeeService.cs",
+              "RelativeDocumentMoniker": "Services\\IServices\\ICategoryEmployeeService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\ICategoryEmployeeService.cs",
+              "RelativeToolTip": "Services\\IServices\\ICategoryEmployeeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T14:48:35.031Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AccountController.cs",
@@ -488,8 +481,7 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AccountController.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAowC8AAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T05:40:11.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T05:40:11.767Z"
             },
             {
               "$type": "Document",
