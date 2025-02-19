@@ -7,7 +7,7 @@ import { Category } from '@/types/category'
 
 export const imgs = { headerBg, logo, selected }
 export function formatNumber(num: number): string {
-  return new Intl.NumberFormat('de-DE').format(num).replace('.', ',')
+  return new Intl.NumberFormat('de-DE').format(num).replace(/[.]/g, ',')
 }
 export async function getCategory(id: string) {
   try {
