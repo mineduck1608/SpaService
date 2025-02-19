@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function PayResultPage() {
   const [r, setR] = useState(false)
-  const s = window.location.search.substring(1)
-  
-  if (s.length !== 0) {
 
-  }
+  useEffect(() => {
+    const s = window.location.search.substring(1)
+    if (s.length !== 0) {
+      setR(s.includes('success'))
+    }
+  }, [])
 
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
