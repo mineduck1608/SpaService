@@ -57,7 +57,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         const data = await res.json()
         const token = data.accessToken as string
         sessionStorage.setItem('token', token)
-        window.location.assign('/')
+        var jwtData = jwtDecode(token)
+        const role = jwtData[roleJWT] as string
+        window.location.assign(routeByRole(role))
       } else {
         toast.error('Google login failed!')
       }

@@ -60,7 +60,6 @@ namespace API.Controllers
         }
 
         // POST: api/employeecommissions/Create
-        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateEmployeeCommission([FromBody] dynamic request)
         {

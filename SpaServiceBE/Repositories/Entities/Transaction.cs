@@ -16,7 +16,7 @@ public partial class Transaction
     public string? PromotionId { get; set; }
 
     public string? MembershipId { get; set; }
-
+    
     public string? RequestId { get; set; }
 
     public virtual ICollection<EmployeeCommission> EmployeeCommissions { get; set; } = new List<EmployeeCommission>();

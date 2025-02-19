@@ -61,7 +61,6 @@ namespace API.Controllers
         }
 
         // POST: api/promotions/Create
-        [Authorize(Roles = "Admin, Manager")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreatePromotion([FromBody] dynamic request)
         {

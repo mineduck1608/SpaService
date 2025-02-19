@@ -60,7 +60,6 @@ namespace API.Controllers
         }
 
         // POST: api/employees/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateEmployee([FromBody] dynamic request)
         {

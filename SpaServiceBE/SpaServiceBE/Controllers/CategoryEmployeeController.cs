@@ -77,7 +77,6 @@ namespace API.Controllers
         }
 
         // POST: api/categoryemployees/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCategoryEmployee([FromBody] dynamic request)
         {
