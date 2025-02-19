@@ -24,6 +24,7 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { AddModal } from './addModal'
+import BaseModal from '../baseModal'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
@@ -69,7 +70,7 @@ export function DataTable<TData, TValue>({
           placeholder={`Filter by ${filterKey1}...`}
           value={(table.getColumn(filterKey1)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey1)?.setFilterValue(event.target.value)}
-          className='max-w-sm'
+          className='w-[16rem]'
         />
         <Input
           placeholder={`Filter by ${filterKey2}...`}
@@ -78,7 +79,7 @@ export function DataTable<TData, TValue>({
           className='ml-2 max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
-          <AddModal />
+          <BaseModal entity='Employee' type='Create'/>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>

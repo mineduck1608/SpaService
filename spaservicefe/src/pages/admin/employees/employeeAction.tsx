@@ -11,6 +11,7 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Employee } from '@/types/type' // Đổi kiểu dữ liệu thành Employee
 import { MoreHorizontal } from 'lucide-react'
+import BaseModal from '../baseModal'
 
 interface EmployeeActionsProps {
   employee: Employee // Đổi từ Customer sang Employee
@@ -44,7 +45,11 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
             Copy employee ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Update</DropdownMenuItem> {/* Cập nhật thông tin nhân viên */}
+          <BaseModal 
+            entity='Employee' 
+            type='Update' 
+            rowData={employee}
+          />
           <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}
         </DropdownMenuContent>
       </DropdownMenu>

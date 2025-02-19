@@ -11,6 +11,7 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Customer } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
+import BaseModal from '../baseModal'
 
 interface CustomerActionsProps {
   customer: Customer
@@ -18,7 +19,6 @@ interface CustomerActionsProps {
 
 const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
   const [isModalOpen, setModalOpen] = useState(false)
-
   const openModal = () => setModalOpen(true)
   const closeModal = () => setModalOpen(false)
 
@@ -38,15 +38,19 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(customer.customerId)}>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(customer.customerId)} className='cursor-pointer'>
             Copy customer ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Update</DropdownMenuItem>
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
+          <BaseModal 
+            entity='Customer' 
+            type='Update' 
+            rowData={customer}
+          />
+          <DropdownMenuItem onClick={openModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
+      
       <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
     </>
   )
