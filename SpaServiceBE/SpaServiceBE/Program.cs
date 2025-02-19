@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using SpaServiceBE;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,6 +78,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
     });
+
 
 // Enable CORS
 builder.Services.AddCors(options =>
@@ -149,7 +151,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 
-
+//Connect VNPay API
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 
 
 
