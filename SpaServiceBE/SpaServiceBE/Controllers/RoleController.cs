@@ -57,7 +57,6 @@ namespace API.Controllers
         }
 
         // POST: api/roles/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateRole([FromBody] dynamic request)
         {

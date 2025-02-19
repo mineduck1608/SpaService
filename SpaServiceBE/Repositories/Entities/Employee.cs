@@ -22,7 +22,6 @@ public partial class Employee
     public string? Phone { get; set; }
 
     public string? Email { get; set; }
-
     public virtual Account Account { get; set; } = null!;
 
     public virtual ICollection<Application> Applications { get; set; } = new List<Application>();

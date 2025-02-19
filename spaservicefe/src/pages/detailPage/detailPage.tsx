@@ -36,7 +36,7 @@ export default function DetailPage() {
             Home
           </Link>
           &nbsp;&gt;&nbsp;
-          <Link to={'/services/' + sampleService.categoryId} className='text-gray-400 no-underline'>
+          <Link to={'/services/' + data?.categoryId} className='text-gray-400 no-underline'>
             {CATEGORY.find((x) => x.categoryId === data?.categoryId)?.categoryName}
           </Link>
           &nbsp;&gt;&nbsp;

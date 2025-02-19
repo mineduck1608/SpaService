@@ -63,6 +63,22 @@
   },
   {
     "ContainingType": "API.Controllers.AccountController",
+    "Method": "Hash",
+    "RelativePath": "api/accounts/hash",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pass",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
     "Method": "Login",
     "RelativePath": "api/accounts/Login",
     "HttpMethod": "POST",

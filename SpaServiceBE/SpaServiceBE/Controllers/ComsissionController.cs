@@ -58,7 +58,6 @@ namespace API.Controllers
         }
 
         // POST: api/commissions/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCommission([FromBody] dynamic request)
         {

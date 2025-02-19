@@ -61,7 +61,7 @@ export type Contact = {
   customer: Customer
 }
 
-export interface Appointment {
+export type Appointment = {
   appointmentId: string
   status: string
   requestId: string

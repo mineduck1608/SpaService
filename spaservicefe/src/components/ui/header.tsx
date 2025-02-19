@@ -1,14 +1,54 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons'
 import logoColor from '../../images/logos/logoColor.png'
 import { Category } from '@/types/category.ts'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
+import { ProfileButton } from './profileButton.tsx'
 
 const Header = () => {
+  // Giải mã JWT để kiểm tra thời gian hết hạn
+  const isTokenValid = (token: string | null) => {
+    if (!token) return false
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1])) // Giải mã phần payload của JWT
+      return payload.exp * 1000 > Date.now() // Kiểm tra xem token còn hạn không
+    } catch (error) {
+      return false
+    }
+  }
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = sessionStorage.getItem('token')
+      if (!isTokenValid(token)) {
+        sessionStorage.removeItem('token') // Xóa token nếu hết hạn
+      }
+    }
+
+    checkAuth()
+
+    // Lắng nghe thay đổi của sessionStorage (trong trường hợp token bị xóa từ tab khác)
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'token') {
+        checkAuth()
+      }
+    }
+    window.addEventListener('storage', handleStorageChange)
+
+    // Kiểm tra token mỗi phút (phòng trường hợp token hết hạn nhưng không reload)
+    const interval = setInterval(checkAuth, 60000)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      clearInterval(interval)
+    }
+  }, [])
+
   const [isAtTop, setIsAtTop] = useState(true)
   const [category, setCategory] = useState<Category[]>([])
+
   useEffect(() => {
     const handleScroll = () => {
       setIsAtTop(window.scrollY === 0)
@@ -26,6 +66,7 @@ const Header = () => {
 
   return (
     <>
+      
       <header className={`header ${isAtTop ? 'at-top' : ''}`}>
         <div className={`header-container ${isAtTop ? 'large' : 'small'}`}>
           <nav className='navigation'>
@@ -49,7 +90,7 @@ const Header = () => {
                   className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}
                 >
                   {category.map((x) => (
-                    <li>
+                    <li key={x.categoryId}>
                       <a
                         href={'/services/' + x.categoryId}
                         className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
@@ -117,6 +158,10 @@ const Header = () => {
               </li>
             </ul>
           </nav>
+          <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+          <ProfileButton /> {/* Moved to the right side */}
+        </div>
+
         </div>
       </header>
     </>
@@ -124,3 +169,4 @@ const Header = () => {
 }
 
 export default Header
+
