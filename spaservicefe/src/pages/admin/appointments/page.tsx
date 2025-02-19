@@ -8,8 +8,11 @@ import {
 } from '@schedule-x/calendar'
 import { createEventsServicePlugin } from '@schedule-x/events-service'
 import { Appointment } from '../../../types/type' // Đảm bảo đường dẫn import đúng
+import { Customer } from '../../../types/type'
 import { getToken } from '../../../types/constants' // Thêm import này
 import '@schedule-x/theme-default/dist/index.css'
+import { getAllAppointments } from './appointments.util'
+import { getAllCustomers } from '../customers/customer.util'
 
 type CalendarEvent = {
   id: string;
@@ -20,6 +23,7 @@ type CalendarEvent = {
 
 function CalendarApp() {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
   const eventsService = useState(() => createEventsServicePlugin())[0]
 
   const calendar = useCalendarApp({
@@ -29,32 +33,39 @@ function CalendarApp() {
   })
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('https://localhost:7205/api/appointments/GetAll', {
-          headers: {
-            Authorization: `Bearer ${getToken()}`
-          }
-        })
-        const data: Appointment[] = await response.json()
-        
-        console.log('Raw API data:', data)
+        const [appointments, customersData] = await Promise.all([
+          getAllAppointments(),
+          getAllCustomers()
+        ]);
 
-        const formattedEvents = data.map((event: Appointment) => ({
-          id: event.appointmentId,
-          title: event.employee.fullName,
-          start: event.startTime,
-          end: event.endTime
-        }))
+        const formattedEvents = appointments.map((appointment: Appointment) => {
+          // Tìm customer tương ứng với appointment thông qua requestId
+          const customer = customersData.find(
+            (c: Customer) => c.customerId === appointment.requestId
+          );
+
+          return {
+            id: appointment.appointmentId,
+            title: appointment.requestId,
+            start: appointment.startTime,
+            end: appointment.endTime
+          };
+        });
         
-        setEvents(formattedEvents); // Cập nhật state events
+        setEvents(formattedEvents);
       } catch (error) {
-        console.error('Lỗi khi fetch dữ liệu:', error)
+        console.error('Lỗi khi fetch dữ liệu:', error);
       }
-    }
+    };
 
-    fetchEvents()
-  }, [])
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log('Events:', events);
+  }, [events]);
 
   return (
     <div>
