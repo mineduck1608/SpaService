@@ -7,65 +7,39 @@ import {
   createViewWeek,
 } from '@schedule-x/calendar'
 import { createEventsServicePlugin } from '@schedule-x/events-service'
-import { Appointment } from '../../../types/type' // Đảm bảo đường dẫn import đúng
-import { Customer } from '../../../types/type'
-import { getToken } from '../../../types/constants' // Thêm import này
-import '@schedule-x/theme-default/dist/index.css'
 import { getAllAppointments } from './appointments.util'
-import { getAllCustomers } from '../customers/customer.util'
+import { Appointment } from '../../../types/type'
 
-type CalendarEvent = {
-  id: string;
-  title: string;
-  start: string;
-  end: string;
-}
+import '@schedule-x/theme-default/dist/index.css'
 
 function CalendarApp() {
-  const [events, setEvents] = useState<CalendarEvent[]>([]);
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const eventsService = useState(() => createEventsServicePlugin())[0]
+  const [events, setEvents] = useState<{id: string, title: string, start: string, end: string}[]>([])
+  const eventsService = createEventsServicePlugin()
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const appointments = await getAllAppointments()
+        const formattedEvents = appointments.map((appointment: Appointment) => ({
+          id: appointment.appointmentId,
+          title: appointment.employee.fullName,
+          start: appointment.startTime,
+          end: appointment.endTime,
+        }))
+        setEvents(formattedEvents)
+      } catch (error) {
+        console.error('Error fetching appointments:', error)
+      }
+    }
+
+    fetchAppointments()
+  }, [])
 
   const calendar = useCalendarApp({
     views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-    events: events,
+    events,
     plugins: [eventsService]
   })
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [appointments, customersData] = await Promise.all([
-          getAllAppointments(),
-          getAllCustomers()
-        ]);
-
-        const formattedEvents = appointments.map((appointment: Appointment) => {
-          // Tìm customer tương ứng với appointment thông qua requestId
-          const customer = customersData.find(
-            (c: Customer) => c.customerId === appointment.requestId
-          );
-
-          return {
-            id: appointment.appointmentId,
-            title: appointment.requestId,
-            start: appointment.startTime,
-            end: appointment.endTime
-          };
-        });
-        
-        setEvents(formattedEvents);
-      } catch (error) {
-        console.error('Lỗi khi fetch dữ liệu:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    console.log('Events:', events);
-  }, [events]);
 
   return (
     <div>
