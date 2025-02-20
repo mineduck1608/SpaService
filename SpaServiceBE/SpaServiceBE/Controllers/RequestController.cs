@@ -79,7 +79,6 @@ namespace API.Controllers
         {
             try
             {
-                var req = _service.GetAll();
                 //lay json cho bao mat
                 var jsonElement = (JsonElement)request;
 

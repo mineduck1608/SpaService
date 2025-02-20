@@ -6,7 +6,7 @@ export default function PayResultPage() {
   useEffect(() => {
     const s = window.location.search.substring(1)
     if (s.length !== 0) {
-      setR(s.includes('success'))
+      setR(s.includes('success=true'))
     }
   }, [])
 
@@ -33,7 +33,7 @@ export default function PayResultPage() {
               <div>
                 <p className='text-center text-3xl font-bold text-red-600'>Payment unsuccessful!</p>
                 <p className='text-xl'>Due to an unexpected error, your payment could not be finished</p>
-                <p className='text-xl'>Please try again, and if the errors keep happening, please contact us.</p>
+                <p className='text-xl'>Please try again, and if the errors keep happening, please contact us as soon as possible.</p>
               </div>
             )}
           </div>

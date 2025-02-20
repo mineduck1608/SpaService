@@ -17,7 +17,7 @@ namespace SpaServiceBE.Controllers
         {
             var response = _vnPayService.PaymentExecute(Request.Query);
 
-            return Redirect("http://localhost:3000");
+            return Redirect($"http://localhost:3000/pay-result?success={response.Success}");
         }
 
     }

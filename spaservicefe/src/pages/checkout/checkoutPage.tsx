@@ -3,7 +3,7 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
-import { getEmployees, submitRequest } from './checkoutPage.util.ts'
+import { createTransaction, getCusByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
 import { apiUrl, getToken } from '../../types/constants.ts'
@@ -13,30 +13,29 @@ import { toast, ToastContainer } from 'react-toastify'
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
   const [emp, setEmp] = useState<Employee[]>([])
+  const [txn, setTxn] = useState('')
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
   useEffect(() => {
     async function fetchData() {
       var t = getToken()
+      if (!t) {
+        return
+      }
       var x = jwtDecode(t ?? '')
       var s = await getEmployees(booked.categoryId)
       setEmp(s)
-      var c = await fetch(`${apiUrl}/customers/GetByAccId?accId=${x.UserId}`, {
-        headers: {
-          Authorization: `Bearer ${t}`
-        }
-      })
-      if (c.ok) {
-        setReq({ ...req, customerId: (await c.json()).customerId })
+      var c = await getCusByAcc(x.UserId)
+      if (c.customerId) {
+        setReq({ ...req, customerId: c.customerId })
       }
     }
     try {
       fetchData()
-    } catch (e) {}
+    } catch (e) { }
   }, [])
-  async function onSubmitBase(e: FormEvent) {
-    e.preventDefault()
+  async function onSubmitBase(type: string) {
     try {
       var s = await submitRequest(req)
       if (s.msg) {
@@ -44,14 +43,48 @@ export default function CheckoutPage() {
         return false
       }
       if (s.requestId) {
-        toast.success('Request created successfully')
-        return true
+        var y = await createTransaction(type, booked.price, s.requestId)
+        if (y.transactionId) {
+          setTxn(y.transactionId)
+          return true
+        }
+        toast.error(y.msg)
+        return false
       }
       toast.error(s)
     } catch (e) {
       toast.error(e as string)
     }
     return false
+  }
+  async function payInCash(e: FormEvent) {
+    e.preventDefault()
+    try {
+      var r = await onSubmitBase('CASH')
+      if (r) {
+        toast.success('Request created successfully')
+      }
+    } catch (e) {
+      toast.error(e as string)
+    }
+  }
+  async function submitWithVnPay(e: FormEvent) {
+    e.preventDefault()
+    try {
+      var r = await onSubmitBase('VNPAY')
+      if (!r) {
+        return
+      }
+      var url = await getPaymentUrl(booked.price, jwtDecode(getToken() ?? '').UserId, txn)
+      if (url.startsWith('http')) {
+        toast.success('We will redirect you to VnPay page')
+        window.location.replace(url)
+        return;
+      }
+      toast.error(url)
+    } catch (e) {
+      toast.error(e as string)
+    }
   }
   const { TextArea } = Input
   const [req, setReq] = useState<SpaRequest>({
@@ -74,7 +107,7 @@ export default function CheckoutPage() {
 
       {/* Khung form */}
       <div className='absolute left-0 right-0 top-20 z-10 mt-32 flex justify-center'>
-        <form className='flex w-3/5 justify-center' onSubmit={onSubmitBase}>
+        <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
             <ServiceOverview s={booked} />
             <div className='mb-4 gap-6 pt-4 2xl:flex 2xl:justify-between'>
@@ -140,6 +173,7 @@ export default function CheckoutPage() {
             <div className='my-3 w-1/2'>
               <button
                 type='submit'
+                onClick={payInCash}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white'
               >
                 Submit request
@@ -147,10 +181,11 @@ export default function CheckoutPage() {
             </div>
             <div className='my-3 w-1/2'>
               <button
-                type='button'
+                type='submit'
+                onClick={submitWithVnPay}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white'
               >
-                Pay now
+                Pay now via VnPay
               </button>
             </div>
             <div className='logo mt-20'>

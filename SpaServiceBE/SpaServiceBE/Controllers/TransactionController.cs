@@ -71,11 +71,12 @@ namespace API.Controllers
 
                 // Lấy dữ liệu từ request
                 string transactionType = jsonElement.GetProperty("transactionType").GetString();
+                string requestId = jsonElement.GetProperty("requestId").GetString();
                 float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
                 bool status = jsonElement.GetProperty("status").GetBoolean();
 
                 // Kiểm tra dữ liệu đầu vào
-                if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0 || status != null)
+                if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0 || string.IsNullOrEmpty(requestId))
                 {
                     return BadRequest(new { msg = "Transaction details are incomplete or invalid." });
                 }
@@ -86,7 +87,8 @@ namespace API.Controllers
                     TransactionId = Guid.NewGuid().ToString(), // Generate unique ID
                     TransactionType = transactionType,
                     TotalPrice = totalPrice,
-                    Status = status
+                    Status = status,
+                    RequestId = requestId
                 };
 
                 // Gọi service để thêm transaction
