@@ -13,7 +13,6 @@ import { toast, ToastContainer } from 'react-toastify'
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
   const [emp, setEmp] = useState<Employee[]>([])
-  const [txn, setTxn] = useState('')
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
@@ -37,7 +36,9 @@ export default function CheckoutPage() {
   }, [])
   async function onSubmitBase(type: string) {
     try {
-      var s = await submitRequest(req)
+      var req2 = { ...req }
+      req2.startTime.setTime(req2.startTime.getTime() + 7 * 3600 * 1000) //Account for JS stupid date
+      var s = await submitRequest(req2)
       if (s.msg) {
         toast.error(s.msg)
         return false
@@ -45,10 +46,11 @@ export default function CheckoutPage() {
       if (s.requestId) {
         var y = await createTransaction(type, booked.price, s.requestId)
         if (y.transactionId) {
-          setTxn(y.transactionId)
+          //State is stupid
+          sessionStorage.setItem('trId', y.transactionId)
           return true
         }
-        toast.error(y.msg)
+        toast.error(req2.msg)
         return false
       }
       toast.error(s)
@@ -72,16 +74,19 @@ export default function CheckoutPage() {
     e.preventDefault()
     try {
       var r = await onSubmitBase('VNPAY')
+      console.log(r);
+
       if (!r) {
         return
       }
-      console.log(txn);
-      
-      var url = await getPaymentUrl(booked.price, jwtDecode(getToken() ?? '').UserId, txn)
+      var transId = sessionStorage.getItem('trId') ?? ''
+      sessionStorage.removeItem('trId')
+
+      var url = await getPaymentUrl(booked.price, jwtDecode(getToken() ?? '').UserId, transId)
       if (url.startsWith('http')) {
         toast.success('We will redirect you to VnPay page')
         window.location.replace(url)
-        return;
+        return
       }
       toast.error(url)
     } catch (e) {
@@ -133,14 +138,22 @@ export default function CheckoutPage() {
                 Request employee:
                 <select
                   onChange={(e) => {
-                    setReq({ ...req, employeeId: e.currentTarget.value })
+                    setReq({ ...req, employeeId: e.currentTarget.nodeValue })
                   }}
                   className='mt-2 w-full border-[1px] p-2'
                 >
                   <option key={'Default'} hidden defaultChecked>
                     Select an employee you want
                   </option>
-                  <option key={'None'}>None</option>
+                  <option
+                    onSelect={(e) => {
+                      console.log('YES')
+
+                      setReq({ ...req, employeeId: null })
+                    }}
+                  >
+                    None
+                  </option>
                   {emp.map((v, i) => (
                     <option key={v.employeeId} value={v.employeeId}>
                       {v.fullName}
