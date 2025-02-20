@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react'
+import { getToken } from '../../../types/constants'
 import {
   createViewDay,
   createViewMonthAgenda,
@@ -7,45 +7,63 @@ import {
   createViewWeek,
 } from '@schedule-x/calendar'
 import { createEventsServicePlugin } from '@schedule-x/events-service'
-import { getAllAppointments } from './appointments.util'
-import { Appointment } from '../../../types/type'
-
+ 
 import '@schedule-x/theme-default/dist/index.css'
-
+import { useEffect, useState } from 'react'
+ 
 function CalendarApp() {
-  const [events, setEvents] = useState<{id: string, title: string, start: string, end: string}[]>([])
-  const eventsService = createEventsServicePlugin()
-
+  const eventsService = useState(() => createEventsServicePlugin())[0]
+  const [events, setEvents] = useState(() => {
+    const savedEvents = localStorage.getItem('events')
+    return savedEvents ? JSON.parse(savedEvents) : []
+  })
+ 
   useEffect(() => {
-    const fetchAppointments = async () => {
+    const fetchEvents = async () => {
       try {
-        const appointments = await getAllAppointments()
-        const formattedEvents = appointments.map((appointment: Appointment) => ({
-          id: appointment.appointmentId,
-          title: appointment.employee.fullName,
-          start: appointment.startTime,
-          end: appointment.endTime,
+        const response = await fetch('https://localhost:7205/api/appointments/GetAll', {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      })
+        if (!response.ok) {
+          throw new Error('Failed to fetch events')
+        }
+        const data = await response.json()
+        console.log('Fetched events:', data)
+        
+        // Giả sử API trả về danh sách sự kiện có trường start và end dạng ISO
+        const formattedEvents = data.map((event: { status: string; startTime: string; endTime: string }, index: number) => ({
+          id: (index + 1),
+          title: event.status,
+          start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'), // Định dạng ISO, ví dụ: "2025-02-20T10:00:00"
+          end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'), // Định dạng ISO
         }))
+
+        console.log('Formatted events:', formattedEvents)
         setEvents(formattedEvents)
+        localStorage.setItem('events', JSON.stringify(formattedEvents))
+        console.log('State after update:', events)
       } catch (error) {
-        console.error('Error fetching appointments:', error)
+        console.error('Error fetching events:', error)
       }
     }
-
-    fetchAppointments()
+    if(events.length === 0) {
+      fetchEvents()
+    }
   }, [])
-
+ 
   const calendar = useCalendarApp({
     views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-    events,
+    events: events,
     plugins: [eventsService]
   })
-
+ 
   return (
-    <div>
+    <div style={{ border: "1px solid black", minHeight: "500px"}}>
       <ScheduleXCalendar calendarApp={calendar} />
     </div>
   )
 }
-
+ 
 export default CalendarApp
