@@ -161,5 +161,23 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("GetByAccId")]
+        [Authorize]
+        public async Task<ActionResult> GetCustomerByAccId(string accId)
+        {
+            try
+            {
+                var customer = await _service.GetCustomerByAccId(accId);
+
+                if (customer == null)
+                    return NotFound($"Customer with account ID = {accId} not found.");
+
+                return Ok(customer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

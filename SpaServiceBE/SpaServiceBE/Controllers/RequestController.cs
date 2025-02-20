@@ -87,9 +87,7 @@ namespace API.Controllers
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
                 string serviceId = jsonElement.GetProperty("serviceId").GetString();
                 DateTime startTime = jsonElement.GetProperty("startTime").GetDateTime();
-                string status = jsonElement.GetProperty("status").GetString();
                 string? customerNote = jsonElement.TryGetProperty("customerNote", out var customerNoteProp) ? customerNoteProp.GetString() : null;
-                string? managerNote = jsonElement.TryGetProperty("managerNote", out var managerNoteProp) ? managerNoteProp.GetString() : null;
 
                 //get request info for duration 
                 var SpaServiceInfo = await _paService.GetById(serviceId);
@@ -101,7 +99,7 @@ namespace API.Controllers
                 DateTime endTime= startTime.Add(SpaServiceInfo.Duration);
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
-                    startTime == default(DateTime) || string.IsNullOrEmpty(status))
+                    startTime == default(DateTime))
                 {
                     return BadRequest(new { msg = "Request details are incomplete or invalid." });
                 }
@@ -112,7 +110,7 @@ namespace API.Controllers
                 }
                 if (startTime > DateTime.Now.AddMonths(1))
                 {
-                    return BadRequest(new { msg = "The Start should be booked 1 months early." });
+                    return BadRequest(new { msg = "The Start should be booked within 1 month." });
                 }
                 //handle duration
                 if (endTime.Hour > 22 )
@@ -126,9 +124,9 @@ namespace API.Controllers
                     CustomerId = customerId,
                     ServiceId = serviceId,
                     StartTime = startTime,
-                    Status = status,
+                    Status = "PENDING",
                     CustomerNote = customerNote,
-                    ManagerNote = managerNote,
+                    ManagerNote = null,
                     EmployeeId = employeeId,
                 };
 

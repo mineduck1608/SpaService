@@ -1,34 +1,104 @@
 import { Service } from '../../types/services.ts'
-import React, { useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
-import { getEmployees } from './checkoutPage.util.ts'
+import { createTransaction, getCusByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
+import { apiUrl, getToken } from '../../types/constants.ts'
+import { jwtDecode } from 'jwt-decode'
+import { toast, ToastContainer } from 'react-toastify'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
   const [emp, setEmp] = useState<Employee[]>([])
+  const [txn, setTxn] = useState('')
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
   useEffect(() => {
     async function fetchData() {
+      var t = getToken()
+      if (!t) {
+        return
+      }
+      var x = jwtDecode(t ?? '')
       var s = await getEmployees(booked.categoryId)
       setEmp(s)
+      var c = await getCusByAcc(x.UserId)
+      if (c.customerId) {
+        setReq({ ...req, customerId: c.customerId })
+      }
     }
-    fetchData()
+    try {
+      fetchData()
+    } catch (e) { }
   }, [])
+  async function onSubmitBase(type: string) {
+    try {
+      var s = await submitRequest(req)
+      if (s.msg) {
+        toast.error(s.msg)
+        return false
+      }
+      if (s.requestId) {
+        var y = await createTransaction(type, booked.price, s.requestId)
+        if (y.transactionId) {
+          setTxn(y.transactionId)
+          return true
+        }
+        toast.error(y.msg)
+        return false
+      }
+      toast.error(s)
+    } catch (e) {
+      toast.error(e as string)
+    }
+    return false
+  }
+  async function payInCash(e: FormEvent) {
+    e.preventDefault()
+    try {
+      var r = await onSubmitBase('CASH')
+      if (r) {
+        toast.success('Request created successfully')
+      }
+    } catch (e) {
+      toast.error(e as string)
+    }
+  }
+  async function submitWithVnPay(e: FormEvent) {
+    e.preventDefault()
+    try {
+      var r = await onSubmitBase('VNPAY')
+      if (!r) {
+        return
+      }
+      console.log(txn);
+      
+      var url = await getPaymentUrl(booked.price, jwtDecode(getToken() ?? '').UserId, txn)
+      if (url.startsWith('http')) {
+        toast.success('We will redirect you to VnPay page')
+        window.location.replace(url)
+        return;
+      }
+      toast.error(url)
+    } catch (e) {
+      toast.error(e as string)
+    }
+  }
   const { TextArea } = Input
   const [req, setReq] = useState<SpaRequest>({
     customerId: '',
     customerNote: '',
     serviceId: booked.serviceId,
-    startTime: new Date()
+    startTime: new Date(),
+    employeeId: null
   })
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
+      <ToastContainer />
       {/* Hình ảnh nền */}
       <div
         className='h-full w-full bg-cover bg-center transition-all'
@@ -38,9 +108,9 @@ export default function CheckoutPage() {
       ></div>
 
       {/* Khung form */}
-      <div className='absolute top-20 left-0 right-0 flex justify-center mt-32 z-10'>
-        <form className='flex w-3/5 justify-center'>
-          <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg p-20 shadow-lg bg-white'>
+      <div className='absolute left-0 right-0 top-20 z-10 mt-32 flex justify-center'>
+        <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
+          <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
             <ServiceOverview s={booked} />
             <div className='mb-4 gap-6 pt-4 2xl:flex 2xl:justify-between'>
               <label className='grid 2xl:w-[45%]'>
@@ -98,24 +168,26 @@ export default function CheckoutPage() {
           </div>
 
           {/* Sidebar with buttons */}
-          <div className='flex w-1/3 flex-col items-center rounded-br-lg rounded-tr-lg bg-purple1 px-5 py-4 bg-[url(https://senspa.com.vn/wp-content/themes/thuythu/images/background1.png)] bg-[bottom_50px_right] bg-no-repeat'>
+          <div className='flex w-1/3 flex-col items-center rounded-br-lg rounded-tr-lg bg-purple1 bg-[url(https://senspa.com.vn/wp-content/themes/thuythu/images/background1.png)] bg-[bottom_50px_right] bg-no-repeat px-5 py-4'>
             <p className='text-white'>
               You can pay immediately or at 10B1 Le Thanh Ton, Ben Nghe Ward, District 1, HCMC
             </p>
             <div className='my-3 w-1/2'>
               <button
                 type='submit'
-                className='w-full rounded-br-2xl rounded-tl-2xl bg-white p-1 text-purple1 border-2 border-transparent transition-all duration-300 transform hover:bg-purple2 hover:text-white hover:border-purple3 hover:scale-105'
+                onClick={payInCash}
+                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white'
               >
                 Submit request
               </button>
             </div>
             <div className='my-3 w-1/2'>
               <button
-                type='button'
-                className='w-full rounded-br-2xl rounded-tl-2xl bg-white p-1 text-purple1 border-2 border-transparent transition-all duration-300 transform hover:bg-purple2 hover:text-white hover:border-purple3 hover:scale-105'
+                type='submit'
+                onClick={submitWithVnPay}
+                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white'
               >
-                Pay now
+                Pay now via VnPay
               </button>
             </div>
             <div className='logo mt-20'>
