@@ -187,7 +187,7 @@ export default function CheckoutPage() {
                 onClick={submitWithVnPay}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white'
               >
-                Pay now via VnPay
+                Pay by VnPay
               </button>
             </div>
             <div className='logo mt-20'>
