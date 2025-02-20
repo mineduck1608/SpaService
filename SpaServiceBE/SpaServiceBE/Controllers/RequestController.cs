@@ -120,11 +120,11 @@ namespace API.Controllers
                 // Tạo đối tượng Request
                 var newRequest = new Request
                 {
-                    RequestId = Guid.NewGuid().ToString(), // Generate unique ID
+                    RequestId = Guid.NewGuid().ToString("N"), // Generate unique ID
                     CustomerId = customerId,
                     ServiceId = serviceId,
                     StartTime = startTime,
-                    Status = "PENDING",
+                    Status = "Pending",
                     CustomerNote = customerNote,
                     ManagerNote = null,
                     EmployeeId = employeeId,

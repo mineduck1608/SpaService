@@ -60,7 +60,7 @@ function CalendarApp() {
   })
  
   return (
-    <div style={{ border: "1px solid black", minHeight: "500px"}}>
+    <div style={{ minHeight: "500px"}}>
       <ScheduleXCalendar calendarApp={calendar} />
     </div>
   )

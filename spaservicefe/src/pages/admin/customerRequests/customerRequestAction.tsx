@@ -9,27 +9,32 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Account } from '@/types/type'
+import { Request } from '@/types/type' // Đổi từ Account sang Request
 import { MoreHorizontal } from 'lucide-react'
+import { EditRequestModal } from './editRequestModal' // Import modal chỉnh sửa yêu cầu
 
-interface AccountActionsProps {
-  account: Account
+interface RequestActionsProps {
+  request: Request // Cập nhật type từ Account thành Request
 }
 
-const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
+const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
   const [isModalOpen, setModalOpen] = useState(false)
+  const [isEditModalOpen, setEditModalOpen] = useState(false)
 
   const openModal = () => setModalOpen(true)
   const closeModal = () => setModalOpen(false)
 
+  const openEditModal = () => setEditModalOpen(true) // Mở modal chỉnh sửa
+  const closeEditModal = () => setEditModalOpen(false) // Đóng modal chỉnh sửa
+
   const handleConfirmDelete = () => {
-    console.log(`Deleting account with id: ${account.accountId}`)
+    console.log(`Deleting request with id: ${request.requestId}`)
     closeModal()
   }
 
-  const handleUpdate = () => {
-    // Redirect to an update page or open a modal for updating the account
-    console.log(`Updating account with id: ${account.accountId}`)
+  const handleUpdate = (updatedRequest: Request) => {
+    // Thực hiện lưu thông tin đã cập nhật
+    console.log('Updated request: ', updatedRequest)
   }
 
   return (
@@ -43,18 +48,20 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(account.accountId)}>
-            Copy account ID
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(request.requestId)}>
+            Copy request ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleUpdate}>Update</DropdownMenuItem> {/* Update action */}
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openEditModal}>Assign</DropdownMenuItem>{' '}
+          {/* Khi nhấn "Assign", mở modal chỉnh sửa */}
+          <DropdownMenuItem onClick={openModal}>Cancelled</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
+      <EditRequestModal isOpen={isEditModalOpen} onClose={closeEditModal} request={request} onSave={handleUpdate} />
     </>
   )
 }
 
-export default AccountActions
+export default RequestActions
