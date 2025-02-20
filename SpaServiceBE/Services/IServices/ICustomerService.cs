@@ -7,6 +7,7 @@ namespace Services.IServices
     public interface ICustomerService
     {
         Task<Customer> GetCustomerById(string customerId);
+        Task<Customer> GetCustomerByAccId(string accId);
         Task<List<Customer>> GetAllCustomers();
         Task<bool> AddCustomer(Customer customer);
         Task<bool> UpdateCustomer(string customerId, Customer customer);
