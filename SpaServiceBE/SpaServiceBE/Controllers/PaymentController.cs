@@ -19,7 +19,7 @@ namespace SpaServiceBE.Controllers
         {
             var url = _vnPayService.CreatePaymentUrl(model, HttpContext);
 
-            return Redirect(url);
+            return Ok(url);
         }
 
 
