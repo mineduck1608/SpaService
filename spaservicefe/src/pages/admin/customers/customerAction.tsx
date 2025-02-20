@@ -11,20 +11,45 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Customer } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-
+import BaseModal from '../baseModal'
+import { getToken } from '../../../types/constants'
+import { toast, ToastContainer } from 'react-toastify'
 interface CustomerActionsProps {
   customer: Customer
 }
 
 const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
-  const [isModalOpen, setModalOpen] = useState(false)
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const openDeleteModal = () => setDeleteModalOpen(true)
+  const closeDeleteModal = () => setDeleteModalOpen(false)
 
-  const handleConfirmDelete = () => {
+  const openUpdateModal = () => setUpdateModalOpen(true)
+  const closeUpdateModal = () => setUpdateModalOpen(false)
+
+  const handleConfirmDelete = async () => {
     console.log(`Deleting customer with id: ${customer.customerId}`)
-    closeModal()
+    try {
+      const response = await fetch(`https://localhost:7205/api/customers/Delete/${customer.customerId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${getToken()}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      if (response.status === 200 || response.status === 204) {
+        toast.success('Delete successfully', {
+          autoClose: 3000,
+          onClose: () => window.location.reload()
+        })
+      } else {
+        toast.error('Delete failed. Try again.')
+      }
+    } catch (error) {
+      console.error('Error deleting account:', error)
+    } 
+    closeDeleteModal()
   }
 
   return (
@@ -38,16 +63,34 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(customer.customerId)}>
+          <DropdownMenuItem 
+            onClick={() => navigator.clipboard.writeText(customer.customerId)} 
+            className='cursor-pointer'>
             Copy customer ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Update</DropdownMenuItem>
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
+            Delete
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-      <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
+      <ToastContainer />
+      <BaseModal 
+        isOpen={isUpdateModalOpen} 
+        onClose={closeUpdateModal} 
+        entity='Customer' 
+        type='Update' 
+        rowData={customer}
+      />
+      
+      <ConfirmDeleteModal 
+        isOpen={isDeleteModalOpen} 
+        onClose={closeDeleteModal} 
+        onConfirm={handleConfirmDelete} 
+      />
     </>
   )
 }

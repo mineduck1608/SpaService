@@ -23,7 +23,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { AddModal } from './addModal'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
@@ -66,7 +65,6 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'username'
           className='max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
-          <AddModal />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>

@@ -178,6 +178,7 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
             <Route path='shifts' element={<></>} />
             <Route path='schedules' element={<div>AB</div>} />
+            <Route path='customer-requests' element={<div>AB</div>} />
             <Route path='requests' element={<div>AC</div>} />
             <Route path='appointments' element={<CalendarApp/>} />
             <Route path='categories' element={<div>A</div>} />
