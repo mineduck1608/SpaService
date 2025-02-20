@@ -29,8 +29,10 @@ import CalendarApp from './pages/admin/appointments/page.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
 import PayResultPage from './pages/payResult/payResultPage.tsx'
-import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
+import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 
 function Layout({ children }) {
@@ -177,7 +179,7 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
             <Route path='shifts' element={<></>} />
             <Route path='schedules' element={<div>AB</div>} />
-            <Route path='requests' element={<div>AC</div>} />
+            <Route path='customer-requests' element={<CustomerRequestPage/>} />
             <Route path='appointments' element={<CalendarApp/>} />
             <Route path='categories' element={<div>A</div>} />
             <Route path='employees-categories' element={<div>B</div>} />
@@ -192,6 +194,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </GoogleOAuthProvider>
   )
 }

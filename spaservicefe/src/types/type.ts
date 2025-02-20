@@ -70,7 +70,17 @@ export type Appointment = {
   endTime: string
   replacementEmployee: string
   updatedAt: Date
-  employee: {
-    fullName: string
-  }
+  employee: Employee
 }
+
+export type SpaService = {
+  serviceId: string
+  serviceName: string
+  price: number
+  duration: string
+  description: string
+  serviceImage: string
+  categoryId: string
+  noOfSessions: number
+}
+

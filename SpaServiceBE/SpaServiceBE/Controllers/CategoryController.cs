@@ -15,10 +15,13 @@ namespace API.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _service;
+        private readonly ISpaServiceService _spaServiceService;
 
-        public CategoryController(ICategoryService categoryService)
+
+        public CategoryController(ICategoryService categoryService, ISpaServiceService spaServiceService)
         {
             _service = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
+            _spaServiceService = spaServiceService ?? throw new ArgumentNullException(nameof(spaServiceService));
         }
 
         // GET: api/categories/GetAll
@@ -69,6 +72,30 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("GetCategoryByServiceId/{id}")]
+        public async Task<ActionResult<Category>> GetCategoryByServiceId(string id)
+        {
+            try
+            {
+                var service = await _spaServiceService.GetById(id);
+                if(service == null)
+                {
+                    return NotFound($"Service with ID = {id} not found.");
+
+                }
+                var category = await _service.GetCategoryById(service.CategoryId);
+                if (category == null)
+                    return NotFound($"Category not found.");
+
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCategory([FromBody] dynamic request)
         {

@@ -24,13 +24,13 @@ namespace API.Controllers
         private readonly IRequestService _service;
         private readonly ICustomerService _customerService;
         private readonly IConfiguration _configuration;
-        private readonly ISpaServiceService _paService;
+        private readonly ISpaServiceService _spaService;
         public RequestController(IRequestService service, ICustomerService customerService, IConfiguration configuration, ISpaServiceService paService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
             _configuration = configuration;
-            _paService = paService ?? throw new ArgumentNullException(nameof(paService));
+            _spaService = paService ?? throw new ArgumentNullException(nameof(paService));
         }
 
         // GET: api/requests/GetAll
@@ -87,12 +87,10 @@ namespace API.Controllers
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
                 string serviceId = jsonElement.GetProperty("serviceId").GetString();
                 DateTime startTime = jsonElement.GetProperty("startTime").GetDateTime();
-                string status = jsonElement.GetProperty("status").GetString();
                 string? customerNote = jsonElement.TryGetProperty("customerNote", out var customerNoteProp) ? customerNoteProp.GetString() : null;
-                string? managerNote = jsonElement.TryGetProperty("managerNote", out var managerNoteProp) ? managerNoteProp.GetString() : null;
 
                 //get request info for duration 
-                var SpaServiceInfo = await _paService.GetById(serviceId);
+                var SpaServiceInfo = await _spaService.GetById(serviceId);
                 if (SpaServiceInfo == null)
                     return BadRequest("Spa Service is missing.");
 
@@ -101,7 +99,7 @@ namespace API.Controllers
                 DateTime endTime= startTime.Add(SpaServiceInfo.Duration);
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
-                    startTime == default(DateTime) || string.IsNullOrEmpty(status))
+                    startTime == default(DateTime))
                 {
                     return BadRequest(new { msg = "Request details are incomplete or invalid." });
                 }
@@ -112,7 +110,7 @@ namespace API.Controllers
                 }
                 if (startTime > DateTime.Now.AddMonths(1))
                 {
-                    return BadRequest(new { msg = "The Start should be booked 1 months early." });
+                    return BadRequest(new { msg = "The Start should be booked within 1 month." });
                 }
                 //handle duration
                 if (endTime.Hour > 22 )
@@ -122,13 +120,13 @@ namespace API.Controllers
                 // Tạo đối tượng Request
                 var newRequest = new Request
                 {
-                    RequestId = Guid.NewGuid().ToString(), // Generate unique ID
+                    RequestId = Guid.NewGuid().ToString("N"), // Generate unique ID
                     CustomerId = customerId,
                     ServiceId = serviceId,
                     StartTime = startTime,
-                    Status = status,
+                    Status = "Pending",
                     CustomerNote = customerNote,
-                    ManagerNote = managerNote,
+                    ManagerNote = null,
                     EmployeeId = employeeId,
                 };
 
@@ -163,7 +161,7 @@ namespace API.Controllers
                 string status = jsonElement.GetProperty("status").GetString();
                 string? customerNote = jsonElement.TryGetProperty("customerNote", out var customerNoteProp) ? customerNoteProp.GetString() : null;
                 string? managerNote = jsonElement.TryGetProperty("managerNote", out var managerNoteProp) ? managerNoteProp.GetString() : null;
-                var SpaServiceInfo = await _paService.GetById(serviceId);
+                var SpaServiceInfo = await _spaService.GetById(serviceId);
                 if (SpaServiceInfo == null)
                     return BadRequest("Spa Service is missing.");
 
@@ -185,14 +183,14 @@ namespace API.Controllers
                 {
                     return BadRequest(new { msg= "The Start should be booked 1 months early."});
                 }
-                if (startTime.Hour > 22 || startTime.Hour < 8)
+                if (startTime.Hour > 20 || startTime.Hour < 8)
                 {
-                    return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 10:00 PM." });
+                    return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 20:00 PM." });
                 }
                 //handle duration
-                if (endTime.Hour > 22)
+                if (endTime.Hour > 20)
                 {
-                    return BadRequest(new { msg = "The duration can not last until 10PM or later" });
+                    return BadRequest(new { msg = "The duration can not last until 8PM or later" });
                 }
 
                 // Tạo đối tượng Request và gán ID cho update
@@ -268,7 +266,7 @@ namespace API.Controllers
                 if (string.IsNullOrEmpty(customerEmail))
                     return BadRequest("Customer email is missing.");
 
-                var SpaServiceInfo = await _paService.GetById(request.ServiceId);
+                var SpaServiceInfo = await _spaService.GetById(request.ServiceId);
                 if (SpaServiceInfo == null)
                     return BadRequest("Spa Service is missing.");
 

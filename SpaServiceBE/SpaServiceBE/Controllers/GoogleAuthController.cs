@@ -45,7 +45,7 @@ namespace SpaServiceBE.Controllers
                 {
                     var account = _context.Accounts.Include(r => r.Role).FirstOrDefault(a => a.AccountId == employee.AccountId);
                      // Generate access token
-                var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName);
+                var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, employee.FullName);
 
                     return Ok(new
                     {
@@ -64,7 +64,7 @@ namespace SpaServiceBE.Controllers
 
                     if (account != null && account.Role != null)
                     {
-                        var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName);
+                        var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, customer.FullName);
                         return Ok(new
                         {
                          
@@ -83,7 +83,7 @@ namespace SpaServiceBE.Controllers
                     Password = null, // null
                     Status = true,
                     CreatedAt = DateTime.UtcNow,
-                    RoleId = "d0940b4b8f7040b1a59c227adeae520d" // Customer role ID
+                    RoleId = "eed231e27e6c4309895ef17737569015" // Customer role ID
                 };
 
                 var newCustomer = new Customer
@@ -104,7 +104,7 @@ namespace SpaServiceBE.Controllers
 
 
                 // Generate access token for the newly created account
-                var newAccessToken = Util.GenerateToken(newAccount.AccountId, newAccount.Username, "customer");
+                var newAccessToken = Util.GenerateToken(newAccount.AccountId, newAccount.Username, "Customer", newCustomer.FullName);
 
                 return Ok(new
                 {

@@ -199,5 +199,23 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("GetEmployeeByAccountId/{id}")]
+        public async Task<ActionResult<Employee>> GetEmployeeByAccountId(string id)
+        {
+            try
+            {
+                var employees = await _service.GetEmployeeByAccountId(id);
+
+                if (employees == null)
+                    return NotFound($"No employees found.");
+
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

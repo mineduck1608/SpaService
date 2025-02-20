@@ -46,10 +46,10 @@ export function ProfileButton() {
       {token && (
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Edit profile</SheetTitle>
+            <SheetTitle>Explore</SheetTitle>
             <SheetDescription>
-              Make changes to your profile here. Click save when you're done.
-            </SheetDescription>
+            We hope you have a rejuvenating experience with our tailored spa treatments, designed to refresh your mind and body.        
+                  </SheetDescription>
           </SheetHeader>
 
           <div className="grid gap-4 py-4">
