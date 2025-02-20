@@ -1,9 +1,11 @@
 import { z } from 'zod'
 
 export type BaseModalProps = {
+  isOpen?: boolean
   type: 'Create' | 'Update'
   entity: string
   rowData?: any
+  onClose?: () => void
 }
 
 export type BaseFormProps = {
@@ -14,7 +16,7 @@ export type BaseFormProps = {
     api: ApiConfig
   },
   type: 'Create' | 'Update',
-  initialData?: Record<string, any>
+  rowData?: Record<string, any>
 }
 
 export type FieldConfig = {

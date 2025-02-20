@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
           className='ml-2 max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
-          <BaseModal type='Create' entity='Customer'/>
+          <BaseModal type='Create' entity='Customer' />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>

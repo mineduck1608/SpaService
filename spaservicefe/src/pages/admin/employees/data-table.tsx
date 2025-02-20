@@ -23,7 +23,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { AddModal } from './addModal'
 import BaseModal from '../baseModal'
 
 interface DataTableProps<TData, TValue> {

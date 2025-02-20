@@ -12,22 +12,54 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Employee } from '@/types/type' // Đổi kiểu dữ liệu thành Employee
 import { MoreHorizontal } from 'lucide-react'
 import BaseModal from '../baseModal'
+import { useToast } from 'src/hooks/use-toast'
+import { getToken } from '../../../types/constants'
 
 interface EmployeeActionsProps {
   employee: Employee // Đổi từ Customer sang Employee
 }
 
 const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
-  const [isModalOpen, setModalOpen] = useState(false)
+  const { toast } = useToast()
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const openDeleteModal = () => setDeleteModalOpen(true)
+  const closeDeleteModal = () => setDeleteModalOpen(false)
 
-  const handleConfirmDelete = () => {
-    console.log(`Deleting employee with id: ${employee.employeeId}`) // In ra ID nhân viên thay vì khách hàng
-    closeModal()
-  }
+  const openUpdateModal = () => setUpdateModalOpen(true)
+  const closeUpdateModal = () => setUpdateModalOpen(false)
 
+  const handleConfirmDelete = async () => {
+      console.log(`Deleting customer with id: ${employee.employeeId}`)
+      try {
+        const response = await fetch(`https://localhost:7205/api/customers/Delete/${employee.employeeId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json'
+          }
+        })
+        // window.location.reload()
+        // if (response.ok) {
+        //   toast({
+        //     title: "Success!",
+        //     description: 'Delete successfully.'
+        //   })
+        //   window.location.reload()
+        // } else {
+        //   toast({
+        //     title: "Error",
+        //     description: 'Failed to delete.',
+        //     variant: "destructive"
+        //   })
+        // }
+      } catch (error) {
+        console.error('Error deleting account:', error)
+      } 
+      closeDeleteModal()
+    }
+    
   return (
     <>
       <DropdownMenu>
@@ -36,6 +68,7 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
             <span className='sr-only'>Open menu</span>
             <MoreHorizontal className='h-4 w-4' />
           </Button>
+          
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
@@ -45,16 +78,22 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
             Copy employee ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <BaseModal 
-            entity='Employee' 
-            type='Update' 
-            rowData={employee}
-          />
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}
+          
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
+      <BaseModal 
+        isOpen={isUpdateModalOpen} 
+        onClose={closeUpdateModal} 
+        entity='Employee' 
+        type='Update' 
+        rowData={employee}
+      />
+      <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
