@@ -10,16 +10,15 @@ import {
 } from '../../../components/ui/dropdown-menu'
 import { Account } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { getToken } from '../../../types/constants'
 import BaseModal from '../baseModal'
-import { useToast } from 'src/hooks/use-toast'
+import { toast, ToastContainer } from 'react-toastify'
+
 
 interface AccountActionsProps {
   account: Account
 }
 
 const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
-  const { toast } = useToast()
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
   const openUpdateModal = () => setUpdateModalOpen(true)
@@ -48,7 +47,7 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
+      <ToastContainer />
       <BaseModal 
         isOpen={isUpdateModalOpen} 
         onClose={closeUpdateModal} 

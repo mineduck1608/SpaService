@@ -13,14 +13,12 @@ import { Customer } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import BaseModal from '../baseModal'
 import { getToken } from '../../../types/constants'
-import { useToast } from 'src/hooks/use-toast'
-
+import { toast, ToastContainer } from 'react-toastify'
 interface CustomerActionsProps {
   customer: Customer
 }
 
 const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
-  const { toast } = useToast()
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -41,17 +39,12 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
         }
       })
       if (response.status === 200 || response.status === 204) {
-        toast({
-          title: "Success!",
-          description: 'Delete successfully.'
+        toast.success('Delete successfully', {
+          autoClose: 3000,
+          onClose: () => window.location.reload()
         })
-        window.location.reload()
       } else {
-        toast({
-          title: "Error",
-          description: 'Failed to delete.',
-          variant: "destructive"
-        })
+        toast.error('Delete failed. Try again.')
       }
     } catch (error) {
       console.error('Error deleting account:', error)
@@ -84,7 +77,7 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
+      <ToastContainer />
       <BaseModal 
         isOpen={isUpdateModalOpen} 
         onClose={closeUpdateModal} 

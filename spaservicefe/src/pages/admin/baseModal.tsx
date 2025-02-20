@@ -15,12 +15,11 @@ import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popov
 import { CalendarIcon } from 'lucide-react'
 import { Calendar } from 'src/components/ui/calendar'
 import { format } from 'date-fns'
-import { useToast } from 'src/hooks/use-toast'
+import { toast, ToastContainer } from 'react-toastify' 
 
 export default function BaseModal({isOpen, onClose, type, entity, rowData} : BaseModalProps) {
   const config = entityConfigMap[entity]
   const isCreate = type === 'Create'
-  const { toast } = useToast()
   const fieldsToUse = type === 'Create' ? config.fields : config.updatefields || config.fields
   const formSchema = generateZodSchema(config)
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,17 +48,12 @@ export default function BaseModal({isOpen, onClose, type, entity, rowData} : Bas
       })
 
       if (response.status === 200 || response.status === 204) {
-        toast({
-          title: 'Success!',
-          description: `${config.entityName} ${type.toLowerCase()}d successfully.`,
+        toast.success('Success!', {
+          autoClose: 2000,
+          onClose: () => window.location.reload()
         })
-        window.location.reload()
       } else {
-        toast({
-          title: 'Error',
-          description: `Failed to ${type.toLowerCase()} ${config.entityName}.`,
-          variant: 'destructive'
-        })
+        toast.error('Failed. Try again.')
       }
     } catch (error) {
       console.error('Form submission error:', error)
@@ -178,6 +172,7 @@ export default function BaseModal({isOpen, onClose, type, entity, rowData} : Bas
               </form>
             </Form>
       </DialogContent>
+      <ToastContainer />
     </Dialog>
   )
 }

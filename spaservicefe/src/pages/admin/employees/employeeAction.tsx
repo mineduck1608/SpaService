@@ -12,15 +12,14 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Employee } from '@/types/type' // Đổi kiểu dữ liệu thành Employee
 import { MoreHorizontal } from 'lucide-react'
 import BaseModal from '../baseModal'
-import { useToast } from 'src/hooks/use-toast'
 import { getToken } from '../../../types/constants'
+import { toast, ToastContainer } from 'react-toastify' 
 
 interface EmployeeActionsProps {
   employee: Employee // Đổi từ Customer sang Employee
 }
 
 const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
-  const { toast } = useToast()
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -41,17 +40,12 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
           }
         })
         if (response.status === 200 || response.status === 204) {
-          toast({
-            title: "Success!",
-            description: 'Delete successfully.'
+          toast.success('Delete successfully', {
+            autoClose: 3000,
+            onClose: () => window.location.reload()
           })
-          window.location.reload()
         } else {
-          toast({
-            title: "Error",
-            description: 'Failed to delete.',
-            variant: "destructive"
-          })
+          toast.error('Delete failed. Try again.')
         }
       } catch (error) {
         console.error('Error deleting account:', error)
@@ -84,7 +78,7 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
           <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}
         </DropdownMenuContent>
       </DropdownMenu>
-
+      <ToastContainer />
       <BaseModal 
         isOpen={isUpdateModalOpen} 
         onClose={closeUpdateModal} 
