@@ -40,7 +40,7 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
           'Content-Type': 'application/json'
         }
       })
-      if (response.ok) {
+      if (response.status === 200 || response.status === 204) {
         toast({
           title: "Success!",
           description: 'Delete successfully.'

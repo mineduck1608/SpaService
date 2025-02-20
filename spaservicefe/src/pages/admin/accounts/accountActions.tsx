@@ -8,7 +8,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Account } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { getToken } from '../../../types/constants'
@@ -21,37 +20,10 @@ interface AccountActionsProps {
 
 const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
   const { toast } = useToast()
-  const [isModalOpen, setModalOpen] = useState(false)
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
-  const handleConfirmDelete = async () => {
-    try {
-      const response = await fetch(`https://localhost:7205/api/accounts/Delete/${account.accountId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${getToken()}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      if (response.ok) {
-        toast({
-          title: "Success!",
-          description: 'Delete successfully.'
-        })
-        window.location.reload()
-      } else {
-        toast({
-          title: "Error",
-          description: 'Failed to delete.',
-          variant: "destructive"
-        })
-      }
-
-    } catch (error) {
-      console.error('Error deleting account:', error)
-    }
-  }
+  const openUpdateModal = () => setUpdateModalOpen(true)
+  const closeUpdateModal = () => setUpdateModalOpen(false)
 
   return (
     <>
@@ -68,13 +40,22 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
             Copy account ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Update</DropdownMenuItem>
-          <DropdownMenuItem>Block</DropdownMenuItem>
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Block
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
+      <BaseModal 
+        isOpen={isUpdateModalOpen} 
+        onClose={closeUpdateModal} 
+        entity='Customer' 
+        type='Update' 
+        rowData={account}
+      />
     </>
   )
 }

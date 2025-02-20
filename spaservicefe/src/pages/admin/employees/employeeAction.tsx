@@ -33,27 +33,26 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   const handleConfirmDelete = async () => {
       console.log(`Deleting customer with id: ${employee.employeeId}`)
       try {
-        const response = await fetch(`https://localhost:7205/api/customers/Delete/${employee.employeeId}`, {
+        const response = await fetch(`https://localhost:7205/api/employees/Delete/${employee.employeeId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${getToken()}`,
             'Content-Type': 'application/json'
           }
         })
-        // window.location.reload()
-        // if (response.ok) {
-        //   toast({
-        //     title: "Success!",
-        //     description: 'Delete successfully.'
-        //   })
-        //   window.location.reload()
-        // } else {
-        //   toast({
-        //     title: "Error",
-        //     description: 'Failed to delete.',
-        //     variant: "destructive"
-        //   })
-        // }
+        if (response.status === 200 || response.status === 204) {
+          toast({
+            title: "Success!",
+            description: 'Delete successfully.'
+          })
+          window.location.reload()
+        } else {
+          toast({
+            title: "Error",
+            description: 'Failed to delete.',
+            variant: "destructive"
+          })
+        }
       } catch (error) {
         console.error('Error deleting account:', error)
       } 
