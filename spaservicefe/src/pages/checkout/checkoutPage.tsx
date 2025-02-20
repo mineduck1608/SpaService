@@ -3,10 +3,12 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
-import { getEmployees } from './checkoutPage.util.ts'
+import { getEmployees, submitRequest } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
-import { apiUrl } from '../../types/constants.ts'
+import { apiUrl, getToken } from '../../types/constants.ts'
+import { jwtDecode } from 'jwt-decode'
+import { toast, ToastContainer } from 'react-toastify'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
@@ -16,26 +18,52 @@ export default function CheckoutPage() {
   }
   useEffect(() => {
     async function fetchData() {
+      var t = getToken()
+      var x = jwtDecode(t ?? '')
       var s = await getEmployees(booked.categoryId)
       setEmp(s)
+      var c = await fetch(`${apiUrl}/customers/GetByAccId?accId=${x.UserId}`, {
+        headers: {
+          Authorization: `Bearer ${t}`
+        }
+      })
+      if (c.ok) {
+        setReq({ ...req, customerId: (await c.json()).customerId })
+      }
     }
-    fetchData()
+    try {
+      fetchData()
+    } catch (e) {}
   }, [])
-  async function onSubmit(e: FormEvent) {
+  async function onSubmitBase(e: FormEvent) {
     e.preventDefault()
     try {
-      var s = await fetch(`${apiUrl}/CreatePaymentUrlVnpay?orderType=other&amount=${booked.price}&orderDescription=${'Thank_You'}&name=${'None'}`)
-    } catch (e) {}
+      var s = await submitRequest(req)
+      if (s.msg) {
+        toast.error(s.msg)
+        return false
+      }
+      if (s.requestId) {
+        toast.success('Request created successfully')
+        return true
+      }
+      toast.error(s)
+    } catch (e) {
+      toast.error(e as string)
+    }
+    return false
   }
   const { TextArea } = Input
   const [req, setReq] = useState<SpaRequest>({
     customerId: '',
     customerNote: '',
     serviceId: booked.serviceId,
-    startTime: new Date()
+    startTime: new Date(),
+    employeeId: null
   })
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
+      <ToastContainer />
       {/* Hình ảnh nền */}
       <div
         className='h-full w-full bg-cover bg-center transition-all'
@@ -46,7 +74,7 @@ export default function CheckoutPage() {
 
       {/* Khung form */}
       <div className='absolute left-0 right-0 top-20 z-10 mt-32 flex justify-center'>
-        <form className='flex w-3/5 justify-center' onSubmit={onSubmit}>
+        <form className='flex w-3/5 justify-center' onSubmit={onSubmitBase}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
             <ServiceOverview s={booked} />
             <div className='mb-4 gap-6 pt-4 2xl:flex 2xl:justify-between'>

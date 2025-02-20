@@ -54,5 +54,10 @@ namespace Services
         {
             return await _repository.Delete(customerId);
         }
+
+        public async Task<Customer> GetCustomerByAccId(string accId)
+        {
+            return await _repository.GetByAccId(accId);
+        }
     }
 }

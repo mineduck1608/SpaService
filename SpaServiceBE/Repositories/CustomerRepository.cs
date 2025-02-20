@@ -106,5 +106,10 @@ namespace Repositories
                 return false;
             }
         }
+
+        public async Task<Customer> GetByAccId(string accId)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(x => x.AccountId == accId);
+        }
     }
 }
