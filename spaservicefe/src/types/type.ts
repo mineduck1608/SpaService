@@ -70,7 +70,5 @@ export type Appointment = {
   endTime: string
   replacementEmployee: string
   updatedAt: Date
-  employee: {
-    fullName: string
-  }
+  employee: Employee
 }
