@@ -55,16 +55,24 @@ namespace API.Controllers
 
             // Lấy thông tin tài khoản
             var account = await _accountService.GetAccountByLogin(username, password);
-
             if (account == null)
             {
-                return NotFound("Username or password is incorrect.");
+                return NotFound(new {msg = "Username or password is incorrect." });
+            }
+            var accessToken = string.Empty;
+            if(account.Role.RoleName == "Customer")
+            {
+                var customer = await _customerService.GetCustomerByAccountId(account.AccountId);
+                accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, customer.FullName);
+                return Ok(new
+                {
+                    accessToken,
+                });
+
             }
 
-            // Tạo Access Token
-            var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName);
-
-            // Trả về Access Token
+            var employee = await _employeeService.GetEmployeeByAccountId(account.AccountId);
+            accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, employee.FullName);
             return Ok(new
             {
                 accessToken,

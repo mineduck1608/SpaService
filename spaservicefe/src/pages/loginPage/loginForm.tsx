@@ -10,7 +10,7 @@ import loginBg3 from '../../images/loginBgs/loginBg3.jpg'
 import loginBg4 from '../../images/loginBgs/loginBg4.jpg'
 import logo from '../../images/logos/logoColor.png'
 import { authenticate, routeByRole } from './loginPage.util'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
@@ -32,6 +32,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         sessionStorage.setItem('token', token)
         var jwtData = jwtDecode(token)
         const role = jwtData[roleJWT] as string
+        toast.success('Login success.')
         window.location.assign(routeByRole(role))
       } else {
         toast.error('Login failed!')
@@ -60,6 +61,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         sessionStorage.setItem('token', token)
         var jwtData = jwtDecode(token)
         const role = jwtData[roleJWT] as string
+        toast.success('Login success.')
         window.location.assign(routeByRole(role))
       } else {
         toast.error('Google login failed!')
@@ -132,7 +134,6 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
             </div>
           </CardContent>
         </Card>
-        <ToastContainer />
       </div>
     </GoogleOAuthProvider>
   )

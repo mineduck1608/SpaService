@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/button.tsx'
 import { Input } from '../../components/ui/input.tsx'
 import { Label } from '../../components/ui/label.tsx'
 import logo from '../../images/logos/logoColor.png'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { register } from './registerPage.util.ts'
 import { Tooltip } from 'react-tooltip'
 import { GoogleLogin } from '@react-oauth/google'
@@ -166,9 +166,9 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   <option value='' disabled selected>
                     Select Gender
                   </option>
-                  <option value='male'>Male</option>
-                  <option value='female'>Female</option>
-                  <option value='other'>Other</option>
+                  <option value='Male'>Male</option>
+                  <option value='Female'>Female</option>
+                  <option value='Other'>Other</option>
                 </select>
               </div>
             </div>
@@ -196,7 +196,6 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
       <div className=' -translate-y-24 text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary'>
         By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
       </div>
-      <ToastContainer />
     </div>
   )
 }

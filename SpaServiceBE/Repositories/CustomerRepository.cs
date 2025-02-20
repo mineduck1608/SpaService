@@ -44,6 +44,11 @@ namespace Repositories
             return await _context.Customers.FirstOrDefaultAsync(a => a.Phone == phone);
         }
 
+        public async Task<Customer> GetCustomerByAccountId(string id)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(a => a.AccountId == id);
+        }
+
         public async Task<Customer> GetCustomerByEmail(string email)
         {
             return await _context.Customers.FirstOrDefaultAsync(a => a.Email == email);

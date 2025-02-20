@@ -32,6 +32,11 @@ namespace Services
             return await _repository.GetEmployeeByEmail(email);
         }
 
+        public async Task<Employee> GetEmployeeByAccountId(string id)
+        {
+            return await _repository.GetEmployeeByAccountId(id);
+        }
+
         // Lấy tất cả Employees
         public async Task<List<Employee>> GetAllEmployees()
         {

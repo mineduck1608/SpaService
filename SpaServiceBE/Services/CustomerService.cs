@@ -26,6 +26,11 @@ namespace Services
             return await _repository.GetCustomerByPhone(phone);
         }
 
+        public async Task<Customer> GetCustomerByAccountId(string id)
+        {
+            return await _repository.GetCustomerByAccountId(id);
+        }
+
         public async Task<Customer> GetCustomerByEmail(string email)
         {
             return await _repository.GetCustomerByEmail(email);

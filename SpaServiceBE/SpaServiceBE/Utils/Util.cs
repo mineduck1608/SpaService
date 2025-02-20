@@ -13,7 +13,7 @@ namespace SpaServiceBE.Utils
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", true, true).Build();
 
-        public static string GenerateToken(string id, string name, string roleName)
+        public static string GenerateToken(string id, string userName, string roleName, string fullName)
         {
             // Lấy khóa bảo mật từ cấu hình
             var key = _config["AccessToken:Key"];
@@ -29,14 +29,15 @@ namespace SpaServiceBE.Utils
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             // Đảm bảo `name` không null
-            name ??= string.Empty;
+            userName ??= string.Empty;
 
             // Tạo danh sách claims
             var claims = new[]
             {
         new Claim("UserId", id),
-        new Claim("Username", name),
-        new Claim(ClaimTypes.Role, roleName)
+        new Claim("Username", userName),
+        new Claim(ClaimTypes.Role, roleName),
+        new Claim("FullName", fullName)
     };
 
             // Tạo token

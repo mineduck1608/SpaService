@@ -23,7 +23,6 @@ namespace API.Controllers
         }
 
         // GET: api/contacts/GetAll
-        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Contact>>> GetAllContacts()
         {

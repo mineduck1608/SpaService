@@ -6,6 +6,7 @@ import logoColor from '../../images/logos/logoColor.png'
 import { Category } from '@/types/category.ts'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 import { ProfileButton } from './profileButton.tsx'
+import { Dropdown } from '../dropdown.tsx'
 
 const Header = () => {
   // Giải mã JWT để kiểm tra thời gian hết hạn
@@ -158,8 +159,8 @@ const Header = () => {
               </li>
             </ul>
           </nav>
-          <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-          <ProfileButton /> {/* Moved to the right side */}
+          <div className="absolute right-10 top-1/2 transform -translate-y-1/2">
+          <Dropdown/> {/* Moved to the right side */}
         </div>
 
         </div>

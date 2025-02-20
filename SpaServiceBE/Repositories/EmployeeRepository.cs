@@ -29,6 +29,11 @@ namespace Repositories
             return await _context.Employees.FirstOrDefaultAsync(a => a.Phone == phone);
         }
 
+        public async Task<Employee> GetEmployeeByAccountId(string id)
+        {
+            return await _context.Employees.FirstOrDefaultAsync(a => a.AccountId == id);
+        }
+
         public async Task<Employee> GetEmployeeByEmail(string email)
         {
             return await _context.Employees.FirstOrDefaultAsync(a => a.Email == email);
