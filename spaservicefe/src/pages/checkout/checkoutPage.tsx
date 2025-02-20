@@ -75,6 +75,8 @@ export default function CheckoutPage() {
       if (!r) {
         return
       }
+      console.log(txn);
+      
       var url = await getPaymentUrl(booked.price, jwtDecode(getToken() ?? '').UserId, txn)
       if (url.startsWith('http')) {
         toast.success('We will redirect you to VnPay page')
