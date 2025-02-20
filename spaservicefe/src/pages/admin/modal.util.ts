@@ -261,14 +261,19 @@ export const entityConfigMap: Record<string, any> = {
   Employee: employeeConfig
 }
 
-export const generateZodSchema = (config: {entityName: string, fields: FieldConfig[]}) => {
+export const generateZodSchema = (config: { entityName: string, fields: FieldConfig[], updatefields?: FieldConfig[] }, isUpdate: boolean) => {
   const schemaObject: Record<string, any> = {}
-  config.fields.forEach((field) => {
+  const fieldList = isUpdate && config.updatefields?.length ? config.updatefields : config.fields
+
+  fieldList.forEach((field) => {
     let fieldSchema = z.string()
-    
+
     switch (field.type) {
       case 'password':
-        fieldSchema = z.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?])[A-Za-z\d!@#$%^&*()_\-+=<>?]{12,}$/, 'Please enter a valid password')
+        fieldSchema = z.string().regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?])[A-Za-z\d!@#$%^&*()_\-+=<>?]{12,}$/,
+          'Please enter a valid password'
+        )
         break
       case 'tel':
         fieldSchema = z.string().regex(/^0[9832]\d{8}$/, 'Please enter a valid phone number')
@@ -280,8 +285,8 @@ export const generateZodSchema = (config: {entityName: string, fields: FieldConf
         fieldSchema = z.string()
         if (field.minLength) fieldSchema = fieldSchema.min(field.minLength, `Must be at least ${field.minLength} characters`)
         if (field.maxLength) fieldSchema = fieldSchema.max(field.maxLength, `Must be less than ${field.maxLength} characters`)
-          
     }
+
     schemaObject[field.name] = field.required ? fieldSchema : fieldSchema.optional()
   })
   return z.object(schemaObject)

@@ -26,7 +26,8 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   const openDeleteModal = () => setDeleteModalOpen(true)
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
-  const openUpdateModal = () => setUpdateModalOpen(true)
+  const openUpdateModal = () => {
+    setUpdateModalOpen(true)}
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
@@ -56,7 +57,7 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger>
           <Button variant='ghost' className='h-8 w-8 p-0'>
             <span className='sr-only'>Open menu</span>
             <MoreHorizontal className='h-4 w-4' />
@@ -71,8 +72,7 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
             Copy employee ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+          <DropdownMenuItem className='cursor-pointer'>
             Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}

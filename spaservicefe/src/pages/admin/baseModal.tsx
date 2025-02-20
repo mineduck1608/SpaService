@@ -20,24 +20,30 @@ import { toast, ToastContainer } from 'react-toastify'
 export default function BaseModal({isOpen, onClose, type, entity, rowData} : BaseModalProps) {
   const config = entityConfigMap[entity]
   const isCreate = type === 'Create'
+  
   const fieldsToUse = type === 'Create' ? config.fields : config.updatefields || config.fields
-  const formSchema = generateZodSchema(config)
+  const formSchema = generateZodSchema(config, !isCreate)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
+      fieldsToUse.map((field: FieldConfig) => [
+        field.name,
+        rowData?.[field.name] || "",
+      ])
     ),
   })
 
   const handleSubmit = async (data: any) => {
     try {
-      console.log('Submitting form with data:', data)
+      const idKey = entity === 'Customer' ? 'customerId' : 'employeeId'
+      const entityId = rowData?.[idKey]
 
       const baseUrl = 'https://localhost:7205/'
       const endpoint = type === 'Create' 
         ? config.api.create
-        : config.api.update.replace('{id}', rowData?.customerId)
+        : config.api.update.replace('{id}', entityId)
 
+      console.log("API Endpoint:", baseUrl + endpoint)
       const response = await fetch(baseUrl + endpoint, {
         method: type === 'Create' ? 'POST' : 'PUT',
         headers: {
@@ -48,10 +54,10 @@ export default function BaseModal({isOpen, onClose, type, entity, rowData} : Bas
       })
 
       if (response.status === 200 || response.status === 204) {
-        toast.success('Success!', {
-          autoClose: 2000,
-          onClose: () => window.location.reload()
+        toast.success('Successfully ' + type +'.', {
+          autoClose: 2000
         })
+        setTimeout(() => window.location.reload(), 2000)
       } else {
         toast.error('Failed. Try again.')
       }
@@ -64,11 +70,11 @@ export default function BaseModal({isOpen, onClose, type, entity, rowData} : Bas
     if (type === 'Update' && rowData) {
       Object.keys(rowData).forEach((key) => {
         if (form.getValues(key) !== undefined) {
-          form.setValue(key, rowData[key].toString())
+          form.setValue(key, rowData[key]);
         }
-      })
+      });
     }
-  }, [rowData, form, type, fieldsToUse])
+  }, [rowData, form, type])
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -82,7 +88,12 @@ export default function BaseModal({isOpen, onClose, type, entity, rowData} : Bas
       <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>{type} {entity}</DialogTitle>
           <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+              <form onSubmit={(e) => {
+                e.preventDefault()
+                form.handleSubmit((data) => {
+                  handleSubmit(data)
+                })()
+              }} className='space-y-4'>
                 {fieldsToUse.map((field : FieldConfig) => (
                   <FormField
                     key={field.name}
