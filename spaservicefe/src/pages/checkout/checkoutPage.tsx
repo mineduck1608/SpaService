@@ -81,8 +81,10 @@ export default function CheckoutPage() {
       if (url.startsWith('http')) {
         toast.success('We will redirect you to VnPay page')
         window.location.replace(url)
+        console.log(url)
         return;
       }
+
       toast.error(url)
     } catch (e) {
       toast.error(e as string)
@@ -133,14 +135,14 @@ export default function CheckoutPage() {
                 Request employee:
                 <select
                   onChange={(e) => {
-                    setReq({ ...req, employeeId: e.currentTarget.value })
+                    setReq({ ...req, employeeId: e.currentTarget.nodeValue })
                   }}
                   className='mt-2 w-full border-[1px] p-2'
                 >
                   <option key={'Default'} hidden defaultChecked>
                     Select an employee you want
                   </option>
-                  <option key={'None'}>None</option>
+                  <option>None</option>
                   {emp.map((v, i) => (
                     <option key={v.employeeId} value={v.employeeId}>
                       {v.fullName}
