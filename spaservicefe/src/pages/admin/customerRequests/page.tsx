@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Request } from '../../../types/type' // Updated to CustomerRequest type
-import { getAllCustomerRequests } from '../customerRequests/customerRequest.util' // Assuming the new function to get customer requests
+import { getAllCustomerRequests, getCustomerById, getServiceById } from '../customerRequests/customerRequest.util' // Assuming the new function to get customer requests
 import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 
 export default function CustomerRequestPage() {
@@ -14,14 +14,23 @@ export default function CustomerRequestPage() {
     const fetchData = async () => {
       try {
         const customerRequests = await getAllCustomerRequests()
+        
+        // Create an array of promises for customerName and serviceName
+        const formattedCustomerRequests = await Promise.all(
+          customerRequests.map(async (request) => {
+            const customer = request.customerId ? await getCustomerById(request.customerId) : { name: 'Unknown' }
+            const service = request.serviceId ? await getServiceById(request.serviceId) : { name: 'Unknown' }
 
-
-        const formattedCustomerRequests = customerRequests.map((request) => ({
-          ...request,
-          startTime: format(new Date(request.startTime), 'dd/MM/yyyy HH:mm:ss'), // Format start time
-          customerNote: request.customerNote || 'No notes provided', // Default note if none provided
-          managerNote: request.managerNote || 'No notes provided', // Default manager note if none provided
-        }))
+            return {
+              ...request,
+              startTime: format(new Date(request.startTime), 'dd/MM/yyyy HH:mm:ss'), // Format start time
+              customerNote: request.customerNote || 'No notes provided', // Default note if none provided
+              managerNote: request.managerNote || 'No notes provided', // Default manager note if none provided
+              customerName: customer.fullName, // Use customer name
+              serviceName: service.serviceName, // Use service name
+            }
+          })
+        )
 
         setData(formattedCustomerRequests)
       } catch (err) {
@@ -30,6 +39,7 @@ export default function CustomerRequestPage() {
         setLoading(false)
       }
     }
+
     fetchData()
   }, [])
 

@@ -1,12 +1,12 @@
 import { Service } from '../../types/services.ts'
-import React, { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
 import { createTransaction, getCusByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
-import { apiUrl, getToken } from '../../types/constants.ts'
+import { getToken } from '../../types/constants.ts'
 import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
 
@@ -32,7 +32,7 @@ export default function CheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) { }
+    } catch (e) {}
   }, [])
   async function onSubmitBase(type: string) {
     try {
@@ -74,7 +74,6 @@ export default function CheckoutPage() {
     e.preventDefault()
     try {
       var r = await onSubmitBase('VNPAY')
-      console.log(r);
 
       if (!r) {
         return
@@ -102,6 +101,7 @@ export default function CheckoutPage() {
     startTime: new Date(),
     employeeId: null
   })
+  const disable = (req.startTime ?? new Date()).getTime() < new Date().getTime() + 3600 * 1000
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
       <ToastContainer />
@@ -139,22 +139,16 @@ export default function CheckoutPage() {
                 Request employee:
                 <select
                   onChange={(e) => {
-                    setReq({ ...req, employeeId: e.currentTarget.nodeValue })
+                    var v = e.currentTarget.value
+
+                    setReq({ ...req, employeeId: v === 'None' ? null : v })
                   }}
                   className='mt-2 w-full border-[1px] p-2'
                 >
                   <option key={'Default'} hidden defaultChecked>
                     Select an employee you want
                   </option>
-                  <option
-                    onSelect={(e) => {
-                      console.log('YES')
-
-                      setReq({ ...req, employeeId: null })
-                    }}
-                  >
-                    None
-                  </option>
+                  <option key={'null'}>None</option>
                   {emp.map((v, i) => (
                     <option key={v.employeeId} value={v.employeeId}>
                       {v.fullName}
@@ -190,7 +184,8 @@ export default function CheckoutPage() {
               <button
                 type='submit'
                 onClick={payInCash}
-                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white'
+                disabled={disable}
+                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-300'
               >
                 Submit request
               </button>
@@ -199,7 +194,8 @@ export default function CheckoutPage() {
               <button
                 type='submit'
                 onClick={submitWithVnPay}
-                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white'
+                disabled={disable}
+                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-300'
               >
                 Pay by VnPay
               </button>

@@ -26,21 +26,24 @@ export const columns: ColumnDef<Request>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'requestId',
+    accessorKey: 'customerName',
     header: ({ column }) => (
       <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Request ID
+        Customer
         <ArrowUpDown className='ml-2 h-4 w-4' />
       </Button>
     )
   },
   {
+    accessorKey: 'serviceName',
+    header: 'Service',
+    cell: ({ row }) => row.getValue('serviceName')
+  },
+  {
     accessorKey: 'startTime',
     header: 'Start Time',
-    cell: ({ row }) => {
-      const startTime = new Date(row.getValue('startTime')).toLocaleString()
-      return <span>{startTime}</span>
-    }
+    cell: ({ row }) => row.getValue('startTime')
+
   },
   {
     accessorKey: 'status',
@@ -48,7 +51,6 @@ export const columns: ColumnDef<Request>[] = [
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
       let statusColor = ''
-  
       // Set the color based on the status value
       if (status === 'Completed') {
         statusColor = 'text-green-500'
@@ -70,16 +72,6 @@ export const columns: ColumnDef<Request>[] = [
     accessorKey: 'managerNote',
     header: 'Manager Note',
     cell: ({ row }) => row.getValue('managerNote') || 'No notes provided'
-  },
-  {
-    accessorKey: 'serviceId',
-    header: 'Service ID',
-    cell: ({ row }) => row.getValue('serviceId')
-  },
-  {
-    accessorKey: 'customerId',
-    header: 'Customer ID',
-    cell: ({ row }) => row.getValue('customerId')
   },
   {
     id: 'actions',

@@ -10,7 +10,11 @@ import { createEventsServicePlugin } from '@schedule-x/events-service'
  
 import '@schedule-x/theme-default/dist/index.css'
 import { useEffect, useState } from 'react'
- 
+function formatNoSecond(d: string){
+  var x = d.split('T')
+  var hm = d[1].substring(0,5)
+  return `${x[0]} ${hm}`
+}
 function CalendarApp() {
   const eventsService = useState(() => createEventsServicePlugin())[0]
   const [events, setEvents] = useState(() => {
@@ -36,8 +40,8 @@ function CalendarApp() {
         const formattedEvents = data.map((event: { status: string; startTime: string; endTime: string }, index: number) => ({
           id: (index + 1),
           title: event.status,
-          start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'), // Định dạng ISO, ví dụ: "2025-02-20T10:00:00"
-          end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'), // Định dạng ISO
+          start: formatNoSecond(event.startTime), // Định dạng ISO, ví dụ: "2025-02-20T10:00:00"
+          end: formatNoSecond(event.endTime), // Định dạng ISO
         }))
 
         console.log('Formatted events:', formattedEvents)
@@ -60,7 +64,7 @@ function CalendarApp() {
   })
  
   return (
-    <div style={{ border: "1px solid black", minHeight: "500px"}}>
+    <div style={{ minHeight: "500px"}}>
       <ScheduleXCalendar calendarApp={calendar} />
     </div>
   )

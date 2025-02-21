@@ -16,7 +16,7 @@ export default function ShortDetail(params: { d?: Service }) {
 
     if (!token) {
       // Nếu không có token, hiển thị thông báo yêu cầu đăng nhập
-      toast.error('Please log in to continue!');
+      toast.error('Please login to continue!');
     } else {
       // Nếu có token, lưu thông tin và chuyển hướng tới trang checkout
       sessionStorage.setItem('booked', JSON.stringify(params.d) ?? '')
