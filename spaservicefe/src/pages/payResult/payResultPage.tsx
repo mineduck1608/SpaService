@@ -7,9 +7,6 @@ export default function PayResultPage() {
     const s = window.location.search.substring(1)
     if (s.length !== 0) {
       setR(s.toLowerCase().includes('success=true'))
-      setTimeout(() => {
-        window.location.replace('/')
-      }, 3000);
     }
   }, [])
 
