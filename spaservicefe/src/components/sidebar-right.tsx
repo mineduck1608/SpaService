@@ -22,11 +22,9 @@ export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>)
           // Giải mã token để lấy UserId
           const decodedToken: any = jwtDecode(token)
           const userId = decodedToken.UserId // Lấy UserId từ token
-          console.log(userId)
 
           // Gọi API để lấy thông tin nhân viên sử dụng UserId
           const employeeData: Employee = await getEmployeeByAccountId(userId) // Gọi API với UserId
-          console.log(employeeData)
 
           if (employeeData) {
             setUser({
