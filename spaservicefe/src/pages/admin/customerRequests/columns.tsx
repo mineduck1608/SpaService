@@ -3,9 +3,9 @@ import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
 import RequestActions from './customerRequestAction' // Updated to reflect customer request actions
-import { Request } from '@/types/type' // Assuming `Request` is the correct type based on the entity
+import { SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 
-export const columns: ColumnDef<Request>[] = [
+export const columns: ColumnDef<SpaRequest>[] = [
   {
     id: 'select',
     header: ({ table }) => (

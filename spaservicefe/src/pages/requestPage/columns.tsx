@@ -2,9 +2,9 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../components/ui/button'
 import { Checkbox } from '../../components/ui/checkbox'
-import { Request } from '@/types/type' // Assuming `Request` is the correct type based on the entity
+import { SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 
-export const columns: ColumnDef<Request>[] = [
+export const columns: ColumnDef<SpaRequest>[] = [
   {
     accessorKey: 'serviceName',
     header: 'Service',
@@ -13,7 +13,7 @@ export const columns: ColumnDef<Request>[] = [
   {
     accessorKey: 'startTime',
     header: 'Start Time',
-    cell: (r) => r.row.original.startTime
+    cell: (r) => new Date(r.row.original.startTime).toLocaleString()
   },
   {
     accessorKey: 'status',
@@ -42,6 +42,11 @@ export const columns: ColumnDef<Request>[] = [
     accessorKey: 'managerNote',
     header: 'Manager Note',
     cell: ({ row }) => row.getValue('managerNote') || 'No notes provided'
+  },
+  {
+    accessorKey: 'requestedId',
+    header: 'Requested Employee',
+    cell: (r) => r.row.original.employee?.fullName ?? 'Did not request'
   },
   // {
   //   id: 'actions',

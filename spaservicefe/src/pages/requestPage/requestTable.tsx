@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { Request } from '../../../types/type' // Updated to CustomerRequest type
+import { SpaRequest } from '../../types/type' // Updated to CustomerRequest type
 
 import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 import { getRequestsOfAccId } from './requestPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'
 
-export default function CustomerRequestPage() {
-  const [data, setData] = useState<Request[]>([]) // Updated to CustomerRequest
+export default function RequestTable() {
+  const [data, setData] = useState<SpaRequest[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [past, setPast] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {

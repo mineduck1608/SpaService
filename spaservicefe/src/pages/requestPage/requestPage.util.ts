@@ -1,6 +1,5 @@
-import { SpaService } from '@/types/type'
+import { SpaRequest } from '@/types/type'
 import { apiUrl, getToken } from '../../types/constants'
-import { SpaRequest } from '@/types/request'
 
 export async function getRequestsOfAccId(id: string) {
   try {

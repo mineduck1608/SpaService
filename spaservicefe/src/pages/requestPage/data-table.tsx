@@ -12,28 +12,22 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { IoIosArrowDown } from 'react-icons/io'
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Button } from '../../components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuTrigger
-} from '../../components/ui/dropdown-menu'
 
 interface DataTableProps<TData> {
   columns: any[]
   data: TData[]
   filterKey1?: string // Key để lọc dữ liệu\
-  filterKey2?: string 
+  filterKey2?: string
 }
 
-export function DataTable<TData>({ columns, data}: DataTableProps<TData>) {
+export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-
   const table = useReactTable({
     data,
     columns,
@@ -56,31 +50,7 @@ export function DataTable<TData>({ columns, data}: DataTableProps<TData>) {
   return (
     <div>
       <div className='flex items-center py-3'>
-        <div className='ml-auto flex items-center gap-x-2'>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='ml-auto'>
-                Columns
-                <IoIosArrowDown className='mt-0.5' />
-              </Button>
-            </DropdownMenuTrigger>
-            {/* <DropdownMenuContent align='end'>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className='capitalize'
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent> */}
-          </DropdownMenu>
-        </div>
+        <div className='ml-auto flex items-center gap-x-2'></div>
       </div>
       <div className='rounded-md border'>
         <Table>
