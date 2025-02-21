@@ -38,6 +38,8 @@ namespace SpaServiceBE.Controllers
             {
                 var u = await _transactionService.Update(txnId, s);
                 var req = await _requestService.GetById(s.RequestId);
+                req.Status = "Completed";
+                var t = await _requestService.Update(req.RequestId, req);
                 var service = await _spaService.GetById(req.ServiceId);
                 if (req.EmployeeId == null)
                 {

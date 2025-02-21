@@ -30,8 +30,9 @@ import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
 import ManagerPage from './pages/manager/managerMainPage.tsx'
 import PayResultPage from './pages/payResult/payResultPage.tsx'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import RequestPage from './pages/requestPage/requestPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -64,6 +65,14 @@ function App() {
                 <OurServices />
                 <Products />
                 <News />
+              </Layout>
+            }
+          />
+          <Route
+            path='requests'
+            element={
+              <Layout>
+                <RequestPage />
               </Layout>
             }
           />

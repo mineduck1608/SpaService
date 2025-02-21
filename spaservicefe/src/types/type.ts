@@ -48,7 +48,8 @@ export type Request = {
   customerNote: string
   managerNote: string
   serviceId: string
-  customerId: string
+  customerId: string,
+  service?: SpaService
 }
 
 export type Contact = {

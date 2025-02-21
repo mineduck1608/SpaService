@@ -1,4 +1,6 @@
+
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function PayResultPage() {
   const [r, setR] = useState<boolean | null>(null)
@@ -66,6 +68,9 @@ export default function PayResultPage() {
                         </tr>
                       </tbody>
                     </table>
+                  </div>
+                  <div className='flex justify-center'>
+                    <Link className='bg-green-600 no-underline p-3 rounded-xl text-white font-bold' to='/requests'>View your new request!</Link>
                   </div>
                 </div>
               )}

@@ -43,7 +43,6 @@ export const columns: ColumnDef<Request>[] = [
     accessorKey: 'startTime',
     header: 'Start Time',
     cell: ({ row }) => row.getValue('startTime')
-
   },
   {
     accessorKey: 'status',
@@ -59,10 +58,10 @@ export const columns: ColumnDef<Request>[] = [
       } else if (status === 'Pending') {
         statusColor = 'text-gray-500'
       }
-  
+
       return <span className={statusColor}>{status}</span>
     }
-  },  
+  },
   {
     accessorKey: 'customerNote',
     header: 'Customer Note',
