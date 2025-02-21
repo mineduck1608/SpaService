@@ -44,5 +44,10 @@ namespace Services
         {
             return await _repository.Delete(appointmentId);
         }
+        // Get all appointments from employee ID
+        public async Task <List<Appointment>> GetAllAppointmentsFromEmployee(string employeeId)
+        {
+            return await _repository.GetAppointmentsFromEmployeeId(employeeId);
+        }
     }
 }

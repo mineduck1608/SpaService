@@ -11,5 +11,6 @@ namespace Services.IServices
         Task<bool> AddAppointment(Appointment appointment);
         Task<bool> UpdateAppointment(string appointmentId, Appointment appointment);
         Task<bool> DeleteAppointment(string appointmentId);
+        Task <List<Appointment>> GetAllAppointmentsFromEmployee(string employeeId);
     }
 }
