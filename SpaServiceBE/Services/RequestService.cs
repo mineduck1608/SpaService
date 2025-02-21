@@ -38,5 +38,10 @@ namespace Services
         {
             return await _requestRepository.Delete(requestId);
         }
+
+        public async Task<List<Request>> FilterByAccount(string accId)
+        {
+            return await _requestRepository.FilterByAccount(accId);
+        }
     }
 }
