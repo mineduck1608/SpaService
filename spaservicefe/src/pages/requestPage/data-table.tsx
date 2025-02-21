@@ -15,6 +15,7 @@ import {
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Button } from '../../components/ui/button'
+import { PastBookingContext } from './context/pastBookingContext'
 
 interface DataTableProps<TData> {
   columns: any[]
@@ -28,6 +29,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const context = React.useContext(PastBookingContext)
   const table = useReactTable({
     data,
     columns,
@@ -50,7 +52,16 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   return (
     <div>
       <div className='flex items-center py-3'>
-        <div className='ml-auto flex items-center gap-x-2'></div>
+        <div className='ml-auto flex items-center gap-x-2'>
+          <button
+            className={`${context.pastBooking ? 'bg-purple-600' : 'bg-blue-600'} p-2 rounded-md text-white`}
+            onClick={() => { context.setPastBooking(!context.pastBooking) }}
+          >View
+            {!context.pastBooking && <>&nbsp;&nbsp;</>}
+            {context.pastBooking ? ' Future ' : " Past "}
+            {!context.pastBooking && <>&nbsp;&nbsp;</>}
+            Request(s)</button>
+        </div>
       </div>
       <div className='rounded-md border'>
         <Table>

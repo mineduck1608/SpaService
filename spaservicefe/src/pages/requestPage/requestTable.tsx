@@ -7,12 +7,13 @@ import { format } from 'date-fns' // Dùng thư viện date-fns để format ng�
 import { getRequestsOfAccId } from './requestPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'
+import { PastBookingContext } from './context/pastBookingContext'
 
 export default function RequestTable() {
   const [data, setData] = useState<SpaRequest[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [past, setPast] = useState(false)
+  const [pastBooking, setPastBooking] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +35,18 @@ export default function RequestTable() {
 
   return (
     <div className='container mx-auto w-[96%] rounded-md border'>
-      <DataTable columns={columns} data={data} />
+      <PastBookingContext.Provider value={{ pastBooking, setPastBooking }}>
+        <DataTable
+          columns={columns}
+          data={data.filter((v) => {
+            var d = new Date(v.startTime).getTime() < new Date().getTime()
+            if (pastBooking) {
+              return d
+            }
+            return !d
+          })}
+        />
+      </PastBookingContext.Provider>
     </div>
   )
 }
