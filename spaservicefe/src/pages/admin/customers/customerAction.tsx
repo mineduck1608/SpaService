@@ -11,9 +11,10 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Customer } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import BaseModal from '../baseModal'
-import { getToken } from '../../../types/constants'
-import { toast, ToastContainer } from 'react-toastify'
+import UpdateCustomerModal from './customerUpdateModal'
+import { ToastContainer } from 'react-toastify'
+import { handleDelete } from './customer.util'
+
 interface CustomerActionsProps {
   customer: Customer
 }
@@ -29,26 +30,7 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
-    console.log(`Deleting customer with id: ${customer.customerId}`)
-    try {
-      const response = await fetch(`https://localhost:7205/api/customers/Delete/${customer.customerId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${getToken()}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      if (response.status === 200 || response.status === 204) {
-        toast.success('Delete successfully', {
-          autoClose: 3000,
-          onClose: () => window.location.reload()
-        })
-      } else {
-        toast.error('Delete failed. Try again.')
-      }
-    } catch (error) {
-      console.error('Error deleting account:', error)
-    } 
+    handleDelete(customer.customerId)
     closeDeleteModal()
   }
 
@@ -78,19 +60,9 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <BaseModal 
-        isOpen={isUpdateModalOpen} 
-        onClose={closeUpdateModal} 
-        entity='Customer' 
-        type='Update' 
-        rowData={customer}
-      />
-      
-      <ConfirmDeleteModal 
-        isOpen={isDeleteModalOpen} 
-        onClose={closeDeleteModal} 
-        onConfirm={handleConfirmDelete} 
-      />
+
+      <UpdateCustomerModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} customer={customer}/>
+      <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }

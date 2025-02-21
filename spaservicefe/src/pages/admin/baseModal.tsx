@@ -17,12 +17,8 @@ import { Calendar } from 'src/components/ui/calendar'
 import { format } from 'date-fns'
 import { toast, ToastContainer } from 'react-toastify' 
 
-export default function BaseModal({isOpen, onClose, type, entity, rowData} : BaseModalProps) {
-  const config = entityConfigMap[entity]
-  const isCreate = type === 'Create'
-  
-  const fieldsToUse = type === 'Create' ? config.fields : config.updatefields || config.fields
-  const formSchema = generateZodSchema(config, !isCreate)
+export default function BaseModal({isOpen, onClose, rowData} : BaseModalProps) {
+  const formSchema = generateZodSchema(config.fields)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(

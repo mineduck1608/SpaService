@@ -10,9 +10,8 @@ import {
 } from '../../../components/ui/dropdown-menu'
 import { Account } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import BaseModal from '../baseModal'
-import { toast, ToastContainer } from 'react-toastify'
-
+import UpdateAccountModal from './accountUpdateModal'
+import { ToastContainer } from 'react-toastify'
 
 interface AccountActionsProps {
   account: Account
@@ -43,18 +42,13 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
             Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Block
+            Lock
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <BaseModal 
-        isOpen={isUpdateModalOpen} 
-        onClose={closeUpdateModal} 
-        entity='Customer' 
-        type='Update' 
-        rowData={account}
-      />
+      
+      <UpdateAccountModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} account={account}/>
     </>
   )
 }

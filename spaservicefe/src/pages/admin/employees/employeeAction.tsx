@@ -11,9 +11,9 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Employee } from '@/types/type' // Đổi kiểu dữ liệu thành Employee
 import { MoreHorizontal } from 'lucide-react'
-import BaseModal from '../baseModal'
-import { getToken } from '../../../types/constants'
-import { toast, ToastContainer } from 'react-toastify' 
+import UpdateEmployeeModal from './employeeUpdateModal'
+import { ToastContainer } from 'react-toastify' 
+import { handleDelete } from './employee.util'
 
 interface EmployeeActionsProps {
   employee: Employee // Đổi từ Customer sang Employee
@@ -31,28 +31,9 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
-      console.log(`Deleting customer with id: ${employee.employeeId}`)
-      try {
-        const response = await fetch(`https://localhost:7205/api/employees/Delete/${employee.employeeId}`, {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${getToken()}`,
-            'Content-Type': 'application/json'
-          }
-        })
-        if (response.status === 200 || response.status === 204) {
-          toast.success('Delete successfully', {
-            autoClose: 3000,
-            onClose: () => window.location.reload()
-          })
-        } else {
-          toast.error('Delete failed. Try again.')
-        }
-      } catch (error) {
-        console.error('Error deleting account:', error)
-      } 
-      closeDeleteModal()
-    }
+    handleDelete(employee.employeeId)
+    closeDeleteModal()
+  }
     
   return (
     <>
@@ -79,13 +60,7 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <BaseModal 
-        isOpen={isUpdateModalOpen} 
-        onClose={closeUpdateModal} 
-        entity='Employee' 
-        type='Update' 
-        rowData={employee}
-      />
+      <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

@@ -3,9 +3,9 @@ export type Account = {
   username: string
   password: string
   status: boolean
-  createdAt: Date
+  createdAt: Date | string
   roleId: string
-  updatedAt: Date
+  updatedAt: Date | string
 }
 export type Employee = {
   employeeId: string

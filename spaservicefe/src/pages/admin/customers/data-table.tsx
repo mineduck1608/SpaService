@@ -23,7 +23,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import BaseModal from '../baseModal'
+import AddCustomerModal from './customerAddModal'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
           className='ml-2 max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
-          <BaseModal type='Create' entity='Customer' />
+          <AddCustomerModal />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>

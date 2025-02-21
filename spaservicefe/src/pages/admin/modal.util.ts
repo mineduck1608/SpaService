@@ -2,21 +2,8 @@ import { z } from 'zod'
 
 export type BaseModalProps = {
   isOpen?: boolean
-  type: 'Create' | 'Update'
-  entity: string
   rowData?: any
   onClose?: () => void
-}
-
-export type BaseFormProps = {
-  config: {
-    entityName: string
-    fields: FieldConfig[]
-    updatefields: FieldConfig[]
-    api: ApiConfig
-  },
-  type: 'Create' | 'Update',
-  rowData?: Record<string, any>
 }
 
 export type FieldConfig = {
@@ -27,16 +14,11 @@ export type FieldConfig = {
   required?: boolean
   minLength?: number
   maxLength?: number
-
-}
-
-export type ApiConfig = {
-  create: string
-  update: string
+  readonly?: boolean
+  options?: { value: string; label: string }[]
 }
 
 export const customerConfig = {
-  entityName: 'Customer',
   updatefields: [
     {
       name: 'fullName',
@@ -44,7 +26,13 @@ export const customerConfig = {
       type: 'text',
       required: true,
       minLength: 8,
-      placeholder: 'Enter new full name',
+      placeholder: 'Enter new full name'
+    },
+    {
+      name: 'gender',
+      label: 'Gender',
+      type: 'select',
+      readonly: true
     },
     {
       name: 'phone',
@@ -60,6 +48,12 @@ export const customerConfig = {
       required: true,
       placeholder: 'Enter new email address'
     },
+    {
+      name: 'dateOfBirth',
+      label: 'D.O.B',
+      type: 'datetime-local',
+      readonly: true
+    }
   ],
   fields: [
     {
@@ -91,6 +85,10 @@ export const customerConfig = {
       type: 'select',
       required: true,
       placeholder: 'Select gender',
+      options: [
+        { value: "Male", label: "Male" },
+        { value: "Female", label: "Female" },
+      ],
     },
     {
       name: 'phone',
@@ -113,11 +111,7 @@ export const customerConfig = {
       required: true,
       placeholder: 'Select date of birth'
     }
-  ],
-  api: {
-    create: 'api/accounts/RegisterCustomer',
-    update: 'api/customers/Update/{id}'
-  }
+  ]
 }
 
 export const employeeConfig = {
@@ -136,13 +130,22 @@ export const employeeConfig = {
       type: 'select',
       required: true,
       placeholder: 'Select position',  
+      options: [
+        { value: "Admin System", label: "Admin System" },
+        { value: "Manager", label: "Manager" },
+        { value: "Employee", label: "Employee" }
+      ],
     },
     {
       name: 'status',
       label: 'Status',
       type: 'select',
       required: true,
-      placeholder: 'Select status',  
+      placeholder: 'Select status',
+      options: [
+        { value: "Active", label: "Active" },
+        { value: "Locked", label: "Locked" }
+      ],  
     },
     {
       name: 'image',
@@ -224,34 +227,49 @@ export const employeeConfig = {
 }
 
 export const accountConfig = {
-  entityName: 'Account',
-  fields: [
+  updatefields: [
     {
       name: 'username',
       label: 'Username',
       type: 'text',
       required: true,
       minLength: 8,
-      placeholder: 'Enter username',
+      placeholder: 'Enter new username',
     },
     {
       name: 'password',
       label: 'Password',
       type: 'password',
       required: true,
-      placeholder: 'Enter password',
+      placeholder: 'Enter new password',
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      readonly: true,
     },
     {
       name: 'roleId',
       label: 'Role ID',
       type: 'text',
+      minLength: 10,
       required: true,
-      placeholder: 'Enter role ID'
+      placeholder: 'Enter new role ID'
+    },
+    {
+      name: 'createdAt',
+      label: 'Created At',
+      type: 'datetime-local',
+      readonly: true,
+    },
+    {
+      name: 'updatedAt',
+      label: 'Updated At',
+      type: 'datetime-local',
+      readonly: true,
     }
-  ],
-  api: {
-    update: 'api/accounts/Update/{id}'
-  }
+  ]
 }
 
 
@@ -261,13 +279,11 @@ export const entityConfigMap: Record<string, any> = {
   Employee: employeeConfig
 }
 
-export const generateZodSchema = (config: { entityName: string, fields: FieldConfig[], updatefields?: FieldConfig[] }, isUpdate: boolean) => {
+export const generateZodSchema = (fields: FieldConfig[]) => {
   const schemaObject: Record<string, any> = {}
-  const fieldList = isUpdate && config.updatefields?.length ? config.updatefields : config.fields
 
-  fieldList.forEach((field) => {
+  fields.forEach((field) => {
     let fieldSchema = z.string()
-
     switch (field.type) {
       case 'password':
         fieldSchema = z.string().regex(

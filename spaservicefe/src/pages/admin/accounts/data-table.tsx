@@ -24,6 +24,7 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 
+
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
