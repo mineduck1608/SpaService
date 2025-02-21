@@ -32,14 +32,14 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                     <span className='mb-0.5 text-base'>{workspace.title}</span>
                   </Link>
                 </SidebarMenuButton>
-                <CollapsibleTrigger asChild>
+                {workspace.pages && <CollapsibleTrigger asChild>
                   <SidebarMenuAction
                     className='bg-sidebar-accent text-sidebar-accent-foreground data-[state=open]:rotate-90'
                     showOnHover
                   >
                     <ChevronRight />
                   </SidebarMenuAction>
-                </CollapsibleTrigger>
+                </CollapsibleTrigger>}
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {(workspace.pages ?? []).map((page) => (

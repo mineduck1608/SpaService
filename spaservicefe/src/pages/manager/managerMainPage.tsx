@@ -44,7 +44,6 @@ export default function ManagerPage() {
         </header>
         <Outlet />
       </SidebarInset>
-      <SidebarRight />
     </SidebarProvider>
   )
 }
