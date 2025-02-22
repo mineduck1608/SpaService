@@ -23,6 +23,21 @@ builder.Services.AddDbContext<SpaserviceContext>(options =>
 
 // Add repositories to DI
 builder.Services.AddScoped<AccountRepository>();
+builder.Services.AddScoped<ApplicationRepository>();
+builder.Services.AddScoped<AppointmentRepository>();
+builder.Services.AddScoped<AttendanceRecordRepository>();
+builder.Services.AddScoped<CosmeticCategoryRepository>();
+builder.Services.AddScoped<CosmeticProductRepository>();
+builder.Services.AddScoped<CosmeticProductCategoryRepository>();
+builder.Services.AddScoped<CosmeticTransactionRepository>();
+builder.Services.AddScoped<ManagerRepository>();
+builder.Services.AddScoped<FloorRepository>();
+builder.Services.AddScoped<RoomRepository>();
+builder.Services.AddScoped<OrderRepository>();
+builder.Services.AddScoped<OrderDetailRepository>();
+builder.Services.AddScoped<CustomerMembershipRepository>();  
+builder.Services.AddScoped<GuestApplicationRepository>();
+builder.Services.AddScoped<ServiceTransactionRepository>();
 builder.Services.AddScoped<RoleRepository>();
 builder.Services.AddScoped<AppointmentRepository>();
 builder.Services.AddScoped<ServiceCategoryRepository>();
@@ -42,9 +57,22 @@ builder.Services.AddScoped<CategoryEmployeeRepository>();
 builder.Services.AddScoped<ServiceTransactionRepository>();
 
 
-
-
 // Add services to DI
+builder.Services.AddScoped<IApplicationService, ApplicationService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IAttendanceRecordService, AttendanceRecordService>();
+builder.Services.AddScoped<ICosmeticCategoryService, CosmeticCategoryService>();
+builder.Services.AddScoped<ICosmeticProductService, CosmeticProductService>();
+builder.Services.AddScoped<ICosmeticProductCategoryService, CosmeticProductCategoryService>();
+builder.Services.AddScoped<ICosmeticTransactionService, CosmeticTransactionService>();
+builder.Services.AddScoped<IManagerService, ManagerService>();
+builder.Services.AddScoped<IFloorService, FloorService>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
+builder.Services.AddScoped<ICustomerMembershipService, CustomerMembershipService>();
+builder.Services.AddScoped<IGuestApplicationService, GuestApplicationService>();
+builder.Services.AddScoped<IServiceTransactionService, ServiceTransactionService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IServiceCategoryService, ServiceCategoryService>();
