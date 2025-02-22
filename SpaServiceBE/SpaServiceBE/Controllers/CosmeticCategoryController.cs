@@ -23,6 +23,7 @@ namespace SpaServiceBE.Controllers
             return Ok(await _cosmeticCategoryService.GetAllCosmeticCategories());
         }
         
+
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<CosmeticCategory>> GetCosmeticCategoryById(string id)
         {

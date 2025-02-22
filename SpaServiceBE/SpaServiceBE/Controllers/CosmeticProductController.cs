@@ -31,6 +31,23 @@ namespace SpaServiceBE.Controllers
                 return NotFound();
             return Ok(item);
         }
+        [HttpGet("GetByCateId/{id}")]
+        public async Task<ActionResult> GetCosmeticProductFromCategoryId(string categoryId)
+        {
+            try
+            {
+                var products = await _service.GetProductsByCategoryId(categoryId);
+                if (products == null || !products.Any())
+                {
+                    return NotFound(new { msg = $"No products found for category {categoryId}" });
+                }
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
         [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCosmeticProduct([FromBody] dynamic request)

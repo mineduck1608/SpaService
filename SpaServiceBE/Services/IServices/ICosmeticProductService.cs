@@ -14,5 +14,6 @@ namespace Services.IServices
         Task Create(CosmeticProduct item);
         Task Update(CosmeticProduct item);
         Task Delete(string id);
+        Task<IEnumerable<CosmeticProduct>> GetProductsByCategoryId(string categoryId);
     }
 }

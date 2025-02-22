@@ -49,5 +49,11 @@ namespace Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<IEnumerable<CosmeticProduct>> GetProductsByCategoryId(string categoryId)
+        {
+            return await _context.CosmeticProducts
+                .Where(p => p.CategoryId == categoryId)
+                .ToListAsync();
+        }
     }
 }

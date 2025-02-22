@@ -43,5 +43,9 @@ namespace Services
         {
             await _repository.Delete(id);
         }
+        public async Task<IEnumerable<CosmeticProduct>> GetProductsByCategoryId(string categoryId)
+        {
+            return await _repository.GetProductsByCategoryId(categoryId);
+        }
     }
 }
