@@ -85,7 +85,7 @@ public partial class SpaserviceContext : DbContext
         return configuration["ConnectionStrings:DefaultConnectionStringDB"];
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+        => optionsBuilder.UseSqlServer(GetConnectionString()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
