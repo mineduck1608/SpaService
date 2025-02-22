@@ -1,4 +1,5 @@
-﻿using Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Repositories;
 using Repositories.Entities;
 using Services.IServices;
 using System.Collections.Generic;
@@ -19,6 +20,11 @@ namespace Services
         public async Task<Employee> GetEmployeeById(string employeeId)
         {
             return await _repository.GetById(employeeId);
+        }
+
+        public async Task<Employee> GetEmployeeByAccountId(string id)
+        {
+            return await _repository.GetEmployeeByAccountId(id);
         }
 
         public async Task<Employee> GetEmployeeByPhone(string phone)
@@ -53,6 +59,12 @@ namespace Services
         public async Task<bool> DeleteEmployee(string employeeId)
         {
             return await _repository.Delete(employeeId);
+        }
+
+        public async Task<List<Employee>> GetEmployeesByCategoryIdAsync(string categoryId)
+        {
+            // Lấy danh sách nhân viên theo CategoryId từ repository
+            return await _repository.GetEmployeesByCategoryId(categoryId);
         }
     }
 }

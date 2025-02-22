@@ -11,7 +11,7 @@ public partial class SpaService
 
     public float Price { get; set; }
 
-    public TimeOnly Duration { get; set; }
+    public TimeSpan Duration { get; set; }
 
     public string Description { get; set; } = null!;
 
@@ -19,9 +19,7 @@ public partial class SpaService
 
     public string CategoryId { get; set; } = null!;
 
-    public int? NoOfSessions { get; set; }
-
-    public virtual Category Category { get; set; } = null!;
+    public virtual ServiceCategory Category { get; set; } = null!;
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 

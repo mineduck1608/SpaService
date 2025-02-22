@@ -4,15 +4,20 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from 'src/
 import { Separator } from 'src/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from 'src/components/ui/sidebar'
 import { sideData } from './sidebar.util'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 export default function AdminPage() {
-  const x = window.location.pathname.substring(7).replace(/-/g, ' ')
+  // Sử dụng useLocation để lấy thông tin location của trang hiện tại
+  const location = useLocation()
+
+  // Lấy path từ location.pathname và chuyển đổi thành dạng title
+  const x = location.pathname.substring(7).replace(/-/g, ' ')
+
   function capitalizeEachWord(sentence: string): string {
     return sentence
       .split(' ')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
+      .join(' ')
   }
 
   return (

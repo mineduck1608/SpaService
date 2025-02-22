@@ -58,9 +58,11 @@ const AboutSection = () => {
                 Located in the heart of Ho Chi Minh City, Sen Spa is separated from the noisy, bustling atmosphere,
                 offering a peaceful and serene space."
               </p>
+              <a href="/about">
               <button className='mt-8 rounded-br-[1rem] rounded-tl-[1rem] border-2 border-[#a040a0] px-6 py-2 text-[#a040a0] transition-colors duration-700 hover:bg-[#a040a0] hover:text-white'>
                 More <span className='ml-1'>›</span>
               </button>
+              </a>
             </div>
           </div>
 

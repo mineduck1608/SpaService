@@ -7,11 +7,9 @@ import { areaChartData1, areaChartConfig1 } from './chart.util'
 export function AreaChartComp() {
   return (
     <Card>
-      <CardHeader className="mt-4 text-lg">
+      <CardHeader className='mt-4 text-lg'>
         <CardTitle>Ad Performance Overview</CardTitle>
-        <CardDescription>
-          Showing total visitors via ads for the last 6 months
-        </CardDescription>
+        <CardDescription>Showing total visitors via ads for the last 6 months</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={areaChartConfig1}>
@@ -41,20 +39,20 @@ export function AreaChartComp() {
               stackId='a'
             />
             <Area
-              dataKey="facebook"
-              type="natural"
-              fill="var(--color-facebook)"
+              dataKey='facebook'
+              type='natural'
+              fill='var(--color-facebook)'
               fillOpacity={0.4}
-              stroke="var(--color-facebook)"
-              stackId="a"
+              stroke='var(--color-facebook)'
+              stackId='a'
             />
             <Area
-              dataKey="google"
-              type="natural"
-              fill="var(--color-google)"
+              dataKey='google'
+              type='natural'
+              fill='var(--color-google)'
               fillOpacity={0.4}
-              stroke="var(--color-google)"
-              stackId="a"
+              stroke='var(--color-google)'
+              stackId='a'
             />
           </AreaChart>
         </ChartContainer>

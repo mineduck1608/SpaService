@@ -3,7 +3,7 @@ export type Account = {
   username: string
   password: string
   status: boolean
-  createAt: Date
+  createdAt: Date
   roleId: string
   updatedAt: Date
 }
@@ -22,3 +22,66 @@ export type Role = {
   roleId: string
   roleName: string
 }
+
+export type Customer = {
+  customerId: string
+  accountId: string
+  fullName: string
+  gender: string
+  phone: string
+  email: string
+  dateOfBirth: Date
+  membershipId: string
+}
+
+export type Member = {
+  membershipId: string
+  type: string
+  discount: number
+  totalPayment: number
+}
+
+export type SpaRequest = {
+  requestId: string
+  startTime: string
+  status: string
+  customerNote: string
+  managerNote: string
+  serviceId: string
+  customerId: string,
+  service?: SpaService,
+  employee?: Employee
+}
+
+export type Contact = {
+  contactId: string
+  fullName: string
+  phoneNumber: string
+  email: string
+  contactContent: string
+  isProcessed: boolean
+  customer: Customer
+}
+
+export type Appointment = {
+  appointmentId: string
+  status: string
+  requestId: string
+  employeeId: string
+  startTime: string
+  endTime: string
+  replacementEmployee: string
+  updatedAt: Date
+  employee: Employee
+}
+
+export type SpaService = {
+  serviceId: string
+  serviceName: string
+  price: number
+  duration: string
+  description: string
+  serviceImage: string
+  categoryId: string
+}
+

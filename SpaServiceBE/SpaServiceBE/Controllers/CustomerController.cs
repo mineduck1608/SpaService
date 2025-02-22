@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -57,7 +58,6 @@ namespace API.Controllers
             }
         }
         // POST: api/customers/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCustomer([FromBody] dynamic request)
         {
@@ -113,21 +113,40 @@ namespace API.Controllers
                 string fullName = jsonElement.GetProperty("fullName").GetString();
                 string phone = jsonElement.GetProperty("phone").GetString();
                 string email = jsonElement.GetProperty("email").GetString();
+                string gender = jsonElement.GetProperty("gender").GetString();
+                DateTime dateOfBirth = jsonElement.GetProperty("dateOfBirth").GetDateTime();
 
-                // Validate input
-                if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
+
+                var customer = await _service.GetCustomerById(id);
+
+                if(customer == null)
                 {
-                    return BadRequest(new { msg = "Customer details are incomplete or invalid." });
+                    return NotFound(new { msg = $"Customer with ID = {id} not found." });
+
                 }
 
-                // Assign the ID for the update
-                var customer = new Customer
+                if (!fullName.IsNullOrEmpty())
                 {
-                    CustomerId = id, // Use the provided ID
-                    FullName = fullName,
-                    Phone = phone,
-                    Email = email
-                };
+                    customer.FullName = fullName;
+                }
+                if (!phone.IsNullOrEmpty())
+                {
+                    customer.Phone = phone;
+                }
+                if (!email.IsNullOrEmpty())
+                {
+                    customer.Email = email;
+                }
+                if (!gender.IsNullOrEmpty())
+                {
+                    customer.Gender = gender;
+                }
+                if (dateOfBirth != null)
+                {
+                    customer.DateOfBirth = dateOfBirth;
+                }
+
+
 
                 // Call service to update customer
                 var isUpdated = await _service.UpdateCustomer(id, customer);
@@ -156,6 +175,24 @@ namespace API.Controllers
                     return NotFound($"Customer with ID = {id} not found.");
 
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("GetByAccId")]
+        [Authorize]
+        public async Task<ActionResult> GetCustomerByAccId(string accId)
+        {
+            try
+            {
+                var customer = await _service.GetCustomerByAccId(accId);
+
+                if (customer == null)
+                    return NotFound($"Customer with account ID = {accId} not found.");
+
+                return Ok(customer);
             }
             catch (Exception ex)
             {

@@ -11,11 +11,11 @@ public partial class Employee
 
     public string Position { get; set; } = null!;
 
-    public DateTime? HireDate { get; set; }
+    public DateOnly HireDate { get; set; }
 
     public string Status { get; set; } = null!;
 
-    public string? Image { get; set; }
+    public string Image { get; set; } = null!;
 
     public string AccountId { get; set; } = null!;
 
@@ -25,15 +25,15 @@ public partial class Employee
 
     public virtual Account Account { get; set; } = null!;
 
-    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
-
     public virtual ICollection<Appointment> AppointmentEmployees { get; set; } = new List<Appointment>();
 
     public virtual ICollection<Appointment> AppointmentReplacementEmployeeNavigations { get; set; } = new List<Appointment>();
 
     public virtual ICollection<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
 
+    public virtual ICollection<CategoryEmployee> CategoryEmployees { get; set; } = new List<CategoryEmployee>();
+
     public virtual ICollection<EmployeeCommission> EmployeeCommissions { get; set; } = new List<EmployeeCommission>();
 
-    public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
+    public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 }

@@ -10,9 +10,9 @@ namespace Repositories
 {
     public class SpaServiceRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public SpaServiceRepository(SpaServiceContext context)
+        public SpaServiceRepository(SpaserviceContext context)
         {
             _context = context;
         }
@@ -29,6 +29,8 @@ namespace Repositories
             return await _context.SpaServices
                 .FirstOrDefaultAsync(s => s.ServiceName == serviceName);
         }
+
+
 
         // Lấy tất cả SpaServices với các thông tin liên quan đến Category, Feedback, và Request
         public async Task<List<SpaService>> GetAll()

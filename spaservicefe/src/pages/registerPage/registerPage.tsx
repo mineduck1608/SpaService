@@ -43,7 +43,7 @@ export default function RegisterPage() {
           >
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger>Log in</TooltipTrigger>
+                <TooltipTrigger>Login</TooltipTrigger>
                 <TooltipContent>
                   <p>Click here to sign in</p>
                 </TooltipContent>

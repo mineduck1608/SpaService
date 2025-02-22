@@ -58,7 +58,6 @@ namespace API.Controllers
         }
 
         // POST: api/attendanceRecords/Create
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateAttendanceRecord([FromBody] dynamic request)
         {
@@ -83,7 +82,6 @@ namespace API.Controllers
                 var attendanceRecord = new AttendanceRecord
                 {
                     AttendanceId = Guid.NewGuid().ToString("N"),
-                    Date = date,
                     CheckInTime = checkInTime,
                     CheckOutTime = checkOutTime,
                     EmployeeId = employeeId
@@ -128,7 +126,6 @@ namespace API.Controllers
                 var attendanceRecord = new AttendanceRecord
                 {
                     AttendanceId = id,
-                    Date = date,
                     CheckInTime = checkInTime,
                     CheckOutTime = checkOutTime,
                     EmployeeId = employeeId

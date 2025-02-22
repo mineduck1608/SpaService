@@ -10,9 +10,9 @@ namespace Repositories
 {
     public class MembershipRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public MembershipRepository(SpaServiceContext context)
+        public MembershipRepository(SpaserviceContext context)
         {
             _context = context;
         }
@@ -21,8 +21,6 @@ namespace Repositories
         public async Task<Membership> GetById(string membershipId)
         {
             return await _context.Memberships
-                .Include(m => m.Customers)      // Bao gồm Customers liên quan đến Membership
-                .Include(m => m.Transactions)   // Bao gồm Transactions liên quan đến Membership
                 .FirstOrDefaultAsync(m => m.MembershipId == membershipId);
         }
 
@@ -30,8 +28,6 @@ namespace Repositories
         public async Task<List<Membership>> GetAll()
         {
             return await _context.Memberships
-                .Include(m => m.Customers)      // Bao gồm Customers liên quan đến Membership
-                .Include(m => m.Transactions)   // Bao gồm Transactions liên quan đến Membership
                 .ToListAsync();
         }
 

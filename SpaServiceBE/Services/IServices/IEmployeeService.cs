@@ -16,6 +16,7 @@ namespace Services.IServices
 
 
         Task<Employee> GetEmployeeByEmail(string email);
-  
+        Task<List<Employee>> GetEmployeesByCategoryIdAsync(string categoryId);
+        Task<Employee> GetEmployeeByAccountId(string id);
     }
 }

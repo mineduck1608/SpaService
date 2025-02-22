@@ -1,0 +1,85 @@
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
+using Repositories.Context;
+using Repositories.Entities;
+using Services;
+using Services.IServices;
+using SpaServiceBE.Utils;
+
+namespace SpaServiceBE.Controllers
+{
+    [Route("[controller]")]
+    [ApiController]
+    public class CheckoutController : Controller
+    {
+        private readonly IVnPayService _vnPayService;
+        private readonly ITransactionService _transactionService;
+        private readonly IRequestService _requestService;
+        private readonly ISpaServiceService _spaService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IServiceTransactionService _svTransService;
+        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService, IEmployeeService employeeService, IServiceTransactionService svTransService)
+        {
+            _vnPayService = vnPayService;
+            _transactionService = transactionService;
+            _requestService = requestService;
+            _appointmentService = appointmentService;
+            _spaService = spaService;
+            _employeeService = employeeService;
+            _svTransService = svTransService;
+        }
+
+
+        [HttpGet("PaymentCallbackVnPay")]
+        public async Task<IActionResult> PaymentCallbackVnpay()
+        {
+            var response = _vnPayService.PaymentExecute(Request.Query);
+            //Order desc is txn id
+            var txnId = response.OrderDescription;
+            try
+            {
+                var x = await UpdateServiceTransaction(txnId);
+                return Redirect($"http://localhost:3000/pay-result?success={Util.QueryStringFromDict(x)}");
+            }
+            catch (Exception ex)
+            {
+            }
+            return Redirect($"http://localhost:3000/pay-result?success=false");
+        }
+        private async Task<Dictionary<string, string>> UpdateServiceTransaction(string transactionId)
+        {
+            var rs = new Dictionary<string, string>();
+            var s = await _transactionService.GetById(transactionId);
+            s.Status = true;
+            s.CompleteTime = DateTime.Now;
+            var serviceTxn = await _svTransService.GetByTransId(transactionId);
+            try
+            {
+                var req = await _requestService.GetById(serviceTxn.ServiceTransactionId);
+                var service = await _spaService.GetById(req.ServiceId);
+                Appointment app = new()
+                {
+                    RequestId = req.RequestId,
+                    EmployeeId = req.EmployeeId,
+                    StartTime = req.StartTime,
+                    EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
+                    ReplacementEmployee = null,
+                    Status = "Processed",
+                    UpdatedAt = null,
+                    AppointmentId = Guid.NewGuid().ToString()
+                };
+                var check = await _appointmentService.AddAppointment(app);
+                rs.Add("success", check.ToString());
+                rs.Add("empName", app.EmployeeId);
+                rs.Add("startTime", app.StartTime.ToString());
+                rs.Add("endTime", app.EndTime.ToString());
+                rs.Add("serviceName", service.ServiceName);
+            }
+            catch (Exception ex)
+            {
+            }
+            return rs;
+        }
+    }
+}

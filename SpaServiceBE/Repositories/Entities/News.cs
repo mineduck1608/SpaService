@@ -15,5 +15,9 @@ public partial class News
 
     public string Type { get; set; } = null!;
 
-    public string? Image { get; set; }
+    public string Image { get; set; } = null!;
+
+    public string CategoryId { get; set; } = null!;
+
+    public virtual ServiceCategory Category { get; set; } = null!;
 }

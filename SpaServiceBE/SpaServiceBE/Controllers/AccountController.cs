@@ -55,16 +55,24 @@ namespace API.Controllers
 
             // Lấy thông tin tài khoản
             var account = await _accountService.GetAccountByLogin(username, password);
-
             if (account == null)
             {
-                return NotFound("Username or password is incorrect.");
+                return NotFound(new {msg = "Username or password is incorrect." });
+            }
+            var accessToken = string.Empty;
+            if(account.Role.RoleName == "Customer")
+            {
+                var customer = await _customerService.GetCustomerByAccountId(account.AccountId);
+                accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, customer.FullName);
+                return Ok(new
+                {
+                    accessToken,
+                });
+
             }
 
-            // Tạo Access Token
-            var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName);
-
-            // Trả về Access Token
+            var employee = await _employeeService.GetEmployeeByAccountId(account.AccountId);
+            accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, employee.FullName);
             return Ok(new
             {
                 accessToken,
@@ -72,10 +80,24 @@ namespace API.Controllers
         }
 
 
+        [HttpPost("hash")]
+        public async Task<ActionResult<object>> Hash(string pass)
+        {
+            // Mã hóa mật khẩu
+            string password = Util.ToHashString(pass);
+
+            // Lấy thông tin tài khoản
+           
+            return Ok(new
+            {
+                password
+            });
+        }
+
+
 
 
         // GET: api/accounts/GetAll
-         [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Account>>> GetAllAccounts()
         {
@@ -114,20 +136,16 @@ namespace API.Controllers
                 // Extract account details
                 string username = jsonElement.GetProperty("username").GetString();
                 string password = jsonElement.GetProperty("password").GetString();
-
                 // Extract employee details
                 string fullName = jsonElement.GetProperty("fullName").GetString();
                 string position = jsonElement.GetProperty("position").GetString();
                 string phone = jsonElement.GetProperty("phone").GetString();
                 string email = jsonElement.GetProperty("email").GetString();
-                DateTime hireDate = jsonElement.GetProperty("hireDate").GetDateTime();
-                string status = jsonElement.GetProperty("status").GetString();
                 string? image = jsonElement.TryGetProperty("image", out var imgProperty) ? imgProperty.GetString() : null;
 
                 // Validate required fields
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullName) ||
-                    string.IsNullOrEmpty(position) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email) ||
-                    string.IsNullOrEmpty(hireDate.ToString()) || string.IsNullOrEmpty(status))
+                    string.IsNullOrEmpty(position) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
                     return BadRequest("Employee registration details are incomplete.");
 
                 // Validate phone, email, and password formats
@@ -159,7 +177,7 @@ namespace API.Controllers
                     AccountId = Guid.NewGuid().ToString("N"),
                     Username = username,
                     Password = Util.ToHashString(password),
-                    RoleId = "employeeRoleIdHere", // Replace with your Employee Role ID
+                    RoleId = "6219a63fab414127aa8ac13f2a3eb2a4", // Replace with your Employee Role ID
                     Status = true,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
@@ -172,8 +190,8 @@ namespace API.Controllers
                     AccountId = account.AccountId,
                     FullName = fullName,
                     Position = position,
-                    HireDate = hireDate,
-                    Status = status,
+                    HireDate = DateOnly.FromDateTime(DateTime.Now),
+                    Status = "Active",
                     Phone = phone,
                     Email = email,
                     Image = image ?? string.Empty // Set to empty string if no image is provided
@@ -244,7 +262,7 @@ namespace API.Controllers
                     AccountId = Guid.NewGuid().ToString("N"),
                     Username = username,
                     Password = Util.ToHashString(password),
-                    RoleId = "d0940b4b8f7040b1a59c227adeae520d",
+                    RoleId = "eed231e27e6c4309895ef17737569015",
                     Status = true,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
@@ -260,7 +278,6 @@ namespace API.Controllers
                     Phone = phone,
                     Email = email,
                     DateOfBirth = dateOfBirth,
-                    MembershipId = null // Mặc định chưa có membership
                 };
 
 

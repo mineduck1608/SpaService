@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { formatNumber, getServicesOfCategory, imgs } from '../servicesPage/servicesPage.util'
 import StockImg from './stockImg'
 import { Service } from '@/types/services'
-import { getService, sampleService } from './detailPage.util'
+import { getService } from './detailPage.util'
 import { Category } from '@/types/category'
 import ShortDetail from './shortDetail'
 import seperator from '../../images/serviceBg/separator.png'
@@ -36,7 +36,7 @@ export default function DetailPage() {
             Home
           </Link>
           &nbsp;&gt;&nbsp;
-          <Link to={'/services/' + sampleService.categoryId} className='text-gray-400 no-underline'>
+          <Link to={'/services/' + data?.categoryId} className='text-gray-400 no-underline'>
             {CATEGORY.find((x) => x.categoryId === data?.categoryId)?.categoryName}
           </Link>
           &nbsp;&gt;&nbsp;

@@ -8,9 +8,9 @@ namespace Repositories.Repositories
 {
     public class AttendanceRecordRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public AttendanceRecordRepository(SpaServiceContext context)
+        public AttendanceRecordRepository(SpaserviceContext context)
         {
             _context = context;
         }
@@ -47,7 +47,6 @@ namespace Repositories.Repositories
             if (existingAttendance == null)
                 return false;
 
-            existingAttendance.Date = attendanceRecord.Date;
             existingAttendance.CheckInTime = attendanceRecord.CheckInTime;
             existingAttendance.CheckOutTime = attendanceRecord.CheckOutTime;
             existingAttendance.EmployeeId = attendanceRecord.EmployeeId;

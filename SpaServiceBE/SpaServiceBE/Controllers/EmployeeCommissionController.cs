@@ -60,7 +60,6 @@ namespace API.Controllers
         }
 
         // POST: api/employeecommissions/Create
-        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateEmployeeCommission([FromBody] dynamic request)
         {
@@ -72,7 +71,7 @@ namespace API.Controllers
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
                 string commissionId = jsonElement.GetProperty("commissionId").GetString();
                 string transactionId = jsonElement.GetProperty("transactionId").GetString();
-                decimal commissionValue = jsonElement.GetProperty("commissionValue").GetDecimal();
+                float commissionValue = jsonElement.GetProperty("commissionValue").GetSingle();
 
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(employeeId) || string.IsNullOrEmpty(commissionId) ||
@@ -120,7 +119,7 @@ namespace API.Controllers
                 string requestEmployeeId = jsonElement.GetProperty("employeeId").GetString();
                 string requestCommissionId = jsonElement.GetProperty("commissionId").GetString();
                 string requestTransactionId = jsonElement.GetProperty("transactionId").GetString();
-                decimal commissionValue = jsonElement.GetProperty("commissionValue").GetDecimal();
+                float commissionValue = jsonElement.GetProperty("commissionValue").GetSingle();
 
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(requestEmployeeId) || string.IsNullOrEmpty(requestCommissionId) ||

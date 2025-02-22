@@ -60,7 +60,6 @@ namespace API.Controllers
         }
 
         // POST: api/feedbacks/Create
-        [Authorize (Roles = "Customer")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateFeedback([FromBody] dynamic request)
         {
@@ -70,7 +69,7 @@ namespace API.Controllers
 
                 // Lấy dữ liệu từ request
                 string feedbackMessage = jsonElement.GetProperty("feedbackMessage").GetString();
-                int rating = jsonElement.GetProperty("rating").GetInt32();
+                byte rating = jsonElement.GetProperty("rating").GetByte();
                 string createdBy = jsonElement.GetProperty("createdBy").GetString();
                 string serviceId = jsonElement.GetProperty("serviceId").GetString();
 
@@ -118,7 +117,7 @@ namespace API.Controllers
 
                 // Lấy dữ liệu từ request
                 string feedbackMessage = jsonElement.GetProperty("feedbackMessage").GetString();
-                int rating = jsonElement.GetProperty("rating").GetInt32();
+                byte rating = jsonElement.GetProperty("rating").GetByte();
                 string createdBy = jsonElement.GetProperty("createdBy").GetString();
                 string serviceId = jsonElement.GetProperty("serviceId").GetString();
 

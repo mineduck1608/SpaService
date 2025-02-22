@@ -15,9 +15,9 @@ namespace API.Controllers
     public class SpaServiceController : ControllerBase
     {
         private readonly ISpaServiceService _service;
-        private readonly ICategoryService _categoryService;
+        private readonly IServiceCategoryService _categoryService;
 
-        public SpaServiceController(ISpaServiceService service, ICategoryService categoryService)
+        public SpaServiceController(ISpaServiceService service, IServiceCategoryService categoryService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
@@ -40,7 +40,6 @@ namespace API.Controllers
         }
 
         // GET: api/spaservices/GetById/{id}
-        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<SpaService>> GetSpaServiceById(string id)
         {
@@ -61,7 +60,6 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [Authorize (Roles ="Admin, Manager")]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateSpaService([FromBody] dynamic request)
         {
@@ -77,9 +75,9 @@ namespace API.Controllers
                 string serviceImage = jsonElement.GetProperty("serviceImage").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
-                // Chuyển đổi Duration từ string sang TimeOnly
-                TimeOnly duration;
-                if (!TimeOnly.TryParse(durationString, out duration))
+                // Chuyển đổi Duration từ string sang TimeSpan
+                TimeSpan duration;
+                if (!TimeSpan.TryParse(durationString, out duration))
                 {
                     return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
                 }
@@ -147,9 +145,9 @@ namespace API.Controllers
                 string serviceImage = jsonElement.GetProperty("serviceImage").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
-                // Chuyển đổi Duration từ string sang TimeOnly
-                TimeOnly duration;
-                if (!TimeOnly.TryParse(durationString, out duration))
+                // Chuyển đổi Duration từ string sang TimeSpan
+                TimeSpan duration;
+                if (!TimeSpan.TryParse(durationString, out duration))
                 {
                     return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
                 }

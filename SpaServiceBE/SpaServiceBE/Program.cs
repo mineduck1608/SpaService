@@ -13,18 +13,19 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using SpaServiceBE;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add SpaServiceContext to DI
-builder.Services.AddDbContext<SpaServiceContext>(options =>
+builder.Services.AddDbContext<SpaserviceContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add repositories to DI
 builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<RoleRepository>();
 builder.Services.AddScoped<AppointmentRepository>();
-builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddScoped<ServiceCategoryRepository>();
 builder.Services.AddScoped<CommissionRepository>();
 builder.Services.AddScoped<CustomerRepository>();
 builder.Services.AddScoped<EmployeeCommissionRepository>();
@@ -35,9 +36,10 @@ builder.Services.AddScoped<PromotionRepository>();
 builder.Services.AddScoped<RequestRepository>();
 builder.Services.AddScoped<SpaServiceRepository>();
 builder.Services.AddScoped<TransactionRepository>();
-builder.Services.AddScoped<ContactRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<AttendanceRecordRepository>();
+builder.Services.AddScoped<CategoryEmployeeRepository>();
+builder.Services.AddScoped<ServiceTransactionRepository>();
 
 
 
@@ -45,7 +47,7 @@ builder.Services.AddScoped<AttendanceRecordRepository>();
 // Add services to DI
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IServiceCategoryService, ServiceCategoryService>();
 builder.Services.AddScoped<IEmployeeCommissionService, EmployeeCommissionService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IComissionService,ComissionService>();
@@ -55,11 +57,12 @@ builder.Services.AddScoped<IMembershipService, MembershipService>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<ISpaServiceService, SpaServiceService>();
+builder.Services.AddScoped<ISpaServiceService, SpaServiceContext>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
-builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IAttendanceRecordService, AttendanceRecordService>();
+builder.Services.AddScoped<ICategoryEmployeeService, CategoryEmployeeService>();
+builder.Services.AddScoped<IServiceTransactionService, ServiceTransactionService>();
 
 
 
@@ -75,6 +78,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
     });
+
 
 // Enable CORS
 builder.Services.AddCors(options =>
@@ -147,7 +151,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 
-
+//Connect VNPay API
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 
 
 

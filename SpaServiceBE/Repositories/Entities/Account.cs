@@ -9,7 +9,7 @@ public partial class Account
 
     public string Username { get; set; } = null!;
 
-    public string? Password { get; set; }
+    public string Password { get; set; } = null!;
 
     public bool Status { get; set; }
 
@@ -19,9 +19,13 @@ public partial class Account
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
+    public virtual ICollection<Manager> Managers { get; set; } = new List<Manager>();
 
     public virtual Role Role { get; set; } = null!;
 }

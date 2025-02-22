@@ -1,24 +1,28 @@
 import { useState } from 'react'
 import { Button } from '../../../components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from './deleteModal'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '../../../components/ui/dropdown-menu'
 import { Account } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
+import BaseModal from '../baseModal'
+import { toast, ToastContainer } from 'react-toastify'
+
 
 interface AccountActionsProps {
-  account: Account;
+  account: Account
 }
 
 const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
-  const [isModalOpen, setModalOpen] = useState(false)
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
-
-  const handleConfirmDelete = () => {
-    console.log(`Deleting account with id: ${account.accountId}`)
-    closeModal()
-  }
+  const openUpdateModal = () => setUpdateModalOpen(true)
+  const closeUpdateModal = () => setUpdateModalOpen(false)
 
   return (
     <>
@@ -35,12 +39,22 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
             Copy account ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Update</DropdownMenuItem>
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Block
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-      <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
+      <ToastContainer />
+      <BaseModal 
+        isOpen={isUpdateModalOpen} 
+        onClose={closeUpdateModal} 
+        entity='Customer' 
+        type='Update' 
+        rowData={account}
+      />
     </>
   )
 }

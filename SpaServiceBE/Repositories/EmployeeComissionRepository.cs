@@ -10,9 +10,9 @@ namespace Repositories
 {
     public class EmployeeCommissionRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public EmployeeCommissionRepository(SpaServiceContext context)
+        public EmployeeCommissionRepository(SpaserviceContext context)
         {
             _context = context;
         }
@@ -21,9 +21,6 @@ namespace Repositories
         public async Task<EmployeeCommission> GetById(string employeeId, string commissionId, string transactionId)
         {
             return await _context.EmployeeCommissions
-                .Include(ec => ec.Commission)          // Bao gồm Commission liên quan đến EmployeeCommission
-                .Include(ec => ec.Employee)            // Bao gồm Employee liên quan đến EmployeeCommission
-                .Include(ec => ec.Transaction)         // Bao gồm Transaction liên quan đến EmployeeCommission
                 .FirstOrDefaultAsync(ec => ec.EmployeeId == employeeId &&
                                            ec.CommissionId == commissionId &&
                                            ec.TransactionId == transactionId);
@@ -33,9 +30,6 @@ namespace Repositories
         public async Task<List<EmployeeCommission>> GetAll()
         {
             return await _context.EmployeeCommissions
-                .Include(ec => ec.Commission)          // Bao gồm Commission liên quan đến EmployeeCommission
-                .Include(ec => ec.Employee)            // Bao gồm Employee liên quan đến EmployeeCommission
-                .Include(ec => ec.Transaction)         // Bao gồm Transaction liên quan đến EmployeeCommission
                 .ToListAsync();
         }
 

@@ -10,9 +10,9 @@ namespace Repositories
 {
     public class RequestRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public RequestRepository(SpaServiceContext context)
+        public RequestRepository(SpaserviceContext context)
         {
             _context = context;
         }
@@ -94,6 +94,15 @@ namespace Repositories
             {
                 return false;
             }
+        }
+        public async Task<List<Request>> FilterByAccount(string accId)
+        {
+            return await _context.Requests.Include(x => x.Customer)
+                .ThenInclude(x => x.Account)
+                .Include(x => x.Service)
+                .Include(x => x.Employee)
+                .Where(x => x.Customer.AccountId == accId)
+                .ToListAsync();
         }
     }
 }

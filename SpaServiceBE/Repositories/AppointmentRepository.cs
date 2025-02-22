@@ -10,9 +10,9 @@ namespace Repositories
 {
     public class AppointmentRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public AppointmentRepository(SpaServiceContext context)
+        public AppointmentRepository(SpaserviceContext context)
         {
             _context = context;
         }
@@ -21,19 +21,19 @@ namespace Repositories
         public async Task<Appointment> GetById(string appointmentId)
         {
             return await _context.Appointments
-                .Include(a => a.Employee)
-                .Include(a => a.Request)
-                .Include(a => a.Transactions)
                 .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
+        }
+        public async Task <List<Appointment>> GetAppointmentsFromEmployeeId(string employeeId)
+        {
+            return await _context.Appointments
+                .Where(e => e.EmployeeId == employeeId)
+                .ToListAsync();
         }
 
         // Get all appointments
         public async Task<List<Appointment>> GetAll()
         {
             return await _context.Appointments
-                .Include(a => a.Employee)
-                .Include(a => a.Request)
-                .Include(a => a.Transactions)
                 .ToListAsync();
         }
 

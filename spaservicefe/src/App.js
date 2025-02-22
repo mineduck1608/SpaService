@@ -25,6 +25,16 @@ import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
 import { Dashboard } from './pages/admin/dashboard.tsx'
 import DemoPage from './pages/admin/accounts/page.tsx'
+import CalendarApp from './pages/admin/appointments/page.tsx'
+import CustomerPage from './pages/admin/customers/page.tsx'
+import EmployeePage from './pages/admin/employees/page.tsx'
+import ManagerPage from './pages/manager/managerMainPage.tsx'
+import PayResultPage from './pages/payResult/payResultPage.tsx'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import RequestPage from './pages/requestPage/requestPage.tsx'
+import ContactAdminPage from './pages/admin/contacts/page.tsx'
+import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 
 function Layout({ children }) {
@@ -55,6 +65,14 @@ function App() {
                 <OurServices />
                 <Products />
                 <News />
+              </Layout>
+            }
+          />
+          <Route
+            path='requests'
+            element={
+              <Layout>
+                <RequestPage />
               </Layout>
             }
           />
@@ -148,6 +166,14 @@ function App() {
               </Layout>
             }
           />
+          <Route
+            path='pay-result'
+            element={
+              <Layout>
+                <PayResultPage />
+              </Layout>
+            }
+          />
 
           <Route
             path='admin'
@@ -159,26 +185,39 @@ function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path='accounts' element={<DemoPage />} />
-            <Route path='customers' element={<div>ABCE</div>} />
-            <Route path='memberships' element={<div>ABCF</div>} />
-            <Route path='employees' element={<div>ABCG</div>} />
-            <Route path='shifts' element={<div>ABCH</div>} />
+            <Route path='customers' element={<CustomerPage />} />
+            <Route path='employees' element={<EmployeePage />} />
+            <Route path='shifts' element={<></>} />
             <Route path='schedules' element={<div>AB</div>} />
-            <Route path='customer-requests' element={<div>AC</div>} />
-            <Route path='appointments' element={<div>BC</div>} />
+            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            <Route path='appointments' element={<CalendarApp />} />
             <Route path='categories' element={<div>A</div>} />
             <Route path='employees-categories' element={<div>B</div>} />
             <Route path='services' element={<div>C</div>} />
             <Route path='applications' element={<div>D</div>} />
-            <Route path='contacts' element={<div>E</div>} />
+            <Route path='contacts' element={<ContactAdminPage />} />
             <Route path='transactions' element={<div>F</div>} />
             <Route path='commissions' element={<div>ABC</div>} />
             <Route path='employees-commissions' element={<div>BE</div>} />
             <Route path='news' element={<div>BF</div>} />
             <Route path='promotions' element={<div>CF</div>} />
           </Route>
+          <Route
+            path='manager'
+            element={
+              <ProtectedAdmin>
+                <ManagerPage />
+              </ProtectedAdmin>
+            }
+          >
+            <Route index />
+            <Route path='applications' />
+            <Route path='requests' />
+            <Route path='contacts' />
+          </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </GoogleOAuthProvider>
   )
 }

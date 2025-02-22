@@ -1,32 +1,15 @@
 import {
   Home,
-  Users,
-  Package,
-  Clock,
-  UserCog,
   Boxes,
   ClipboardList,
   LineChart,
-  DollarSign,
   LucideIcon,
-  User,
-  TicketPercent,
-  Calendar1,
   CalendarCheck,
   LetterText,
-  Folder,
-  Table,
-  Clipboard,
-  Contact2,
   ArrowLeftRight,
-  Receipt,
-  CalendarClock,
-  Newspaper,
-  Gem,
-  Search,
-  User2,
   HandHelping,
   UserCircle,
+  Contact2,
   MessageCircleQuestion,
   Trash2
 } from 'lucide-react'
@@ -71,10 +54,6 @@ export const sideData = {
       icon: ClipboardList,
       pages: [
         {
-          title: 'Schedule',
-          url: '/schedules'
-        },
-        {
           title: 'Applications',
           url: '/applications'
         },
@@ -113,7 +92,7 @@ export const sideData = {
         {
           title: 'News',
           url: '/news'
-        },
+        }
       ]
     },
     {

@@ -10,9 +10,9 @@ namespace Repositories
 {
     public class TransactionRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public TransactionRepository(SpaServiceContext context)
+        public TransactionRepository(SpaserviceContext context)
         {
             _context = context;
         }
@@ -21,10 +21,7 @@ namespace Repositories
         public async Task<Transaction> GetById(string transactionId)
         {
             return await _context.Transactions
-                .Include(t => t.Appointment)         // Bao gồm thông tin Appointment liên quan
-                .Include(t => t.EmployeeCommissions) // Bao gồm các EmployeeCommission liên quan đến giao dịch
-                .Include(t => t.Membership)          // Bao gồm thông tin Membership liên quan đến giao dịch
-                .Include(t => t.Promotion)           // Bao gồm thông tin Promotion liên quan đến giao dịch
+                     // Bao gồm thông tin Promotion liên quan đến giao dịch
                 .FirstOrDefaultAsync(t => t.TransactionId == transactionId);
         }
 
@@ -32,10 +29,6 @@ namespace Repositories
         public async Task<List<Transaction>> GetAll()
         {
             return await _context.Transactions
-                .Include(t => t.Appointment)         // Bao gồm thông tin Appointment
-                .Include(t => t.EmployeeCommissions) // Bao gồm các EmployeeCommission
-                .Include(t => t.Membership)          // Bao gồm thông tin Membership
-                .Include(t => t.Promotion)           // Bao gồm thông tin Promotion
                 .ToListAsync();
         }
 
@@ -63,9 +56,7 @@ namespace Repositories
             existingTransaction.TransactionType = transaction.TransactionType;
             existingTransaction.TotalPrice = transaction.TotalPrice;
             existingTransaction.Status = transaction.Status;
-            existingTransaction.AppointmentId = transaction.AppointmentId;
             existingTransaction.PromotionId = transaction.PromotionId;
-            existingTransaction.MembershipId = transaction.MembershipId;
 
             try
             {

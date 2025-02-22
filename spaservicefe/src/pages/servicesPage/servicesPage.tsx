@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { findCategories, getServicesOfCategory, imgs, take } from './servicesPage.util'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom' // Import useNavigate
 import { CategoryMenu } from './categoryMenu'
 import ServiceList from './serviceList'
 import { Service } from '@/types/services'
@@ -8,15 +8,16 @@ import { Category } from '@/types/category'
 import PageNumber from './pageNumber'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { jwtDecode } from 'jwt-decode'
 
 export default function ServicesPage() {
   const { id } = useParams()
+  const navigate = useNavigate() // Initialize useNavigate
   const [currentCategory, setCurrentCategory] = useState<Category>()
   const [services, setServices] = useState<Service[]>([])
   const [categories, setCategories] = useState<Category[]>()
   const [pageNum, setPageNum] = useState(0)
   const PAGE_SIZE = 6
+
   useEffect(() => {
     async function fetchData() {
       var c = await findCategories()
@@ -31,7 +32,7 @@ export default function ServicesPage() {
         return
       }
       if (!id) {
-        window.location.assign('services/' + c[0].categoryId)
+        navigate(c[0].categoryId) // Use navigate to go to the first category
         return
       }
       setCurrentCategory(c.find((v) => v.categoryId === id))
@@ -42,7 +43,7 @@ export default function ServicesPage() {
       setServices(serviceFetch)
     }
     fetchData()
-  }, [])
+  }, [id, navigate]) // Add navigate and id to the dependencies
 
   useEffect(() => {
     AOS.init({
@@ -52,6 +53,7 @@ export default function ServicesPage() {
       once: true
     })
   }, [])
+
   return (
     <div>
       <img src={imgs.headerBg} alt='Header' className='w-full' />
@@ -72,7 +74,7 @@ export default function ServicesPage() {
               <CategoryMenu
                 items={categories ?? []}
                 onClickItem={(v) => {
-                  window.location.assign(v)
+                  navigate('/services/'+v) // Use navigate for category change
                 }}
                 currentItem={currentCategory?.categoryId}
               />

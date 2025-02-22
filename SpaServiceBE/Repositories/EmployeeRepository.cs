@@ -10,9 +10,9 @@ namespace Repositories
 {
     public class EmployeeRepository
     {
-        private readonly SpaServiceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public EmployeeRepository(SpaServiceContext context)
+        public EmployeeRepository(SpaserviceContext context)
         {
             _context = context;
         }
@@ -27,6 +27,11 @@ namespace Repositories
         public async Task<Employee> GetEmployeeByPhone(string phone)
         {
             return await _context.Employees.FirstOrDefaultAsync(a => a.Phone == phone);
+        }
+
+        public async Task<Employee> GetEmployeeByAccountId(string id)
+        {
+            return await _context.Employees.FirstOrDefaultAsync(a => a.AccountId == id);
         }
 
         public async Task<Employee> GetEmployeeByEmail(string email)
@@ -97,6 +102,27 @@ namespace Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<List<Employee>> GetEmployeesByCategoryId(string categoryId)
+        {
+            // Lấy danh sách nhân viên thuộc CategoryId
+            var categoryEmployees = await _context.CategoryEmployees
+                .Where(ce => ce.CategoryId == categoryId)
+                .ToListAsync();
+
+            if (categoryEmployees == null || categoryEmployees.Count == 0)
+                return new List<Employee>();
+
+            // Lấy danh sách EmployeeId từ CategoryEmployee
+            var employeeIds = categoryEmployees.Select(ce => ce.EmployeeId).ToList();
+
+            // Lấy thông tin nhân viên từ bảng Employee
+            var employees = await _context.Employees
+                .Where(e => employeeIds.Contains(e.EmployeeId))
+                .ToListAsync();
+
+            return employees;
         }
     }
 }
