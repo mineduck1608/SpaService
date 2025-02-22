@@ -5,11 +5,11 @@ using Repositories.Entities;
 
 namespace Services
 {
-    public class SpaServiceService : ISpaServiceService
+    public class SpaServiceContext : ISpaServiceService
     {
         private readonly SpaServiceRepository _spaServiceRepository;
 
-        public SpaServiceService(SpaServiceRepository spaServiceRepository)
+        public SpaServiceContext(SpaServiceRepository spaServiceRepository)
         {
             _spaServiceRepository = spaServiceRepository;
         }
