@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using Repositories.Entities;
 using Services.IServices;
 using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/applications")]
     [ApiController]
     public class ApplicationController : ControllerBase
     {
@@ -17,13 +18,13 @@ namespace SpaServiceBE.Controllers
             _applicationService = applicationService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Application>>> GetApplications()
         {
             return Ok(await _applicationService.GetAllApplicationsAsync());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Application>> GetApplication(string id)
         {
             var application = await _applicationService.GetApplicationByIdAsync(id);
@@ -33,7 +34,7 @@ namespace SpaServiceBE.Controllers
             }
             return Ok(application);
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateApplication([FromBody] dynamic request)
         {
@@ -59,7 +60,9 @@ namespace SpaServiceBE.Controllers
                     Status = status,
                     Content = content,
                     AccountId = accountId,
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow,
+                    ResolvedBy = null,
+                    ResolvedAt = null
                 };
 
                 // Call service to add application
@@ -84,7 +87,10 @@ namespace SpaServiceBE.Controllers
                 // Lấy dữ liệu từ request
                 string status = jsonElement.GetProperty("status").GetString();
                 string content = jsonElement.GetProperty("content").GetString();
-
+                string accountId = jsonElement.GetProperty("accountId").GetString();
+                DateTime createdAt = jsonElement.GetProperty("createdAt").GetDateTime();
+                string resolvedBy = jsonElement.GetProperty("resolvedBy").GetString();
+                DateTime resolvedAt = jsonElement.GetProperty("resolvedAt").GetDateTime();
                 // Validate input
                 if (string.IsNullOrEmpty(status) || string.IsNullOrEmpty(content))
                 {
@@ -94,9 +100,13 @@ namespace SpaServiceBE.Controllers
                 // Create Application object and assign ID for update
                 var application = new Application
                 {
-                    ApplicationId = id, // Use the provided ID for the update
+                    ApplicationId = id, 
                     Status = status,
-                    Content = content
+                    Content = content,
+                    AccountId = accountId,
+                    CreatedAt = createdAt,
+                    ResolvedBy = resolvedBy,
+                    ResolvedAt = resolvedAt
                 };
 
                 // Call service to update application
@@ -113,7 +123,7 @@ namespace SpaServiceBE.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Update/{id}")]
         public async Task<IActionResult> DeleteApplication(string id)
         {
             await _applicationService.DeleteApplicationAsync(id);

@@ -23,7 +23,7 @@ namespace SpaServiceBE.Controllers
             return Ok(await _floorService.GetAllFloors());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Floor>> GetFloorById(string id)
         {
             var floor = await _floorService.GetFloorById(id);
@@ -31,7 +31,7 @@ namespace SpaServiceBE.Controllers
                 return NotFound();
             return Ok(floor);
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateFloor([FromBody] dynamic request)
         {
@@ -44,7 +44,7 @@ namespace SpaServiceBE.Controllers
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
                 // Validate input
-                if (string.IsNullOrEmpty(categoryId))
+                if (string.IsNullOrEmpty(categoryId) || floorNum <=0)
                 {
                     return BadRequest(new { msg = "Floor details are incomplete or invalid." });
                 }
@@ -81,7 +81,7 @@ namespace SpaServiceBE.Controllers
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
                 // Validate input
-                if (string.IsNullOrEmpty(categoryId))
+                if (string.IsNullOrEmpty(categoryId) || floorNum <=0)
                 {
                     return BadRequest(new { msg = "Floor details are incomplete or invalid." });
                 }
@@ -107,8 +107,8 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-
-        [HttpDelete("{id}")]
+        [Authorize]
+        [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteFloor(string id)
         {
             await _floorService.DeleteFloor(id);

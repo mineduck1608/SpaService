@@ -17,31 +17,31 @@ namespace SpaServiceBE.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllCustomerMembership()
         {
             return Ok(await _customerMembershipService.GetAllAsync());
         }
 
-        [HttpGet("{customerId}/{membershipId}")]
-        public async Task<IActionResult> GetById(string customerId, string membershipId)
+        [HttpGet("GetById/{customerId}/{membershipId}")]
+        public async Task<IActionResult> GetCustomerMembershipById(string customerId, string membershipId)
         {
-            return Ok(await _customerMembershipService.GetByIdAsync(customerId, membershipId));
+            return Ok(await _customerMembershipService.GetCustomerMembershipById(customerId, membershipId));
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Create([FromBody] CustomerMembership entity)
+        [HttpPost("Create")]
+        public async Task<ActionResult> CreateCustomerMembership([FromBody] CustomerMembership entity)
         {
             try
             {
                 var jsonElement = (JsonElement)(object)entity;
 
-                string customerId = jsonElement.GetProperty("CustomerId").GetString();
-                string membershipId = jsonElement.GetProperty("MembershipId").GetString();
+                string customerId = jsonElement.GetProperty("customerId").GetString();
+                string membershipId = jsonElement.GetProperty("membershipId").GetString();
                 DateOnly startDate;
                 DateOnly endDate;
 
-                if (!DateOnly.TryParse(jsonElement.GetProperty("StartDate").GetString(), out startDate) ||
-                    !DateOnly.TryParse(jsonElement.GetProperty("EndDate").GetString(), out endDate))
+                if (!DateOnly.TryParse(jsonElement.GetProperty("startDate").GetString(), out startDate) ||
+                    !DateOnly.TryParse(jsonElement.GetProperty("endDate").GetString(), out endDate))
                 {
                     return BadRequest(new { msg = "Invalid date format." });
                 }
@@ -60,7 +60,7 @@ namespace SpaServiceBE.Controllers
                 };
 
                 await _customerMembershipService.CreateAsync(newMembership);
-                return CreatedAtAction(nameof(GetById), new { id = newMembership.CustomerId }, newMembership);
+                return CreatedAtAction(nameof(GetCustomerMembershipById), new { id = newMembership.CustomerId }, newMembership);
             }
             catch (Exception ex)
             {
@@ -68,20 +68,20 @@ namespace SpaServiceBE.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(string id, [FromBody] CustomerMembership entity)
+        [HttpPut("Update/{id}")]
+        public async Task<ActionResult> UpdateCustomerMembership(string id, [FromBody] CustomerMembership entity)
         {
             try
             {
                 var jsonElement = (JsonElement)(object)entity;
 
-                string customerId = jsonElement.GetProperty("CustomerId").GetString();
-                string membershipId = jsonElement.GetProperty("MembershipId").GetString();
+                string customerId = jsonElement.GetProperty("customerId").GetString();
+                string membershipId = jsonElement.GetProperty("membershipId").GetString();
                 DateOnly startDate;
                 DateOnly endDate;
 
-                if (!DateOnly.TryParse(jsonElement.GetProperty("StartDate").GetString(), out startDate) ||
-                    !DateOnly.TryParse(jsonElement.GetProperty("EndDate").GetString(), out endDate))
+                if (!DateOnly.TryParse(jsonElement.GetProperty("startDate").GetString(), out startDate) ||
+                    !DateOnly.TryParse(jsonElement.GetProperty("endDate").GetString(), out endDate))
                 {
                     return BadRequest(new { msg = "Invalid date format." });
                 }
@@ -113,8 +113,8 @@ namespace SpaServiceBE.Controllers
             }
         }
 
-        [HttpDelete("{customerId}/{membershipId}")]
-        public async Task<IActionResult> Delete(string customerId, string membershipId)
+        [HttpDelete("Delete/{customerId}/{membershipId}")]
+        public async Task<IActionResult> DeleteCustomerMembership(string customerId, string membershipId)
         {
             await _customerMembershipService.DeleteAsync(customerId, membershipId);
             return Ok();

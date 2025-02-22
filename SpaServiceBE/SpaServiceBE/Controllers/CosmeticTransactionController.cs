@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System.Text.Json;
@@ -15,21 +16,22 @@ namespace SpaServiceBE.Controllers
         {
             _cosmeticTransactionService = cosmeticTransactionService;
         }
-
+        
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<CosmeticTransaction>>> GetAll()
+        public async Task<ActionResult<IEnumerable<CosmeticTransaction>>> GetAllCosmeticTransaction()
         {
             return Ok(await _cosmeticTransactionService.GetAllAsync());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CosmeticTransaction>> GetById(string id)
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult<CosmeticTransaction>> GetCosmeticTransactionById(string id)
         {
-            var transaction = await _cosmeticTransactionService.GetByIdAsync(id);
+            var transaction = await _cosmeticTransactionService.GetCosmeticTransactionById(id);
             if (transaction == null) return NotFound();
             return Ok(transaction);
         }
-        [HttpPost]
+        [Authorize]
+        [HttpPost("Create")]
         public async Task<ActionResult> Create([FromBody] dynamic request)
         {
             try
@@ -50,16 +52,16 @@ namespace SpaServiceBE.Controllers
                 };
 
                 await _cosmeticTransactionService.CreateAsync(transaction);
-                return CreatedAtAction(nameof(GetById), new { id = transaction.CosmeticTransactionId }, transaction);
+                return CreatedAtAction(nameof(GetCosmeticTransactionById), new { id = transaction.CosmeticTransactionId }, transaction);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(string id, [FromBody] dynamic request)
+        [Authorize]
+        [HttpPut("Update/{id}")]
+        public async Task<ActionResult> UpdateCosmeticTransaction(string id, [FromBody] dynamic request)
         {
             try
             {
@@ -86,9 +88,9 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        [Authorize]
+        [HttpDelete("Delete/{id}")]
+        public async Task<ActionResult> DeleteCosmeticTransaction(string id)
         {
             await _cosmeticTransactionService.DeleteAsync(id);
             return NoContent();

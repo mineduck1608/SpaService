@@ -18,12 +18,12 @@ namespace Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<CosmeticProductCategory>> GetAll()
+        public async Task<IEnumerable<CosmeticProductCategory>> GetAllCosmeticProductCategory()
         {
             return await _context.CosmeticProductCategories.ToListAsync();
         }
 
-        public async Task<CosmeticProductCategory> GetById(string id)
+        public async Task<CosmeticProductCategory> GetCosmeticProductCategoryById(string id)
         {
             return await _context.CosmeticProductCategories.FindAsync(id);
         }

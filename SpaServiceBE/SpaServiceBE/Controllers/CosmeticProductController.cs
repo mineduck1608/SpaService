@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cosmeticproducts")]
     [ApiController]
     public class CosmeticProductController : ControllerBase
     {
@@ -16,22 +17,23 @@ namespace SpaServiceBE.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CosmeticProduct>>> GetAll()
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<IEnumerable<CosmeticProduct>>> GetAllCosmeticProduct()
         {
-            return Ok(await _service.GetAll());
+            return Ok(await _service.GetAllCosmeticProduct());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CosmeticProduct>> GetById(string id)
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult<CosmeticProduct>> GetCosmeticProductById(string id)
         {
-            var item = await _service.GetById(id);
+            var item = await _service.GetCosmeticProductById(id);
             if (item == null)
                 return NotFound();
             return Ok(item);
         }
+        [Authorize]
         [HttpPost("Create")]
-        public async Task<ActionResult> Create([FromBody] dynamic request)
+        public async Task<ActionResult> CreateCosmeticProduct([FromBody] dynamic request)
         {
             try
             {
@@ -44,6 +46,7 @@ namespace SpaServiceBE.Controllers
                 bool status = jsonElement.GetProperty("status").GetBoolean();
                 bool isSelling = jsonElement.GetProperty("isSelling").GetBoolean();
                 string? image = jsonElement.GetProperty("image").GetString();
+                
 
                 var item = new CosmeticProduct
                 {
@@ -54,20 +57,21 @@ namespace SpaServiceBE.Controllers
                     Description = description,
                     Status = status,
                     IsSelling = isSelling,
-                    Image = image
+                    Image = image,
+                    
                 };
 
                 await _service.Create(item);
-                return CreatedAtAction(nameof(GetById), new { id = item.ProductId }, item);
+                return CreatedAtAction(nameof(GetCosmeticProductById), new { id = item.ProductId }, item);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-
+        [Authorize]
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> Update(string id, [FromBody] dynamic request)
+        public async Task<ActionResult> UpdateCosmeticProduct(string id, [FromBody] dynamic request)
         {
             try
             {
@@ -104,9 +108,9 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        [Authorize]
+        [HttpDelete("Delete/{id}")]
+        public async Task<ActionResult> DeleteCosmeticProduct(string id)
         {
             await _service.Delete(id);
             return NoContent();

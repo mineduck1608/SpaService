@@ -18,14 +18,14 @@ namespace Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<CosmeticProductCategory>> GetAll()
+        public async Task<IEnumerable<CosmeticProductCategory>> GetAllCosmeticProductCategory()
         {
-            return await _repository.GetAll();
+            return await _repository.GetAllCosmeticProductCategory();
         }
 
-        public async Task<CosmeticProductCategory> GetById(string id)
+        public async Task<CosmeticProductCategory> GetCosmeticProductCategoryById(string id)
         {
-            return await _repository.GetById(id);
+            return await _repository.GetCosmeticProductCategoryById(id);
         }
 
         public async Task<bool> Create(CosmeticProductCategory item)

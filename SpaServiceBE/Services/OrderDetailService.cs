@@ -18,14 +18,14 @@ namespace Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<OrderDetail>> GetAll()
+        public async Task<IEnumerable<OrderDetail>> GetAllOrderDetails()
         {
-            return await _repository.GetAll();
+            return await _repository.GetAllOrderDetails();
         }
 
-        public async Task<OrderDetail> GetById(int id)
+        public async Task<OrderDetail> GetOrderDetailById(int id)
         {
-            return await _repository.GetById(id);
+            return await _repository.GetOrderDetailById(id);
         }
 
         public async Task Create(OrderDetail item)

@@ -23,7 +23,7 @@ namespace Repositories
             return await _context.GuestApplications.ToListAsync();
         }
 
-        public async Task<GuestApplication> GetByIdAsync(string id)
+        public async Task<GuestApplication> GetGuestApplicationById(string id)
         {
             return await _context.GuestApplications.FindAsync(id);
         }

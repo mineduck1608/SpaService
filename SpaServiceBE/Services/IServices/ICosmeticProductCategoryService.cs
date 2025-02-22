@@ -10,8 +10,8 @@ namespace Services.IServices
 
     public interface ICosmeticProductCategoryService
     {
-        Task<IEnumerable<CosmeticProductCategory>> GetAll();
-        Task<CosmeticProductCategory> GetById(string id);
+        Task<IEnumerable<CosmeticProductCategory>> GetAllCosmeticProductCategory();
+        Task<CosmeticProductCategory> GetCosmeticProductCategoryById(string id);
         Task<bool> Create(CosmeticProductCategory item);
         Task<bool> Update(CosmeticProductCategory item);
         Task Delete(string id);

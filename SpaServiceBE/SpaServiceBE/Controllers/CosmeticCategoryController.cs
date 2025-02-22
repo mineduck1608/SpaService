@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
 using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cosmeticategories")]
     [ApiController]
     public class CosmeticCategoryController : ControllerBase
     {
@@ -15,32 +16,32 @@ namespace SpaServiceBE.Controllers
         {
             _cosmeticCategoryService = cosmeticCategoryService;
         }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CosmeticCategory>>> GetAllCategories()
+        
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<IEnumerable<CosmeticCategory>>> GetAllCosmeticCategories()
         {
-            return Ok(await _cosmeticCategoryService.GetAllCategories());
+            return Ok(await _cosmeticCategoryService.GetAllCosmeticCategories());
         }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CosmeticCategory>> GetCategoryById(string id)
+        
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult<CosmeticCategory>> GetCosmeticCategoryById(string id)
         {
-            var category = await _cosmeticCategoryService.GetCategoryById(id);
+            var category = await _cosmeticCategoryService.GetCosmeticCategoryById(id);
             if (category == null)
                 return NotFound();
             return Ok(category);
         }
-
+        [Authorize]
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateCategory([FromBody] dynamic request)
+        public async Task<ActionResult> CreateCosmeticCategory([FromBody] dynamic request)
         {
             try
             {
                 var jsonElement = (JsonElement)request;
-                string categoryName = jsonElement.GetProperty("CategoryName").GetString();
-                string description = jsonElement.GetProperty("CategoryDescription").GetString();
+                string categoryName = jsonElement.GetProperty("categoryName").GetString();
+                string description = jsonElement.GetProperty("categoryDescription").GetString();
 
-                if (string.IsNullOrEmpty(categoryName))
+                if (string.IsNullOrEmpty(categoryName) || string.IsNullOrEmpty(description))
                     return BadRequest(new { msg = "Category details are incomplete." });
 
                 var category = new CosmeticCategory
@@ -50,28 +51,28 @@ namespace SpaServiceBE.Controllers
                     CategoryDescription = description
                 };
 
-                var isCreated = await _cosmeticCategoryService.CreateCategory(category);
+                var isCreated = await _cosmeticCategoryService.CreateCosmeticCategory(category);
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the category." });
 
-                return CreatedAtAction(nameof(GetCategoryById), new { id = category.CategoryId }, category);
+                return CreatedAtAction(nameof(GetCosmeticCategoryById), new { id = category.CategoryId }, category);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-
+        [Authorize]
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateCategory(string id, [FromBody] dynamic request)
+        public async Task<ActionResult> UpdateCosmeticCategory(string id, [FromBody] dynamic request)
         {
             try
             {
                 var jsonElement = (JsonElement)request;
-                string categoryName = jsonElement.GetProperty("CategoryName").GetString();
-                string description = jsonElement.GetProperty("CategoryDescription").GetString();
+                string categoryName = jsonElement.GetProperty("categoryName").GetString();
+                string description = jsonElement.GetProperty("categoryDescription").GetString();
 
-                if (string.IsNullOrEmpty(categoryName))
+                if (string.IsNullOrEmpty(categoryName) || string.IsNullOrEmpty(description))
                     return BadRequest(new { msg = "Category details are incomplete." });
 
                 var category = new CosmeticCategory
@@ -81,7 +82,7 @@ namespace SpaServiceBE.Controllers
                     CategoryDescription = description
                 };
 
-                var isUpdated = await _cosmeticCategoryService.UpdateCategory(category);
+                var isUpdated = await _cosmeticCategoryService.UpdateCosmeticCategory(category);
                 if (!isUpdated)
                     return NotFound(new { msg = $"Category with ID = {id} not found." });
 
@@ -92,11 +93,11 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteCategory(string id)
+        [Authorize]
+        [HttpDelete("Delete/{id}")]
+        public async Task<ActionResult> DeleteCosmeticCategory(string id)
         {
-            await _cosmeticCategoryService.DeleteCategory(id);
+            await _cosmeticCategoryService.DeleteCosmeticCategory(id);
             return NoContent();
         }
     }

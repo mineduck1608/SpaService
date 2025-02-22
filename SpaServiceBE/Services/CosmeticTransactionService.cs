@@ -23,9 +23,9 @@ namespace Services
             return await _repository.GetAllAsync();
         }
 
-        public async Task<CosmeticTransaction> GetByIdAsync(string id)
+        public async Task<CosmeticTransaction> GetCosmeticTransactionById(string id)
         {
-            return await _repository.GetByIdAsync(id);
+            return await _repository.GetCosmeticTransactionById(id);
         }
 
         public async Task CreateAsync(CosmeticTransaction transaction)

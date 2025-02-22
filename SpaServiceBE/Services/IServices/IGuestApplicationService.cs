@@ -10,7 +10,7 @@ namespace Services.IServices
     public interface IGuestApplicationService
     {
         Task<IEnumerable<GuestApplication>> GetAllAsync();
-        Task<GuestApplication> GetByIdAsync(string id);
+        Task<GuestApplication> GetGuestApplicationById(string id);
         Task AddAsync(GuestApplication guestApplication);
         Task<bool> UpdateAsync(GuestApplication guestApplication);
         Task DeleteAsync(string id);

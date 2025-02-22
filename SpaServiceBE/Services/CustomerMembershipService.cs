@@ -19,7 +19,7 @@ namespace Services
         }
 
         public async Task<IEnumerable<CustomerMembership>> GetAllAsync() => await _repository.GetAllAsync();
-        public async Task<CustomerMembership> GetByIdAsync(string customerId, string membershipId) => await _repository.GetByIdAsync(customerId, membershipId);
+        public async Task<CustomerMembership> GetCustomerMembershipById(string customerId, string membershipId) => await _repository.GetCustomerMembershipById(customerId, membershipId);
         public async Task CreateAsync(CustomerMembership entity) => await _repository.CreateAsync(entity);
         public async Task<bool> UpdateAsync(CustomerMembership entity) => await _repository.UpdateAsync(entity);
         public async Task DeleteAsync(string customerId, string membershipId) => await _repository.DeleteAsync(customerId, membershipId);

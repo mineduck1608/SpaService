@@ -9,8 +9,8 @@ namespace Services.IServices
 {
     public interface IOrderDetailService
     {
-        Task<IEnumerable<OrderDetail>> GetAll();
-        Task<OrderDetail> GetById(int id);
+        Task<IEnumerable<OrderDetail>> GetAllOrderDetails();
+        Task<OrderDetail> GetOrderDetailById(int id);
         Task Create(OrderDetail item);
         Task Update(OrderDetail item);
         Task Delete(int id);

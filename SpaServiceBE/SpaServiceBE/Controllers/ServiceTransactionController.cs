@@ -16,16 +16,16 @@ namespace SpaServiceBE.Controllers
             _serviceTransactionService = serviceTransactionService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ServiceTransaction>>> GetAll()
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<IEnumerable<ServiceTransaction>>> GetAllServiceTransactions()
         {
             return Ok(await _serviceTransactionService.GetAll());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceTransaction>> GetById(string id)
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult<ServiceTransaction>> GetServiceTransactionById(string id)
         {
-            return Ok(await _serviceTransactionService.GetById(id));
+            return Ok(await _serviceTransactionService.GetByTransId(id));
         }
 
         [HttpPost("Create")]
@@ -54,7 +54,7 @@ namespace SpaServiceBE.Controllers
 
                 await _serviceTransactionService.Add(serviceTransaction);
 
-                return CreatedAtAction(nameof(GetById), new { id = serviceTransaction.ServiceTransactionId }, serviceTransaction);
+                return CreatedAtAction(nameof(GetServiceTransactionById), new { id = serviceTransaction.ServiceTransactionId }, serviceTransaction);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace SpaServiceBE.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             await _serviceTransactionService.Delete(id);

@@ -18,29 +18,29 @@ namespace Services
             _cosmeticCategoryRepository = cosmeticCategoryRepository;
         }
 
-        public async Task<IEnumerable<CosmeticCategory>> GetAllCategories()
+        public async Task<IEnumerable<CosmeticCategory>> GetAllCosmeticCategories()
         {
-            return await _cosmeticCategoryRepository.GetAllCategories();
+            return await _cosmeticCategoryRepository.GetAllCosmeticCategories();
         }
 
-        public async Task<CosmeticCategory> GetCategoryById(string id)
+        public async Task<CosmeticCategory> GetCosmeticCategoryById(string id)
         {
-            return await _cosmeticCategoryRepository.GetCategoryById(id);
+            return await _cosmeticCategoryRepository.GetCosmeticCategoryById(id);
         }
 
-        public async Task<bool> CreateCategory(CosmeticCategory category)
+        public async Task<bool> CreateCosmeticCategory(CosmeticCategory category)
         {
-            return await _cosmeticCategoryRepository.CreateCategory(category);
+            return await _cosmeticCategoryRepository.CreateCosmeticCategory(category);
         }
 
-        public async Task<bool> UpdateCategory(CosmeticCategory category)
+        public async Task<bool> UpdateCosmeticCategory(CosmeticCategory category)
         {
-            return await _cosmeticCategoryRepository.UpdateCategory(category);
+            return await _cosmeticCategoryRepository.UpdateCosmeticCategory(category);
         }
 
-        public async Task DeleteCategory(string id)
+        public async Task DeleteCosmeticCategory(string id)
         {
-            await _cosmeticCategoryRepository.DeleteCategory(id);
+            await _cosmeticCategoryRepository.DeleteCosmeticCategory(id);
         }
     }
 }

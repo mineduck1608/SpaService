@@ -23,9 +23,9 @@ namespace Services
             return await _repository.GetAllAsync();
         }
 
-        public async Task<GuestApplication> GetByIdAsync(string id)
+        public async Task<GuestApplication> GetGuestApplicationById(string id)
         {
-            return await _repository.GetByIdAsync(id);
+            return await _repository.GetGuestApplicationById(id);
         }
 
         public async Task AddAsync(GuestApplication guestApplication)

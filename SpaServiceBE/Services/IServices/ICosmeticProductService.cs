@@ -9,8 +9,8 @@ namespace Services.IServices
 {
     public interface ICosmeticProductService
     {
-        Task<IEnumerable<CosmeticProduct>> GetAll();
-        Task<CosmeticProduct> GetById(string id);
+        Task<IEnumerable<CosmeticProduct>> GetAllCosmeticProduct();
+        Task<CosmeticProduct> GetCosmeticProductById(string id);
         Task Create(CosmeticProduct item);
         Task Update(CosmeticProduct item);
         Task Delete(string id);

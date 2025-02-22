@@ -19,14 +19,14 @@ namespace Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<CosmeticProduct>> GetAll()
+        public async Task<IEnumerable<CosmeticProduct>> GetAllCosmeticProduct()
         {
-            return await _repository.GetAll();
+            return await _repository.GetAllCosmeticProduct();
         }
 
-        public async Task<CosmeticProduct> GetById(string id)
+        public async Task<CosmeticProduct> GetCosmeticProductById(string id)
         {
-            return await _repository.GetById(id);
+            return await _repository.GetCosmeticProductById(id);
         }
 
         public async Task Create(CosmeticProduct item)

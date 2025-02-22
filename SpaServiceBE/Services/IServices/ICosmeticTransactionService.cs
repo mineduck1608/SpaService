@@ -10,7 +10,7 @@ namespace Services.IServices
     public interface ICosmeticTransactionService
     {
         Task<IEnumerable<CosmeticTransaction>> GetAllAsync();
-        Task<CosmeticTransaction> GetByIdAsync(string id);
+        Task<CosmeticTransaction> GetCosmeticTransactionById(string id);
         Task CreateAsync(CosmeticTransaction transaction);
         Task UpdateAsync(CosmeticTransaction transaction);
         Task DeleteAsync(string id);

@@ -18,17 +18,17 @@ namespace SpaServiceBE.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetOrders()
+        public async Task<IActionResult> GetAllOrders()
         {
             return Ok(await _orderService.GetAllOrdersAsync());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetOrderById(string id)
         {
             return Ok(await _orderService.GetOrderByIdAsync(id));
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateOrder([FromBody] dynamic request)
         {
@@ -36,13 +36,13 @@ namespace SpaServiceBE.Controllers
             {
                 var jsonElement = (JsonElement)request;
 
-                string customerId = jsonElement.GetProperty("CustomerId").GetString();
-                DateTime orderDate = jsonElement.GetProperty("OrderDate").GetDateTime();
-                float totalAmount = jsonElement.GetProperty("TotalAmount").GetSingle();
-                bool status = jsonElement.GetProperty("Status").GetBoolean();
-                string transactionId = jsonElement.GetProperty("TransactionId").GetString();
+                string customerId = jsonElement.GetProperty("customerId").GetString();
+                DateTime orderDate = jsonElement.GetProperty("orderDate").GetDateTime();
+                float totalAmount = jsonElement.GetProperty("totalAmount").GetSingle();
+               
+                string transactionId = jsonElement.GetProperty("transactionId").GetString();
 
-                if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(transactionId))
+                if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(transactionId) || totalAmount <=0)
                 {
                     return BadRequest(new { msg = "Order details are incomplete or invalid." });
                 }
@@ -53,7 +53,7 @@ namespace SpaServiceBE.Controllers
                     CustomerId = customerId,
                     OrderDate = orderDate,
                     TotalAmount = totalAmount,
-                    Status = status,
+                    Status = true,
                     TransactionId = transactionId
                 };
 
@@ -74,13 +74,13 @@ namespace SpaServiceBE.Controllers
             {
                 var jsonElement = (JsonElement)request;
 
-                string customerId = jsonElement.GetProperty("CustomerId").GetString();
-                DateTime orderDate = jsonElement.GetProperty("OrderDate").GetDateTime();
-                float totalAmount = jsonElement.GetProperty("TotalAmount").GetSingle();
-                bool status = jsonElement.GetProperty("Status").GetBoolean();
-                string transactionId = jsonElement.GetProperty("TransactionId").GetString();
+                string customerId = jsonElement.GetProperty("customerId").GetString();
+                DateTime orderDate = jsonElement.GetProperty("orderDate").GetDateTime();
+                float totalAmount = jsonElement.GetProperty("totalAmount").GetSingle();
+                bool status = jsonElement.GetProperty("status").GetBoolean();
+                string transactionId = jsonElement.GetProperty("transactionId").GetString();
 
-                if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(transactionId))
+                if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(transactionId) || totalAmount<=0)
                 {
                     return BadRequest(new { msg = "Order details are incomplete or invalid." });
                 }
@@ -107,8 +107,8 @@ namespace SpaServiceBE.Controllers
             }
         }
 
-
-        [HttpDelete("{id}")]
+        [Authorize]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteOrder(string id)
         {
             await _orderService.DeleteOrderAsync(id);

@@ -18,12 +18,12 @@ namespace SpaServiceBE.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<Manager>>> GetManagers()
+        public async Task<ActionResult<IEnumerable<Manager>>> GetAllManagers()
         {
             return Ok(await _managerService.GetAllManagers());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Manager>> GetManager(string id)
         {
             var manager = await _managerService.GetManagerById(id);
@@ -46,6 +46,11 @@ namespace SpaServiceBE.Controllers
                 string accountId = jsonElement.GetProperty("accountId").GetString();
                 string? phone = jsonElement.TryGetProperty("phone", out var phoneProp) ? phoneProp.GetString() : null;
                 string? email = jsonElement.TryGetProperty("email", out var emailProp) ? emailProp.GetString() : null;
+                DateOnly hireDate;
+                if (!DateOnly.TryParse(jsonElement.GetProperty("hireDate").GetString(), out hireDate))
+                {
+                    return BadRequest(new { msg = "Invalid date format." });
+                }
 
                 // Validate input
                 if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(position) || string.IsNullOrEmpty(status) || string.IsNullOrEmpty(image) || string.IsNullOrEmpty(accountId))
@@ -63,7 +68,8 @@ namespace SpaServiceBE.Controllers
                     Image = image,
                     AccountId = accountId,
                     Phone = phone,
-                    Email = email
+                    Email = email,
+                    HireDate = hireDate
                 };
 
                 // Call service to add manager
@@ -92,7 +98,11 @@ namespace SpaServiceBE.Controllers
                 string image = jsonElement.GetProperty("image").GetString();
                 string? phone = jsonElement.TryGetProperty("phone", out var phoneProp) ? phoneProp.GetString() : null;
                 string? email = jsonElement.TryGetProperty("email", out var emailProp) ? emailProp.GetString() : null;
-
+                DateOnly hireDate;
+                if (!DateOnly.TryParse(jsonElement.GetProperty("hireDate").GetString(), out hireDate))
+                {
+                    return BadRequest(new { msg = "Invalid date format." });
+                }
                 // Validate input
                 if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(position) || string.IsNullOrEmpty(status) || string.IsNullOrEmpty(image))
                 {
@@ -108,7 +118,8 @@ namespace SpaServiceBE.Controllers
                     Status = status,
                     Image = image,
                     Phone = phone,
-                    Email = email
+                    Email = email,
+                    HireDate = hireDate
                 };
 
                 // Call service to update manager
@@ -126,7 +137,7 @@ namespace SpaServiceBE.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteManager(string id)
         {
             await _managerService.DeleteManager(id);

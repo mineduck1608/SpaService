@@ -23,7 +23,7 @@ namespace Repositories
             return await _context.Set<CosmeticTransaction>().ToListAsync();
         }
 
-        public async Task<CosmeticTransaction> GetByIdAsync(string id)
+        public async Task<CosmeticTransaction> GetCosmeticTransactionById(string id)
         {
             return await _context.Set<CosmeticTransaction>().FindAsync(id);
         }

@@ -19,19 +19,19 @@ namespace SpaServiceBE.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<GuestApplication>>> GetAll()
+        public async Task<ActionResult<IEnumerable<GuestApplication>>> GetAllGuestApplication()
         {
             return Ok(await _guestApplicationService.GetAllAsync());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<GuestApplication>> GetById(string id)
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult<GuestApplication>> GetGuestApplicationById(string id)
         {
-            var guestApplication = await _guestApplicationService.GetByIdAsync(id);
+            var guestApplication = await _guestApplicationService.GetGuestApplicationById(id);
             if (guestApplication == null) return NotFound();
             return Ok(guestApplication);
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> Create([FromBody] dynamic request)
         {
@@ -64,7 +64,7 @@ namespace SpaServiceBE.Controllers
                 // Call service to add guest application
                 await _guestApplicationService.AddAsync(guestApplication);
 
-                return CreatedAtAction(nameof(GetById), new { id = guestApplication.GuestApplicationId }, guestApplication);
+                return CreatedAtAction(nameof(GetGuestApplicationById), new { id = guestApplication.GuestApplicationId }, guestApplication);
             }
             catch (Exception ex)
             {
@@ -84,9 +84,9 @@ namespace SpaServiceBE.Controllers
                 string fullName = jsonElement.GetProperty("fullName").GetString();
                 string phoneNumber = jsonElement.GetProperty("phoneNumber").GetString();
                 string email = jsonElement.GetProperty("email").GetString();
-
+                string applicationId = jsonElement.GetProperty("applicationId").GetString();
                 // Validate input
-                if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email))
+                if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(applicationId))
                 {
                     return BadRequest(new { msg = "Guest application details are incomplete or invalid." });
                 }
@@ -97,7 +97,8 @@ namespace SpaServiceBE.Controllers
                     GuestApplicationId = id, // Use provided ID for update
                     FullName = fullName,
                     PhoneNumber = phoneNumber,
-                    Email = email
+                    Email = email,
+                    ApplicationId = applicationId
                 };
 
                 // Call service to update guest application
@@ -113,8 +114,8 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-
-        [HttpDelete("{id}")]
+        [Authorize]
+        [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> Delete(string id)
         {
             await _guestApplicationService.DeleteAsync(id);

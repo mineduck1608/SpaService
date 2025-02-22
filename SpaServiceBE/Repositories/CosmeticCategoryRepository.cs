@@ -20,29 +20,29 @@ namespace Repositories
                 _context = context;
             }
 
-            public async Task<IEnumerable<CosmeticCategory>> GetAllCategories()
+            public async Task<IEnumerable<CosmeticCategory>> GetAllCosmeticCategories()
             {
                 return await _context.CosmeticCategories.ToListAsync();
             }
 
-            public async Task<CosmeticCategory> GetCategoryById(string id)
+            public async Task<CosmeticCategory> GetCosmeticCategoryById(string id)
             {
                 return await _context.CosmeticCategories.FindAsync(id);
             }
 
-            public async Task<bool> CreateCategory(CosmeticCategory category)
+            public async Task<bool> CreateCosmeticCategory(CosmeticCategory category)
             {
                 _context.CosmeticCategories.Add(category);
                 return await _context.SaveChangesAsync() > 0;
             }
 
-            public async Task<bool> UpdateCategory(CosmeticCategory category)
+            public async Task<bool> UpdateCosmeticCategory(CosmeticCategory category)
             {
                 _context.CosmeticCategories.Update(category);
                 return await _context.SaveChangesAsync() > 0;
             }
 
-            public async Task DeleteCategory(string id)
+            public async Task DeleteCosmeticCategory(string id)
             {
                 var category = await _context.CosmeticCategories.FindAsync(id);
                 if (category != null)

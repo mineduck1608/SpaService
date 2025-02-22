@@ -20,7 +20,7 @@ namespace Repositories
 
         public async Task<IEnumerable<CustomerMembership>> GetAllAsync() => await _context.CustomerMemberships.ToListAsync();
 
-        public async Task<CustomerMembership> GetByIdAsync(string customerId, string membershipId)
+        public async Task<CustomerMembership> GetCustomerMembershipById(string customerId, string membershipId)
         {
             return await _context.CustomerMemberships.FindAsync(customerId, membershipId);
         }
