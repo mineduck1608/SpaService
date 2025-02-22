@@ -7,6 +7,8 @@ import { NavUser } from 'src/components/nav-user'
 import { Sidebar, SidebarContent, SidebarHeader, SidebarSeparator } from 'src/components/ui/sidebar'
 import { getEmployeeByAccountId } from './utils' // Import hàm getEmployeeById
 import { Employee } from '@/types/type' // Import kiểu dữ liệu Employee
+import { roleJWT } from '../types/constants'
+import { RoleName } from '../types/role'
 
 export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [user, setUser] = useState<{ name: string; email: string; image: string } | null>(null) // Lưu trữ thông tin người dùng
@@ -22,17 +24,28 @@ export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>)
           // Giải mã token để lấy UserId
           const decodedToken: any = jwtDecode(token)
           const userId = decodedToken.UserId // Lấy UserId từ token
-
-          // Gọi API để lấy thông tin nhân viên sử dụng UserId
-          const employeeData: Employee = await getEmployeeByAccountId(userId) // Gọi API với UserId
-
-          if (employeeData) {
+          const role = decodedToken[roleJWT] as string
+          console.log(role)
+          if (role == RoleName.ADMIN) {
             setUser({
-              name: employeeData.fullName,
-              email: employeeData.email,
-              image: employeeData.image
+              name: 'Admin',
+              email: 'admin@gmail.com',
+              image: ''
             })
           }
+          if (role == RoleName.EMPLOYEE) {
+            const employeeData: Employee = await getEmployeeByAccountId(userId) // Gọi API với UserId
+
+            if (employeeData) {
+              setUser({
+                name: employeeData.fullName,
+                email: employeeData.email,
+                image: employeeData.image
+              })
+            }
+          }
+
+          // Gọi API để lấy thông tin nhân viên sử dụng UserId
         } else {
           console.error('Token not found')
         }
@@ -49,13 +62,14 @@ export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>)
   return (
     <Sidebar collapsible='none' className='sticky top-0 hidden h-svh border-l lg:flex' {...props}>
       <SidebarHeader className='h-16 border-b border-sidebar-border'>
-        {loading ? (
-          <p>Loading...</p> // Hiển thị "Loading..." khi đang tải dữ liệu
-        ) : user ? (
-          <NavUser user={user} />
-        ) : (
-          <p>No user data found</p>
-        ) // Hiển thị thông tin người dùng hoặc thông báo nếu không tìm thấy dữ liệu
+        {
+          loading ? (
+            <p>Loading...</p> // Hiển thị "Loading..." khi đang tải dữ liệu
+          ) : user ? (
+            <NavUser user={user} />
+          ) : (
+            <p>No user data found</p>
+          ) // Hiển thị thông tin người dùng hoặc thông báo nếu không tìm thấy dữ liệu
         }
       </SidebarHeader>
       <SidebarContent>

@@ -75,9 +75,14 @@ const Home = () => {
           <h1 className='mb-4 text-7xl font-light'>Sen Spa</h1>
           <p className='mb-2 text-2xl'>Luxurious space, </p>
           <p className='mb-8 text-2xl'>blending modernity and classic elegance.</p>
-          <button className='rounded-br-[1rem] rounded-tl-[1rem] bg-[#a040a0] px-8 py-3 text-white transition-colors duration-1000 hover:bg-[#8a3b8a]'>
-            Explore <span className='ml-2'>›</span>
-          </button>
+          <a
+  href="/about"
+  className="no-underline rounded-br-[1rem] rounded-tl-[1rem] bg-[#a040a0] px-8 py-3 text-white transition-colors duration-1000 hover:bg-[#8a3b8a]"
+>
+  Explore <span className="ml-2">›</span>
+</a>
+
+
         </div>
 
         {/* Navigation buttons */}

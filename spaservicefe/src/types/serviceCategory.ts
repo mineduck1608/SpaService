@@ -1,6 +1,5 @@
-export type Category = {
+export type ServiceCategory = {
   categoryId: string
   categoryName: string
-  categoryImage: string
   categoryDescription: string
 }

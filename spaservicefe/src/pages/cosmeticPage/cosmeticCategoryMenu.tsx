@@ -1,8 +1,8 @@
-import { Category } from '@/types/serviceCategory'
-import { imgs } from './servicesPage.util'
+import { CosmeticCategory } from '@/types/type'
+import { imgs } from './cosmeticPage.util'
 
-export function CategoryMenu(params: {
-  items: Category[]
+export function CosmeticCategoryMenu(params: {
+  items: CosmeticCategory[]
   onClickItem: (value: string) => void
   currentItem?: string
 }) {
@@ -11,7 +11,7 @@ export function CategoryMenu(params: {
       {/* Header */}
       <div className='flex justify-center rounded-tl-[40px] bg-[#8D388A] p-3 text-2xl font-bold text-white'>
         <img src={imgs.logo} alt='Lotus logo' className='inline' />
-        &nbsp;Services
+        &nbsp;Cosmetic
       </div>
       <div className='flex flex-col rounded-br-[40px] bg-[url(https://senspa.com.vn/wp-content/themes/thuythu/images/background1.png)] bg-[bottom_50px_right] bg-no-repeat shadow-lg'>
         {params.items.map((v, i) => (

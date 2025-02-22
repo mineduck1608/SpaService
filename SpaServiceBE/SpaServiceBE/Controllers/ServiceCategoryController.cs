@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/categories")]
+    [Route("api/servicecategories")]
     [ApiController]
     public class ServiceCategoryController : ControllerBase
     {
@@ -122,7 +122,6 @@ namespace API.Controllers
                 {
                     CategoryId = Guid.NewGuid().ToString("N"),
                     CategoryName = categoryName,
-                    CategoryImage = categoryImage,
                     CategoryDescription = categoryDescription,
                 };
 
@@ -164,7 +163,6 @@ namespace API.Controllers
                 {
                     CategoryId = id, // Assign the ID for the update
                     CategoryName = categoryName,
-                    CategoryImage = categoryImage,
                     CategoryDescription = categoryDescription
                 };
 

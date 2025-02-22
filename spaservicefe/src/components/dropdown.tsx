@@ -5,12 +5,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '../components/ui/dropdown-menu'
 
@@ -26,6 +22,7 @@ export function Dropdown() {
   const navigate = useNavigate()
   const [fullName, setFullName] = useState('') // Initialize fullName as an empty string
   useEffect(() => {
+    console.log(token)
     if (token) {
       try {
         // Giải mã token để lấy thông tin

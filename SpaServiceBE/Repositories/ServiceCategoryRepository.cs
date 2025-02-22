@@ -65,7 +65,6 @@ namespace Repositories
             if (existingCategory == null) return false;
 
             existingCategory.CategoryName = category.CategoryName;
-            existingCategory.CategoryImage = category.CategoryImage;
             existingCategory.CategoryDescription = category.CategoryDescription;
 
             try

@@ -77,18 +77,15 @@ public partial class SpaserviceContext : DbContext
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
-    public static string GetConnectionString(string connectionStringName)
+    private string? GetConnectionString()
     {
-        var config = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-        string connectionString = config.GetConnectionString(connectionStringName);
-        return connectionString;
+        IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true, true).Build();
+        return configuration["ConnectionStrings:DefaultConnectionStringDB"];
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnection")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -924,7 +921,6 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.CategoryDescription)
                 .HasMaxLength(255)
                 .HasColumnName("categoryDescription");
-            entity.Property(e => e.CategoryImage).HasColumnName("categoryImage");
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
