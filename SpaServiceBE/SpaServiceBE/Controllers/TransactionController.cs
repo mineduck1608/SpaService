@@ -15,14 +15,17 @@ namespace API.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _service;
-
-        public TransactionController(ITransactionService service)
+        private readonly IRequestService _requestService;
+        private readonly IServiceTransactionService _serviceTransactionService;
+        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService svc)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _requestService = requestService;
+            _serviceTransactionService = svc;
         }
 
         // GET: api/transactions/GetAll
-     
+
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Transaction>>> GetAllTransactions()
         {
@@ -38,7 +41,7 @@ namespace API.Controllers
         }
 
         // GET: api/transactions/GetById/{id}
-     
+
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Transaction>> GetTransactionById(string id)
         {
@@ -61,7 +64,7 @@ namespace API.Controllers
         }
 
         // POST: api/transactions/Create
-        
+
         [HttpPost("Create")]
         public async Task<ActionResult> CreateTransaction([FromBody] dynamic request)
         {
@@ -71,6 +74,7 @@ namespace API.Controllers
 
                 // Lấy dữ liệu từ request
                 string transactionType = jsonElement.GetProperty("transactionType").GetString();
+                string paymentType = jsonElement.GetProperty("paymentType").GetString();
                 float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
                 bool status = jsonElement.GetProperty("status").GetBoolean();
 
@@ -87,14 +91,32 @@ namespace API.Controllers
                     TransactionType = transactionType,
                     TotalPrice = totalPrice,
                     Status = status,
+                    PaymentType = paymentType,
                 };
 
                 // Gọi service để thêm transaction
                 var isCreated = await _service.Add(transaction);
 
                 if (!isCreated)
+                {
                     return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
-
+                }
+                if (transactionType == "Service")
+                {
+                    string reqId = jsonElement.GetProperty("requestId").GetString();
+                    jsonElement.TryGetProperty("membershipId", out var membershipId);
+                    var serviceTrans = new ServiceTransaction()
+                    {
+                        RequestId = reqId,
+                        ServiceTransactionId = Guid.NewGuid().ToString(),
+                        TransactionId = transaction.TransactionId,
+                    };
+                    if(membershipId.ValueKind != JsonValueKind.Undefined)
+                    {
+                        serviceTrans.MembershipId = membershipId.GetString();
+                    }
+                    await _serviceTransactionService.Add(serviceTrans);
+                }
                 return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
             }
             catch (Exception ex)
@@ -105,7 +127,7 @@ namespace API.Controllers
 
 
         // PUT: api/transactions/Update/{id}
-      
+
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateTransaction(string id, [FromBody] dynamic request)
         {
@@ -149,7 +171,7 @@ namespace API.Controllers
 
 
         // DELETE: api/transactions/Delete/{id}
-      
+
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteTransaction(string id)
         {

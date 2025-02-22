@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react'
-import { findCategories, getServicesOfCategory, imgs, take } from './servicesPage.util'
+import { findCosmeticCategories, getProductOfCosmeticCategory, imgs, take } from './cosmeticPage.util'
 import { Link, useParams, useNavigate } from 'react-router-dom' // Import useNavigate
-import { CategoryMenu } from './categoryMenu'
-import ServiceList from './serviceList'
-import { Service } from '@/types/services'
-import { Category } from '@/types/serviceCategory'
+import { CosmeticCategoryMenu } from './cosmeticCategoryMenu'
 import PageNumber from './pageNumber'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { CosmeticCategory, CosmeticProduct } from '@/types/type'
+import CosmeticList from './cosmeticList'
 
-export default function ServicesPage() {
+export default function CosmeticPage() {
   const { id } = useParams()
   const navigate = useNavigate() // Initialize useNavigate
-  const [currentCategory, setCurrentCategory] = useState<Category>()
-  const [services, setServices] = useState<Service[]>([])
-  const [categories, setCategories] = useState<Category[]>()
+  const [currentCategory, setCurrentCategory] = useState<CosmeticCategory>()
+  const [cosmetic, setCosmetic] = useState<CosmeticProduct[]>([])
+  const [categories, setCategories] = useState<CosmeticCategory[]>()
   const [pageNum, setPageNum] = useState(0)
   const PAGE_SIZE = 6
 
   useEffect(() => {
     async function fetchData() {
-      var c = await findCategories()
+      var c = await findCosmeticCategories()
       setCategories(c)
       if (c.length === 0) {
         c.push({
@@ -35,11 +34,11 @@ export default function ServicesPage() {
         return
       }
       setCurrentCategory(c.find((v) => v.categoryId === id))
-      var serviceFetch = await getServicesOfCategory(id)
-      if (!serviceFetch) {
+      var cosmeticFetch = await getProductOfCosmeticCategory(id)
+      if (!cosmeticFetch) {
         return
       }
-      setServices(serviceFetch)
+      setCosmetic(cosmeticFetch)
     }
     fetchData()
   }, [id, navigate]) // Add navigate and id to the dependencies
@@ -70,10 +69,10 @@ export default function ServicesPage() {
           {/* Left menu */}
           <div className='hidden w-[310px] lg:flex 2xl:ml-[14.5vw]'>
             <div id={'left-menu'} className='hidden justify-center lg:flex' data-aos='fade-right' data-aos-delay='400'>
-              <CategoryMenu
+              <CosmeticCategoryMenu
                 items={categories ?? []}
                 onClickItem={(v) => {
-                  navigate('/services/'+v) // Use navigate for category change
+                  navigate('/cosmetics/'+v) // Use navigate for category change
                 }}
                 currentItem={currentCategory?.categoryId}
               />
@@ -81,11 +80,11 @@ export default function ServicesPage() {
           </div>
           {/* Services available */}
           <div className='w-5/6 lg:ml-[5vw] 2xl:w-[55%]' data-aos='fade-left' data-aos-delay='400'>
-            <ServiceList service={take<Service>(services, pageNum, PAGE_SIZE) ?? []} />
+            <CosmeticList cosmetic={take<CosmeticProduct>(cosmetic, pageNum, PAGE_SIZE) ?? []} />
             <div className='translate-y-8'>
-              {services.length > PAGE_SIZE && (
+              {cosmetic.length > PAGE_SIZE && (
                 <PageNumber
-                  n={Math.ceil(services.length / PAGE_SIZE) ?? 0}
+                  n={Math.ceil(cosmetic.length / PAGE_SIZE) ?? 0}
                   onClick={(n) => {
                     setPageNum(n)
                   }}

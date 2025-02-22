@@ -9,38 +9,38 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class ServiceTransactionService : IServiceTransactionService
+    public class ServiceTransactionService: IServiceTransactionService
     {
-        private readonly ServiceTransactionRepository _repository;
-
+        private readonly ServiceTransactionRepository repository;
         public ServiceTransactionService(ServiceTransactionRepository repository)
         {
-            _repository = repository;
+            this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        }
+        public async Task<ServiceTransaction> GetById(string svTransId)
+        {
+            return await repository.GetById(svTransId);
         }
 
-        public async Task<IEnumerable<ServiceTransaction>> GetAllAsync()
+        public async Task<ServiceTransaction> GetByTransId(string transId)
         {
-            return await _repository.GetAllAsync();
+            return await repository.GetByTransId(transId);
         }
 
-        public async Task<ServiceTransaction> GetByIdAsync(string id)
+        public async Task<List<ServiceTransaction>> GetAll()
         {
-            return await _repository.GetByIdAsync(id);
+            return await repository.GetAll();
         }
 
-        public async Task CreateAsync(ServiceTransaction serviceTransaction)
+        public async Task<bool> Add(ServiceTransaction transaction)
         {
-            await _repository.CreateAsync(serviceTransaction);
+            return await repository.Add(transaction);
         }
 
-        public async Task <bool> UpdateAsync(string id, ServiceTransaction serviceTransaction)
+        public async Task<bool> Delete(string transactionId)
         {
-           return await _repository.UpdateAsync(id, serviceTransaction);
-        }
-
-        public async Task DeleteAsync(string id)
-        {
-            await _repository.DeleteAsync(id);
+            return await repository.Delete(transactionId);
         }
     }
+
 }
+

@@ -71,6 +71,16 @@ namespace API.Controllers
 
             }
 
+            if (account.Role.RoleName == "Admin")
+            {
+                accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, "Admin");
+                return Ok(new
+                {
+                    accessToken,
+                });
+
+            }
+
             var employee = await _employeeService.GetEmployeeByAccountId(account.AccountId);
             accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, employee.FullName);
             return Ok(new

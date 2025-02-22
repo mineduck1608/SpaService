@@ -85,3 +85,19 @@ export type SpaService = {
   categoryId: string
 }
 
+export type CosmeticCategory = {
+  categoryId: string
+  categoryName: string
+  categoryDescription: string
+}
+
+export type CosmeticProduct = {
+  productId: string
+  productName: string
+  price: GLfloat
+  quantity: number
+  description: string
+  status: boolean
+  isSelling: boolean
+  image: string
+}

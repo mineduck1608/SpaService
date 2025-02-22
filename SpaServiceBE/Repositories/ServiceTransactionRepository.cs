@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class ServiceTransactionRepository 
+    public class ServiceTransactionRepository
     {
         private readonly SpaserviceContext _context;
 
@@ -18,35 +18,56 @@ namespace Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<ServiceTransaction>> GetAllAsync()
+        // Lấy Transaction theo ID với các thông tin liên quan như Appointment, EmployeeCommission, Membership, Promotion
+        public async Task<ServiceTransaction> GetById(string svTransId)
         {
-            return await _context.ServiceTransactions.ToListAsync();
+            return await _context.ServiceTransactions
+                // Bao gồm thông tin Promotion liên quan đến giao dịch
+                .FirstOrDefaultAsync(t => t.ServiceTransactionId == svTransId);
+        }
+        public async Task<ServiceTransaction> GetByTransId(string transId)
+        {
+            return await _context.ServiceTransactions
+                // Bao gồm thông tin Promotion liên quan đến giao dịch
+                .FirstOrDefaultAsync(t => t.TransactionId == transId);
+        }
+        // Lấy tất cả các Transaction với các thông tin liên quan
+        public async Task<List<ServiceTransaction>> GetAll()
+        {
+            return await _context.ServiceTransactions
+                .ToListAsync();
         }
 
-        public async Task<ServiceTransaction> GetByIdAsync(string id)
+        // Thêm một Transaction mới
+        public async Task<bool> Add(ServiceTransaction transaction)
         {
-            return await _context.ServiceTransactions.FindAsync(id);
-        }
-
-        public async Task CreateAsync(ServiceTransaction serviceTransaction)
-        {
-            await _context.ServiceTransactions.AddAsync(serviceTransaction);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<bool> UpdateAsync(string id, ServiceTransaction serviceTransaction)
-        {
-            _context.ServiceTransactions.Update(serviceTransaction);
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-        public async Task DeleteAsync(string id)
-        {
-            var entity = await _context.ServiceTransactions.FindAsync(id);
-            if (entity != null)
+            try
             {
-                _context.ServiceTransactions.Remove(entity);
+                await _context.ServiceTransactions.AddAsync(transaction);
                 await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        // Xóa Transaction theo ID
+        public async Task<bool> Delete(string transactionId)
+        {
+            var transaction = await GetById(transactionId);
+            if (transaction == null) return false;
+
+            try
+            {
+                _context.ServiceTransactions.Remove(transaction);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }

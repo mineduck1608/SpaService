@@ -23,7 +23,6 @@ namespace API.Controllers
 
         // GET: api/customers/GetAll
 
-        [Authorize(Roles = "Admin, Manager")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Customer>>> GetAllCustomers()
         {

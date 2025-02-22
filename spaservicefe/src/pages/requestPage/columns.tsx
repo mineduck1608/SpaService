@@ -3,7 +3,10 @@ import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../components/ui/button'
 import { Checkbox } from '../../components/ui/checkbox'
 import { SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
-
+import { formatNumber } from '../servicesPage/servicesPage.util'
+import RequestActions from '../admin/customerRequests/customerRequestAction'
+import { useContext, useState } from 'react'
+import { PastBookingContext } from './context/pastBookingContext'
 export const columns: ColumnDef<SpaRequest>[] = [
   {
     accessorKey: 'serviceName',
@@ -34,25 +37,21 @@ export const columns: ColumnDef<SpaRequest>[] = [
     }
   },
   {
-    accessorKey: 'customerNote',
-    header: 'Customer Note',
-    cell: ({ row }) => row.getValue('customerNote') || 'No notes provided'
-  },
-  {
-    accessorKey: 'managerNote',
-    header: 'Manager Note',
-    cell: ({ row }) => row.getValue('managerNote') || 'No notes provided'
-  },
-  {
     accessorKey: 'requestedId',
     header: 'Requested Employee',
     cell: (r) => r.row.original.employee?.fullName ?? 'Did not request'
   },
-  // {
-  //   id: 'actions',
-  //   cell: ({ row }) => {
-  //     const request = row.original
-  //     return <RequestActions request={request} /> // Assuming this component handles the actions for the request
-  //   }
-  // }
+  {
+    accessorKey: 'price',
+    header: 'Total Price',
+    cell: (r) => formatNumber(r.row.original.service?.price ?? 0)
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      return <>
+        <button className='bg-blue-600 p-2 rounded-md text-white hover:bg-blue-500'>View Detail</button>
+      </>
+    }
+  }
 ]

@@ -36,6 +36,7 @@ import RequestPage from './pages/requestPage/requestPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
+import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 
 function Layout({ children }) {
   return (
@@ -104,6 +105,30 @@ function App() {
           />
           <Route
             path='services-detail/:id'
+            element={
+              <Layout>
+                <DetailPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='cosmetic'
+            element={
+              <Layout>
+                <CosmeticPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='cosmetic/:id'
+            element={
+              <Layout>
+                <CosmeticPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='cosmetic-detail/:id'
             element={
               <Layout>
                 <DetailPage />

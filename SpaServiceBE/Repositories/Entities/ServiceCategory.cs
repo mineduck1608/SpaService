@@ -9,8 +9,6 @@ public partial class ServiceCategory
 
     public string CategoryName { get; set; } = null!;
 
-    public string CategoryImage { get; set; } = null!;
-
     public string CategoryDescription { get; set; } = null!;
 
     public virtual ICollection<CategoryEmployee> CategoryEmployees { get; set; } = new List<CategoryEmployee>();
