@@ -35,7 +35,7 @@ export async function submitRequest(req: SpaRequest) {
 
 export async function getPaymentUrl(price: number, username: string, txnId: string) {
   try {
-    var s = await fetch(`${apiUrl}/Payment`, {
+    var s = await fetch(`${apiUrl}/Payment/service`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

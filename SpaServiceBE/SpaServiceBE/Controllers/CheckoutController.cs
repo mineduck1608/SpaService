@@ -40,7 +40,7 @@ namespace SpaServiceBE.Controllers
             try
             {
                 var x = await UpdateServiceTransaction(txnId);
-                return Redirect($"http://localhost:3000/pay-result?success={Util.QueryStringFromDict(x)}");
+                return Redirect($"http://localhost:3000/pay-result?{Util.QueryStringFromDict(x)}");
             }
             catch (Exception ex)
             {
@@ -56,25 +56,31 @@ namespace SpaServiceBE.Controllers
             var serviceTxn = await _svTransService.GetByTransId(transactionId);
             try
             {
-                var req = await _requestService.GetById(serviceTxn.ServiceTransactionId);
+                var added = await _transactionService.Update(transactionId, s);
+                var req = await _requestService.GetById(serviceTxn.RequestId);
                 var service = await _spaService.GetById(req.ServiceId);
-                Appointment app = new()
-                {
-                    RequestId = req.RequestId,
-                    EmployeeId = req.EmployeeId,
-                    StartTime = req.StartTime,
-                    EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
-                    ReplacementEmployee = null,
-                    Status = "Processed",
-                    UpdatedAt = null,
-                    AppointmentId = Guid.NewGuid().ToString()
-                };
-                var check = await _appointmentService.AddAppointment(app);
-                rs.Add("success", check.ToString());
-                rs.Add("empName", app.EmployeeId);
-                rs.Add("startTime", app.StartTime.ToString());
-                rs.Add("endTime", app.EndTime.ToString());
+                rs.Add("empName", req.EmployeeId ?? "Did not request");
+                rs.Add("startTime", req.StartTime.ToString());
+                rs.Add("endTime", req.StartTime.Add(service.Duration).ToString());
                 rs.Add("serviceName", service.ServiceName);
+                if (req.EmployeeId != null)
+                {
+                    Appointment app = new()
+                    {
+                        RequestId = req.RequestId,
+                        EmployeeId = req.EmployeeId,
+                        StartTime = req.StartTime,
+                        EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
+                        ReplacementEmployee = null,
+                        Status = "Pending",
+                        UpdatedAt = null,
+                        AppointmentId = Guid.NewGuid().ToString()
+                    };
+                    var check = await _appointmentService.AddAppointment(app);
+                    rs.Add("success", check.ToString());
+                }
+                rs.Add("success", added.ToString());
+
             }
             catch (Exception ex)
             {
