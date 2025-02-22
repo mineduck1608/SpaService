@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Repositories.Entities;
 
-public partial class Contact
+public partial class GuestApplication
 {
-    public string ContactId { get; set; } = null!;
+    public string GuestApplicationId { get; set; } = null!;
 
     public string FullName { get; set; } = null!;
 
@@ -13,7 +13,7 @@ public partial class Contact
 
     public string Email { get; set; } = null!;
 
-    public string? ContactContent { get; set; }
+    public string ApplicationId { get; set; } = null!;
 
-    public bool IsProcessed { get; set; }
+    public virtual Application Application { get; set; } = null!;
 }

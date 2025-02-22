@@ -5,13 +5,13 @@ namespace Repositories.Entities;
 
 public partial class CategoryEmployee
 {
-    public int Id { get; set; }
+    public string CategoryEmployeeId { get; set; } = null!;
 
-    public string? CategoryId { get; set; }
+    public string CategoryId { get; set; } = null!;
 
-    public string? EmployeeId { get; set; }
+    public string EmployeeId { get; set; } = null!;
 
-    public virtual Category? Category { get; set; }
+    public virtual ServiceCategory Category { get; set; } = null!;
 
-    public virtual Employee? Employee { get; set; }
+    public virtual Employee Employee { get; set; } = null!;
 }

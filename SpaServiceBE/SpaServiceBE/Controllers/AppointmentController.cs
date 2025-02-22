@@ -67,8 +67,8 @@ namespace API.Controllers
                 // Lấy dữ liệu từ request
                 string requestId = jsonElement.GetProperty("requestId").GetString();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
-                DateTime? startTime = jsonElement.TryGetProperty("startTime", out var startTimeProp) ? startTimeProp.GetDateTime() : null;
-                DateTime? endTime = jsonElement.TryGetProperty("endTime", out var endTimeProp) ? endTimeProp.GetDateTime() : null;
+                DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
+                DateTime endTime = jsonElement.TryGetProperty("endTime", out JsonElement a) && a.ValueKind == JsonValueKind.String ? a.GetDateTime() : default;
                 string? replacementEmployee = jsonElement.TryGetProperty("replacementEmployee", out var replacementEmployeeProp) ? replacementEmployeeProp.GetString() : null;
 
                 // Kiểm tra dữ liệu đầu vào
@@ -114,8 +114,8 @@ namespace API.Controllers
                 // Lấy dữ liệu từ request
                 string requestId = jsonElement.GetProperty("requestId").GetString();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
-                DateTime? startTime = jsonElement.TryGetProperty("startTime", out var startTimeProp) ? startTimeProp.GetDateTime() : null;
-                DateTime? endTime = jsonElement.TryGetProperty("endTime", out var endTimeProp) ? endTimeProp.GetDateTime() : null;
+                DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
+                DateTime endTime = jsonElement.TryGetProperty("endTime", out JsonElement a) && a.ValueKind == JsonValueKind.String ? a.GetDateTime() : default;
                 string? replacementEmployee = jsonElement.TryGetProperty("replacementEmployee", out var replacementEmployeeProp) ? replacementEmployeeProp.GetString() : null;
 
                 // Kiểm tra dữ liệu đầu vào

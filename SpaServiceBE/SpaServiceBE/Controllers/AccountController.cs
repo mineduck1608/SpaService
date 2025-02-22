@@ -190,7 +190,7 @@ namespace API.Controllers
                     AccountId = account.AccountId,
                     FullName = fullName,
                     Position = position,
-                    HireDate = DateTime.Now,
+                    HireDate = DateOnly.FromDateTime(DateTime.Now),
                     Status = "Active",
                     Phone = phone,
                     Email = email,
@@ -278,7 +278,6 @@ namespace API.Controllers
                     Phone = phone,
                     Email = email,
                     DateOfBirth = dateOfBirth,
-                    MembershipId = null // Mặc định chưa có membership
                 };
 
 

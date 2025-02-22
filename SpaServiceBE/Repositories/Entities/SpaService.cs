@@ -19,9 +19,7 @@ public partial class SpaService
 
     public string CategoryId { get; set; } = null!;
 
-    public int? NoOfSessions { get; set; }
-
-    public virtual Category Category { get; set; } = null!;
+    public virtual ServiceCategory Category { get; set; } = null!;
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 

@@ -15,9 +15,9 @@ namespace API.Controllers
     public class SpaServiceController : ControllerBase
     {
         private readonly ISpaServiceService _service;
-        private readonly ICategoryService _categoryService;
+        private readonly IServiceCategoryService _categoryService;
 
-        public SpaServiceController(ISpaServiceService service, ICategoryService categoryService)
+        public SpaServiceController(ISpaServiceService service, IServiceCategoryService categoryService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));

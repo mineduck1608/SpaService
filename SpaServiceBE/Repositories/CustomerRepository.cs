@@ -21,10 +21,7 @@ namespace Repositories
         public async Task<Customer> GetById(string customerId)
         {
             return await _context.Customers
-                .Include(c => c.Account)        // Bao gồm Account liên quan đến Customer
-                .Include(c => c.Feedbacks)      // Bao gồm Feedbacks liên quan đến Customer
-                .Include(c => c.Membership)     // Bao gồm Membership liên quan đến Customer
-                .Include(c => c.Requests)       // Bao gồm Requests liên quan đến Customer
+
                 .FirstOrDefaultAsync(c => c.CustomerId == customerId);
         }
 
@@ -32,10 +29,6 @@ namespace Repositories
         public async Task<List<Customer>> GetAll()
         {
             return await _context.Customers
-                .Include(c => c.Account)        // Bao gồm Account liên quan đến Customer
-                .Include(c => c.Feedbacks)      // Bao gồm Feedbacks liên quan đến Customer
-                .Include(c => c.Membership)     // Bao gồm Membership liên quan đến Customer
-                .Include(c => c.Requests)       // Bao gồm Requests liên quan đến Customer
                 .ToListAsync();
         }
 
@@ -80,7 +73,6 @@ namespace Repositories
             existingCustomer.Phone = customer.Phone;
             existingCustomer.Email = customer.Email;
             existingCustomer.DateOfBirth = customer.DateOfBirth;
-            existingCustomer.MembershipId = customer.MembershipId;
 
             try
             {

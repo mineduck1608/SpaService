@@ -141,7 +141,7 @@ namespace API.Controllers
                 {
                     customer.Gender = gender;
                 }
-                if (dateOfBirth == null)
+                if (dateOfBirth != null)
                 {
                     customer.DateOfBirth = dateOfBirth;
                 }
