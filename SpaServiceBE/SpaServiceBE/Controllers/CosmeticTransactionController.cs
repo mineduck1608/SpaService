@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cosmetictransactions")]
     [ApiController]
     public class CosmeticTransactionController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace SpaServiceBE.Controllers
             _cosmeticTransactionService = cosmeticTransactionService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<CosmeticTransaction>>> GetAll()
         {
             return Ok(await _cosmeticTransactionService.GetAllAsync());

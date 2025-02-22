@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/orders")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace SpaServiceBE.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetOrders()
         {
             return Ok(await _orderService.GetAllOrdersAsync());

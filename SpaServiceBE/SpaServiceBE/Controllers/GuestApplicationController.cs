@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/guestapplications")]
     [ApiController]
     public class GuestApplicationController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace SpaServiceBE.Controllers
             _guestApplicationService = guestApplicationService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<GuestApplication>>> GetAll()
         {
             return Ok(await _guestApplicationService.GetAllAsync());

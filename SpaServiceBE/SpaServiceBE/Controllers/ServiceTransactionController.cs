@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/servicetransactions")]
     [ApiController]
     public class ServiceTransactionController : ControllerBase
     {
@@ -19,13 +19,13 @@ namespace SpaServiceBE.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServiceTransaction>>> GetAll()
         {
-            return Ok(await _serviceTransactionService.GetAllAsync());
+            return Ok(await _serviceTransactionService.GetAll());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceTransaction>> GetById(string id)
         {
-            return Ok(await _serviceTransactionService.GetByIdAsync(id));
+            return Ok(await _serviceTransactionService.GetById(id));
         }
 
         [HttpPost("Create")]
@@ -52,7 +52,7 @@ namespace SpaServiceBE.Controllers
                     MembershipId = membershipId
                 };
 
-                await _serviceTransactionService.CreateAsync(serviceTransaction);
+                await _serviceTransactionService.Add(serviceTransaction);
 
                 return CreatedAtAction(nameof(GetById), new { id = serviceTransaction.ServiceTransactionId }, serviceTransaction);
             }
@@ -62,48 +62,10 @@ namespace SpaServiceBE.Controllers
             }
         }
 
-        [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateServiceTransaction(string id, [FromBody] dynamic request)
-        {
-            try
-            {
-                var jsonElement = (JsonElement)request;
-
-                string transactionId = jsonElement.GetProperty("transactionId").GetString();
-                string requestId = jsonElement.GetProperty("requestId").GetString();
-                string? membershipId = jsonElement.TryGetProperty("membershipId", out var membershipElement) ? membershipElement.GetString() : null;
-
-                if (string.IsNullOrEmpty(transactionId) || string.IsNullOrEmpty(requestId))
-                {
-                    return BadRequest(new { msg = "ServiceTransaction details are incomplete or invalid." });
-                }
-
-                var serviceTransaction = new ServiceTransaction
-                {
-                    ServiceTransactionId = id,
-                    TransactionId = transactionId,
-                    RequestId = requestId,
-                    MembershipId = membershipId
-                };
-
-                var isUpdated = await _serviceTransactionService.UpdateAsync(id, serviceTransaction);
-
-                if (!isUpdated)
-                    return NotFound(new { msg = $"ServiceTransaction with ID = {id} not found." });
-
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
-            }
-        }
-
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            await _serviceTransactionService.DeleteAsync(id);
+            await _serviceTransactionService.Delete(id);
             return NoContent();
         }
     }

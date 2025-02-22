@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/managers")]
     [ApiController]
     public class ManagerController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace SpaServiceBE.Controllers
             _managerService = managerService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Manager>>> GetManagers()
         {
             return Ok(await _managerService.GetAllManagers());

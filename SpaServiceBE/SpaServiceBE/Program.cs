@@ -72,7 +72,6 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<ICustomerMembershipService, CustomerMembershipService>();
 builder.Services.AddScoped<IGuestApplicationService, GuestApplicationService>();
-builder.Services.AddScoped<IServiceTransactionService, ServiceTransactionService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IServiceCategoryService, ServiceCategoryService>();
