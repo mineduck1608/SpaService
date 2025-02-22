@@ -127,13 +127,6 @@ export const employeeConfig = {
       placeholder: 'Select position'
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status'
-    },
-    {
       name: 'image',
       label: 'Image',
       type: 'text',
@@ -193,11 +186,11 @@ export const employeeConfig = {
       placeholder: 'Enter email address'
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
+      name: 'image',
+      label: 'Image',
+      type: 'text',
       required: true,
-      placeholder: 'Select status',  
+      placeholder: 'Enter image URL',  
     }
   ],
   api: {

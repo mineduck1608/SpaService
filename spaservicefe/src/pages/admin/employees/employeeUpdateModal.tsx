@@ -70,9 +70,10 @@ export default function UpdateEmployeeModal({isOpen, onClose, employee} : Update
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="Admin System">Admin System</SelectItem>
-                                <SelectItem value="Manager">Manager</SelectItem>
-                                <SelectItem value="Employee">Employee</SelectItem>
+                                <SelectItem value="Massage Therapist">Massage Therapist</SelectItem>
+                                <SelectItem value="Receptionist">Receptionist</SelectItem>
+                                <SelectItem value="Esthetician">Esthetician</SelectItem>
+                                <SelectItem value="Spa Manager">Spa Manager</SelectItem>
                               </SelectContent>
                             </Select>
                           ) : (

@@ -111,6 +111,16 @@ export type Promotion = {
   isActive: boolean
 }
 
+export type Application = {
+  applicationId: string
+  status: string
+  content: string
+  accountId: string
+  createdAt: Date | string
+  resolvedAt: Date | string
+  resolvedBy: string
+}
+
 export type CosmeticCategory = {
   categoryId: string
   categoryName: string

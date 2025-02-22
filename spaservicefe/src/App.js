@@ -42,7 +42,7 @@ import SpaServicePage from './pages/admin/services/page.tsx'
 import TransactionPage from './pages/admin/transactions/page.tsx'
 import PromotionPage from './pages/admin/promotions/page.tsx'
 import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
-
+import ApplicationPage from './pages/admin/applications/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -225,7 +225,7 @@ function App() {
             <Route path='categories' element={<CategoriesPage />} />
             <Route path='employees-categories' element={<div>B</div>} />
             <Route path='services' element={<SpaServicePage />} />
-            <Route path='applications' element={<div>D</div>} />
+            <Route path='applications' element={<ApplicationPage />} />
             <Route path='contacts' element={<ContactAdminPage/>} />
             <Route path='transactions' element={<TransactionPage />} />
             <Route path='commissions' element={<div>ABC</div>} />
