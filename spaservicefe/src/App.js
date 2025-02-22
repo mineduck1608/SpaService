@@ -112,7 +112,7 @@ function App() {
             }
           />
           <Route
-            path='cosmetic'
+            path='cosmetics'
             element={
               <Layout>
                 <CosmeticPage />
@@ -120,7 +120,7 @@ function App() {
             }
           />
           <Route
-            path='cosmetic/:id'
+            path='cosmetics/:id'
             element={
               <Layout>
                 <CosmeticPage />
@@ -128,7 +128,7 @@ function App() {
             }
           />
           <Route
-            path='cosmetic-detail/:id'
+            path='cosmetics-detail/:id'
             element={
               <Layout>
                 <DetailPage />

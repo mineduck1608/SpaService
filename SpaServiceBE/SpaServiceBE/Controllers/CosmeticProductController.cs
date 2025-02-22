@@ -36,14 +36,14 @@ namespace SpaServiceBE.Controllers
             try
             {
                 var jsonElement = (JsonElement)request;
-                string productId = jsonElement.GetProperty("productId").GetString();
                 string productName = jsonElement.GetProperty("productName").GetString();
                 float? price = jsonElement.GetProperty("price").GetSingle();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 string description = jsonElement.GetProperty("description").GetString();
-                bool status = jsonElement.GetProperty("status").GetBoolean();
                 bool isSelling = jsonElement.GetProperty("isSelling").GetBoolean();
                 string? image = jsonElement.GetProperty("image").GetString();
+                string categoryId = jsonElement.GetProperty("categoryId").GetString();
+
 
                 var item = new CosmeticProduct
                 {
@@ -52,9 +52,10 @@ namespace SpaServiceBE.Controllers
                     Price = price,
                     Quantity = quantity,
                     Description = description,
-                    Status = status,
-                    IsSelling = isSelling,
-                    Image = image
+                    Status = true,
+                    IsSelling = true,
+                    Image = image,
+                    CategoryId = categoryId
                 };
 
                 await _service.Create(item);
