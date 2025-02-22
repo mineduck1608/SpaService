@@ -14,6 +14,7 @@ export default function PromotionPage() {
     const fetchData = async () => {
       try {
         const promotions = await getAllPromotions() 
+        console.log("Fetched promotions:", promotions)
         setData(promotions)
       } catch (err) {
         setError("Can't load the data.") // Xử lý lỗi nếu có

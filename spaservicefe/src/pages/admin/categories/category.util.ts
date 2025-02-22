@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 export async function getAllCategories() {
   try {
-    const res = await fetch(`${apiUrl}/categories/GetAll`, {
+    const res = await fetch(`${apiUrl}/cosmeticcategories/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -19,7 +19,7 @@ export async function getAllCategories() {
 
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/categories/Create`, {
+    var res = await fetch(`${apiUrl}/cosmeticcategories/Create`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -29,7 +29,7 @@ export async function handleCreateSubmit(data: any) {
     })
     console.log("Form Data:", data)
     console.log("API Response:", res)
-    if (res.status === 200 || res.status === 204) {
+    if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully create!', {
         autoClose: 2000
       })
@@ -44,7 +44,7 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/categories/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/cosmeticcategories/Update/${id}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -52,7 +52,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
       },
       body: JSON.stringify(data)
     })
-    if (res.status === 200 || res.status === 204) {
+    if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {
         autoClose: 2000
       })
@@ -67,14 +67,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
 
 export async function handleDelete(id : string) {
   try {
-    var response = await fetch(`${apiUrl}/categories/Delete/${id}`, {
+    var res = await fetch(`${apiUrl}/cosmeticcategories/Delete/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
-    if (response.status === 200 || response.status === 204) {
+    if (res.status >= 200 && res.status < 300) {
       toast.success('Delete successfully', {
         autoClose: 2000
       })

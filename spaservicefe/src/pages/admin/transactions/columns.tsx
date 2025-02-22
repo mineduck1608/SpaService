@@ -3,9 +3,9 @@ import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
 import TransactionActions from './transactionAction'
-import { Transaction } from '@/types/type'
+import { TransactionBase } from '@/types/type'
 
-export const columns: ColumnDef<Transaction>[] = [
+export const columns: ColumnDef<TransactionBase>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -30,23 +30,27 @@ export const columns: ColumnDef<Transaction>[] = [
     header: 'Transaction Type'
   },
   {
+    accessorKey: 'paymentType',
+    header: 'Payment Type'
+  },
+  {
     accessorKey: 'totalPrice',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Discount Value
+          Total Price
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
     cell: ({ row }) => {
       const value = row.getValue<string>('totalPrice')
-      return <div className='ml-16'>{value}</div>
+      return <div className='ml-8'>{value}</div>
     }
   },
   {
-    accessorKey: 'requestId',
-    header: 'Request ID'
+    accessorKey: 'completeTime',
+    header: 'Complete Time'
   },
   {
     accessorKey: 'status',

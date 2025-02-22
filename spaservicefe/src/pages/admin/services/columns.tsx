@@ -36,10 +36,6 @@ export const columns: ColumnDef<SpaService>[] = [
     header: 'Duration'
   },
   {
-    accessorKey: 'noOfSessions',
-    header: 'No Of Sessions'
-  },
-  {
     accessorKey: 'description',
     header: 'Description'
   },

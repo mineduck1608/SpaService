@@ -9,14 +9,14 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Transaction } from '@/types/type'
+import { TransactionBase } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './transaction.util'
 import UpdateTransactionModal from './transactionUpdateModal'
 
 interface TransactionActionsProps {
-  transaction: Transaction
+  transaction: TransactionBase
 }
 
 const CustomerActions: React.FC<TransactionActionsProps> = ({ transaction }) => {

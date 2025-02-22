@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Transaction } from '../../../types/type'
+import { TransactionBase } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllTransactions() {
@@ -9,7 +9,7 @@ export async function getAllTransactions() {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    const json = (await res.json()) as Transaction[]
+    const json = (await res.json()) as TransactionBase[]
     return json
   } catch (e) {
     return []

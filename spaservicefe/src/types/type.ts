@@ -93,6 +93,7 @@ export type News = {
   type: string
   image: string
   createdAt: Date | string
+  categoryId: string
 }
 
 export type Category = {
@@ -135,7 +136,7 @@ export type TransactionBase = {
   completeTime: string
   promotionId: string
   paymentType: string
-};
+}
 
 export type ServiceTransaction = TransactionBase & {
   serviceTransactionId: string

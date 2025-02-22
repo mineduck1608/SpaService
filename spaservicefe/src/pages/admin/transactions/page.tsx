@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { Transaction } from '@/types/type'
+import { TransactionBase } from '@/types/type'
 import { getAllTransactions } from '../transactions/transaction.util'
 
 export default function TransactionPage() {
-  const [data, setData] = useState<Transaction[]>([])
+  const [data, setData] = useState<TransactionBase[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 

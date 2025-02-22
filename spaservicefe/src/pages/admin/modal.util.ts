@@ -322,6 +322,13 @@ export const newsConfig = {
       label: 'Image URL',
       type: 'text',
       placeholder: 'Enter new image URL',
+    },
+    {
+      name: 'categoryId',
+      label: 'Category Id',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new category Id',
     }
   ],
   fields: [
@@ -352,6 +359,13 @@ export const newsConfig = {
       label: 'Image URL',
       type: 'text',
       placeholder: 'Enter new image URL',
+    },
+    {
+      name: 'categoryId',
+      label: 'Category Id',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter category Id',
     }
   ]
 }
@@ -526,13 +540,6 @@ export const transactionConfig = {
       placeholder: 'Enter new type',
     },
     {
-      name: 'requestId',
-      label: 'Request Id',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new request Id',
-    },
-    {
       name: 'totalPrice',
       label: 'Total Price',
       type: 'number',
@@ -542,35 +549,16 @@ export const transactionConfig = {
       placeholder: 'Enter new total price',
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      placeholder: 'Select status',
-    }
-  ],
-  fields: [
-    {
-      name: 'transactionType',
-      label: 'Transaction Type',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new type',
+      name: 'completeTime',
+      label: 'Complete Time',
+      type: 'datetime-local',
+      readonly: true
     },
     {
-      name: 'requestId',
-      label: 'Request Id',
+      name: 'paymentType',
+      label: 'Payment Type',
       type: 'text',
-      required: true,
-      placeholder: 'Enter new request Id',
-    },
-    {
-      name: 'totalPrice',
-      label: 'Total Price',
-      type: 'number',
-      required: true,
-      step: '0.01',
-      min: 0,
-      placeholder: 'Enter new total price',
+      readonly: true
     },
     {
       name: 'status',

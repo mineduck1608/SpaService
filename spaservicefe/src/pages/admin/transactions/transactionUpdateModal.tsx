@@ -31,7 +31,7 @@ export default function UpdateTransactionModal({isOpen, onClose, transaction} : 
 
   const handleSubmit = async (data: any) => {
     data.totalPrice = parseFloat(data.totalPrice) || 0
-    data.status = data.isActive === "true"
+    data.status = data.status === "true"
     handleUpdateSubmit(transaction.transactionId ,data)
   }
 
