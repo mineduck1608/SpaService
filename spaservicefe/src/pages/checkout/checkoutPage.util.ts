@@ -53,7 +53,7 @@ export async function getPaymentUrl(price: number, username: string, txnId: stri
   }
 }
 
-export async function createTransaction(type: string, price: number, requestId: string) {
+export async function createTransaction(method: string, price: number, requestId: string) {
   try {
     var s = await fetch(`${apiUrl}/transactions/Create`, {
       method: 'POST',
@@ -61,7 +61,8 @@ export async function createTransaction(type: string, price: number, requestId: 
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        transactionType: type,
+        paymentType: method,
+        transactionType: 'Service',
         totalPrice: price,
         status: false,
         requestId: requestId

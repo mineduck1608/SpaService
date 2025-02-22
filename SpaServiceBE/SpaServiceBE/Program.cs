@@ -39,6 +39,7 @@ builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<AttendanceRecordRepository>();
 builder.Services.AddScoped<CategoryEmployeeRepository>();
+builder.Services.AddScoped<ServiceTransactionRepository>();
 
 
 
@@ -56,11 +57,12 @@ builder.Services.AddScoped<IMembershipService, MembershipService>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<ISpaServiceService, SpaServiceService>();
+builder.Services.AddScoped<ISpaServiceService, SpaServiceContext>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IAttendanceRecordService, AttendanceRecordService>();
 builder.Services.AddScoped<ICategoryEmployeeService, CategoryEmployeeService>();
+builder.Services.AddScoped<IServiceTransactionService, ServiceTransactionService>();
 
 
 

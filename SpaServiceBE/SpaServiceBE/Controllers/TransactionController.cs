@@ -15,10 +15,13 @@ namespace API.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _service;
-
-        public TransactionController(ITransactionService service)
+        private readonly IRequestService _requestService;
+        private readonly IServiceTransactionService _serviceTransactionService;
+        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService svc)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _requestService = requestService;
+            _serviceTransactionService = svc;
         }
 
         // GET: api/transactions/GetAll
@@ -71,6 +74,7 @@ namespace API.Controllers
 
                 // Lấy dữ liệu từ request
                 string transactionType = jsonElement.GetProperty("transactionType").GetString();
+                string paymentType = jsonElement.GetProperty("paymentType").GetString();
                 float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
                 bool status = jsonElement.GetProperty("status").GetBoolean();
 
@@ -87,14 +91,28 @@ namespace API.Controllers
                     TransactionType = transactionType,
                     TotalPrice = totalPrice,
                     Status = status,
+                    PaymentType = paymentType,
                 };
 
                 // Gọi service để thêm transaction
                 var isCreated = await _service.Add(transaction);
 
                 if (!isCreated)
+                {
                     return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
-
+                }
+                if (transactionType == "Service")
+                {
+                    string reqId = jsonElement.GetProperty("requestId").GetString();
+                    jsonElement.TryGetProperty("membershipId", out var membershipId);
+                    await _serviceTransactionService.Add(new()
+                    {
+                        MembershipId = membershipId.ToString(),
+                        RequestId = reqId,
+                        ServiceTransactionId = Guid.NewGuid().ToString(),
+                        TransactionId = transaction.TransactionId,
+                    });
+                }
                 return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
             }
             catch (Exception ex)
