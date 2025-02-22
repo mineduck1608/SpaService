@@ -1,14 +1,16 @@
 import React from 'react'
 import RequestTable from './requestTable'
+import bg from '../../images/customerHistory/bg.jpg'
 
 export default function RequestPage() {
   return (
-    <div className='flex justify-center'
+    <div
+      className='flex justify-center bg-slate-400 bg-cover bg-no-repeat'
       style={{
-        backgroundImage: `url(https://siamelegancehotels.com/wp-content/uploads/2022/06/dsc9419.jpg)`
-      }}>
-      <div className='w-full mt-60 mb-40 p-5 z-10'
-      >
+        background: 'url(https://www.vilabaroviczlatibor.com/media/gallery/gt-zlatibor-apartmani/spa-centar-4031.webp)'
+      }}
+    >
+      <div className='mb-40 mt-60 w-full p-5 '>
         <RequestTable />
       </div>
     </div>
