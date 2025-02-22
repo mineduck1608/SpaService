@@ -32,7 +32,7 @@ export async function getAllMemberships() {
 
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/customers/Create`, {
+    var res = await fetch(`${apiUrl}/accounts/RegisterCustomer`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -78,7 +78,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
 
 export async function handleDelete(customerId : string) {
   try {
-    var response = await fetch(`https://localhost:7205/api/customers/Delete/${customerId}`, {
+    var response = await fetch(`${apiUrl}/customers/Delete/${customerId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${getToken()}`,

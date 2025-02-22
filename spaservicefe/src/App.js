@@ -34,6 +34,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
+import AdmminNewsPage from './pages/admin/news/page.tsx'
+import CategoriesPage from './pages/admin/categories/page.tsx'
+import SpaServicePage from './pages/admin/services/page.tsx'
+import TransactionPage from './pages/admin/transactions/page.tsx'
+import PromotionPage from './pages/admin/promotions/page.tsx'
+
 
 function Layout({ children }) {
   return (
@@ -181,16 +187,16 @@ function App() {
             <Route path='schedules' element={<div>AB</div>} />
             <Route path='customer-requests' element={<CustomerRequestPage/>} />
             <Route path='appointments' element={<CalendarApp/>} />
-            <Route path='categories' element={<div>A</div>} />
+            <Route path='categories' element={<CategoriesPage />} />
             <Route path='employees-categories' element={<div>B</div>} />
-            <Route path='services' element={<div>C</div>} />
+            <Route path='services' element={<SpaServicePage />} />
             <Route path='applications' element={<div>D</div>} />
             <Route path='contacts' element={<ContactAdminPage/>} />
-            <Route path='transactions' element={<div>F</div>} />
+            <Route path='transactions' element={<TransactionPage />} />
             <Route path='commissions' element={<div>ABC</div>} />
             <Route path='employees-commissions' element={<div>BE</div>} />
-            <Route path='news' element={<div>BF</div>} />
-            <Route path='promotions' element={<div>CF</div>} />
+            <Route path='news' element={<AdmminNewsPage />} />
+            <Route path='promotions' element={<PromotionPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

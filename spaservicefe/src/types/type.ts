@@ -11,7 +11,7 @@ export type Employee = {
   employeeId: string
   fullName: string
   position: string
-  hireDate: Date
+  hireDate: Date | string
   status: string
   image: string
   accountId: string
@@ -30,7 +30,7 @@ export type Customer = {
   gender: string
   phone: string
   email: string
-  dateOfBirth: Date
+  dateOfBirth: Date | string
   membershipId: string
 }
 
@@ -43,7 +43,7 @@ export type Member = {
 
 export type Request = {
   requestId: string
-  startTime: Date
+  startTime: Date | string
   status: string
   customerNote: string
   managerNote: string
@@ -66,7 +66,7 @@ export type Appointment = {
   status: string
   requestId: string
   employeeId: string
-  startTime: string
+  startTime: string 
   endTime: string
   replacementEmployee: string
   updatedAt: Date
@@ -84,3 +84,36 @@ export type SpaService = {
   noOfSessions: number
 }
 
+export type News = {
+  newsId: string
+  header: string
+  content: string
+  type: string
+  image: string
+  createdAt: Date | string
+}
+
+export type Category = {
+  categoryId: string
+  categoryName: string
+  categoryImage: string
+  categoryDescription: string
+}
+
+export type Promotion = {
+  promotionId: string
+  promotionCode: string
+  promotionName: string
+  discountValue: number
+  isActive: boolean
+}
+
+export type Transaction = {
+  transactionId: string
+  transactionType: string
+  requestId: string
+  totalPrice: number
+  status: boolean
+  promotionId: string
+  membershipId: string
+}

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import { employeeConfig, FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -11,7 +10,6 @@ import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { ToastContainer } from 'react-toastify' 
 import { handleCreateSubmit } from './employee.util'
-import { DatePicker } from 'antd'
 
 export default function AddEmployeeModal() {
   const fieldsToUse = employeeConfig.fields
@@ -26,14 +24,14 @@ export default function AddEmployeeModal() {
   const handleSubmit = async (data: any) => {
     handleCreateSubmit(data)
   }
-
+  
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         <Button variant='outline'>Create</Button>
       </DialogTrigger>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Update Customer</DialogTitle>
+        <DialogTitle className='flex justify-center'>Create Employee</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
               {fieldsToUse.map((field : FieldConfig) => (
@@ -47,28 +45,36 @@ export default function AddEmployeeModal() {
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
                         {field.type === 'select' ? (
-                          <Select 
-                            onValueChange={formField.onChange} 
-                            defaultValue={formField.value}
-                          >
-                            <SelectTrigger asChild>
-                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              
-                            </SelectContent>
-                          </Select>
-                        ) : field.type === 'datetime-local' ? (
-                          <DatePicker
-                            step={1800}
-                            showTime
-                            showHour
-                            showMinute
-                            showSecond={false}
-                            minuteStep={30}
-                            className='border-[1px] p-2 w-75'
-                          />
-                        ) : (
+                          field.name === 'position' ? (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="Admin System">Admin System</SelectItem>
+                                <SelectItem value="Manager">Manager</SelectItem>
+                                <SelectItem value="Employee">Employee</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          ) : (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="Active">Active</SelectItem>
+                                <SelectItem value="Locked">Locked</SelectItem>
+                              </SelectContent>
+                            </Select>
+                        )) : (
                           <Input
                             {...formField}
                             type={field.type}

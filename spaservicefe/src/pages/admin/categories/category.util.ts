@@ -1,24 +1,25 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Employee } from '../../../types/type'
+import { Category } from '../../../types/type'
 import { toast } from 'react-toastify'
 
-export async function getAllEmployees() {
+export async function getAllCategories() {
   try {
-    const res = await fetch(`${apiUrl}/employees/GetAll`, {
+    const res = await fetch(`${apiUrl}/categories/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    const json = (await res.json()) as Employee[]
+    const json = (await res.json()) as Category[]
     return json
   } catch (e) {
     return []
   }
 }
 
+
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/accounts/RegisterEmployee`, {
+    var res = await fetch(`${apiUrl}/categories/Create`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -26,6 +27,8 @@ export async function handleCreateSubmit(data: any) {
       },
       body: JSON.stringify(data)
     })
+    console.log("Form Data:", data)
+    console.log("API Response:", res)
     if (res.status === 200 || res.status === 204) {
       toast.success('Successfully create!', {
         autoClose: 2000
@@ -41,7 +44,7 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/employees/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/categories/Update/${id}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -62,9 +65,9 @@ export async function handleUpdateSubmit(id: string, data: any) {
   }
 } 
 
-export async function handleDelete(employeeId : string) {
+export async function handleDelete(id : string) {
   try {
-    var response = await fetch(`${apiUrl}/employees/Delete/${employeeId}`, {
+    var response = await fetch(`${apiUrl}/categories/Delete/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -80,6 +83,6 @@ export async function handleDelete(employeeId : string) {
       toast.error('Delete failed. Try again.')
     }
   } catch (error) {
-    console.error('Error deleting employee:', error)
+    console.error('Error deleting customer:', error)
   } 
 }

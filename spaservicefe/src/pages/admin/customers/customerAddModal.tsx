@@ -20,12 +20,16 @@ export default function AddCustomerModal() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
+      fieldsToUse.map((field : FieldConfig) => [field.name, ""]),
     ),
   })
 
   const handleSubmit = async (data: any) => {
     handleCreateSubmit(data)
+  }
+
+  const handleChange = (field: string, value: string) => {
+    form.setValue(field, value)
   }
 
   return (
@@ -34,7 +38,7 @@ export default function AddCustomerModal() {
         <Button variant='outline'>Create</Button>
       </DialogTrigger>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Update Customer</DialogTitle>
+        <DialogTitle className='flex justify-center'>Create Customer</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
               {fieldsToUse.map((field : FieldConfig) => (
@@ -70,6 +74,7 @@ export default function AddCustomerModal() {
                             showSecond={false}
                             minuteStep={30}
                             className='border-[1px] p-2 w-75'
+                            onChange={(date) => handleChange('dateOfBirth', date ? date.format('YYYY-MM-DDTHH:mm:ss') : '')}
                           />
                         ) : (
                           <Input

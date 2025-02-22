@@ -13,7 +13,7 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { IoIosArrowDown } from 'react-icons/io'
-
+import AddCategoryModal from './categoryCreateModal'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 import { Button } from '../../../components/ui/button'
 import { Input } from '../../../components/ui/input'
@@ -64,6 +64,7 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }:
           onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
+        <AddCategoryModal />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline' className='ml-auto'>

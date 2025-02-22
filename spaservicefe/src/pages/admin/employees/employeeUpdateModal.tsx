@@ -9,12 +9,9 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
-import { CalendarIcon } from 'lucide-react'
 import { ToastContainer } from 'react-toastify' 
 import { handleUpdateSubmit } from './employee.util'
 import { employeeConfig } from '../modal.util'
-import { DatePicker } from 'antd'
 
 interface UpdateEmployeeModalProps {
   isOpen: boolean
@@ -49,7 +46,7 @@ export default function UpdateEmployeeModal({isOpen, onClose, employee} : Update
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Update Customer</DialogTitle>
+        <DialogTitle className='flex justify-center'>Update Employee</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
               {fieldsToUse.map((field : FieldConfig) => (
@@ -63,49 +60,36 @@ export default function UpdateEmployeeModal({isOpen, onClose, employee} : Update
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
                         {field.type === 'select' ? (
-                          <Select 
-                            onValueChange={formField.onChange} 
-                            defaultValue={formField.value}
-                            disabled={field.readonly}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value='Male'>Active</SelectItem>
-                              <SelectItem value='Female'>Inactive</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        ) : field.type === 'datetime-local' ? (
-                          <Popover>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant={'outline'}
-                                    className={`w-[240px] pl-3 text-left font-normal ${
-                                      !formField.value ? "text-muted-foreground" : ""
-                                    }`}
-                                    disabled={field.readonly}
-                                  >
-                                    <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className='w-auto p-0' align='start'>
-                                <div className='flex items-center gap-4 ml-3 w-full'>
-                                  <DatePicker
-                                    step={1800}
-                                    showTime
-                                    showHour
-                                    showMinute
-                                    showSecond={false}
-                                    minuteStep={30}
-                                    className='border-[1px] p-2 w-75'
-                                  />
-                                </div>
-                              </PopoverContent>
-                            </Popover>
+                          field.name === 'position' ? (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="Admin System">Admin System</SelectItem>
+                                <SelectItem value="Manager">Manager</SelectItem>
+                                <SelectItem value="Employee">Employee</SelectItem>
+                              </SelectContent>
+                            </Select>
                           ) : (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="Active">Active</SelectItem>
+                                <SelectItem value="Locked">Locked</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )) : (
                             <Input
                               {...formField}
                               type={field.type}

@@ -23,6 +23,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
+import AddPromotionModal from './promotionAddModal'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
@@ -64,6 +65,7 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }:
           onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
+        <AddPromotionModal />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline' className='ml-auto'>

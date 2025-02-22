@@ -9,11 +9,11 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify' 
-import { handleCreateSubmit } from './new.util'
-import { newsConfig } from '../modal.util'
+import { handleCreateSubmit } from './transaction.util'
+import { transactionConfig } from '../modal.util'
 
-export default function AddNewsModal() {
-  const fieldsToUse = newsConfig.fields
+export default function AddTransactionModal() {
+  const fieldsToUse = transactionConfig.fields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -32,7 +32,7 @@ export default function AddNewsModal() {
         <Button variant='outline'>Create</Button>
       </DialogTrigger>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Create News</DialogTitle>
+        <DialogTitle className='flex justify-center'>Create Transaction</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
               {fieldsToUse.map((field : FieldConfig) => (

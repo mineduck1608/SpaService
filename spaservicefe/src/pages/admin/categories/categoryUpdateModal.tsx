@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
+import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { Button } from 'src/components/ui/button'
@@ -9,30 +9,43 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify' 
-import { handleCreateSubmit } from './new.util'
-import { newsConfig } from '../modal.util'
+import { handleUpdateSubmit } from './category.util'
+import { categoriesConfig } from '../modal.util'
 
-export default function AddNewsModal() {
-  const fieldsToUse = newsConfig.fields
+interface UpdateCategoryModalProps {
+  isOpen: boolean
+  onClose: () => void
+  category: any
+}
+
+export default function UpdateCategoryModal({isOpen, onClose, category} : UpdateCategoryModalProps) {
+  const fieldsToUse = categoriesConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""]),
+      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
     ),
   })
 
   const handleSubmit = async (data: any) => {
-    handleCreateSubmit(data)
+    handleUpdateSubmit(category.categoryId ,data)
   }
 
+  useEffect(() => {
+    if (category) {
+      Object.keys(category).forEach((key : string) => {
+        if (form.getValues(key) !== undefined) {
+          form.setValue(key, category[key])
+        }
+      })
+    }
+  }, [category, form])
+
   return (
-    <Dialog>
-      <DialogTrigger>
-        <Button variant='outline'>Create</Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Create News</DialogTitle>
+        <DialogTitle className='flex justify-center'>Update Category</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
               {fieldsToUse.map((field : FieldConfig) => (

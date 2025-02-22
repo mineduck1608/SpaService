@@ -1,24 +1,25 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Employee } from '../../../types/type'
+import { Transaction } from '../../../types/type'
 import { toast } from 'react-toastify'
 
-export async function getAllEmployees() {
+export async function getAllTransactions() {
   try {
-    const res = await fetch(`${apiUrl}/employees/GetAll`, {
+    const res = await fetch(`${apiUrl}/transactions/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    const json = (await res.json()) as Employee[]
+    const json = (await res.json()) as Transaction[]
     return json
   } catch (e) {
     return []
   }
 }
 
+
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/accounts/RegisterEmployee`, {
+    var res = await fetch(`${apiUrl}/transactions/Create`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -41,7 +42,7 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/employees/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/transactions/Update/${id}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -62,9 +63,9 @@ export async function handleUpdateSubmit(id: string, data: any) {
   }
 } 
 
-export async function handleDelete(employeeId : string) {
+export async function handleDelete(id : string) {
   try {
-    var response = await fetch(`${apiUrl}/employees/Delete/${employeeId}`, {
+    var response = await fetch(`${apiUrl}/transactions/Delete/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
@@ -80,6 +81,6 @@ export async function handleDelete(employeeId : string) {
       toast.error('Delete failed. Try again.')
     }
   } catch (error) {
-    console.error('Error deleting employee:', error)
+    console.error('Error deleting customer:', error)
   } 
 }

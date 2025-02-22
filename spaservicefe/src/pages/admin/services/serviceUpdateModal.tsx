@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
+import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { Button } from 'src/components/ui/button'
@@ -8,31 +8,48 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
+import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
+import { CalendarIcon } from 'lucide-react'
 import { ToastContainer } from 'react-toastify' 
-import { handleCreateSubmit } from './new.util'
-import { newsConfig } from '../modal.util'
+import { handleUpdateSubmit } from './service.util'
+import { spaServiceConfig } from '../modal.util'
+import { DatePicker } from 'antd'
 
-export default function AddNewsModal() {
-  const fieldsToUse = newsConfig.fields
+interface UpdateServiceModalProps {
+  isOpen: boolean
+  onClose: () => void
+  service: any
+}
+
+export default function UpdateServiceModal({isOpen, onClose, service} : UpdateServiceModalProps) {
+  const fieldsToUse = spaServiceConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""]),
+      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
     ),
   })
 
   const handleSubmit = async (data: any) => {
-    handleCreateSubmit(data)
+    handleUpdateSubmit(service.serviceId ,data)
   }
 
+  useEffect(() => {
+    if (service) {
+      Object.keys(service).forEach((key : string) => {
+        if (form.getValues(key) !== undefined) {
+          form.setValue(key, service[key])
+        }
+      })
+    }
+  }, [service, form])
+
   return (
-    <Dialog>
-      <DialogTrigger>
-        <Button variant='outline'>Create</Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Create News</DialogTitle>
+        <DialogTitle className='flex justify-center'>Update Service</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
               {fieldsToUse.map((field : FieldConfig) => (
