@@ -14,29 +14,6 @@ export async function getAllApplications() {
   } catch (e) {
     return []
   }
-}
-
-export async function handleCreateSubmit(data: any) {
-  try {
-    var res = await fetch(`${apiUrl}/applications/Create`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${getToken()}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully create!', {
-        autoClose: 2000
-      })
-      setTimeout(() => window.location.reload(), 2000)
-    } else {
-      toast.error('Failed. Please try again.')
-    }
-  } catch (e) {
-    return []
-  }
 } 
 
 export async function handleUpdateSubmit(id: string, data: any) {
@@ -64,7 +41,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
 
 export async function handleDelete(id : string) {
   try {
-    var res = await fetch(`${apiUrl}/applications/Delete/${id}`, {
+    var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${getToken()}`,

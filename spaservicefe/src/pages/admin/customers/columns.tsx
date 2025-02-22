@@ -52,11 +52,7 @@ export const columns: ColumnDef<Customer>[] = [
   },
   {
     accessorKey: 'dateOfBirth',
-    header: 'Date of Birth',
-    cell: ({ row }) => {
-      const dateOfBirth = row.getValue<Date>('dateOfBirth')
-      return <span>{new Date(dateOfBirth).toLocaleDateString()}</span>
-    }
+    header: 'Date of Birth'
   },
   {
     accessorKey: 'type',

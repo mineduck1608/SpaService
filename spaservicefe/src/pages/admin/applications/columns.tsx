@@ -35,19 +35,11 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: 'Created At',
-    cell: ({ row }) => {
-      const dateOfBirth = row.getValue<Date>('createdAt')
-      return <span>{new Date(dateOfBirth).toLocaleDateString()}</span>
-    }
+    header: 'Created At'
   },
   {
     accessorKey: 'resolvedAt',
-    header: 'Resolved At',
-    cell: ({ row }) => {
-      const dateOfBirth = row.getValue<Date>('resolvedAt')
-      return <span>{new Date(dateOfBirth).toLocaleDateString()}</span>
-    }
+    header: 'Resolved At'
   },
   {
     accessorKey: 'resolvedBy',

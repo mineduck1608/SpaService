@@ -8,10 +8,10 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { ToastContainer } from 'react-toastify' 
 import { handleUpdateSubmit } from './application.util'
-import { employeeConfig } from '../modal.util'
+import { applicatonConfig } from '../modal.util'
+import { DatePicker } from 'antd'
 
 interface UpdateApplicationModalProps {
   isOpen: boolean
@@ -20,7 +20,7 @@ interface UpdateApplicationModalProps {
 }
 
 export default function UpdateApplicationModal({isOpen, onClose, application} : UpdateApplicationModalProps) {
-  const fieldsToUse = employeeConfig.updatefields
+  const fieldsToUse = applicatonConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,6 +31,10 @@ export default function UpdateApplicationModal({isOpen, onClose, application} : 
 
   const handleSubmit = async (data: any) => {
     handleUpdateSubmit(application.applicationId ,data)
+  }
+
+  const handleChange = (field: string, value: string) => {
+    form.setValue(field, value)
   }
 
   useEffect(() => {
@@ -59,38 +63,18 @@ export default function UpdateApplicationModal({isOpen, onClose, application} : 
                       <FormLabel className='text-right text-md'>{field.label}</FormLabel>
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
-                        {field.type === 'select' ? (
-                          field.name === 'position' ? (
-                            <Select
-                              onValueChange={formField.onChange}
-                              defaultValue={formField.value}
-                              disabled={field.readonly}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="Massage Therapist">Massage Therapist</SelectItem>
-                                <SelectItem value="Receptionist">Receptionist</SelectItem>
-                                <SelectItem value="Esthetician">Esthetician</SelectItem>
-                                <SelectItem value="Spa Manager">Spa Manager</SelectItem>
-                              </SelectContent>
-                            </Select>
+                          {field.type === 'datetime-local' ? (
+                            <DatePicker
+                              step={1800}
+                              showTime
+                              showHour
+                              showMinute
+                              showSecond={false}
+                              minuteStep={30}
+                              className='border-[1px] p-2 w-75'
+                              onChange={(date) => handleChange(field.name, date ? date.format('YYYY-MM-DDTHH:mm:ss') : '')}
+                            />
                           ) : (
-                            <Select
-                              onValueChange={formField.onChange}
-                              defaultValue={formField.value}
-                              disabled={field.readonly}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="Active">Active</SelectItem>
-                                <SelectItem value="Locked">Locked</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          )) : (
                             <Input
                               {...formField}
                               type={field.type}

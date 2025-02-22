@@ -286,6 +286,54 @@ export const categoriesConfig = {
   ]
 }
 
+export const applicatonConfig = {
+  updatefields: [
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'text',
+      required: true,
+      minLength: 4,
+      placeholder: 'Enter status',
+    },
+    {
+      name: 'content',
+      label: 'Content',
+      type: 'text',
+      required: true,
+      minLength: 4,
+      placeholder: 'Enter content',
+    },
+    {
+      name: 'accountId',
+      label: 'Account Id',
+      type: 'text',
+      required: true,
+      minLength: 4,
+      placeholder: 'Enter account Id',
+    },
+    {
+      name: 'createdAt',
+      label: 'Created At',
+      type: 'datetime-local',
+      readonly: true
+    },
+    {
+      name: 'resolvedBy',
+      label: 'Resolved By',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter employee name',
+    },
+    {
+      name: 'resolvedAt',
+      label: 'Resolved At',
+      type: 'datetime-local',
+      readonly: true
+    }
+  ]
+}
+
 export const newsConfig = {
   updatefields: [
     {
