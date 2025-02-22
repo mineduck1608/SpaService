@@ -41,14 +41,16 @@ export type Member = {
   totalPayment: number
 }
 
-export type Request = {
+export type SpaRequest = {
   requestId: string
-  startTime: Date
+  startTime: string
   status: string
   customerNote: string
   managerNote: string
   serviceId: string
-  customerId: string
+  customerId: string,
+  service?: SpaService,
+  employee?: Employee
 }
 
 export type Contact = {
@@ -81,6 +83,5 @@ export type SpaService = {
   description: string
   serviceImage: string
   categoryId: string
-  noOfSessions: number
 }
 

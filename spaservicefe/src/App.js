@@ -28,9 +28,11 @@ import DemoPage from './pages/admin/accounts/page.tsx'
 import CalendarApp from './pages/admin/appointments/page.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
+import ManagerPage from './pages/manager/managerMainPage.tsx'
 import PayResultPage from './pages/payResult/payResultPage.tsx'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import RequestPage from './pages/requestPage/requestPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -63,6 +65,14 @@ function App() {
                 <OurServices />
                 <Products />
                 <News />
+              </Layout>
+            }
+          />
+          <Route
+            path='requests'
+            element={
+              <Layout>
+                <RequestPage />
               </Layout>
             }
           />
@@ -179,18 +189,31 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
             <Route path='shifts' element={<></>} />
             <Route path='schedules' element={<div>AB</div>} />
-            <Route path='customer-requests' element={<CustomerRequestPage/>} />
-            <Route path='appointments' element={<CalendarApp/>} />
+            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            <Route path='appointments' element={<CalendarApp />} />
             <Route path='categories' element={<div>A</div>} />
             <Route path='employees-categories' element={<div>B</div>} />
             <Route path='services' element={<div>C</div>} />
             <Route path='applications' element={<div>D</div>} />
-            <Route path='contacts' element={<ContactAdminPage/>} />
+            <Route path='contacts' element={<ContactAdminPage />} />
             <Route path='transactions' element={<div>F</div>} />
             <Route path='commissions' element={<div>ABC</div>} />
             <Route path='employees-commissions' element={<div>BE</div>} />
             <Route path='news' element={<div>BF</div>} />
             <Route path='promotions' element={<div>CF</div>} />
+          </Route>
+          <Route
+            path='manager'
+            element={
+              <ProtectedAdmin>
+                <ManagerPage />
+              </ProtectedAdmin>
+            }
+          >
+            <Route index />
+            <Route path='applications' />
+            <Route path='requests' />
+            <Route path='contacts' />
           </Route>
         </Routes>
       </BrowserRouter>

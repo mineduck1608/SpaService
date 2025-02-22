@@ -9,12 +9,12 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Request } from '@/types/type' // Đổi từ Account sang Request
+import { SpaRequest } from '@/types/type' // Đổi từ Account sang Request
 import { MoreHorizontal } from 'lucide-react'
 import { EditRequestModal } from './editRequestModal' // Import modal chỉnh sửa yêu cầu
 
 interface RequestActionsProps {
-  request: Request // Cập nhật type từ Account thành Request
+  request: SpaRequest // Cập nhật type từ Account thành Request
 }
 
 const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
@@ -32,7 +32,7 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
     closeModal()
   }
 
-  const handleUpdate = (updatedRequest: Request) => {
+  const handleUpdate = (updatedRequest: SpaRequest) => {
     // Thực hiện lưu thông tin đã cập nhật
     console.log('Updated request: ', updatedRequest)
   }

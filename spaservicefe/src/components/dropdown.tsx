@@ -16,7 +16,7 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom' // For navigation
+import { Link, useNavigate } from 'react-router-dom' // For navigation
 import { jwtDecode } from 'jwt-decode'
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
@@ -52,7 +52,24 @@ export function Dropdown() {
     toast.success('Logout success.')
     navigate('/login') // Điều hướng về trang đăng nhập
   }
-
+  const items = [
+    {
+      k: 'Profile',
+      v: '/profile'
+    },
+    {
+      k: 'Requests',
+      v: '/requests'
+    },
+    {
+      k: 'Appointments',
+      v: '/appointments'
+    },
+    {
+      k: 'Contacts',
+      v: '/contacts'
+    }
+  ]
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -62,56 +79,24 @@ export function Dropdown() {
           </Button>
         ) : (
           // If token doesn't exist, show the Login button
-          <Button variant='login' onClick={handleLoginClick} className='text-lg flex items-center justify-center'>
+          <Button variant='login' onClick={handleLoginClick} className='flex items-center justify-center text-lg'>
             Login
           </Button>
         )}
       </DropdownMenuTrigger>
       {token && (
-        <DropdownMenuContent className='w-56 mr-16'>
+        <DropdownMenuContent className='mr-16 w-56'>
           <DropdownMenuLabel>Welcome {fullName}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              Profile
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Billing
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Settings
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Keyboard shortcuts
-              <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-            </DropdownMenuItem>
+            {
+              items.map(x => (
+                <DropdownMenuItem>
+                  <Link to={x.v} className='no-underline text-black'>{x.k}</Link>
+                </DropdownMenuItem>
+              ))
+            }
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuItem>Email</DropdownMenuItem>
-                  <DropdownMenuItem>Message</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>More...</DropdownMenuItem>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-            <DropdownMenuItem>
-              New Team
-              <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>GitHub</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
-          <DropdownMenuItem disabled>API</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogoutClick}>
             Log out

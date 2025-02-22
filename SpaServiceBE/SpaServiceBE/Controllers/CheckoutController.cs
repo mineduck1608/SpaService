@@ -2,6 +2,7 @@
 using Repositories.Entities;
 using Services;
 using Services.IServices;
+using SpaServiceBE.Utils;
 
 namespace SpaServiceBE.Controllers
 {
@@ -14,15 +15,18 @@ namespace SpaServiceBE.Controllers
         private readonly IRequestService _requestService;
         private readonly ISpaServiceService _spaService;
         private readonly IAppointmentService _appointmentService;
-        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService)
+        private readonly IEmployeeService _employeeService;
+        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService, IEmployeeService employeeService)
         {
             _vnPayService = vnPayService;
             _transactionService = transactionService;
             _requestService = requestService;
             _appointmentService = appointmentService;
             _spaService = spaService;
+            _employeeService = employeeService;
         }
 
+<<<<<<< HEAD
     //    [HttpGet("PaymentCallbackVnPay")]
     //    public async Task<IActionResult> PaymentCallbackVnpay()
     //    {
@@ -59,5 +63,52 @@ namespace SpaServiceBE.Controllers
     //        }
     //        return Redirect($"http://localhost:3000/pay-result?success=false");
     //    }
+=======
+        [HttpGet("PaymentCallbackVnPay")]
+        public async Task<IActionResult> PaymentCallbackVnpay()
+        {
+            var response = _vnPayService.PaymentExecute(Request.Query);
+            //Order desc is txn id
+            var txnId = response.OrderDescription;
+            var s = await _transactionService.GetById(txnId);
+            s.Status = response.Success;
+            try
+            {
+                var u = await _transactionService.Update(txnId, s);
+                var req = await _requestService.GetById(s.RequestId);
+                req.Status = "Completed";
+                var t = await _requestService.Update(req.RequestId, req);
+                var service = await _spaService.GetById(req.ServiceId);
+                if (req.EmployeeId == null)
+                {
+                    return Redirect($"http://localhost:3000/pay-result?success={u}");
+                }
+                Dictionary<string, string> query = new Dictionary<string, string>();
+                Appointment app = new()
+                {
+                    RequestId = req.RequestId,
+                    EmployeeId = req.EmployeeId,
+                    StartTime = req.StartTime,
+                    EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
+                    ReplacementEmployee = null,
+                    Status = "Processed",
+                    UpdatedAt = null,
+                    AppointmentId = Guid.NewGuid().ToString()
+                };
+                var check = await _appointmentService.AddAppointment(app);
+                var emp = await _employeeService.GetEmployeeById(req.EmployeeId);
+                query.Add("success", check.ToString());
+                query.Add("empName", emp.FullName);
+                query.Add("startTime", app.StartTime.ToString());
+                query.Add("endTime", app.StartTime.ToString());
+                query.Add("service", service.ServiceName);
+                return Redirect($"http://localhost:3000/pay-result?{Util.QueryStringFromDict(query)}");
+            }
+            catch (Exception ex)
+            {
+            }
+            return Redirect($"http://localhost:3000/pay-result?success=false");
+        }
+>>>>>>> 12378826357b51f2df1e4b22a8dd3db024ea9a39
     }
 }

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { Request } from '../../../types/type' // Updated to CustomerRequest type
+import { SpaRequest } from '../../../types/type' // Updated to CustomerRequest type
 import { getAllCustomerRequests, getCustomerById, getServiceById } from '../customerRequests/customerRequest.util' // Assuming the new function to get customer requests
 import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 
 export default function CustomerRequestPage() {
-  const [data, setData] = useState<Request[]>([]) // Updated to CustomerRequest
+  const [data, setData] = useState<SpaRequest[]>([]) // Updated to CustomerRequest
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 

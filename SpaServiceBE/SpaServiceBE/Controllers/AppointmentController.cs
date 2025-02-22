@@ -55,6 +55,24 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+       
+        [HttpGet("GetAppointmentByEmployeeId/{id}")]
+        public async Task<ActionResult<Appointment>> GetAppointmentFromEmployeeId(string id)
+        {
+            try
+            {
+                var appointment = await _servicee.GetAllAppointmentsFromEmployee(id);
+
+                if (appointment == null)
+                    return NotFound($"Appointment with ID = {id} not found.");
+
+                return Ok(appointment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
         // POST: api/appointments/Create
         [HttpPost("Create")]

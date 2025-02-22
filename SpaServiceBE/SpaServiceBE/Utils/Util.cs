@@ -72,5 +72,16 @@ namespace SpaServiceBE.Utils
         public static bool IsPasswordSecure(string password) => !password.IsNullOrEmpty() ? new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?])[A-Za-z\d!@#$%^&*()_\-+=<>?]{12,}$").IsMatch(password) : false;
 
         public static bool IsMailFormatted(string mail) => !mail.IsNullOrEmpty() ? new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$").IsMatch(mail) : false;
+
+        public static string QueryStringFromDict(Dictionary<string, string> dict)
+        {
+            StringBuilder result = new StringBuilder();
+            foreach(KeyValuePair<string, string> kvp in dict)
+            {
+                result.Append($"{kvp.Key}={kvp.Value}&");
+            }
+            result.Remove(result.Length - 1, 1);
+            return result.ToString();
+        }
     }
 }
