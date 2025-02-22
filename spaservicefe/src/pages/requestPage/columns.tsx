@@ -1,12 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
-import { Button } from '../../components/ui/button'
-import { Checkbox } from '../../components/ui/checkbox'
 import { SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 import { formatNumber } from '../servicesPage/servicesPage.util'
-import RequestActions from '../admin/customerRequests/customerRequestAction'
-import { useContext, useState } from 'react'
-import { PastBookingContext } from './context/pastBookingContext'
+import Details from './details'
 export const columns: ColumnDef<SpaRequest>[] = [
   {
     accessorKey: 'serviceName',
@@ -49,9 +44,7 @@ export const columns: ColumnDef<SpaRequest>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      return <>
-        <button className='bg-blue-600 p-2 rounded-md text-white hover:bg-blue-500'>View Detail</button>
-      </>
+      return <Details request={row.original}/>
     }
   }
 ]
