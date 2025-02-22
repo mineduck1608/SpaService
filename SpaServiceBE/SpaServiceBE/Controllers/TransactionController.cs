@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         // GET: api/transactions/GetAll
-     
+
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Transaction>>> GetAllTransactions()
         {
@@ -41,7 +41,7 @@ namespace API.Controllers
         }
 
         // GET: api/transactions/GetById/{id}
-     
+
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Transaction>> GetTransactionById(string id)
         {
@@ -64,7 +64,7 @@ namespace API.Controllers
         }
 
         // POST: api/transactions/Create
-        
+
         [HttpPost("Create")]
         public async Task<ActionResult> CreateTransaction([FromBody] dynamic request)
         {
@@ -105,13 +105,17 @@ namespace API.Controllers
                 {
                     string reqId = jsonElement.GetProperty("requestId").GetString();
                     jsonElement.TryGetProperty("membershipId", out var membershipId);
-                    await _serviceTransactionService.Add(new()
+                    var serviceTrans = new ServiceTransaction()
                     {
-                        MembershipId = membershipId.ToString(),
                         RequestId = reqId,
                         ServiceTransactionId = Guid.NewGuid().ToString(),
                         TransactionId = transaction.TransactionId,
-                    });
+                    };
+                    if(membershipId.ValueKind != JsonValueKind.Undefined)
+                    {
+                        serviceTrans.MembershipId = membershipId.GetString();
+                    }
+                    await _serviceTransactionService.Add(serviceTrans);
                 }
                 return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
             }
@@ -123,7 +127,7 @@ namespace API.Controllers
 
 
         // PUT: api/transactions/Update/{id}
-      
+
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateTransaction(string id, [FromBody] dynamic request)
         {
@@ -167,7 +171,7 @@ namespace API.Controllers
 
 
         // DELETE: api/transactions/Delete/{id}
-      
+
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteTransaction(string id)
         {

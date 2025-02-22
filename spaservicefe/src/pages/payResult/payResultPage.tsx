@@ -52,7 +52,7 @@ export default function PayResultPage() {
                       <tbody >
                         <tr>
                           <td className='p-2 border-[1px black solid]'>Service</td>
-                          <td>{map.get('service')}</td>
+                          <td>{map.get('serviceName')}</td>
                         </tr>
                         <tr>
                           <td className='p-2'>Requested Employee</td>
