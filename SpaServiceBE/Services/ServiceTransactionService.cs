@@ -14,7 +14,7 @@ namespace Services
         private readonly ServiceTransactionRepository repository;
         public ServiceTransactionService(ServiceTransactionRepository repository)
         {
-            repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
         public async Task<ServiceTransaction> GetById(string svTransId)
         {
