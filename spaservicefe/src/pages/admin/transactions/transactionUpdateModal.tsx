@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify' 
 import { handleUpdateSubmit } from './transaction.util'
@@ -29,6 +30,8 @@ export default function UpdateTransactionModal({isOpen, onClose, transaction} : 
   })
 
   const handleSubmit = async (data: any) => {
+    data.totalPrice = parseFloat(data.totalPrice) || 0
+    data.status = data.isActive === "true"
     handleUpdateSubmit(transaction.transactionId ,data)
   }
 
@@ -36,7 +39,12 @@ export default function UpdateTransactionModal({isOpen, onClose, transaction} : 
     if (transaction) {
       Object.keys(transaction).forEach((key : string) => {
         if (form.getValues(key) !== undefined) {
-          form.setValue(key, transaction[key])
+          let value = transaction[key];
+
+          if (key === "totalPrice") value = String(value)
+          if (key === "status") value = value ? "true" : "false" 
+
+          form.setValue(key, value)
         }
       })
     }
@@ -58,12 +66,28 @@ export default function UpdateTransactionModal({isOpen, onClose, transaction} : 
                       <FormLabel className='text-right text-md'>{field.label}</FormLabel>
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
-                          <Input
-                            {...formField}
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            disabled={field.readonly}
-                          />
+                          {field.type === 'select' ? (
+                            <Select 
+                              onValueChange={formField.onChange} 
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='true'>Done</SelectItem>
+                                <SelectItem value='false'>Unfinished</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          ) : (
+                            <Input
+                              {...formField}
+                              type={field.type}
+                              placeholder={field.placeholder}
+                              disabled={field.readonly}
+                            />
+                          )}
                         </FormControl>
                         <FormMessage className='text-sm' />
                       </div>

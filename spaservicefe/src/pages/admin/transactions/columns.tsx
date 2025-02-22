@@ -34,10 +34,14 @@ export const columns: ColumnDef<Transaction>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Total Price
+          Discount Value
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
+    },
+    cell: ({ row }) => {
+      const value = row.getValue<string>('totalPrice')
+      return <div className='ml-16'>{value}</div>
     }
   },
   {
@@ -49,8 +53,9 @@ export const columns: ColumnDef<Transaction>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
-      const statusColor = status === 'Done' ? 'text-green-500' : 'text-red-500'
-      return <span className={statusColor}>{status}</span>
+      const statusText = status ? 'Done' : 'Unfinished'
+      const statusColor = status ? 'text-green-500' : 'text-red-500'
+      return <span className={statusColor}>{statusText}</span>
     }
   },
   {

@@ -27,7 +27,7 @@ export async function handleCreateSubmit(data: any) {
       },
       body: JSON.stringify(data)
     })
-    if (res.status === 200 || res.status === 204) {
+    if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully create!', {
         autoClose: 2000
       })
@@ -50,7 +50,8 @@ export async function handleUpdateSubmit(id: string, data: any) {
       },
       body: JSON.stringify(data)
     })
-    if (res.status === 200 || res.status === 204) {
+    console.log(data)
+    if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {
         autoClose: 2000
       })
@@ -65,14 +66,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
 
 export async function handleDelete(id : string) {
   try {
-    var response = await fetch(`${apiUrl}/promotions/Delete/${id}`, {
+    var res = await fetch(`${apiUrl}/promotions/Delete/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
-    if (response.status === 200 || response.status === 204) {
+    if (res.status >= 200 && res.status < 300) {
       toast.success('Delete successfully', {
         autoClose: 2000
       })

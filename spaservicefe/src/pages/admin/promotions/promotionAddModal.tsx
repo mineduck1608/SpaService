@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify' 
 import { handleCreateSubmit } from './promotion.util'
@@ -18,11 +19,17 @@ export default function AddPromotionModal() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""]),
+      fieldsToUse.map((field: FieldConfig) => {
+        if (field.name === "discountValue") return [field.name, "0"]
+        if (field.name === "isActive") return [field.name, "true"]
+        return [field.name, ""]
+      })
     ),
   })
 
   const handleSubmit = async (data: any) => {
+    data.discountValue = parseFloat(data.discountValue) || 0
+    data.isActive = data.isActive === "true"
     handleCreateSubmit(data)
   }
 
@@ -45,12 +52,28 @@ export default function AddPromotionModal() {
                       <FormLabel className='text-right text-md'>{field.label}</FormLabel>
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
-                          <Input
-                            {...formField}
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            disabled={field.readonly}
-                          />
+                          {field.type === 'select' ? (
+                            <Select 
+                              onValueChange={formField.onChange} 
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='true'>Active</SelectItem>
+                                <SelectItem value='false'>Locked</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          ) : (
+                            <Input
+                              {...formField}
+                              type={field.type}
+                              placeholder={field.placeholder}
+                              disabled={field.readonly}
+                            />
+                          )}
                         </FormControl>
                         <FormMessage className='text-sm' />
                       </div>

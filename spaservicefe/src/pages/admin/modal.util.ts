@@ -212,30 +212,20 @@ export const accountConfig = {
       name: 'username',
       label: 'Username',
       type: 'text',
-      required: true,
-      minLength: 8,
+      readonly: true,
       placeholder: 'Enter new username',
-    },
-    {
-      name: 'password',
-      label: 'Password',
-      type: 'password',
-      required: true,
-      placeholder: 'Enter new password',
     },
     {
       name: 'status',
       label: 'Status',
       type: 'select',
-      readonly: true,
+      required: true,
     },
     {
       name: 'roleId',
       label: 'Role ID',
       type: 'text',
-      minLength: 10,
-      required: true,
-      placeholder: 'Enter new role ID'
+      readonly: true,
     },
     {
       name: 'createdAt',
@@ -259,7 +249,7 @@ export const categoriesConfig = {
       label: 'Category Name',
       type: 'text',
       required: true,
-      minLength: 5,
+      minLength: 3,
       placeholder: 'Enter new name',
     },
     {
@@ -472,6 +462,7 @@ export const promotionConfig = {
       label: 'Promotion Name',
       type: 'text',
       required: true,
+      minLength: 4,
       placeholder: 'Enter new promotion name',
     },
     {
@@ -497,14 +488,15 @@ export const promotionConfig = {
       type: 'text',
       required: true,
       minLength: 5,
-      placeholder: 'Enter new promotion code',
+      placeholder: 'Enter promotion code',
     },
     {
       name: 'promotionName',
       label: 'Promotion Name',
       type: 'text',
       required: true,
-      placeholder: 'Enter new promotion name',
+      minLength: 4,
+      placeholder: 'Enter promotion name',
     },
     {
       name: 'discountValue',
@@ -513,7 +505,7 @@ export const promotionConfig = {
       required: true,
       step: '0.01',
       min: 0,
-      placeholder: 'Enter new discount value',
+      placeholder: 'Enter discount value',
     },
     {
       name: 'isActive',
@@ -599,24 +591,24 @@ export const generateZodSchema = (fields: FieldConfig[]) => {
   const schemaObject: Record<string, any> = {}
 
   fields.forEach((field) => {
-    let fieldSchema = z.string()
+    let fieldSchema: any = z.any()
     switch (field.type) {
       case 'password':
         fieldSchema = z.string().regex(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?])[A-Za-z\d!@#$%^&*()_\-+=<>?]{12,}$/,
-          'Please enter a valid password'
+          'Please enter a valid password.'
         )
         break
       case 'tel':
-        fieldSchema = z.string().regex(/^0[9832]\d{8}$/, 'Please enter a valid phone number')
+        fieldSchema = z.string().regex(/^0[9832]\d{8}$/, 'Please enter a valid phone number.')
         break
       case 'email':
-        fieldSchema = z.string().email('Please enter a valid email')
+        fieldSchema = z.string().email('Please enter a valid email.')
         break
       default:
         fieldSchema = z.string()
-        if (field.minLength) fieldSchema = fieldSchema.min(field.minLength, `Must be at least ${field.minLength} characters`)
-        if (field.maxLength) fieldSchema = fieldSchema.max(field.maxLength, `Must be less than ${field.maxLength} characters`)
+        if (field.minLength) fieldSchema = fieldSchema.min(field.minLength, `Must be at least ${field.minLength} characters.`)
+        if (field.maxLength) fieldSchema = fieldSchema.max(field.maxLength, `Must be less than ${field.maxLength} characters.`)
     }
 
     schemaObject[field.name] = field.required ? fieldSchema : fieldSchema.optional()

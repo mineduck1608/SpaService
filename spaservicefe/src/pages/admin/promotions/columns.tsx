@@ -34,16 +34,28 @@ export const columns: ColumnDef<Promotion>[] = [
     header: 'Promotion Name'
   },
   {
-    accessorKey: 'transactionType',
-    header: 'Transaction Type'
+    accessorKey: 'discountValue',
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Discount Value
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const value = row.getValue<string>('discountValue')
+      return <div className='ml-16'>{value}</div>
+    }
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'isActive',
     header: 'Status',
     cell: ({ row }) => {
-      const status = row.getValue<string>('status')
-      const statusColor = status === 'Active' ? 'text-green-500' : 'text-red-500'
-      return <span className={statusColor}>{status}</span>
+      const isActive = row.getValue<boolean>('isActive')
+      const statusText = isActive ? 'Active' : 'Locked'
+      const statusColor = isActive ? 'text-green-500' : 'text-red-500'
+      return <span className={statusColor}>{statusText}</span>
     }
   },
   {

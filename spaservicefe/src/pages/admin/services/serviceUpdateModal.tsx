@@ -33,6 +33,7 @@ export default function UpdateServiceModal({isOpen, onClose, service} : UpdateSe
   })
 
   const handleSubmit = async (data: any) => {
+    data.price = parseFloat(data.price) || 0
     handleUpdateSubmit(service.serviceId ,data)
   }
 
@@ -40,6 +41,7 @@ export default function UpdateServiceModal({isOpen, onClose, service} : UpdateSe
     if (service) {
       Object.keys(service).forEach((key : string) => {
         if (form.getValues(key) !== undefined) {
+          if (key === "price") service[key] = String(service[key])
           form.setValue(key, service[key])
         }
       })

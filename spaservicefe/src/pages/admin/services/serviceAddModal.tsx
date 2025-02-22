@@ -18,11 +18,15 @@ export default function AddServiceModal() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""]),
+      fieldsToUse.map((field: FieldConfig) => {
+        if (field.name === "price") return [field.name, "0"]
+        return [field.name, ""]
+      })
     ),
   })
 
   const handleSubmit = async (data: any) => {
+    data.price = parseFloat(data.price) || 0
     handleCreateSubmit(data)
   }
 
@@ -56,7 +60,7 @@ export default function AddServiceModal() {
                       </div>
                     </FormItem>
                   )}
-                  />
+                />
               ))}
               <div className='flex justify-end mt-10'>
                   <Button type='submit'>Submit</Button>
