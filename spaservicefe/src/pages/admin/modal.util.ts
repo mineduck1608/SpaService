@@ -610,10 +610,107 @@ export const transactionConfig = {
   ]
 }
 
-export const entityConfigMap: Record<string, any> = {
-  Customer: customerConfig,
-  Account: accountConfig,
-  Employee: employeeConfig
+export const orderConfig = {
+  updatefields: [
+    {
+      name: 'customerId',
+      label: 'Customer Id',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter customer Id',
+    },
+    {
+      name: 'orderDate',
+      label: 'Order Date',
+      type: 'datetime-local',
+      required: true,
+    },
+    {
+      name: 'totalAmount',
+      label: 'Total Amount',
+      type: 'number',
+      required: true,
+      step: '0.01',
+      min: 0,
+      placeholder: 'Enter total amount',
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      placeholder: 'Select status',
+    },
+    {
+      name: 'transactionId',
+      label: 'Transaction Id',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter transaction Id',
+    }
+  ]
+}
+
+export const cosmeticProductConfig = {
+  updatefields: [
+    {
+      name: 'productId',
+      label: 'Product Id',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter product Id',
+    },
+    {
+      name: 'productName',
+      label: 'Product Name',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter product name',
+    },
+    {
+      name: 'price',
+      label: 'Price',
+      type: 'number',
+      required: true,
+      step: '0.01',
+      min: 0,
+      placeholder: 'Enter price',
+    },
+    {
+      name: 'quantity',
+      label: 'Quantity',
+      type: 'number',
+      required: true,
+      min: 0,
+      placeholder: 'Enter quantity',
+    },
+    {
+      name: 'description',
+      label: 'Description',
+      type: 'text',
+      required: true,
+      minLength: 5,
+      placeholder: 'Enter description',
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      placeholder: 'Select status',
+    },
+    {
+      name: 'isSelling',
+      label: 'Is Selling',
+      type: 'select',
+      placeholder: 'Select an option',
+    },
+    {
+      name: 'image',
+      label: 'Image URL',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter image URL',
+    }
+  ]
 }
 
 export const generateZodSchema = (fields: FieldConfig[]) => {

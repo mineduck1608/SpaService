@@ -7,6 +7,7 @@ export type Account = {
   roleId: string
   updatedAt: Date | string
 }
+
 export type Employee = {
   employeeId: string
   fullName: string
@@ -18,6 +19,7 @@ export type Employee = {
   phone: string
   email: string
 }
+
 export type Role = {
   roleId: string
   roleName: string
@@ -119,6 +121,15 @@ export type Application = {
   createdAt: Date | string
   resolvedAt: Date | string
   resolvedBy: string
+}
+
+export type Order = {
+  orderId: string
+  customerId: string
+  orderDate: Date | string
+  totalAmount: number
+  status: boolean
+  transactionId: string
 }
 
 export type CosmeticCategory = {

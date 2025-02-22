@@ -23,6 +23,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
+import AddProductModal from './productAddModal'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
@@ -30,7 +31,7 @@ interface DataTableProps<TData, TValue> {
   filterKey?: string // Key để lọc dữ liệu
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, filterKey = 'productName' }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -59,13 +60,13 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }:
     <div>
       <div className='flex items-center py-3'>
         <Input
-          placeholder={`Filter by ${filterKey}...`}
+          placeholder={`Filter by product name...`}
           value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
-          
+          <AddProductModal />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>
