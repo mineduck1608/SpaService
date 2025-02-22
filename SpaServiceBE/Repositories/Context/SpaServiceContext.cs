@@ -512,9 +512,10 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("commissionId");
             entity.Property(e => e.CommissionValue).HasColumnName("commissionValue");
-            entity.Property(e => e.ServiceTransactionserviceTransactionId)
+            entity.Property(e => e.ServiceTransactionId)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("serviceTransactionId");
             entity.Property(e => e.TransactionId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -530,8 +531,8 @@ public partial class SpaserviceContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKEmployeeCo384416");
 
-            entity.HasOne(d => d.ServiceTransactionserviceTransaction).WithMany(p => p.EmployeeCommissions)
-                .HasForeignKey(d => d.ServiceTransactionserviceTransactionId)
+            entity.HasOne(d => d.ServiceTransaction).WithMany(p => p.EmployeeCommissions)
+                .HasForeignKey(d => d.ServiceTransactionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKEmployeeCo513181");
         });

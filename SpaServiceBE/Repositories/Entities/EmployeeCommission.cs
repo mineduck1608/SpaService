@@ -13,11 +13,11 @@ public partial class EmployeeCommission
 
     public float CommissionValue { get; set; }
 
-    public string ServiceTransactionserviceTransactionId { get; set; } = null!;
+    public string ServiceTransactionId { get; set; } = null!;
 
     public virtual Commission Commission { get; set; } = null!;
 
     public virtual Employee Employee { get; set; } = null!;
 
-    public virtual ServiceTransaction ServiceTransactionserviceTransaction { get; set; } = null!;
+    public virtual ServiceTransaction ServiceTransaction { get; set; } = null!;
 }
