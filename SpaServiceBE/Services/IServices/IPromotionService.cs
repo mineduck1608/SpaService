@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Repositories.Entities;
 
-namespace Services
+namespace Services.IServices
 {
     public interface IPromotionService
     {

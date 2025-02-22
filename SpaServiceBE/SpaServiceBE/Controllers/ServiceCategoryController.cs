@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/categories")]
+    [Route("api/servicecategories")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ServiceCategoryController : ControllerBase
     {
-        private readonly ICategoryService _service;
+        private readonly IServiceCategoryService _service;
         private readonly ISpaServiceService _spaServiceService;
 
 
-        public CategoryController(ICategoryService categoryService, ISpaServiceService spaServiceService)
+        public ServiceCategoryController(IServiceCategoryService categoryService, ISpaServiceService spaServiceService)
         {
             _service = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
             _spaServiceService = spaServiceService ?? throw new ArgumentNullException(nameof(spaServiceService));
@@ -26,7 +26,7 @@ namespace API.Controllers
 
         // GET: api/categories/GetAll
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<Category>>> GetAllCategories()
+        public async Task<ActionResult<IEnumerable<ServiceCategory>>> GetAllCategories()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace API.Controllers
         }
 
         [HttpGet("EmployeesOf/{id}")]
-        public async Task<ActionResult<Category>> GetEmployeesOf(string id)
+        public async Task<ActionResult<ServiceCategory>> GetEmployeesOf(string id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace API.Controllers
         // GET: api/categories/GetById/{id}
         [Authorize]
         [HttpGet("GetById/{id}")]
-        public async Task<ActionResult<Category>> GetCategoryById(string id)
+        public async Task<ActionResult<ServiceCategory>> GetCategoryById(string id)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetCategoryByServiceId/{id}")]
-        public async Task<ActionResult<Category>> GetCategoryByServiceId(string id)
+        public async Task<ActionResult<ServiceCategory>> GetCategoryByServiceId(string id)
         {
             try
             {
@@ -118,11 +118,10 @@ namespace API.Controllers
                     return Conflict(new { msg = "Category already exists." });
 
                 // Tạo đối tượng danh mục
-                var category = new Category
+                var category = new ServiceCategory
                 {
                     CategoryId = Guid.NewGuid().ToString("N"),
                     CategoryName = categoryName,
-                    CategoryImage = categoryImage,
                     CategoryDescription = categoryDescription,
                 };
 
@@ -160,11 +159,10 @@ namespace API.Controllers
                     return BadRequest(new { msg = "Category details are incomplete." });
 
                 // Tạo đối tượng danh mục với dữ liệu đã cập nhật
-                var category = new Category
+                var category = new ServiceCategory
                 {
                     CategoryId = id, // Assign the ID for the update
                     CategoryName = categoryName,
-                    CategoryImage = categoryImage,
                     CategoryDescription = categoryDescription
                 };
 

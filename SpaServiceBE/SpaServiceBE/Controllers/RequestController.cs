@@ -71,9 +71,27 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [Authorize]
+        [HttpGet("GetByAccId/{id}")]
+        public async Task<ActionResult<List<Request>>> GetRequestByAccId(string id)
+        {
+            try
+            {
+                var request = await _service.FilterByAccount(id);
+
+                if (request == null)
+                    return NotFound($"Request with ID = {id} not found.");
+
+                return Ok(request);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
         // POST: api/requests/Create
-        
+
         [HttpPost("Create")]
         public async Task<ActionResult> CreateRequest([FromBody] dynamic request)
         {

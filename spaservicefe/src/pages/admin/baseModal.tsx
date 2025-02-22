@@ -15,18 +15,20 @@ import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popov
 import { CalendarIcon } from 'lucide-react'
 import { Calendar } from 'src/components/ui/calendar'
 import { format } from 'date-fns'
-import { toast, ToastContainer } from 'react-toastify' 
+import { toast, ToastContainer } from 'react-toastify'
 
-export default function BaseModal({isOpen, onClose, rowData} : BaseModalProps) {
-  const formSchema = generateZodSchema(config.fields)
+export default function BaseModal({ isOpen, onClose, type, entity, rowData }: BaseModalProps) {
+  const config = entityConfigMap[entity]
+  const isCreate = type === 'Create'
+
+  const fieldsToUse = type === 'Create' ? config.fields : config.updatefields || config.fields
+  const formSchema = generateZodSchema(config, !isCreate)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field: FieldConfig) => [
-        field.name,
-        rowData?.[field.name] || "",
-      ])
-    ),
+      fieldsToUse.map((field: FieldConfig) => [field.name, rowData?.[field.name] || ''])
+    )
   })
 
   const handleSubmit = async (data: any) => {
@@ -35,22 +37,20 @@ export default function BaseModal({isOpen, onClose, rowData} : BaseModalProps) {
       const entityId = rowData?.[idKey]
 
       const baseUrl = 'https://localhost:7205/'
-      const endpoint = type === 'Create' 
-        ? config.api.create
-        : config.api.update.replace('{id}', entityId)
+      const endpoint = type === 'Create' ? config.api.create : config.api.update.replace('{id}', entityId)
 
-      console.log("API Endpoint:", baseUrl + endpoint)
+      console.log('API Endpoint:', baseUrl + endpoint)
       const response = await fetch(baseUrl + endpoint, {
         method: type === 'Create' ? 'POST' : 'PUT',
         headers: {
-          'Authorization': `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken()}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
       })
 
       if (response.status === 200 || response.status === 204) {
-        toast.success('Successfully ' + type +'.', {
+        toast.success('Successfully ' + type + '.', {
           autoClose: 2000
         })
         setTimeout(() => window.location.reload(), 2000)
@@ -66,118 +66,108 @@ export default function BaseModal({isOpen, onClose, rowData} : BaseModalProps) {
     if (type === 'Update' && rowData) {
       Object.keys(rowData).forEach((key) => {
         if (form.getValues(key) !== undefined) {
-          form.setValue(key, rowData[key]);
+          form.setValue(key, rowData[key])
         }
-      });
+      })
     }
   }, [rowData, form, type])
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>
-      {isCreate ? (
-        <Button variant='outline'>{type}</Button>
-      ):(
-        <></>
-      )}
-      </DialogTrigger>
+      <DialogTrigger asChild>{isCreate ? <Button variant='outline'>{type}</Button> : <></>}</DialogTrigger>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>{type} {entity}</DialogTitle>
-          <Form {...form}>
-              <form onSubmit={(e) => {
-                e.preventDefault()
-                form.handleSubmit((data) => {
-                  handleSubmit(data)
-                })()
-              }} className='space-y-4'>
-                {fieldsToUse.map((field : FieldConfig) => (
-                  <FormField
-                    key={field.name}
-                    control={form.control}
-                    name={field.name}
-                    render={({ field: formField }) => (
-                      <FormItem className='grid grid-cols-4 items-center gap-4 mt-2'>
-                        <FormLabel className='text-right text-md'>{field.label}</FormLabel>
-                        <div className='col-span-3 space-y-1'>
-                          <FormControl>
-                            {field.type === 'select' ? (
-                              <Select 
-                                onValueChange={formField.onChange} 
-                                defaultValue={formField.value}
-                              >
-                                <SelectTrigger>
-                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {field.name === 'status' ? (
-                                    <>
-                                      <SelectItem value='Active'>Active</SelectItem>
-                                      <SelectItem value='Inactive'>Inactive</SelectItem>
-                                    </>
-                                  ) : field.name === 'position' ? (
-                                    <>
-                                      <SelectItem value='Employee'>Employee</SelectItem>
-                                      <SelectItem value='Manager'>Manager</SelectItem>
-                                      <SelectItem value='Admin System'>Admin System</SelectItem>
-                                    </>
-                                  ) : field.name === 'gender' ? (
-                                    <>
-                                      <SelectItem value='Male'>Male</SelectItem>
-                                      <SelectItem value='Female'>Female</SelectItem>
-                                    </>
-                                  ) : null}
-                                </SelectContent>
-                              </Select>
-                            ) : field.type === 'datetime-local' ? (
-                              <Popover>
-                                <PopoverTrigger asChild>
-                                  <FormControl>
-                                    <Button
-                                      variant={'outline'}
-                                      className={`w-[240px] pl-3 text-left font-normal ${
-                                        !formField.value ? "text-muted-foreground" : ""
-                                      }`}
-                                    >
-                                      {formField.value ? (
-                                        format(new Date(formField.value), "PPP")
-                                      ) : (
-                                        <span>Pick a date</span>
-                                      )}
-                                      <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                                    </Button>
-                                  </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className='w-auto p-0' align='start'>
-                                  <Calendar
-                                    mode='single'
-                                    selected={formField.value ? new Date(formField.value) : undefined}
-                                    onSelect={(date) => formField.onChange(date?.toISOString())}
-                                    disabled={(date) =>
-                                      date > new Date() || date < new Date('1900-01-01')
-                                    }
-                                    initialFocus
-                                  />
-                                </PopoverContent>
-                              </Popover>
-                            ) : (
-                              <Input
-                                {...formField}
-                                type={field.type}
-                                placeholder={field.placeholder}
+        <DialogTitle className='flex justify-center'>
+          {type} {entity}
+        </DialogTitle>
+        <Form {...form}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              form.handleSubmit((data) => {
+                handleSubmit(data)
+              })()
+            }}
+            className='space-y-4'
+          >
+            {fieldsToUse.map((field: FieldConfig) => (
+              <FormField
+                key={field.name}
+                control={form.control}
+                name={field.name}
+                render={({ field: formField }) => (
+                  <FormItem className='grid grid-cols-4 items-center gap-4 mt-2'>
+                    <FormLabel className='text-right text-md'>{field.label}</FormLabel>
+                    <div className='col-span-3 space-y-1'>
+                      <FormControl>
+                        {field.type === 'select' ? (
+                          <Select onValueChange={formField.onChange} defaultValue={formField.value}>
+                            <SelectTrigger>
+                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {field.name === 'status' ? (
+                                <>
+                                  <SelectItem value='Active'>Active</SelectItem>
+                                  <SelectItem value='Inactive'>Inactive</SelectItem>
+                                </>
+                              ) : field.name === 'position' ? (
+                                <>
+                                  <SelectItem value='Employee'>Employee</SelectItem>
+                                  <SelectItem value='Manager'>Manager</SelectItem>
+                                  <SelectItem value='Admin'>Admin System</SelectItem>
+                                </>
+                              ) : field.name === 'gender' ? (
+                                <>
+                                  <SelectItem value='Male'>Male</SelectItem>
+                                  <SelectItem value='Female'>Female</SelectItem>
+                                </>
+                              ) : null}
+                            </SelectContent>
+                          </Select>
+                        ) : field.type === 'datetime-local' ? (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant={'outline'}
+                                  className={`w-[240px] pl-3 text-left font-normal ${
+                                    !formField.value ? 'text-muted-foreground' : ''
+                                  }`}
+                                >
+                                  {formField.value ? (
+                                    format(new Date(formField.value), 'PPP')
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className='w-auto p-0' align='start'>
+                              <Calendar
+                                mode='single'
+                                selected={formField.value ? new Date(formField.value) : undefined}
+                                onSelect={(date) => formField.onChange(date?.toISOString())}
+                                disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+                                initialFocus
                               />
-                            )}
-                          </FormControl>
-                          <FormMessage className='text-sm' />
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                ))}
-                <div className='flex justify-end mt-10'>
-                  <Button type='submit'>Submit</Button>
-                </div>
-              </form>
-            </Form>
+                            </PopoverContent>
+                          </Popover>
+                        ) : (
+                          <Input {...formField} type={field.type} placeholder={field.placeholder} />
+                        )}
+                      </FormControl>
+                      <FormMessage className='text-sm' />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            ))}
+            <div className='flex justify-end mt-10'>
+              <Button type='submit'>Submit</Button>
+            </div>
+          </form>
+        </Form>
       </DialogContent>
       <ToastContainer />
     </Dialog>

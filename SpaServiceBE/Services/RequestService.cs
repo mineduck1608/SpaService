@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Repositories;
 using Repositories.Entities;
+using Services.IServices;
 
 namespace Services
 {
@@ -37,6 +38,11 @@ namespace Services
         public async Task<bool> Delete(string requestId)
         {
             return await _requestRepository.Delete(requestId);
+        }
+
+        public async Task<List<Request>> FilterByAccount(string accId)
+        {
+            return await _requestRepository.FilterByAccount(accId);
         }
     }
 }

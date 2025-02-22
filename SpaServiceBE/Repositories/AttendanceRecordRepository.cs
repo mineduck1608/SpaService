@@ -47,7 +47,6 @@ namespace Repositories.Repositories
             if (existingAttendance == null)
                 return false;
 
-            existingAttendance.Date = attendanceRecord.Date;
             existingAttendance.CheckInTime = attendanceRecord.CheckInTime;
             existingAttendance.CheckOutTime = attendanceRecord.CheckOutTime;
             existingAttendance.EmployeeId = attendanceRecord.EmployeeId;

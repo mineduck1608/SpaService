@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
 using Repositories.Context;
+using System.Collections;
 
 namespace Repositories
 {
@@ -94,6 +95,44 @@ namespace Repositories
             {
                 return false;
             }
+        }
+        public async Task<List<Request>> FilterByAccount(string accId)
+        {
+            return await _context.Requests.Include(x => x.Customer)
+                .ThenInclude(x => x.Account)
+                .Include(x => x.Service)
+                .Include(x => x.Employee)
+                .Where(x => x.Customer.AccountId == accId)
+                .ToListAsync();
+        }
+
+        public async Task<(ISet<string> roomId, ISet<string> empId)> FindUnavailableRoomAndEmp(Request request)
+        {
+            //Tìm category
+            var catId = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId).CategoryId;
+            //Tìm các appointment tg request => Tìm phòng nào, nv nào ko dùng đc
+            var appointments = _context.Appointments.ToList(); //Lọc theo catId
+            //Lọc theo tg
+            var start = request.StartTime;
+            var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId);
+            var end = request.StartTime.Add(service.Duration);
+            //Tìm các appointment trong khoảng tg này => các phòng và nv trong đống này vứt hết
+            var unavailable = appointments.Where(x =>
+                IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
+            ).Select(x => (x.EmployeeId, x.RoomId)).ToList();
+            (ISet<string> roomId, ISet<string> empId) result = new();
+            foreach (var item in unavailable)
+            {
+                result.roomId.Add(item.RoomId);
+                result.empId.Add(item.EmployeeId);
+            }
+            return result;
+        }
+        private bool IsOverlap(long x1, long x2, long y1, long y2)
+        {
+            var low = Math.Min(x1, y1);
+            var high = Math.Max(x2, y2);
+            return high - low < (x2 - x1) + (y2 - y1);
         }
     }
 }

@@ -57,7 +57,6 @@ namespace Repositories
             existingTransaction.TotalPrice = transaction.TotalPrice;
             existingTransaction.Status = transaction.Status;
             existingTransaction.PromotionId = transaction.PromotionId;
-            existingTransaction.MembershipId = transaction.MembershipId;
 
             try
             {

@@ -147,6 +147,105 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "GetApplications",
+    "RelativePath": "api/Application",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Application, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "GetApplication",
+    "RelativePath": "api/Application/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Application",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "DeleteApplication",
+    "RelativePath": "api/Application/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "CreateApplication",
+    "RelativePath": "api/Application/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "UpdateApplication",
+    "RelativePath": "api/Application/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "API.Controllers.AppointmentController",
     "Method": "CreateAppointment",
     "RelativePath": "api/appointments/Create",
@@ -189,6 +288,32 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Appointment, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.AppointmentController",
+    "Method": "GetAppointmentFromEmployeeId",
+    "RelativePath": "api/appointments/GetAppointmentByEmployeeId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Appointment",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -327,157 +452,6 @@
     "ContainingType": "API.Controllers.AttendanceRecordController",
     "Method": "UpdateAttendanceRecord",
     "RelativePath": "api/attendanceRecords/Update/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "System.Object",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.CategoryController",
-    "Method": "CreateCategory",
-    "RelativePath": "api/categories/Create",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "System.Object",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.CategoryController",
-    "Method": "DeleteCategory",
-    "RelativePath": "api/categories/Delete/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.CategoryController",
-    "Method": "GetEmployeesOf",
-    "RelativePath": "api/categories/EmployeesOf/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Repositories.Entities.Category",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Controllers.CategoryController",
-    "Method": "GetAllCategories",
-    "RelativePath": "api/categories/GetAll",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Category, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Controllers.CategoryController",
-    "Method": "GetCategoryById",
-    "RelativePath": "api/categories/GetById/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Repositories.Entities.Category",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Controllers.CategoryController",
-    "Method": "GetCategoryByServiceId",
-    "RelativePath": "api/categories/GetCategoryByServiceId/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Repositories.Entities.Category",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Controllers.CategoryController",
-    "Method": "UpdateCategory",
-    "RelativePath": "api/categories/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -704,25 +678,55 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Controllers.ContactController",
-    "Method": "CreateContact",
-    "RelativePath": "api/contacts/Create",
-    "HttpMethod": "POST",
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticCategoryController",
+    "Method": "GetAllCategories",
+    "RelativePath": "api/CosmeticCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.CosmeticCategory, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticCategoryController",
+    "Method": "GetCategoryById",
+    "RelativePath": "api/CosmeticCategory/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "System.Object",
+        "Name": "id",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.CosmeticCategory",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
-    "ContainingType": "API.Controllers.ContactController",
-    "Method": "DeleteContact",
-    "RelativePath": "api/contacts/Delete/{id}",
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticCategoryController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/CosmeticCategory/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -736,16 +740,53 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Controllers.ContactController",
-    "Method": "GetAllContacts",
-    "RelativePath": "api/contacts/GetAll",
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticCategoryController",
+    "Method": "CreateCategory",
+    "RelativePath": "api/CosmeticCategory/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticCategoryController",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/CosmeticCategory/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
+    "Method": "GetAll",
+    "RelativePath": "api/CosmeticProduct",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Contact, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.CosmeticProduct, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -756,61 +797,9 @@
     ]
   },
   {
-    "ContainingType": "API.Controllers.ContactController",
-    "Method": "GetContactByEmail",
-    "RelativePath": "api/contacts/GetByEmail/{email}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Repositories.Entities.Contact",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Controllers.ContactController",
-    "Method": "GetContactByFullName",
-    "RelativePath": "api/contacts/GetByFullName/{fullName}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "fullName",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Repositories.Entities.Contact",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Controllers.ContactController",
-    "Method": "GetContactById",
-    "RelativePath": "api/contacts/GetById/{id}",
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
+    "Method": "GetById",
+    "RelativePath": "api/CosmeticProduct/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -823,7 +812,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Repositories.Entities.Contact",
+        "Type": "Repositories.Entities.CosmeticProduct",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -834,22 +823,91 @@
     ]
   },
   {
-    "ContainingType": "API.Controllers.ContactController",
-    "Method": "GetContactByPhone",
-    "RelativePath": "api/contacts/GetByPhone/{phone}",
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
+    "Method": "Delete",
+    "RelativePath": "api/CosmeticProduct/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
+    "Method": "Create",
+    "RelativePath": "api/CosmeticProduct/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
+    "Method": "Update",
+    "RelativePath": "api/CosmeticProduct/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticTransactionController",
+    "Method": "Create",
+    "RelativePath": "api/cosmetictransactions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticTransactionController",
+    "Method": "GetById",
+    "RelativePath": "api/cosmetictransactions/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "phone",
+        "Name": "id",
         "Type": "System.String",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Repositories.Entities.Contact",
+        "Type": "Repositories.Entities.CosmeticTransaction",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -858,6 +916,152 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticTransactionController",
+    "Method": "Update",
+    "RelativePath": "api/cosmetictransactions/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticTransactionController",
+    "Method": "Delete",
+    "RelativePath": "api/cosmetictransactions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticTransactionController",
+    "Method": "GetAll",
+    "RelativePath": "api/cosmetictransactions/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.CosmeticTransaction, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "Create",
+    "RelativePath": "api/customermemberships",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entity",
+        "Type": "Repositories.Entities.CustomerMembership",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "GetById",
+    "RelativePath": "api/customermemberships/{customerId}/{membershipId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "membershipId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "Delete",
+    "RelativePath": "api/customermemberships/{customerId}/{membershipId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "membershipId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "Update",
+    "RelativePath": "api/customermemberships/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "entity",
+        "Type": "Repositories.Entities.CustomerMembership",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "GetAll",
+    "RelativePath": "api/customermemberships/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "API.Controllers.CustomerController",
@@ -1354,6 +1558,105 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SpaServiceBE.Controllers.FloorController",
+    "Method": "GetFloorById",
+    "RelativePath": "api/floors/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Floor",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.FloorController",
+    "Method": "DeleteFloor",
+    "RelativePath": "api/floors/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.FloorController",
+    "Method": "CreateFloor",
+    "RelativePath": "api/floors/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.FloorController",
+    "Method": "GetAllFloors",
+    "RelativePath": "api/floors/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Floor, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.FloorController",
+    "Method": "UpdateFloor",
+    "RelativePath": "api/floors/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SpaServiceBE.Controllers.GoogleAuthController",
     "Method": "DecodeAndCheckOrCreateUser",
     "RelativePath": "api/GoogleAuth/decode-and-check-or-create",
@@ -1364,6 +1667,204 @@
       {
         "Name": "request",
         "Type": "SpaServiceBE.Controllers.TokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.GuestApplicationController",
+    "Method": "GetById",
+    "RelativePath": "api/guestapplications/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.GuestApplication",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.GuestApplicationController",
+    "Method": "Delete",
+    "RelativePath": "api/guestapplications/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.GuestApplicationController",
+    "Method": "Create",
+    "RelativePath": "api/guestapplications/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.GuestApplicationController",
+    "Method": "GetAll",
+    "RelativePath": "api/guestapplications/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.GuestApplication, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.GuestApplicationController",
+    "Method": "Update",
+    "RelativePath": "api/guestapplications/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "GetManager",
+    "RelativePath": "api/managers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Manager",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "DeleteManager",
+    "RelativePath": "api/managers/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "CreateManager",
+    "RelativePath": "api/managers/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "GetManagers",
+    "RelativePath": "api/managers/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Manager, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "UpdateManager",
+    "RelativePath": "api/managers/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
         "IsRequired": true
       }
     ],
@@ -1628,9 +2129,187 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SpaServiceBE.Controllers.OrderDetailController",
+    "Method": "GetById",
+    "RelativePath": "api/orderdetails/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.OrderDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderDetailController",
+    "Method": "Delete",
+    "RelativePath": "api/orderdetails/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderDetailController",
+    "Method": "CreateOrderDetail",
+    "RelativePath": "api/orderdetails/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderDetailController",
+    "Method": "GetAll",
+    "RelativePath": "api/orderdetails/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.OrderDetail, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderDetailController",
+    "Method": "UpdateOrderDetail",
+    "RelativePath": "api/orderdetails/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "GetOrderById",
+    "RelativePath": "api/orders/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "DeleteOrder",
+    "RelativePath": "api/orders/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/orders/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "GetOrders",
+    "RelativePath": "api/orders/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "UpdateOrder",
+    "RelativePath": "api/orders/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SpaServiceBE.Controllers.PaymentController",
-    "Method": "CreatePaymentUrlVnpay",
-    "RelativePath": "api/Payment",
+    "Method": "CreatePaymentUrlVnpayService",
+    "RelativePath": "api/Payment/service",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -1812,6 +2491,32 @@
   },
   {
     "ContainingType": "API.Controllers.RequestController",
+    "Method": "GetRequestByAccId",
+    "RelativePath": "api/requests/GetByAccId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Repositories.Entities.Request, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.RequestController",
     "Method": "GetRequestById",
     "RelativePath": "api/requests/GetById/{id}",
     "HttpMethod": "GET",
@@ -1955,6 +2660,334 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "GetRoomById",
+    "RelativePath": "api/rooms/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Room",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "DeleteRoom",
+    "RelativePath": "api/rooms/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "CreateRoom",
+    "RelativePath": "api/rooms/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "GetAllRooms",
+    "RelativePath": "api/rooms/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Room, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "UpdateRoom",
+    "RelativePath": "api/rooms/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.ServiceCategoryController",
+    "Method": "CreateCategory",
+    "RelativePath": "api/servicecategories/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.ServiceCategoryController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/servicecategories/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.ServiceCategoryController",
+    "Method": "GetEmployeesOf",
+    "RelativePath": "api/servicecategories/EmployeesOf/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.ServiceCategory",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.ServiceCategoryController",
+    "Method": "GetAllCategories",
+    "RelativePath": "api/servicecategories/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.ServiceCategory, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.ServiceCategoryController",
+    "Method": "GetCategoryById",
+    "RelativePath": "api/servicecategories/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.ServiceCategory",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.ServiceCategoryController",
+    "Method": "GetCategoryByServiceId",
+    "RelativePath": "api/servicecategories/GetCategoryByServiceId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.ServiceCategory",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.ServiceCategoryController",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/servicecategories/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ServiceTransactionController",
+    "Method": "GetById",
+    "RelativePath": "api/servicetransactions/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.ServiceTransaction",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ServiceTransactionController",
+    "Method": "Delete",
+    "RelativePath": "api/servicetransactions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ServiceTransactionController",
+    "Method": "CreateServiceTransaction",
+    "RelativePath": "api/servicetransactions/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ServiceTransactionController",
+    "Method": "GetAll",
+    "RelativePath": "api/servicetransactions/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.ServiceTransaction, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "API.Controllers.SpaServiceController",

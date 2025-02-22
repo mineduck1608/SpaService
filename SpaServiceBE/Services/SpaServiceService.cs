@@ -2,14 +2,15 @@
 using System.Threading.Tasks;
 using Repositories;
 using Repositories.Entities;
+using Services.IServices;
 
 namespace Services
 {
-    public class SpaServiceService : ISpaServiceService
+    public class SpaServiceContext : ISpaServiceService
     {
         private readonly SpaServiceRepository _spaServiceRepository;
 
-        public SpaServiceService(SpaServiceRepository spaServiceRepository)
+        public SpaServiceContext(SpaServiceRepository spaServiceRepository)
         {
             _spaServiceRepository = spaServiceRepository;
         }

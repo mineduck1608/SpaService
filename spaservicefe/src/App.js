@@ -28,9 +28,11 @@ import DemoPage from './pages/admin/accounts/page.tsx'
 import CalendarApp from './pages/admin/appointments/page.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
+import ManagerPage from './pages/manager/managerMainPage.tsx'
 import PayResultPage from './pages/payResult/payResultPage.tsx'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import RequestPage from './pages/requestPage/requestPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -39,6 +41,7 @@ import CategoriesPage from './pages/admin/categories/page.tsx'
 import SpaServicePage from './pages/admin/services/page.tsx'
 import TransactionPage from './pages/admin/transactions/page.tsx'
 import PromotionPage from './pages/admin/promotions/page.tsx'
+import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 
 
 function Layout({ children }) {
@@ -72,6 +75,14 @@ function App() {
               </Layout>
             }
           />
+          <Route
+            path='requests'
+            element={
+              <Layout>
+                <RequestPage />
+              </Layout>
+            }
+          />
           <Route path='login' element={<LoginPage />} />
           <Route path='register' element={<RegisterPage />} />
           <Route
@@ -100,6 +111,30 @@ function App() {
           />
           <Route
             path='services-detail/:id'
+            element={
+              <Layout>
+                <DetailPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='cosmetics'
+            element={
+              <Layout>
+                <CosmeticPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='cosmetics/:id'
+            element={
+              <Layout>
+                <CosmeticPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='cosmetics-detail/:id'
             element={
               <Layout>
                 <DetailPage />
@@ -185,8 +220,8 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
             <Route path='shifts' element={<></>} />
             <Route path='schedules' element={<div>AB</div>} />
-            <Route path='customer-requests' element={<CustomerRequestPage/>} />
-            <Route path='appointments' element={<CalendarApp/>} />
+            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            <Route path='appointments' element={<CalendarApp />} />
             <Route path='categories' element={<CategoriesPage />} />
             <Route path='employees-categories' element={<div>B</div>} />
             <Route path='services' element={<SpaServicePage />} />
@@ -197,6 +232,19 @@ function App() {
             <Route path='employees-commissions' element={<div>BE</div>} />
             <Route path='news' element={<AdmminNewsPage />} />
             <Route path='promotions' element={<PromotionPage />} />
+          </Route>
+          <Route
+            path='manager'
+            element={
+              <ProtectedAdmin>
+                <ManagerPage />
+              </ProtectedAdmin>
+            }
+          >
+            <Route index />
+            <Route path='applications' />
+            <Route path='requests' />
+            <Route path='contacts' />
           </Route>
         </Routes>
       </BrowserRouter>

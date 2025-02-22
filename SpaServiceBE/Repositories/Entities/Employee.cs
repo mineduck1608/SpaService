@@ -11,20 +11,19 @@ public partial class Employee
 
     public string Position { get; set; } = null!;
 
-    public DateTime? HireDate { get; set; }
+    public DateOnly HireDate { get; set; }
 
     public string Status { get; set; } = null!;
 
-    public string? Image { get; set; }
+    public string Image { get; set; } = null!;
 
     public string AccountId { get; set; } = null!;
 
     public string? Phone { get; set; }
 
     public string? Email { get; set; }
-    public virtual Account Account { get; set; } = null!;
 
-    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+    public virtual Account Account { get; set; } = null!;
 
     public virtual ICollection<Appointment> AppointmentEmployees { get; set; } = new List<Appointment>();
 

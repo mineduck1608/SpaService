@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/attendanceRecords")]
+    [Route("api/attendancerecords")]
     [ApiController]
     public class AttendanceRecordController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace API.Controllers
 
         // GET: api/attendanceRecords
         [Authorize]
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<AttendanceRecord>>> GetAllAttendanceRecords()
         {
             try
@@ -65,16 +65,11 @@ namespace API.Controllers
             {
                 var jsonElement = (JsonElement)request;
 
-                string dateString = jsonElement.GetProperty("date").GetString();
                 DateTime? checkInTime = jsonElement.GetProperty("checkInTime").GetDateTime();
                 DateTime? checkOutTime = jsonElement.GetProperty("checkOutTime").GetDateTime();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
 
-                DateOnly date;
-                if (!DateOnly.TryParse(dateString, out date))
-                {
-                    return BadRequest(new { msg = "Invalid date format." });
-                }
+
 
                 if (string.IsNullOrEmpty(employeeId))
                     return BadRequest("AttendanceRecord details are incomplete.");
@@ -82,7 +77,6 @@ namespace API.Controllers
                 var attendanceRecord = new AttendanceRecord
                 {
                     AttendanceId = Guid.NewGuid().ToString("N"),
-                    Date = date,
                     CheckInTime = checkInTime,
                     CheckOutTime = checkOutTime,
                     EmployeeId = employeeId
@@ -110,16 +104,12 @@ namespace API.Controllers
             {
                 var jsonElement = (JsonElement)request;
 
-                string dateString = jsonElement.GetProperty("date").GetString();
+               
                 DateTime? checkInTime = jsonElement.GetProperty("checkInTime").GetDateTime();
                 DateTime? checkOutTime = jsonElement.GetProperty("checkOutTime").GetDateTime();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
 
-                DateOnly date;
-                if (!DateOnly.TryParse(dateString, out date))
-                {
-                    return BadRequest(new { msg = "Invalid date format." });
-                }
+                
 
                 if (string.IsNullOrEmpty(employeeId))
                     return BadRequest("AttendanceRecord details are incomplete.");
@@ -127,7 +117,6 @@ namespace API.Controllers
                 var attendanceRecord = new AttendanceRecord
                 {
                     AttendanceId = id,
-                    Date = date,
                     CheckInTime = checkInTime,
                     CheckOutTime = checkOutTime,
                     EmployeeId = employeeId

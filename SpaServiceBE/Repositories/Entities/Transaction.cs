@@ -7,23 +7,24 @@ public partial class Transaction
 {
     public string TransactionId { get; set; } = null!;
 
+    /// <summary>
+    /// Trực tiếp/VNPay
+    /// </summary>
     public string TransactionType { get; set; } = null!;
 
     public float TotalPrice { get; set; }
 
     public bool Status { get; set; }
 
+    public DateTime? CompleteTime { get; set; }
+
     public string? PromotionId { get; set; }
 
-    public string? MembershipId { get; set; }
-    
-    public string? RequestId { get; set; }
+    public string PaymentType { get; set; } = null!;
 
-    public virtual ICollection<EmployeeCommission> EmployeeCommissions { get; set; } = new List<EmployeeCommission>();
-
-    public virtual Membership? Membership { get; set; }
+    public virtual ICollection<CosmeticTransaction> CosmeticTransactions { get; set; } = new List<CosmeticTransaction>();
 
     public virtual Promotion? Promotion { get; set; }
 
-    public virtual Request? Request { get; set; }
+    public virtual ICollection<ServiceTransaction> ServiceTransactions { get; set; } = new List<ServiceTransaction>();
 }

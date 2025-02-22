@@ -41,14 +41,17 @@ export type Member = {
   totalPayment: number
 }
 
-export type Request = {
+export type SpaRequest = {
   requestId: string
-  startTime: Date | string
+  startTime: string
   status: string
   customerNote: string
   managerNote: string
   serviceId: string
-  customerId: string
+  customerId: string,
+  service?: SpaService,
+  employee?: Employee,
+  serviceTransaction?: ServiceTransaction
 }
 
 export type Contact = {
@@ -81,7 +84,6 @@ export type SpaService = {
   description: string
   serviceImage: string
   categoryId: string
-  noOfSessions: number
 }
 
 export type News = {
@@ -108,12 +110,40 @@ export type Promotion = {
   isActive: boolean
 }
 
-export type Transaction = {
+export type CosmeticCategory = {
+  categoryId: string
+  categoryName: string
+  categoryDescription: string
+}
+
+export type CosmeticProduct = {
+  productId: string
+  productName: string
+  price: GLfloat
+  quantity: number
+  description: string
+  status: boolean
+  isSelling: boolean
+  image: string
+}
+
+export type TransactionBase = {
   transactionId: string
   transactionType: string
-  requestId: string
   totalPrice: number
   status: boolean
+  completeTime: string
   promotionId: string
-  membershipId: string
+  paymentType: string
+};
+
+export type ServiceTransaction = TransactionBase & {
+  serviceTransactionId: string
+  requestId: string
+  membershipId?: string
+}
+export type CosmeticTransaction = TransactionBase & {
+  cosmeticTransactionId: string
+  requestId: string
+  orderId?: string
 }
