@@ -51,23 +51,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
 
   return (
     <div className=''>
-      <div className='flex items-center py-3 '>
-        <div className='ml-auto flex items-center gap-x-2'>
-          <button
-            className={`${context.pastBooking ? 'bg-purple1' : 'bg-blue-600'} rounded-md p-2 text-white`}
-            onClick={() => {
-              context.setPastBooking(!context.pastBooking)
-            }}
-          >
-            View
-            {!context.pastBooking && <>&nbsp;&nbsp;</>}
-            {context.pastBooking ? ' Future ' : ' Past '}
-            {!context.pastBooking && <>&nbsp;&nbsp;</>}
-            Request(s)
-          </button>
-        </div>
-      </div>
-      <div className='rounded-md border bg-slate-50'>
+      <div className='rounded-md border bg-slate-50 mt-5'>
         <Table className=''>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

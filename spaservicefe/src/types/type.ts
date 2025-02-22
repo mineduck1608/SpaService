@@ -50,7 +50,8 @@ export type SpaRequest = {
   serviceId: string
   customerId: string,
   service?: SpaService,
-  employee?: Employee
+  employee?: Employee,
+  serviceTransaction?: ServiceTransaction
 }
 
 export type Contact = {
@@ -100,4 +101,25 @@ export type CosmeticProduct = {
   status: boolean
   isSelling: boolean
   image: string
+}
+
+export type TransactionBase = {
+  transactionId: string;
+  transactionType: string;
+  totalPrice: number;
+  status: boolean;
+  completeTime: string; // ISO 8601 date string
+  promotionId: string;
+  paymentType: string;
+};
+
+export type ServiceTransaction = TransactionBase & {
+  serviceTransactionId: string,
+  requestId: string,
+  membershipId?: string
+}
+export type CosmeticTransaction = TransactionBase & {
+  cosmeticTransactionId: string,
+  requestId: string,
+  orderId?: string
 }
