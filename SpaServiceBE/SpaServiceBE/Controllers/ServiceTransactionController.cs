@@ -17,7 +17,7 @@ namespace SpaServiceBE.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<ServiceTransaction>>> GetAllServiceTransactions()
+        public async Task<ActionResult<IEnumerable<ServiceTransaction>>> GetAll()
         {
             return Ok(await _serviceTransactionService.GetAll());
         }

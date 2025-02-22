@@ -14,3 +14,7 @@ export async function getRequestsOfAccId(id: string) {
     return []
   }
 }
+
+export function status(b: boolean){
+  return b ? 'Completed' : 'Not Completed'
+}

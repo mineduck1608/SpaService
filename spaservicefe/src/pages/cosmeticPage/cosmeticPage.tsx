@@ -78,7 +78,6 @@ export default function CosmeticPage() {
               />
             </div>
           </div>
-          {/* Services available */}
           <div className='w-5/6 lg:ml-[5vw] 2xl:w-[55%]' data-aos='fade-left' data-aos-delay='400'>
             <CosmeticList cosmetic={take<CosmeticProduct>(cosmetic, pageNum, PAGE_SIZE) ?? []} />
             <div className='translate-y-8'>

@@ -11,5 +11,5 @@ public partial class CosmeticCategory
 
     public string CategoryDescription { get; set; } = null!;
 
-    public virtual ICollection<CosmeticProductCategory> CosmeticProductCategories { get; set; } = new List<CosmeticProductCategory>();
+    public virtual ICollection<CosmeticProduct> CosmeticProducts { get; set; } = new List<CosmeticProduct>();
 }

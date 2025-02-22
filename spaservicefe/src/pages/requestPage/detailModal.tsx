@@ -10,6 +10,7 @@ import {
 import { Button } from '../../components/ui/button'
 import { SpaRequest } from '@/types/type'
 import { formatNumber } from '../servicesPage/servicesPage.util'
+import { status } from './requestPage.util'
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean
@@ -20,12 +21,28 @@ interface ConfirmDeleteModalProps {
 function tableData(request: SpaRequest) {
   return [
     { key: 'Service', value: request.service?.serviceName },
-    { key: 'Start Time', value: request.startTime },
+    { key: 'Start Time', value: new Date(request.startTime).toLocaleString() },
+    {
+      key: 'Request Status',
+      value: request.status,
+      color: new Map<string, string>([
+        ['Processed', 'text-green-500'],
+        ['Pending', 'text-gray-500'],
+        ['Cancelled', 'text-red-500']
+      ])
+    },
     { key: 'Requested Employee', value: request.employee?.fullName ?? 'Did not request' },
-    { key: "Manager's note", value: request.managerNote ?? 'None' },
-    { key: 'Your note', value: request.customerNote ?? 'None' },
+    { key: "Manager's Note", value: request.managerNote ?? 'None' },
+    { key: 'Your Note', value: request.customerNote.length === 0 ? 'None' : request.customerNote },
     { key: 'Price', value: formatNumber(request.service?.price ?? 0) },
-    { key: 'Transaction Status', value: 'TBA' }
+    {
+      key: 'Transaction Status',
+      value: status(request.serviceTransaction?.status ?? false),
+      color: new Map<string, string>([
+        ['Completed', 'text-green-500'],
+        ['Not Completed', 'text-gray-500']
+      ])
+    }
   ]
 }
 export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteModalProps) {
@@ -40,14 +57,16 @@ export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteM
                 {tableData(data).map((v) => (
                   <tr>
                     <td className='p-2'>{v.key}</td>
-                    <td>{v.value}</td>
+                    <td className={`${v.color ? v.color.get(v.value) : ''}`}>{v.value}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </DialogDescription>
         </DialogHeader>
-        <Button onClick={onConfirm}>Confirm</Button>
+        <Button onClick={onConfirm} className='bg-purple1'>
+          Confirm
+        </Button>
       </DialogContent>
     </Dialog>
   )

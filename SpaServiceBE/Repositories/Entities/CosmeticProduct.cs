@@ -21,7 +21,9 @@ public partial class CosmeticProduct
 
     public string? Image { get; set; }
 
-    public virtual ICollection<CosmeticProductCategory> CosmeticProductCategories { get; set; } = new List<CosmeticProductCategory>();
+    public string CategoryId { get; set; } = null!;
+
+    public virtual CosmeticCategory Category { get; set; } = null!;
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 }

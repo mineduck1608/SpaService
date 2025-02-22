@@ -124,11 +124,6 @@ export const sideData = {
   ],
   favorite: [
     {
-      title: 'Schedule',
-      url: '/schedules',
-      icon: CalendarCheck
-    },
-    {
       title: 'Transactions',
       url: '/transactions',
       icon: LineChart

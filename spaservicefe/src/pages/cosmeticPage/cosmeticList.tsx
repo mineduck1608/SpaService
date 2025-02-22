@@ -18,7 +18,7 @@ export function CosmeticCard(params?: { s: CosmeticProduct }) {
   const navigate = useNavigate() // Initialize useNavigate
 
   const handleNavigate = () => {
-    navigate(`/cosmetic-detail/${params?.s?.productId}`) // Use navigate() for routing
+    navigate(`/cosmetics-detail/${params?.s?.productId}`) // Use navigate() for routing
   }
 
   return (

@@ -55,20 +55,34 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsAtTop(window.scrollY === 0)
-    }
-    async function getCategory() {
-      let x = await findCategories()
-      let y = await findCosmeticCategories()
-      setServiceCategory(x)
-setCosmeticCategory(y)
-    }
-    window.addEventListener('scroll', handleScroll)
-    getCategory()
+      setIsAtTop(window.scrollY === 0);
+    };
+  
+    // Hàm async trong useEffect
+    const getCategory = async () => {
+      try {
+        let x = await findCategories();
+        let y = await findCosmeticCategories();
+        setServiceCategory(x);
+        setCosmeticCategory(y);
+        console.log(y);
+        console.log(x);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
+    // Gọi hàm lấy category
+    getCategory();
+  
+    // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
 
   return (
     <>
@@ -115,14 +129,14 @@ setCosmeticCategory(y)
                 <ul
                   className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}
                 >
-                  {cosmeticCategory.map((x) => (
-                    <li key={x.categoryId}>
+                  {cosmeticCategory.map((y) => (
+                    <li key={y.categoryId}>
                       <a
-                        href={'/services/' + x.categoryId}
+                        href={'/cosmetics/' + y.categoryId}
                         className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
                       >
                         <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
-                        {x.categoryName}
+                        {y.categoryName}
                       </a>
                     </li>
                   ))}

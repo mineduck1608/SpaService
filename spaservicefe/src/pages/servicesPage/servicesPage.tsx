@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom' // Import useNav
 import { CategoryMenu } from './categoryMenu'
 import ServiceList from './serviceList'
 import { Service } from '@/types/services'
-import { Category } from '@/types/serviceCategory'
+import { ServiceCategory } from '@/types/serviceCategory'
 import PageNumber from './pageNumber'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -12,9 +12,9 @@ import 'aos/dist/aos.css'
 export default function ServicesPage() {
   const { id } = useParams()
   const navigate = useNavigate() // Initialize useNavigate
-  const [currentCategory, setCurrentCategory] = useState<Category>()
+  const [currentCategory, setCurrentCategory] = useState<ServiceCategory>()
   const [services, setServices] = useState<Service[]>([])
-  const [categories, setCategories] = useState<Category[]>()
+  const [categories, setCategories] = useState<ServiceCategory[]>()
   const [pageNum, setPageNum] = useState(0)
   const PAGE_SIZE = 6
 
