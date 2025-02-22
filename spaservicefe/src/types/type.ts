@@ -83,6 +83,5 @@ export type SpaService = {
   description: string
   serviceImage: string
   categoryId: string
-  noOfSessions: number
 }
 

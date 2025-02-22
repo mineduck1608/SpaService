@@ -34,7 +34,7 @@ export default function RequestTable() {
   if (error) return <div className='ml-5'>{error}</div>
 
   return (
-    <div className='container mx-auto w-[96%] rounded-md border'>
+    <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
       <PastBookingContext.Provider value={{ pastBooking, setPastBooking }}>
         <DataTable
           columns={columns}
