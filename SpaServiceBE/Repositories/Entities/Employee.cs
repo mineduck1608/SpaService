@@ -25,9 +25,7 @@ public partial class Employee
 
     public virtual Account Account { get; set; } = null!;
 
-    public virtual ICollection<Appointment> AppointmentEmployees { get; set; } = new List<Appointment>();
-
-    public virtual ICollection<Appointment> AppointmentReplacementEmployeeNavigations { get; set; } = new List<Appointment>();
+    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual ICollection<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
 

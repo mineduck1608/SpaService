@@ -83,7 +83,6 @@ namespace API.Controllers
                     Content = content,
                     Type = type,
                     Image = image,
-                    CreateAt = DateTime.Now
                 };
 
                 // Call service to add news
@@ -129,7 +128,6 @@ namespace API.Controllers
                     Content = content,
                     Type = type,
                     Image = image,
-                    CreateAt = DateTime.Now
                 };
 
                 // Call service to update news
