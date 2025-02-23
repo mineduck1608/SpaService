@@ -3,6 +3,7 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { News } from '@/types/type'
 import { getAllNews } from './new.util'
+import { getNewsCategoryName } from './new.util' // Sử dụng hàm lấy tên danh mục
 import { format } from 'date-fns'
 
 export default function NewsPage() {
@@ -14,15 +15,19 @@ export default function NewsPage() {
     const fetchData = async () => {
       try {
         const news = await getAllNews()
+        // Lấy tên danh mục cho từng tin tức
+        const formattedNews = await Promise.all(news.map(async (newsItem) => {
+          const category = await getNewsCategoryName(newsItem.categoryId) // Lấy category từ API
+          const categoryName = category ? category.categoryName : 'Unknown' // Lấy categoryName từ đối tượng
         
-        const formattedNews = news.map((newsItem) => ({
-          ...newsItem,
-          hireDate: newsItem.createdAt 
-            ? format(new Date(newsItem.createdAt), 'dd/MM/yyyy') 
-            : 'N/A'
+          return {
+            ...newsItem,
+            categoryName, // Gán tên danh mục vào tin tức
+          }
         }))
+        
 
-        setData(news)
+        setData(formattedNews)
       } catch (err) {
         setError("Can't load the data.")
       } finally {

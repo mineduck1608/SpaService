@@ -23,7 +23,7 @@ export async function getCosmeticCategory(id: string) {
 }
 export async function getProductOfCosmeticCategory(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/cosmeticproducts/ProductOfCosmeticCategory?categoryId=${id}`, {
+    var res = await fetch(`${apiUrl}/cosmeticproducts/ProductOfCosmeticCategory/${id}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }

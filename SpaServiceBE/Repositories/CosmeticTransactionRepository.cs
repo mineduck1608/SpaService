@@ -42,12 +42,12 @@ namespace Repositories
 
         public async Task DeleteAsync(string id)
         {
-            var transaction = await GetByIdAsync(id);
-            if (transaction != null)
-            {
-                _context.Set<CosmeticTransaction>().Remove(transaction);
-                await _context.SaveChangesAsync();
-            }
+            //var transaction = await GetByIdAsync(id);
+            //if (transaction != null)
+            //{
+            //    _context.Set<CosmeticTransaction>().Remove(transaction);
+            //    await _context.SaveChangesAsync();
+            //}
         }
     }
 }

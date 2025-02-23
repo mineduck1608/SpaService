@@ -29,7 +29,17 @@ export const columns: ColumnDef<SpaService>[] = [
   },
   {
     accessorKey: 'price',
-    header: 'Price'
+    header: 'Price',
+    cell: ({ row }) => {
+      const price = row.getValue('price')
+      // Định dạng giá trị thành tiền VND
+      const formattedPrice = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+      }).format(price)
+      
+      return <span>{formattedPrice}</span>
+    }
   },
   {
     accessorKey: 'duration',

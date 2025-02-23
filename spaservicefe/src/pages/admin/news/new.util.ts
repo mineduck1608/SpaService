@@ -1,3 +1,4 @@
+import { ServiceCategory } from '@/types/serviceCategory'
 import { apiUrl, getToken } from '../../../types/constants'
 import { News } from '../../../types/type'
 import { toast } from 'react-toastify'
@@ -80,6 +81,22 @@ export async function handleDelete(newsId : string) {
     } else {
       toast.error('Delete failed. Try again.')
     }
+  } catch (error) {
+    console.error('Error deleting customer:', error)
+  } 
+}
+
+export async function getNewsCategoryName(id : string) {
+  try {
+    var res = await fetch(`${apiUrl}/servicecategories/GetById/${id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    const json = (await res.json()) as ServiceCategory[]
+        return json
   } catch (error) {
     console.error('Error deleting customer:', error)
   } 

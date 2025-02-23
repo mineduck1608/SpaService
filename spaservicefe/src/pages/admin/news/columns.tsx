@@ -45,13 +45,25 @@ export const columns: ColumnDef<News>[] = [
     }
   },
   {
-    accessorKey: 'createdAt',
-    header: 'Created At',
-    cell: ({ row }) => {
-      const dateOfBirth = row.getValue<Date>('createdAt')
-      return <span>{new Date(dateOfBirth).toLocaleDateString()}</span>
-    }
+    accessorKey: 'categoryName',
+    header: 'Category'
   },
+  {
+    accessorKey: 'image',
+    header: 'Image',
+    cell: ({ row }) => {
+      const imageUrl = row.getValue('image') // Lấy URL hình ảnh từ dữ liệu
+      return imageUrl ? (
+        <img 
+          src={imageUrl} 
+          alt="News" 
+          className="w-[500px] h-[100px] object-cover rounded" // Sử dụng chiều rộng và chiều cao cố định, có thể tùy chỉnh
+        />
+      ) : (
+        <span>No Image</span> // Nếu không có URL hình ảnh, hiển thị "No Image"
+      )
+    }
+  },    
   {
     id: 'actions',
     cell: ({ row }) => {
