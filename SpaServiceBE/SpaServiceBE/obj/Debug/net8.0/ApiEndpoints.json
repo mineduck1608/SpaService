@@ -325,6 +325,32 @@
   },
   {
     "ContainingType": "API.Controllers.AppointmentController",
+    "Method": "GetRequestByAccId",
+    "RelativePath": "api/appointments/GetByAccId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Repositories.Entities.Request, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.AppointmentController",
     "Method": "GetAppointmentById",
     "RelativePath": "api/appointments/GetById/{id}",
     "HttpMethod": "GET",

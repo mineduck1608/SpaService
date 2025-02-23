@@ -16,11 +16,11 @@ import {
 } from 'src/components/ui/sidebar'
 import { Link } from 'react-router-dom'
 
-export function NavWorkspaces(params: { items: SideBarItem[] }) {
+export function NavCosmetic(params: { items: SideBarItem[] }) {
   const nav = useNavigate()
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className='mb-2 text-lg'>Workspaces</SidebarGroupLabel>
+      <SidebarGroupLabel className='mb-2 text-lg'>Cosmetics</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
           {params.items?.map((workspace) => (
@@ -32,22 +32,23 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                     <span className='mb-0.5 text-base'>{workspace.title}</span>
                   </Link>
                 </SidebarMenuButton>
-                {workspace.pages && (
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuAction
-                      className='bg-sidebar-accent text-sidebar-accent-foreground data-[state=open]:rotate-90'
-                      showOnHover
-                    >
-                      <ChevronRight />
-                    </SidebarMenuAction>
-                  </CollapsibleTrigger>
-                )}
+                {workspace.pages && <CollapsibleTrigger asChild>
+                  <SidebarMenuAction
+                    className='bg-sidebar-accent text-sidebar-accent-foreground data-[state=open]:rotate-90'
+                    showOnHover
+                  >
+                    <ChevronRight />
+                  </SidebarMenuAction>
+                </CollapsibleTrigger>}
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {(workspace.pages ?? []).map((page) => (
                       <SidebarMenuSubItem key={page.title}>
                         <SidebarMenuSubButton asChild>
-                          <Link to={'/admin' + (page.url ?? '')} className='text-black no-underline'>
+                          <Link
+                            to={'/admin' + (page.url ?? '')}
+                            className='text-black no-underline'
+                          >
                             {page.icon && <page.icon className='mr-1 inline h-4 w-4' />}
                             <span className='mb-0.5'>{page.title}</span>
                           </Link>

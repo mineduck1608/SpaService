@@ -6,26 +6,30 @@ import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from 'src/compone
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { NavSecondary } from './nav-secondary'
 import { NavFavorites } from './nav-favorites'
+import { NavUsers } from './nav-users'
+import { NavCosmetic } from './nav-cosmetics'
+import { NavSpaservices } from './nav-spaservices'
 
 export function SidebarLeft(params: {
   header: SideBarItem[]
   favourite?: SideBarItem[]
-  main: SideBarItem[]
+  workspaces: SideBarItem[]
+  users: SideBarItem[]
+  cosmetics: SideBarItem[]
+  spaservices: SideBarItem[]
   secondary?: SideBarItem[]
   props: React.ComponentProps<typeof Sidebar>
 }) {
-
-
   return (
     <Sidebar className='border-r-0' {...params.props}>
       <SidebarHeader>
         <NavMain items={params.header ?? []} />
       </SidebarHeader>
       <SidebarContent>
-        {params.favourite &&
-          <NavFavorites favorite={params.favourite} />
-        }
-        <NavWorkspaces items={params.main ?? []} />
+        <NavWorkspaces items={params.workspaces ?? []} />
+        <NavUsers items={params.users ?? []} />
+        <NavSpaservices  items={params.spaservices ?? []} />
+        <NavCosmetic items={params.cosmetics ?? []} />
         <NavSecondary items={params.secondary ?? []} className='mt-auto' />
       </SidebarContent>
       <SidebarRail />

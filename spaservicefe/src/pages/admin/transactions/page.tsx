@@ -3,6 +3,8 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { TransactionBase } from '@/types/type'
 import { getAllTransactions } from '../transactions/transaction.util'
+import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
+
 
 export default function TransactionPage() {
   const [data, setData] = useState<TransactionBase[]>([])
@@ -21,8 +23,11 @@ export default function TransactionPage() {
         //   },
         //   {} as Record<string, string>
         // )
-
-        setData(transactions)
+        const formattedTransactions = transactions.map(transaction => ({
+          ...transaction,
+          completeTime: format(new Date(transaction.completeTime), 'dd/MM/yyyy HH:mm:ss')
+        }));
+        setData(formattedTransactions)
       } catch (err) {
         setError("Can't load the data.")
       } finally {

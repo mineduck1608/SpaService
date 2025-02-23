@@ -139,6 +139,7 @@ export type CosmeticProduct = {
   status: boolean
   isSelling: boolean
   image: string
+  categoryId: string
 }
 
 export type TransactionBase = {

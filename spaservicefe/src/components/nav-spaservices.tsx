@@ -16,11 +16,11 @@ import {
 } from 'src/components/ui/sidebar'
 import { Link } from 'react-router-dom'
 
-export function NavWorkspaces(params: { items: SideBarItem[] }) {
+export function NavSpaservices(params: { items: SideBarItem[] }) {
   const nav = useNavigate()
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className='mb-2 text-lg'>Workspaces</SidebarGroupLabel>
+      <SidebarGroupLabel className='mb-2 text-lg'>Spa Services</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
           {params.items?.map((workspace) => (

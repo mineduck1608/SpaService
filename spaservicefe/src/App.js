@@ -16,7 +16,7 @@ import Services from './pages/home/services.tsx'
 import Products from './pages/home/products.tsx'
 import News from './pages/home/news.tsx'
 import OurServices from './pages/home/ourServices.tsx'
-import DetailPage from './pages/detailPage/detailPage.tsx'
+import DetailPage from './pages/serviceDetailPage/detailPage.tsx'
 import AdminPage from './pages/admin/adminPage.tsx'
 import CheckOutPage from './pages/checkout/checkoutPage.tsx'
 import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
@@ -44,6 +44,7 @@ import TransactionPage from './pages/admin/transactions/page.tsx'
 import PromotionPage from './pages/admin/promotions/page.tsx'
 import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 import ApplicationPage from './pages/admin/applications/page.tsx'
+import CosmeticDetailPage from './pages/cosmeticDetailPage/cosmeticDetailPage.tsx'
 
 function Layout({ children }) {
   return (
@@ -146,7 +147,7 @@ function App() {
             path='cosmetics-detail/:id'
             element={
               <Layout>
-                <DetailPage />
+                <CosmeticDetailPage />
               </Layout>
             }
           />

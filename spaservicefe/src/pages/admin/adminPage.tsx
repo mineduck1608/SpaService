@@ -23,8 +23,10 @@ export default function AdminPage() {
   return (
     <SidebarProvider>
       <SidebarLeft
-        favourite={sideData.favorite}
-        main={sideData.workspaces}
+        workspaces={sideData.workspaces}
+        users={sideData.users}
+        spaservices={sideData.spaservices}
+        cosmetics={sideData.cosmetics}
         header={sideData.navMain}
         props={{}}
         secondary={sideData.navSecondary}
