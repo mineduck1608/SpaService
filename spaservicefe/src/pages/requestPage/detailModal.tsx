@@ -40,7 +40,7 @@ function tableData(request: SpaRequest) {
       value: status(request.serviceTransaction?.status ?? false),
       color: new Map<string, string>([
         ['Completed', 'text-green-500'],
-        ['Not Completed', 'text-gray-500']
+        ['Not Completed', 'text-red-500']
       ])
     }
   ]

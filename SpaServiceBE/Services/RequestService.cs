@@ -84,5 +84,24 @@ namespace Services
             }
             return (roomState, empState);
         }
+
+        public async Task<(string roomId, string employeeId)> PickRandomResource(Request q, bool chooseEmployee)
+        {
+            var rand = new Random();
+            var (roomId, empId) = await _requestRepository.FindUnavailableRoomAndEmp(q);
+            var service = await _spaServiceRepository.GetById(q.ServiceId);
+            var category = await _catRepository.GetById(service.CategoryId);
+            var roomsOfCat = (await _roomRepository.GetRoomsOfCategory(category.CategoryId)).Select(x => x.RoomId).ToHashSet();
+            var empOfCat = (await _employeesRepository.GetEmployeesByCategoryId(category.CategoryId)).Select(x => x.EmployeeId).ToHashSet();
+            var possibleRoom = roomsOfCat.Except(roomId).ToList();
+            var chosenRoom = possibleRoom[rand.Next(possibleRoom.Count)];
+            if (!chooseEmployee)
+            {
+                return (chosenRoom, q.EmployeeId);
+            }
+            var possibleEmployee = empOfCat.Except(empId).ToList();
+            var chosenEmployee = possibleEmployee[rand.Next(possibleEmployee.Count)];
+            return (chosenRoom, chosenEmployee);
+        }
     }
 }

@@ -59,24 +59,22 @@ namespace SpaServiceBE.Controllers
                 var added = await _transactionService.Update(transactionId, s);
                 var req = await _requestService.GetById(serviceTxn.RequestId);
                 var service = await _spaService.GetById(req.ServiceId);
-                rs.Add("empName", req.EmployeeId ?? "Did not request");
                 rs.Add("startTime", req.StartTime.ToString());
                 rs.Add("endTime", req.StartTime.Add(service.Duration).ToString());
                 rs.Add("serviceName", service.ServiceName);
-                var emp = req.EmployeeId;
-                if (emp == null)
-                {
-                    //Pick random
-                }
+                var rand = await _requestService.PickRandomResource(req, req.EmployeeId == null);
+                var emp = await _employeeService.GetEmployeeById(rand.employeeId);
+                rs.Add("empName", emp.FullName ?? "Did not request");
                 Appointment app = new()
                 {
                     RequestId = req.RequestId,
-                    EmployeeId = req.EmployeeId,
+                    EmployeeId = rand.employeeId,
                     StartTime = req.StartTime,
                     EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
                     Status = "Pending",
                     UpdatedAt = null,
-                    AppointmentId = Guid.NewGuid().ToString()
+                    AppointmentId = Guid.NewGuid().ToString(),
+                    RoomId = rand.roomId,
                 };
                 var check = await _appointmentService.AddAppointment(app);
                 rs.Add("success", check.ToString());
