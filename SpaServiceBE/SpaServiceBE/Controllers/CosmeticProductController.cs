@@ -31,7 +31,7 @@ namespace SpaServiceBE.Controllers
                 return NotFound();
             return Ok(item);
         }
-        [HttpGet("GetByCateId/{id}")]
+        [HttpGet("ProductOfCosmeticCategory/{id}")]
         public async Task<ActionResult> GetCosmeticProductFromCategoryId(string categoryId)
         {
             try
