@@ -50,6 +50,11 @@ namespace Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<List<Room>> GetRoomsOfCategory(string catId)
+        {
+            var rooms = await _context.Floors.Include(x => x.Rooms).FirstOrDefaultAsync(x => x.CategoryId == catId);
+            return rooms?.Rooms?.ToList();
+        }
     }
 
 }

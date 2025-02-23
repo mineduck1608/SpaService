@@ -53,12 +53,15 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
     <div className=''>
       <div className='flex justify-end'>
         <button
-        className='p-1 bg-purple1 rounded-sm text-white my-2'
-        onClick={(e) => {
-          context.setPastBooking(!context.pastBooking)
-        }}>{context.pastBooking ? 'Upcoming' : 'Past'} Appointments</button>
+          className='my-2 rounded-sm bg-purple1 p-1 text-white'
+          onClick={(e) => {
+            context.setPastBooking(!context.pastBooking)
+          }}
+        >
+          {context.pastBooking ? 'Upcoming' : 'Past'} Appointments
+        </button>
       </div>
-      <div className='rounded-md border bg-slate-50 mt-2'>
+      <div className='mt-2 rounded-md border bg-slate-50'>
         <Table className=''>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

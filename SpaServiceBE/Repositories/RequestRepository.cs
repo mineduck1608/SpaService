@@ -108,10 +108,8 @@ namespace Repositories
 
         public async Task<(ISet<string> roomId, ISet<string> empId)> FindUnavailableRoomAndEmp(Request request)
         {
-            //Tìm category
-            var catId = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId).CategoryId;
             //Tìm các appointment tg request => Tìm phòng nào, nv nào ko dùng đc
-            var appointments = _context.Appointments.ToList(); //Lọc theo catId
+            var appointments = _context.Appointments.ToList();
             //Lọc theo tg
             var start = request.StartTime;
             var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId);
