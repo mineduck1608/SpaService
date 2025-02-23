@@ -71,9 +71,12 @@ export type Appointment = {
   employeeId: string
   startTime: string 
   endTime: string
-  replacementEmployee: string
   updatedAt: Date
-  employee: Employee
+  employee?: Employee,
+  service?: SpaService
+  request?: SpaRequest
+  room?: Room
+  roomId: string
 }
 
 export type SpaService = {
@@ -157,4 +160,9 @@ export type CosmeticTransaction = TransactionBase & {
   cosmeticTransactionId: string
   requestId: string
   orderId?: string
+}
+
+export type Room = {
+  roomId: string, 
+  roomNum: number
 }

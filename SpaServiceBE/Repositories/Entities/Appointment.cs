@@ -28,7 +28,7 @@ public partial class Appointment
 
     public virtual Employee Employee { get; set; } = null!;
 
-    public virtual Employee ReplacementEmployeeNavigation { get; set; } = null!;
+    public virtual Employee? ReplacementEmployeeNavigation { get; set; } = null!;
 
     public virtual Request Request { get; set; } = null!;
 

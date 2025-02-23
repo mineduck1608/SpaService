@@ -82,8 +82,12 @@ public partial class SpaserviceContext : DbContext
                 .AddJsonFile("appsettings.json", true, true).Build();
         return configuration["ConnectionStrings:DefaultConnectionStringDB"];
     }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+    {
+        optionsBuilder.UseSqlServer(GetConnectionString());
+        optionsBuilder.EnableDetailedErrors(true);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

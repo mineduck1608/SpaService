@@ -33,6 +33,7 @@ import PayResultPage from './pages/payResult/payResultPage.tsx'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import RequestPage from './pages/requestPage/requestPage.tsx'
+import AppointmentPage from './pages/appointmentPage/appointmentPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -80,6 +81,14 @@ function App() {
             element={
               <Layout>
                 <RequestPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='appointments'
+            element={
+              <Layout>
+                <AppointmentPage />
               </Layout>
             }
           />

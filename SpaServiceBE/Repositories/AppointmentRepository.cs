@@ -32,15 +32,15 @@ namespace Repositories
 
         public async Task<List<Appointment>> GetAppointmentsFromCustomer(string accId)
         {
-            return await _context.Appointments
+            var rs = _context.Appointments
                 .Include(x => x.Request)
                 .ThenInclude(x => x.Customer)
                 .Include(x => x.Request)
                 .ThenInclude(x => x.Service)
                 .Include(x => x.Room)
                 .Include(x => x.Employee)
-                .Where(e => e.Request.Customer.AccountId == accId)
-                .ToListAsync();
+                .Where(e => e.Request.Customer.AccountId == accId).ToList();
+            return rs;
         }
 
         // Get all appointments

@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { SpaRequest } from '../../types/type' // Updated to CustomerRequest type
+import { Appointment, SpaRequest } from '../../types/type' // Updated to CustomerRequest type
 
 import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
-import { getRequestsOfAccId } from './requestPage.util'
+import { getAppointments } from './appointmentPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'
-import { PastBookingContext } from './context/pastBookingContext'
+import { PastAppointmentContext } from './context/pastAppointmentContext'
 
-export default function RequestTable() {
-  const [data, setData] = useState<SpaRequest[]>([])
+export default function AppointmentTable() {
+  const [data, setData] = useState<Appointment[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [pastBooking, setPastBooking] = useState(false)
@@ -18,8 +18,8 @@ export default function RequestTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const customerRequests = await getRequestsOfAccId(jwtDecode(getToken() ?? '').UserId)
-        setData(customerRequests)
+        const appointments = await getAppointments(jwtDecode(getToken() ?? '').UserId)
+        setData(appointments)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
@@ -35,9 +35,18 @@ export default function RequestTable() {
 
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
-      <PastBookingContext.Provider value={{ pastBooking, setPastBooking }}>
-        <DataTable columns={columns} data={data} />
-      </PastBookingContext.Provider>
+      <PastAppointmentContext.Provider value={{ pastBooking, setPastBooking }}>
+        <DataTable
+          columns={columns}
+          data={data.filter((v) => {
+            var d = new Date(v.startTime).getTime() < new Date().getTime()
+            if (pastBooking) {
+              return d
+            }
+            return !d
+          })}
+        />
+      </PastAppointmentContext.Provider>
     </div>
   )
 }

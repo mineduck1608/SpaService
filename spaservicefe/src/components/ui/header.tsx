@@ -65,8 +65,6 @@ const Header = () => {
         let y = await findCosmeticCategories();
         setServiceCategory(x);
         setCosmeticCategory(y);
-        console.log(y);
-        console.log(x);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
