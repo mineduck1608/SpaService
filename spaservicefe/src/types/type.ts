@@ -87,12 +87,6 @@ export type SpaService = {
   categoryId: string
 }
 
-export type ServiceCategory = {
-  categoryId: string
-  categoryName: string
-  categoryDescription: string
-}
-
 export type News = {
   newsId: string
   header: string
@@ -144,6 +138,12 @@ export type OrderDetail = {
 }
 
 export type CosmeticCategory = {
+  categoryId: string
+  categoryName: string
+  categoryDescription: string
+}
+
+export type ServiceCategory = {
   categoryId: string
   categoryName: string
   categoryDescription: string

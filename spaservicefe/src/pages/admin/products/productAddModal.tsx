@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -10,30 +10,42 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify' 
-import { handleCreateSubmit } from './product.util'
-import { promotionConfig } from '../modal.util'
+import { handleCreateSubmit, getAllCosmeticCategories } from './product.util'
+import { cosmeticProductConfig } from '../modal.util'
+import { CosmeticCategory } from 'src/types/type'
 
 export default function AddProductModal() {
-  const fieldsToUse = promotionConfig.fields
+  const [categories, setCategories] = useState<CosmeticCategory[]>([])
+  const fieldsToUse = cosmeticProductConfig.fields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
       fieldsToUse.map((field: FieldConfig) => {
-        if (field.name === "price") return [field.name, "0"]
-        if (field.name === "status") return [field.name, "true"]
-        if (field.name === "isSelling") return [field.name, "true"]
-        return [field.name, ""]
+        if (field.name === 'price' || field.name === 'quantity') return [field.name, 0]
+        return [field.name, '']
       })
     ),
   })
 
   const handleSubmit = async (data: any) => {
+    const selectedCategory = categories.find(category => category.categoryName === data.categoryName)
+    if (selectedCategory) 
+      data.categoryId = selectedCategory.categoryId
     data.price = parseFloat(data.price) || 0
-    data.status = data.status === "true"
-    data.isSelling = data.isSelling === "true"
+    data.quantity = parseInt(data.quantity) || 0
+    data.status = data.status === 'true'
+    data.isSelling = data.isSelling === 'true'
     handleCreateSubmit(data)
   }
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const data = await getAllCosmeticCategories()
+      setCategories(data)
+    }
+    fetchCategories()
+  }, [form])
 
   return (
     <Dialog>
@@ -55,20 +67,39 @@ export default function AddProductModal() {
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
                           {field.type === 'select' ? (
-                            <Select 
-                              onValueChange={formField.onChange} 
-                              defaultValue={formField.value}
-                              disabled={field.readonly}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value='true'>Active</SelectItem>
-                                <SelectItem value='false'>Locked</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          ) : (
+                            field.name === 'categoryId' ? (
+                              <Select
+                                onValueChange={(value) => {
+                                  form.setValue('categoryId', value) 
+                                }}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {categories.map((category) => (
+                                    <SelectItem key={category.categoryId} value={category.categoryId}>
+                                      {category.categoryName}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            ) : (
+                              <Select 
+                                onValueChange={formField.onChange} 
+                                defaultValue={formField.value}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value='true'>Active</SelectItem>
+                                  <SelectItem value='false'>Locked</SelectItem>
+                                </SelectContent>
+                              </Select>
+                          )) : (
                             <Input
                               {...formField}
                               type={field.type}

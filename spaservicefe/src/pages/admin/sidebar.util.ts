@@ -92,7 +92,12 @@ export const sideData = {
         {
           title: 'News',
           url: '/news'
+        },
+        {
+          title: 'Cosmetic Products',
+          url: '/cosmetic-products'
         }
+        
       ]
     },
     {

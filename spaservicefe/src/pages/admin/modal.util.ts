@@ -616,13 +616,6 @@ export const orderConfig = {
 export const cosmeticProductConfig = {
   updatefields: [
     {
-      name: 'productId',
-      label: 'Product Id',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter product Id',
-    },
-    {
       name: 'productName',
       label: 'Product Name',
       type: 'text',
@@ -633,7 +626,6 @@ export const cosmeticProductConfig = {
       name: 'price',
       label: 'Price',
       type: 'number',
-      required: true,
       step: '0.01',
       min: 0,
       placeholder: 'Enter price',
@@ -658,20 +650,80 @@ export const cosmeticProductConfig = {
       name: 'status',
       label: 'Status',
       type: 'select',
+      required: true,
       placeholder: 'Select status',
     },
     {
       name: 'isSelling',
       label: 'Is Selling',
       type: 'select',
+      required: true,
       placeholder: 'Select an option',
     },
     {
       name: 'image',
       label: 'Image URL',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL',
+    }
+  ],
+  fields: [
+    {
+      name: 'productName',
+      label: 'Product Name',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter product name',
+    },
+    {
+      name: 'price',
+      label: 'Price',
+      type: 'number',
+      step: '0.01',
+      min: 0,
+      placeholder: 'Enter price',
+    },
+    {
+      name: 'quantity',
+      label: 'Quantity',
+      type: 'number',
+      required: true,
+      min: 0,
+      placeholder: 'Enter quantity',
+    },
+    {
+      name: 'description',
+      label: 'Description',
+      type: 'text',
+      required: true,
+      minLength: 5,
+      placeholder: 'Enter description',
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      required: true,
+      placeholder: 'Select status',
+    },
+    {
+      name: 'isSelling',
+      label: 'Is Selling',
+      type: 'select',
+      required: true,
+      placeholder: 'Select an option',
+    },
+    {
+      name: 'image',
+      label: 'Image URL',
+      type: 'text',
+      placeholder: 'Enter image URL',
+    },
+    {
+      name: 'categoryId',
+      label: 'Category',
+      type: 'select',
+      placeholder: 'Select category',
     }
   ]
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -31,21 +31,21 @@ export default function UpdatePromotionModal({isOpen, onClose, product} : Update
 
   const handleSubmit = async (data: any) => {
     data.price = parseFloat(data.price) || 0
-    data.status = data.status === "true"
-    data.isSelling = data.isSelling === "true"
-    handleUpdateSubmit(product.productId ,data)
+    data.quantity = parseInt(data.quantity) || 0
+    data.status = data.status === 'true'
+    data.isSelling = data.isSelling === 'true'
+    handleUpdateSubmit(product.productId, product.categoryId, data)
   }
 
   useEffect(() => {
     if (product) {
       Object.keys(product).forEach((key : string) => {
         if (form.getValues(key) !== undefined) {
-          let value = product[key];
-
-          if (key === "price") value = String(value)
-          if (key === "status") value = value ? "true" : "false"
-          if (key === "isSelling") value = value ? "true" : "false" 
-
+          let value = product[key]
+          if (key === 'quantity') value = String(value)
+          if (key === 'price') value = String(value)
+          if (key === 'status') value = value ? 'true' : 'false'
+          if (key === 'isSelling') value = value ? 'true' : 'false' 
           form.setValue(key, value)
         }
       })

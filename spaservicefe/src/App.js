@@ -43,6 +43,7 @@ import TransactionPage from './pages/admin/transactions/page.tsx'
 import PromotionPage from './pages/admin/promotions/page.tsx'
 import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 import ApplicationPage from './pages/admin/applications/page.tsx'
+import ProductPage from './pages/admin/products/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -232,6 +233,7 @@ function App() {
             <Route path='employees-commissions' element={<div>BE</div>} />
             <Route path='news' element={<AdmminNewsPage />} />
             <Route path='promotions' element={<PromotionPage />} />
+            <Route path='cosmetic-products' element={<ProductPage />} />
           </Route>
           <Route
             path='manager'

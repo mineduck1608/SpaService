@@ -30,7 +30,7 @@ export default function AddCategoryModal() {
       <DialogTrigger>
         <Button variant='outline'>Create</Button>
       </DialogTrigger>
-      <DialogContent className='p-8 w-[1000px]'>
+      <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>Create Category</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>

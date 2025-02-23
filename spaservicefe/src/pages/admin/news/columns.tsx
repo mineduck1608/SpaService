@@ -42,6 +42,10 @@ export const columns: ColumnDef<News>[] = [
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       )
+    },
+    cell: ({ row }) => {
+      const value = row.getValue<string>('type')
+      return <div className='ml-7'>{value}</div>
     }
   },
   {

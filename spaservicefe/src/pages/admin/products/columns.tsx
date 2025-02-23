@@ -26,33 +26,47 @@ export const columns: ColumnDef<CosmeticProduct>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'promotionCode',
-    header: 'Promotion Code'
+    accessorKey: 'productName',
+    header: 'Product Name'
   },
   {
-    accessorKey: 'promotionName',
-    header: 'Promotion Name'
+    accessorKey: 'description',
+    header: 'Description'
   },
   {
-    accessorKey: 'discountValue',
+    accessorKey: 'price',
+    header: 'Price'
+  },
+  {
+    accessorKey: 'quantity',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Discount Value
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          Quantity
+          <ArrowUpDown className="h-4 w-4" />
         </Button>
       )
     },
     cell: ({ row }) => {
-      const value = row.getValue<string>('discountValue')
-      return <div className='ml-16'>{value}</div>
+      const value = row.getValue<string>('quantity')
+      return <div className='ml-12'>{value}</div>
     }
   },
   {
-    accessorKey: 'isActive',
+    accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
-      const isActive = row.getValue<boolean>('isActive')
+      const isActive = row.getValue<boolean>('status')
+      const statusText = isActive ? 'Active' : 'Locked'
+      const statusColor = isActive ? 'text-green-500' : 'text-red-500'
+      return <span className={statusColor}>{statusText}</span>
+    }
+  },
+  {
+    accessorKey: 'isSelling',
+    header: 'Is Selling',
+    cell: ({ row }) => {
+      const isActive = row.getValue<boolean>('isSelling')
       const statusText = isActive ? 'Active' : 'Locked'
       const statusColor = isActive ? 'text-green-500' : 'text-red-500'
       return <span className={statusColor}>{statusText}</span>

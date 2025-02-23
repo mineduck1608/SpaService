@@ -4,7 +4,7 @@ import { DataTable } from './data-table'
 import { CosmeticProduct } from '@/types/type'
 import { getAllProducts } from './product.util'
 
-export default function PromotionPage() {
+export default function ProductPage() {
   const [data, setData] = useState<CosmeticProduct[]>([]) 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
