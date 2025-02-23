@@ -6,5 +6,4 @@ export type Service = {
   description: string
   serviceImage: string
   categoryId: string
-  noOfSessions: number
 }

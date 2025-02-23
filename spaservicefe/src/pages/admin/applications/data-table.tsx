@@ -64,29 +64,31 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }:
           onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='outline' className='ml-auto'>
-              Columns
-              <IoIosArrowDown className='mt-0.5' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className='capitalize'
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                >
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className='ml-auto flex items-center gap-x-2'>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant='outline' className='ml-auto'>
+                Columns
+                <IoIosArrowDown className='mt-0.5' />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className='capitalize'
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className='rounded-md border'>
         <Table>

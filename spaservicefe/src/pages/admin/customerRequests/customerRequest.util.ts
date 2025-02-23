@@ -1,4 +1,4 @@
-import { Category } from '@/types/category'
+import { Category } from '@/types/serviceCategory'
 import { apiUrl, getToken } from '../../../types/constants'
 import { Account, Customer, Employee, SpaService } from '../../../types/type'
 

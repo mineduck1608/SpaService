@@ -9,9 +9,9 @@ import { NavFavorites } from './nav-favorites'
 
 export function SidebarLeft(params: {
   header: SideBarItem[]
-  favourite: SideBarItem[]
+  favourite?: SideBarItem[]
   main: SideBarItem[]
-  secondary: SideBarItem[]
+  secondary?: SideBarItem[]
   props: React.ComponentProps<typeof Sidebar>
 }) {
 
@@ -22,7 +22,9 @@ export function SidebarLeft(params: {
         <NavMain items={params.header ?? []} />
       </SidebarHeader>
       <SidebarContent>
-        <NavFavorites favorite={params.favourite ?? []} />
+        {params.favourite &&
+          <NavFavorites favorite={params.favourite} />
+        }
         <NavWorkspaces items={params.main ?? []} />
         <NavSecondary items={params.secondary ?? []} className='mt-auto' />
       </SidebarContent>

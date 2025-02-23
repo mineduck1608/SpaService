@@ -11,19 +11,19 @@ import {
 } from '../../../components/ui/dialog'
 import { Input } from '../../../components/ui/input'
 import { Label } from '../../../components/ui/label'
-import { Request, Employee } from '@/types/type' // Đảm bảo có kiểu Employee
+import { SpaRequest, Employee } from '@/types/type' // Đảm bảo có kiểu Employee
 import { GetCategoryByServiceId, GetEmployeeByCategoryId } from './customerRequest.util'
 import { DatePicker } from 'antd'
 
 interface EditRequestModalProps {
   isOpen: boolean
   onClose: () => void
-  request: Request
-  onSave: (updatedRequest: Request) => void
+  request: SpaRequest
+  onSave: (updatedRequest: SpaRequest) => void
 }
 
 export function EditRequestModal({ isOpen, onClose, request, onSave }: EditRequestModalProps) {
-  const [updatedRequest, setUpdatedRequest] = useState<Request>(request)
+  const [updatedRequest, setUpdatedRequest] = useState<SpaRequest>(request)
   const [employees, setEmployees] = useState<Employee[]>([])
 
   // Fetch employees based on the request's category

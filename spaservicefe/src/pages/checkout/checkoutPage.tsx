@@ -34,17 +34,17 @@ export default function CheckoutPage() {
       fetchData()
     } catch (e) {}
   }, [])
-  async function onSubmitBase(type: string) {
+  async function onSubmitBase(method: string) {
     try {
       var req2 = { ...req }
-      req2.startTime.setTime(req2.startTime.getTime() + 7 * 3600 * 1000) //Account for JS stupid date
+      req2.startTime.setTime(req2.startTime.getTime() + 7 * 3600 * 1000) //Account for JS stupid date API
       var s = await submitRequest(req2)
       if (s.msg) {
         toast.error(s.msg)
         return false
       }
       if (s.requestId) {
-        var y = await createTransaction(type, booked.price, s.requestId)
+        var y = await createTransaction(method, booked.price, s.requestId)
         if (y.transactionId) {
           //State is stupid
           sessionStorage.setItem('trId', y.transactionId)
@@ -62,7 +62,7 @@ export default function CheckoutPage() {
   async function payInCash(e: FormEvent) {
     e.preventDefault()
     try {
-      var r = await onSubmitBase('CASH')
+      var r = await onSubmitBase('Cash')
       if (r) {
         toast.success('Request created successfully')
       }
@@ -73,7 +73,7 @@ export default function CheckoutPage() {
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
     try {
-      var r = await onSubmitBase('VNPAY')
+      var r = await onSubmitBase('VnPay')
 
       if (!r) {
         return

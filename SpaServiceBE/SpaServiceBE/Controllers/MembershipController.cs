@@ -68,7 +68,7 @@ namespace API.Controllers
                 var jsonElement = (JsonElement)request;
 
                 string type = jsonElement.GetProperty("type").GetString();
-                double totalPayment = jsonElement.GetProperty("totalPayment").GetDouble();
+                float totalPayment = jsonElement.GetProperty("totalPayment").GetSingle();
                 int discount = jsonElement.GetProperty("discount").GetInt32();
 
                 // Validate input
@@ -110,7 +110,7 @@ namespace API.Controllers
                 var jsonElement = (JsonElement)request;
 
                 string type = jsonElement.GetProperty("type").GetString();
-                double totalPayment = jsonElement.GetProperty("totalPayment").GetDouble();
+                float totalPayment = jsonElement.GetProperty("totalPayment").GetSingle();
                 int discount = jsonElement.GetProperty("discount").GetInt32();
 
                 // Validate input

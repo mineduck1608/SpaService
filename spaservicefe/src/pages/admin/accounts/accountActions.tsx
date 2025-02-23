@@ -8,24 +8,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Account } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
+import UpdateAccountModal from './accountUpdateModal'
+import { ToastContainer } from 'react-toastify'
 
 interface AccountActionsProps {
   account: Account
 }
 
 const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
-  const [isModalOpen, setModalOpen] = useState(false)
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
-
-  const handleConfirmDelete = () => {
-    console.log(`Deleting account with id: ${account.accountId}`)
-    closeModal()
-  }
+  const openUpdateModal = () => setUpdateModalOpen(true)
+  const closeUpdateModal = () => setUpdateModalOpen(false)
 
   return (
     <>
@@ -42,12 +38,14 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
             Copy account ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Update</DropdownMenuItem>
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Edit Status
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-      <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
+      <ToastContainer />
+      
+      <UpdateAccountModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} account={account}/>
     </>
   )
 }

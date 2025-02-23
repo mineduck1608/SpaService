@@ -1,4 +1,4 @@
-import { Category } from '@/types/category'
+import { Category } from '@/types/serviceCategory'
 import { Service } from '@/types/services'
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'

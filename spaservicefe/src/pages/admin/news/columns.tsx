@@ -1,31 +1,11 @@
-'use client'
-
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
-import { MoreHorizontal } from 'lucide-react'
-
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
+import { News } from '@/types/type'
+import NewsAction from './newAction'
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '../../../components/ui/dropdown-menu'
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string
-  amount: number
-  status: 'pending' | 'processing' | 'success' | 'failed'
-  email: string
-}
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<News>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -46,57 +26,49 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'status',
-    header: 'Status'
+    accessorKey: 'header',
+    header: 'Header'
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'content',
+    header: 'Content'
+  },
+  {
+    accessorKey: 'type',
     header: ({ column }) => {
       return (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Email
+          Type
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       )
     }
   },
   {
-    accessorKey: 'amount',
-    header: () => <div className='text-right'>Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue('amount'))
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(amount)
-
-      return <div className='text-right font-medium'>{formatted}</div>
-    }
+    accessorKey: 'categoryName',
+    header: 'Category'
   },
+  {
+    accessorKey: 'image',
+    header: 'Image',
+    cell: ({ row }) => {
+      const imageUrl = row.getValue('image') // Lấy URL hình ảnh từ dữ liệu
+      return imageUrl ? (
+        <img 
+          src={imageUrl} 
+          alt="News" 
+          className="w-[500px] h-[100px] object-cover rounded" // Sử dụng chiều rộng và chiều cao cố định, có thể tùy chỉnh
+        />
+      ) : (
+        <span>No Image</span> // Nếu không có URL hình ảnh, hiển thị "No Image"
+      )
+    }
+  },    
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <MoreHorizontal className='h-4 w-4' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+      const news = row.original
+      return <NewsAction news={news} />
     }
   }
 ]

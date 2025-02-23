@@ -3,9 +3,9 @@ import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
 import RequestActions from './customerRequestAction' // Updated to reflect customer request actions
-import { Request } from '@/types/type' // Assuming `Request` is the correct type based on the entity
+import { SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 
-export const columns: ColumnDef<Request>[] = [
+export const columns: ColumnDef<SpaRequest>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -43,7 +43,6 @@ export const columns: ColumnDef<Request>[] = [
     accessorKey: 'startTime',
     header: 'Start Time',
     cell: ({ row }) => row.getValue('startTime')
-
   },
   {
     accessorKey: 'status',
@@ -59,10 +58,10 @@ export const columns: ColumnDef<Request>[] = [
       } else if (status === 'Pending') {
         statusColor = 'text-gray-500'
       }
-  
+
       return <span className={statusColor}>{status}</span>
     }
-  },  
+  },
   {
     accessorKey: 'customerNote',
     header: 'Customer Note',

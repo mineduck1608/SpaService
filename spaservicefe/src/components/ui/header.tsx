@@ -3,10 +3,11 @@ import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons'
 import logoColor from '../../images/logos/logoColor.png'
-import { Category } from '@/types/category.ts'
+import { ServiceCategory } from '@/types/serviceCategory.ts'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
-import { ProfileButton } from './profileButton.tsx'
 import { Dropdown } from '../dropdown.tsx'
+import { findCosmeticCategories } from '../../pages/cosmeticPage/cosmeticPage.util.ts'
+import { CosmeticCategory } from '../../types/type.ts'
 
 const Header = () => {
   // Giải mã JWT để kiểm tra thời gian hết hạn
@@ -48,22 +49,40 @@ const Header = () => {
   }, [])
 
   const [isAtTop, setIsAtTop] = useState(true)
-  const [category, setCategory] = useState<Category[]>([])
+  const [serviceCategory, setServiceCategory] = useState<ServiceCategory[]>([])
+  const [cosmeticCategory, setCosmeticCategory] = useState<CosmeticCategory[]>([])
+
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsAtTop(window.scrollY === 0)
-    }
-    async function getCategory() {
-      let x = await findCategories()
-      setCategory(x)
-    }
-    window.addEventListener('scroll', handleScroll)
-    getCategory()
+      setIsAtTop(window.scrollY === 0);
+    };
+  
+    // Hàm async trong useEffect
+    const getCategory = async () => {
+      try {
+        let x = await findCategories();
+        let y = await findCosmeticCategories();
+        setServiceCategory(x);
+        setCosmeticCategory(y);
+        console.log(y);
+        console.log(x);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
+    // Gọi hàm lấy category
+    getCategory();
+  
+    // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
 
   return (
     <>
@@ -90,7 +109,7 @@ const Header = () => {
                 <ul
                   className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}
                 >
-                  {category.map((x) => (
+                  {serviceCategory.map((x) => (
                     <li key={x.categoryId}>
                       <a
                         href={'/services/' + x.categoryId}
@@ -98,6 +117,26 @@ const Header = () => {
                       >
                         <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
                         {x.categoryName}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+              <li className='dropdown'>
+                <a href='/cosmetics' className='nav-link text-base'>
+                  COSMETIC <FontAwesomeIcon icon={faAngleDown} className='mb-0.5 ml-2 text-xs' />
+                </a>
+                <ul
+                  className={`dropdown-menu min-w-[220px] rounded-br-lg rounded-tl-lg ${isAtTop ? 'bg-white/20' : 'small'}  backdrop-blur-sm`}
+                >
+                  {cosmeticCategory.map((y) => (
+                    <li key={y.categoryId}>
+                      <a
+                        href={'/cosmetics/' + y.categoryId}
+                        className={`dropdown-link ${isAtTop ? 'text-white' : 'text-black'} group flex items-center text-base transition-transform duration-1000 hover:translate-x-2 hover:bg-transparent`}
+                      >
+                        <span className='opacity-0 transition-opacity group-hover:opacity-100'>-&nbsp;</span>
+                        {y.categoryName}
                       </a>
                     </li>
                   ))}
@@ -155,6 +194,11 @@ const Header = () => {
               <li>
                 <a href='/contact' className='nav-link text-base'>
                   CONTACT
+                </a>
+              </li>
+              <li>
+                <a href='/recruitment' className='nav-link text-base'>
+                RECRUITMENT
                 </a>
               </li>
             </ul>

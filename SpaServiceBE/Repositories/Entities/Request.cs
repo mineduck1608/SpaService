@@ -11,15 +11,13 @@ public partial class Request
 
     public string Status { get; set; } = null!;
 
-    public string? CustomerNote { get; set; }
+    public string CustomerNote { get; set; } = null!;
 
     public string? ManagerNote { get; set; }
 
     public string ServiceId { get; set; } = null!;
 
     public string CustomerId { get; set; } = null!;
-
-    public DateTime? EndTime { get; set; }
 
     public string? EmployeeId { get; set; }
 
@@ -31,5 +29,5 @@ public partial class Request
 
     public virtual SpaService Service { get; set; } = null!;
 
-    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+    public virtual ICollection<ServiceTransaction> ServiceTransactions { get; set; } = new List<ServiceTransaction>();
 }

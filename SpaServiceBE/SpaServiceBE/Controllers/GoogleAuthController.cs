@@ -80,7 +80,7 @@ namespace SpaServiceBE.Controllers
                 {
                     AccountId = Guid.NewGuid().ToString("N"),
                     Username = name, // Use email as the username
-                    Password = null, // null
+                    Password = "GoogleAuth", // null
                     Status = true,
                     CreatedAt = DateTime.UtcNow,
                     RoleId = "eed231e27e6c4309895ef17737569015" // Customer role ID
@@ -91,9 +91,10 @@ namespace SpaServiceBE.Controllers
                     CustomerId = Guid.NewGuid().ToString("N"),
                     FullName = name,
                     Email = email,
-                    Phone = null, // Can be null unless provided
+                    Phone = "None",
                     DateOfBirth = DateTime.UtcNow, // Set appropriately or make nullable
                     AccountId = newAccount.AccountId,
+                    Gender = "Other",
                 };
 
                 _context.Accounts.Add(newAccount);

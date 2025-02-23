@@ -23,6 +23,12 @@ namespace Repositories
             return await _context.Appointments
                 .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
         }
+        public async Task <List<Appointment>> GetAppointmentsFromEmployeeId(string employeeId)
+        {
+            return await _context.Appointments
+                .Where(e => e.EmployeeId == employeeId)
+                .ToListAsync();
+        }
 
         // Get all appointments
         public async Task<List<Appointment>> GetAll()

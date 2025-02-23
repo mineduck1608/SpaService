@@ -3,20 +3,20 @@ import logo from '../../images/logos/tiny.png'
 import selected from '../../images/serviceBg/selected.png'
 import { Service } from '../../types/services'
 import { apiUrl, getToken } from '../../types/constants'
-import { Category } from '@/types/category'
+import { ServiceCategory } from '@/types/serviceCategory'
 
 export const imgs = { headerBg, logo, selected }
 export function formatNumber(num: number): string {
-  return new Intl.NumberFormat('de-DE').format(num).replace('.', '.')
+  return new Intl.NumberFormat('de-DE').format(num)
 }
 export async function getCategory(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/categories/GetById/${id}`, {
+    var res = await fetch(`${apiUrl}/servicecategories/GetById/${id}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    var json = (await res.json()) as Category
+    var json = (await res.json()) as ServiceCategory
     return json
   } catch (e) {
     return null
@@ -38,12 +38,12 @@ export async function getServicesOfCategory(id: string) {
 
 async function getAllCategories() {
   try {
-    var res = await fetch(`${apiUrl}/categories/GetAll`, {
+    var res = await fetch(`${apiUrl}/servicecategories/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    var json = (await res.json()) as Category[]
+    var json = (await res.json()) as ServiceCategory[]
     return json
   } catch (e) {
     return []
@@ -53,7 +53,7 @@ async function getAllCategories() {
 export async function findCategories() {
   const sessionCat = sessionStorage.getItem('categories')
   if (sessionCat) {
-    return JSON.parse(sessionCat) as Category[]
+    return JSON.parse(sessionCat) as ServiceCategory[]
   }
   var s = await getAllCategories()
   if (s.length !== 0) {

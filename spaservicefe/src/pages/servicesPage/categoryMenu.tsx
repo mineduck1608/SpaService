@@ -1,4 +1,4 @@
-import { Category } from '@/types/category'
+import { Category } from '@/types/serviceCategory'
 import { imgs } from './servicesPage.util'
 
 export function CategoryMenu(params: {

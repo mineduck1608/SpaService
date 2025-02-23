@@ -1,194 +1,34 @@
 import { useState, useEffect } from 'react'
-import { Payment, columns } from './columns'
+import { columns } from './columns'
 import { DataTable } from './data-table'
+import { TransactionBase } from '@/types/type'
+import { getAllTransactions } from '../transactions/transaction.util'
 
-async function getData(): Promise<Payment[]> {
-  // Lấy dữ liệu từ API ở đây.
-  return [
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    },
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com'
-    }
-
-    // ...
-  ]
-}
-
-export default function DemoPage() {
-  const [data, setData] = useState<Payment[]>([])
+export default function TransactionPage() {
+  const [data, setData] = useState<TransactionBase[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getData()
-        setData(data)
+        const transactions = await getAllTransactions()
+
+        // const memberMap = members.reduce(
+        //   (acc, member) => {
+        //     acc[member.membershipId] = member.type
+        //     return acc
+        //   },
+        //   {} as Record<string, string>
+        // )
+
+        setData(transactions)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
         setLoading(false)
       }
     }
-
     fetchData()
   }, [])
 
@@ -197,7 +37,7 @@ export default function DemoPage() {
 
   return (
     <div className='h-[96%] items-center justify-center'>
-      <h2 className='my-4 ml-11'>Accounts Management</h2>
+      <h2 className='container mx-auto my-4 ml-11'>Transaction Management</h2>
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

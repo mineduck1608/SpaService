@@ -9,7 +9,7 @@ public partial class Feedback
 
     public string FeedbackMessage { get; set; } = null!;
 
-    public int Rating { get; set; }
+    public byte Rating { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

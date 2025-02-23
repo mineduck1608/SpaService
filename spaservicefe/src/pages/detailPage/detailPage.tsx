@@ -4,7 +4,7 @@ import { formatNumber, getServicesOfCategory, imgs } from '../servicesPage/servi
 import StockImg from './stockImg'
 import { Service } from '@/types/services'
 import { getService } from './detailPage.util'
-import { Category } from '@/types/category'
+import { Category } from '@/types/serviceCategory'
 import ShortDetail from './shortDetail'
 import seperator from '../../images/serviceBg/separator.png'
 import DetailPageCarousel from './detailPageCarousel'

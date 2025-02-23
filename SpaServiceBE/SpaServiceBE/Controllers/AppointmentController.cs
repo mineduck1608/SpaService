@@ -55,6 +55,24 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+       
+        [HttpGet("GetAppointmentByEmployeeId/{id}")]
+        public async Task<ActionResult<Appointment>> GetAppointmentFromEmployeeId(string id)
+        {
+            try
+            {
+                var appointment = await _servicee.GetAllAppointmentsFromEmployee(id);
+
+                if (appointment == null)
+                    return NotFound($"Appointment with ID = {id} not found.");
+
+                return Ok(appointment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
         // POST: api/appointments/Create
         [HttpPost("Create")]
@@ -67,8 +85,8 @@ namespace API.Controllers
                 // Lấy dữ liệu từ request
                 string requestId = jsonElement.GetProperty("requestId").GetString();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
-                DateTime? startTime = jsonElement.TryGetProperty("startTime", out var startTimeProp) ? startTimeProp.GetDateTime() : null;
-                DateTime? endTime = jsonElement.TryGetProperty("endTime", out var endTimeProp) ? endTimeProp.GetDateTime() : null;
+                DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
+                DateTime endTime = jsonElement.TryGetProperty("endTime", out JsonElement a) && a.ValueKind == JsonValueKind.String ? a.GetDateTime() : default;
                 string? replacementEmployee = jsonElement.TryGetProperty("replacementEmployee", out var replacementEmployeeProp) ? replacementEmployeeProp.GetString() : null;
 
                 // Kiểm tra dữ liệu đầu vào
@@ -114,8 +132,8 @@ namespace API.Controllers
                 // Lấy dữ liệu từ request
                 string requestId = jsonElement.GetProperty("requestId").GetString();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
-                DateTime? startTime = jsonElement.TryGetProperty("startTime", out var startTimeProp) ? startTimeProp.GetDateTime() : null;
-                DateTime? endTime = jsonElement.TryGetProperty("endTime", out var endTimeProp) ? endTimeProp.GetDateTime() : null;
+                DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
+                DateTime endTime = jsonElement.TryGetProperty("endTime", out JsonElement a) && a.ValueKind == JsonValueKind.String ? a.GetDateTime() : default;
                 string? replacementEmployee = jsonElement.TryGetProperty("replacementEmployee", out var replacementEmployeeProp) ? replacementEmployeeProp.GetString() : null;
 
                 // Kiểm tra dữ liệu đầu vào

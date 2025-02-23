@@ -13,7 +13,7 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { IoIosArrowDown } from 'react-icons/io'
-
+import AddServiceModal from './serviceAddModal'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 import { Button } from '../../../components/ui/button'
 import { Input } from '../../../components/ui/input'
@@ -30,7 +30,7 @@ interface DataTableProps<TData, TValue> {
   filterKey?: string // Key để lọc dữ liệu
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, filterKey = 'serviceName' }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -59,34 +59,37 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }:
     <div>
       <div className='flex items-center py-3'>
         <Input
-          placeholder={`Filter by ${filterKey}...`}
+          placeholder={`Filter by service name...`}
           value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='outline' className='ml-auto'>
-              Columns
-              <IoIosArrowDown className='mt-0.5' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className='capitalize'
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                >
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className='ml-auto flex items-center gap-x-2'>
+          <AddServiceModal />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant='outline' className='ml-auto'>
+                Columns
+                <IoIosArrowDown className='mt-0.5' />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className='capitalize'
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className='rounded-md border'>
         <Table>

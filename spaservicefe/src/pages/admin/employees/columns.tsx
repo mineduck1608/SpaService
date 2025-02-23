@@ -51,12 +51,8 @@ export const columns: ColumnDef<Employee>[] = [
     header: 'Email'
   },
   {
-    accessorKey: 'dateOfBirth',
-    header: 'Date of Birth',
-    cell: ({ row }) => {
-      const dateOfBirth = row.getValue<Date>('dateOfBirth')
-      return <span>{new Date(dateOfBirth).toLocaleDateString()}</span>
-    }
+    accessorKey: 'hireDate',
+    header: 'Hire Date'
   },
   {
     accessorKey: 'status',

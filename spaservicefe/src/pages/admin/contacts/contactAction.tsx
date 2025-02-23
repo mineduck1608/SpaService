@@ -11,6 +11,7 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Contact } from '../../../types/type' // Updated to Contact type
 import { MoreHorizontal } from 'lucide-react'
+import { handleDelete } from './contact.util' 
 
 interface ContactActionsProps {
   contact: Contact
@@ -23,13 +24,8 @@ const ContactActions: React.FC<ContactActionsProps> = ({ contact }) => {
   const closeModal = () => setModalOpen(false)
 
   const handleConfirmDelete = () => {
-    console.log(`Deleting contact with ID: ${contact.contactId}`)
+    handleDelete(contact.contactId)
     closeModal()
-  }
-
-  const handleUpdate = () => {
-    // Redirect to an update page or open a modal for updating the contact
-    console.log(`Updating contact with ID: ${contact.contactId}`)
   }
 
   return (
@@ -47,7 +43,6 @@ const ContactActions: React.FC<ContactActionsProps> = ({ contact }) => {
             Copy Contact ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleUpdate}>Update</DropdownMenuItem> {/* Update action */}
           <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
