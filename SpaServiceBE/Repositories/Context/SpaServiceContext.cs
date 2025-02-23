@@ -84,10 +84,15 @@ public partial class SpaserviceContext : DbContext
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+<<<<<<< HEAD
     {
         optionsBuilder.UseSqlServer(GetConnectionString());
         optionsBuilder.EnableDetailedErrors(true);
     }
+=======
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer(GetConnectionString());
+>>>>>>> main
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -185,11 +190,6 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.EndTime)
                 .HasColumnType("datetime")
                 .HasColumnName("endTime");
-            entity.Property(e => e.ReplacementEmployee)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasComment("manually by manager")
-                .HasColumnName("replacementEmployee");
             entity.Property(e => e.RequestId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -209,15 +209,10 @@ public partial class SpaserviceContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updatedAt");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.AppointmentEmployees)
+            entity.HasOne(d => d.Employee).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKAppointmen55642");
-
-            entity.HasOne(d => d.ReplacementEmployeeNavigation).WithMany(p => p.AppointmentReplacementEmployeeNavigations)
-                .HasForeignKey(d => d.ReplacementEmployee)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKAppointmen998763");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.RequestId)
@@ -690,9 +685,6 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.Content)
                 .IsUnicode(false)
                 .HasColumnName("content");
-            entity.Property(e => e.CreateAt)
-                .HasColumnType("datetime")
-                .HasColumnName("createAt");
             entity.Property(e => e.Header)
                 .HasMaxLength(255)
                 .IsUnicode(false)

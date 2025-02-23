@@ -103,7 +103,6 @@ namespace API.Controllers
                     Status = "Unprocessed", // Default status
                     StartTime = startTime,
                     EndTime = endTime,
-                    ReplacementEmployee = replacementEmployee
                 };
 
                 // Gọi service để thêm appointment
@@ -168,7 +167,6 @@ namespace API.Controllers
                     Status = "Pending", // Default status (you can update based on your logic)
                     StartTime = startTime,
                     EndTime = endTime,
-                    ReplacementEmployee = replacementEmployee,
                     UpdatedAt = DateTime.Now // Automatically update the timestamp
                 };
 

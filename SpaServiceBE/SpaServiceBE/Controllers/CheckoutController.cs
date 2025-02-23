@@ -71,7 +71,6 @@ namespace SpaServiceBE.Controllers
                         EmployeeId = req.EmployeeId,
                         StartTime = req.StartTime,
                         EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
-                        ReplacementEmployee = null,
                         Status = "Pending",
                         UpdatedAt = null,
                         AppointmentId = Guid.NewGuid().ToString()

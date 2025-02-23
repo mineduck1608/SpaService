@@ -61,7 +61,6 @@ namespace Repositories
 
             existingNews.Header = news.Header;
             existingNews.Content = news.Content;
-            existingNews.CreateAt = news.CreateAt;
             existingNews.Type = news.Type;
             existingNews.Image = news.Image;
 
