@@ -19,7 +19,7 @@ interface NewsActionsProps {
   news: News
 }
 
-const CustomerActions: React.FC<NewsActionsProps> = ({ news }) => {
+const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -60,11 +60,10 @@ const CustomerActions: React.FC<NewsActionsProps> = ({ news }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
       <UpdateNewsModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} news={news}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default CustomerActions
+export default NewsActions

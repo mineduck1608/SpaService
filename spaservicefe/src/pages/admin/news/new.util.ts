@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { News } from '../../../types/type'
+import { News, ServiceCategory } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllNews() {
@@ -10,6 +10,20 @@ export async function getAllNews() {
       }
     })
     const json = (await res.json()) as News[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getAllServiceCategories() {
+  try {
+    const res = await fetch(`${apiUrl}/servicecategories/GetAll`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as ServiceCategory[]
     return json
   } catch (e) {
     return []

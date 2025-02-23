@@ -15,11 +15,11 @@ import UpdateOrderModal from './orderUpdateModal'
 import { ToastContainer } from 'react-toastify' 
 import { handleDelete } from './order.util'
 
-interface EmployeeActionsProps {
+interface OrderActionsProps {
   order: Order
 }
 
-const EmployeeActions: React.FC<EmployeeActionsProps> = ({ order }) => {
+const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -52,18 +52,20 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ order }) => {
             Copy order ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
+          <DropdownMenuItem className='cursor-pointer'>
+            View Detail
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
             Update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}
+          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      
       <UpdateOrderModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} order={order}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default EmployeeActions
+export default OrderActions

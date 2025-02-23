@@ -28,7 +28,7 @@ import AddProductModal from './productAddModal'
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey?: string // Key để lọc dữ liệu
+  filterKey?: string
 }
 
 export function DataTable<TData, TValue>({ columns, data, filterKey = 'productName' }: DataTableProps<TData, TValue>) {

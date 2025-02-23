@@ -323,10 +323,10 @@ export const newsConfig = {
     },
     {
       name: 'categoryId',
-      label: 'Category Id',
-      type: 'text',
+      label: 'Category',
+      type: 'select',
       required: true,
-      placeholder: 'Enter new category Id',
+      placeholder: 'Select category',
     }
   ],
   fields: [
@@ -336,34 +336,34 @@ export const newsConfig = {
       type: 'text',
       required: true,
       minLength: 5,
-      placeholder: 'Enter new header',
+      placeholder: 'Enter header',
     },
     {
       name: 'content',
       label: 'Content',
       type: 'text',
       required: true,
-      placeholder: 'Enter new content',
+      placeholder: 'Enter content',
     },
     {
       name: 'type',
       label: 'Type',
       type: 'text',
       required: true,
-      placeholder: 'Enter new type',
+      placeholder: 'Enter type',
     },
     {
       name: 'image',
       label: 'Image URL',
       type: 'text',
-      placeholder: 'Enter new image URL',
+      placeholder: 'Enter image URL',
     },
     {
       name: 'categoryId',
-      label: 'Category Id',
-      type: 'text',
+      label: 'Category',
+      type: 'select',
       required: true,
-      placeholder: 'Enter category Id',
+      placeholder: 'Select category',
     }
   ]
 }
@@ -372,7 +372,7 @@ export const spaServiceConfig = {
   updatefields: [
     {
       name: 'serviceName',
-      label: 'Service Name',
+      label: 'Name',
       type: 'text',
       required: true,
       minLength: 6,
@@ -398,29 +398,32 @@ export const spaServiceConfig = {
       name: 'description',
       label: 'Description',
       type: 'text',
+      required: true,
       placeholder: 'Enter new description',
     },
     {
       name: 'serviceImage',
-      label: 'Service Image',
+      label: 'Image',
       type: 'text',
-      placeholder: 'Enter new service image',
+      required: true,
+      placeholder: 'Enter new service image URL',
     },
     {
       name: 'categoryId',
-      label: 'CategoryId',
-      type: 'text',
-      placeholder: 'Enter new category ID',
+      label: 'Category',
+      type: 'select',
+      required: true,
+      placeholder: 'Select category',
     }
   ],
   fields: [
     {
       name: 'serviceName',
-      label: 'Service Name',
+      label: 'Name',
       type: 'text',
       required: true,
       minLength: 6,
-      placeholder: 'Enter new service name',
+      placeholder: 'Enter service name',
     },
     {
       name: 'price',
@@ -429,32 +432,35 @@ export const spaServiceConfig = {
       required: true,
       step: '0.01',
       min: 0,
-      placeholder: 'Enter new price',
+      placeholder: 'Enter price',
     },
     {
       name: 'duration',
       label: 'Duration',
       type: 'text',
       required: true,
-      placeholder: 'Enter new duration',
+      placeholder: 'Enter duration',
     },
     {
       name: 'description',
       label: 'Description',
       type: 'text',
-      placeholder: 'Enter new description',
+      required: true,
+      placeholder: 'Enter description',
     },
     {
       name: 'serviceImage',
-      label: 'Service Image',
+      label: 'Image',
       type: 'text',
-      placeholder: 'Enter new service image',
+      required: true,
+      placeholder: 'Enter service image URL',
     },
     {
       name: 'categoryId',
-      label: 'CategoryId',
-      type: 'text',
-      placeholder: 'Enter new category ID',
+      label: 'Category',
+      type: 'select',
+      required: true,
+      placeholder: 'Select category',
     }
   ]
 }
@@ -674,7 +680,7 @@ export const generateZodSchema = (fields: FieldConfig[]) => {
   const schemaObject: Record<string, any> = {}
 
   fields.forEach((field) => {
-    let fieldSchema: any = z.any()
+    let fieldSchema: any = z.string()
     switch (field.type) {
       case 'password':
         fieldSchema = z.string().regex(
@@ -694,7 +700,7 @@ export const generateZodSchema = (fields: FieldConfig[]) => {
         if (field.maxLength) fieldSchema = fieldSchema.max(field.maxLength, `Must be less than ${field.maxLength} characters.`)
     }
 
-    schemaObject[field.name] = field.required ? fieldSchema : fieldSchema.optional()
+    schemaObject[field.name] = field.required ? fieldSchema.nonempty('Required.') : fieldSchema.optional()
   })
   return z.object(schemaObject)
 }

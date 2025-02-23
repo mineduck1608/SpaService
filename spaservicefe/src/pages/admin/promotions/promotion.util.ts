@@ -16,7 +16,6 @@ export async function getAllPromotions() {
   }
 }
 
-
 export async function handleCreateSubmit(data: any) {
   try {
     var res = await fetch(`${apiUrl}/promotions/Create`, {

@@ -19,7 +19,7 @@ interface ProductActionsProps {
   product: CosmeticProduct
 }
 
-const CustomerActions: React.FC<ProductActionsProps> = ({ product }) => {
+const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -60,11 +60,10 @@ const CustomerActions: React.FC<ProductActionsProps> = ({ product }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
       <UpdateProductModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} product={product}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default CustomerActions
+export default ProductActions

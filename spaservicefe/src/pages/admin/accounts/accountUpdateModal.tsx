@@ -27,7 +27,7 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
       fieldsToUse.map((field : FieldConfig) => [field.name, ""])
-    ),
+    )
   })
 
   const handleSubmit = async (data: any) => {
@@ -47,7 +47,7 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
           if (form.getValues(key) !== undefined) {
             if (key === 'roleId') {
               const roleName = data.find(role => role.roleId === account.roleId)?.roleId
-              form.setValue('roleId', roleName || "")
+              form.setValue('roleId', roleName || '')
             }
             else if (key === 'status') 
               form.setValue('status', account.status ? 'Active' : 'Locked')
@@ -91,7 +91,7 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
                                 </SelectTrigger>
                                 <SelectContent>
                                   {roles.map((role) => (
-                                    <SelectItem key={role.roleId} value={role.roleId}> {/* Dùng roleId làm value */}
+                                    <SelectItem key={role.roleId} value={role.roleId}>
                                       {role.roleName}
                                     </SelectItem>
                                   ))}

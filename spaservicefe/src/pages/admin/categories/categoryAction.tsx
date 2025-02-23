@@ -19,7 +19,7 @@ interface CategoryActionsProps {
     category: Category
 }
 
-const CustomerActions: React.FC<CategoryActionsProps> = ({ category }) => {
+const CategoriesActions: React.FC<CategoryActionsProps> = ({ category }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -67,4 +67,4 @@ const CustomerActions: React.FC<CategoryActionsProps> = ({ category }) => {
   )
 }
 
-export default CustomerActions
+export default CategoriesActions
