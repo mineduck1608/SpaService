@@ -206,21 +206,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 7,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AppointmentController.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AppointmentController.cs",
-              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\AppointmentController.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AppointmentController.cs",
-              "RelativeToolTip": "SpaServiceBE\\Controllers\\AppointmentController.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAiwGgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T07:13:46.836Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -318,9 +305,22 @@
               "RelativeDocumentMoniker": "Repositories\\Context\\SpaServiceContext.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Context\\SpaServiceContext.cs",
               "RelativeToolTip": "Repositories\\Context\\SpaServiceContext.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAAAFcAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAQwFYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T09:53:05.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\AppointmentController.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "SpaServiceBE\\Controllers\\AppointmentController.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAiwGkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T07:13:46.836Z",
               "EditorCaption": ""
             },
             {

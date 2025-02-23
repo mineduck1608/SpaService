@@ -2,17 +2,13 @@ import {
   Home,
   Boxes,
   ClipboardList,
-  LineChart,
   LucideIcon,
-  LetterText,
   ArrowLeftRight,
-  HandHelping,
   UserCircle,
   Users2Icon,
   Contact2,
   MessageCircleQuestion,
   Trash2,
-  SquareStack,
   Warehouse,
   Grip,
   UserCog,
@@ -43,6 +39,11 @@ export const sideData = {
       title: 'Appointments',
       icon: ClipboardList,
       url: '/admin/appointments'
+    },
+    {
+      title: 'Orders',
+      icon: Boxes,
+      url: '/admin/orders'
     },
     {
       title: 'Transactions',
