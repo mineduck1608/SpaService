@@ -13,11 +13,13 @@ namespace Services
         private readonly RoomRepository _roomRepository;
         private readonly ServiceCategoryRepository _catRepository;
         private readonly EmployeeRepository _employeesRepository;
-        public RequestService(RequestRepository requestRepository, RoomRepository roomRepository, ServiceCategoryRepository catRepository, EmployeeRepository employeeRepository)
+        private readonly SpaServiceRepository _spaServiceRepository;
+        public RequestService(RequestRepository requestRepository, RoomRepository roomRepository, ServiceCategoryRepository catRepository, EmployeeRepository employeeRepository, SpaServiceRepository spaServiceRepository)
         {
             _catRepository = catRepository;
             _requestRepository = requestRepository;
             _roomRepository = roomRepository;
+            _spaServiceRepository = spaServiceRepository;
             _employeesRepository = employeeRepository;
         }
 
@@ -59,24 +61,26 @@ namespace Services
         public async Task<(bool roomState, int employeeState)> CheckResourceAvailable(Request q)
         {
             var (roomId, empId) = await _requestRepository.FindUnavailableRoomAndEmp(q);
-            var category = await _catRepository.GetById(q.RequestId);
+            var service = await _spaServiceRepository.GetById(q.ServiceId);
+            var category = await _catRepository.GetById(service.CategoryId);
             var roomsOfCat = (await _roomRepository.GetRoomsOfCategory(category.CategoryId)).Select(x => x.RoomId).ToHashSet();
             var empOfCat = (await _employeesRepository.GetEmployeesByCategoryId(category.CategoryId)).Select(x => x.EmployeeId).ToHashSet();
             //Có phòng nào của cat này trống ko
-            var roomState = roomsOfCat.Intersect(roomId).Any();
+            var roomState = roomsOfCat.Except(roomId).Any();
             //Có nv nào của cat này ok ko
-            var empState = 0;
-            var availableEmpSet = empId.Intersect(empId);
+            //Coi như ko có nv yêu cầu
+            var empState = 1;
+            var availableEmpSet = empOfCat.Except(empId);
             if (!availableEmpSet.IsNullOrEmpty())
             {
-                if (availableEmpSet.Any())
+                if (q.EmployeeId == null || availableEmpSet.Any(x => x == q.EmployeeId))
                 {
-                    empState = 1;
+                    empState = 0;
                 }
             }
             else
             {
-                empState = 0;
+                empState = 2;
             }
             return (roomState, empState);
         }

@@ -63,22 +63,23 @@ namespace SpaServiceBE.Controllers
                 rs.Add("startTime", req.StartTime.ToString());
                 rs.Add("endTime", req.StartTime.Add(service.Duration).ToString());
                 rs.Add("serviceName", service.ServiceName);
-                if (req.EmployeeId != null)
+                var emp = req.EmployeeId;
+                if (emp == null)
                 {
-                    Appointment app = new()
-                    {
-                        RequestId = req.RequestId,
-                        EmployeeId = req.EmployeeId,
-                        StartTime = req.StartTime,
-                        EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
-                        Status = "Pending",
-                        UpdatedAt = null,
-                        AppointmentId = Guid.NewGuid().ToString()
-                    };
-                    var check = await _appointmentService.AddAppointment(app);
-                    rs.Add("success", check.ToString());
+                    //Pick random
                 }
-                rs.Add("success", added.ToString());
+                Appointment app = new()
+                {
+                    RequestId = req.RequestId,
+                    EmployeeId = req.EmployeeId,
+                    StartTime = req.StartTime,
+                    EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
+                    Status = "Pending",
+                    UpdatedAt = null,
+                    AppointmentId = Guid.NewGuid().ToString()
+                };
+                var check = await _appointmentService.AddAppointment(app);
+                rs.Add("success", check.ToString());
 
             }
             catch (Exception ex)
