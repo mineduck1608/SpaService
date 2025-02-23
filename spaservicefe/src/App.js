@@ -56,6 +56,9 @@ function Layout({ children }) {
   )
 }
 
+const Placeholder = ({ title }: { title: string }) => <div>{title} Page (Coming Soon)</div>;
+
+
 function App() {
   useEffect(() => {
     findCategories()
@@ -225,23 +228,42 @@ function App() {
             }
           >
             <Route index element={<Dashboard />} />
+
+            {/* Workspaces */}
+            <Route path='appointments' element={<CalendarApp />} />
+            <Route path='orders' element={<Placeholder title='Orders' />} />
+            <Route path='transactions' element={<TransactionPage />} />
+
+            {/* Requests */}
+            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            <Route path='applications' element={<ApplicationPage />} />
+            <Route path='guest-contacts' element={<Placeholder title='Guest Contacts' />} />
+
+            {/* Facilities */}
+            <Route path='floors' element={<Placeholder title='Floors' />} />
+            <Route path='rooms' element={<Placeholder title='Rooms' />} />
+
+            {/* Others */}
+            <Route path='promotions' element={<PromotionPage />} />
+            {/* <Route path='news' element={<AdminNewsPage />} /> */}
+            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+
+            {/* Users */}
             <Route path='accounts' element={<DemoPage />} />
+            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+
+            {/* Users Management */}
+            <Route path='managers' element={<Placeholder title='Managers' />} />
             <Route path='customers' element={<CustomerPage />} />
             <Route path='employees' element={<EmployeePage />} />
-            <Route path='shifts' element={<></>} />
-            <Route path='schedules' element={<div>AB</div>} />
-            <Route path='customer-requests' element={<CustomerRequestPage />} />
-            <Route path='appointments' element={<CalendarApp />} />
-            <Route path='categories' element={<CategoriesPage />} />
-            <Route path='employees-categories' element={<div>B</div>} />
-            <Route path='services' element={<SpaServicePage />} />
-            <Route path='applications' element={<ApplicationPage />} />
-            <Route path='contacts' element={<ContactAdminPage/>} />
-            <Route path='transactions' element={<TransactionPage />} />
-            <Route path='commissions' element={<div>ABC</div>} />
-            <Route path='employees-commissions' element={<div>BE</div>} />
-            <Route path='news' element={<AdmminNewsPage />} />
-            <Route path='promotions' element={<PromotionPage />} />
+
+            {/* Spa Services */}
+            {/* <Route path='service-categories' element={<ServiceCategoriesPage />} /> */}
+            <Route path='spa-services' element={<SpaServicePage />} />
+
+            {/* Cosmetics */}
+            {/* <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
+            <Route path='cosmetic-product' element={<CosmeticProductPage />} /> */}
           </Route>
           <Route
             path='manager'
