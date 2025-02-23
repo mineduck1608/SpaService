@@ -60,7 +60,7 @@ namespace Repositories
             if (existingRequest == null) return false;
 
             existingRequest.StartTime = request.StartTime;
-  
+
             existingRequest.Status = request.Status;
             existingRequest.CustomerNote = request.CustomerNote;
             existingRequest.ManagerNote = request.ManagerNote;
@@ -118,7 +118,11 @@ namespace Repositories
             var unavailable = appointments.Where(x =>
                 IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
             ).Select(x => (x.EmployeeId, x.RoomId)).ToList();
-            (ISet<string> roomId, ISet<string> empId) result = new();
+            (ISet<string> roomId, ISet<string> empId) result = new()
+            {
+                empId = new HashSet<string>(),
+                roomId = new HashSet<string>(),
+            };
             foreach (var item in unavailable)
             {
                 result.roomId.Add(item.RoomId);

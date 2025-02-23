@@ -114,7 +114,7 @@ namespace API.Controllers
 
                 //create endtime
 
-                DateTime endTime= startTime.Add(SpaServiceInfo.Duration);
+                DateTime endTime = startTime.Add(SpaServiceInfo.Duration);
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
                     startTime == default(DateTime))
@@ -131,7 +131,7 @@ namespace API.Controllers
                     return BadRequest(new { msg = "The Start should be booked within 1 month." });
                 }
                 //handle duration
-                if (endTime.Hour > 22 )
+                if (endTime.Hour > 22)
                 {
                     return BadRequest(new { msg = "The duration can not last until 10PM or later" });
                 }
@@ -147,7 +147,24 @@ namespace API.Controllers
                     ManagerNote = null,
                     EmployeeId = employeeId,
                 };
-
+                var b = await _service.CheckResourceAvailable(newRequest);
+                var errList = new List<string>();
+                if (!b.roomState)
+                {
+                    errList.Add("No rooms are available at the requested time");
+                }
+                if (b.employeeState == 1)
+                {
+                    errList.Add("The requested employee is busy at the requested time");
+                }
+                if (b.employeeState == 2)
+                {
+                    errList.Add("No employee is available at the requested time");
+                }
+                if (errList.Count > 0)
+                {
+                    return BadRequest(errList);
+                }
                 // Gọi service để thêm request
                 var isCreated = await _service.Add(newRequest);
 
@@ -199,7 +216,7 @@ namespace API.Controllers
                 }
                 if (startTime > DateTime.Now.AddMonths(1))
                 {
-                    return BadRequest(new { msg= "The Start should be booked 1 months early."});
+                    return BadRequest(new { msg = "The Start should be booked 1 months early." });
                 }
                 if (startTime.Hour > 20 || startTime.Hour < 8)
                 {
@@ -299,7 +316,7 @@ namespace API.Controllers
 
                 var logoBytes = await System.IO.File.ReadAllBytesAsync(logoPath);
                 var brochureBytes = await System.IO.File.ReadAllBytesAsync(brochurePath);
-                
+
                 // Create the HTML body with the embedded images and Spa Service Team at top right
                 var body = $@"
 <html>

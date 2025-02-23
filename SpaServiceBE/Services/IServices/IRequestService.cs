@@ -12,5 +12,6 @@ namespace Services.IServices
         Task<bool> Add(Request request);
         Task<bool> Update(string requestId, Request request);
         Task<bool> Delete(string requestId);
+        Task<(bool roomState, int employeeState)> CheckResourceAvailable(Request q);
     }
 }
