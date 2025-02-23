@@ -50,7 +50,7 @@ const EmployeeActions: React.FC<ApplicationActionsProps> = ({ application }) => 
           <DropdownMenuItem onClick={() => navigator.clipboard.writeText(application.applicationId)}>
             {' '}
             {/* Sao chép ID nhân viên */}
-            Copy employee ID
+            Copy application ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>

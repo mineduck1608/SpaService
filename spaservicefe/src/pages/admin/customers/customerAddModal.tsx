@@ -63,6 +63,7 @@ export default function AddCustomerModal() {
                             <SelectContent>
                               <SelectItem value='Male'>Male</SelectItem>
                               <SelectItem value='Female'>Female</SelectItem>
+                              <SelectItem value='Other'>Other</SelectItem>
                             </SelectContent>
                           </Select>
                         ) : field.type === 'datetime-local' ? (

@@ -60,6 +60,7 @@ export async function GetRoleById(roleId: string) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
+    console.log(id,data)
     var res = await fetch(`${apiUrl}/accounts/Update/${id}`, {
       method: 'PUT',
       headers: {

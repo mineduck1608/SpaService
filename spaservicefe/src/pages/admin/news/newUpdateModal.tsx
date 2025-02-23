@@ -8,13 +8,9 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
-import { CalendarIcon } from 'lucide-react'
 import { ToastContainer } from 'react-toastify' 
 import { handleUpdateSubmit } from './new.util'
 import { newsConfig } from '../modal.util'
-import { DatePicker } from 'antd'
 
 interface UpdateNewsModalProps {
   isOpen: boolean

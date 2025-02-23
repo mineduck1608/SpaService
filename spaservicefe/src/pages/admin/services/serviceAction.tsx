@@ -48,7 +48,7 @@ const CustomerActions: React.FC<SpaServiceActionsProps> = ({ service }) => {
           <DropdownMenuItem 
             onClick={() => navigator.clipboard.writeText(service.serviceId)} 
             className='cursor-pointer'>
-            Copy customer ID
+            Copy service ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>

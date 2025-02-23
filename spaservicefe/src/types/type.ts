@@ -33,7 +33,6 @@ export type Customer = {
   phone: string
   email: string
   dateOfBirth: Date | string
-  membershipId: string
 }
 
 export type Member = {
@@ -94,14 +93,12 @@ export type News = {
   content: string
   type: string
   image: string
-  createdAt: Date | string
   categoryId: string
 }
 
 export type Category = {
   categoryId: string
   categoryName: string
-  categoryImage: string
   categoryDescription: string
 }
 
@@ -132,6 +129,14 @@ export type Order = {
   transactionId: string
 }
 
+export type OrderDetail = {
+  orderDetailId: string
+  quantity: number
+  subtotalAmount: number
+  orderId: string
+  productId: string
+}
+
 export type CosmeticCategory = {
   categoryId: string
   categoryName: string
@@ -141,12 +146,31 @@ export type CosmeticCategory = {
 export type CosmeticProduct = {
   productId: string
   productName: string
-  price: GLfloat
+  price: number
   quantity: number
   description: string
   status: boolean
   isSelling: boolean
   image: string
+  categoryId: string
+}
+
+export type Floor = {
+  floorId: string
+  floorNum: number
+  categoryId: string
+}
+
+export type Room = {
+  roomId: string
+  roomNum: number
+  floorId: string
+  status: boolean
+}
+
+export type Commission = {
+  commissionId: string
+  percentage: number
 }
 
 export type TransactionBase = {
@@ -164,6 +188,7 @@ export type ServiceTransaction = TransactionBase & {
   requestId: string
   membershipId?: string
 }
+
 export type CosmeticTransaction = TransactionBase & {
   cosmeticTransactionId: string
   requestId: string

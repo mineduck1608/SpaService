@@ -9,12 +9,11 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
-import { CalendarIcon } from 'lucide-react'
 import { ToastContainer } from 'react-toastify' 
 import { handleUpdateSubmit } from './customer.util'
 import { customerConfig } from '../modal.util'
 import { DatePicker } from 'antd'
+import dayjs from 'dayjs'
 
 interface UpdateCustomerModalProps {
   isOpen: boolean
@@ -28,7 +27,7 @@ export default function UpdateCustomerModal({isOpen, onClose, customer} : Update
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
+      fieldsToUse.map((field : FieldConfig) => [field.name, ''])
     ),
   })
 
@@ -36,11 +35,19 @@ export default function UpdateCustomerModal({isOpen, onClose, customer} : Update
     handleUpdateSubmit(customer.customerId ,data)
   }
 
+  const handleChange = (field: string, value: string) => {
+    form.setValue(field, value)
+  }
+
   useEffect(() => {
     if (customer) {
       Object.keys(customer).forEach((key : string) => {
         if (form.getValues(key) !== undefined) {
-          form.setValue(key, customer[key])
+          if (key === 'dateOfBirth' && customer[key]) {
+            const parsedDate = dayjs(customer[key], 'DD/MM/YYYY')
+            form.setValue(key, parsedDate.format('YYYY-MM-DDTHH:mm:ss'))
+          } else 
+            form.setValue(key, customer[key])
         }
       })
     }
@@ -72,39 +79,23 @@ export default function UpdateCustomerModal({isOpen, onClose, customer} : Update
                               <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value='Male'>Active</SelectItem>
-                              <SelectItem value='Female'>Inactive</SelectItem>
+                              <SelectItem value='Male'>Male</SelectItem>
+                              <SelectItem value='Female'>Female</SelectItem>
+                              <SelectItem value='Other'>Other</SelectItem>
                             </SelectContent>
                           </Select>
                         ) : field.type === 'datetime-local' ? (
-                          <Popover>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant={'outline'}
-                                    className={`w-[240px] pl-3 text-left font-normal ${
-                                      !formField.value ? "text-muted-foreground" : ""
-                                    }`}
-                                    disabled={field.readonly}
-                                  >
-                                    <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className='w-auto p-0' align='start'>
-                                <div className='flex items-center gap-4 ml-3 w-full'>
-                                  <DatePicker
-                                    step={1800}
-                                    showTime
-                                    showHour
-                                    showMinute
-                                    showSecond={false}
-                                    minuteStep={30}
-                                    className='border-[1px] p-2 w-75'
-                                  />
-                                </div>
-                              </PopoverContent>
-                            </Popover>
+                          <DatePicker
+                            step={1800}
+                            showTime
+                            showHour
+                            showMinute
+                            showSecond={false}
+                            minuteStep={30}
+                            className='border-[1px] p-2 w-75'
+                            value={form.watch("dateOfBirth") ? dayjs(form.watch("dateOfBirth")) : null}
+                            onChange={(date) => handleChange('dateOfBirth', date ? date.format('YYYY-MM-DDTHH:mm:ss') : '')}
+                          />
                           ) : (
                             <Input
                               {...formField}

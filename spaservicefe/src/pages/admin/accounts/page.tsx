@@ -4,7 +4,7 @@ import { DataTable } from './data-table'
 import { Account } from '@/types/type'
 import { getAllAccounts } from '../accounts/account.util'
 import { getAllRoles } from '../accounts/account.util'
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
+import { format } from 'date-fns'
 
 export default function DemoPage() {
   const [data, setData] = useState<Account[]>([])
@@ -26,10 +26,10 @@ export default function DemoPage() {
 
         const formattedAccounts = accounts.map((account) => ({
           ...account,
-          createdAt: format(new Date(account.createdAt), 'dd/MM/yyyy HH:mm:ss'), // Format ngày tháng
+          createdAt: format(new Date(account.createdAt), 'dd/MM/yyyy HH:mm:ss'),
           updatedAt: format(new Date(account.updatedAt), 'dd/MM/yyyy HH:mm:ss'),
           roleName: roleMap[account.roleId] || 'Unknown',
-          status: account.status ? 'Active' : 'Locked' // Chuyển status về text
+          status: account.status ? 'Active' : 'Locked'
         }))
 
         setData(formattedAccounts)

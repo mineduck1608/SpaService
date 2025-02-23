@@ -25,33 +25,30 @@ export const customerConfig = {
       type: 'text',
       required: true,
       minLength: 8,
-      placeholder: 'Enter new full name'
     },
     {
       name: 'gender',
       label: 'Gender',
       type: 'select',
-      readonly: true
+      required: true,
     },
     {
       name: 'phone',
       label: 'Phone',
       type: 'tel',
       required: true,
-      placeholder: 'Enter new phone number'
     },
     {
       name: 'email',
       label: 'Email',
       type: 'email',
       required: true,
-      placeholder: 'Enter new email address'
     },
     {
       name: 'dateOfBirth',
       label: 'D.O.B',
       type: 'datetime-local',
-      readonly: true
+      required: true,
     }
   ],
   fields: [
@@ -110,7 +107,6 @@ export const customerConfig = {
 }
 
 export const employeeConfig = {
-  entityName: 'Employee',
   updatefields: [
     {
       name: 'fullName',
@@ -127,18 +123,18 @@ export const employeeConfig = {
       placeholder: 'Select position'
     },
     {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      required: true,
+      placeholder: 'Select status'
+    },
+    {
       name: 'image',
       label: 'Image',
       type: 'text',
       required: true,
       placeholder: 'Enter image URL',  
-    },
-    {
-      name: 'accountId',
-      label: 'Account ID',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new account Id',  
     }
   ],
   fields: [
@@ -206,7 +202,6 @@ export const accountConfig = {
       label: 'Username',
       type: 'text',
       readonly: true,
-      placeholder: 'Enter new username',
     },
     {
       name: 'status',
@@ -216,21 +211,9 @@ export const accountConfig = {
     },
     {
       name: 'roleId',
-      label: 'Role ID',
-      type: 'text',
-      readonly: true,
-    },
-    {
-      name: 'createdAt',
-      label: 'Created At',
-      type: 'datetime-local',
-      readonly: true,
-    },
-    {
-      name: 'updatedAt',
-      label: 'Updated At',
-      type: 'datetime-local',
-      readonly: true,
+      label: 'Role',
+      type: 'select',
+      required: true,
     }
   ]
 }
@@ -244,13 +227,6 @@ export const categoriesConfig = {
       required: true,
       minLength: 3,
       placeholder: 'Enter new name',
-    },
-    {
-      name: 'categoryImage',
-      label: 'Category Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new image URL',
     },
     {
       name: 'categoryDescription',
@@ -268,13 +244,6 @@ export const categoriesConfig = {
       required: true,
       minLength: 5,
       placeholder: 'Enter category name',
-    },
-    {
-      name: 'categoryImage',
-      label: 'Category Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter category image URL',
     },
     {
       name: 'categoryDescription',
@@ -313,23 +282,11 @@ export const applicatonConfig = {
       placeholder: 'Enter account Id',
     },
     {
-      name: 'createdAt',
-      label: 'Created At',
-      type: 'datetime-local',
-      readonly: true
-    },
-    {
       name: 'resolvedBy',
       label: 'Resolved By',
       type: 'text',
       required: true,
       placeholder: 'Enter employee name',
-    },
-    {
-      name: 'resolvedAt',
-      label: 'Resolved At',
-      type: 'datetime-local',
-      readonly: true
     }
   ]
 }

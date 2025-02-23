@@ -25,12 +25,12 @@ export default function UpdateEmployeeModal({isOpen, onClose, employee} : Update
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
+      fieldsToUse.map((field : FieldConfig) => [field.name, ''])
     ),
   })
 
   const handleSubmit = async (data: any) => {
-    handleUpdateSubmit(employee.employeeId ,data)
+    handleUpdateSubmit(employee.employeeId, employee.accountId , data)
   }
 
   useEffect(() => {
@@ -70,10 +70,10 @@ export default function UpdateEmployeeModal({isOpen, onClose, employee} : Update
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="Massage Therapist">Massage Therapist</SelectItem>
-                                <SelectItem value="Receptionist">Receptionist</SelectItem>
-                                <SelectItem value="Esthetician">Esthetician</SelectItem>
-                                <SelectItem value="Spa Manager">Spa Manager</SelectItem>
+                                <SelectItem value='Massage Therapist'>Massage Therapist</SelectItem>
+                                <SelectItem value='Receptionist'>Receptionist</SelectItem>
+                                <SelectItem value='Esthetician'>Esthetician</SelectItem>
+                                <SelectItem value='Spa Manager'>Spa Manager</SelectItem>
                               </SelectContent>
                             </Select>
                           ) : (
@@ -86,8 +86,8 @@ export default function UpdateEmployeeModal({isOpen, onClose, employee} : Update
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="Active">Active</SelectItem>
-                                <SelectItem value="Locked">Locked</SelectItem>
+                                <SelectItem value='Active'>Active</SelectItem>
+                                <SelectItem value='Locked'>Locked</SelectItem>
                               </SelectContent>
                             </Select>
                           )) : (

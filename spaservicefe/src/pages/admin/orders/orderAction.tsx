@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Order } from '@/types/type' // Đổi kiểu dữ liệu thành Employee
+import { Order } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateOrderModal from './orderUpdateModal'
 import { ToastContainer } from 'react-toastify' 
@@ -49,8 +49,7 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ order }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => navigator.clipboard.writeText(order.orderId)}>
             {' '}
-            {/* Sao chép ID nhân viên */}
-            Copy employee ID
+            Copy order ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>

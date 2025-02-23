@@ -48,7 +48,7 @@ const CustomerActions: React.FC<CategoryActionsProps> = ({ category }) => {
           <DropdownMenuItem 
             onClick={() => navigator.clipboard.writeText(category.categoryId)} 
             className='cursor-pointer'>
-            Copy customer ID
+            Copy category ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>

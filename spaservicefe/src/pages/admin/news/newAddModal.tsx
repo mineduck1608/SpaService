@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -18,7 +17,7 @@ export default function AddNewsModal() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""]),
+      fieldsToUse.map((field : FieldConfig) => [field.name, '']),
     ),
   })
 

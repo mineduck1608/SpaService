@@ -14,14 +14,6 @@ export default function NewsPage() {
     const fetchData = async () => {
       try {
         const news = await getAllNews()
-        
-        const formattedNews = news.map((newsItem) => ({
-          ...newsItem,
-          hireDate: newsItem.createdAt 
-            ? format(new Date(newsItem.createdAt), 'dd/MM/yyyy') 
-            : 'N/A'
-        }))
-
         setData(news)
       } catch (err) {
         setError("Can't load the data.")

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -10,9 +10,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { ToastContainer } from 'react-toastify' 
-import { handleUpdateSubmit } from './account.util'
+import { handleUpdateSubmit, getAllRoles } from './account.util'
 import { accountConfig } from '../modal.util'
-import { DatePicker } from 'antd'
 
 interface UpdateAccountModalProps {
   isOpen: boolean
@@ -23,6 +22,7 @@ interface UpdateAccountModalProps {
 export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAccountModalProps) {
   const fieldsToUse = accountConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
+  const [roles, setRoles] = useState<{ roleId: string, roleName: string }[]>([])
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
@@ -31,17 +31,34 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
   })
 
   const handleSubmit = async (data: any) => {
+    const selectedRole = roles.find(role => role.roleName === data.role)
+    if (selectedRole) 
+      data.role = selectedRole.roleId
+    data.status = data.status === 'Active'
     handleUpdateSubmit(account.accountId ,data)
   }
 
   useEffect(() => {
-    if (account) {
-      Object.keys(account).forEach((key : string) => {
-        if (form.getValues(key) !== undefined) {
-          form.setValue(key, account[key])
-        }
-      })
+    async function fetchRoles() {
+      const data = await getAllRoles()
+      setRoles(data)
+      if (account) {
+        Object.keys(account).forEach((key: string) => {
+          if (form.getValues(key) !== undefined) {
+            if (key === 'roleId') {
+              const roleName = data.find(role => role.roleId === account.roleId)?.roleId
+              form.setValue('roleId', roleName || "")
+            }
+            else if (key === 'status') 
+              form.setValue('status', account.status ? 'Active' : 'Locked')
+            else 
+              form.setValue(key, account[key])
+          }
+        })
+      }
     }
+  
+    fetchRoles()
   }, [account, form])
 
   return (
@@ -60,38 +77,48 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
                       <FormLabel className='text-right text-md'>{field.label}</FormLabel>
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
-                        {field.type === 'select' ? (
-                          <Select 
-                            onValueChange={formField.onChange} 
-                            defaultValue={formField.value}
-                            disabled={field.readonly}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value='Active'>Active</SelectItem>
-                              <SelectItem value='Locked'>Locked</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        ) : field.type === 'datetime-local' ? (
-                          <DatePicker
-                            step={1800}
-                            showTime
-                            showHour
-                            showMinute
-                            showSecond={false}
-                            minuteStep={30}
-                            className='border-[1px] p-2 w-75'
-                          />
-                        ) : (
-                          <Input
-                            {...formField}
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            disabled={field.readonly}
-                          />
-                        )}
+                          {field.type === 'select' ? (
+                            field.name === 'roleId' ? (
+                              <Select
+                                value={form.watch('roleId') || ''}
+                                onValueChange={(value) => {
+                                  form.setValue('roleId', value) 
+                                }}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {roles.map((role) => (
+                                    <SelectItem key={role.roleId} value={role.roleId}> {/* Dùng roleId làm value */}
+                                      {role.roleName}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            ) : (
+                              <Select
+                                value={form.watch('status') || ''}
+                                onValueChange={(value) => form.setValue('status', value)}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value='Active'>Active</SelectItem>
+                                  <SelectItem value='Locked'>Locked</SelectItem>
+                                </SelectContent>
+                              </Select>
+                          )) : (
+                            <Input
+                              {...formField}
+                              type={field.type}
+                              placeholder={field.placeholder}
+                              disabled={field.readonly}
+                            />
+                          )}
                         </FormControl>
                         <FormMessage className='text-sm' />
                       </div>

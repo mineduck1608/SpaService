@@ -45,14 +45,6 @@ export const columns: ColumnDef<News>[] = [
     }
   },
   {
-    accessorKey: 'createdAt',
-    header: 'Created At',
-    cell: ({ row }) => {
-      const dateOfBirth = row.getValue<Date>('createdAt')
-      return <span>{new Date(dateOfBirth).toLocaleDateString()}</span>
-    }
-  },
-  {
     id: 'actions',
     cell: ({ row }) => {
       const news = row.original

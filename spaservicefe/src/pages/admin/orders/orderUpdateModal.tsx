@@ -19,7 +19,7 @@ interface UpdateOrderModalProps {
   order: any
 }
 
-export default function UpdateEmployeeModal({isOpen, onClose, order} : UpdateOrderModalProps) {
+export default function UpdateOrderModal({isOpen, onClose, order} : UpdateOrderModalProps) {
   const fieldsToUse = orderConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({

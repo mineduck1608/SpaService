@@ -16,7 +16,6 @@ export async function getAllCategories() {
   }
 }
 
-
 export async function handleCreateSubmit(data: any) {
   try {
     var res = await fetch(`${apiUrl}/cosmeticcategories/Create`, {
