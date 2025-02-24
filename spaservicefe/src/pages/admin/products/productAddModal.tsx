@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -10,18 +10,21 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify' 
-import { handleCreateSubmit, getAllServiceCategories } from './new.util'
-import { newsConfig } from '../modal.util'
-import { ServiceCategory } from 'src/types/type'
+import { handleCreateSubmit, getAllCosmeticCategories } from './product.util'
+import { cosmeticProductConfig } from '../modal.util'
+import { CosmeticCategory } from 'src/types/type'
 
-export default function AddNewsModal() {
-  const fieldsToUse = newsConfig.fields
-  const [categories, setCategories] = useState<ServiceCategory[]>([])
+export default function AddProductModal() {
+  const [categories, setCategories] = useState<CosmeticCategory[]>([])
+  const fieldsToUse = cosmeticProductConfig.fields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, '']),
+      fieldsToUse.map((field: FieldConfig) => {
+        if (field.name === 'price' || field.name === 'quantity') return [field.name, 0]
+        return [field.name, '']
+      })
     ),
   })
 
@@ -29,12 +32,16 @@ export default function AddNewsModal() {
     const selectedCategory = categories.find(category => category.categoryName === data.categoryName)
     if (selectedCategory) 
       data.categoryId = selectedCategory.categoryId
+    data.price = parseFloat(data.price) || 0
+    data.quantity = parseInt(data.quantity) || 0
+    data.status = data.status === 'true'
+    data.isSelling = data.isSelling === 'true'
     handleCreateSubmit(data)
   }
 
   useEffect(() => {
     async function fetchCategories() {
-      const data = await getAllServiceCategories()
+      const data = await getAllCosmeticCategories()
       setCategories(data)
     }
     fetchCategories()
@@ -46,7 +53,7 @@ export default function AddNewsModal() {
         <Button variant='outline'>Create</Button>
       </DialogTrigger>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Create News</DialogTitle>
+        <DialogTitle className='flex justify-center'>Create Product</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
               {fieldsToUse.map((field : FieldConfig) => (
@@ -60,24 +67,39 @@ export default function AddNewsModal() {
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
                           {field.type === 'select' ? (
-                            <Select
-                              onValueChange={(value) => {
-                                form.setValue('categoryId', value) 
-                              }}
-                              disabled={field.readonly}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {categories.map((category) => (
-                                  <SelectItem key={category.categoryId} value={category.categoryId}>
-                                    {category.categoryName}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          ) : (
+                            field.name === 'categoryId' ? (
+                              <Select
+                                onValueChange={(value) => {
+                                  form.setValue('categoryId', value) 
+                                }}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {categories.map((category) => (
+                                    <SelectItem key={category.categoryId} value={category.categoryId}>
+                                      {category.categoryName}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            ) : (
+                              <Select 
+                                onValueChange={formField.onChange} 
+                                defaultValue={formField.value}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value='true'>Active</SelectItem>
+                                  <SelectItem value='false'>Locked</SelectItem>
+                                </SelectContent>
+                              </Select>
+                          )) : (
                             <Input
                               {...formField}
                               type={field.type}

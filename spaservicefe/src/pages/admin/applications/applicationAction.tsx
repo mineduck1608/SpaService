@@ -9,17 +9,17 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Application } from '@/types/type' // Đổi kiểu dữ liệu thành Employee
+import { Application } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateApplicationModal from './applicationUpdateModal'
 import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './application.util'
 
 interface ApplicationActionsProps {
-  application: Application // Đổi từ Customer sang Employee
+  application: Application
 }
 
-const EmployeeActions: React.FC<ApplicationActionsProps> = ({ application }) => {
+const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -48,15 +48,13 @@ const EmployeeActions: React.FC<ApplicationActionsProps> = ({ application }) => 
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => navigator.clipboard.writeText(application.applicationId)}>
-            {' '}
-            {/* Sao chép ID nhân viên */}
-            Copy employee ID
+            Copy application ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
             Update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}
+          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
@@ -67,4 +65,4 @@ const EmployeeActions: React.FC<ApplicationActionsProps> = ({ application }) => 
   )
 }
 
-export default EmployeeActions
+export default ApplicationActions

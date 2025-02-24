@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
+import React, { useEffect } from 'react'
+import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { Button } from 'src/components/ui/button'
@@ -7,46 +7,46 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { ToastContainer } from 'react-toastify' 
-import { handleCreateSubmit, getAllServiceCategories } from './new.util'
-import { newsConfig } from '../modal.util'
-import { ServiceCategory } from 'src/types/type'
+import { handleUpdateSubmit } from './order.util'
+import { orderConfig } from '../modal.util'
 
-export default function AddNewsModal() {
-  const fieldsToUse = newsConfig.fields
-  const [categories, setCategories] = useState<ServiceCategory[]>([])
+interface UpdateOrderModalProps {
+  isOpen: boolean
+  onClose: () => void
+  order: any
+}
+
+export default function UpdateOrderModal({isOpen, onClose, order} : UpdateOrderModalProps) {
+  const fieldsToUse = orderConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, '']),
+      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
     ),
   })
 
   const handleSubmit = async (data: any) => {
-    const selectedCategory = categories.find(category => category.categoryName === data.categoryName)
-    if (selectedCategory) 
-      data.categoryId = selectedCategory.categoryId
-    handleCreateSubmit(data)
+    handleUpdateSubmit(order.orderId ,data)
   }
 
   useEffect(() => {
-    async function fetchCategories() {
-      const data = await getAllServiceCategories()
-      setCategories(data)
+    if (order) {
+      Object.keys(order).forEach((key : string) => {
+        if (form.getValues(key) !== undefined) {
+          form.setValue(key, order[key])
+        }
+      })
     }
-    fetchCategories()
-  }, [form])
+  }, [order, form])
 
   return (
-    <Dialog>
-      <DialogTrigger>
-        <Button variant='outline'>Create</Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Create News</DialogTitle>
+        <DialogTitle className='flex justify-center'>Update Order</DialogTitle>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
               {fieldsToUse.map((field : FieldConfig) => (
@@ -59,25 +59,38 @@ export default function AddNewsModal() {
                       <FormLabel className='text-right text-md'>{field.label}</FormLabel>
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
-                          {field.type === 'select' ? (
+                        {field.type === 'select' ? (
+                          field.name === 'position' ? (
                             <Select
-                              onValueChange={(value) => {
-                                form.setValue('categoryId', value) 
-                              }}
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
                               disabled={field.readonly}
                             >
                               <SelectTrigger>
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                {categories.map((category) => (
-                                  <SelectItem key={category.categoryId} value={category.categoryId}>
-                                    {category.categoryName}
-                                  </SelectItem>
-                                ))}
+                                <SelectItem value="Massage Therapist">Massage Therapist</SelectItem>
+                                <SelectItem value="Receptionist">Receptionist</SelectItem>
+                                <SelectItem value="Esthetician">Esthetician</SelectItem>
+                                <SelectItem value="Spa Manager">Spa Manager</SelectItem>
                               </SelectContent>
                             </Select>
                           ) : (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="Active">Active</SelectItem>
+                                <SelectItem value="Locked">Locked</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )) : (
                             <Input
                               {...formField}
                               type={field.type}
