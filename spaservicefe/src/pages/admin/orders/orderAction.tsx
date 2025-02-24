@@ -9,61 +9,63 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { News } from '@/types/type'
+import { Order } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { ToastContainer } from 'react-toastify'
-import { handleDelete } from './new.util'
-import UpdateNewsModal from './newUpdateModal'
+import UpdateOrderModal from './orderUpdateModal'
+import { ToastContainer } from 'react-toastify' 
+import { handleDelete } from './order.util'
 
-interface NewsActionsProps {
-  news: News
+interface OrderActionsProps {
+  order: Order
 }
 
-const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
+const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
   const openDeleteModal = () => setDeleteModalOpen(true)
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
-  const openUpdateModal = () => setUpdateModalOpen(true)
+  const openUpdateModal = () => {
+    setUpdateModalOpen(true)}
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
-    handleDelete(news.newsId)
+    handleDelete(order.orderId)
     closeDeleteModal()
   }
-
+    
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger>
           <Button variant='ghost' className='h-8 w-8 p-0'>
             <span className='sr-only'>Open menu</span>
             <MoreHorizontal className='h-4 w-4' />
           </Button>
+          
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(news.newsId)} 
-            className='cursor-pointer'>
-            Copy news ID
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(order.orderId)}>
+            {' '}
+            Copy order ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
+          <DropdownMenuItem className='cursor-pointer'>
+            View Detail
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
             Update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdateNewsModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} news={news}/>
+      <UpdateOrderModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} order={order}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default NewsActions
+export default OrderActions

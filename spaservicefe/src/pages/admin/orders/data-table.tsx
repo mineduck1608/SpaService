@@ -27,15 +27,15 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey1?: string // Key để lọc dữ liệu
+  filterKey1?: string
   filterKey2?: string
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  filterKey1 = 'name',
-  filterKey2 = 'phone'
+  filterKey1 = 'totalAmount',
+  filterKey2 = 'status'
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -65,16 +65,16 @@ export function DataTable<TData, TValue>({
     <div>
       <div className='flex items-center py-3'>
         <Input
-          placeholder={`Filter by ${filterKey1}...`}
+          placeholder={`Filter by total amount...`}
           value={(table.getColumn(filterKey1)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey1)?.setFilterValue(event.target.value)}
-          className='max-w-sm'
+          className='w-[16rem]'
         />
         <Input
           placeholder={`Filter by ${filterKey2}...`}
           value={(table.getColumn(filterKey2)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey2)?.setFilterValue(event.target.value)}
-          className='ml-5 max-w-sm'
+          className='ml-2 max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
           <DropdownMenu>
