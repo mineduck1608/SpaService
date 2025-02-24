@@ -3,13 +3,13 @@ import { FormEvent, useEffect, useState } from 'react'
 import ProductList from './productList.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
-import { createTransaction, getCusByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
 import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
 import { SessionItem } from '@/types/sessionItem.ts'
+import { getCusByAcc } from '../checkout/checkoutPage.util.ts'
 
 export default function CosmeticCheckoutPage() {
   const cart = JSON.parse(sessionStorage.getItem('cart') ?? '[]') as SessionItem[]
@@ -24,9 +24,6 @@ export default function CosmeticCheckoutPage() {
       }
       var x = jwtDecode(t ?? '')
       var c = await getCusByAcc(x.UserId)
-      if (c.customerId) {
-        setReq({ ...req, customerId: c.customerId })
-      }
     }
     try {
       fetchData()
@@ -71,13 +68,6 @@ export default function CosmeticCheckoutPage() {
     //   toast.error(e as string)
     // }
   }
-  const [req, setReq] = useState<SpaRequest>({
-    customerId: '',
-    customerNote: '',
-    serviceId: cart.serviceId,
-    startTime: new Date(),
-    employeeId: null
-  })
 
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>

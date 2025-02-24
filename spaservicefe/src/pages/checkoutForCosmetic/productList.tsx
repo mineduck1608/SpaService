@@ -4,6 +4,9 @@ import { formatNumber } from '../servicesPage/servicesPage.util'
 
 export default function ProductList(params: { s: SessionItem[] }) {
   const items = params.s
+  items.forEach(v => {
+    v.product.price = parseFloat(v.product.price.toFixed(1))
+  })
   var total = 0
   items
     .map((x) => {
@@ -38,7 +41,7 @@ export default function ProductList(params: { s: SessionItem[] }) {
           ))}
         </tbody>
       </table>
-      <div className='flex flex-row justify-end mt-1'>
+      <div className='flex flex-row justify-end mt-2'>
         <p>The total amount is:&nbsp;
           <span className='text-red-600 font-bold'>{total.toFixed(1)}</span>
         </p>

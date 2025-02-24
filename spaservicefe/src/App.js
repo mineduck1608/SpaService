@@ -140,6 +140,14 @@ function App() {
             }
           />
           <Route
+            path='cart'
+            element={
+              <Layout>
+                ABC
+              </Layout>
+            }
+          />
+          <Route
             path='cosmetics/:id'
             element={
               <Layout>

@@ -102,6 +102,7 @@ namespace Repositories
                 .ThenInclude(x => x.Account)
                 .Include(x => x.Service)
                 .Include(x => x.Employee)
+                .Include(x => x.ServiceTransactions)
                 .Where(x => x.Customer.AccountId == accId)
                 .ToListAsync();
         }
