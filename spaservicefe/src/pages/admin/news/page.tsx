@@ -5,7 +5,7 @@ import { News } from '@/types/type'
 import { getAllNews } from './new.util'
 import { format } from 'date-fns'
 
-export default function NewsPage() {
+export default function AdminNewsPage() {
   const [data, setData] = useState<News[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

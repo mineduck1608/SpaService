@@ -14,5 +14,7 @@ namespace Services.IServices
         Task Create(OrderDetail item);
         Task Update(OrderDetail item);
         Task Delete(int id);
+        Task<IEnumerable<OrderDetail>> GetOrderDetailsByOrderId(string orderId); // New method for filtering by orderId
+
     }
 }

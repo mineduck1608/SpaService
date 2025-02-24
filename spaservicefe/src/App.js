@@ -37,7 +37,7 @@ import AppointmentPage from './pages/appointmentPage/appointmentPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
-import AdmminNewsPage from './pages/admin/news/page.tsx'
+import AdminNewsPage from './pages/admin/news/page.tsx'
 import CategoriesPage from './pages/admin/categories/page.tsx'
 import SpaServicePage from './pages/admin/services/page.tsx'
 import TransactionPage from './pages/admin/transactions/page.tsx'
@@ -245,7 +245,7 @@ function App() {
 
             {/* Others */}
             <Route path='promotions' element={<PromotionPage />} />
-            {/* <Route path='news' element={<AdminNewsPage />} /> */}
+            <Route path='news' element={<AdminNewsPage />} />
             {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
 
             {/* Users */}
