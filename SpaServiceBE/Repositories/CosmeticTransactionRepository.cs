@@ -49,5 +49,14 @@ namespace Repositories
             //    await _context.SaveChangesAsync();
             //}
         }
+
+        public async Task<CosmeticTransaction> GetByTransId(string transId)
+        {
+            var rs = _context.CosmeticTransactions
+                .Include(x => x.Orders)
+                .ThenInclude(x => x.OrderDetails)
+                .FirstOrDefault(x => x.TransactionId == transId);
+            return rs;
+        }
     }
 }

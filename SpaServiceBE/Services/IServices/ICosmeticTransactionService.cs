@@ -14,5 +14,6 @@ namespace Services.IServices
         Task CreateAsync(CosmeticTransaction transaction);
         Task UpdateAsync(CosmeticTransaction transaction);
         Task DeleteAsync(string id);
+        Task<CosmeticTransaction> GetByTransId(string transId);
     }
 }
