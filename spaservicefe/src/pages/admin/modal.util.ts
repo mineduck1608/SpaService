@@ -25,30 +25,33 @@ export const customerConfig = {
       type: 'text',
       required: true,
       minLength: 8,
+      placeholder: 'Enter new full name'
     },
     {
       name: 'gender',
       label: 'Gender',
       type: 'select',
-      required: true,
+      readonly: true
     },
     {
       name: 'phone',
       label: 'Phone',
       type: 'tel',
       required: true,
+      placeholder: 'Enter new phone number'
     },
     {
       name: 'email',
       label: 'Email',
       type: 'email',
       required: true,
+      placeholder: 'Enter new email address'
     },
     {
       name: 'dateOfBirth',
       label: 'D.O.B',
       type: 'datetime-local',
-      required: true,
+      readonly: true
     }
   ],
   fields: [
@@ -58,14 +61,14 @@ export const customerConfig = {
       type: 'text',
       required: true,
       minLength: 4,
-      placeholder: 'Enter username',
+      placeholder: 'Enter username'
     },
     {
       name: 'password',
       label: 'Password',
       type: 'password',
       required: true,
-      placeholder: 'Enter password',
+      placeholder: 'Enter password'
     },
     {
       name: 'fullName',
@@ -73,14 +76,14 @@ export const customerConfig = {
       type: 'text',
       required: true,
       minLength: 8,
-      placeholder: 'Enter full name',
+      placeholder: 'Enter full name'
     },
     {
       name: 'gender',
       label: 'Gender',
       type: 'select',
       required: true,
-      placeholder: 'Select gender',
+      placeholder: 'Select gender'
     },
     {
       name: 'phone',
@@ -107,13 +110,14 @@ export const customerConfig = {
 }
 
 export const employeeConfig = {
+  entityName: 'Employee',
   updatefields: [
     {
       name: 'fullName',
       label: 'Full Name',
       type: 'text',
       required: true,
-      placeholder: 'Enter full name',
+      placeholder: 'Enter full name'
     },
     {
       name: 'position',
@@ -123,18 +127,18 @@ export const employeeConfig = {
       placeholder: 'Select position'
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status'
-    },
-    {
       name: 'image',
       label: 'Image',
       type: 'text',
       required: true,
-      placeholder: 'Enter image URL',  
+      placeholder: 'Enter image URL'
+    },
+    {
+      name: 'accountId',
+      label: 'Account ID',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new account Id'
     }
   ],
   fields: [
@@ -144,28 +148,28 @@ export const employeeConfig = {
       type: 'text',
       required: true,
       minLength: 8,
-      placeholder: 'Enter username',
+      placeholder: 'Enter username'
     },
     {
       name: 'password',
       label: 'Password',
       type: 'password',
       required: true,
-      placeholder: 'Enter password',
+      placeholder: 'Enter password'
     },
     {
       name: 'fullName',
       label: 'Full Name',
       type: 'text',
       required: true,
-      placeholder: 'Enter full name',
+      placeholder: 'Enter full name'
     },
     {
       name: 'position',
       label: 'Position',
       type: 'select',
       required: true,
-      placeholder: 'Select position',  
+      placeholder: 'Select position'
     },
     {
       name: 'phone',
@@ -186,7 +190,7 @@ export const employeeConfig = {
       label: 'Image',
       type: 'text',
       required: true,
-      placeholder: 'Enter image URL',  
+      placeholder: 'Enter image URL'
     }
   ],
   api: {
@@ -202,18 +206,31 @@ export const accountConfig = {
       label: 'Username',
       type: 'text',
       readonly: true,
+      placeholder: 'Enter new username'
     },
     {
       name: 'status',
       label: 'Status',
       type: 'select',
-      required: true,
+      required: true
     },
     {
       name: 'roleId',
-      label: 'Role',
-      type: 'select',
-      required: true,
+      label: 'Role ID',
+      type: 'text',
+      readonly: true
+    },
+    {
+      name: 'createdAt',
+      label: 'Created At',
+      type: 'datetime-local',
+      readonly: true
+    },
+    {
+      name: 'updatedAt',
+      label: 'Updated At',
+      type: 'datetime-local',
+      readonly: true
     }
   ]
 }
@@ -226,14 +243,21 @@ export const categoriesConfig = {
       type: 'text',
       required: true,
       minLength: 3,
-      placeholder: 'Enter new name',
+      placeholder: 'Enter new name'
+    },
+    {
+      name: 'categoryImage',
+      label: 'Category Image',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new image URL'
     },
     {
       name: 'categoryDescription',
       label: 'Status',
       type: 'text',
       required: true,
-      placeholder: 'Enter new description',
+      placeholder: 'Enter new description'
     }
   ],
   fields: [
@@ -243,14 +267,21 @@ export const categoriesConfig = {
       type: 'text',
       required: true,
       minLength: 5,
-      placeholder: 'Enter category name',
+      placeholder: 'Enter category name'
+    },
+    {
+      name: 'categoryImage',
+      label: 'Category Image',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter category image URL'
     },
     {
       name: 'categoryDescription',
       label: 'Description',
       type: 'text',
       required: true,
-      placeholder: 'Enter category description',
+      placeholder: 'Enter category description'
     }
   ]
 }
@@ -260,9 +291,10 @@ export const applicatonConfig = {
     {
       name: 'status',
       label: 'Status',
-      type: 'select',
+      type: 'text',
       required: true,
-      placeholder: 'Select status',
+      minLength: 4,
+      placeholder: 'Enter status'
     },
     {
       name: 'content',
@@ -270,14 +302,34 @@ export const applicatonConfig = {
       type: 'text',
       required: true,
       minLength: 4,
-      placeholder: 'Enter content',
+      placeholder: 'Enter content'
+    },
+    {
+      name: 'accountId',
+      label: 'Account Id',
+      type: 'text',
+      required: true,
+      minLength: 4,
+      placeholder: 'Enter account Id'
+    },
+    {
+      name: 'createdAt',
+      label: 'Created At',
+      type: 'datetime-local',
+      readonly: true
     },
     {
       name: 'resolvedBy',
       label: 'Resolved By',
       type: 'text',
       required: true,
-      placeholder: 'Enter employee name',
+      placeholder: 'Enter employee name'
+    },
+    {
+      name: 'resolvedAt',
+      label: 'Resolved At',
+      type: 'datetime-local',
+      readonly: true
     }
   ]
 }
@@ -290,34 +342,34 @@ export const newsConfig = {
       type: 'text',
       required: true,
       minLength: 5,
-      placeholder: 'Enter new header',
+      placeholder: 'Enter new header'
     },
     {
       name: 'content',
       label: 'Content',
       type: 'text',
       required: true,
-      placeholder: 'Enter new content',
+      placeholder: 'Enter new content'
     },
     {
       name: 'type',
       label: 'Type',
       type: 'text',
       required: true,
-      placeholder: 'Enter new type',
+      placeholder: 'Enter new type'
     },
     {
       name: 'image',
       label: 'Image URL',
       type: 'text',
-      placeholder: 'Enter new image URL',
+      placeholder: 'Enter new image URL'
     },
     {
       name: 'categoryId',
-      label: 'Category',
-      type: 'select',
+      label: 'Category Id',
+      type: 'text',
       required: true,
-      placeholder: 'Select category',
+      placeholder: 'Enter new category Id'
     }
   ],
   fields: [
@@ -327,239 +379,34 @@ export const newsConfig = {
       type: 'text',
       required: true,
       minLength: 5,
-      placeholder: 'Enter header',
+      placeholder: 'Enter new header'
     },
     {
       name: 'content',
       label: 'Content',
       type: 'text',
       required: true,
-      placeholder: 'Enter content',
+      placeholder: 'Enter new content'
     },
     {
       name: 'type',
       label: 'Type',
       type: 'text',
       required: true,
-      placeholder: 'Enter type',
+      placeholder: 'Enter new type'
     },
     {
       name: 'image',
       label: 'Image URL',
       type: 'text',
-      placeholder: 'Enter image URL',
+      placeholder: 'Enter new image URL'
     },
     {
       name: 'categoryId',
-      label: 'Category',
-      type: 'select',
-      required: true,
-      placeholder: 'Select category',
-    }
-  ]
-}
-
-export const spaServiceConfig = {
-  updatefields: [
-    {
-      name: 'serviceName',
-      label: 'Name',
+      label: 'Category Id',
       type: 'text',
       required: true,
-      minLength: 6,
-      placeholder: 'Enter new service name',
-    },
-    {
-      name: 'price',
-      label: 'Price',
-      type: 'number',
-      required: true,
-      step: '0.01',
-      min: 0,
-      placeholder: 'Enter new price',
-    },
-    {
-      name: 'duration',
-      label: 'Duration',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new duration',
-    },
-    {
-      name: 'description',
-      label: 'Description',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new description',
-    },
-    {
-      name: 'serviceImage',
-      label: 'Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new service image URL',
-    },
-    {
-      name: 'categoryId',
-      label: 'Category',
-      type: 'select',
-      required: true,
-      placeholder: 'Select category',
-    }
-  ],
-  fields: [
-    {
-      name: 'serviceName',
-      label: 'Name',
-      type: 'text',
-      required: true,
-      minLength: 6,
-      placeholder: 'Enter service name',
-    },
-    {
-      name: 'price',
-      label: 'Price',
-      type: 'number',
-      required: true,
-      step: '0.01',
-      min: 0,
-      placeholder: 'Enter price',
-    },
-    {
-      name: 'duration',
-      label: 'Duration',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter duration',
-    },
-    {
-      name: 'description',
-      label: 'Description',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter description',
-    },
-    {
-      name: 'serviceImage',
-      label: 'Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter service image URL',
-    },
-    {
-      name: 'categoryId',
-      label: 'Category',
-      type: 'select',
-      required: true,
-      placeholder: 'Select category',
-    }
-  ]
-}
-
-export const promotionConfig = {
-  updatefields: [
-    {
-      name: 'promotionCode',
-      label: 'Promotion Code',
-      type: 'text',
-      required: true,
-      minLength: 5,
-      placeholder: 'Enter new promotion code',
-    },
-    {
-      name: 'promotionName',
-      label: 'Promotion Name',
-      type: 'text',
-      required: true,
-      minLength: 4,
-      placeholder: 'Enter new promotion name',
-    },
-    {
-      name: 'discountValue',
-      label: 'Discount Value',
-      type: 'number',
-      required: true,
-      step: '0.01',
-      min: 0,
-      placeholder: 'Enter new discount value',
-    },
-    {
-      name: 'isActive',
-      label: 'Status',
-      type: 'select',
-      placeholder: 'Select status',
-    }
-  ],
-  fields: [
-    {
-      name: 'promotionCode',
-      label: 'Promotion Code',
-      type: 'text',
-      required: true,
-      minLength: 5,
-      placeholder: 'Enter promotion code',
-    },
-    {
-      name: 'promotionName',
-      label: 'Promotion Name',
-      type: 'text',
-      required: true,
-      minLength: 4,
-      placeholder: 'Enter promotion name',
-    },
-    {
-      name: 'discountValue',
-      label: 'Discount Value',
-      type: 'number',
-      required: true,
-      step: '0.01',
-      min: 0,
-      placeholder: 'Enter discount value',
-    },
-    {
-      name: 'isActive',
-      label: 'Status',
-      type: 'select',
-      placeholder: 'Select status',
-    }
-  ]
-}
-
-export const transactionConfig = {
-  updatefields: [
-    {
-      name: 'transactionType',
-      label: 'Transaction Type',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new type',
-    },
-    {
-      name: 'totalPrice',
-      label: 'Total Price',
-      type: 'number',
-      required: true,
-      step: '0.01',
-      min: 0,
-      placeholder: 'Enter new total price',
-    },
-    {
-      name: 'completeTime',
-      label: 'Complete Time',
-      type: 'datetime-local',
-      readonly: true
-    },
-    {
-      name: 'paymentType',
-      label: 'Payment Type',
-      type: 'text',
-      readonly: true
-    },
-    {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      placeholder: 'Select status',
+      placeholder: 'Enter category Id'
     }
   ]
 }
@@ -718,132 +565,224 @@ export const ordersConfig = {
   ]
 }
 
-export const cosmeticProductConfig = {
+export const spaServiceConfig = {
   updatefields: [
     {
-      name: 'productName',
-      label: 'Product Name',
+      name: 'serviceName',
+      label: 'Service Name',
       type: 'text',
       required: true,
-      placeholder: 'Enter product name',
+      minLength: 6,
+      placeholder: 'Enter new service name'
     },
     {
       name: 'price',
       label: 'Price',
       type: 'number',
+      required: true,
       step: '0.01',
       min: 0,
-      placeholder: 'Enter price',
+      placeholder: 'Enter new price'
     },
     {
-      name: 'quantity',
-      label: 'Quantity',
-      type: 'number',
+      name: 'duration',
+      label: 'Duration',
+      type: 'text',
       required: true,
-      min: 0,
-      placeholder: 'Enter quantity',
+      placeholder: 'Enter new duration'
     },
     {
       name: 'description',
       label: 'Description',
       type: 'text',
-      required: true,
-      minLength: 5,
-      placeholder: 'Enter description',
+      placeholder: 'Enter new description'
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status',
-    },
-    {
-      name: 'isSelling',
-      label: 'Is Selling',
-      type: 'select',
-      required: true,
-      placeholder: 'Select an option',
-    },
-    {
-      name: 'image',
-      label: 'Image URL',
+      name: 'serviceImage',
+      label: 'Service Image',
       type: 'text',
-      placeholder: 'Enter image URL',
+      placeholder: 'Enter new service image'
+    },
+    {
+      name: 'categoryId',
+      label: 'CategoryId',
+      type: 'text',
+      placeholder: 'Enter new category ID'
     }
   ],
   fields: [
     {
-      name: 'productName',
-      label: 'Product Name',
+      name: 'serviceName',
+      label: 'Service Name',
       type: 'text',
       required: true,
-      placeholder: 'Enter product name',
+      minLength: 6,
+      placeholder: 'Enter new service name'
     },
     {
       name: 'price',
       label: 'Price',
       type: 'number',
+      required: true,
       step: '0.01',
       min: 0,
-      placeholder: 'Enter price',
+      placeholder: 'Enter new price'
     },
     {
-      name: 'quantity',
-      label: 'Quantity',
-      type: 'number',
+      name: 'duration',
+      label: 'Duration',
+      type: 'text',
       required: true,
-      min: 0,
-      placeholder: 'Enter quantity',
+      placeholder: 'Enter new duration'
     },
     {
       name: 'description',
       label: 'Description',
       type: 'text',
+      placeholder: 'Enter new description'
+    },
+    {
+      name: 'serviceImage',
+      label: 'Service Image',
+      type: 'text',
+      placeholder: 'Enter new service image'
+    },
+    {
+      name: 'categoryId',
+      label: 'CategoryId',
+      type: 'text',
+      placeholder: 'Enter new category ID'
+    }
+  ]
+}
+
+export const promotionConfig = {
+  updatefields: [
+    {
+      name: 'promotionCode',
+      label: 'Promotion Code',
+      type: 'text',
       required: true,
       minLength: 5,
-      placeholder: 'Enter description',
+      placeholder: 'Enter new promotion code'
+    },
+    {
+      name: 'promotionName',
+      label: 'Promotion Name',
+      type: 'text',
+      required: true,
+      minLength: 4,
+      placeholder: 'Enter new promotion name'
+    },
+    {
+      name: 'discountValue',
+      label: 'Discount Value',
+      type: 'number',
+      required: true,
+      step: '0.01',
+      min: 0,
+      placeholder: 'Enter new discount value'
+    },
+    {
+      name: 'isActive',
+      label: 'Status',
+      type: 'select',
+      placeholder: 'Select status'
+    }
+  ],
+  fields: [
+    {
+      name: 'promotionCode',
+      label: 'Promotion Code',
+      type: 'text',
+      required: true,
+      minLength: 5,
+      placeholder: 'Enter promotion code'
+    },
+    {
+      name: 'promotionName',
+      label: 'Promotion Name',
+      type: 'text',
+      required: true,
+      minLength: 4,
+      placeholder: 'Enter promotion name'
+    },
+    {
+      name: 'discountValue',
+      label: 'Discount Value',
+      type: 'number',
+      required: true,
+      step: '0.01',
+      min: 0,
+      placeholder: 'Enter discount value'
+    },
+    {
+      name: 'isActive',
+      label: 'Status',
+      type: 'select',
+      placeholder: 'Select status'
+    }
+  ]
+}
+
+export const transactionConfig = {
+  updatefields: [
+    {
+      name: 'transactionType',
+      label: 'Transaction Type',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new type'
+    },
+    {
+      name: 'totalPrice',
+      label: 'Total Price',
+      type: 'number',
+      required: true,
+      step: '0.01',
+      min: 0,
+      placeholder: 'Enter new total price'
+    },
+    {
+      name: 'completeTime',
+      label: 'Complete Time',
+      type: 'datetime-local',
+      readonly: true
+    },
+    {
+      name: 'paymentType',
+      label: 'Payment Type',
+      type: 'text',
+      readonly: true
     },
     {
       name: 'status',
       label: 'Status',
       type: 'select',
-      required: true,
-      placeholder: 'Select status',
-    },
-    {
-      name: 'isSelling',
-      label: 'Is Selling',
-      type: 'select',
-      required: true,
-      placeholder: 'Select an option',
-    },
-    {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter image URL',
-    },
-    {
-      name: 'categoryId',
-      label: 'Category',
-      type: 'select',
-      placeholder: 'Select category',
+      placeholder: 'Select status'
     }
   ]
+}
+
+export const entityConfigMap: Record<string, any> = {
+  Customer: customerConfig,
+  Account: accountConfig,
+  Employee: employeeConfig
 }
 
 export const generateZodSchema = (fields: FieldConfig[]) => {
   const schemaObject: Record<string, any> = {}
 
   fields.forEach((field) => {
-    let fieldSchema: any = z.string()
+    let fieldSchema: any = z.any()
     switch (field.type) {
       case 'password':
-        fieldSchema = z.string().regex(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?])[A-Za-z\d!@#$%^&*()_\-+=<>?]{12,}$/,
-          'Please enter a valid password.'
-        )
+        fieldSchema = z
+          .string()
+          .regex(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?])[A-Za-z\d!@#$%^&*()_\-+=<>?]{12,}$/,
+            'Please enter a valid password.'
+          )
         break
       case 'tel':
         fieldSchema = z.string().regex(/^0[9832]\d{8}$/, 'Please enter a valid phone number.')
@@ -853,11 +792,13 @@ export const generateZodSchema = (fields: FieldConfig[]) => {
         break
       default:
         fieldSchema = z.string()
-        if (field.minLength) fieldSchema = fieldSchema.min(field.minLength, `Must be at least ${field.minLength} characters.`)
-        if (field.maxLength) fieldSchema = fieldSchema.max(field.maxLength, `Must be less than ${field.maxLength} characters.`)
+        if (field.minLength)
+          fieldSchema = fieldSchema.min(field.minLength, `Must be at least ${field.minLength} characters.`)
+        if (field.maxLength)
+          fieldSchema = fieldSchema.max(field.maxLength, `Must be less than ${field.maxLength} characters.`)
     }
 
-    schemaObject[field.name] = field.required ? fieldSchema.nonempty('Required.') : fieldSchema.optional()
+    schemaObject[field.name] = field.required ? fieldSchema : fieldSchema.optional()
   })
   return z.object(schemaObject)
 }
