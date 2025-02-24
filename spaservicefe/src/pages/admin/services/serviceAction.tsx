@@ -45,9 +45,7 @@ const CustomerActions: React.FC<SpaServiceActionsProps> = ({ service }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(service.serviceId)} 
-            className='cursor-pointer'>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(service.serviceId)} className='cursor-pointer'>
             Copy customer ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -61,7 +59,7 @@ const CustomerActions: React.FC<SpaServiceActionsProps> = ({ service }) => {
       </DropdownMenu>
       <ToastContainer />
 
-      <UpdateServiceModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} service={service}/>
+      <UpdateServiceModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} service={service} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

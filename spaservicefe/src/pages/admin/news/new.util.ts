@@ -17,13 +17,12 @@ export async function getAllNews() {
   }
 }
 
-
 export async function handleCreateSubmit(data: any) {
   try {
     var res = await fetch(`${apiUrl}/news/Create`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -39,14 +38,14 @@ export async function handleCreateSubmit(data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
     var res = await fetch(`${apiUrl}/news/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -62,14 +61,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleDelete(newsId : string) {
+export async function handleDelete(newsId: string) {
   try {
     var res = await fetch(`${apiUrl}/news/Delete/${newsId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
@@ -83,21 +82,21 @@ export async function handleDelete(newsId : string) {
     }
   } catch (error) {
     console.error('Error deleting customer:', error)
-  } 
+  }
 }
 
-export async function getNewsCategoryName(id : string) {
+export async function getNewsCategoryName(id: string) {
   try {
     var res = await fetch(`${apiUrl}/servicecategories/GetById/${id}`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
     const json = (await res.json()) as ServiceCategory[]
-        return json
+    return json
   } catch (error) {
     console.error('Error deleting customer:', error)
-  } 
+  }
 }

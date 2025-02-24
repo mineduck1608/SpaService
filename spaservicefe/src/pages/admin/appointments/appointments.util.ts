@@ -4,10 +4,9 @@ import { Appointment } from '../../../types/type'
 export async function getAllAppointments() {
   const res = await fetch(`${apiUrl}/appointments/GetAll`, {
     headers: {
-        Authorization: `Bearer ${getToken()}`
+      Authorization: `Bearer ${getToken()}`
     }
   })
   const json = (await res.json()) as Appointment[]
   return json
 }
-

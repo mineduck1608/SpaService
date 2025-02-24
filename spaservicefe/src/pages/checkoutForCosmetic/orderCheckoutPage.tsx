@@ -122,9 +122,7 @@ export default function CosmeticCheckoutPage() {
 
           {/* Sidebar with buttons */}
           <div className='flex w-1/3 flex-col items-center rounded-br-lg rounded-tr-lg bg-purple1 bg-[url(https://senspa.com.vn/wp-content/themes/thuythu/images/background1.png)] bg-[bottom_50px_right] bg-no-repeat px-5 py-4'>
-            <p className='text-white'>
-              You can pay via cash or VnPay
-            </p>
+            <p className='text-white'>You can pay via cash or VnPay</p>
             <div className='my-3 w-1/2'>
               <button
                 type='submit'

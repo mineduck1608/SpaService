@@ -48,9 +48,9 @@ export type SpaRequest = {
   customerNote: string
   managerNote: string
   serviceId: string
-  customerId: string,
-  service?: SpaService,
-  employee?: Employee,
+  customerId: string
+  service?: SpaService
+  employee?: Employee
   serviceTransaction?: ServiceTransaction
 }
 
@@ -69,10 +69,10 @@ export type Appointment = {
   status: string
   requestId: string
   employeeId: string
-  startTime: string 
+  startTime: string
   endTime: string
   updatedAt: Date
-  employee?: Employee,
+  employee?: Employee
   service?: SpaService
   request?: SpaRequest
   room?: Room

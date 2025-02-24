@@ -1,6 +1,6 @@
-import { CosmeticProduct } from "./type"
+import { CosmeticProduct } from './type'
 
 export type SessionItem = {
-  product: CosmeticProduct,
+  product: CosmeticProduct
   amount: number
 }

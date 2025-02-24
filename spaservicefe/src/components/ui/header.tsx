@@ -52,39 +52,36 @@ const Header = () => {
   const [serviceCategory, setServiceCategory] = useState<ServiceCategory[]>([])
   const [cosmeticCategory, setCosmeticCategory] = useState<CosmeticCategory[]>([])
 
-
   useEffect(() => {
     const handleScroll = () => {
-      setIsAtTop(window.scrollY === 0);
-    };
-  
+      setIsAtTop(window.scrollY === 0)
+    }
+
     // Hàm async trong useEffect
     const getCategory = async () => {
       try {
-        let x = await findCategories();
-        let y = await findCosmeticCategories();
-        setServiceCategory(x);
-        setCosmeticCategory(y);
+        let x = await findCategories()
+        let y = await findCosmeticCategories()
+        setServiceCategory(x)
+        setCosmeticCategory(y)
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching categories:', error)
       }
-    };
-  
-    window.addEventListener('scroll', handleScroll);
-  
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
     // Gọi hàm lấy category
-    getCategory();
-  
+    getCategory()
+
     // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-  
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <>
-      
       <header className={`header ${isAtTop ? 'at-top' : ''}`}>
         <div className={`header-container ${isAtTop ? 'large' : 'small'}`}>
           <nav className='navigation'>
@@ -196,15 +193,14 @@ const Header = () => {
               </li>
               <li>
                 <a href='/recruitment' className='nav-link text-base'>
-                RECRUITMENT
+                  RECRUITMENT
                 </a>
               </li>
             </ul>
           </nav>
-          <div className="absolute right-10 top-1/2 transform -translate-y-1/2">
-          <Dropdown/> {/* Moved to the right side */}
-        </div>
-
+          <div className='absolute right-10 top-1/2 -translate-y-1/2 transform'>
+            <Dropdown /> {/* Moved to the right side */}
+          </div>
         </div>
       </header>
     </>
@@ -212,4 +208,3 @@ const Header = () => {
 }
 
 export default Header
-

@@ -16,7 +16,7 @@ export default function ContactAdminPage() {
         const contacts = await getAllContacts() // Fetch the contacts
 
         const formattedContacts = contacts.map((contact) => ({
-          ...contact,
+          ...contact
           // If you want to format the date or other fields, you can apply here
           // For instance, formatting the `createdAt` date if you have it:
           // createdAt: format(new Date(contact.createdAt), 'dd/MM/yyyy HH:mm:ss'),

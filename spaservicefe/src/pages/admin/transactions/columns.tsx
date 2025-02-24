@@ -43,7 +43,7 @@ export const columns: ColumnDef<TransactionBase>[] = [
         style: 'currency',
         currency: 'VND'
       }).format(price)
-      
+
       return <span>{formattedPrice}</span>
     }
   },

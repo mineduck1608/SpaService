@@ -9,7 +9,7 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './account.util'
 import { accountConfig } from '../modal.util'
 import { DatePicker } from 'antd'
@@ -20,23 +20,21 @@ interface UpdateAccountModalProps {
   account: any
 }
 
-export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAccountModalProps) {
+export default function UpdateAccountModal({ isOpen, onClose, account }: UpdateAccountModalProps) {
   const fieldsToUse = accountConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
-    ),
+    defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
 
   const handleSubmit = async (data: any) => {
-    handleUpdateSubmit(account.accountId ,data)
+    handleUpdateSubmit(account.accountId, data)
   }
 
   useEffect(() => {
     if (account) {
-      Object.keys(account).forEach((key : string) => {
+      Object.keys(account).forEach((key: string) => {
         if (form.getValues(key) !== undefined) {
           form.setValue(key, account[key])
         }
@@ -48,21 +46,21 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>Update Account</DialogTitle>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
-              {fieldsToUse.map((field : FieldConfig) => (
-                <FormField
-                  key={field.name}
-                  control={form.control}
-                  name={field.name}
-                  render={({ field: formField }) => (
-                    <FormItem className='grid grid-cols-4 items-center gap-4 mt-2'>
-                      <FormLabel className='text-right text-md'>{field.label}</FormLabel>
-                      <div className='col-span-3 space-y-1'>
-                        <FormControl>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+            {fieldsToUse.map((field: FieldConfig) => (
+              <FormField
+                key={field.name}
+                control={form.control}
+                name={field.name}
+                render={({ field: formField }) => (
+                  <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                    <FormLabel className='text-md text-right'>{field.label}</FormLabel>
+                    <div className='col-span-3 space-y-1'>
+                      <FormControl>
                         {field.type === 'select' ? (
-                          <Select 
-                            onValueChange={formField.onChange} 
+                          <Select
+                            onValueChange={formField.onChange}
                             defaultValue={formField.value}
                             disabled={field.readonly}
                           >
@@ -82,7 +80,7 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
                             showMinute
                             showSecond={false}
                             minuteStep={30}
-                            className='border-[1px] p-2 w-75'
+                            className='w-75 border-[1px] p-2'
                           />
                         ) : (
                           <Input
@@ -92,18 +90,18 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
                             disabled={field.readonly}
                           />
                         )}
-                        </FormControl>
-                        <FormMessage className='text-sm' />
-                      </div>
-                    </FormItem>
-                  )}
-                  />
-              ))}
-              <div className='flex justify-end mt-10'>
-                  <Button type='submit'>Submit</Button>
-              </div>
-            </form>
-          </Form>
+                      </FormControl>
+                      <FormMessage className='text-sm' />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            ))}
+            <div className='mt-10 flex justify-end'>
+              <Button type='submit'>Submit</Button>
+            </div>
+          </form>
+        </Form>
       </DialogContent>
       <ToastContainer />
     </Dialog>

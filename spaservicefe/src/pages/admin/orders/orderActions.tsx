@@ -25,16 +25,13 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const confirmOrder = async () => {
-
     try {
       const response = await UpdateOrderStatus(order.orderId)
 
-          
       // If the response is successful, show success toast
       if (response && response.msg) {
         toast.success(response.msg) // Show the msg from the response as a success toast
         window.location.reload()
-
       } else {
         toast.error('Failed to confirm the order.')
       }
@@ -42,7 +39,7 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
       toast.error('Error occurred while confirming the order.')
     }
   }
- console.log(order.status)
+  console.log(order.status)
   return (
     <>
       <DropdownMenu>
@@ -59,9 +56,9 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
             View Detail
           </DropdownMenuItem>
-            <DropdownMenuItem onClick={confirmOrder} className='cursor-pointer'>
-              Confirm
-            </DropdownMenuItem>
+          <DropdownMenuItem onClick={confirmOrder} className='cursor-pointer'>
+            Confirm
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />

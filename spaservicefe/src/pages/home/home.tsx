@@ -76,13 +76,11 @@ const Home = () => {
           <p className='mb-2 text-2xl'>Luxurious space, </p>
           <p className='mb-8 text-2xl'>blending modernity and classic elegance.</p>
           <a
-  href="/about"
-  className="no-underline rounded-br-[1rem] rounded-tl-[1rem] bg-[#a040a0] px-8 py-3 text-white transition-colors duration-1000 hover:bg-[#8a3b8a]"
->
-  Explore <span className="ml-2">›</span>
-</a>
-
-
+            href='/about'
+            className='rounded-br-[1rem] rounded-tl-[1rem] bg-[#a040a0] px-8 py-3 text-white no-underline transition-colors duration-1000 hover:bg-[#8a3b8a]'
+          >
+            Explore <span className='ml-2'>›</span>
+          </a>
         </div>
 
         {/* Navigation buttons */}

@@ -65,7 +65,6 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }:
           className='max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
-          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>

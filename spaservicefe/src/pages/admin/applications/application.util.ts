@@ -14,14 +14,14 @@ export async function getAllApplications() {
   } catch (e) {
     return []
   }
-} 
+}
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
     var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -37,14 +37,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleDelete(id : string) {
+export async function handleDelete(id: string) {
   try {
     var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
@@ -58,5 +58,5 @@ export async function handleDelete(id : string) {
     }
   } catch (error) {
     console.error('Error deleting employee:', error)
-  } 
+  }
 }

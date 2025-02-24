@@ -16,7 +16,7 @@ import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './category.util'
 
 interface CategoryActionsProps {
-    category: Category
+  category: Category
 }
 
 const CustomerActions: React.FC<CategoryActionsProps> = ({ category }) => {
@@ -45,9 +45,10 @@ const CustomerActions: React.FC<CategoryActionsProps> = ({ category }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(category.categoryId)} 
-            className='cursor-pointer'>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(category.categoryId)}
+            className='cursor-pointer'
+          >
             Copy customer ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -61,7 +62,7 @@ const CustomerActions: React.FC<CategoryActionsProps> = ({ category }) => {
       </DropdownMenu>
       <ToastContainer />
 
-      <UpdateCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} category={category}/>
+      <UpdateCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} category={category} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

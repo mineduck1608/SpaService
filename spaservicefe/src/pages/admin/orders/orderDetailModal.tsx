@@ -18,9 +18,11 @@ interface UpdateOrderModalProps {
 export default function UpdateOrderModal({ isOpen, onClose, order }: UpdateOrderModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="px-10"> {/* Set width to 80% of the viewport width */}
-      <DialogTitle className='flex justify-center'>Order Detail</DialogTitle>
-            <OrderDetailTable orderId={order.orderId}/>
+      <DialogContent className='px-10'>
+        {' '}
+        {/* Set width to 80% of the viewport width */}
+        <DialogTitle className='flex justify-center'>Order Detail</DialogTitle>
+        <OrderDetailTable orderId={order.orderId} />
       </DialogContent>
       <ToastContainer />
     </Dialog>

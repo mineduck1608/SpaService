@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Account} from '../../../types/type'
+import { Account } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllContacts() {
@@ -16,12 +16,12 @@ export async function getAllContacts() {
   }
 }
 
-export async function handleDelete (contactId : string) {
+export async function handleDelete(contactId: string) {
   try {
     var res = await fetch(`${apiUrl}/contacts/Delete/${contactId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })

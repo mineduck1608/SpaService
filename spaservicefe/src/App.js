@@ -57,8 +57,7 @@ function Layout({ children }) {
   )
 }
 
-const Placeholder = ({ title }) => <div>{title} Page (Coming Soon)</div>;
-
+const Placeholder = ({ title }) => <div>{title} Page (Coming Soon)</div>
 
 function App() {
   useEffect(() => {

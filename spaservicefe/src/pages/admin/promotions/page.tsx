@@ -6,15 +6,15 @@ import { format } from 'date-fns' // Dùng thư viện date-fns để format ng�
 import { getAllPromotions } from './promotion.util'
 
 export default function PromotionPage() {
-  const [data, setData] = useState<Promotion[]>([]) 
+  const [data, setData] = useState<Promotion[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const promotions = await getAllPromotions() 
-        console.log("Fetched promotions:", promotions)
+        const promotions = await getAllPromotions()
+        console.log('Fetched promotions:', promotions)
         setData(promotions)
       } catch (err) {
         setError("Can't load the data.") // Xử lý lỗi nếu có

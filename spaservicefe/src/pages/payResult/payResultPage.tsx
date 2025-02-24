@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -49,9 +48,9 @@ export default function PayResultPage() {
                   <p className='text-xl'>Thank you for your consideration. Here are your order information:</p>
                   <div className='flex justify-center py-4'>
                     <table className='w-4/5 border-[1px]'>
-                      <tbody >
+                      <tbody>
                         <tr>
-                          <td className='p-2 border-[1px black solid]'>Service</td>
+                          <td className='border-[1px black solid] p-2'>Service</td>
                           <td>{map.get('serviceName')}</td>
                         </tr>
                         <tr>
@@ -70,7 +69,9 @@ export default function PayResultPage() {
                     </table>
                   </div>
                   <div className='flex justify-center'>
-                    <Link className='bg-green-600 no-underline p-3 rounded-xl text-white font-bold' to='/requests'>View your new request!</Link>
+                    <Link className='rounded-xl bg-green-600 p-3 font-bold text-white no-underline' to='/requests'>
+                      View your new request!
+                    </Link>
                   </div>
                 </div>
               )}

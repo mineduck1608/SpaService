@@ -37,7 +37,7 @@ export const columns: ColumnDef<SpaService>[] = [
         style: 'currency',
         currency: 'VND'
       }).format(price)
-      
+
       return <span>{formattedPrice}</span>
     }
   },

@@ -11,7 +11,7 @@ import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
 import { CalendarIcon } from 'lucide-react'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './new.util'
 import { newsConfig } from '../modal.util'
 import { DatePicker } from 'antd'
@@ -22,23 +22,21 @@ interface UpdateNewsModalProps {
   news: any
 }
 
-export default function UpdateNewsModal({isOpen, onClose, news} : UpdateNewsModalProps) {
+export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsModalProps) {
   const fieldsToUse = newsConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
-    ),
+    defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
 
   const handleSubmit = async (data: any) => {
-    handleUpdateSubmit(news.newsId ,data)
+    handleUpdateSubmit(news.newsId, data)
   }
 
   useEffect(() => {
     if (news) {
-      Object.keys(news).forEach((key : string) => {
+      Object.keys(news).forEach((key: string) => {
         if (form.getValues(key) !== undefined) {
           form.setValue(key, news[key])
         }
@@ -50,36 +48,36 @@ export default function UpdateNewsModal({isOpen, onClose, news} : UpdateNewsModa
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>Update News</DialogTitle>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
-              {fieldsToUse.map((field : FieldConfig) => (
-                <FormField
-                  key={field.name}
-                  control={form.control}
-                  name={field.name}
-                  render={({ field: formField }) => (
-                    <FormItem className='grid grid-cols-4 items-center gap-4 mt-2'>
-                      <FormLabel className='text-right text-md'>{field.label}</FormLabel>
-                      <div className='col-span-3 space-y-1'>
-                        <FormControl>
-                          <Input
-                            {...formField}
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            disabled={field.readonly}
-                          />
-                        </FormControl>
-                        <FormMessage className='text-sm' />
-                      </div>
-                    </FormItem>
-                  )}
-                  />
-              ))}
-              <div className='flex justify-end mt-10'>
-                  <Button type='submit'>Submit</Button>
-              </div>
-            </form>
-          </Form>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+            {fieldsToUse.map((field: FieldConfig) => (
+              <FormField
+                key={field.name}
+                control={form.control}
+                name={field.name}
+                render={({ field: formField }) => (
+                  <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                    <FormLabel className='text-md text-right'>{field.label}</FormLabel>
+                    <div className='col-span-3 space-y-1'>
+                      <FormControl>
+                        <Input
+                          {...formField}
+                          type={field.type}
+                          placeholder={field.placeholder}
+                          disabled={field.readonly}
+                        />
+                      </FormControl>
+                      <FormMessage className='text-sm' />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            ))}
+            <div className='mt-10 flex justify-end'>
+              <Button type='submit'>Submit</Button>
+            </div>
+          </form>
+        </Form>
       </DialogContent>
       <ToastContainer />
     </Dialog>

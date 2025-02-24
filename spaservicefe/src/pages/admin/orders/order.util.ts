@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { CosmeticProduct, Order, OrderDetail} from '../../../types/type'
+import { CosmeticProduct, Order, OrderDetail } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllOrders() {
@@ -30,13 +30,12 @@ export async function GetOrderDetailByOrderId(id: string) {
   }
 }
 
-
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
     var res = await fetch(`${apiUrl}/orders/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -52,7 +51,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
 export async function GetCosmeticProductById(id: string) {
   try {
@@ -76,11 +75,9 @@ export async function UpdateOrderStatus(id: string) {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    var json = (await res.json())
+    var json = await res.json()
     return json
   } catch (e) {
     return []
   }
 }
-
-

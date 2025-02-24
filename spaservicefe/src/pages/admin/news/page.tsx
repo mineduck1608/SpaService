@@ -16,16 +16,17 @@ export default function NewsPage() {
       try {
         const news = await getAllNews()
         // Lấy tên danh mục cho từng tin tức
-        const formattedNews = await Promise.all(news.map(async (newsItem) => {
-          const category = await getNewsCategoryName(newsItem.categoryId) // Lấy category từ API
-          const categoryName = category ? category.categoryName : 'Unknown' // Lấy categoryName từ đối tượng
-        
-          return {
-            ...newsItem,
-            categoryName, // Gán tên danh mục vào tin tức
-          }
-        }))
-        
+        const formattedNews = await Promise.all(
+          news.map(async (newsItem) => {
+            const category = await getNewsCategoryName(newsItem.categoryId) // Lấy category từ API
+            const categoryName = category ? category.categoryName : 'Unknown' // Lấy categoryName từ đối tượng
+
+            return {
+              ...newsItem,
+              categoryName // Gán tên danh mục vào tin tức
+            }
+          })
+        )
 
         setData(formattedNews)
       } catch (err) {
