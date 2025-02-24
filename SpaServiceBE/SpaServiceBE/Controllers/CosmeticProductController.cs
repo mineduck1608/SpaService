@@ -31,15 +31,15 @@ namespace SpaServiceBE.Controllers
                 return NotFound();
             return Ok(item);
         }
-        [HttpGet("GetByCateId/{id}")]
-        public async Task<ActionResult> GetCosmeticProductFromCategoryId(string categoryId)
+        [HttpGet("ProductOfCosmeticCategory/{id}")]
+        public async Task<ActionResult> GetCosmeticProductFromCategoryId(string id)
         {
             try
             {
-                var products = await _service.GetProductsByCategoryId(categoryId);
+                var products = await _service.GetProductsByCategoryId(id);
                 if (products == null || !products.Any())
                 {
-                    return NotFound(new { msg = $"No products found for category {categoryId}" });
+                    return NotFound(new { msg = $"No products found for category {id}" });
                 }
                 return Ok(products);
             }

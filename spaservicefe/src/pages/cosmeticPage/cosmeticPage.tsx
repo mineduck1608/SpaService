@@ -72,7 +72,7 @@ export default function CosmeticPage() {
               <CosmeticCategoryMenu
                 items={categories ?? []}
                 onClickItem={(v) => {
-                  navigate('/cosmetics/'+v) // Use navigate for category change
+                  navigate('/cosmetics/' + v) // Use navigate for category change
                 }}
                 currentItem={currentCategory?.categoryId}
               />

@@ -42,5 +42,10 @@ namespace Services
         {
             await _repository.DeleteAsync(id);
         }
+
+        public async Task<CosmeticTransaction> GetByTransId(string transId)
+        {
+            return await _repository.GetByTransId(transId);
+        }
     }
 }

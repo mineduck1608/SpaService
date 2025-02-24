@@ -16,7 +16,7 @@ export default function ShortDetail(params: { d?: Service }) {
 
     if (!token) {
       // Nếu không có token, hiển thị thông báo yêu cầu đăng nhập
-      toast.error('Please login to continue!');
+      toast.error('Please login to continue!')
     } else {
       // Nếu có token, lưu thông tin và chuyển hướng tới trang checkout
       sessionStorage.setItem('booked', JSON.stringify(params.d) ?? '')
@@ -37,7 +37,8 @@ export default function ShortDetail(params: { d?: Service }) {
       <div className='mb-3 flex w-3/5 justify-between '>
         <button
           onClick={handleCheckout} // Sử dụng hàm handleCheckout để kiểm tra token
-          className='w-[45%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'>
+          className='w-[45%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'
+        >
           Check out
         </button>
       </div>

@@ -174,11 +174,6 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.EndTime)
                 .HasColumnType("datetime")
                 .HasColumnName("endTime");
-            entity.Property(e => e.ReplacementEmployee)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasComment("manually by manager")
-                .HasColumnName("replacementEmployee");
             entity.Property(e => e.RequestId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -198,15 +193,10 @@ public partial class SpaserviceContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updatedAt");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.AppointmentEmployees)
+            entity.HasOne(d => d.Employee).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKAppointmen55642");
-
-            entity.HasOne(d => d.ReplacementEmployeeNavigation).WithMany(p => p.AppointmentReplacementEmployeeNavigations)
-                .HasForeignKey(d => d.ReplacementEmployee)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKAppointmen998763");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.RequestId)
@@ -679,9 +669,6 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.Content)
                 .IsUnicode(false)
                 .HasColumnName("content");
-            entity.Property(e => e.CreateAt)
-                .HasColumnType("datetime")
-                .HasColumnName("createAt");
             entity.Property(e => e.Header)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -711,6 +698,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("orderId");
+            entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.CustomerId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -738,11 +726,11 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__E4FEDE4A20F207BA");
-
             entity.ToTable("OrderDetail");
 
-            entity.Property(e => e.OrderDetailId).HasColumnName("orderDetailId");
+            entity.Property(e => e.OrderDetailId)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.OrderId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -752,7 +740,6 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("productId");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.SubtotalAmount).HasColumnName("subtotalAmount");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)

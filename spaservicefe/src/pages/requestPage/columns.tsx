@@ -44,7 +44,7 @@ export const columns: ColumnDef<SpaRequest>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      return <Details request={row.original}/>
+      return <Details request={row.original} />
     }
   }
 ]

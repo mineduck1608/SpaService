@@ -19,15 +19,13 @@ interface UpdateAccountModalProps {
   account: any
 }
 
-export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAccountModalProps) {
+export default function UpdateAccountModal({ isOpen, onClose, account }: UpdateAccountModalProps) {
   const fieldsToUse = accountConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const [roles, setRoles] = useState<{ roleId: string, roleName: string }[]>([])
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
-    )
+    defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
 
   const handleSubmit = async (data: any) => {
@@ -56,11 +54,6 @@ export default function UpdateAccountModal({isOpen, onClose, account} : UpdateAc
           }
         })
       }
-    }
-  
-    fetchRoles()
-  }, [account, form])
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>

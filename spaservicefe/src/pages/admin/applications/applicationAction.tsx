@@ -12,7 +12,7 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Application } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateApplicationModal from './applicationUpdateModal'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './application.util'
 
 interface ApplicationActionsProps {
@@ -27,14 +27,15 @@ const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) 
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
   const openUpdateModal = () => {
-    setUpdateModalOpen(true)}
+    setUpdateModalOpen(true)
+  }
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
     handleDelete(application.applicationId)
     closeDeleteModal()
   }
-    
+
   return (
     <>
       <DropdownMenu>
@@ -43,7 +44,6 @@ const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) 
             <span className='sr-only'>Open menu</span>
             <MoreHorizontal className='h-4 w-4' />
           </Button>
-          
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
@@ -60,8 +60,8 @@ const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) 
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      
-      <UpdateApplicationModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} application={application}/>
+
+      <UpdateApplicationModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} application={application} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

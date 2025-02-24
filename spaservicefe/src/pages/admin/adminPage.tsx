@@ -16,15 +16,17 @@ export default function AdminPage() {
   function capitalizeEachWord(sentence: string): string {
     return sentence
       .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ')
   }
 
   return (
     <SidebarProvider>
       <SidebarLeft
-        favourite={sideData.favorite}
-        main={sideData.workspaces}
+        workspaces={sideData.workspaces}
+        users={sideData.users}
+        spaservices={sideData.spaservices}
+        cosmetics={sideData.cosmetics}
         header={sideData.navMain}
         props={{}}
         secondary={sideData.navSecondary}

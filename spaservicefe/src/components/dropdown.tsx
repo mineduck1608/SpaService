@@ -22,7 +22,6 @@ export function Dropdown() {
   const navigate = useNavigate()
   const [fullName, setFullName] = useState('') // Initialize fullName as an empty string
   useEffect(() => {
-    console.log(token)
     if (token) {
       try {
         // Giải mã token để lấy thông tin
@@ -86,13 +85,13 @@ export function Dropdown() {
           <DropdownMenuLabel>Welcome {fullName}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            {
-              items.map(x => (
-                <DropdownMenuItem>
-                  <Link to={x.v} className='no-underline text-black'>{x.k}</Link>
-                </DropdownMenuItem>
-              ))
-            }
+            {items.map((x) => (
+              <DropdownMenuItem>
+                <Link to={x.v} className='text-black no-underline'>
+                  {x.k}
+                </Link>
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogoutClick}>

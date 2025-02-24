@@ -30,7 +30,7 @@ export function NavUser({
     // Xóa token và các dữ liệu trong sessionStorage
     sessionStorage.removeItem('token')
     sessionStorage.removeItem('booked')
-    
+
     // Hiển thị thông báo logout thành công
     toast.success('Logout successfully.')
 
@@ -88,7 +88,9 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout}> {/* Gọi hàm logout khi bấm vào */}
+            <DropdownMenuItem onClick={handleLogout}>
+              {' '}
+              {/* Gọi hàm logout khi bấm vào */}
               <LogOut />
               Log out
             </DropdownMenuItem>

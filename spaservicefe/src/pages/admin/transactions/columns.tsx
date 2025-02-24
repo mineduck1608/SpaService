@@ -35,17 +35,16 @@ export const columns: ColumnDef<TransactionBase>[] = [
   },
   {
     accessorKey: 'totalPrice',
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Total Price
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    header: 'Total Price',
     cell: ({ row }) => {
-      const value = row.getValue<string>('totalPrice')
-      return <div className='ml-8'>{value}</div>
+      const price = row.getValue('totalPrice')
+      // Định dạng giá trị thành tiền VND
+      const formattedPrice = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+      }).format(price)
+
+      return <span>{formattedPrice}</span>
     }
   },
   {

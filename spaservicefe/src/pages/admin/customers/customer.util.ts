@@ -35,7 +35,7 @@ export async function handleCreateSubmit(data: any) {
     var res = await fetch(`${apiUrl}/accounts/RegisterCustomer`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -51,14 +51,14 @@ export async function handleCreateSubmit(data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
     var res = await fetch(`${apiUrl}/customers/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -74,14 +74,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleDelete(customerId : string) {
+export async function handleDelete(customerId: string) {
   try {
     var res = await fetch(`${apiUrl}/customers/Delete/${customerId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
@@ -95,5 +95,5 @@ export async function handleDelete(customerId : string) {
     }
   } catch (error) {
     console.error('Error deleting customer:', error)
-  } 
+  }
 }

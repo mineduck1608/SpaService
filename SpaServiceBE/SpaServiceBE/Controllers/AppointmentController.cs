@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,11 @@ namespace API.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        private readonly IAppointmentService _servicee;
+        private readonly IAppointmentService _service;
 
         public AppointmentController(IAppointmentService appointmentService)
         {
-            _servicee = appointmentService ?? throw new ArgumentNullException(nameof(appointmentService));
+            _service = appointmentService ?? throw new ArgumentNullException(nameof(appointmentService));
         }
 
         // GET: api/appointments/GetAll
@@ -27,7 +28,7 @@ namespace API.Controllers
         {
             try
             {
-                var appointments = await _servicee.GetAllAppointments();
+                var appointments = await _service.GetAllAppointments();
                 return Ok(appointments);
             }
             catch (Exception ex)
@@ -43,7 +44,7 @@ namespace API.Controllers
         {
             try
             {
-                var appointment = await _servicee.GetAppointmentById(id);
+                var appointment = await _service.GetAppointmentById(id);
 
                 if (appointment == null)
                     return NotFound($"Appointment with ID = {id} not found.");
@@ -61,7 +62,7 @@ namespace API.Controllers
         {
             try
             {
-                var appointment = await _servicee.GetAllAppointmentsFromEmployee(id);
+                var appointment = await _service.GetAllAppointmentsFromEmployee(id);
 
                 if (appointment == null)
                     return NotFound($"Appointment with ID = {id} not found.");
@@ -102,11 +103,10 @@ namespace API.Controllers
                     Status = "Unprocessed", // Default status
                     StartTime = startTime,
                     EndTime = endTime,
-                    ReplacementEmployee = replacementEmployee
                 };
 
                 // Gọi service để thêm appointment
-                var isCreated = await _servicee.AddAppointment(appointment);
+                var isCreated = await _service.AddAppointment(appointment);
 
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the appointment." });
@@ -119,6 +119,24 @@ namespace API.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet("GetByAccId/{id}")]
+        public async Task<ActionResult<List<Request>>> GetRequestByAccId(string id)
+        {
+            try
+            {
+                var request = await _service.GetAllAppointmentsByAccId(id);
+
+                if (request == null)
+                    return NotFound($"Request with ID = {id} not found.");
+
+                return Ok(request);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
         // PUT: api/appointments/Update/{id}
         [Authorize]
@@ -149,12 +167,11 @@ namespace API.Controllers
                     Status = "Pending", // Default status (you can update based on your logic)
                     StartTime = startTime,
                     EndTime = endTime,
-                    ReplacementEmployee = replacementEmployee,
                     UpdatedAt = DateTime.Now // Automatically update the timestamp
                 };
 
                 // Gọi service để cập nhật appointment
-                var isUpdated = await _servicee.UpdateAppointment(id, appointment);
+                var isUpdated = await _service.UpdateAppointment(id, appointment);
 
                 if (!isUpdated)
                     return NotFound(new { msg = $"Appointment with ID = {id} not found." });
@@ -175,7 +192,7 @@ namespace API.Controllers
         {
             try
             {
-                var isDeleted = await _servicee.DeleteAppointment(id);
+                var isDeleted = await _service.DeleteAppointment(id);
 
                 if (!isDeleted)
                     return NotFound($"Appointment with ID = {id} not found.");

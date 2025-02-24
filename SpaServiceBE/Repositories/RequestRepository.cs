@@ -60,7 +60,7 @@ namespace Repositories
             if (existingRequest == null) return false;
 
             existingRequest.StartTime = request.StartTime;
-  
+
             existingRequest.Status = request.Status;
             existingRequest.CustomerNote = request.CustomerNote;
             existingRequest.ManagerNote = request.ManagerNote;
@@ -108,10 +108,8 @@ namespace Repositories
 
         public async Task<(ISet<string> roomId, ISet<string> empId)> FindUnavailableRoomAndEmp(Request request)
         {
-            //Tìm category
-            var catId = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId).CategoryId;
             //Tìm các appointment tg request => Tìm phòng nào, nv nào ko dùng đc
-            var appointments = _context.Appointments.ToList(); //Lọc theo catId
+            var appointments = _context.Appointments.ToList();
             //Lọc theo tg
             var start = request.StartTime;
             var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId);
@@ -120,7 +118,11 @@ namespace Repositories
             var unavailable = appointments.Where(x =>
                 IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
             ).Select(x => (x.EmployeeId, x.RoomId)).ToList();
-            (ISet<string> roomId, ISet<string> empId) result = new();
+            (ISet<string> roomId, ISet<string> empId) result = new()
+            {
+                empId = new HashSet<string>(),
+                roomId = new HashSet<string>(),
+            };
             foreach (var item in unavailable)
             {
                 result.roomId.Add(item.RoomId);

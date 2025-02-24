@@ -16,7 +16,7 @@ import Services from './pages/home/services.tsx'
 import Products from './pages/home/products.tsx'
 import News from './pages/home/news.tsx'
 import OurServices from './pages/home/ourServices.tsx'
-import DetailPage from './pages/detailPage/detailPage.tsx'
+import DetailPage from './pages/serviceDetailPage/detailPage.tsx'
 import AdminPage from './pages/admin/adminPage.tsx'
 import CheckOutPage from './pages/checkout/checkoutPage.tsx'
 import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
@@ -33,6 +33,7 @@ import PayResultPage from './pages/payResult/payResultPage.tsx'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import RequestPage from './pages/requestPage/requestPage.tsx'
+import AppointmentPage from './pages/appointmentPage/appointmentPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -43,7 +44,6 @@ import TransactionPage from './pages/admin/transactions/page.tsx'
 import PromotionPage from './pages/admin/promotions/page.tsx'
 import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 import ApplicationPage from './pages/admin/applications/page.tsx'
-import ProductPage from './pages/admin/products/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -54,6 +54,8 @@ function Layout({ children }) {
     </>
   )
 }
+
+const Placeholder = ({ title }) => <div>{title} Page (Coming Soon)</div>
 
 function App() {
   useEffect(() => {
@@ -81,6 +83,14 @@ function App() {
             element={
               <Layout>
                 <RequestPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='appointments'
+            element={
+              <Layout>
+                <AppointmentPage />
               </Layout>
             }
           />
@@ -138,7 +148,7 @@ function App() {
             path='cosmetics-detail/:id'
             element={
               <Layout>
-                <DetailPage />
+                <CosmeticDetailPage />
               </Layout>
             }
           />
@@ -216,7 +226,32 @@ function App() {
             }
           >
             <Route index element={<Dashboard />} />
+
+            {/* Workspaces */}
+            <Route path='appointments' element={<CalendarApp />} />
+            <Route path='orders' element={<OrderPage />} />
+            <Route path='transactions' element={<TransactionPage />} />
+
+            {/* Requests */}
+            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            <Route path='applications' element={<ApplicationPage />} />
+            <Route path='guest-contacts' element={<Placeholder title='Guest Contacts' />} />
+
+            {/* Facilities */}
+            <Route path='floors' element={<Placeholder title='Floors' />} />
+            <Route path='rooms' element={<Placeholder title='Rooms' />} />
+
+            {/* Others */}
+            <Route path='promotions' element={<PromotionPage />} />
+            {/* <Route path='news' element={<AdminNewsPage />} /> */}
+            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+
+            {/* Users */}
             <Route path='accounts' element={<DemoPage />} />
+            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+
+            {/* Users Management */}
+            <Route path='managers' element={<Placeholder title='Managers' />} />
             <Route path='customers' element={<CustomerPage />} />
             <Route path='employees' element={<EmployeePage />} />
             <Route path='shifts' element={<></>} />
@@ -233,7 +268,6 @@ function App() {
             <Route path='employees-commissions' element={<div>BE</div>} />
             <Route path='news' element={<AdmminNewsPage />} />
             <Route path='promotions' element={<PromotionPage />} />
-            <Route path='cosmetic-products' element={<ProductPage />} />
           </Route>
           <Route
             path='manager'

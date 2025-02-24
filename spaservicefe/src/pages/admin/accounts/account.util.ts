@@ -63,7 +63,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
     var res = await fetch(`${apiUrl}/accounts/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -79,4 +79,4 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}

@@ -36,16 +36,7 @@ export default function RequestTable() {
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
       <PastBookingContext.Provider value={{ pastBooking, setPastBooking }}>
-        <DataTable
-          columns={columns}
-          data={data.filter((v) => {
-            var d = new Date(v.startTime).getTime() < new Date().getTime()
-            if (pastBooking) {
-              return d
-            }
-            return !d
-          })}
-        />
+        <DataTable columns={columns} data={data} />
       </PastBookingContext.Provider>
     </div>
   )

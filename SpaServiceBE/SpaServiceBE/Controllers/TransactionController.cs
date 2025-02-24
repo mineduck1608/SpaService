@@ -139,6 +139,8 @@ namespace API.Controllers
                 string transactionType = jsonElement.GetProperty("transactionType").GetString();
                 float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
                 bool status = jsonElement.GetProperty("status").GetBoolean();
+                string paymentType = jsonElement.GetProperty("paymentType").GetString();
+                DateTime completeTime = jsonElement.GetProperty("completeTime").GetDateTime();
 
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0 || status != null)
@@ -152,7 +154,9 @@ namespace API.Controllers
                     TransactionId = id, // Use the provided ID for the update
                     TransactionType = transactionType,
                     TotalPrice = totalPrice,
-                    Status = status
+                    Status = status,
+                    PaymentType = paymentType,
+                    CompleteTime = completeTime
                 };
 
                 // Gọi service để cập nhật transaction

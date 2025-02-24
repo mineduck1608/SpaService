@@ -30,6 +30,19 @@ namespace Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Appointment>> GetAppointmentsFromCustomer(string accId)
+        {
+            var rs = _context.Appointments
+                .Include(x => x.Request)
+                .ThenInclude(x => x.Customer)
+                .Include(x => x.Request)
+                .ThenInclude(x => x.Service)
+                .Include(x => x.Room)
+                .Include(x => x.Employee)
+                .Where(e => e.Request.Customer.AccountId == accId).ToList();
+            return rs;
+        }
+
         // Get all appointments
         public async Task<List<Appointment>> GetAll()
         {

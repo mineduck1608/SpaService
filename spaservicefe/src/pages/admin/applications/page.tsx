@@ -6,22 +6,22 @@ import { format } from 'date-fns'
 import { getAllApplications } from './application.util'
 
 export default function ApplicationPage() {
-  const [data, setData] = useState<Application[]>([]) 
+  const [data, setData] = useState<Application[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const applications = await getAllApplications() 
+        const applications = await getAllApplications()
 
         const formattedApplications = applications.map((application) => ({
           ...application,
           createdAt: format(new Date(application.createdAt), 'dd/MM/yyyy'),
-          resolvedAt: format(new Date(application.resolvedBy), 'dd/MM/yyyy'),
+          resolvedAt: format(new Date(application.resolvedBy), 'dd/MM/yyyy')
         }))
 
-        setData(formattedApplications) 
+        setData(formattedApplications)
       } catch (err) {
         setError("Can't load the data.") // Xử lý lỗi nếu có
       } finally {

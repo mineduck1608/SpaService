@@ -21,13 +21,13 @@ export async function handleCreateSubmit(data: any) {
     var res = await fetch(`${apiUrl}/cosmeticcategories/Create`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-    console.log("Form Data:", data)
-    console.log("API Response:", res)
+    console.log('Form Data:', data)
+    console.log('API Response:', res)
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully create!', {
         autoClose: 2000
@@ -39,14 +39,14 @@ export async function handleCreateSubmit(data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
     var res = await fetch(`${apiUrl}/cosmeticcategories/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -62,14 +62,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleDelete(id : string) {
+export async function handleDelete(id: string) {
   try {
     var res = await fetch(`${apiUrl}/cosmeticcategories/Delete/${id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
@@ -83,5 +83,5 @@ export async function handleDelete(id : string) {
     }
   } catch (error) {
     console.error('Error deleting customer:', error)
-  } 
+  }
 }

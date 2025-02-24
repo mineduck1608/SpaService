@@ -21,7 +21,7 @@ export default function ManagerPage() {
 
   return (
     <SidebarProvider>
-      <SidebarLeft main={sideData.workspaces} header={sideData.navMain} props={{}}/>
+      <SidebarLeft main={sideData.workspaces} header={sideData.navMain} props={{}} />
       <SidebarInset>
         <header className='sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background'>
           <div className='flex flex-1 items-center gap-2 px-3'>

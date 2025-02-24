@@ -17,18 +17,11 @@ public partial class Appointment
 
     public string EmployeeId { get; set; } = null!;
 
-    /// <summary>
-    /// manually by manager
-    /// </summary>
-    public string ReplacementEmployee { get; set; } = null!;
-
     public DateTime? UpdatedAt { get; set; }
 
     public string RoomId { get; set; } = null!;
 
     public virtual Employee Employee { get; set; } = null!;
-
-    public virtual Employee ReplacementEmployeeNavigation { get; set; } = null!;
 
     public virtual Request Request { get; set; } = null!;
 

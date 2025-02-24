@@ -39,12 +39,12 @@ namespace Repositories
 
         public async Task DeleteAsync(string customerId, string membershipId)
         {
-            var entity = await GetByIdAsync(customerId, membershipId);
-            if (entity != null)
-            {
-                _context.CustomerMemberships.Remove(entity);
-                await _context.SaveChangesAsync();
-            }
+            //var entity = await GetByIdAsync(customerId, membershipId);
+            //if (entity != null)
+            //{
+            //    _context.CustomerMemberships.Remove(entity);
+            //    await _context.SaveChangesAsync();
+            //}
         }
     }
 

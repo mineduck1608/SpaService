@@ -49,9 +49,9 @@ export type SpaRequest = {
   customerNote: string
   managerNote: string
   serviceId: string
-  customerId: string,
-  service?: SpaService,
-  employee?: Employee,
+  customerId: string
+  service?: SpaService
+  employee?: Employee
   serviceTransaction?: ServiceTransaction
 }
 
@@ -70,11 +70,14 @@ export type Appointment = {
   status: string
   requestId: string
   employeeId: string
-  startTime: string 
+  startTime: string
   endTime: string
-  replacementEmployee: string
   updatedAt: Date
-  employee: Employee
+  employee?: Employee
+  service?: SpaService
+  request?: SpaRequest
+  room?: Room
+  roomId: string
 }
 
 export type SpaService = {
@@ -120,22 +123,6 @@ export type Application = {
   resolvedBy: string
 }
 
-export type Order = {
-  orderId: string
-  customerId: string
-  orderDate: Date | string
-  totalAmount: number
-  status: boolean
-  transactionId: string
-}
-
-export type OrderDetail = {
-  orderDetailId: string
-  quantity: number
-  subtotalAmount: number
-  orderId: string
-  productId: string
-}
 
 export type CosmeticCategory = {
   categoryId: string
@@ -159,6 +146,7 @@ export type CosmeticProduct = {
   isSelling: boolean
   image: string
   categoryId: string
+
 }
 
 export type Floor = {
@@ -199,4 +187,22 @@ export type CosmeticTransaction = TransactionBase & {
   cosmeticTransactionId: string
   requestId: string
   orderId?: string
+}
+
+export type Order = {
+  orderId: string
+  customerId: string
+  orderDate: Date
+  totalAmount: GLfloat
+  status: boolean
+  transactionId: string
+  address: string
+}
+
+export type OrderDetail = {
+  orderDetailId: string
+  quantity: number
+  subTotalAmount: GLfloat
+  orderId: string
+  productId: string
 }

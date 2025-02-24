@@ -49,5 +49,10 @@ namespace Services
         {
             return await _repository.GetAppointmentsFromEmployeeId(employeeId);
         }
+
+        public async Task<List<Appointment>> GetAllAppointmentsByAccId(string customerId)
+        {
+            return await _repository.GetAppointmentsFromCustomer(customerId);
+        }
     }
 }

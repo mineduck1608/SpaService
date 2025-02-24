@@ -23,7 +23,7 @@ export async function getCosmeticCategory(id: string) {
 }
 export async function getProductOfCosmeticCategory(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/cosmeticproducts/ProductOfCosmeticCategory?categoryId=${id}`, {
+    var res = await fetch(`${apiUrl}/cosmeticproducts/ProductOfCosmeticCategory/${id}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -60,6 +60,7 @@ export async function findCosmeticCategories() {
   }
   return s
 }
+
 export function take<T>(arr: T[], pageNum: number, pageSize: number): T[] {
   let start = pageNum * pageSize
   let end = start + pageSize

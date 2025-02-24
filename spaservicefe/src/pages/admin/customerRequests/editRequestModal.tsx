@@ -66,7 +66,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
         </DialogHeader>
         <div className='grid gap-4 py-4'>
           {/* Start Time */}
-          <div className='flex items-center gap-4 ml-3'>
+          <div className='ml-3 flex items-center gap-4'>
             <Label htmlFor='startTime' className='text-right'>
               Start Time
             </Label>
@@ -77,7 +77,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
               showMinute
               showSecond={false}
               minuteStep={30}
-              className='border-[1px] p-2 w-75'
+              className='w-75 border-[1px] p-2'
               onChange={(date) => handleChange('startTime', date ? date.format('YYYY-MM-DD HH:mm:ss') : '')}
             />
           </div>
@@ -91,7 +91,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
               id='employeeId'
               value={updatedRequest.employeeId || ''}
               onChange={(e) => handleChange('employeeId', e.target.value)}
-              className='col-span-3 border rounded-lg p-2'
+              className='col-span-3 rounded-lg border p-2'
             >
               <option value=''>Select Employee</option>
               {employees.map((employee) => (

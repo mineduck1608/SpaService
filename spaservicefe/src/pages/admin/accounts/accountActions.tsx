@@ -44,8 +44,8 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      
-      <UpdateAccountModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} account={account}/>
+
+      <UpdateAccountModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} account={account} />
     </>
   )
 }
