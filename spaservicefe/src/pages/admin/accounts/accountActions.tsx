@@ -39,7 +39,7 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Edit Status
+            Update
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

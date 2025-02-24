@@ -9,17 +9,17 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { News } from '@/types/type'
+import { CosmeticProduct } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'
-import { handleDelete } from './new.util'
-import UpdateNewsModal from './newUpdateModal'
+import { handleDelete } from './product.util'
+import UpdateProductModal from './productUpdateModal'
 
-interface NewsActionsProps {
-  news: News
+interface ProductActionsProps {
+  product: CosmeticProduct
 }
 
-const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
+const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -30,7 +30,7 @@ const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
-    handleDelete(news.newsId)
+    handleDelete(product.productId)
     closeDeleteModal()
   }
 
@@ -46,9 +46,9 @@ const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(news.newsId)} 
+            onClick={() => navigator.clipboard.writeText(product.productId)} 
             className='cursor-pointer'>
-            Copy news ID
+            Copy product ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
@@ -60,10 +60,10 @@ const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdateNewsModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} news={news}/>
+      <UpdateProductModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} product={product}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default NewsActions
+export default ProductActions

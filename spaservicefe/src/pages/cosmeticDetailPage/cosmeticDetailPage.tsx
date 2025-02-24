@@ -47,7 +47,7 @@ export default function CosmeticDetailPage() {
         {/* Service detail (img, short intro + long intro) */}
         <div className='mb-10 flex w-full  justify-center'>
           {/* Outer container for img + short intro */}
-          <div className='w-11/12 rounded-lg p-4 shadow-lg  shadow-md lg:w-3/5'>
+          <div className='w-11/12 rounded-lg p-4 shadow-lg lg:w-3/5'>
             {/* Short intro and img */}
             <div className='flex justify-between'>
               <div className='w-[49.5%] '>
