@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './application.util'
@@ -28,7 +29,7 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
   })
 
   const handleSubmit = async (data: any) => {
-    handleUpdateSubmit(application.applicationId, data)
+    handleUpdateSubmit(application.applicationId, application, data)
   }
 
   const handleChange = (field: string, value: string) => {
@@ -74,6 +75,20 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
                               handleChange(field.name, date ? date.format('YYYY-MM-DDTHH:mm:ss') : '')
                             }
                           />
+                        ) : field.type === 'select' ? (
+                          <Select
+                            onValueChange={formField.onChange}
+                            defaultValue={formField.value}
+                            disabled={field.readonly}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value='Resolved'>Resolved</SelectItem>
+                              <SelectItem value='Unresolved'>Unresolved</SelectItem>
+                            </SelectContent>
+                          </Select>
                         ) : (
                           <Input
                             {...formField}

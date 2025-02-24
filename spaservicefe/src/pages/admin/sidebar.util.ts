@@ -2,20 +2,16 @@ import {
   Home,
   Boxes,
   ClipboardList,
+  LineChart,
   LucideIcon,
+  CalendarCheck,
+  LetterText,
   ArrowLeftRight,
+  HandHelping,
   UserCircle,
-  Users2Icon,
   Contact2,
   MessageCircleQuestion,
-  Trash2,
-  Warehouse,
-  Grip,
-  UserCog,
-  Sparkles,
-  Sparkle,
-  Package,
-  Blocks
+  Trash2
 } from 'lucide-react'
 export type SideBarItem = {
   title: string
@@ -36,91 +32,12 @@ export const sideData = {
   ],
   workspaces: [
     {
-      title: 'Appointments',
-      icon: ClipboardList,
-      url: '/admin/appointments'
-    },
-    {
-      title: 'Orders',
-      icon: Boxes,
-      url: '/admin/orders'
-    },
-    {
-      title: 'Transactions',
-      url: '/admin/transactions',
-      icon: ArrowLeftRight
-    },
-    {
-      title: 'Requests',
-      icon: Contact2,
-      pages: [
-        {
-          title: 'Customer Requests',
-          url: '/customer-requests'
-        },
-        {
-          title: 'Applications',
-          url: '/applications'
-        },
-        {
-          title: 'Guest Contacts',
-          url: '/guest-contacts'
-        }
-      ]
-    },
-
-    {
-      title: 'Facilities',
-      icon: Warehouse,
-      pages: [
-        {
-          title: 'Floors',
-          url: '/floors'
-        },
-        {
-          title: 'Rooms',
-          url: '/rooms'
-        }
-      ]
-    },
-
-    {
-      title: 'Others',
-      icon: Grip,
-      pages: [
-        {
-          title: 'Promotions',
-          url: '/promotions'
-        },
-        {
-          title: 'News',
-          url: '/news'
-        },
-        {
-          title: 'Feedbacks',
-          url: '/feedbacks'
-        }
-      ]
-    }
-  ],
-  users: [
-    {
-      title: 'Accounts',
+      title: 'User List',
       icon: UserCircle,
-      url: '/admin/accounts'
-    },
-    {
-      title: 'Employee Categories',
-      icon: UserCog,
-      url: '/admin/employee-categories'
-    },
-    {
-      title: 'Users',
-      icon: Users2Icon,
       pages: [
         {
-          title: 'Managers',
-          url: '/managers'
+          title: 'Accounts',
+          url: '/accounts'
         },
         {
           title: 'Customers',
@@ -131,30 +48,71 @@ export const sideData = {
           url: '/employees'
         }
       ]
-    }
-  ],
-  spaservices: [
-    {
-      title: 'Services Categories',
-      icon: Sparkle,
-      url: '/admin/service-categories'
     },
     {
-      title: 'Spa Services',
-      icon: Sparkles,
-      url: '/admin/spa-services'
-    }
-  ],
-  cosmetics: [
-    {
-      title: 'Cosmetic Categories',
-      icon: Package,
-      url: '/admin/cosmetic-categories'
+      title: 'Workings',
+      icon: ClipboardList,
+      pages: [
+        {
+          title: 'Applications',
+          url: '/applications'
+        },
+        {
+          title: 'Appointments',
+          url: '/appointments'
+        }
+      ]
     },
     {
-      title: 'Cosmetic Products',
-      icon: Blocks,
-      url: '/admin/cosmetic-product'
+      title: 'Requests',
+      icon: Contact2,
+      pages: [
+        {
+          title: 'Customer Requests',
+          url: '/customer-requests'
+        },
+        {
+          title: 'Contacts',
+          url: '/contacts'
+        }
+      ]
+    },
+    {
+      title: 'Products',
+      icon: Boxes,
+      pages: [
+        {
+          title: 'Categories',
+          url: '/categories'
+        },
+        {
+          title: 'Services',
+          url: '/spa-services'
+        },
+        {
+          title: 'News',
+          url: '/news'
+        },
+        {
+          title: 'Cosmetic Products',
+          url: '/cosmetic-products'
+        }
+        
+      ]
+    },
+    {
+      title: 'Transactions',
+      icon: ArrowLeftRight,
+      pages: [
+        {
+          title: 'Transactions',
+          url: '/transactions'
+        },
+        {
+          title: 'Promotions',
+          url: '/promotions'
+        }
+      ]
     }
   ],
   navSecondary: [
@@ -167,6 +125,23 @@ export const sideData = {
       title: 'Help',
       url: '#',
       icon: MessageCircleQuestion
+    }
+  ],
+  favorite: [
+    {
+      title: 'Transactions',
+      url: '/transactions',
+      icon: LineChart
+    },
+    {
+      title: 'Customer Requests',
+      url: '/customer-requests',
+      icon: HandHelping
+    },
+    {
+      title: 'Contacts',
+      url: '/contacts',
+      icon: LetterText
     }
   ]
 }

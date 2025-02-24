@@ -27,7 +27,12 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     accessorKey: 'status',
-    header: 'Status'
+    header: 'Status',
+    cell: ({ row }) => {
+      const status = row.getValue<string>('status')
+      const statusColor = status === 'Resolved' ? 'text-green-500' : 'text-red-500'
+      return <span className={statusColor}>{status}</span>
+    }
   },
   {
     accessorKey: 'content',
@@ -39,11 +44,13 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     accessorKey: 'resolvedAt',
-    header: 'Resolved At'
+    header: 'Resolved At',
+    cell: ({ row }) => row.original.resolvedAt ? row.original.resolvedAt : 'None'
   },
   {
     accessorKey: 'resolvedBy',
-    header: 'Resolved By'
+    header: 'Resolved By',
+    cell: ({ row }) => row.original.resolvedBy ? row.original.resolvedBy : 'None'
   },
   {
     id: 'actions',
