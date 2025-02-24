@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Repositories.Entities;
 
 namespace Repositories.Context;
@@ -75,17 +74,9 @@ public partial class SpaserviceContext : DbContext
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
-    private string? GetConnectionString()
-    {
-        IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true).Build();
-        return configuration["ConnectionStrings:DefaultConnectionStringDB"];
-    }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+        => optionsBuilder.UseSqlServer("Server=MINEDUCK\\MINEDUCK;Database=spaservice;UID=sa;PWD=12345;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -707,6 +698,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("orderId");
+            entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.CustomerId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -734,11 +726,11 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__E4FEDE4A20F207BA");
-
             entity.ToTable("OrderDetail");
 
-            entity.Property(e => e.OrderDetailId).HasColumnName("orderDetailId");
+            entity.Property(e => e.OrderDetailId)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.OrderId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -748,7 +740,6 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("productId");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.SubtotalAmount).HasColumnName("subtotalAmount");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)

@@ -114,5 +114,38 @@ namespace SpaServiceBE.Controllers
             await _orderService.DeleteOrderAsync(id);
             return NoContent();
         }
+
+        [Authorize]
+        [HttpPut("ConfirmOrder/{orderId}")]
+        public async Task<ActionResult> UpdateOrderStatus(string orderId)
+        {
+            try
+            {
+                // Fetch the order using the orderId
+                var order = await _orderService.GetOrderByIdAsync(orderId);
+
+                if (order == null)
+                {
+                    return NotFound(new { msg = $"Order with ID = {orderId} not found." });
+                }
+
+                // Update the order status to true
+                order.Status = true;
+
+                // Update the order in the database
+                var isUpdated = await _orderService.UpdateOrderAsync(orderId, order);
+                if (!isUpdated)
+                {
+                    return StatusCode(500, new { msg = "Failed to update the order status." });
+                }
+
+                return Ok(new { msg = "Order status updated successfully.", order });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
+
     }
 }

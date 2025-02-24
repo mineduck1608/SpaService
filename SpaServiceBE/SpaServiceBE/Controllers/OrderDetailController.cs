@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MailKit.Search;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
@@ -40,7 +41,7 @@ namespace SpaServiceBE.Controllers
                 var jsonElement = (JsonElement)request;
 
                 // Extract data from request
-                float quantity = jsonElement.GetProperty("quantity").GetSingle();
+               int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 float subtotalAmount = jsonElement.GetProperty("subtotalAmount").GetSingle();
                 string orderId = jsonElement.GetProperty("orderId").GetString();
                 string productId = jsonElement.GetProperty("productId").GetString();
@@ -54,9 +55,9 @@ namespace SpaServiceBE.Controllers
                 // Create OrderDetail object
                 var orderDetail = new OrderDetail
                 {
-                    OrderDetailId = new Random().Next(1, int.MaxValue), // Generate unique ID
+                    OrderDetailId = Guid.NewGuid().ToString("N"),
                     Quantity = quantity,
-                    SubtotalAmount = subtotalAmount,
+                    SubTotalAmount = subtotalAmount,
                     OrderId = orderId,
                     ProductId = productId
                 };
@@ -78,7 +79,7 @@ namespace SpaServiceBE.Controllers
                 var jsonElement = (JsonElement)request;
 
                 // Extract data from request
-                float quantity = jsonElement.GetProperty("quantity").GetSingle();
+                int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 float subtotalAmount = jsonElement.GetProperty("subtotalAmount").GetSingle();
                 string orderId = jsonElement.GetProperty("orderId").GetString();
                 string productId = jsonElement.GetProperty("productId").GetString();
@@ -92,9 +93,9 @@ namespace SpaServiceBE.Controllers
                 // Create OrderDetail object with updated values
                 var orderDetail = new OrderDetail
                 {
-                    OrderDetailId = new Random().Next(1, int.MaxValue), // Generate unique ID
+                    OrderDetailId = Guid.NewGuid().ToString("N"), // Generate unique ID
                     Quantity = quantity,
-                    SubtotalAmount = subtotalAmount,
+                    SubTotalAmount = subtotalAmount,
                     OrderId = orderId,
                     ProductId = productId
                 };

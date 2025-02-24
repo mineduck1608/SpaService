@@ -45,6 +45,7 @@ import PromotionPage from './pages/admin/promotions/page.tsx'
 import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 import ApplicationPage from './pages/admin/applications/page.tsx'
 import CosmeticDetailPage from './pages/cosmeticDetailPage/cosmeticDetailPage.tsx'
+import OrderPage from './pages/admin/orders/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -56,7 +57,7 @@ function Layout({ children }) {
   )
 }
 
-const Placeholder = ({ title }: { title: string }) => <div>{title} Page (Coming Soon)</div>;
+const Placeholder = ({ title }) => <div>{title} Page (Coming Soon)</div>;
 
 
 function App() {
@@ -231,7 +232,7 @@ function App() {
 
             {/* Workspaces */}
             <Route path='appointments' element={<CalendarApp />} />
-            <Route path='orders' element={<Placeholder title='Orders' />} />
+            <Route path='orders' element={<OrderPage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
             {/* Requests */}

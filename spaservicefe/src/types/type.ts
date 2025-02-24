@@ -164,6 +164,24 @@ export type CosmeticTransaction = TransactionBase & {
 }
 
 export type Room = {
-  roomId: string, 
+  roomId: string
   roomNum: number
+}
+
+export type Order = {
+  orderId: string
+  customerId: string
+  orderDate: Date
+  totalAmount: GLfloat
+  status: boolean
+  transactionId: string
+  address: string
+}
+
+export type OrderDetail = {
+  orderDetailId: string
+  quantity: number
+  subTotalAmount: GLfloat
+  orderId: string
+  productId: string
 }
