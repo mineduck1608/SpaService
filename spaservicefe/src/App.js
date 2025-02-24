@@ -34,11 +34,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import RequestPage from './pages/requestPage/requestPage.tsx'
 import AppointmentPage from './pages/appointmentPage/appointmentPage.tsx'
-import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 import AdminNewsPage from './pages/admin/news/page.tsx'
-import CategoriesPage from './pages/admin/categories/page.tsx'
 import SpaServicePage from './pages/admin/services/page.tsx'
 import TransactionPage from './pages/admin/transactions/page.tsx'
 import PromotionPage from './pages/admin/promotions/page.tsx'
@@ -46,6 +44,8 @@ import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 import ApplicationPage from './pages/admin/applications/page.tsx'
 import CosmeticDetailPage from './pages/cosmeticDetailPage/cosmeticDetailPage.tsx'
 import OrderPage from './pages/admin/orders/page.tsx'
+import CosmeticCategoryPage from './pages/admin/cosmetic-categories/page.tsx'
+import CosmeticProductPage from './pages/admin/products/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -262,8 +262,8 @@ function App() {
             <Route path='spa-services' element={<SpaServicePage />} />
 
             {/* Cosmetics */}
-            {/* <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
-            <Route path='cosmetic-product' element={<CosmeticProductPage />} /> */}
+            <Route path='cosmetic-categories' element={<CosmeticCategoryPage />} />
+            <Route path='cosmetic-products' element={<CosmeticProductPage />} />
           </Route>
           <Route
             path='manager'

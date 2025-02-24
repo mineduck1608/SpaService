@@ -21,7 +21,7 @@ export default function DemoPage() {
             acc[role.roleId] = role.roleName
             return acc
           },
-          {} as Record<number, string>
+          {} as Record<string, string>
         )
 
         const formattedAccounts = accounts.map((account) => ({

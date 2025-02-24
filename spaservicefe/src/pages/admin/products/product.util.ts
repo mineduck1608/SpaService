@@ -53,14 +53,13 @@ export async function handleCreateSubmit(data: any) {
   }
 } 
 
-export async function handleUpdateSubmit(id: string, categoryId: string, data: any) {
+export async function handleUpdateSubmit(id: string, product: any, data: any) {
   try {
     const updatedData = {
       ...data,
       productId: id,
-      categoryId: categoryId 
+      categoryId: product.categoryId 
     }
-    console.log("🚀 Submitting Data:", updatedData)
     var res = await fetch(`${apiUrl}/cosmeticproducts/Update/${id}`, {
       method: 'PUT',
       headers: {

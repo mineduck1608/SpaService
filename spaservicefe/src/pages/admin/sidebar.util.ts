@@ -87,7 +87,7 @@ export const sideData = {
         },
         {
           title: 'Services',
-          url: '/services'
+          url: '/spa-services'
         },
         {
           title: 'News',

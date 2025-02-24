@@ -34,7 +34,7 @@ export default function UpdatePromotionModal({isOpen, onClose, product} : Update
     data.quantity = parseInt(data.quantity) || 0
     data.status = data.status === 'true'
     data.isSelling = data.isSelling === 'true'
-    handleUpdateSubmit(product.productId, product.categoryId, data)
+    handleUpdateSubmit(product.productId, product, data)
   }
 
   useEffect(() => {
