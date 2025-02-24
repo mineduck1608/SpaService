@@ -19,7 +19,7 @@ interface PromotionActionsProps {
   promotion: Promotion
 }
 
-const CustomerActions: React.FC<PromotionActionsProps> = ({ promotion }) => {
+const PromotionActions: React.FC<PromotionActionsProps> = ({ promotion }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -45,11 +45,10 @@ const CustomerActions: React.FC<PromotionActionsProps> = ({ promotion }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(promotion.promotionId)}
-            className='cursor-pointer'
-          >
-            Copy customer ID
+          <DropdownMenuItem 
+            onClick={() => navigator.clipboard.writeText(promotion.promotionId)} 
+            className='cursor-pointer'>
+            Copy promotion ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
@@ -61,11 +60,10 @@ const CustomerActions: React.FC<PromotionActionsProps> = ({ promotion }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
-      <UpdatePromotionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} promotion={promotion} />
+      <UpdatePromotionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} promotion={promotion}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default CustomerActions
+export default PromotionActions

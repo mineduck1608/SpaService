@@ -68,7 +68,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
       },
       body: JSON.stringify(data)
     })
-    if (res.status === 200 || res.status === 204) {
+    if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {
         autoClose: 2000
       })
