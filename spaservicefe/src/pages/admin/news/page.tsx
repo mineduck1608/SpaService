@@ -6,7 +6,7 @@ import { getAllNews } from './new.util'
 import { getNewsCategoryName } from './new.util' // Sử dụng hàm lấy tên danh mục
 import { format } from 'date-fns'
 
-export default function NewsPage() {
+export default function AdminNewsPage() {
   const [data, setData] = useState<News[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

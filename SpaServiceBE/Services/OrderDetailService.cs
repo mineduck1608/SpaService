@@ -42,5 +42,10 @@ namespace Services
         {
             await _repository.Delete(id);
         }
+
+        public async Task<IEnumerable<OrderDetail>> GetOrderDetailsByOrderId(string orderId)
+        {
+            return await _repository.GetOrderDetailsByOrderId(orderId); // Call repository method to get order details by orderId
+        }
     }
 }
