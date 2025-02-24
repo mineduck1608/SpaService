@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { SpaService } from '@/types/type'
-import { getAllServices } from '../services/service.util'
-import { format } from 'date-fns'
+import { CosmeticCategory } from '@/types/type'
+import { getAllCategories } from './category.util'
 
-export default function CustomerPage() {
-  const [data, setData] = useState<SpaService[]>([])
+export default function CosmeticCategoriesPage() {
+  const [data, setData] = useState<CosmeticCategory[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const services = await getAllServices()
-        setData(services)
+        const categories = await getAllCategories()
+
+        setData(categories)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
@@ -29,7 +29,7 @@ export default function CustomerPage() {
 
   return (
     <div className='h-[96%] items-center justify-center'>
-      <h2 className='container mx-auto my-4 ml-11'>Spa Service Management</h2>
+      <h2 className='container mx-auto my-4 ml-11'>Cosmetic Category Management</h2>
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

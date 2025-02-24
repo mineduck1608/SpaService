@@ -99,7 +99,7 @@ export type News = {
   categoryId: string
 }
 
-export type Category = {
+export type ServiceCategory = {
   categoryId: string
   categoryName: string
   categoryImage: string
@@ -163,11 +163,6 @@ export type CosmeticTransaction = TransactionBase & {
   orderId?: string
 }
 
-export type Room = {
-  roomId: string
-  roomNum: number
-}
-
 export type Order = {
   orderId: string
   customerId: string
@@ -184,4 +179,17 @@ export type OrderDetail = {
   subTotalAmount: GLfloat
   orderId: string
   productId: string
+}
+
+export type Floor = {
+  floorId: string
+  floorNum: number
+  categoryId: string
+}
+
+export type Room = {
+  roomId: string
+  roomNum: number
+  floorId: string
+  status: boolean
 }

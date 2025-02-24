@@ -411,6 +411,83 @@ export const newsConfig = {
   ]
 }
 
+export const roomConfig = {
+  updatefields: [
+    {
+      name: 'header',
+      label: 'Header',
+      type: 'text',
+      required: true,
+      minLength: 5,
+      placeholder: 'Enter new header'
+    },
+    {
+      name: 'content',
+      label: 'Content',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new content'
+    },
+    {
+      name: 'type',
+      label: 'Type',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new type'
+    },
+    {
+      name: 'image',
+      label: 'Image URL',
+      type: 'text',
+      placeholder: 'Enter new image URL'
+    },
+    {
+      name: 'categoryId',
+      label: 'Category Id',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new category Id'
+    }
+  ],
+  fields: [
+    {
+      name: 'header',
+      label: 'Header',
+      type: 'text',
+      required: true,
+      minLength: 5,
+      placeholder: 'Enter new header'
+    },
+    {
+      name: 'content',
+      label: 'Content',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new content'
+    },
+    {
+      name: 'type',
+      label: 'Type',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new type'
+    },
+    {
+      name: 'image',
+      label: 'Image URL',
+      type: 'text',
+      placeholder: 'Enter new image URL'
+    },
+    {
+      name: 'categoryId',
+      label: 'Category Id',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter category Id'
+    }
+  ]
+}
+
 export const ordersConfig = {
   updatefields: [
     {
