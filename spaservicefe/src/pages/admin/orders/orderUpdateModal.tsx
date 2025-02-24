@@ -11,7 +11,7 @@ import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { ToastContainer } from 'react-toastify' 
 import { handleUpdateSubmit } from './order.util'
-import { orderConfig } from '../modal.util'
+import { ordersConfig } from '../modal.util'
 
 interface UpdateOrderModalProps {
   isOpen: boolean
@@ -20,7 +20,7 @@ interface UpdateOrderModalProps {
 }
 
 export default function UpdateOrderModal({isOpen, onClose, order} : UpdateOrderModalProps) {
-  const fieldsToUse = orderConfig.updatefields
+  const fieldsToUse = ordersConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
