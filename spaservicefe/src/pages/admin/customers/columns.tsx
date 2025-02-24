@@ -60,21 +60,23 @@ export const columns: ColumnDef<Customer>[] = [
     cell: ({ row }) => {
       const type = row.getValue<string>('type')
       let typeColor = ''
+
+      // Set the color based on the type value
       switch (type) {
         case 'Gold':
-          typeColor = 'text-yellow-500'
+          typeColor = 'text-yellow-500' // Gold color (yellow)
           break
         case 'Silver':
-          typeColor = 'text-gray-500'
+          typeColor = 'text-gray-500' // Silver color (gray)
           break
         case 'Platinum':
-          typeColor = 'text-blue-500'
+          typeColor = 'text-blue-500' // Platinum color (blue)
           break
         case 'Diamond':
-          typeColor = 'text-indigo-500'
+          typeColor = 'text-indigo-500' // Diamond color (indigo)
           break
         default:
-          typeColor = 'text-gray-400'
+          typeColor = 'text-gray-400' // Default color for any unrecognized type
       }
 
       return <span className={typeColor}>{type}</span>

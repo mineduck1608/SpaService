@@ -1,55 +1,46 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Order } from '../../../types/type'
+import { CosmeticProduct, Order, OrderDetail } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllOrders() {
   try {
-    const res = await fetch(`${apiUrl}/orders/GetAll`, {
+    var res = await fetch(`${apiUrl}/orders/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    const json = (await res.json()) as Order[]
+    var json = (await res.json()) as Order[]
     return json
   } catch (e) {
     return []
   }
 }
 
-export async function handleCreateSubmit(data: any) {
+export async function GetOrderDetailByOrderId(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/orders/Create`, {
-      method: 'POST',
+    var s = await fetch(`${apiUrl}/orderdetails/GetOrderDetailByOrderId/${id}`, {
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+        Authorization: `Bearer ${getToken()}`
+      }
     })
-    if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully create!', {
-        autoClose: 2000
-      })
-      setTimeout(() => window.location.reload(), 2000)
-    } else {
-      toast.error('Failed. Please try again.')
-    }
+    var rs = (await s.json()) as OrderDetail
+    return rs
   } catch (e) {
     return []
   }
-} 
+}
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
     var res = await fetch(`${apiUrl}/orders/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-    if (res.status >= 200 && res.status < 300) {
+    if (res.status === 200 || res.status === 204) {
       toast.success('Successfully update!', {
         autoClose: 2000
       })
@@ -60,26 +51,33 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleDelete(id : string) {
+export async function GetCosmeticProductById(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/orders/Delete/${id}`, {
-      method: 'DELETE',
+    var res = await fetch(`${apiUrl}/cosmeticproducts/GetById/${id}`, {
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
-        'Content-Type': 'application/json'
+        Authorization: `Bearer ${getToken()}`
       }
     })
-    if (res.status >= 200 && res.status < 300) {
-      toast.success('Delete successfully', {
-        autoClose: 2000
-      })
-      setTimeout(() => window.location.reload(), 2000)
-    } else {
-      toast.error('Delete failed. Try again.')
-    }
-  } catch (error) {
-    console.error('Error deleting employee:', error)
-  } 
+    var json = (await res.json()) as CosmeticProduct[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function UpdateOrderStatus(id: string) {
+  try {
+    var res = await fetch(`${apiUrl}/orders/ConfirmOrder/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    var json = await res.json()
+    return json
+  } catch (e) {
+    return []
+  }
 }

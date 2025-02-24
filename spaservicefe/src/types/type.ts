@@ -7,7 +7,6 @@ export type Account = {
   roleId: string
   updatedAt: Date | string
 }
-
 export type Employee = {
   employeeId: string
   fullName: string
@@ -19,7 +18,6 @@ export type Employee = {
   phone: string
   email: string
 }
-
 export type Role = {
   roleId: string
   roleName: string
@@ -33,6 +31,7 @@ export type Customer = {
   phone: string
   email: string
   dateOfBirth: Date | string
+  membershipId: string
 }
 
 export type Member = {
@@ -96,7 +95,15 @@ export type News = {
   content: string
   type: string
   image: string
+  createdAt: Date | string
   categoryId: string
+}
+
+export type ServiceCategory = {
+  categoryId: string
+  categoryName: string
+  categoryImage: string
+  categoryDescription: string
 }
 
 export type Promotion = {
@@ -117,14 +124,7 @@ export type Application = {
   resolvedBy: string
 }
 
-
 export type CosmeticCategory = {
-  categoryId: string
-  categoryName: string
-  categoryDescription: string
-}
-
-export type ServiceCategory = {
   categoryId: string
   categoryName: string
   categoryDescription: string
@@ -133,19 +133,13 @@ export type ServiceCategory = {
 export type CosmeticProduct = {
   productId: string
   productName: string
-  price: number
+  price: GLfloat
   quantity: number
   description: string
   status: boolean
   isSelling: boolean
   image: string
   categoryId: string
-
-}
-
-export type Commission = {
-  commissionId: string
-  percentage: number
 }
 
 export type TransactionBase = {
@@ -163,7 +157,6 @@ export type ServiceTransaction = TransactionBase & {
   requestId: string
   membershipId?: string
 }
-
 export type CosmeticTransaction = TransactionBase & {
   cosmeticTransactionId: string
   requestId: string
@@ -199,5 +192,4 @@ export type Room = {
   roomNum: number
   floorId: string
   status: boolean
-
 }
