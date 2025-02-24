@@ -56,5 +56,13 @@ namespace Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<List<Order>> GetByCustomerIdAsync(string customerId)
+        {
+            return await _context.Orders
+                .Where(o => o.CustomerId == customerId)
+                .ToListAsync();
+        }
+
+
     }
 }

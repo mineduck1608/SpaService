@@ -42,5 +42,10 @@ namespace Services
         {
             await _orderRepository.DeleteAsync(id);
         }
+        //get 
+        public async Task<List<Order>> GetOrderByCustomerIdAsync(string id)
+        {
+            return await _orderRepository.GetByCustomerIdAsync(id);
+        }
     }
 }
