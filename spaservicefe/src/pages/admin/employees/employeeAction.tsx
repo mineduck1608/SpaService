@@ -9,14 +9,14 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Employee } from '@/types/type'
+import { Employee } from '@/types/type' // Đổi kiểu dữ liệu thành Employee
 import { MoreHorizontal } from 'lucide-react'
 import UpdateEmployeeModal from './employeeUpdateModal'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './employee.util'
 
 interface EmployeeActionsProps {
-  employee: Employee
+  employee: Employee // Đổi từ Customer sang Employee
 }
 
 const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
@@ -27,14 +27,15 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
   const openUpdateModal = () => {
-    setUpdateModalOpen(true)}
+    setUpdateModalOpen(true)
+  }
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
     handleDelete(employee.employeeId)
     closeDeleteModal()
   }
-    
+
   return (
     <>
       <DropdownMenu>
@@ -48,17 +49,19 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employee.employeeId)}>
             {' '}
+            {/* Sao chép ID nhân viên */}
             Copy employee ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
             Update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem> {/* Xóa nhân viên */}
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee}/>
+
+      <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

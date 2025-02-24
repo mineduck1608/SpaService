@@ -4,7 +4,7 @@ import { DataTable } from './data-table'
 import { Account } from '@/types/type'
 import { getAllAccounts } from '../accounts/account.util'
 import { getAllRoles } from '../accounts/account.util'
-import { format } from 'date-fns'
+import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 
 export default function DemoPage() {
   const [data, setData] = useState<Account[]>([])
@@ -21,15 +21,15 @@ export default function DemoPage() {
             acc[role.roleId] = role.roleName
             return acc
           },
-          {} as Record<string, string>
+          {} as Record<number, string>
         )
 
         const formattedAccounts = accounts.map((account) => ({
           ...account,
-          createdAt: format(new Date(account.createdAt), 'dd/MM/yyyy HH:mm:ss'),
+          createdAt: format(new Date(account.createdAt), 'dd/MM/yyyy HH:mm:ss'), // Format ngày tháng
           updatedAt: format(new Date(account.updatedAt), 'dd/MM/yyyy HH:mm:ss'),
           roleName: roleMap[account.roleId] || 'Unknown',
-          status: account.status ? 'Active' : 'Locked'
+          status: account.status ? 'Active' : 'Locked' // Chuyển status về text
         }))
 
         setData(formattedAccounts)
@@ -47,7 +47,7 @@ export default function DemoPage() {
 
   return (
     <div className='h-[96%] items-center justify-center'>
-      <h2 className='container mx-auto my-4 ml-11'>Account Management</h2>
+      <h2 className='container mx-auto my-4 ml-11'>Accounts Management</h2>
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

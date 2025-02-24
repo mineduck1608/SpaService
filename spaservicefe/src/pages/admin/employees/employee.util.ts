@@ -39,19 +39,15 @@ export async function handleCreateSubmit(data: any) {
   }
 }
 
-export async function handleUpdateSubmit(id: string, accountId: string, data: any) {
+export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    const updatedData = {
-      ...data,
-      accountId: accountId,
-    }
     var res = await fetch(`${apiUrl}/employees/Update/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(updatedData)
+      body: JSON.stringify(data)
     })
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {

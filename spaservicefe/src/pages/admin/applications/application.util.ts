@@ -16,21 +16,15 @@ export async function getAllApplications() {
   }
 }
 
-export async function handleUpdateSubmit(id: string, application: any, data: any) {
+export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    const updatedData = {
-      ...data,
-      accountId: application.accountId,
-      createdAt: application.createdAt,
-      resolvedAt: new Date().toISOString()
-    }
     var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(updatedData)
+      body: JSON.stringify(data)
     })
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {

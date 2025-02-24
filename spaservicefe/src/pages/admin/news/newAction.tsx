@@ -19,7 +19,7 @@ interface NewsActionsProps {
   news: News
 }
 
-const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
+const CustomerActions: React.FC<NewsActionsProps> = ({ news }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -45,10 +45,8 @@ const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(news.newsId)} 
-            className='cursor-pointer'>
-            Copy news ID
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(news.newsId)} className='cursor-pointer'>
+            Copy customer ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
@@ -60,10 +58,11 @@ const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdateNewsModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} news={news}/>
+
+      <UpdateNewsModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} news={news} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default NewsActions
+export default CustomerActions

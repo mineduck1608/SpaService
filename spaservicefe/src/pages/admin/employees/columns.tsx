@@ -35,7 +35,7 @@ export const columns: ColumnDef<Employee>[] = [
     )
   },
   {
-    accessorKey: 'position',
+    accessorKey: 'position', // Cập nhật thành position thay vì gender hoặc các trường khác
     header: 'Position',
     cell: ({ row }) => {
       const position = row.getValue<string>('position')

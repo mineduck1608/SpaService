@@ -2,8 +2,8 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
-import OrderActions from './orderAction'
 import { Order } from '@/types/type'
+import OrderActions from './orderActions'
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -26,8 +26,21 @@ export const columns: ColumnDef<Order>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'customerId',
-    header: 'Customer Id'
+    accessorKey: 'name',
+    header: ({ column }) => (
+      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        Customer
+        <ArrowUpDown className='ml-2 h-4 w-4' />
+      </Button>
+    )
+  },
+  {
+    accessorKey: 'phone',
+    header: 'Phone'
+  },
+  {
+    accessorKey: 'address',
+    header: 'Address'
   },
   {
     accessorKey: 'orderDate',
@@ -42,7 +55,7 @@ export const columns: ColumnDef<Order>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
-      const statusColor = status === 'Active' ? 'text-green-500' : 'text-red-500'
+      const statusColor = status === 'Processed' ? 'text-green-500' : 'text-red-500'
       return <span className={statusColor}>{status}</span>
     }
   },
