@@ -19,7 +19,7 @@ interface TransactionActionsProps {
   transaction: TransactionBase
 }
 
-const CustomerActions: React.FC<TransactionActionsProps> = ({ transaction }) => {
+const TransactionActions: React.FC<TransactionActionsProps> = ({ transaction }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -45,10 +45,9 @@ const CustomerActions: React.FC<TransactionActionsProps> = ({ transaction }) => 
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(transaction.transactionId)}
-            className='cursor-pointer'
-          >
+          <DropdownMenuItem 
+            onClick={() => navigator.clipboard.writeText(transaction.transactionId)} 
+            className='cursor-pointer'>
             Copy transaction ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -61,11 +60,10 @@ const CustomerActions: React.FC<TransactionActionsProps> = ({ transaction }) => 
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
-      <UpdateTransactionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} transaction={transaction} />
+      <UpdateTransactionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} transaction={transaction}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default CustomerActions
+export default TransactionActions
