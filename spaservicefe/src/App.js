@@ -44,6 +44,8 @@ import TransactionPage from './pages/admin/transactions/page.tsx'
 import PromotionPage from './pages/admin/promotions/page.tsx'
 import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 import ApplicationPage from './pages/admin/applications/page.tsx'
+import CosmeticDetailPage from './pages/cosmeticDetailPage/cosmeticDetailPage.tsx'
+import OrderPage from './pages/admin/orders/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -254,20 +256,14 @@ function App() {
             <Route path='managers' element={<Placeholder title='Managers' />} />
             <Route path='customers' element={<CustomerPage />} />
             <Route path='employees' element={<EmployeePage />} />
-            <Route path='shifts' element={<></>} />
-            <Route path='schedules' element={<div>AB</div>} />
-            <Route path='customer-requests' element={<CustomerRequestPage />} />
-            <Route path='appointments' element={<CalendarApp />} />
-            <Route path='categories' element={<CategoriesPage />} />
-            <Route path='employees-categories' element={<div>B</div>} />
-            <Route path='services' element={<SpaServicePage />} />
-            <Route path='applications' element={<ApplicationPage />} />
-            <Route path='contacts' element={<ContactAdminPage/>} />
-            <Route path='transactions' element={<TransactionPage />} />
-            <Route path='commissions' element={<div>ABC</div>} />
-            <Route path='employees-commissions' element={<div>BE</div>} />
-            <Route path='news' element={<AdmminNewsPage />} />
-            <Route path='promotions' element={<PromotionPage />} />
+
+            {/* Spa Services */}
+            {/* <Route path='service-categories' element={<ServiceCategoriesPage />} /> */}
+            <Route path='spa-services' element={<SpaServicePage />} />
+
+            {/* Cosmetics */}
+            {/* <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
+            <Route path='cosmetic-product' element={<CosmeticProductPage />} /> */}
           </Route>
           <Route
             path='manager'

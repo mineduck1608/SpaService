@@ -39,11 +39,13 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     accessorKey: 'resolvedAt',
-    header: 'Resolved At'
+    header: 'Resolved At',
+    cell: ({ row }) => row.original.resolvedAt ? row.original.resolvedAt : 'None'
   },
   {
     accessorKey: 'resolvedBy',
-    header: 'Resolved By'
+    header: 'Resolved By',
+    cell: ({ row }) => row.original.resolvedBy ? row.original.resolvedBy : 'None'
   },
   {
     id: 'actions',

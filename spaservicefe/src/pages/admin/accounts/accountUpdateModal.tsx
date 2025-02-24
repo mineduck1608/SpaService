@@ -54,6 +54,9 @@ export default function UpdateAccountModal({ isOpen, onClose, account }: UpdateA
           }
         })
       }
+    }
+    fetchRoles()
+  }, [account, form])
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>

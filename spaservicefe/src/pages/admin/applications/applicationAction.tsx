@@ -48,8 +48,6 @@ const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) 
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => navigator.clipboard.writeText(application.applicationId)}>
-            {' '}
-            {/* Sao chép ID nhân viên */}
             Copy application ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />

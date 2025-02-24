@@ -260,10 +260,9 @@ export const applicatonConfig = {
     {
       name: 'status',
       label: 'Status',
-      type: 'text',
+      type: 'select',
       required: true,
-      minLength: 4,
-      placeholder: 'Enter status',
+      placeholder: 'Select status',
     },
     {
       name: 'content',
@@ -272,14 +271,6 @@ export const applicatonConfig = {
       required: true,
       minLength: 4,
       placeholder: 'Enter content',
-    },
-    {
-      name: 'accountId',
-      label: 'Account Id',
-      type: 'text',
-      required: true,
-      minLength: 4,
-      placeholder: 'Enter account Id',
     },
     {
       name: 'resolvedBy',
