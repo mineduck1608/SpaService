@@ -44,7 +44,6 @@ import CosmeticPage from './pages/cosmeticPage/cosmeticPage.tsx'
 import ApplicationPage from './pages/admin/applications/page.tsx'
 import CosmeticDetailPage from './pages/cosmeticDetailPage/cosmeticDetailPage.tsx'
 import OrderPage from './pages/admin/orders/page.tsx'
-import CosmeticCategoryPage from './pages/admin/cosmetic-categories/page.tsx'
 import CosmeticProductPage from './pages/admin/products/page.tsx'
 
 function Layout({ children }) {
@@ -262,7 +261,7 @@ function App() {
             <Route path='spa-services' element={<SpaServicePage />} />
 
             {/* Cosmetics */}
-            <Route path='cosmetic-categories' element={<CosmeticCategoryPage />} />
+            {/* <Route path='cosmetic-categories' element={<CosmeticCategoryPage />} /> */}
             <Route path='cosmetic-products' element={<CosmeticProductPage />} />
           </Route>
           <Route
