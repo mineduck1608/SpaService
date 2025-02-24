@@ -16,20 +16,6 @@ export async function getAllServices() {
   }
 }
 
-export async function getAllServiceCategories() {
-  try {
-    const res = await fetch(`${apiUrl}/servicecategories/GetAll`, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
-    const json = (await res.json()) as ServiceCategory[]
-    return json
-  } catch (e) {
-    return []
-  }
-}
-
 export async function handleCreateSubmit(data: any) {
   try {
     var res = await fetch(`${apiUrl}/spaservices/Create`, {

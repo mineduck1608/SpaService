@@ -38,10 +38,8 @@ export default function UpdateTransactionModal({ isOpen, onClose, transaction }:
       Object.keys(transaction).forEach((key: string) => {
         if (form.getValues(key) !== undefined) {
           let value = transaction[key]
-
           if (key === 'totalPrice') value = String(value)
           if (key === 'status') value = value ? 'true' : 'false'
-
           form.setValue(key, value)
         }
       })
@@ -65,20 +63,35 @@ export default function UpdateTransactionModal({ isOpen, onClose, transaction }:
                     <div className='col-span-3 space-y-1'>
                       <FormControl>
                         {field.type === 'select' ? (
-                          <Select
-                            onValueChange={formField.onChange}
-                            defaultValue={formField.value}
-                            disabled={field.readonly}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value='true'>Done</SelectItem>
-                              <SelectItem value='false'>Unfinished</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        ) : (
+                          field.name === 'status' ? (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='true'>Done</SelectItem>
+                                <SelectItem value='false'>Unfinished</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          ) : (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='VNPAY'>VNPAY</SelectItem>
+                                <SelectItem value='Cash'>Cash</SelectItem>
+                              </SelectContent>
+                            </Select>
+                        )) : (
                           <Input
                             {...formField}
                             type={field.type}

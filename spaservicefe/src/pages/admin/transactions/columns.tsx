@@ -1,6 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
-import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
 import TransactionActions from './transactionAction'
 import { TransactionBase } from '@/types/type'
@@ -38,7 +36,6 @@ export const columns: ColumnDef<TransactionBase>[] = [
     header: 'Total Price',
     cell: ({ row }) => {
       const price = row.getValue('totalPrice')
-      // Định dạng giá trị thành tiền VND
       const formattedPrice = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND'

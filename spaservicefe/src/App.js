@@ -49,7 +49,7 @@ import OrderPage from './pages/admin/orders/page.tsx'
 import AdminFloorPage from './pages/admin/floors/page.tsx'
 import AdminRoomPage from './pages/admin/rooms/page.tsx'
 import ServiceCategoriesPage from './pages/admin/servicecategories/page.tsx'
-import AdminCosmeticPage from './pages/admin/cosmetics/page.tsx'
+import AdminCosmeticPage from './pages/admin/products/page.tsx'
 
 
 function Layout({ children }) {

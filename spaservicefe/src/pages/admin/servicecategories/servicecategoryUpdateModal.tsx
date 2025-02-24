@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './servicecategory.util'
-import { categoriesConfig } from '../modal.util'
+import { serviceCategoriesConfig } from '../modal.util'
 
 interface UpdateCategoryModalProps {
   isOpen: boolean
@@ -19,7 +19,7 @@ interface UpdateCategoryModalProps {
 }
 
 export default function UpdateCategoryModal({ isOpen, onClose, category }: UpdateCategoryModalProps) {
-  const fieldsToUse = categoriesConfig.updatefields
+  const fieldsToUse = serviceCategoriesConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

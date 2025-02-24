@@ -85,7 +85,7 @@ export default function AddProductModal() {
                                   ))}
                                 </SelectContent>
                               </Select>
-                            ) : (
+                            ) : field.name === 'status' ? (
                               <Select 
                                 onValueChange={formField.onChange} 
                                 defaultValue={formField.value}
@@ -95,10 +95,24 @@ export default function AddProductModal() {
                                   <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value='true'>Active</SelectItem>
-                                  <SelectItem value='false'>Locked</SelectItem>
+                                  <SelectItem value='true'>On Stock</SelectItem>
+                                  <SelectItem value='false'>Out of Stock</SelectItem>
                                 </SelectContent>
                               </Select>
+                          ) : (
+                            <Select 
+                              onValueChange={formField.onChange} 
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='true'>Yes</SelectItem>
+                                <SelectItem value='false'>No</SelectItem>
+                              </SelectContent>
+                            </Select>
                           )) : (
                             <Input
                               {...formField}

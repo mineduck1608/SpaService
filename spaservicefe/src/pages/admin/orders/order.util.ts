@@ -80,6 +80,6 @@ export async function handleDelete(id : string) {
       toast.error('Delete failed. Try again.')
     }
   } catch (error) {
-    console.error('Error deleting employee:', error)
+    console.error('Error deleting order:', error)
   } 
 }

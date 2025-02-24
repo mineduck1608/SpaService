@@ -3,9 +3,8 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { SpaService } from '@/types/type'
 import { getAllServices } from '../services/service.util'
-import { format } from 'date-fns'
 
-export default function CustomerPage() {
+export default function SpaServicePage() {
   const [data, setData] = useState<SpaService[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

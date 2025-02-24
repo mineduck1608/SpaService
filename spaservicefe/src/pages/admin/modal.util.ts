@@ -218,7 +218,7 @@ export const accountConfig = {
   ]
 }
 
-export const categoriesConfig = {
+export const cosmeticCategoriesConfig = {
   updatefields: [
     {
       name: 'categoryName',
@@ -244,6 +244,57 @@ export const categoriesConfig = {
       required: true,
       minLength: 5,
       placeholder: 'Enter category name',
+    },
+    {
+      name: 'categoryDescription',
+      label: 'Description',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter category description',
+    }
+  ]
+}
+
+export const serviceCategoriesConfig = {
+  updatefields: [
+    {
+      name: 'categoryName',
+      label: 'Category Name',
+      type: 'text',
+      required: true,
+      minLength: 3,
+      placeholder: 'Enter new name',
+    },
+    {
+      name: 'categoryImage',
+      label: 'Image',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new image URL',
+    },
+    {
+      name: 'categoryDescription',
+      label: 'Status',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter new description',
+    }
+  ],
+  fields: [
+    {
+      name: 'categoryName',
+      label: 'Category Name',
+      type: 'text',
+      required: true,
+      minLength: 5,
+      placeholder: 'Enter category name',
+    },
+    {
+      name: 'categoryImage',
+      label: 'Image',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter image URL',
     },
     {
       name: 'categoryDescription',
@@ -544,16 +595,11 @@ export const transactionConfig = {
       placeholder: 'Enter new total price',
     },
     {
-      name: 'completeTime',
-      label: 'Complete Time',
-      type: 'datetime-local',
-      readonly: true
-    },
-    {
       name: 'paymentType',
       label: 'Payment Type',
-      type: 'text',
-      readonly: true
+      type: 'select',
+      required: true,
+      placeholder: 'Select payment type'
     },
     {
       name: 'status',
@@ -567,76 +613,71 @@ export const transactionConfig = {
 export const roomConfig = {
   updatefields: [
     {
-      name: 'header',
-      label: 'Header',
-      type: 'text',
+      name: 'roomNum',
+      label: 'Room Number',
+      type: 'number',
       required: true,
-      minLength: 5,
-      placeholder: 'Enter new header'
+      min: 0,
+      placeholder: 'Enter new room number'
     },
     {
-      name: 'content',
-      label: 'Content',
-      type: 'text',
+      name: 'floorId',
+      label: 'Floor',
+      type: 'select',
       required: true,
-      placeholder: 'Enter new content'
-    },
-    {
-      name: 'type',
-      label: 'Type',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new type'
-    },
-    {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter new image URL'
-    },
-    {
-      name: 'categoryId',
-      label: 'Category Id',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new category Id'
+      placeholder: 'Select floor'
     }
   ],
   fields: [
     {
-      name: 'header',
-      label: 'Header',
-      type: 'text',
+      name: 'roomNum',
+      label: 'Room Number',
+      type: 'number',
       required: true,
-      minLength: 5,
-      placeholder: 'Enter new header'
+      min: 0,
+      placeholder: 'Enter new room number'
     },
     {
-      name: 'content',
-      label: 'Content',
-      type: 'text',
+      name: 'floorId',
+      label: 'Floor',
+      type: 'select',
       required: true,
-      placeholder: 'Enter new content'
-    },
+      placeholder: 'Select floor'
+    }
+  ]
+}
+
+export const floorConfig = {
+  updatefields: [
     {
-      name: 'type',
-      label: 'Type',
-      type: 'text',
+      name: 'floorNum',
+      label: 'Floor Number',
+      type: 'number',
       required: true,
-      placeholder: 'Enter new type'
-    },
-    {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter new image URL'
+      placeholder: 'Enter new floor number'
     },
     {
       name: 'categoryId',
-      label: 'Category Id',
-      type: 'text',
+      label: 'Category',
+      type: 'select',
       required: true,
-      placeholder: 'Enter category Id'
+      placeholder: 'Select category'
+    }
+  ],
+  fields: [
+    {
+      name: 'floorNum',
+      label: 'Floor Number',
+      type: 'number',
+      required: true,
+      placeholder: 'Enter floor number'
+    },
+    {
+      name: 'categoryId',
+      label: 'Category',
+      type: 'select',
+      required: true,
+      placeholder: 'Select category'
     }
   ]
 }

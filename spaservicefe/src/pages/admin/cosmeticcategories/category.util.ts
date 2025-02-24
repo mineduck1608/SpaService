@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Category } from '../../../types/type'
+import { CosmeticCategory } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllCategories() {
@@ -9,7 +9,7 @@ export async function getAllCategories() {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    const json = (await res.json()) as Category[]
+    const json = (await res.json()) as CosmeticCategory[]
     return json
   } catch (e) {
     return []
@@ -26,8 +26,6 @@ export async function handleCreateSubmit(data: any) {
       },
       body: JSON.stringify(data)
     })
-    console.log('Form Data:', data)
-    console.log('API Response:', res)
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully create!', {
         autoClose: 2000

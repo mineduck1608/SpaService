@@ -9,10 +9,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify' 
 import { handleCreateSubmit } from './category.util'
-import { categoriesConfig } from '../modal.util'
+import { cosmeticCategoriesConfig } from '../modal.util'
 
 export default function AddCategoryModal() {
-  const fieldsToUse = categoriesConfig.fields
+  const fieldsToUse = cosmeticCategoriesConfig.fields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

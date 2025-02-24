@@ -9,11 +9,11 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Floor } from '@/types/type' // Changed to Floor type
+import { Floor } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './floor.util'
-import UpdateFloorModal from './floorUpdateModal' // Adjusted modal for floor update
+import UpdateFloorModal from './floorUpdateModal'
 
 interface FloorActionsProps {
   floor: Floor
@@ -30,7 +30,7 @@ const FloorActions: React.FC<FloorActionsProps> = ({ floor }) => {
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
-    handleDelete(floor.floorId) // Use floorId for deletion
+    handleDelete(floor.floorId)
     closeDeleteModal()
   }
 
@@ -49,12 +49,8 @@ const FloorActions: React.FC<FloorActionsProps> = ({ floor }) => {
             Copy floor ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />

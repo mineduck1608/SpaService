@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '../../../components/ui/checkbox'
-import { Room } from '@/types/type' // Use Floor type instead of News
+import { Room } from '@/types/type'
 import RoomActions from './roomAction'
 
 export const columns: ColumnDef<Room>[] = [
@@ -33,7 +33,7 @@ export const columns: ColumnDef<Room>[] = [
     cell: ({ row }) => (row.getValue('status') ? 'Available' : 'Occupied')
   },
   {
-    accessorKey: 'floorName',
+    accessorKey: 'floorNum',
     header: 'Floor'
   },
   {

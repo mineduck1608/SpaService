@@ -18,7 +18,7 @@ export async function getAllServiceCategories() {
 
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/cosmeticcategories/Create`, {
+    var res = await fetch(`${apiUrl}/servicecategories/Create`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -26,8 +26,6 @@ export async function handleCreateSubmit(data: any) {
       },
       body: JSON.stringify(data)
     })
-    console.log('Form Data:', data)
-    console.log('API Response:', res)
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully create!', {
         autoClose: 2000
@@ -43,7 +41,7 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/cosmeticcategories/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/servicecategories/Update/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -66,7 +64,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
 
 export async function handleDelete(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/cosmeticcategories/Delete/${id}`, {
+    var res = await fetch(`${apiUrl}/servicecategories/Delete/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${getToken()}`,

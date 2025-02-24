@@ -9,14 +9,14 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Category } from '@/types/type'
+import { CosmeticCategory } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateCategoryModal from './categoryUpdateModal'
 import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './category.util'
 
 interface CategoryActionsProps {
-    category: Category
+    category: CosmeticCategory
 }
 
 const CategoriesActions: React.FC<CategoryActionsProps> = ({ category }) => {
@@ -51,12 +51,8 @@ const CategoriesActions: React.FC<CategoryActionsProps> = ({ category }) => {
             Copy category ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />

@@ -1,9 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
-import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
-import { Floor } from '@/types/type' // Use Floor type instead of News
-import FloorAction from './floorAction' // Assuming you have a FloorAction component for actions
+import { Floor } from '@/types/type'
+import FloorAction from './floorAction'
 
 export const columns: ColumnDef<Floor>[] = [
   {
@@ -26,22 +24,22 @@ export const columns: ColumnDef<Floor>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'floorId', // Display floorId
+    accessorKey: 'floorId',
     header: 'Floor ID'
   },
   {
-    accessorKey: 'floorNum', // Display floor number
+    accessorKey: 'floorNum',
     header: 'Floor'
   },
   {
-    accessorKey: 'categoryName', // Display category name
+    accessorKey: 'categoryName',
     header: 'Category'
   },
   {
     id: 'actions',
     cell: ({ row }) => {
       const floor = row.original
-      return <FloorAction floor={floor} /> // Assuming FloorAction component exists
+      return <FloorAction floor={floor} />
     }
   }
 ]

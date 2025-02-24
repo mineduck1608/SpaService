@@ -1,27 +1,26 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { Room } from '@/types/type'  // Change to Room type
-import { getAllRooms, getFloorById } from './room.util'  // Assuming you have a utility function to get rooms
+import { Room } from '@/types/type'
+import { getAllRooms, getFloorById } from './room.util'
 
 export default function AdminRoomPage() {
-  const [data, setData] = useState<Room[]>([])  // Change to Room type
+  const [data, setData] = useState<Room[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const rooms = await getAllRooms()  // Fetch room data
-        // Lấy tên tầng (floor) cho từng phòng
+        const rooms = await getAllRooms()
         const formattedRooms = await Promise.all(
           rooms.map(async (room) => {
-            const floor = await getFloorById(room.floorId) // Fetch floor data using floorId
-            const floorName = floor ? `Floor ${floor.floorNum}` : 'Unknown' // Set default floor name
+            const floor = await getFloorById(room.floorId)
+            const floorName = floor ? `Floor ${floor.floorNum}` : 'Unknown'
 
             return {
               ...room,
-              floorName // Add floor name to room data
+              floorName
             }
           })
         )

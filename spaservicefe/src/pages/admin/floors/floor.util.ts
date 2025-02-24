@@ -18,7 +18,7 @@ export async function  getAllFloors() {
 
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/news/Create`, {
+    var res = await fetch(`${apiUrl}/floors/Create`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -41,7 +41,7 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/news/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/floors/Update/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -62,9 +62,9 @@ export async function handleUpdateSubmit(id: string, data: any) {
   }
 }
 
-export async function handleDelete(newsId: string) {
+export async function handleDelete(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/news/Delete/${newsId}`, {
+    var res = await fetch(`${apiUrl}/floors/Delete/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -80,7 +80,7 @@ export async function handleDelete(newsId: string) {
       toast.error('Delete failed. Try again.')
     }
   } catch (error) {
-    console.error('Error deleting customer:', error)
+    console.error('Error deleting floor:', error)
   }
 }
 

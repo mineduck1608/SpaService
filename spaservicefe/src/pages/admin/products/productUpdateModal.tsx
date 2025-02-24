@@ -12,6 +12,7 @@ import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify' 
 import { handleUpdateSubmit } from './product.util'
 import { cosmeticProductConfig } from '../modal.util'
+import { CosmeticCategory } from 'src/types/type'
 
 interface UpdateProductModalProps {
   isOpen: boolean
@@ -21,6 +22,7 @@ interface UpdateProductModalProps {
 
 export default function UpdatePromotionModal({isOpen, onClose, product} : UpdateProductModalProps) {
   const fieldsToUse = cosmeticProductConfig.updatefields
+  const [categories, setCategories] = useState<CosmeticCategory[]>([])
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -30,6 +32,9 @@ export default function UpdatePromotionModal({isOpen, onClose, product} : Update
   })
 
   const handleSubmit = async (data: any) => {
+    const selectedCategory = categories.find(category => category.categoryName === data.categoryName)
+    if (selectedCategory) 
+      data.categoryId = selectedCategory.categoryId
     data.price = parseFloat(data.price) || 0
     data.quantity = parseInt(data.quantity) || 0
     data.status = data.status === 'true'
@@ -69,6 +74,39 @@ export default function UpdatePromotionModal({isOpen, onClose, product} : Update
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
                           {field.type === 'select' ? (
+                            field.name === 'categoryId' ? (
+                              <Select
+                                onValueChange={(value) => {
+                                  form.setValue('categoryId', value) 
+                                }}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {categories.map((category) => (
+                                    <SelectItem key={category.categoryId} value={category.categoryId}>
+                                      {category.categoryName}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            ) : field.name === 'status' ? (
+                              <Select 
+                                onValueChange={formField.onChange} 
+                                defaultValue={formField.value}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value='true'>On Stock</SelectItem>
+                                  <SelectItem value='false'>Out of Stock</SelectItem>
+                                </SelectContent>
+                              </Select>
+                          ) : (
                             <Select 
                               onValueChange={formField.onChange} 
                               defaultValue={formField.value}
@@ -78,11 +116,11 @@ export default function UpdatePromotionModal({isOpen, onClose, product} : Update
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value='true'>Active</SelectItem>
-                                <SelectItem value='false'>Locked</SelectItem>
+                                <SelectItem value='true'>Yes</SelectItem>
+                                <SelectItem value='false'>No</SelectItem>
                               </SelectContent>
                             </Select>
-                          ) : (
+                          )) : (
                             <Input
                               {...formField}
                               type={field.type}

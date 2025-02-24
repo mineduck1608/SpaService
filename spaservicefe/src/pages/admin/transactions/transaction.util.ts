@@ -41,6 +41,8 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
+    data.completeTime = new Date().toISOString()
+    console.log(data)
     var res = await fetch(`${apiUrl}/transactions/Update/${id}`, {
       method: 'PUT',
       headers: {

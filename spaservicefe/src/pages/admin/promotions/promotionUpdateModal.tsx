@@ -38,10 +38,8 @@ export default function UpdatePromotionModal({ isOpen, onClose, promotion }: Upd
       Object.keys(promotion).forEach((key: string) => {
         if (form.getValues(key) !== undefined) {
           let value = promotion[key]
-
           if (key === 'discountValue') value = String(value)
           if (key === 'isActive') value = value ? 'true' : 'false'
-
           form.setValue(key, value)
         }
       })

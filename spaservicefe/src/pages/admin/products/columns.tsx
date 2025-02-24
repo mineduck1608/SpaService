@@ -35,42 +35,37 @@ export const columns: ColumnDef<CosmeticProduct>[] = [
   },
   {
     accessorKey: 'price',
-    header: 'Price'
+    header: 'Price',
+    cell: ({ row }) => {
+      const price = row.getValue('price')
+      const formattedPrice = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+      }).format(price)
+
+      return <span>{formattedPrice}</span>
+    }
   },
   {
     accessorKey: 'quantity',
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Quantity
-          <ArrowUpDown className="h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => {
-      const value = row.getValue<string>('quantity')
-      return <div className='ml-12'>{value}</div>
-    }
+    header: 'Quantity'
   },
   {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
-      const isActive = row.getValue<boolean>('status')
-      const statusText = isActive ? 'Active' : 'Locked'
-      const statusColor = isActive ? 'text-green-500' : 'text-red-500'
-      return <span className={statusColor}>{statusText}</span>
+      const status = row.getValue('status');
+      return (
+        <span className={`font-semibold ${status ? 'text-green-500' : 'text-red-500'}`}>
+          {status ? 'On Stock' : 'Out of Stock'}
+        </span>
+      );
     }
   },
   {
     accessorKey: 'isSelling',
-    header: 'Is Selling',
-    cell: ({ row }) => {
-      const isActive = row.getValue<boolean>('isSelling')
-      const statusText = isActive ? 'Active' : 'Locked'
-      const statusColor = isActive ? 'text-green-500' : 'text-red-500'
-      return <span className={statusColor}>{statusText}</span>
-    }
+    header: 'Is Selling?',
+    cell: ({ row }) => (row.getValue('isSelling') ? 'Yes' : 'No') 
   },
   {
     id: 'actions',

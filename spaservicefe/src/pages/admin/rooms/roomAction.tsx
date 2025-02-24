@@ -9,14 +9,14 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Room } from '@/types/type'  // Changed to Room type
+import { Room } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'
-import { handleDelete } from './room.util' // Adjusted to handle room deletion
-import UpdateRoomModal from './roomUpdateModal' // Adjusted modal for room update
+import { handleDelete } from './room.util'
+import UpdateRoomModal from './roomUpdateModal'
 
 interface RoomActionsProps {
-  room: Room  // Use Room type
+  room: Room
 }
 
 const RoomActions: React.FC<RoomActionsProps> = ({ room }) => {
@@ -30,7 +30,7 @@ const RoomActions: React.FC<RoomActionsProps> = ({ room }) => {
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
-    handleDelete(room.roomId) // Use roomId for deletion
+    handleDelete(room.roomId)
     closeDeleteModal()
   }
 
@@ -49,12 +49,8 @@ const RoomActions: React.FC<RoomActionsProps> = ({ room }) => {
             Copy room ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
