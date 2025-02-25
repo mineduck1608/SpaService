@@ -73,7 +73,7 @@ export default function ServicesPage() {
               <CategoryMenu
                 items={categories ?? []}
                 onClickItem={(v) => {
-                  navigate('/services/'+v) // Use navigate for category change
+                  navigate('/services/' + v) // Use navigate for category change
                 }}
                 currentItem={currentCategory?.categoryId}
               />

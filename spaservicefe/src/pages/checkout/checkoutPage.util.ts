@@ -47,7 +47,7 @@ export async function getPaymentUrl(price: number, username: string, txnId: stri
         name: ''
       })
     })
-    return await (s.text())
+    return await s.text()
   } catch (e) {
     return "Couldn't connect to server"
   }

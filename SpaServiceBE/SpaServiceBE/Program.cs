@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add SpaServiceContext to DI
 builder.Services.AddDbContext<SpaserviceContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionStringDB")));
 
 // Add repositories to DI
 builder.Services.AddScoped<AccountRepository>();

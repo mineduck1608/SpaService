@@ -35,7 +35,7 @@ export const columns: ColumnDef<Employee>[] = [
     )
   },
   {
-    accessorKey: 'position', // Cập nhật thành position thay vì gender hoặc các trường khác
+    accessorKey: 'position',
     header: 'Position',
     cell: ({ row }) => {
       const position = row.getValue<string>('position')
@@ -59,7 +59,7 @@ export const columns: ColumnDef<Employee>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
-      const statusColor = status === 'Active' ? 'text-green-500' : 'text-red-500'
+      const statusColor = status === 'Working' ? 'text-green-500' : 'text-red-500'
       return <span className={statusColor}>{status}</span>
     }
   },

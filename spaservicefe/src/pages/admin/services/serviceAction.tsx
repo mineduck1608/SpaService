@@ -19,7 +19,7 @@ interface SpaServiceActionsProps {
   service: SpaService
 }
 
-const CustomerActions: React.FC<SpaServiceActionsProps> = ({ service }) => {
+const ServiceActions: React.FC<SpaServiceActionsProps> = ({ service }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -45,10 +45,8 @@ const CustomerActions: React.FC<SpaServiceActionsProps> = ({ service }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(service.serviceId)} 
-            className='cursor-pointer'>
-            Copy customer ID
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(service.serviceId)} className='cursor-pointer'>
+            Copy service ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
@@ -60,11 +58,10 @@ const CustomerActions: React.FC<SpaServiceActionsProps> = ({ service }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
-      <UpdateServiceModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} service={service}/>
+      <UpdateServiceModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} service={service} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default CustomerActions
+export default ServiceActions

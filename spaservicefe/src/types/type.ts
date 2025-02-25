@@ -7,6 +7,7 @@ export type Account = {
   roleId: string
   updatedAt: Date | string
 }
+
 export type Employee = {
   employeeId: string
   fullName: string
@@ -18,6 +19,7 @@ export type Employee = {
   phone: string
   email: string
 }
+
 export type Role = {
   roleId: string
   roleName: string
@@ -31,7 +33,18 @@ export type Customer = {
   phone: string
   email: string
   dateOfBirth: Date | string
-  membershipId: string
+}
+
+export type Manager = {
+  managerId: string
+  fullName: string
+  position: string
+  hireDate: Date | string
+  status: string
+  image: string
+  accountId: string
+  phone: string
+  email: string
 }
 
 export type Member = {
@@ -48,9 +61,9 @@ export type SpaRequest = {
   customerNote: string
   managerNote: string
   serviceId: string
-  customerId: string,
-  service?: SpaService,
-  employee?: Employee,
+  customerId: string
+  service?: SpaService
+  employee?: Employee
   serviceTransaction?: ServiceTransaction
 }
 
@@ -69,10 +82,10 @@ export type Appointment = {
   status: string
   requestId: string
   employeeId: string
-  startTime: string 
+  startTime: string
   endTime: string
   updatedAt: Date
-  employee?: Employee,
+  employee?: Employee
   service?: SpaService
   request?: SpaRequest
   room?: Room
@@ -95,15 +108,7 @@ export type News = {
   content: string
   type: string
   image: string
-  createdAt: Date | string
   categoryId: string
-}
-
-export type Category = {
-  categoryId: string
-  categoryName: string
-  categoryImage: string
-  categoryDescription: string
 }
 
 export type Promotion = {
@@ -130,16 +135,28 @@ export type CosmeticCategory = {
   categoryDescription: string
 }
 
+export type ServiceCategory = {
+  categoryId: string
+  categoryName: string
+  categoryImage: string
+  categoryDescription: string
+}
+
 export type CosmeticProduct = {
   productId: string
   productName: string
-  price: GLfloat
+  price: number
   quantity: number
   description: string
   status: boolean
   isSelling: boolean
   image: string
   categoryId: string
+}
+
+export type Commission = {
+  commissionId: string
+  percentage: number
 }
 
 export type TransactionBase = {
@@ -157,15 +174,11 @@ export type ServiceTransaction = TransactionBase & {
   requestId: string
   membershipId?: string
 }
+
 export type CosmeticTransaction = TransactionBase & {
   cosmeticTransactionId: string
   requestId: string
   orderId?: string
-}
-
-export type Room = {
-  roomId: string
-  roomNum: number
 }
 
 export type Order = {
@@ -184,4 +197,32 @@ export type OrderDetail = {
   subTotalAmount: GLfloat
   orderId: string
   productId: string
+}
+
+export type Floor = {
+  floorId: string
+  floorNum: number
+  categoryId: string
+}
+
+export type Room = {
+  roomId: string
+  roomNum: number
+  floorId: string
+  status: boolean
+}
+
+export type Feedback = {
+  feedbackId: string
+  feedbackMessage: string
+  rating: number
+  createdAt: Date
+  createdBy: string
+  serviceId: string
+}
+
+export type CategoryEmployee = {
+  categoryEmployeeId: string
+  categoryId: string
+  employeeId: string
 }

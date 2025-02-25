@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer } from 'react-toastify'
 import { handleCreateSubmit } from './employee.util'
 
 export default function AddEmployeeModal() {
@@ -16,15 +16,13 @@ export default function AddEmployeeModal() {
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ""])
-    ),
+    defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
 
   const handleSubmit = async (data: any) => {
     handleCreateSubmit(data)
   }
-  
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -32,18 +30,18 @@ export default function AddEmployeeModal() {
       </DialogTrigger>
       <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>Create Employee</DialogTitle>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
-              {fieldsToUse.map((field : FieldConfig) => (
-                <FormField
-                  key={field.name}
-                  control={form.control}
-                  name={field.name}
-                  render={({ field: formField }) => (
-                    <FormItem className='grid grid-cols-4 items-center gap-4 mt-2'>
-                      <FormLabel className='text-right text-md'>{field.label}</FormLabel>
-                      <div className='col-span-3 space-y-1'>
-                        <FormControl>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+            {fieldsToUse.map((field: FieldConfig) => (
+              <FormField
+                key={field.name}
+                control={form.control}
+                name={field.name}
+                render={({ field: formField }) => (
+                  <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                    <FormLabel className='text-md text-right'>{field.label}</FormLabel>
+                    <div className='col-span-3 space-y-1'>
+                      <FormControl>
                         {field.type === 'select' ? (
                           field.name === 'position' ? (
                             <Select
@@ -55,10 +53,10 @@ export default function AddEmployeeModal() {
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="Massage Therapist">Massage Therapist</SelectItem>
-                                <SelectItem value="Receptionist">Receptionist</SelectItem>
-                                <SelectItem value="Esthetician">Esthetician</SelectItem>
-                                <SelectItem value="Spa Manager">Spa Manager</SelectItem>
+                                <SelectItem value='Massage Therapist'>Massage Therapist</SelectItem>
+                                <SelectItem value='Receptionist'>Receptionist</SelectItem>
+                                <SelectItem value='Esthetician'>Esthetician</SelectItem>
+                                <SelectItem value='Spa Manager'>Spa Manager</SelectItem>
                               </SelectContent>
                             </Select>
                           ) : (
@@ -71,11 +69,12 @@ export default function AddEmployeeModal() {
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="Active">Active</SelectItem>
-                                <SelectItem value="Locked">Locked</SelectItem>
+                                <SelectItem value='Working'>Working</SelectItem>
+                                <SelectItem value='Retired'>Retired</SelectItem>
                               </SelectContent>
                             </Select>
-                        )) : (
+                          )
+                        ) : (
                           <Input
                             {...formField}
                             type={field.type}
@@ -83,18 +82,18 @@ export default function AddEmployeeModal() {
                             disabled={field.readonly}
                           />
                         )}
-                        </FormControl>
-                        <FormMessage className='text-sm' />
-                      </div>
-                    </FormItem>
-                  )}
-                  />
-              ))}
-              <div className='flex justify-end mt-10'>
-                  <Button type='submit'>Submit</Button>
-              </div>
-            </form>
-          </Form>
+                      </FormControl>
+                      <FormMessage className='text-sm' />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            ))}
+            <div className='mt-10 flex justify-end'>
+              <Button type='submit'>Submit</Button>
+            </div>
+          </form>
+        </Form>
       </DialogContent>
       <ToastContainer />
     </Dialog>

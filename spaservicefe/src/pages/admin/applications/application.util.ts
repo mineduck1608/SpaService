@@ -14,17 +14,22 @@ export async function getAllApplications() {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleUpdateSubmit(id: string, data: any) {
+export async function handleUpdateSubmit(id: string, application: any, data: any) {
   try {
+    const updatedData = {
+      ...data,
+      accountId: application.accountId,
+      createdAt: application.createdAt
+    }
     var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {
@@ -37,14 +42,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleDelete(id : string) {
+export async function handleDelete(id: string) {
   try {
     var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
@@ -57,6 +62,6 @@ export async function handleDelete(id : string) {
       toast.error('Delete failed. Try again.')
     }
   } catch (error) {
-    console.error('Error deleting employee:', error)
-  } 
+    console.error('Error deleting application:', error)
+  }
 }

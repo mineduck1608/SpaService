@@ -5,7 +5,6 @@ import { NavWorkspaces } from 'src/components/nav-workspaces'
 import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from 'src/components/ui/sidebar'
 import { SideBarItem } from '@/pages/admin/sidebar.util'
 import { NavSecondary } from './nav-secondary'
-import { NavFavorites } from './nav-favorites'
 import { NavUsers } from './nav-users'
 import { NavCosmetic } from './nav-cosmetics'
 import { NavSpaservices } from './nav-spaservices'
@@ -28,7 +27,7 @@ export function SidebarLeft(params: {
       <SidebarContent>
         <NavWorkspaces items={params.workspaces ?? []} />
         <NavUsers items={params.users ?? []} />
-        <NavSpaservices  items={params.spaservices ?? []} />
+        <NavSpaservices items={params.spaservices ?? []} />
         <NavCosmetic items={params.cosmetics ?? []} />
         <NavSecondary items={params.secondary ?? []} className='mt-auto' />
       </SidebarContent>

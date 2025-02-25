@@ -23,6 +23,13 @@ namespace Repositories
             return await _context.OrderDetails.ToListAsync();
         }
 
+        public async Task<IEnumerable<OrderDetail>> GetOrderDetailsByOrderId(string orderId)
+        {
+            return await _context.OrderDetails
+                                 .Where(od => od.OrderId == orderId)
+                                 .ToListAsync();
+        }
+
         public async Task<OrderDetail> GetOrderDetailById(int id)
         {
             return await _context.OrderDetails.FindAsync(id);

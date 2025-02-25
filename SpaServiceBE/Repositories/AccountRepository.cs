@@ -62,7 +62,7 @@ namespace Repositories
             existingAccount.Password = account.Password;
             existingAccount.Status = account.Status;
             existingAccount.RoleId = account.RoleId;
-
+           
             try
             {
                 _context.Accounts.Update(existingAccount);

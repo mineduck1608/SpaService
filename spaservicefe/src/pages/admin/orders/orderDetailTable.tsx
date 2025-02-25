@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from 'react'
 import {
   Table,
   TableBody,
@@ -7,27 +7,27 @@ import {
   TableFooter,
   TableHead,
   TableHeader,
-  TableRow,
-} from "../../../components/ui/table"
-import { OrderDetail } from "@/types/type"
-import { GetCosmeticProductById, GetOrderDetailByOrderId } from "./order.util";
+  TableRow
+} from '../../../components/ui/table'
+import { OrderDetail } from '@/types/type'
+import { GetCosmeticProductById, GetOrderDetailByOrderId } from './order.util'
 
 // Helper function to fetch product details by productId
 const GetProductById = async (productId: string) => {
-  const response = await fetch(`/api/products/${productId}`);
+  const response = await fetch(`/api/products/${productId}`)
   if (!response.ok) {
-    throw new Error('Failed to fetch product details');
+    throw new Error('Failed to fetch product details')
   }
-  return response.json();
-};
+  return response.json()
+}
 
 // Function to format the number with commas
 const formatPrice = (price: number) => {
-  return price.toLocaleString('vi-VN'); // Format as VND with comma separators
-};
+  return price.toLocaleString('vi-VN') // Format as VND with comma separators
+}
 
 interface OrderDetailTableProps {
-  orderId: string; // The orderId passed as a prop
+  orderId: string // The orderId passed as a prop
 }
 
 export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
@@ -39,11 +39,13 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
     const fetchOrderDetails = async () => {
       try {
         const fetchedDetails = await GetOrderDetailByOrderId(orderId) // Fetch order details using orderId
-        const enrichedDetails = await Promise.all(fetchedDetails.map(async (detail: OrderDetail) => {
-          // Fetch product details for each order detail
-          const product = await GetCosmeticProductById(detail.productId)
-          return { ...detail, product }
-        }))
+        const enrichedDetails = await Promise.all(
+          fetchedDetails.map(async (detail: OrderDetail) => {
+            // Fetch product details for each order detail
+            const product = await GetCosmeticProductById(detail.productId)
+            return { ...detail, product }
+          })
+        )
         setOrderDetails(enrichedDetails) // Store the enriched order details
       } catch (err) {
         setError('Failed to load data.')
@@ -67,11 +69,12 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
           <TableHead>Product</TableHead>
           <TableHead>Quantity</TableHead>
           <TableHead>Price</TableHead>
-          <TableHead className="text-right">Subtotal</TableHead>
+          <TableHead className='text-right'>Subtotal</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {orderDetails.map((detail, index) => { // Using index to generate incremental numbers for "No"
+        {orderDetails.map((detail, index) => {
+          // Using index to generate incremental numbers for "No"
           const { product } = detail // Get the product details
 
           return (
@@ -80,7 +83,8 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
               <TableCell>{product.productName}</TableCell>
               <TableCell>{detail.quantity}</TableCell>
               <TableCell>{`${formatPrice(product.price)}`}</TableCell> {/* Price in VND with commas */}
-              <TableCell className="text-right">{`${formatPrice(product.price * detail.quantity)}`}</TableCell> {/* Subtotal in VND with commas */}
+              <TableCell className='text-right'>{`${formatPrice(product.price * detail.quantity)}`}</TableCell>{' '}
+              {/* Subtotal in VND with commas */}
             </TableRow>
           )
         })}
@@ -88,10 +92,12 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">
-            {`${formatPrice(orderDetails.reduce((total, detail) => {
-              return total + (detail.quantity * detail.product.price)
-            }, 0))}`}
+          <TableCell className='text-right'>
+            {`${formatPrice(
+              orderDetails.reduce((total, detail) => {
+                return total + detail.quantity * detail.product.price
+              }, 0)
+            )}`}
           </TableCell>
         </TableRow>
       </TableFooter>

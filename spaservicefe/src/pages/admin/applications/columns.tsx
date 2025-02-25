@@ -2,8 +2,8 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
-import ApplicationActions from './applicationAction' // Đổi tên thành EmployeeActions
-import { Application } from '@/types/type' // Cập nhật kiểu dữ liệu từ Customer thành Employee
+import ApplicationActions from './applicationAction'
+import { Application } from '@/types/type'
 
 export const columns: ColumnDef<Application>[] = [
   {
@@ -27,7 +27,12 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     accessorKey: 'status',
-    header: 'Status'
+    header: 'Status',
+    cell: ({ row }) => {
+      const status = row.getValue<string>('status')
+      const statusColor = status === 'Resolved' ? 'text-green-500' : 'text-red-500'
+      return <span className={statusColor}>{status}</span>
+    }
   },
   {
     accessorKey: 'content',
@@ -39,11 +44,13 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     accessorKey: 'resolvedAt',
-    header: 'Resolved At'
+    header: 'Resolved At',
+    cell: ({ row }) => row.original.resolvedAt ? row.original.resolvedAt : 'N/A'
   },
   {
     accessorKey: 'resolvedBy',
-    header: 'Resolved By'
+    header: 'Resolved By',
+    cell: ({ row }) => row.original.resolvedBy ? row.original.resolvedBy : 'N/A'
   },
   {
     id: 'actions',

@@ -60,7 +60,7 @@ namespace SpaServiceBE.Controllers
                 string customerId = customerIdProp.GetString();
                 string productId = productIdProp.GetString();
                 DateTime orderDate = orderDateProp.GetDateTime();
-                float quantity = quantityProp.GetSingle();
+                int quantity = quantityProp.GetInt32();
                 string transactionType = transactionTypeProp.GetString();
                 string paymentType = paymentTypeProp.GetString();
 
@@ -88,8 +88,8 @@ namespace SpaServiceBE.Controllers
 
                 // Generate IDs first
                 string orderId = Guid.NewGuid().ToString("N");
-                string transactionId = Guid.NewGuid().ToString();
-                string cosmeticTransactionId = Guid.NewGuid().ToString();
+                string transactionId = Guid.NewGuid().ToString("N");
+                string cosmeticTransactionId = Guid.NewGuid().ToString("N");
 
                 // Create Transaction first
                 var transaction = new Transaction
@@ -129,7 +129,7 @@ namespace SpaServiceBE.Controllers
                     OrderId = orderId,
                     ProductId = productId,
                     Quantity = quantity,
-                    SubtotalAmount = subAmount
+                    SubTotalAmount = subAmount
                 };
                 await _orderDetailService.Create(orderDetail);
 

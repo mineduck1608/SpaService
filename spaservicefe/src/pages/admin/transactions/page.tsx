@@ -5,7 +5,6 @@ import { TransactionBase } from '@/types/type'
 import { getAllTransactions } from '../transactions/transaction.util'
 import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 
-
 export default function TransactionPage() {
   const [data, setData] = useState<TransactionBase[]>([])
   const [loading, setLoading] = useState(true)
@@ -23,10 +22,11 @@ export default function TransactionPage() {
         //   },
         //   {} as Record<string, string>
         // )
-        const formattedTransactions = transactions.map(transaction => ({
+        const formattedTransactions = transactions.map((transaction) => ({
           ...transaction,
-          completeTime: format(new Date(transaction.completeTime), 'dd/MM/yyyy HH:mm:ss')
-        }));
+          completeTime: format(new Date(transaction.completeTime), 'dd/MM/yyyy HH:mm:ss'),
+          statusText: transaction.status ? 'Done' : 'Unfinished'
+        }))
         setData(formattedTransactions)
       } catch (err) {
         setError("Can't load the data.")

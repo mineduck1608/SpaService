@@ -28,9 +28,9 @@ namespace Services
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task AddManager(Manager manager)
+        public async Task<bool> AddManager(Manager manager)
         {
-            await _repository.AddAsync(manager);
+            return await _repository.Add(manager);
         }
 
         public async Task<bool> UpdateManager(Manager manager)
@@ -41,6 +41,16 @@ namespace Services
         public async Task DeleteManager(string id)
         {
             await _repository.DeleteAsync(id);
+        }
+
+        public async Task<Manager> GetManagerByPhone(string phone)
+        {
+            return await _repository.GetManagerByPhone(phone);
+        }
+
+        public async Task<Manager> GetManagerByEmail(string email)
+        {
+            return await _repository.GetManagerByEmail(email);
         }
     }
 }

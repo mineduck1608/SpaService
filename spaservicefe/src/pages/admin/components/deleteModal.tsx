@@ -25,9 +25,7 @@ export function ConfirmDeleteModal({ isOpen, onClose, onConfirm }: ConfirmDelete
             This action cannot be undone. Are you sure you want to permanently delete this item?
           </DialogDescription>
         </DialogHeader>
-        <Button  onClick={onConfirm}>
-            Confirm
-          </Button>
+        <Button onClick={onConfirm}>Confirm</Button>
       </DialogContent>
     </Dialog>
   )

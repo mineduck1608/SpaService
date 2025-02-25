@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -7,28 +7,93 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer, toast } from 'react-toastify'
 import { handleCreateSubmit } from './service.util'
+import { getAllServiceCategories } from '../servicecategories/servicecategory.util'
 import { spaServiceConfig } from '../modal.util'
+import { ServiceCategory } from 'src/types/type'
+import { storage } from '../../../firebaseConfig'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import TimePicker from 'react-time-picker'
+import 'react-time-picker/dist/TimePicker.css'
+import 'react-clock/dist/Clock.css'
 
 export default function AddServiceModal() {
+  const [categories, setCategories] = useState<ServiceCategory[]>([])
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [uploading, setUploading] = useState<boolean>(false)
+  const [duration, setDuration] = useState<string | null>('00:30') // Giá trị mặc định
+
   const fieldsToUse = spaServiceConfig.fields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
       fieldsToUse.map((field: FieldConfig) => {
-        if (field.name === "price") return [field.name, "0"]
-        return [field.name, ""]
+        if (field.name === 'price') return [field.name, '0']
+        return [field.name, '']
       })
-    ),
+    )
   })
 
-  const handleSubmit = async (data: any) => {
-    data.price = parseFloat(data.price) || 0
-    handleCreateSubmit(data)
+  // Xử lý chọn ảnh
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0]
+      setImageFile(file)
+      setImagePreview(URL.createObjectURL(file))
+    }
   }
+
+  // Xử lý submit form
+  const handleSubmit = async (data: any) => {
+    let imageUrl = ''
+
+    if (imageFile) {
+      setUploading(true)
+      const storageRef = ref(storage, `spaservices/${imageFile.name}`)
+      const uploadTask = uploadBytesResumable(storageRef, imageFile)
+
+      try {
+        await new Promise((resolve, reject) => {
+          uploadTask.on(
+            'state_changed',
+            null,
+            (error) => reject(error),
+            async () => {
+              imageUrl = await getDownloadURL(uploadTask.snapshot.ref)
+              resolve(imageUrl)
+            }
+          )
+        })
+      } catch (error) {
+        toast.error('Image upload failed')
+        setUploading(false)
+        return
+      }
+    }
+
+    const selectedCategory = categories.find((category) => category.categoryName === data.categoryName)
+    if (selectedCategory) data.categoryId = selectedCategory.categoryId
+    data.price = parseFloat(data.price) || 0
+    data.serviceImage = imageUrl
+    data.duration = duration // Thêm Duration vào dữ liệu form
+
+    console.log('Submitting Data:', data)
+    await handleCreateSubmit(data)
+    setUploading(false)
+  }
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const data = await getAllServiceCategories()
+      setCategories(data)
+    }
+    fetchCategories()
+  }, [])
 
   return (
     <Dialog>
@@ -37,36 +102,82 @@ export default function AddServiceModal() {
       </DialogTrigger>
       <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>Create Service</DialogTitle>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
-              {fieldsToUse.map((field : FieldConfig) => (
-                <FormField
-                  key={field.name}
-                  control={form.control}
-                  name={field.name}
-                  render={({ field: formField }) => (
-                    <FormItem className='grid grid-cols-4 items-center gap-4 mt-2'>
-                      <FormLabel className='text-right text-md'>{field.label}</FormLabel>
-                      <div className='col-span-3 space-y-1'>
-                        <FormControl>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+            {fieldsToUse.map((field: FieldConfig) => (
+              <FormField
+                key={field.name}
+                control={form.control}
+                name={field.name}
+                render={({ field: formField }) => (
+                  <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                    <FormLabel className='text-md text-right'>{field.label}</FormLabel>
+                    <div className='col-span-3 space-y-1'>
+                      <FormControl>
+                        {field.type === 'select' ? (
+                          <Select
+                            onValueChange={(value) => form.setValue('categoryId', value)}
+                            disabled={field.readonly}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {categories.map((category) => (
+                                <SelectItem key={category.categoryId} value={category.categoryId}>
+                                  {category.categoryName}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        ) : (
                           <Input
                             {...formField}
                             type={field.type}
                             placeholder={field.placeholder}
                             disabled={field.readonly}
                           />
-                        </FormControl>
-                        <FormMessage className='text-sm' />
-                      </div>
-                    </FormItem>
-                  )}
-                />
-              ))}
-              <div className='flex justify-end mt-10'>
-                  <Button type='submit'>Submit</Button>
+                        )}
+                      </FormControl>
+                      <FormMessage className='text-sm' />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            ))}
+
+            {/* Time Picker (Chọn Duration) */}
+            <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <FormLabel className='text-md font-semibold text-gray-700 text-right'>Duration</FormLabel>
+              <div className='col-span-3'>
+                <div className='relative flex items-center'>
+                  <TimePicker
+                    onChange={setDuration}
+                    value={duration}
+                    disableClock
+                    format='HH:mm'
+                    clearIcon={null}
+                  />
+                </div>
               </div>
-            </form>
-          </Form>
+            </FormItem>
+
+            {/* Input chọn ảnh */}
+            <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <FormLabel className='text-md text-right'>Upload Image</FormLabel>
+              <div className='col-span-3 space-y-2'>
+                <input type='file' accept='image/*' onChange={handleImageChange}  />
+                {imagePreview && <img src={imagePreview} alt='Preview' className='w-32 h-32 object-cover rounded' />}
+              </div>
+            </FormItem>
+
+            <div className='mt-10 flex justify-end'>
+              <Button type='submit' disabled={uploading}>
+                {uploading ? 'Uploading...' : 'Submit'}
+              </Button>
+            </div>
+          </form>
+        </Form>
       </DialogContent>
       <ToastContainer />
     </Dialog>

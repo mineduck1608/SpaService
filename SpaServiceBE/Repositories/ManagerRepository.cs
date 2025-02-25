@@ -28,10 +28,18 @@ namespace Repositories
             return await _context.Managers.FindAsync(id);
         }
 
-        public async Task AddAsync(Manager manager)
+        public async Task<bool> Add(Manager manager)
         {
-            await _context.Managers.AddAsync(manager);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.Managers.AddAsync(manager);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> UpdateAsync(Manager manager)
@@ -48,6 +56,17 @@ namespace Repositories
                 _context.Managers.Remove(manager);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<Manager> GetManagerByPhone(string phone)
+        {
+            return await _context.Managers.FirstOrDefaultAsync(a => a.Phone == phone);
+        }
+
+
+        public async Task<Manager> GetManagerByEmail(string email)
+        {
+            return await _context.Managers.FirstOrDefaultAsync(a => a.Email == email);
         }
     }
 }

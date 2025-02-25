@@ -49,7 +49,7 @@ export const columns: ColumnDef<Appointment>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      return <Details request={row.original}/>
+      return <Details request={row.original} />
     }
   }
 ]

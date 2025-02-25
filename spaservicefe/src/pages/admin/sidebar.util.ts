@@ -5,9 +5,12 @@ import {
   LucideIcon,
   ArrowLeftRight,
   UserCircle,
-  Users2Icon,
+  LetterText,
   Contact2,
   MessageCircleQuestion,
+  LineChart,
+  HandHelping,
+  Users2Icon,
   Trash2,
   Warehouse,
   Grip,
@@ -58,6 +61,7 @@ export const sideData = {
           title: 'Customer Requests',
           url: '/customer-requests'
         },
+
         {
           title: 'Applications',
           url: '/applications'

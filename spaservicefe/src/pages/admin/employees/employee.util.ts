@@ -21,7 +21,7 @@ export async function handleCreateSubmit(data: any) {
     var res = await fetch(`${apiUrl}/accounts/RegisterEmployee`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -37,17 +37,21 @@ export async function handleCreateSubmit(data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleUpdateSubmit(id: string, data: any) {
+export async function handleUpdateSubmit(id: string, accountId: string, data: any) {
   try {
+    const updatedData = {
+      ...data,
+      accountId: accountId
+    }
     var res = await fetch(`${apiUrl}/employees/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {
@@ -60,14 +64,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}
 
-export async function handleDelete(employeeId : string) {
+export async function handleDelete(employeeId: string) {
   try {
     var res = await fetch(`${apiUrl}/employees/Delete/${employeeId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       }
     })
@@ -81,5 +85,5 @@ export async function handleDelete(employeeId : string) {
     }
   } catch (error) {
     console.error('Error deleting employee:', error)
-  } 
+  }
 }

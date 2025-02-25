@@ -49,7 +49,6 @@ namespace SpaServiceBE.Controllers
 
                     return Ok(new
                     {
-                    
                         accessToken
                     });
                 }
@@ -67,7 +66,6 @@ namespace SpaServiceBE.Controllers
                         var accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, customer.FullName);
                         return Ok(new
                         {
-                         
                             accessToken
                         });
                     }
@@ -79,7 +77,7 @@ namespace SpaServiceBE.Controllers
                 var newAccount = new Account
                 {
                     AccountId = Guid.NewGuid().ToString("N"),
-                    Username = name, // Use email as the username
+                    Username = email, // Use email as the username
                     Password = "GoogleAuth", // null
                     Status = true,
                     CreatedAt = DateTime.UtcNow,

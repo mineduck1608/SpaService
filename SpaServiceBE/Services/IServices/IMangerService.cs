@@ -11,8 +11,10 @@ namespace Services.IServices
     {
         Task<IEnumerable<Manager>> GetAllManagers();
         Task<Manager> GetManagerById(string id);
-        Task AddManager(Manager manager);
+        Task<bool> AddManager(Manager manager);
         Task<bool> UpdateManager(Manager manager);
         Task DeleteManager(string id);
+        Task<Manager> GetManagerByPhone(string phone);
+        Task<Manager> GetManagerByEmail(string email);
     }
 }

@@ -3,9 +3,8 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { SpaService } from '@/types/type'
 import { getAllServices } from '../services/service.util'
-import { format } from 'date-fns'
 
-export default function CustomerPage() {
+export default function SpaServicePage() {
   const [data, setData] = useState<SpaService[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -29,7 +28,7 @@ export default function CustomerPage() {
 
   return (
     <div className='h-[96%] items-center justify-center'>
-      <h2 className='container mx-auto my-4 ml-11'>Service Management</h2>
+      <h2 className='container mx-auto my-4 ml-11'>Spa Service Management</h2>
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

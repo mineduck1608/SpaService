@@ -11,7 +11,7 @@ import {
 } from '../../../components/ui/dialog'
 import { Input } from '../../../components/ui/input'
 import { Label } from '../../../components/ui/label'
-import { SpaRequest, Employee } from '@/types/type' // Đảm bảo có kiểu Employee
+import { SpaRequest, Employee } from '@/types/type'
 import { GetCategoryByServiceId, GetEmployeeByCategoryId } from './customerRequest.util'
 import { DatePicker } from 'antd'
 
@@ -26,12 +26,10 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
   const [updatedRequest, setUpdatedRequest] = useState<SpaRequest>(request)
   const [employees, setEmployees] = useState<Employee[]>([])
 
-  // Fetch employees based on the request's category
   useEffect(() => {
     const fetchEmployees = async () => {
       if (request.serviceId) {
         console.log(request.serviceId)
-        // Assuming that serviceName or category can be used to filter employees
         const categoryData = await GetCategoryByServiceId(request.serviceId)
         console.log(categoryData)
         const employeesData = await GetEmployeeByCategoryId(categoryData.categoryId)
@@ -52,9 +50,9 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
   }
 
   const handleSave = () => {
-    onSave(updatedRequest) // Gửi dữ liệu đã chỉnh sửa
+    onSave(updatedRequest)
     console.log(updatedRequest)
-    onClose() // Đóng modal
+    onClose()
   }
 
   return (
@@ -65,8 +63,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
           <DialogDescription>Make changes to the request information. Click save when you're done.</DialogDescription>
         </DialogHeader>
         <div className='grid gap-4 py-4'>
-          {/* Start Time */}
-          <div className='flex items-center gap-4 ml-3'>
+          <div className='ml-3 flex items-center gap-4'>
             <Label htmlFor='startTime' className='text-right'>
               Start Time
             </Label>
@@ -77,12 +74,11 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
               showMinute
               showSecond={false}
               minuteStep={30}
-              className='border-[1px] p-2 w-75'
+              className='w-75 border-[1px] p-2'
               onChange={(date) => handleChange('startTime', date ? date.format('YYYY-MM-DD HH:mm:ss') : '')}
             />
           </div>
 
-          {/* Employee Selection */}
           <div className='grid grid-cols-4 items-center gap-4'>
             <Label htmlFor='employeeId' className='text-right'>
               Employee
@@ -91,7 +87,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
               id='employeeId'
               value={updatedRequest.employeeId || ''}
               onChange={(e) => handleChange('employeeId', e.target.value)}
-              className='col-span-3 border rounded-lg p-2'
+              className='col-span-3 rounded-lg border p-2'
             >
               <option value=''>Select Employee</option>
               {employees.map((employee) => (

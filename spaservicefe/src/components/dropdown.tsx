@@ -24,18 +24,19 @@ export function Dropdown() {
   useEffect(() => {
     if (token) {
       try {
+        console.log(token)
         // Giải mã token để lấy thông tin
         const decodedToken = jwtDecode(token)
-
         // Lấy FullName từ decoded token (thường là trong payload của JWT)
         setFullName(decodedToken.FullName)
       } catch (error) {
         console.error('Token không hợp lệ:', error)
       }
     } else {
+      console.log(token)
       console.log('Token không tồn tại')
     }
-  }, [token]) // The effect runs only when token changes
+  }) // The effect runs only when token changes
 
   // Hàm điều hướng đến trang đăng nhập
   const handleLoginClick = () => {
@@ -85,13 +86,13 @@ export function Dropdown() {
           <DropdownMenuLabel>Welcome {fullName}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            {
-              items.map(x => (
-                <DropdownMenuItem>
-                  <Link to={x.v} className='no-underline text-black'>{x.k}</Link>
-                </DropdownMenuItem>
-              ))
-            }
+            {items.map((x) => (
+              <DropdownMenuItem>
+                <Link to={x.v} className='text-black no-underline'>
+                  {x.k}
+                </Link>
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogoutClick}>

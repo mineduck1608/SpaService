@@ -62,7 +62,7 @@ export const columns: ColumnDef<Contact>[] = [
       const processedColor = isProcessed ? 'text-green-500' : 'text-red-500'
       return <span className={processedColor}>{isProcessed ? 'Yes' : 'No'}</span>
     }
-  },  
+  },
   {
     id: 'actions',
     cell: ({ row }) => {

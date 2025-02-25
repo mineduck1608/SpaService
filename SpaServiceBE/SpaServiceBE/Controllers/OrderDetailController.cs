@@ -142,5 +142,29 @@ namespace SpaServiceBE.Controllers
             await _service.Delete(id);
             return NoContent();
         }
+
+        [HttpGet("GetOrderDetailByOrderId/{orderId}")]
+        public async Task<ActionResult<IEnumerable<OrderDetail>>> GetOrderDetailsByOrderId(string orderId)
+        {
+            try
+            {
+                // Fetch order details for the provided orderId
+                var orderDetails = await _service.GetOrderDetailsByOrderId(orderId);
+
+                if (orderDetails == null || !orderDetails.Any())
+                {
+                    return NotFound(new { msg = "No order details found for this orderId." });
+                }
+
+                return Ok(orderDetails);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
+
+        // Other existing methods...
     }
 }
+

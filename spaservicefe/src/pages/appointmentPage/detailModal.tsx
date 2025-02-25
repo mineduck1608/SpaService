@@ -35,7 +35,7 @@ function tableData(appointment: Appointment) {
     { key: 'Requested Employee', value: appointment.employee?.fullName ?? 'Not assigned yet' },
     {
       key: 'Room number',
-      value: appointment.room?.roomNum ?? 'Not assigned yet',
+      value: appointment.room?.roomNum ?? 'Not assigned yet'
     }
   ]
 }

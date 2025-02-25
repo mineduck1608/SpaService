@@ -14,7 +14,7 @@ export default function CustomerRequestPage() {
     const fetchData = async () => {
       try {
         const customerRequests = await getAllCustomerRequests()
-        
+
         // Create an array of promises for customerName and serviceName
         const formattedCustomerRequests = await Promise.all(
           customerRequests.map(async (request) => {
@@ -27,7 +27,7 @@ export default function CustomerRequestPage() {
               customerNote: request.customerNote || 'No notes provided', // Default note if none provided
               managerNote: request.managerNote || 'No notes provided', // Default manager note if none provided
               customerName: customer.fullName, // Use customer name
-              serviceName: service.serviceName, // Use service name
+              serviceName: service.serviceName // Use service name
             }
           })
         )

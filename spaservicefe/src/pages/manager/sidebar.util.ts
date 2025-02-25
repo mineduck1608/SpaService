@@ -36,6 +36,6 @@ export const sideData = {
       title: 'Contacts',
       icon: Contact2,
       url: '/manager/contacts'
-    },
+    }
   ]
 }

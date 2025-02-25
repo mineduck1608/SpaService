@@ -63,12 +63,12 @@ export async function handleUpdateSubmit(id: string, data: any) {
     var res = await fetch(`${apiUrl}/accounts/Update/${id}`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-    if (res.status === 200 || res.status === 204) {
+    if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {
         autoClose: 2000
       })
@@ -79,4 +79,4 @@ export async function handleUpdateSubmit(id: string, data: any) {
   } catch (e) {
     return []
   }
-} 
+}

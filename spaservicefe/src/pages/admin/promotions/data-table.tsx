@@ -28,10 +28,14 @@ import AddPromotionModal from './promotionAddModal'
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey?: string // Key để lọc dữ liệu
+  filterKey?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey = 'promotionCode' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  filterKey = 'promotionCode'
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})

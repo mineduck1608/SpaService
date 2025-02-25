@@ -3,10 +3,10 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { News } from '@/types/type'
 import { getAllNews } from './new.util'
-import { getNewsCategoryName } from './new.util' // Sử dụng hàm lấy tên danh mục
 import { format } from 'date-fns'
+import { getServiceCategoryById } from '../employeeCategories/employeeCategory.util'
 
-export default function NewsPage() {
+export default function AdminNewsPage() {
   const [data, setData] = useState<News[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -15,16 +15,18 @@ export default function NewsPage() {
     const fetchData = async () => {
       try {
         const news = await getAllNews()
-        // Lấy tên danh mục cho từng tin tức
-        const formattedNews = await Promise.all(news.map(async (newsItem) => {
-          const category = await getNewsCategoryName(newsItem.categoryId) // Lấy category từ API
-          const categoryName = category ? category.categoryName : 'Unknown' // Lấy categoryName từ đối tượng
+
+        const formattedNews = await Promise.all(
+          news.map(async (item) => {
+            const category = await getServiceCategoryById(item.categoryId) // Fetch category for floor
         
-          return {
-            ...newsItem,
-            categoryName, // Gán tên danh mục vào tin tức
-          }
-        }))
+                    const categoryName = category ? category.categoryName : 'Unknown' // Set default category name
+                    return {
+                      ...item,
+                      categoryName, // Add category name to floor data
+                    }
+                  })
+                )
         
 
         setData(formattedNews)

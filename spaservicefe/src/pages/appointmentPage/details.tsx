@@ -28,8 +28,15 @@ const Details: React.FC<RequestActionsProps> = ({ request }) => {
 
   return (
     <div>
-      <button className='bg-purple1 p-2 rounded-md text-white' onClick={(e) => {setModalOpen(true)}}>View Detail</button>
-      <DetailModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} data={request}/>
+      <button
+        className='rounded-md bg-purple1 p-2 text-white'
+        onClick={(e) => {
+          setModalOpen(true)
+        }}
+      >
+        View Detail
+      </button>
+      <DetailModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} data={request} />
     </div>
   )
 }

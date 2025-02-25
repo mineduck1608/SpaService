@@ -8,19 +8,17 @@ export default function ServiceList(params?: { service: Service[] }) {
   return (
     <div className='p-1'>
       <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
-        {params?.service.map((v) => (
-          <ServiceCard s={v} key={v.serviceId} />
-        ))}
+        {params?.service.map((v) => <ServiceCard s={v} key={v.serviceId} />)}
       </div>
     </div>
   )
 }
 
 export function ServiceCard(params?: { s: Service }) {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate() // Initialize useNavigate
 
   const handleNavigate = () => {
-    navigate(`/services-detail/${params?.s?.serviceId}`); // Use navigate() for routing
+    navigate(`/services-detail/${params?.s?.serviceId}`) // Use navigate() for routing
   }
 
   return (
@@ -40,9 +38,7 @@ export function ServiceCard(params?: { s: Service }) {
 
         <img src={sep} className='mb-2 mt-2 w-1/4 self-center' />
         <div className='m-1'>
-          <p className='text-center text-lg font-bold text-[#8D388A]'>
-            {formatNumber(params?.s?.price ?? 0)} VND
-          </p>
+          <p className='text-center text-lg font-bold text-[#8D388A]'>{formatNumber(params?.s?.price ?? 0)} VND</p>
         </div>
         <div className='mb-4 flex justify-center'>
           <button

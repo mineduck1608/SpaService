@@ -24,11 +24,10 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 
-
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey?: string // Key để lọc dữ liệu
+  filterKey?: string
 }
 
 export function DataTable<TData, TValue>({ columns, data, filterKey = 'username' }: DataTableProps<TData, TValue>) {

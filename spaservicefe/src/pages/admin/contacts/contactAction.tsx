@@ -11,7 +11,7 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Contact } from '../../../types/type' // Updated to Contact type
 import { MoreHorizontal } from 'lucide-react'
-import { handleDelete } from './contact.util' 
+import { handleDelete } from './contact.util'
 
 interface ContactActionsProps {
   contact: Contact

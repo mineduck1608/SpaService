@@ -1,6 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
-import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
 import TransactionActions from './transactionAction'
 import { TransactionBase } from '@/types/type'
@@ -38,12 +36,11 @@ export const columns: ColumnDef<TransactionBase>[] = [
     header: 'Total Price',
     cell: ({ row }) => {
       const price = row.getValue('totalPrice')
-      // Định dạng giá trị thành tiền VND
       const formattedPrice = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND'
       }).format(price)
-      
+
       return <span>{formattedPrice}</span>
     }
   },
@@ -52,15 +49,14 @@ export const columns: ColumnDef<TransactionBase>[] = [
     header: 'Complete Time'
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'statusText',
     header: 'Status',
     cell: ({ row }) => {
-      const status = row.getValue<string>('status')
-      const statusText = status ? 'Done' : 'Unfinished'
-      const statusColor = status ? 'text-green-500' : 'text-red-500'
-      return <span className={statusColor}>{statusText}</span>
+      const statusText = row.getValue<string>('statusText');
+      const statusColor = statusText === 'Done' ? 'text-green-500' : 'text-red-500'; // Change color logic here
+      return <span className={statusColor}>{statusText}</span>;
     }
-  },
+  },  
   {
     id: 'actions',
     cell: ({ row }) => {

@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import {
   ColumnFiltersState,
@@ -13,7 +11,6 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { IoIosArrowDown } from 'react-icons/io'
-
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 import { Button } from '../../../components/ui/button'
 import { Input } from '../../../components/ui/input'
@@ -27,10 +24,10 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey?: string // Key để lọc dữ liệu
+  filterKey?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, filterKey = 'content' }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -59,7 +56,7 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'email' }:
     <div>
       <div className='flex items-center py-3'>
         <Input
-          placeholder={`Filter by ${filterKey}...`}
+          placeholder={`Filter by content...`}
           value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}
           className='max-w-sm'
