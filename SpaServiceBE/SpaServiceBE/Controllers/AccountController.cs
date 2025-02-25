@@ -414,6 +414,7 @@ namespace API.Controllers
                 string username = jsonElement.GetProperty("username").GetString();
                 string password = jsonElement.GetProperty("password").GetString();
                 string roleId = jsonElement.GetProperty("roleId").GetString();
+                bool status = jsonElement.GetProperty("status").GetBoolean();
 
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(roleId))
                     return BadRequest("Account details are incomplete.");
@@ -424,7 +425,8 @@ namespace API.Controllers
                     Username = username,
                     Password = Util.ToHashString(password),
                     RoleId = roleId,
-                    UpdatedAt = DateTime.Now
+                    UpdatedAt = DateTime.Now,
+                    Status = status
                 };
 
                 var isUpdated = await _accountService.UpdateAccount(account, id);
