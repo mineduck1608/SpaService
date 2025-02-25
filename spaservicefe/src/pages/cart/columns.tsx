@@ -1,34 +1,30 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
-import { Button } from '../../components/ui/button'
-import { Checkbox } from '../../components/ui/checkbox'
-import ContactActions from './contactAction' // Assuming updated actions for contacts
-import { Contact } from '@/types/type' // Assuming `Contact` is the correct type based on the entity
 import { SessionItem } from '@/types/sessionItem'
 import RowCheck, { CheckAll } from './check'
 import { formatNumber } from '../servicesPage/servicesPage.util'
+import { Checkbox } from '../../components/ui/checkbox'
 
 export const columns: ColumnDef<SessionItem>[] = [
   {
     id: 'select',
     header: ({ table }) => (
-      // <Checkbox
-      //   checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-      //   onCheckedChange={(value: boolean) => table.toggleAllPageRowsSelected(value)}
-      //   aria-label='Select all'
-      // />
-      <CheckAll />
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+        onCheckedChange={(value: boolean) => {
+          table.toggleAllPageRowsSelected(value)
+        }}
+        aria-label='Select all'
+      />
     ),
     cell: ({ row }) => (
-      // <Checkbox
-      //   checked={row.getIsSelected()}
-      //   defaultChecked={true}
-      //   onCheckedChange={(value: boolean) => {
-      //     row.toggleSelected(value)
-      //   }}
-      //   aria-label='Select row'
-      // />
-      <RowCheck item={row.original} />
+      <Checkbox
+        checked={row.getIsSelected()}
+        defaultChecked={true}
+        onCheckedChange={(value: boolean) => {
+          row.toggleSelected(value)
+        }}
+        aria-label='Select row'
+      />
     ),
     enableSorting: false,
     enableHiding: false

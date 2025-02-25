@@ -2,10 +2,10 @@ import { CosmeticProduct } from '@/types/type'
 import { Checkbox } from '../../components/ui/checkbox'
 import React, { useContext, useState } from 'react'
 import { SessionItem } from '@/types/sessionItem'
-import { SelectedItemContext } from './context/pastAppointmentContext'
+import { SelectedContext } from './context/selectedContext'
 
 export default function RowCheck(params: { item: SessionItem, check: boolean }) {
-  const context = useContext(SelectedItemContext)
+  const context = useContext(SelectedContext)
   const [checked, setChecked] = useState(params.check)
   return (
     <div>

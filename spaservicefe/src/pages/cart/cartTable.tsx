@@ -2,12 +2,9 @@ import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Appointment, SpaRequest } from '../../types/type' // Updated to CustomerRequest type
-
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
-import { getAppointments } from './appointmentPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'
-import { SelectedItemContext } from './context/'
+import { SelectedContext } from './context/selectedContext'
 
 export default function CartTable() {
   const [data, setData] = useState<Appointment[]>([])
@@ -16,18 +13,6 @@ export default function CartTable() {
   const [pastBooking, setPastBooking] = useState(false)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const appointments = await getAppointments(jwtDecode(getToken() ?? '').UserId)
-        setData(appointments)
-      } catch (err) {
-        setError("Can't load the data.")
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
   }, [])
 
   if (loading) return <div className='ml-5'>Loading...</div>
@@ -35,7 +20,7 @@ export default function CartTable() {
 
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
-      <SelectedItemContext.Provider value={{ pastBooking, setSelectedItem: setPastBooking }}>
+      <SelectedContext.Provider value={{ pastBooking, setSelectedItem: setPastBooking }}>
         <DataTable
           columns={columns}
           data={data.filter((v) => {
@@ -46,7 +31,7 @@ export default function CartTable() {
             return !d
           })}
         />
-      </SelectedItemContext.Provider>
+      </SelectedContext.Provider>
     </div>
   )
 }
