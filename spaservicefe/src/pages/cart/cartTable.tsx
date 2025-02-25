@@ -9,11 +9,10 @@ import { SessionItem } from '@/types/sessionItem'
 import { getCart } from '../cosmeticDetailPage/detailPage.util'
 
 export default function CartTable() {
-  const [data, setData] = useState<SessionItem[]>(getCart())
 
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={getCart()} />
     </div>
   )
 }
