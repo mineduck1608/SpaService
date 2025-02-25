@@ -195,6 +195,109 @@ export const employeeConfig = {
   }
 }
 
+export const managerConfig = {
+  updatefields: [
+    {
+      name: 'fullName',
+      label: 'Full Name',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter full name',
+    },
+    {
+      name: 'position',
+      label: 'Position',
+      type: 'select',
+      required: true,
+      placeholder: 'Select position'
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      required: true,
+      placeholder: 'Select status'
+    },
+    {
+      name: 'image',
+      label: 'Image',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter image URL',  
+    },
+    {
+      name: 'phone',
+      label: 'Phone',
+      type: 'tel',
+      required: true,
+      placeholder: 'Enter phone number',  
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'email',
+      required: true,
+      placeholder: 'Enter email',  
+    }
+  ],
+  fields: [
+    {
+      name: 'username',
+      label: 'Username',
+      type: 'text',
+      required: true,
+      minLength: 8,
+      placeholder: 'Enter username',
+    },
+    {
+      name: 'password',
+      label: 'Password',
+      type: 'password',
+      required: true,
+      placeholder: 'Enter password',
+    },
+    {
+      name: 'fullName',
+      label: 'Full Name',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter full name',
+    },
+    {
+      name: 'position',
+      label: 'Position',
+      type: 'select',
+      required: true,
+      placeholder: 'Select position',  
+    },
+    {
+      name: 'phone',
+      label: 'Phone',
+      type: 'tel',
+      required: true,
+      placeholder: 'Enter phone number'
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'email',
+      required: true,
+      placeholder: 'Enter email address'
+    },
+    {
+      name: 'image',
+      label: 'Image',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter image URL',  
+    }
+  ],
+  api: {
+    create: 'api/accounts/RegisterEmployee',
+    update: 'api/employees/Update/{id}'
+  }
+}
+
 export const accountConfig = {
   updatefields: [
     {
@@ -324,11 +427,18 @@ export const applicatonConfig = {
       placeholder: 'Enter content'
     },
     {
+      name: 'resolvedAt',
+      label: 'Resolved At',
+      type: 'datetime-local',
+      required: true,
+      placeholder: 'Enter the resolved date',
+    },
+    {
       name: 'resolvedBy',
       label: 'Resolved By',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter employee name'
+      type: 'select',
+      // required: true,
+      placeholder: 'Select manager name'
     }
   ]
 }

@@ -26,9 +26,7 @@ const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) 
   const openDeleteModal = () => setDeleteModalOpen(true)
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
-  const openUpdateModal = () => {
-    setUpdateModalOpen(true)
-  }
+  const openUpdateModal = () => setUpdateModalOpen(true)
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
@@ -47,18 +45,13 @@ const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) 
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(application.applicationId)}>
-            Copy application ID
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(application.applicationId)}>Copy application ID</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
       <UpdateApplicationModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} application={application} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

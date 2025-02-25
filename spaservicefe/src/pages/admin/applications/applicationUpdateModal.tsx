@@ -43,34 +43,23 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
   }
 
   useEffect(() => {
-      async function fetchCategories() {
-        const data = await getAllManagers()
-        setManagers(data)
-        if (application) {
-          Object.keys(application).forEach((key : string) => {
-            if (form.getValues(key) !== undefined) {
-              if (key === 'resolvedBy') {
-                const managerName = data.find(manager => manager.managerId === application.resolvedBy)?.managerId
-                form.setValue('resolvedBy', managerName || '')
-              }
-              else 
-                form.setValue(key, application[key])
+    async function fetchManagers() {
+      const data = await getAllManagers()
+      setManagers(data)
+      if (application) {
+        Object.keys(application).forEach((key : string) => {
+          if (form.getValues(key) !== undefined) {
+            if (key === 'resolvedBy') {
+              const managerName = data.find(manager => manager.managerId === application.resolvedBy)?.managerId
+              form.setValue('resolvedBy', managerName || '')
             }
-          })
-        }
-  
+            else form.setValue(key, application[key])
+          }
+        })
       }
-      fetchCategories()
-    }, [application, form])
 
-  useEffect(() => {
-    if (application) {
-      Object.keys(application).forEach((key: string) => {
-        if (form.getValues(key) !== undefined) {
-          form.setValue(key, application[key])
-        }
-      })
     }
+    fetchManagers()
   }, [application, form])
 
   return (
@@ -103,20 +92,40 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
                             }
                           />
                         ) : field.type === 'select' ? (
-                          <Select
-                            onValueChange={formField.onChange}
-                            defaultValue={formField.value}
-                            disabled={field.readonly}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value='Resolved'>Resolved</SelectItem>
-                              <SelectItem value='Unresolved'>Unresolved</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        ) : (
+                          field.name === 'status' ? (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='Resolved'>Resolved</SelectItem>
+                                <SelectItem value='Unresolved'>Unresolved</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          ) : (
+                            <Select
+                              value={form.watch('resolvedBy') || ''}
+                              onValueChange={(value) => {
+                                form.setValue('resolvedBy', value)
+                              }}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {managers.map((manager) => (
+                                  <SelectItem key={manager.managerId} value={manager.managerId}>
+                                    {manager.fullName}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                        )) : (
                           <Input
                             {...formField}
                             type={field.type}

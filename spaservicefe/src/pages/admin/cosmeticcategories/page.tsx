@@ -13,7 +13,6 @@ export default function CosmeticCategoriesPage() {
     const fetchData = async () => {
       try {
         const categories = await getAllCategories()
-
         setData(categories)
       } catch (err) {
         setError("Can't load the data.")
