@@ -2,10 +2,10 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
-import RequestActions from './customerRequestAction'
-import { SpaRequest } from '@/types/type'
+import ManagerActions from './managerAction'
+import { Manager } from '@/types/type'
 
-export const columns: ColumnDef<SpaRequest>[] = [
+export const columns: ColumnDef<Manager>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -26,56 +26,48 @@ export const columns: ColumnDef<SpaRequest>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'customerName',
+    accessorKey: 'fullName',
     header: ({ column }) => (
       <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Customer
+        Full Name
         <ArrowUpDown className='ml-2 h-4 w-4' />
       </Button>
     )
   },
   {
-    accessorKey: 'serviceName',
-    header: 'Service',
-    cell: ({ row }) => row.getValue('serviceName')
+    accessorKey: 'position',
+    header: 'Position',
+    cell: ({ row }) => {
+      const position = row.getValue<string>('position')
+      return <span>{position}</span>
+    }
   },
   {
-    accessorKey: 'startTime',
-    header: 'Start Time',
-    cell: ({ row }) => row.getValue('startTime')
+    accessorKey: 'phone',
+    header: 'Phone'
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email'
+  },
+  {
+    accessorKey: 'hireDate',
+    header: 'Hire Date'
   },
   {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
-      let statusColor = ''
-      if (status === 'Completed') {
-        statusColor = 'text-green-500'
-      } else if (status === 'Cancelled') {
-        statusColor = 'text-red-500'
-      } else if (status === 'Pending') {
-        statusColor = 'text-gray-500'
-      }
-
+      const statusColor = status === 'Active' ? 'text-green-500' : 'text-red-500'
       return <span className={statusColor}>{status}</span>
     }
   },
   {
-    accessorKey: 'customerNote',
-    header: 'Customer Note',
-    cell: ({ row }) => row.getValue('customerNote') || 'No notes provided'
-  },
-  {
-    accessorKey: 'managerNote',
-    header: 'Manager Note',
-    cell: ({ row }) => row.getValue('managerNote') || 'No notes provided'
-  },
-  {
     id: 'actions',
     cell: ({ row }) => {
-      const request = row.original
-      return <RequestActions request={request} /> // Assuming this component handles the actions for the request
+      const manager = row.original
+      return <ManagerActions manager={manager} />
     }
   }
 ]
