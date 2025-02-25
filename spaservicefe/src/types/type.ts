@@ -35,6 +35,18 @@ export type Customer = {
   dateOfBirth: Date | string
 }
 
+export type Manager = {
+  managerId: string
+  fullName: string
+  position: string
+  hireDate: Date | string
+  status: string
+  image: string
+  accountId: string
+  phone: string
+  email: string
+}
+
 export type Member = {
   membershipId: string
   type: string
