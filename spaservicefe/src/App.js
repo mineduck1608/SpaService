@@ -35,6 +35,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import RequestPage from './pages/requestPage/requestPage.tsx'
 import AppointmentPage from './pages/appointmentPage/appointmentPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
+import CartPage from './pages/cart/cartPage.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import CosmeticCheckoutPage from './pages/checkoutForCosmetic/orderCheckoutPage.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -148,7 +149,7 @@ function App() {
             path='cart'
             element={
               <Layout>
-                ABC
+                <CartPage />
               </Layout>
             }
           />
