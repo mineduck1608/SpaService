@@ -202,3 +202,18 @@ export type Room = {
   status: boolean
 
 }
+
+export type Feedback = {
+  feedbackId: string
+  feedbackMessage: string
+  rating: number
+  createdAt: Date
+  createdBy: string
+  serviceId: string
+}
+
+export type CategoryEmployee = {
+  categoryEmployeeId: string
+  categoryId: string
+  employeeId: string
+}

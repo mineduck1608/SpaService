@@ -51,6 +51,8 @@ import AdminFloorPage from './pages/admin/floors/page.tsx'
 import AdminRoomPage from './pages/admin/rooms/page.tsx'
 import ServiceCategoriesPage from './pages/admin/servicecategories/page.tsx'
 import AdminCosmeticPage from './pages/admin/products/page.tsx'
+import AdminFeedbackPage from './pages/admin/feedbacks/page.tsx'
+import AdminEmployeeCategoryPage from './pages/admin/employeeCategories/page.tsx'
 
 
 function Layout({ children }) {
@@ -268,11 +270,11 @@ function App() {
             {/* Others */}
             <Route path='promotions' element={<PromotionPage />} />
             <Route path='news' element={<AdminNewsPage />} />
-            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+            <Route path='feedbacks' element={<AdminFeedbackPage />} />
 
             {/* Users */}
             <Route path='accounts' element={<DemoPage />} />
-            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+            <Route path='employee-categories' element={<AdminEmployeeCategoryPage/>} />
 
             {/* Users Management */}
             <Route path='managers' element={<Placeholder title='Managers' />} />
