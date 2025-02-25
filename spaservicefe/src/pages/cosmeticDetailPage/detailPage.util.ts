@@ -31,10 +31,18 @@ export function removeCartItem(productId: string) {
   cart = cart.filter((x) => x.product.productId !== productId)
   setCart(cart)
 }
-export function setItem(productId: string, amount?: number, included?: boolean) {
+export function setItem(productId: string, amount?: number, included?: boolean, product?: CosmeticProduct) {
   var cart = getCart()
   var item = cart.findIndex((x) => x.product.productId === productId)
-  if (item != -1) {
+  if (item == -1) {
+    if (product) {
+      cart.push({
+        amount: amount ?? 0,
+        included: included ?? false,
+        product: product
+      })
+    }
+    setCart(cart)
     return
   }
   if (amount) {

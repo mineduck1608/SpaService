@@ -29,7 +29,6 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const context = React.useContext(SelectedContext)
   const table = useReactTable({
     data,
     columns,
@@ -51,16 +50,6 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
 
   return (
     <div className=''>
-      <div className='flex justify-end'>
-        <button
-          className='my-2 rounded-sm bg-purple1 p-1 text-white'
-          onClick={(e) => {
-            context.setItems(!context.items)
-          }}
-        >
-          {context.items ? 'Upcoming' : 'Past'} Appointments
-        </button>
-      </div>
       <div className='mt-2 rounded-md border bg-slate-50'>
         <Table className=''>
           <TableHeader>
