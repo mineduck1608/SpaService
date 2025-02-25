@@ -53,6 +53,7 @@ import ServiceCategoriesPage from './pages/admin/servicecategories/page.tsx'
 import AdminCosmeticPage from './pages/admin/products/page.tsx'
 import AdminFeedbackPage from './pages/admin/feedbacks/page.tsx'
 import AdminEmployeeCategoryPage from './pages/admin/employeeCategories/page.tsx'
+import CartPage from './pages/cart/cartPage.tsx'
 import ImageUpload from './components/imageUpload.tsx'
 
 function Layout({ children }) {
@@ -99,7 +100,7 @@ function App() {
           <Route
             path='upload'
             element={
-              <ImageUpload/>
+              <ImageUpload />
             }
           />
           <Route
@@ -152,7 +153,7 @@ function App() {
               </Layout>
             }
           />
-          <Route path='cart' element={<Layout>ABC</Layout>} />
+          <Route path='cart' element={<Layout><CartPage /></Layout>} />
           <Route
             path='cosmetics/:id'
             element={
