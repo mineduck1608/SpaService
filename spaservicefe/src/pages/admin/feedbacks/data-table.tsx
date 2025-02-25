@@ -22,13 +22,7 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
-import { Button } from '../../components/ui/button'
-import { SelectedContext } from './context/selectedContext'
-import { SessionItem } from '@/types/sessionItem'
-import { getAmount } from './cartPage.util'
-
-interface DataTableProps {
+interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
   filterKey?: string // Key để lọc dữ liệu
@@ -112,12 +106,16 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'header' }
           </TableBody>
         </Table>
       </div>
-      <div className='mt-2 flex justify-end'>Total amount is:&nbsp;
-        <p className='text-red-500 font-bold text-lg'>{getAmount()} VND</p>
-      </div>
-      <div className='flex items-center justify-end space-x-2 pb-4'>
-        <Button className='block' variant='outline' size='sm' onClick={() => { }}>
-          Check Out
+      <div className='flex items-center justify-end space-x-2 py-4'>
+        <div className='flex-1 text-sm text-muted-foreground'>
+          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+          selected.
+        </div>
+        <Button variant='outline' size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+          Previous
+        </Button>
+        <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          Next
         </Button>
       </div>
     </div>
