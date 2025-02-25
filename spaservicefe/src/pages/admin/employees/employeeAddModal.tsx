@@ -69,8 +69,8 @@ export default function AddEmployeeModal() {
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value='Active'>Active</SelectItem>
-                                <SelectItem value='Locked'>Locked</SelectItem>
+                                <SelectItem value='Working'>Working</SelectItem>
+                                <SelectItem value='Retired'>Retired</SelectItem>
                               </SelectContent>
                             </Select>
                           )

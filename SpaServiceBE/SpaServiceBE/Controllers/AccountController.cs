@@ -20,17 +20,20 @@ namespace API.Controllers
         private readonly ICustomerService _customerService;
         private readonly IRoleService _roleService;
         private readonly IEmployeeService _employeeService;
+        private readonly IManagerService _managerService;
 
         public AccountController(
     IAccountService accountService,
     ICustomerService customerService,
     IRoleService roleService,
-    IEmployeeService employeeService)
+    IEmployeeService employeeService,
+    IManagerService managerService)
         {
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
             _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
             _roleService = roleService ?? throw new ArgumentNullException(nameof(roleService));
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
+            _managerService = managerService ?? throw new ArgumentNullException(nameof(managerService));
         }
 
 
@@ -201,7 +204,7 @@ namespace API.Controllers
                     FullName = fullName,
                     Position = position,
                     HireDate = DateOnly.FromDateTime(DateTime.Now),
-                    Status = "Active",
+                    Status = "Working",
                     Phone = phone,
                     Email = email,
                     Image = image ?? string.Empty // Set to empty string if no image is provided
@@ -223,6 +226,93 @@ namespace API.Controllers
 
                 return Ok(new { msg = "Employee registered successfully." });
             
+        }
+
+        [HttpPost("RegisterManager")]
+        public async Task<ActionResult> RegisterManager([FromBody] dynamic request)
+        {
+            var jsonElement = (JsonElement)request;
+
+            // Extract account details
+            string username = jsonElement.GetProperty("username").GetString();
+            string password = jsonElement.GetProperty("password").GetString();
+            // Extract manager details
+            string fullName = jsonElement.GetProperty("fullName").GetString();
+            string position = jsonElement.GetProperty("position").GetString();
+            string phone = jsonElement.GetProperty("phone").GetString();
+            string email = jsonElement.GetProperty("email").GetString();
+            string? image = jsonElement.TryGetProperty("image", out var imgProperty) ? imgProperty.GetString() : null;
+
+            // Validate required fields
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullName) ||
+                string.IsNullOrEmpty(position) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
+                return BadRequest("Manager registration details are incomplete.");
+
+            // Validate phone, email, and password formats
+            if (!Util.IsPhoneFormatted(phone.Trim()))
+                return BadRequest(new { msg = "Phone number is not properly formatted" });
+
+            if (!Util.IsMailFormatted(email))
+                return BadRequest(new { msg = "Email is not properly formatted" });
+
+            if (!Util.IsPasswordSecure(password))
+                return BadRequest(new { msg = "Password is not secure enough" });
+
+            // Check if the account already exists
+            var existingAccount = await _accountService.GetAccountByUsername(username);
+            if (existingAccount != null)
+                return Conflict("Username already exists.");
+
+            var existingPhone = await _managerService.GetManagerByPhone(phone);
+            if (existingPhone != null)
+                return Conflict("Phone is used.");
+
+            var existingEmail = await _managerService.GetManagerByEmail(email);
+            if (existingEmail != null)
+                return Conflict("Email is used.");
+
+            // Create account object
+            var account = new Account
+            {
+                AccountId = Guid.NewGuid().ToString("N"),
+                Username = username,
+                Password = Util.ToHashString(password),
+                RoleId = "6219a63fab414127aa8ac13f2a3eb2a4", // Replace with your Employee Role ID
+                Status = true,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+
+            // Create manager object
+            var manager = new Manager
+            {
+                ManagerId = Guid.NewGuid().ToString("N"),
+                AccountId = account.AccountId,
+                FullName = fullName,
+                Position = position,
+                HireDate = DateOnly.FromDateTime(DateTime.Now),
+                Status = "Working",
+                Phone = phone,
+                Email = email,
+                Image = image ?? string.Empty // Set to empty string if no image is provided
+            };
+
+            // Ensure both objects are not null
+            if (account == null || manager == null)
+                return StatusCode(500, "Account or Manager object is null.");
+
+            // Save account
+            var isAccountCreated = await _accountService.AddAccount(account);
+            if (!isAccountCreated)
+                return StatusCode(500, "An error occurred while creating the account.");
+
+            // Save manager
+            var isManagerCreated = await _managerService.AddManager(manager);
+            if (!isManagerCreated)
+                return StatusCode(500, "An error occurred while registering the manager.");
+
+            return Ok(new { msg = "Manager registered successfully." });
+
         }
 
 

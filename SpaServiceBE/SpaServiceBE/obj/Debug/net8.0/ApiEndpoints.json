@@ -127,6 +127,22 @@
   },
   {
     "ContainingType": "API.Controllers.AccountController",
+    "Method": "RegisterManager",
+    "RelativePath": "api/accounts/RegisterManager",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
     "Method": "UpdateAccount",
     "RelativePath": "api/accounts/Update/{id}",
     "HttpMethod": "PUT",
