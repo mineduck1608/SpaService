@@ -196,11 +196,6 @@ const Header = () => {
                   RECRUITMENT
                 </a>
               </li>
-              <li>
-                <a href='/cart' className='nav-link text-base'>
-                  CART
-                </a>
-              </li>
             </ul>
           </nav>
           <div className='absolute right-10 top-1/2 -translate-y-1/2 transform'>

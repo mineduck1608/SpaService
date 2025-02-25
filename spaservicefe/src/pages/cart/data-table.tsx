@@ -77,11 +77,13 @@ export function DataTable({ columns, data }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      <div className='mt-2 flex justify-end'>Total amount is:&nbsp;
-        <p className='text-red-500 font-bold text-lg'>{formatNumber(getAmount())} VND</p>
+      <div className='flex justify-end items-center gap-2'>
+        <span className='text-lg font-medium'>Total amount is:</span>
+        <p className='mt-3 text-red-500 font-bold text-lg'>{formatNumber(getAmount())} VND</p>
       </div>
+
       <div className='flex items-center justify-end space-x-2 pb-4'>
-        <Button className='block' variant='outline' size='sm' onClick={() => { }}>
+        <Button className='block' variant='outline' size='sm' onClick={() => {}}>
           Check Out
         </Button>
       </div>

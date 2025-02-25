@@ -153,7 +153,7 @@ function App() {
               </Layout>
             }
           />
-          <Route path='cart' element={<Layout><CartPage /></Layout>} />
+          <Route path='carts' element={<Layout><CartPage /></Layout>} />
           <Route
             path='cosmetics/:id'
             element={

@@ -369,13 +369,6 @@ export const serviceCategoriesConfig = {
       placeholder: 'Enter new name'
     },
     {
-      name: 'categoryImage',
-      label: 'Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new image URL'
-    },
-    {
       name: 'categoryDescription',
       label: 'Status',
       type: 'text',
@@ -391,13 +384,6 @@ export const serviceCategoriesConfig = {
       required: true,
       minLength: 5,
       placeholder: 'Enter category name'
-    },
-    {
-      name: 'categoryImage',
-      label: 'Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter image URL'
     },
     {
       name: 'categoryDescription',
