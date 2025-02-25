@@ -18,6 +18,7 @@ import { Button } from '../../components/ui/button'
 import { SelectedContext } from './context/selectedContext'
 import { SessionItem } from '@/types/sessionItem'
 import { getAmount } from './cartPage.util'
+import { formatNumber } from '../servicesPage/servicesPage.util'
 
 interface DataTableProps {
   columns: any[]
@@ -77,7 +78,7 @@ export function DataTable({ columns, data }: DataTableProps) {
         </Table>
       </div>
       <div className='mt-2 flex justify-end'>Total amount is:&nbsp;
-        <p className='text-red-500 font-bold text-lg'>{getAmount()} VND</p>
+        <p className='text-red-500 font-bold text-lg'>{formatNumber(getAmount())} VND</p>
       </div>
       <div className='flex items-center justify-end space-x-2 pb-4'>
         <Button className='block' variant='outline' size='sm' onClick={() => { }}>
