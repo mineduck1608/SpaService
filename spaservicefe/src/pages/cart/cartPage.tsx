@@ -2,8 +2,15 @@ import CartTable from './cartTable'
 
 export default function CartPage() {
   return (
-    <div className='my-32'>
-      <CartTable />
+    <div
+      className='flex justify-center bg-slate-400 bg-cover bg-no-repeat'
+      style={{
+        background: 'url(https://senspa.com.vn/wp-content/uploads/2021/01/2-3.png)'
+      }}
+    >
+      <div className='mb-40 mt-60 w-full p-5'>
+        <CartTable />
+      </div>
     </div>
   )
 }

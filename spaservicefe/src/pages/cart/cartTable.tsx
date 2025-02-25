@@ -11,7 +11,7 @@ import { getCart } from '../cosmeticDetailPage/detailPage.util'
 export default function CartTable() {
 
   return (
-    <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
+    <div className='container mx-auto w-[100%] rounded-md border bg-slate-50'>
       <DataTable columns={columns} data={getCart()} />
     </div>
   )
