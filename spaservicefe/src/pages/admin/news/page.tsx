@@ -4,6 +4,7 @@ import { DataTable } from './data-table'
 import { News } from '@/types/type'
 import { getAllNews } from './new.util'
 import { format } from 'date-fns'
+import { getServiceCategoryById } from '../employeeCategories/employeeCategory.util'
 
 export default function AdminNewsPage() {
   const [data, setData] = useState<News[]>([])
@@ -14,7 +15,21 @@ export default function AdminNewsPage() {
     const fetchData = async () => {
       try {
         const news = await getAllNews()
-        setData(news)
+
+        const formattedNews = await Promise.all(
+          news.map(async (item) => {
+            const category = await getServiceCategoryById(item.categoryId) // Fetch category for floor
+        
+                    const categoryName = category ? category.categoryName : 'Unknown' // Set default category name
+                    return {
+                      ...item,
+                      categoryName, // Add category name to floor data
+                    }
+                  })
+                )
+        
+
+        setData(formattedNews)
       } catch (err) {
         setError("Can't load the data.")
       } finally {

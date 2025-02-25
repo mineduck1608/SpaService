@@ -56,16 +56,35 @@ export const columns: ColumnDef<CosmeticProduct>[] = [
     cell: ({ row }) => {
       const status = row.getValue('status')
       return (
-        <span className={`font-semibold ${status ? 'text-green-500' : 'text-red-500'}`}>
-          {status ? 'On Stock' : 'Out of Stock'}
+        <span
+          className={`font-semibold ${status ? 'text-green-500' : 'text-red-500'}`}
+          style={{ whiteSpace: 'nowrap' }} // Giữ nội dung trên cùng một dòng
+        >
+          {status ? 'Available' : 'Sold Out'}
         </span>
       )
     }
-  },
+  }, 
   {
     accessorKey: 'isSelling',
     header: 'Is Selling?',
     cell: ({ row }) => (row.getValue('isSelling') ? 'Yes' : 'No')
+  },
+  {
+    accessorKey: 'image',
+    header: 'Image',
+    cell: ({ row }) => {
+      const imageUrl = row.getValue('image') // Lấy URL hình ảnh từ dữ liệu
+      return imageUrl ? (
+        <img
+          src={imageUrl}
+          alt='News'
+          className='h-[100px] w-[500px] rounded object-cover' // Sử dụng chiều rộng và chiều cao cố định, có thể tùy chỉnh
+        />
+      ) : (
+        <span>No Image</span> // Nếu không có URL hình ảnh, hiển thị "No Image"
+      )
+    }
   },
   {
     id: 'actions',

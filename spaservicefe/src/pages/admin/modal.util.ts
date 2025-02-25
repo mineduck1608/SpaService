@@ -540,25 +540,11 @@ export const spaServiceConfig = {
       placeholder: 'Enter new price'
     },
     {
-      name: 'duration',
-      label: 'Duration',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new duration'
-    },
-    {
       name: 'description',
       label: 'Description',
       type: 'text',
       required: true,
       placeholder: 'Enter new description'
-    },
-    {
-      name: 'serviceImage',
-      label: 'Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new service image URL'
     },
     {
       name: 'categoryId',
@@ -587,25 +573,11 @@ export const spaServiceConfig = {
       placeholder: 'Enter price'
     },
     {
-      name: 'duration',
-      label: 'Duration',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter duration'
-    },
-    {
       name: 'description',
       label: 'Description',
       type: 'text',
       required: true,
       placeholder: 'Enter description'
-    },
-    {
-      name: 'serviceImage',
-      label: 'Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter service image URL'
     },
     {
       name: 'categoryId',

@@ -34,6 +34,10 @@ export const columns: ColumnDef<News>[] = [
     header: 'Content'
   },
   {
+    accessorKey: 'categoryName',
+    header: 'Category'
+  },
+  {
     accessorKey: 'type',
     header: ({ column }) => {
       return (
@@ -46,6 +50,22 @@ export const columns: ColumnDef<News>[] = [
     cell: ({ row }) => {
       const value = row.getValue<string>('type')
       return <div className='ml-7'>{value}</div>
+    }
+  },
+  {
+    accessorKey: 'image',
+    header: 'Image',
+    cell: ({ row }) => {
+      const imageUrl = row.getValue('image') // Lấy URL hình ảnh từ dữ liệu
+      return imageUrl ? (
+        <img
+          src={imageUrl}
+          alt='News'
+          className='h-[100px] w-[500px] rounded object-cover' // Sử dụng chiều rộng và chiều cao cố định, có thể tùy chỉnh
+        />
+      ) : (
+        <span>No Image</span> // Nếu không có URL hình ảnh, hiển thị "No Image"
+      )
     }
   },
   {

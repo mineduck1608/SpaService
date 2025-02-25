@@ -50,6 +50,22 @@ export const columns: ColumnDef<SpaService>[] = [
     header: 'Description'
   },
   {
+    accessorKey: 'serviceImage',
+    header: 'Image',
+    cell: ({ row }) => {
+      const imageUrl = row.getValue('serviceImage') // Lấy URL hình ảnh từ dữ liệu
+      return imageUrl ? (
+        <img
+          src={imageUrl}
+          alt='News'
+          className='h-[100px] w-[200px] rounded object-cover' // Sử dụng chiều rộng và chiều cao cố định, có thể tùy chỉnh
+        />
+      ) : (
+        <span>No Image</span> // Nếu không có URL hình ảnh, hiển thị "No Image"
+      )
+    }
+  },
+  {
     id: 'actions',
     cell: ({ row }) => {
       const service = row.original

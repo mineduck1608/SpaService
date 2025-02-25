@@ -53,6 +53,7 @@ import ServiceCategoriesPage from './pages/admin/servicecategories/page.tsx'
 import AdminCosmeticPage from './pages/admin/products/page.tsx'
 import AdminFeedbackPage from './pages/admin/feedbacks/page.tsx'
 import AdminEmployeeCategoryPage from './pages/admin/employeeCategories/page.tsx'
+import ImageUpload from './components/imageUpload.tsx'
 
 function Layout({ children }) {
   return (
@@ -93,6 +94,12 @@ function App() {
               <Layout>
                 <RequestPage />
               </Layout>
+            }
+          />
+          <Route
+            path='upload'
+            element={
+              <ImageUpload/>
             }
           />
           <Route

@@ -9,14 +9,24 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import { handleCreateSubmit } from './service.util'
 import { getAllServiceCategories } from '../servicecategories/servicecategory.util'
 import { spaServiceConfig } from '../modal.util'
 import { ServiceCategory } from 'src/types/type'
+import { storage } from '../../../firebaseConfig'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import TimePicker from 'react-time-picker'
+import 'react-time-picker/dist/TimePicker.css'
+import 'react-clock/dist/Clock.css'
 
 export default function AddServiceModal() {
   const [categories, setCategories] = useState<ServiceCategory[]>([])
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [uploading, setUploading] = useState<boolean>(false)
+  const [duration, setDuration] = useState<string | null>('00:30') // Giá trị mặc định
+
   const fieldsToUse = spaServiceConfig.fields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
@@ -29,11 +39,52 @@ export default function AddServiceModal() {
     )
   })
 
+  // Xử lý chọn ảnh
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0]
+      setImageFile(file)
+      setImagePreview(URL.createObjectURL(file))
+    }
+  }
+
+  // Xử lý submit form
   const handleSubmit = async (data: any) => {
+    let imageUrl = ''
+
+    if (imageFile) {
+      setUploading(true)
+      const storageRef = ref(storage, `spaservices/${imageFile.name}`)
+      const uploadTask = uploadBytesResumable(storageRef, imageFile)
+
+      try {
+        await new Promise((resolve, reject) => {
+          uploadTask.on(
+            'state_changed',
+            null,
+            (error) => reject(error),
+            async () => {
+              imageUrl = await getDownloadURL(uploadTask.snapshot.ref)
+              resolve(imageUrl)
+            }
+          )
+        })
+      } catch (error) {
+        toast.error('Image upload failed')
+        setUploading(false)
+        return
+      }
+    }
+
     const selectedCategory = categories.find((category) => category.categoryName === data.categoryName)
     if (selectedCategory) data.categoryId = selectedCategory.categoryId
     data.price = parseFloat(data.price) || 0
-    handleCreateSubmit(data)
+    data.serviceImage = imageUrl
+    data.duration = duration // Thêm Duration vào dữ liệu form
+
+    console.log('Submitting Data:', data)
+    await handleCreateSubmit(data)
+    setUploading(false)
   }
 
   useEffect(() => {
@@ -42,7 +93,7 @@ export default function AddServiceModal() {
       setCategories(data)
     }
     fetchCategories()
-  }, [form])
+  }, [])
 
   return (
     <Dialog>
@@ -65,9 +116,7 @@ export default function AddServiceModal() {
                       <FormControl>
                         {field.type === 'select' ? (
                           <Select
-                            onValueChange={(value) => {
-                              form.setValue('categoryId', value)
-                            }}
+                            onValueChange={(value) => form.setValue('categoryId', value)}
                             disabled={field.readonly}
                           >
                             <SelectTrigger>
@@ -96,8 +145,36 @@ export default function AddServiceModal() {
                 )}
               />
             ))}
+
+            {/* Time Picker (Chọn Duration) */}
+            <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <FormLabel className='text-md font-semibold text-gray-700 text-right'>Duration</FormLabel>
+              <div className='col-span-3'>
+                <div className='relative flex items-center'>
+                  <TimePicker
+                    onChange={setDuration}
+                    value={duration}
+                    disableClock
+                    format='HH:mm'
+                    clearIcon={null}
+                  />
+                </div>
+              </div>
+            </FormItem>
+
+            {/* Input chọn ảnh */}
+            <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <FormLabel className='text-md text-right'>Upload Image</FormLabel>
+              <div className='col-span-3 space-y-2'>
+                <input type='file' accept='image/*' onChange={handleImageChange}  />
+                {imagePreview && <img src={imagePreview} alt='Preview' className='w-32 h-32 object-cover rounded' />}
+              </div>
+            </FormItem>
+
             <div className='mt-10 flex justify-end'>
-              <Button type='submit'>Submit</Button>
+              <Button type='submit' disabled={uploading}>
+                {uploading ? 'Uploading...' : 'Submit'}
+              </Button>
             </div>
           </form>
         </Form>
