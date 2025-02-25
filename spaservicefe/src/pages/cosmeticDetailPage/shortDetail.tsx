@@ -5,7 +5,7 @@ import seperator from '../../images/serviceBg/separator.png'
 import { toast, ToastContainer } from 'react-toastify' // Import thư viện toast
 import { CosmeticCategory, CosmeticProduct } from '@/types/type'
 import { SessionItem } from '@/types/sessionItem'
-import { getCart, getCartItem, setItem } from './detailPage.util'
+import { getCart, getCartItem, setCartItem } from './detailPage.util'
 
 export default function ShortDetail(params: { d?: CosmeticProduct }) {
   const CATEGORY = JSON.parse(sessionStorage.getItem('cosmeticcategories') ?? '[]') as CosmeticCategory[]
@@ -25,11 +25,11 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
     }
     const item = getCartItem(params.d.productId)
     if(item){
-      setItem(params.d.productId, item.amount + amount, true)
+      setCartItem(params.d.productId, item.amount + amount, true)
       toast.success(`Added ${amount} x ${params.d.productName} to cart`)
       return;
     }
-    setItem(params.d.productId, amount, true, params.d)
+    setCartItem(params.d.productId, amount, true, params.d)
     toast.success(`Added ${amount} x ${params.d.productName} to cart`)
   }
 

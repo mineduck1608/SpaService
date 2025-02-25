@@ -16,15 +16,16 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Button } from '../../components/ui/button'
 import { SelectedContext } from './context/selectedContext'
+import { SessionItem } from '@/types/sessionItem'
 
-interface DataTableProps<TData> {
+interface DataTableProps {
   columns: any[]
-  data: TData[]
+  data: SessionItem[]
   filterKey1?: string // Key để lọc dữ liệu\
   filterKey2?: string
 }
 
-export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
+export function DataTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -63,9 +64,9 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody id='body'>
             {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} id={row.original.product.productId}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                 ))}
