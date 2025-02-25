@@ -14,7 +14,7 @@ export async function getAllContacts() {
   } catch (e) {
     return []
   }
-}
+}   
 
 export async function handleDelete(contactId: string) {
   try {

@@ -20,22 +20,21 @@ export const fetchAppointments = async () => {
     const employees = await fetchEmployees();
     console.log('Fetched employees:', employees);
 
-    const employeeMap = new Map<string, { fullName: string; position: string }>(
+    const employeeMap = new Map<string, { fullName: string }>(
       employees.map((emp: any) => 
-        [emp.employeeId, { fullName: emp.fullName, position: emp.position }]
+        [emp.employeeId, { fullName: emp.fullName }]
       )
     );
     
 
     const formattedAppointments = appointments.map((event: { status: string; startTime: string; endTime: string; employeeId: string }, index: number) => {
-      const employeeInfo = employeeMap.get(event.employeeId) || { fullName: "Unknown", position: "Unknown" };
+      const employeeInfo = employeeMap.get(event.employeeId) || { fullName: "Unknown" };
 
       return {
         id: index + 1,
         title: event.status,
         start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
         end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
-        description: employeeInfo.position,
         people: [employeeInfo.fullName]
       };
     });
