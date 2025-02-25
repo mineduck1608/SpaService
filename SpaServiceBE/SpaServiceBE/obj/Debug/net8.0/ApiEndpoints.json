@@ -279,6 +279,22 @@
   },
   {
     "ContainingType": "API.Controllers.AppointmentController",
+    "Method": "CreateEmailRequest",
+    "RelativePath": "api/appointments/CreateMail/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AppointmentController",
     "Method": "DeleteAppointment",
     "RelativePath": "api/appointments/Delete/{id}",
     "HttpMethod": "DELETE",

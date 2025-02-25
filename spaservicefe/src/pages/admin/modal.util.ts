@@ -875,13 +875,6 @@ export const cosmeticProductConfig = {
       placeholder: 'Enter description'
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status'
-    },
-    {
       name: 'isSelling',
       label: 'Is Selling',
       type: 'select',
@@ -889,10 +882,10 @@ export const cosmeticProductConfig = {
       placeholder: 'Select an option'
     },
     {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter image URL'
+      name: 'categoryId',
+      label: 'Category',
+      type: 'select',
+      placeholder: 'Select category'
     }
   ],
   fields: [
@@ -928,24 +921,11 @@ export const cosmeticProductConfig = {
       placeholder: 'Enter description'
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status'
-    },
-    {
       name: 'isSelling',
       label: 'Is Selling',
       type: 'select',
       required: true,
       placeholder: 'Select an option'
-    },
-    {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter image URL'
     },
     {
       name: 'categoryId',

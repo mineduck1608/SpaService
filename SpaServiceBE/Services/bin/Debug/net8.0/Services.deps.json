@@ -1315,7 +1315,10 @@
           "Microsoft.Extensions.Configuration.Json": "9.0.1"
         },
         "runtime": {
-          "Repositories.dll": {}
+          "Repositories.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

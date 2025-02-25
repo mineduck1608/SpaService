@@ -9,13 +9,19 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import { handleCreateSubmit, getAllCosmeticCategories } from './product.util'
 import { cosmeticProductConfig } from '../modal.util'
 import { CosmeticCategory } from 'src/types/type'
+import { storage } from '../../../firebaseConfig'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 
 export default function AddProductModal() {
   const [categories, setCategories] = useState<CosmeticCategory[]>([])
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [uploading, setUploading] = useState<boolean>(false) // Trạng thái upload ảnh
+
   const fieldsToUse = cosmeticProductConfig.fields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
@@ -28,16 +34,66 @@ export default function AddProductModal() {
     )
   })
 
+  // Xử lý chọn ảnh và tạo preview
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0]
+      setImageFile(file)
+      setImagePreview(URL.createObjectURL(file))
+    }
+  }
+
+  // Xử lý upload ảnh lên Firebase Storage
+  const uploadImage = async (file: File) => {
+    return new Promise<string>((resolve, reject) => {
+      setUploading(true)
+      const storageRef = ref(storage, `cosmetic-products/${file.name}`)
+      const uploadTask = uploadBytesResumable(storageRef, file)
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log(`Upload is ${progress}% done`)
+        },
+        (error) => {
+          setUploading(false)
+          toast.error('Image upload failed')
+          reject(error)
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+          setUploading(false)
+          resolve(downloadURL)
+        }
+      )
+    })
+  }
+
+  // Xử lý submit form
   const handleSubmit = async (data: any) => {
+    let imageUrl = ''
+    if (imageFile) {
+      try {
+        imageUrl = await uploadImage(imageFile)
+      } catch (error) {
+        return
+      }
+    }
+
     const selectedCategory = categories.find((category) => category.categoryName === data.categoryName)
     if (selectedCategory) data.categoryId = selectedCategory.categoryId
     data.price = parseFloat(data.price) || 0
     data.quantity = parseInt(data.quantity) || 0
     data.status = data.status === 'true'
     data.isSelling = data.isSelling === 'true'
-    handleCreateSubmit(data)
+    data.image = imageUrl // Lưu URL ảnh vào dữ liệu sản phẩm
+
+    console.log('Submitting data:', data)
+    await handleCreateSubmit(data)
   }
 
+  // Lấy danh sách danh mục sản phẩm
   useEffect(() => {
     async function fetchCategories() {
       const data = await getAllCosmeticCategories()
@@ -52,7 +108,7 @@ export default function AddProductModal() {
         <Button variant='outline'>Create</Button>
       </DialogTrigger>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Create Product</DialogTitle>
+        <DialogTitle className='flex justify-center'>Create Cosmetic Product</DialogTitle>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
             {fieldsToUse.map((field: FieldConfig) => (
@@ -68,9 +124,7 @@ export default function AddProductModal() {
                         {field.type === 'select' ? (
                           field.name === 'categoryId' ? (
                             <Select
-                              onValueChange={(value) => {
-                                form.setValue('categoryId', value)
-                              }}
+                              onValueChange={(value) => form.setValue('categoryId', value)}
                               disabled={field.readonly}
                             >
                               <SelectTrigger>
@@ -82,20 +136,6 @@ export default function AddProductModal() {
                                     {category.categoryName}
                                   </SelectItem>
                                 ))}
-                              </SelectContent>
-                            </Select>
-                          ) : field.name === 'status' ? (
-                            <Select
-                              onValueChange={formField.onChange}
-                              defaultValue={formField.value}
-                              disabled={field.readonly}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value='true'>On Stock</SelectItem>
-                                <SelectItem value='false'>Out of Stock</SelectItem>
                               </SelectContent>
                             </Select>
                           ) : (
@@ -114,12 +154,7 @@ export default function AddProductModal() {
                             </Select>
                           )
                         ) : (
-                          <Input
-                            {...formField}
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            disabled={field.readonly}
-                          />
+                          <Input {...formField} type={field.type} placeholder={field.placeholder} disabled={field.readonly} />
                         )}
                       </FormControl>
                       <FormMessage className='text-sm' />
@@ -128,8 +163,20 @@ export default function AddProductModal() {
                 )}
               />
             ))}
+
+            {/* Thêm phần Upload Image */}
+            <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <FormLabel className='text-md text-right'>Upload Image</FormLabel>
+              <div className='col-span-3 space-y-2'>
+                <input type='file' accept='image/*' onChange={handleImageChange} />
+                {imagePreview && <img src={imagePreview} alt='Preview' className='w-32 h-32 object-cover rounded' />}
+              </div>
+            </FormItem>
+
             <div className='mt-10 flex justify-end'>
-              <Button type='submit'>Submit</Button>
+              <Button type='submit' disabled={uploading}>
+                {uploading ? 'Uploading...' : 'Submit'}
+              </Button>
             </div>
           </form>
         </Form>
