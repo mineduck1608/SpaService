@@ -27,7 +27,7 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey1?: string
+  filterKey1?: string // Key để lọc dữ liệu\
   filterKey2?: string
 }
 

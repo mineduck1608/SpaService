@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -13,8 +13,6 @@ import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './application.util'
 import { applicatonConfig } from '../modal.util'
 import { DatePicker } from 'antd'
-import { Manager } from '@/types/type'
-import { getAllManagers } from '../managers/manager.util'
 
 interface UpdateApplicationModalProps {
   isOpen: boolean
@@ -24,7 +22,6 @@ interface UpdateApplicationModalProps {
 
 export default function UpdateApplicationModal({ isOpen, onClose, application }: UpdateApplicationModalProps) {
   const fieldsToUse = applicatonConfig.updatefields
-  const [managers, setManagers] = useState<Manager[]>([])
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -32,36 +29,12 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
   })
 
   const handleSubmit = async (data: any) => {
-    const selectedManager = managers.find(manager => manager.managerId === data.resolvedBy)
-    if (selectedManager) 
-      data.resolvedBy = selectedManager.managerId
     handleUpdateSubmit(application.applicationId, application, data)
   }
 
   const handleChange = (field: string, value: string) => {
     form.setValue(field, value)
   }
-
-  useEffect(() => {
-      async function fetchCategories() {
-        const data = await getAllManagers()
-        setManagers(data)
-        if (application) {
-          Object.keys(application).forEach((key : string) => {
-            if (form.getValues(key) !== undefined) {
-              if (key === 'resolvedBy') {
-                const managerName = data.find(manager => manager.managerId === application.resolvedBy)?.managerId
-                form.setValue('resolvedBy', managerName || '')
-              }
-              else 
-                form.setValue(key, application[key])
-            }
-          })
-        }
-  
-      }
-      fetchCategories()
-    }, [application, form])
 
   useEffect(() => {
     if (application) {

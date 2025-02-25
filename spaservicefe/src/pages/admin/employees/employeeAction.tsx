@@ -12,7 +12,7 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Employee } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateEmployeeModal from './employeeUpdateModal'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify' 
 import { handleDelete } from './employee.util'
 
 interface EmployeeActionsProps {
@@ -27,15 +27,14 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
   const openUpdateModal = () => {
-    setUpdateModalOpen(true)
-  }
+    setUpdateModalOpen(true)}
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
     handleDelete(employee.employeeId)
     closeDeleteModal()
   }
-
+    
   return (
     <>
       <DropdownMenu>
@@ -59,7 +58,7 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee} />
+      <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

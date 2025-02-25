@@ -60,7 +60,20 @@ export const sideData = {
         {
           title: 'Customer Requests',
           url: '/customer-requests'
+
+
+
+
         },
+
+
+
+
+
+
+
+
+
 
         {
           title: 'Applications',
@@ -95,6 +108,10 @@ export const sideData = {
         {
           title: 'Promotions',
           url: '/promotions'
+
+
+
+
         },
         {
           title: 'News',
@@ -104,6 +121,7 @@ export const sideData = {
           title: 'Feedbacks',
           url: '/feedbacks'
         }
+
       ]
     }
   ],
@@ -172,5 +190,5 @@ export const sideData = {
       url: '#',
       icon: MessageCircleQuestion
     }
-  ]
+  ],
 }

@@ -45,7 +45,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(product.productId)} className='cursor-pointer'>
+          <DropdownMenuItem 
+            onClick={() => navigator.clipboard.writeText(product.productId)} 
+            className='cursor-pointer'>
             Copy product ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -58,7 +60,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdateProductModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} product={product} />
+      <UpdateProductModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} product={product}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

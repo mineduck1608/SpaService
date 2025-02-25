@@ -35,18 +35,6 @@ export type Customer = {
   dateOfBirth: Date | string
 }
 
-export type Manager = {
-  managerId: string
-  fullName: string
-  position: string
-  hireDate: Date | string
-  status: string
-  image: string
-  accountId: string
-  phone: string
-  email: string
-}
-
 export type Member = {
   membershipId: string
   type: string
@@ -129,6 +117,7 @@ export type Application = {
   resolvedBy: string
 }
 
+
 export type CosmeticCategory = {
   categoryId: string
   categoryName: string
@@ -152,6 +141,7 @@ export type CosmeticProduct = {
   isSelling: boolean
   image: string
   categoryId: string
+
 }
 
 export type Commission = {
@@ -210,19 +200,5 @@ export type Room = {
   roomNum: number
   floorId: string
   status: boolean
-}
 
-export type Feedback = {
-  feedbackId: string
-  feedbackMessage: string
-  rating: number
-  createdAt: Date
-  createdBy: string
-  serviceId: string
-}
-
-export type CategoryEmployee = {
-  categoryEmployeeId: string
-  categoryId: string
-  employeeId: string
 }

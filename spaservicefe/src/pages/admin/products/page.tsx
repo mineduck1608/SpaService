@@ -5,14 +5,14 @@ import { CosmeticProduct } from '@/types/type'
 import { getAllProducts } from './product.util'
 
 export default function AdminCosmeticPage() {
-  const [data, setData] = useState<CosmeticProduct[]>([])
+  const [data, setData] = useState<CosmeticProduct[]>([]) 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const products = await getAllProducts()
+        const products = await getAllProducts() 
         setData(products)
       } catch (err) {
         setError("Can't load the data.")

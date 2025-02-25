@@ -1,5 +1,6 @@
-import { Description } from '@radix-ui/react-dialog'
+import { Description } from '@radix-ui/react-dialog';
 import { getToken } from '../../../types/constants'
+
 
 export const fetchAppointments = async () => {
   try {
@@ -7,7 +8,7 @@ export const fetchAppointments = async () => {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
-    })
+    });
 
     if (!response.ok) {
       throw new Error('Failed to fetch appointments')
@@ -16,33 +17,35 @@ export const fetchAppointments = async () => {
     const appointments = await response.json()
     console.log('Fetched appointments:', appointments)
 
-    const employees = await fetchEmployees()
-    console.log('Fetched employees:', employees)
+    const employees = await fetchEmployees();
+    console.log('Fetched employees:', employees);
 
-    const employeeMap = new Map<string, { fullName: string }>(
-      employees.map((emp: any) => [emp.employeeId, { fullName: emp.fullName }])
-    )
+    const employeeMap = new Map<string, { fullName: string; position: string }>(
+      employees.map((emp: any) => 
+        [emp.employeeId, { fullName: emp.fullName, position: emp.position }]
+      )
+    );
+    
 
-    const formattedAppointments = appointments.map(
-      (event: { status: string; startTime: string; endTime: string; employeeId: string }, index: number) => {
-        const employeeInfo = employeeMap.get(event.employeeId) || { fullName: 'Unknown' }
+    const formattedAppointments = appointments.map((event: { status: string; startTime: string; endTime: string; employeeId: string }, index: number) => {
+      const employeeInfo = employeeMap.get(event.employeeId) || { fullName: "Unknown", position: "Unknown" };
 
-        return {
-          id: index + 1,
-          title: event.status,
-          start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
-          end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
-          people: [employeeInfo.fullName]
-        }
-      }
-    )
+      return {
+        id: index + 1,
+        title: event.status,
+        start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
+        end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
+        description: employeeInfo.position,
+        people: [employeeInfo.fullName]
+      };
+    });
 
     return formattedAppointments
   } catch (error) {
     console.error('Error fetching appointments: ', error)
-    return []
+    return [];
   }
-}
+};
 
 export const fetchEmployees = async () => {
   try {
@@ -50,18 +53,18 @@ export const fetchEmployees = async () => {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
-    })
+    });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch employees')
+      throw new Error('Failed to fetch employees');
     }
 
-    const data = await response.json()
-    console.log('Fetched employees', data)
+    const data = await response.json();
+    console.log('Fetched employees', data);
 
-    return data
+    return data;
   } catch (error) {
-    console.error('Error fetching employees:', error)
-    return []
+    console.error('Error fetching employees:', error);
+    return [];
   }
-}
+};

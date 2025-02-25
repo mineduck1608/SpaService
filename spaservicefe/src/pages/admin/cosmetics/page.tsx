@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns' // Adjust columns for CosmeticProduct
 import { DataTable } from './data-table'
-import { CosmeticProduct } from '@/types/type' // Use CosmeticProduct type instead of SpaService
+import { CosmeticProduct } from '@/types/type'  // Use CosmeticProduct type instead of SpaService
 import { getAllCosmeticProducts } from './cosmetic.util'
 
 export default function AdminCosmeticPage() {

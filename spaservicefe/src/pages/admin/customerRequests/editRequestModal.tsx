@@ -11,7 +11,7 @@ import {
 } from '../../../components/ui/dialog'
 import { Input } from '../../../components/ui/input'
 import { Label } from '../../../components/ui/label'
-import { SpaRequest, Employee } from '@/types/type'
+import { SpaRequest, Employee } from '@/types/type' // Đảm bảo có kiểu Employee
 import { GetCategoryByServiceId, GetEmployeeByCategoryId } from './customerRequest.util'
 import { DatePicker } from 'antd'
 
@@ -26,10 +26,12 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
   const [updatedRequest, setUpdatedRequest] = useState<SpaRequest>(request)
   const [employees, setEmployees] = useState<Employee[]>([])
 
+  // Fetch employees based on the request's category
   useEffect(() => {
     const fetchEmployees = async () => {
       if (request.serviceId) {
         console.log(request.serviceId)
+        // Assuming that serviceName or category can be used to filter employees
         const categoryData = await GetCategoryByServiceId(request.serviceId)
         console.log(categoryData)
         const employeesData = await GetEmployeeByCategoryId(categoryData.categoryId)
@@ -50,9 +52,9 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
   }
 
   const handleSave = () => {
-    onSave(updatedRequest)
+    onSave(updatedRequest) // Gửi dữ liệu đã chỉnh sửa
     console.log(updatedRequest)
-    onClose()
+    onClose() // Đóng modal
   }
 
   return (
@@ -63,6 +65,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
           <DialogDescription>Make changes to the request information. Click save when you're done.</DialogDescription>
         </DialogHeader>
         <div className='grid gap-4 py-4'>
+          {/* Start Time */}
           <div className='ml-3 flex items-center gap-4'>
             <Label htmlFor='startTime' className='text-right'>
               Start Time
@@ -79,6 +82,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
             />
           </div>
 
+          {/* Employee Selection */}
           <div className='grid grid-cols-4 items-center gap-4'>
             <Label htmlFor='employeeId' className='text-right'>
               Employee

@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { CosmeticProduct } from '@/types/type'
+import { CosmeticProduct} from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateServiceModal from './cosmeticUpdateModal'
 import { ToastContainer } from 'react-toastify'
@@ -45,10 +45,7 @@ const CosmeticActions: React.FC<CosmeticActionsProps> = ({ cosmetic }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(cosmetic.productId)}
-            className='cursor-pointer'
-          >
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(cosmetic.productId)} className='cursor-pointer'>
             Copy Cosmetic ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
