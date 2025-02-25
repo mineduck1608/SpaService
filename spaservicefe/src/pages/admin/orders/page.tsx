@@ -3,7 +3,7 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Order } from '@/types/type'
 import { getAllOrders } from '../orders/order.util'
-import { format } from 'date-fns' 
+import { format } from 'date-fns'
 
 export default function EmployeePage() {
   const [data, setData] = useState<Order[]>([])
@@ -17,10 +17,10 @@ export default function EmployeePage() {
 
         const formattedOrders = orders.map((order) => ({
           ...order,
-          hireDate: format(new Date(order.orderDate), 'dd/MM/yyyy') 
+          hireDate: format(new Date(order.orderDate), 'dd/MM/yyyy')
         }))
 
-        setData(formattedOrders) 
+        setData(formattedOrders)
       } catch (err) {
         setError("Can't load the data.")
       } finally {

@@ -13,7 +13,6 @@ export default function CosmeticCategoriesPage() {
     const fetchData = async () => {
       try {
         const categories = await getAllCategories()
-
         setData(categories)
       } catch (err) {
         setError("Can't load the data.")
@@ -29,7 +28,7 @@ export default function CosmeticCategoriesPage() {
 
   return (
     <div className='h-[96%] items-center justify-center'>
-      <h2 className='container mx-auto my-4 ml-11'>Category Management</h2>
+      <h2 className='container mx-auto my-4 ml-11'>Cosmetic Category Management</h2>
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

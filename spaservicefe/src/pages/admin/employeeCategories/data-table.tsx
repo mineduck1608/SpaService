@@ -13,7 +13,6 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { IoIosArrowDown } from 'react-icons/io'
-import AddServiceModal from './cosmeticAddModal'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 import { Button } from '../../../components/ui/button'
 import { Input } from '../../../components/ui/input'
@@ -23,15 +22,21 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import AddCosmeticModal from './cosmeticAddModal'
+import AddCosmeticModal from './employeeCategoryAddModal'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey?: string // Key để lọc dữ liệu
+  filterKey1?: string // Key để lọc dữ liệu
+  filterKey2?: string // Key để lọc dữ liệu
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey = 'serviceName' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  filterKey1 = 'categoryName',
+  filterKey2 = 'employeeName'
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -60,10 +65,16 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'serviceNa
     <div>
       <div className='flex items-center py-3'>
         <Input
-          placeholder={`Filter by service name...`}
-          value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}
+          placeholder={`Filter by service category..`}
+          value={(table.getColumn(filterKey1)?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn(filterKey1)?.setFilterValue(event.target.value)}
           className='max-w-sm'
+        />
+        <Input
+          placeholder={`Filter by name...`}
+          value={(table.getColumn(filterKey2)?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn(filterKey2)?.setFilterValue(event.target.value)}
+          className='ml-5 max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
           <AddCosmeticModal />

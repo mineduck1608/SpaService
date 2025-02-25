@@ -3,17 +3,17 @@ import { FormEvent, useEffect, useState } from 'react'
 import ProductList from './productList.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
-import { createTransaction, getCusByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
 import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
+import { SessionItem } from '@/types/sessionItem.ts'
+import { getCusByAcc } from '../checkout/checkoutPage.util.ts'
 
 export default function CosmeticCheckoutPage() {
-  const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
-  const [emp, setEmp] = useState<Employee[]>([])
-  if (!booked.serviceId) {
+  const cart = JSON.parse(sessionStorage.getItem('cart') ?? '[]') as SessionItem[]
+  if (cart.length === 0) {
     window.location.assign('/services')
   }
   useEffect(() => {
@@ -23,85 +23,52 @@ export default function CosmeticCheckoutPage() {
         return
       }
       var x = jwtDecode(t ?? '')
-      var s = await getEmployees(booked.categoryId)
-      setEmp(s)
       var c = await getCusByAcc(x.UserId)
-      if (c.customerId) {
-        setReq({ ...req, customerId: c.customerId })
-      }
     }
     try {
       fetchData()
     } catch (e) {}
   }, [])
   async function onSubmitBase(method: string) {
-    try {
-      var req2 = { ...req }
-      req2.startTime.setTime(req2.startTime.getTime() + 7 * 3600 * 1000) //Account for JS stupid date API
-      var s = await submitRequest(req2)
-      if (s.msg) {
-        toast.error(s.msg)
-        return false
-      }
-      if (s.requestId) {
-        var y = await createTransaction(method, booked.price, s.requestId)
-        if (y.transactionId) {
-          //State is stupid
-          sessionStorage.setItem('trId', y.transactionId)
-          return true
-        }
-        toast.error(req2.msg)
-        return false
-      }
-      toast.error(s)
-    } catch (e) {
-      toast.error(e as string)
-    }
-    return false
+    toast.error('Not yet')
   }
   async function payInCash(e: FormEvent) {
     e.preventDefault()
-    try {
-      var r = await onSubmitBase('Cash')
-      if (r) {
-        toast.success('Request created successfully')
-      }
-    } catch (e) {
-      toast.error(e as string)
-    }
+    onSubmitBase('')
+    // try {
+    //   var r = await onSubmitBase('Cash')
+    //   if (r) {
+    //     toast.success('Request created successfully')
+    //   }
+    // } catch (e) {
+    //   toast.error(e as string)
+    // }
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
-    try {
-      var r = await onSubmitBase('VnPay')
+    onSubmitBase('')
+    // try {
+    //   var r = await onSubmitBase('VnPay')
 
-      if (!r) {
-        return
-      }
-      var transId = sessionStorage.getItem('trId') ?? ''
-      sessionStorage.removeItem('trId')
+    //   if (!r) {
+    //     return
+    //   }
+    //   var transId = sessionStorage.getItem('trId') ?? ''
+    //   sessionStorage.removeItem('trId')
 
-      var url = await getPaymentUrl(booked.price, jwtDecode(getToken() ?? '').UserId, transId)
-      if (url.startsWith('http')) {
-        toast.success('We will redirect you to VnPay page')
-        window.location.replace(url)
-        return
-      }
+    //   var url = await getPaymentUrl(cart.price, jwtDecode(getToken() ?? '').UserId, transId)
+    //   if (url.startsWith('http')) {
+    //     toast.success('We will redirect you to VnPay page')
+    //     window.location.replace(url)
+    //     return
+    //   }
 
-      toast.error(url)
-    } catch (e) {
-      toast.error(e as string)
-    }
+    //   toast.error(url)
+    // } catch (e) {
+    //   toast.error(e as string)
+    // }
   }
-  const { TextArea } = Input
-  const [req, setReq] = useState<SpaRequest>({
-    customerId: '',
-    customerNote: '',
-    serviceId: booked.serviceId,
-    startTime: new Date(),
-    employeeId: null
-  })
-  const disable = (req.startTime ?? new Date()).getTime() < new Date().getTime() + 3600 * 1000
+
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
       <ToastContainer />
@@ -117,7 +84,7 @@ export default function CosmeticCheckoutPage() {
       <div className='absolute left-0 right-0 top-20 z-10 mt-32 flex justify-center'>
         <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
-            <ProductList s={booked} />
+            <ProductList s={cart} />
           </div>
 
           {/* Sidebar with buttons */}
@@ -127,7 +94,6 @@ export default function CosmeticCheckoutPage() {
               <button
                 type='submit'
                 onClick={payInCash}
-                disabled={disable}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-300'
               >
                 Submit request
@@ -137,7 +103,6 @@ export default function CosmeticCheckoutPage() {
               <button
                 type='submit'
                 onClick={submitWithVnPay}
-                disabled={disable}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-300'
               >
                 Pay by VnPay

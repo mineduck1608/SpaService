@@ -36,6 +36,7 @@ import RequestPage from './pages/requestPage/requestPage.tsx'
 import AppointmentPage from './pages/appointmentPage/appointmentPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
+import CosmeticCheckoutPage from './pages/checkoutForCosmetic/orderCheckoutPage.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 import AdminNewsPage from './pages/admin/news/page.tsx'
 import CosmeticCategoriesPage from './pages/admin/cosmeticcategories/page.tsx'
@@ -50,7 +51,9 @@ import AdminFloorPage from './pages/admin/floors/page.tsx'
 import AdminRoomPage from './pages/admin/rooms/page.tsx'
 import ServiceCategoriesPage from './pages/admin/servicecategories/page.tsx'
 import AdminCosmeticPage from './pages/admin/products/page.tsx'
-
+import AdminFeedbackPage from './pages/admin/feedbacks/page.tsx'
+import AdminEmployeeCategoryPage from './pages/admin/employeeCategories/page.tsx'
+import ImageUpload from './components/imageUpload.tsx'
 
 function Layout({ children }) {
   return (
@@ -91,6 +94,12 @@ function App() {
               <Layout>
                 <RequestPage />
               </Layout>
+            }
+          />
+          <Route
+            path='upload'
+            element={
+              <ImageUpload/>
             }
           />
           <Route
@@ -143,6 +152,7 @@ function App() {
               </Layout>
             }
           />
+          <Route path='cart' element={<Layout>ABC</Layout>} />
           <Route
             path='cosmetics/:id'
             element={
@@ -156,6 +166,14 @@ function App() {
             element={
               <Layout>
                 <CosmeticDetailPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='cosmetics-check-out'
+            element={
+              <Layout>
+                <CosmeticCheckoutPage />
               </Layout>
             }
           />
@@ -251,11 +269,11 @@ function App() {
             {/* Others */}
             <Route path='promotions' element={<PromotionPage />} />
             <Route path='news' element={<AdminNewsPage />} />
-            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+            <Route path='feedbacks' element={<AdminFeedbackPage />} />
 
             {/* Users */}
             <Route path='accounts' element={<DemoPage />} />
-            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+            <Route path='employee-categories' element={<AdminEmployeeCategoryPage />} />
 
             {/* Users Management */}
             <Route path='managers' element={<Placeholder title='Managers' />} />
@@ -263,13 +281,14 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
 
             {/* Spa Services */}
-            <Route path='service-categories' element={<ServiceCategoriesPage/>} />
+            <Route path='service-categories' element={<ServiceCategoriesPage />} />
             <Route path='spa-services' element={<SpaServicePage />} />
 
             {/* Cosmetics */}
             <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
             <Route path='cosmetic-product' element={<AdminCosmeticPage />} />
           </Route>
+
           <Route
             path='manager'
             element={
@@ -278,7 +297,41 @@ function App() {
               </ProtectedAdmin>
             }
           >
-            <Route index />
+            <Route index element={<Dashboard />} />
+
+            {/* Workspaces */}
+            <Route path='orders' element={<OrderPage />} />
+            <Route path='transactions' element={<TransactionPage />} />
+
+            {/* Requests */}
+            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            <Route path='applications' element={<ApplicationPage />} />
+            <Route path='guest-contacts' element={<ContactAdminPage />} />
+
+            {/* Facilities */}
+            <Route path='floors' element={<AdminFloorPage />} />
+            <Route path='rooms' element={<AdminRoomPage />} />
+
+            {/* Others */}
+            <Route path='promotions' element={<PromotionPage />} />
+            <Route path='news' element={<AdminNewsPage />} />
+            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+
+            {/* Users */}
+            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+
+            {/* Users Management */}
+            <Route path='managers' element={<Placeholder title='Managers' />} />
+            <Route path='customers' element={<CustomerPage />} />
+            <Route path='employees' element={<EmployeePage />} />
+
+            {/* Spa Services */}
+            <Route path='service-categories' element={<ServiceCategoriesPage />} />
+            <Route path='spa-services' element={<SpaServicePage />} />
+
+            {/* Cosmetics */}
+            <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
+            <Route path='cosmetic-product' element={<AdminCosmeticPage />} />
             <Route path='applications' />
             <Route path='requests' />
             <Route path='contacts' />

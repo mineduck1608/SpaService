@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Dialog, DialogContent } from 'src/components/ui/dialog'
+import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { Button } from 'src/components/ui/button'
@@ -8,48 +8,35 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
-import { CalendarIcon } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'
-import { handleUpdateSubmit } from './cosmetic.util'
+import { handleCreateSubmit } from './employeeCategory.util'
 import { spaServiceConfig } from '../modal.util'
-import { DatePicker } from 'antd'
 
-interface UpdateCosmeticModalProps {
-  isOpen: boolean
-  onClose: () => void
-  cosmetic: any
-}
-
-export default function UpdateCosmeticModal({ isOpen, onClose, cosmetic }: UpdateCosmeticModalProps) {
-  const fieldsToUse = spaServiceConfig.updatefields
+export default function AddCosmeticModal() {
+  const fieldsToUse = spaServiceConfig.fields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
+    defaultValues: Object.fromEntries(
+      fieldsToUse.map((field: FieldConfig) => {
+        if (field.name === 'price') return [field.name, '0']
+        return [field.name, '']
+      })
+    )
   })
 
   const handleSubmit = async (data: any) => {
     data.price = parseFloat(data.price) || 0
-    handleUpdateSubmit(cosmetic.cosmeticId, data)
+    handleCreateSubmit(data)
   }
 
-  useEffect(() => {
-    if (cosmetic) {
-      Object.keys(cosmetic).forEach((key: string) => {
-        if (form.getValues(key) !== undefined) {
-          if (key === 'price') cosmetic[key] = String(cosmetic[key])
-          form.setValue(key, cosmetic[key])
-        }
-      })
-    }
-  }, [cosmetic, form])
-
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog>
+      <DialogTrigger>
+        <Button variant='outline'>Create</Button>
+      </DialogTrigger>
       <DialogContent className='px-10'>
-        <DialogTitle className='flex justify-center'>Update Cosmetic</DialogTitle>
+        <DialogTitle className='flex justify-center'>Create Service</DialogTitle>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
             {fieldsToUse.map((field: FieldConfig) => (

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Application } from '@/types/type'
-import { format } from 'date-fns'
 import { getAllApplications } from './application.util'
 
 export default function ApplicationPage() {

@@ -31,9 +31,8 @@ export default function UpdateRoomModal({ isOpen, onClose, room }: UpdateRoomMod
   })
 
   const handleSubmit = async (data: any) => {
-    const selectedFloor = floors.find(floor => floor.floorId === data.floorId)
-    if (selectedFloor) 
-      data.floorId = selectedFloor.floorId
+    const selectedFloor = floors.find((floor) => floor.floorId === data.floorId)
+    if (selectedFloor) data.floorId = selectedFloor.floorId
     data.roomNum = parseInt(data.roomNum) || 0
     handleUpdateSubmit(room.roomId, data)
   }
@@ -69,11 +68,11 @@ export default function UpdateRoomModal({ isOpen, onClose, room }: UpdateRoomMod
                     <FormLabel className='text-md text-right'>{field.label}</FormLabel>
                     <div className='col-span-3 space-y-1'>
                       <FormControl>
-                      {field.type === 'select' ? (
+                        {field.type === 'select' ? (
                           <Select
                             value={form.watch('floorId') || ''}
                             onValueChange={(value) => {
-                              form.setValue('floorId', value) 
+                              form.setValue('floorId', value)
                             }}
                             disabled={field.readonly}
                           >

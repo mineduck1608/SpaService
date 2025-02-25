@@ -9,17 +9,17 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { CosmeticProduct} from '@/types/type'
+import { CategoryEmployee } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import UpdateServiceModal from './cosmeticUpdateModal'
 import { ToastContainer } from 'react-toastify'
-import { handleDelete } from './cosmetic.util'
+import { handleDelete } from './employeeCategory.util'
+import UpdateEmployeeCategoryModal from './employeeCategoryUpdateModal'
 
-interface CosmeticActionsProps {
-  cosmetic: CosmeticProduct
+interface EmployeeCategoryActionsProps {
+  employeeCategory: CategoryEmployee
 }
 
-const CosmeticActions: React.FC<CosmeticActionsProps> = ({ cosmetic }) => {
+const EmployeeCategoryActions: React.FC<EmployeeCategoryActionsProps> = ({ employeeCategory }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
 
@@ -30,7 +30,7 @@ const CosmeticActions: React.FC<CosmeticActionsProps> = ({ cosmetic }) => {
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
-    handleDelete(cosmetic.productId)
+    handleDelete(employeeCategory.categoryEmployeeId)
     closeDeleteModal()
   }
 
@@ -45,8 +45,11 @@ const CosmeticActions: React.FC<CosmeticActionsProps> = ({ cosmetic }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(cosmetic.productId)} className='cursor-pointer'>
-            Copy Cosmetic ID
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(employeeCategory.categoryEmployeeId)}
+            className='cursor-pointer'
+          >
+            Copy Employee Category ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
@@ -59,10 +62,14 @@ const CosmeticActions: React.FC<CosmeticActionsProps> = ({ cosmetic }) => {
       </DropdownMenu>
       <ToastContainer />
 
-      <UpdateServiceModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} cosmetic={cosmetic} />
+      <UpdateEmployeeCategoryModal
+        isOpen={isUpdateModalOpen}
+        onClose={closeUpdateModal}
+        employeeCategory={employeeCategory}
+      />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
 }
 
-export default CosmeticActions
+export default EmployeeCategoryActions

@@ -24,7 +24,8 @@ export default function TransactionPage() {
         // )
         const formattedTransactions = transactions.map((transaction) => ({
           ...transaction,
-          completeTime: format(new Date(transaction.completeTime), 'dd/MM/yyyy HH:mm:ss')
+          completeTime: format(new Date(transaction.completeTime), 'dd/MM/yyyy HH:mm:ss'),
+          statusText: transaction.status ? 'Done' : 'Unfinished'
         }))
         setData(formattedTransactions)
       } catch (err) {

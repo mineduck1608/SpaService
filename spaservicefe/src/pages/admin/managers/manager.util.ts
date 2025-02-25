@@ -1,15 +1,15 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { CosmeticProduct, SpaService } from '../../../types/type'
+import { Manager } from '../../../types/type'
 import { toast } from 'react-toastify'
 
-export async function getAllCosmeticProducts() {
+export async function getAllManagers() {
   try {
-    const res = await fetch(`${apiUrl}/cosmeticproducts/GetAll`, {
+    const res = await fetch(`${apiUrl}/managers/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    const json = (await res.json()) as CosmeticProduct[]
+    const json = (await res.json()) as Manager[]
     return json
   } catch (e) {
     return []
@@ -18,7 +18,7 @@ export async function getAllCosmeticProducts() {
 
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/spaservices/Create`, {
+    var res = await fetch(`${apiUrl}/managers/Create`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -41,7 +41,7 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/spaservices/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/managers/Update/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -64,7 +64,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
 
 export async function handleDelete(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/spaservices/Delete/${id}`, {
+    var res = await fetch(`${apiUrl}/managers/Delete/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -80,6 +80,6 @@ export async function handleDelete(id: string) {
       toast.error('Delete failed. Try again.')
     }
   } catch (error) {
-    console.error('Error deleting customer:', error)
+    console.error('Error deleting manager:', error)
   }
 }
