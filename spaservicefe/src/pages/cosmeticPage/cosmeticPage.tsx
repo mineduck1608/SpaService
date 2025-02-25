@@ -35,9 +35,11 @@ export default function CosmeticPage() {
       }
       setCurrentCategory(c.find((v) => v.categoryId === id))
       var cosmeticFetch = await getProductOfCosmeticCategory(id)
-      if (!cosmeticFetch) {
+      if (!cosmeticFetch || cosmeticFetch.msg) {
         return
       }
+      console.log(cosmeticFetch);
+      
       setCosmetic(cosmeticFetch)
     }
     fetchData()

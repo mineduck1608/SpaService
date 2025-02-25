@@ -36,6 +36,7 @@ import RequestPage from './pages/requestPage/requestPage.tsx'
 import AppointmentPage from './pages/appointmentPage/appointmentPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
+import CosmeticCheckoutPage from './pages/checkoutForCosmetic/orderCheckoutPage.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
 import AdminNewsPage from './pages/admin/news/page.tsx'
 import CosmeticCategoriesPage from './pages/admin/cosmeticcategories/page.tsx'
@@ -144,6 +145,14 @@ function App() {
             }
           />
           <Route
+            path='cart'
+            element={
+              <Layout>
+                ABC
+              </Layout>
+            }
+          />
+          <Route
             path='cosmetics/:id'
             element={
               <Layout>
@@ -156,6 +165,14 @@ function App() {
             element={
               <Layout>
                 <CosmeticDetailPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='cosmetics-check-out'
+            element={
+              <Layout>
+                <CosmeticCheckoutPage />
               </Layout>
             }
           />
