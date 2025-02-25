@@ -17,6 +17,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { Button } from '../../components/ui/button'
 import { SelectedContext } from './context/selectedContext'
 import { SessionItem } from '@/types/sessionItem'
+import { getAmount } from './cartPage.util'
 
 interface DataTableProps {
   columns: any[]
@@ -75,12 +76,12 @@ export function DataTable({ columns, data }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      <div className='flex items-center justify-end space-x-2 py-4'>
-        <Button variant='outline' size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-          Previous
-        </Button>
-        <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-          Next
+      <div className='mt-2 flex justify-end'>Total amount is:&nbsp;
+        <p className='text-red-500 font-bold text-lg'>{getAmount()} VND</p>
+      </div>
+      <div className='flex items-center justify-end space-x-2 pb-4'>
+        <Button className='block' variant='outline' size='sm' onClick={() => { }}>
+          Check Out
         </Button>
       </div>
     </div>
