@@ -15,7 +15,7 @@ import {
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Button } from '../../components/ui/button'
-import { SelectedItemContext } from '../cart/context/pastAppointmentContext'
+import { PastAppointmentContext } from './context/appointmentContext'
 
 interface DataTableProps<TData> {
   columns: any[]
@@ -29,7 +29,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const context = React.useContext(SelectedItemContext)
+  const context = React.useContext(PastAppointmentContext)
   const table = useReactTable({
     data,
     columns,
@@ -55,7 +55,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
         <button
           className='my-2 rounded-sm bg-purple1 p-1 text-white'
           onClick={(e) => {
-            context.setSelectedItem(!context.pastBooking)
+            context.setPastBooking(!context.pastBooking)
           }}
         >
           {context.pastBooking ? 'Upcoming' : 'Past'} Appointments

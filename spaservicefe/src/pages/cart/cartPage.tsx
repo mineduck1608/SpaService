@@ -1,15 +1,4 @@
-import React from 'react'
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '../../components/ui/table'
-import CartTable from './cosmeticTable'
+import CartTable from './cartTable'
 
 export default function CartPage() {
   return (

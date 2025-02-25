@@ -7,9 +7,9 @@ import { format } from 'date-fns' // Dùng thư viện date-fns để format ng�
 import { getAppointments } from './appointmentPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'
-import { PastAppointmentContext } from './context/appointmentContext'
+import { SelectedItemContext } from './context/'
 
-export default function AppointmentTable() {
+export default function CartTable() {
   const [data, setData] = useState<Appointment[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -35,7 +35,7 @@ export default function AppointmentTable() {
 
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
-      <PastAppointmentContext.Provider value={{ pastBooking, setPastBooking }}>
+      <SelectedItemContext.Provider value={{ pastBooking, setSelectedItem: setPastBooking }}>
         <DataTable
           columns={columns}
           data={data.filter((v) => {
@@ -46,7 +46,7 @@ export default function AppointmentTable() {
             return !d
           })}
         />
-      </PastAppointmentContext.Provider>
+      </SelectedItemContext.Provider>
     </div>
   )
 }
