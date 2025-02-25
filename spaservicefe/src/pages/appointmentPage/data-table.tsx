@@ -15,7 +15,7 @@ import {
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Button } from '../../components/ui/button'
-import { PastAppointmentContext } from './context/appointmentContext'
+import { PastAppointmentContext } from './context/pastAppointmentContext'
 
 interface DataTableProps<TData> {
   columns: any[]

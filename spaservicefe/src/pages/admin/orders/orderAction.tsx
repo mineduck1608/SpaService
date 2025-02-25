@@ -12,7 +12,7 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Order } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateOrderModal from './orderUpdateModal'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './order.util'
 
 interface OrderActionsProps {
@@ -27,14 +27,15 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
   const openUpdateModal = () => {
-    setUpdateModalOpen(true)}
+    setUpdateModalOpen(true)
+  }
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
     handleDelete(order.orderId)
     closeDeleteModal()
   }
-    
+
   return (
     <>
       <DropdownMenu>
@@ -43,7 +44,6 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
             <span className='sr-only'>Open menu</span>
             <MoreHorizontal className='h-4 w-4' />
           </Button>
-          
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
@@ -52,9 +52,7 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
             Copy order ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className='cursor-pointer'>
-            View Detail
-          </DropdownMenuItem>
+          <DropdownMenuItem className='cursor-pointer'>View Detail</DropdownMenuItem>
           <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
             Update
           </DropdownMenuItem>
@@ -62,7 +60,7 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdateOrderModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} order={order}/>
+      <UpdateOrderModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} order={order} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

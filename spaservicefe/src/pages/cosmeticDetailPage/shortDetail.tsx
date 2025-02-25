@@ -5,7 +5,6 @@ import seperator from '../../images/serviceBg/separator.png'
 import { toast, ToastContainer } from 'react-toastify' // Import thư viện toast
 import { CosmeticCategory, CosmeticProduct } from '@/types/type'
 import { SessionItem } from '@/types/sessionItem'
-import { getCart, getCartItem, setCartItem } from './detailPage.util'
 
 export default function ShortDetail(params: { d?: CosmeticProduct }) {
   const CATEGORY = JSON.parse(sessionStorage.getItem('cosmeticcategories') ?? '[]') as CosmeticCategory[]
@@ -23,14 +22,25 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
       toast.error('Please login to continue!')
       return
     }
-    const item = getCartItem(params.d.productId)
-    if(item){
-      setCartItem(params.d.productId, item.amount + amount, true)
+    const cart = sessionStorage.getItem('cart')
+    if (cart) {
+      const asArr = JSON.parse(cart) as SessionItem[]
+      var exist = asArr.find((x) => x.product.productId === params.d?.productId)
+      if (exist) {
+        exist.amount += amount
+      } else {
+        asArr.push({ amount: amount, product: params.d })
+      }
+      sessionStorage.setItem('cart', JSON.stringify(asArr))
       toast.success(`Added ${amount} x ${params.d.productName} to cart`)
-      return;
+      return
     }
-    setCartItem(params.d.productId, amount, true, params.d)
+    var s: SessionItem = {
+      amount: amount,
+      product: params.d
+    }
     toast.success(`Added ${amount} x ${params.d.productName} to cart`)
+    sessionStorage.setItem('cart', JSON.stringify([s]))
   }
 
   return (

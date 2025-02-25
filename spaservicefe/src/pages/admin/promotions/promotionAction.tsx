@@ -45,9 +45,10 @@ const PromotionActions: React.FC<PromotionActionsProps> = ({ promotion }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(promotion.promotionId)} 
-            className='cursor-pointer'>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(promotion.promotionId)}
+            className='cursor-pointer'
+          >
             Copy promotion ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -60,7 +61,7 @@ const PromotionActions: React.FC<PromotionActionsProps> = ({ promotion }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdatePromotionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} promotion={promotion}/>
+      <UpdatePromotionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} promotion={promotion} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

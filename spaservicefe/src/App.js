@@ -35,7 +35,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import RequestPage from './pages/requestPage/requestPage.tsx'
 import AppointmentPage from './pages/appointmentPage/appointmentPage.tsx'
 import ContactAdminPage from './pages/admin/contacts/page.tsx'
-import CartPage from './pages/cart/cartPage.tsx'
 import CustomerRequestPage from './pages/admin/customerRequests/page.tsx'
 import CosmeticCheckoutPage from './pages/checkoutForCosmetic/orderCheckoutPage.tsx'
 import { ProtectedAdmin } from './pages/admin/protectedAdmin.tsx'
@@ -153,14 +152,7 @@ function App() {
               </Layout>
             }
           />
-          <Route
-            path='cart'
-            element={
-              <Layout>
-                <CartPage />
-              </Layout>
-            }
-          />
+          <Route path='cart' element={<Layout>ABC</Layout>} />
           <Route
             path='cosmetics/:id'
             element={
@@ -277,11 +269,11 @@ function App() {
             {/* Others */}
             <Route path='promotions' element={<PromotionPage />} />
             <Route path='news' element={<AdminNewsPage />} />
-            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+            <Route path='feedbacks' element={<AdminFeedbackPage />} />
 
             {/* Users */}
             <Route path='accounts' element={<DemoPage />} />
-            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+            <Route path='employee-categories' element={<AdminEmployeeCategoryPage />} />
 
             {/* Users Management */}
             <Route path='managers' element={<Placeholder title='Managers' />} />
@@ -289,13 +281,14 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
 
             {/* Spa Services */}
-            <Route path='service-categories' element={<ServiceCategoriesPage/>} />
+            <Route path='service-categories' element={<ServiceCategoriesPage />} />
             <Route path='spa-services' element={<SpaServicePage />} />
 
             {/* Cosmetics */}
             <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
             <Route path='cosmetic-product' element={<AdminCosmeticPage />} />
           </Route>
+
           <Route
             path='manager'
             element={
@@ -304,7 +297,41 @@ function App() {
               </ProtectedAdmin>
             }
           >
-            <Route index />
+            <Route index element={<Dashboard />} />
+
+            {/* Workspaces */}
+            <Route path='orders' element={<OrderPage />} />
+            <Route path='transactions' element={<TransactionPage />} />
+
+            {/* Requests */}
+            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            <Route path='applications' element={<ApplicationPage />} />
+            <Route path='guest-contacts' element={<ContactAdminPage />} />
+
+            {/* Facilities */}
+            <Route path='floors' element={<AdminFloorPage />} />
+            <Route path='rooms' element={<AdminRoomPage />} />
+
+            {/* Others */}
+            <Route path='promotions' element={<PromotionPage />} />
+            <Route path='news' element={<AdminNewsPage />} />
+            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+
+            {/* Users */}
+            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+
+            {/* Users Management */}
+            <Route path='managers' element={<Placeholder title='Managers' />} />
+            <Route path='customers' element={<CustomerPage />} />
+            <Route path='employees' element={<EmployeePage />} />
+
+            {/* Spa Services */}
+            <Route path='service-categories' element={<ServiceCategoriesPage />} />
+            <Route path='spa-services' element={<SpaServicePage />} />
+
+            {/* Cosmetics */}
+            <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
+            <Route path='cosmetic-product' element={<AdminCosmeticPage />} />
             <Route path='applications' />
             <Route path='requests' />
             <Route path='contacts' />
