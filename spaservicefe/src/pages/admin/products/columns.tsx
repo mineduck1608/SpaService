@@ -54,7 +54,7 @@ export const columns: ColumnDef<CosmeticProduct>[] = [
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
-      const status = row.getValue('status')
+      const status = row.getValue('status');
       return (
         <span
           className={`font-semibold ${status ? 'text-green-500' : 'text-red-500'}`}
@@ -62,13 +62,13 @@ export const columns: ColumnDef<CosmeticProduct>[] = [
         >
           {status ? 'Available' : 'Sold Out'}
         </span>
-      )
+      );
     }
   }, 
   {
     accessorKey: 'isSelling',
     header: 'Is Selling?',
-    cell: ({ row }) => (row.getValue('isSelling') ? 'Yes' : 'No')
+    cell: ({ row }) => (row.getValue('isSelling') ? 'Yes' : 'No') 
   },
   {
     accessorKey: 'image',

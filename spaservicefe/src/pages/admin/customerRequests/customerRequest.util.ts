@@ -1,5 +1,6 @@
+import { Category } from '@/types/serviceCategory'
 import { apiUrl, getToken } from '../../../types/constants'
-import { Account, Customer, Employee, SpaService, ServiceCategory } from '../../../types/type'
+import { Account, Customer, Employee, SpaService } from '../../../types/type'
 
 export async function getAllCustomerRequests() {
   try {
@@ -50,7 +51,7 @@ export async function GetCategoryByServiceId(id: string) {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    var json = (await res.json()) as ServiceCategory[]
+    var json = (await res.json()) as Category[]
     return json
   } catch (e) {
     return []

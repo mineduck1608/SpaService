@@ -38,8 +38,8 @@ export default function CosmeticPage() {
       if (!cosmeticFetch || cosmeticFetch.msg) {
         return
       }
-      console.log(cosmeticFetch)
-
+      console.log(cosmeticFetch);
+      
       setCosmetic(cosmeticFetch)
     }
     fetchData()

@@ -2,7 +2,7 @@ import { apiUrl, getToken } from '../../../types/constants'
 import { Floor, ServiceCategory } from '../../../types/type'
 import { toast } from 'react-toastify'
 
-export async function getAllFloors() {
+export async function  getAllFloors() {
   try {
     const res = await fetch(`${apiUrl}/floors/GetAll`, {
       headers: {

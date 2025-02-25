@@ -9,12 +9,12 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { SpaRequest } from '@/types/type'
+import { SpaRequest } from '@/types/type' // Đổi từ Account sang Request
 import { MoreHorizontal } from 'lucide-react'
-import { EditRequestModal } from './editRequestModal'
+import { EditRequestModal } from './editRequestModal' // Import modal chỉnh sửa yêu cầu
 
 interface RequestActionsProps {
-  request: SpaRequest
+  request: SpaRequest // Cập nhật type từ Account thành Request
 }
 
 const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
@@ -24,8 +24,8 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
   const openModal = () => setModalOpen(true)
   const closeModal = () => setModalOpen(false)
 
-  const openEditModal = () => setEditModalOpen(true)
-  const closeEditModal = () => setEditModalOpen(false)
+  const openEditModal = () => setEditModalOpen(true) // Mở modal chỉnh sửa
+  const closeEditModal = () => setEditModalOpen(false) // Đóng modal chỉnh sửa
 
   const handleConfirmDelete = () => {
     console.log(`Deleting request with id: ${request.requestId}`)
@@ -33,6 +33,7 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
   }
 
   const handleUpdate = (updatedRequest: SpaRequest) => {
+    // Thực hiện lưu thông tin đã cập nhật
     console.log('Updated request: ', updatedRequest)
   }
 
@@ -51,7 +52,8 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
             Copy request ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openEditModal}>Assign</DropdownMenuItem>
+          <DropdownMenuItem onClick={openEditModal}>Assign</DropdownMenuItem>{' '}
+          {/* Khi nhấn "Assign", mở modal chỉnh sửa */}
           <DropdownMenuItem onClick={openModal}>Cancelled</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

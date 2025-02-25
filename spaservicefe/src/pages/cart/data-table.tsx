@@ -12,28 +12,24 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { IoIosArrowDown } from 'react-icons/io'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
-import { Button } from '../../../components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from '../../../components/ui/dropdown-menu'
 
-interface DataTableProps<TData, TValue> {
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
+import { Button } from '../../components/ui/button'
+import { SelectedContext } from './context/selectedContext'
+import { SessionItem } from '@/types/sessionItem'
+
+interface DataTableProps {
   columns: any[]
-  data: TData[]
-  filterKey?: string // Key để lọc dữ liệu
+  data: SessionItem[]
+  filterKey1?: string // Key để lọc dữ liệu\
+  filterKey2?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey = 'header' }: DataTableProps<TData, TValue>) {
+export function DataTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-
   const table = useReactTable({
     data,
     columns,
@@ -54,36 +50,9 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'header' }
   })
 
   return (
-    <div>
-      <div className='flex items-center py-3'>
-        <div className='ml-auto flex items-center gap-x-2'>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='ml-auto'>
-                Columns
-                <IoIosArrowDown className='mt-0.5' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className='capitalize'
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-      <div className='rounded-md border'>
-        <Table>
+    <div className=''>
+      <div className='mt-2 rounded-md border bg-slate-50'>
+        <Table className=''>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -95,9 +64,9 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'header' }
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody id='body'>
             {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} id={row.original.product.productId}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                 ))}
@@ -107,10 +76,6 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'header' }
         </Table>
       </div>
       <div className='flex items-center justify-end space-x-2 py-4'>
-        <div className='flex-1 text-sm text-muted-foreground'>
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-          selected.
-        </div>
         <Button variant='outline' size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
           Previous
         </Button>

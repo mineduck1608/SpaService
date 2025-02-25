@@ -7,7 +7,7 @@ import { format } from 'date-fns' // Dùng thư viện date-fns để format ng�
 import { getAppointments } from './appointmentPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'
-import { PastAppointmentContext } from './context/pastAppointmentContext'
+import { PastAppointmentContext } from './context/appointmentContext'
 
 export default function AppointmentTable() {
   const [data, setData] = useState<Appointment[]>([])

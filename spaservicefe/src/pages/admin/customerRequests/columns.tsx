@@ -2,8 +2,8 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
-import RequestActions from './customerRequestAction'
-import { SpaRequest } from '@/types/type'
+import RequestActions from './customerRequestAction' // Updated to reflect customer request actions
+import { SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 
 export const columns: ColumnDef<SpaRequest>[] = [
   {
@@ -50,6 +50,7 @@ export const columns: ColumnDef<SpaRequest>[] = [
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
       let statusColor = ''
+      // Set the color based on the status value
       if (status === 'Completed') {
         statusColor = 'text-green-500'
       } else if (status === 'Cancelled') {

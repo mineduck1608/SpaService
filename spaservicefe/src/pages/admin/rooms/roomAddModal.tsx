@@ -25,8 +25,9 @@ export default function AddFloorModal() {
   })
 
   const handleSubmit = async (data: any) => {
-    const selectedFloor = floors.find((floor) => floor.floorId === data.floorId)
-    if (selectedFloor) data.floorId = selectedFloor.floorId
+    const selectedFloor = floors.find(floor => floor.floorId === data.floorId)
+    if (selectedFloor) 
+      data.floorId = selectedFloor.floorId
     data.roomNum = parseInt(data.roomNum) || 0
     handleCreateSubmit(data)
   }
@@ -61,7 +62,7 @@ export default function AddFloorModal() {
                         {field.type === 'select' ? (
                           <Select
                             onValueChange={(value) => {
-                              form.setValue('floorId', value)
+                              form.setValue('floorId', value) 
                             }}
                             disabled={field.readonly}
                           >
