@@ -8,13 +8,10 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
-import { CalendarIcon } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './employeeCategory.util'
 import { spaServiceConfig } from '../modal.util'
-import { DatePicker } from 'antd'
+
 
 interface UpdateEmployeeCategoryModalProps {
   isOpen: boolean
@@ -22,7 +19,11 @@ interface UpdateEmployeeCategoryModalProps {
   employeeCategory: any
 }
 
-export default function UpdateEmployeeCategoryModal({ isOpen, onClose, employeeCategory }: UpdateEmployeeCategoryModalProps) {
+export default function UpdateEmployeeCategoryModal({
+  isOpen,
+  onClose,
+  employeeCategory
+}: UpdateEmployeeCategoryModalProps) {
   const fieldsToUse = spaServiceConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({

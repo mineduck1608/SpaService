@@ -49,8 +49,12 @@ const RoomActions: React.FC<RoomActionsProps> = ({ room }) => {
             Copy room ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
+            Delete
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />

@@ -25,9 +25,8 @@ export default function AddFloorModal() {
   })
 
   const handleSubmit = async (data: any) => {
-    const selectedCategory = categories.find(category => category.categoryName === data.categoryName)
-    if (selectedCategory) 
-      data.categoryId = selectedCategory.categoryId
+    const selectedCategory = categories.find((category) => category.categoryName === data.categoryName)
+    if (selectedCategory) data.categoryId = selectedCategory.categoryId
     data.floorNum = parseInt(data.floorNum) || 0
     handleCreateSubmit(data)
   }
@@ -62,7 +61,7 @@ export default function AddFloorModal() {
                         {field.type === 'select' ? (
                           <Select
                             onValueChange={(value) => {
-                              form.setValue('categoryId', value) 
+                              form.setValue('categoryId', value)
                             }}
                             disabled={field.readonly}
                           >

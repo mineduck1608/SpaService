@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { CategoryEmployee} from '@/types/type'
+import { CategoryEmployee } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './employeeCategory.util'
@@ -45,7 +45,10 @@ const EmployeeCategoryActions: React.FC<EmployeeCategoryActionsProps> = ({ emplo
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employeeCategory.categoryEmployeeId)} className='cursor-pointer'>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(employeeCategory.categoryEmployeeId)}
+            className='cursor-pointer'
+          >
             Copy Employee Category ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -59,7 +62,11 @@ const EmployeeCategoryActions: React.FC<EmployeeCategoryActionsProps> = ({ emplo
       </DropdownMenu>
       <ToastContainer />
 
-      <UpdateEmployeeCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employeeCategory={employeeCategory} />
+      <UpdateEmployeeCategoryModal
+        isOpen={isUpdateModalOpen}
+        onClose={closeUpdateModal}
+        employeeCategory={employeeCategory}
+      />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

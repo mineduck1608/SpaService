@@ -117,7 +117,6 @@ export type Application = {
   resolvedBy: string
 }
 
-
 export type CosmeticCategory = {
   categoryId: string
   categoryName: string
@@ -141,7 +140,6 @@ export type CosmeticProduct = {
   isSelling: boolean
   image: string
   categoryId: string
-
 }
 
 export type Commission = {
@@ -200,7 +198,6 @@ export type Room = {
   roomNum: number
   floorId: string
   status: boolean
-
 }
 
 export type Feedback = {

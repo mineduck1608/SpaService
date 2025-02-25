@@ -1,8 +1,7 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Customer, Feedback, Floor, ServiceCategory, SpaService } from '../../../types/type'
-import { toast } from 'react-toastify'
+import { Customer, Feedback, SpaService } from '../../../types/type'
 
-export async function  getAllFeedbacks() {
+export async function getAllFeedbacks() {
   try {
     const res = await fetch(`${apiUrl}/feedbacks/GetAll`, {
       headers: {

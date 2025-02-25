@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { CategoryEmployee, CosmeticProduct, Employee, ServiceCategory, SpaService } from '../../../types/type'
+import { CategoryEmployee, Employee, ServiceCategory } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllEmployeeCategory() {

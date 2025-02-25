@@ -45,9 +45,7 @@ const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(news.newsId)} 
-            className='cursor-pointer'>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(news.newsId)} className='cursor-pointer'>
             Copy news ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -60,7 +58,7 @@ const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <UpdateNewsModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} news={news}/>
+      <UpdateNewsModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} news={news} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

@@ -18,11 +18,11 @@ export default function AdminEmployeeCategoryPage() {
             const employee = await getEmployeeById(employeeCategory.employeeId)
             const serviceCategory = await getServiceCategoryById(employeeCategory.categoryId)
 
-            const employeeName = employee  ? employee.fullName : 'Unknown'
-            const categoryName = serviceCategory? serviceCategory.categoryName: 'Unknown'
+            const employeeName = employee ? employee.fullName : 'Unknown'
+            const categoryName = serviceCategory ? serviceCategory.categoryName : 'Unknown'
             return {
               ...employeeCategory,
-              employeeName,// Add category name to floor data
+              employeeName, // Add category name to floor data
               categoryName
             }
           })

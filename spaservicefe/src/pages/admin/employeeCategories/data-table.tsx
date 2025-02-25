@@ -74,7 +74,7 @@ export function DataTable<TData, TValue>({
           placeholder={`Filter by name...`}
           value={(table.getColumn(filterKey2)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey2)?.setFilterValue(event.target.value)}
-          className='max-w-sm ml-5'
+          className='ml-5 max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
           <AddCosmeticModal />

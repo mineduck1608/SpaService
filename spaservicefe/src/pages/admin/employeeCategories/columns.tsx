@@ -1,7 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '../../../components/ui/checkbox'
-import { CategoryEmployee, CosmeticProduct } from '@/types/type'
-import CosmeticActions from './employeeCategoryAction'
+import { CategoryEmployee  } from '@/types/type'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import EmployeeCategoryActions from './employeeCategoryAction'
@@ -39,13 +38,13 @@ export const columns: ColumnDef<CategoryEmployee>[] = [
       </Button>
     )
   },
- 
+
   {
     id: 'actions',
     header: 'Actions',
     cell: ({ row }) => {
       const product = row.original
-      return <EmployeeCategoryActions  employeeCategory={product} /> // Assuming you have a ProductActions component for actions
+      return <EmployeeCategoryActions employeeCategory={product} /> // Assuming you have a ProductActions component for actions
     }
   }
 ]

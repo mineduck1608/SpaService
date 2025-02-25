@@ -54,7 +54,6 @@ import AdminCosmeticPage from './pages/admin/products/page.tsx'
 import AdminFeedbackPage from './pages/admin/feedbacks/page.tsx'
 import AdminEmployeeCategoryPage from './pages/admin/employeeCategories/page.tsx'
 
-
 function Layout({ children }) {
   return (
     <>
@@ -146,14 +145,7 @@ function App() {
               </Layout>
             }
           />
-          <Route
-            path='cart'
-            element={
-              <Layout>
-                ABC
-              </Layout>
-            }
-          />
+          <Route path='cart' element={<Layout>ABC</Layout>} />
           <Route
             path='cosmetics/:id'
             element={
@@ -274,7 +266,7 @@ function App() {
 
             {/* Users */}
             <Route path='accounts' element={<DemoPage />} />
-            <Route path='employee-categories' element={<AdminEmployeeCategoryPage/>} />
+            <Route path='employee-categories' element={<AdminEmployeeCategoryPage />} />
 
             {/* Users Management */}
             <Route path='managers' element={<Placeholder title='Managers' />} />
@@ -282,7 +274,7 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
 
             {/* Spa Services */}
-            <Route path='service-categories' element={<ServiceCategoriesPage/>} />
+            <Route path='service-categories' element={<ServiceCategoriesPage />} />
             <Route path='spa-services' element={<SpaServicePage />} />
 
             {/* Cosmetics */}
@@ -327,7 +319,7 @@ function App() {
             <Route path='employees' element={<EmployeePage />} />
 
             {/* Spa Services */}
-            <Route path='service-categories' element={<ServiceCategoriesPage/>} />
+            <Route path='service-categories' element={<ServiceCategoriesPage />} />
             <Route path='spa-services' element={<SpaServicePage />} />
 
             {/* Cosmetics */}

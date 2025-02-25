@@ -31,9 +31,8 @@ export default function UpdateFloorModal({ isOpen, onClose, floor }: UpdateFloor
   })
 
   const handleSubmit = async (data: any) => {
-    const selectedCategory = categories.find(category => category.categoryName === data.categoryName)
-    if (selectedCategory) 
-      data.categoryId = selectedCategory.categoryId
+    const selectedCategory = categories.find((category) => category.categoryName === data.categoryName)
+    if (selectedCategory) data.categoryId = selectedCategory.categoryId
     data.floorNum = parseInt(data.floorNum) || 0
     handleUpdateSubmit(floor.floorId, data)
   }
@@ -42,26 +41,22 @@ export default function UpdateFloorModal({ isOpen, onClose, floor }: UpdateFloor
     async function fetchCategories() {
       const data = await getAllServiceCategories()
       setCategories(data)
-      if (floor ) {
-        Object.keys(floor ).forEach((key: string) => {
+      if (floor) {
+        Object.keys(floor).forEach((key: string) => {
           if (form.getValues(key) !== undefined) {
             if (key === 'floorNum') {
               floor[key] = String(floor[key])
               form.setValue(key, floor[key])
-            }
-            else if (key === 'categoryId') {
-              const categoryName = data.find(category => category.categoryId === floor.categoryId)?.categoryId
+            } else if (key === 'categoryId') {
+              const categoryName = data.find((category) => category.categoryId === floor.categoryId)?.categoryId
               form.setValue('categoryId', categoryName || '')
-            }
-            else 
-              form.setValue(key, floor[key])
+            } else form.setValue(key, floor[key])
           }
         })
       }
     }
     fetchCategories()
   }, [floor, form])
-
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -83,7 +78,7 @@ export default function UpdateFloorModal({ isOpen, onClose, floor }: UpdateFloor
                           <Select
                             value={form.watch('categoryId') || ''}
                             onValueChange={(value) => {
-                              form.setValue('categoryId', value) 
+                              form.setValue('categoryId', value)
                             }}
                             disabled={field.readonly}
                           >

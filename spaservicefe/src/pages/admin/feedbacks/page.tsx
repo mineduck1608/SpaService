@@ -5,7 +5,6 @@ import { Feedback } from '@/types/type' // Replace News with Floor type
 import { getAllFeedbacks, getCustomerById, getSpaServiceById } from './feedback.util'
 import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 
-
 export default function AdminFeedbackPage() {
   const [data, setData] = useState<Feedback[]>([]) // Change to Floor type
   const [loading, setLoading] = useState(true)
@@ -26,7 +25,7 @@ export default function AdminFeedbackPage() {
             return {
               ...feedback,
               serviceName, // Add category name to floor data
-              customerName ,
+              customerName,
               createdAt: format(new Date(feedback.createdAt), 'dd/MM/yyyy HH:mm:ss')
             }
           })

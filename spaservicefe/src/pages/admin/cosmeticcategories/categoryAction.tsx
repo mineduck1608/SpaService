@@ -16,7 +16,7 @@ import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './category.util'
 
 interface CategoryActionsProps {
-    category: CosmeticCategory
+  category: CosmeticCategory
 }
 
 const CategoriesActions: React.FC<CategoryActionsProps> = ({ category }) => {
@@ -45,19 +45,24 @@ const CategoriesActions: React.FC<CategoryActionsProps> = ({ category }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem 
-            onClick={() => navigator.clipboard.writeText(category.categoryId)} 
-            className='cursor-pointer'>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(category.categoryId)}
+            className='cursor-pointer'
+          >
             Copy category ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
+            Delete
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
 
-      <UpdateCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} category={category}/>
+      <UpdateCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} category={category} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )
