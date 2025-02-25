@@ -43,7 +43,7 @@ export async function handleUpdateSubmit(id: string, accountId: string, data: an
   try {
     const updatedData = {
       ...data,
-      accountId: accountId,
+      accountId: accountId
     }
     var res = await fetch(`${apiUrl}/employees/Update/${id}`, {
       method: 'PUT',

@@ -54,18 +54,18 @@ export const columns: ColumnDef<CosmeticProduct>[] = [
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
-      const status = row.getValue('status');
+      const status = row.getValue('status')
       return (
         <span className={`font-semibold ${status ? 'text-green-500' : 'text-red-500'}`}>
           {status ? 'On Stock' : 'Out of Stock'}
         </span>
-      );
+      )
     }
   },
   {
     accessorKey: 'isSelling',
     header: 'Is Selling?',
-    cell: ({ row }) => (row.getValue('isSelling') ? 'Yes' : 'No') 
+    cell: ({ row }) => (row.getValue('isSelling') ? 'Yes' : 'No')
   },
   {
     id: 'actions',

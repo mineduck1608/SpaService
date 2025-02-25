@@ -21,8 +21,7 @@ export async function handleUpdateSubmit(id: string, application: any, data: any
     const updatedData = {
       ...data,
       accountId: application.accountId,
-      createdAt: application.createdAt,
-      resolvedAt: new Date().toISOString()
+      createdAt: application.createdAt
     }
     var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
       method: 'PUT',

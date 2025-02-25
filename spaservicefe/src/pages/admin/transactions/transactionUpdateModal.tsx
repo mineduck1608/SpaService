@@ -91,7 +91,8 @@ export default function UpdateTransactionModal({ isOpen, onClose, transaction }:
                                 <SelectItem value='Cash'>Cash</SelectItem>
                               </SelectContent>
                             </Select>
-                        )) : (
+                          )
+                        ) : (
                           <Input
                             {...formField}
                             type={field.type}

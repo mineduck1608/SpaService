@@ -9,7 +9,7 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './employee.util'
 import { employeeConfig } from '../modal.util'
 
@@ -19,23 +19,21 @@ interface UpdateEmployeeModalProps {
   employee: any
 }
 
-export default function UpdateEmployeeModal({isOpen, onClose, employee} : UpdateEmployeeModalProps) {
+export default function UpdateEmployeeModal({ isOpen, onClose, employee }: UpdateEmployeeModalProps) {
   const fieldsToUse = employeeConfig.updatefields
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: Object.fromEntries(
-      fieldsToUse.map((field : FieldConfig) => [field.name, ''])
-    ),
+    defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
 
   const handleSubmit = async (data: any) => {
-    handleUpdateSubmit(employee.employeeId, employee.accountId , data)
+    handleUpdateSubmit(employee.employeeId, employee.accountId, data)
   }
 
   useEffect(() => {
     if (employee) {
-      Object.keys(employee).forEach((key : string) => {
+      Object.keys(employee).forEach((key: string) => {
         if (form.getValues(key) !== undefined) {
           form.setValue(key, employee[key])
         }
@@ -47,18 +45,18 @@ export default function UpdateEmployeeModal({isOpen, onClose, employee} : Update
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>Update Employee</DialogTitle>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
-              {fieldsToUse.map((field : FieldConfig) => (
-                <FormField
-                  key={field.name}
-                  control={form.control}
-                  name={field.name}
-                  render={({ field: formField }) => (
-                    <FormItem className='grid grid-cols-4 items-center gap-4 mt-2'>
-                      <FormLabel className='text-right text-md'>{field.label}</FormLabel>
-                      <div className='col-span-3 space-y-1'>
-                        <FormControl>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+            {fieldsToUse.map((field: FieldConfig) => (
+              <FormField
+                key={field.name}
+                control={form.control}
+                name={field.name}
+                render={({ field: formField }) => (
+                  <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                    <FormLabel className='text-md text-right'>{field.label}</FormLabel>
+                    <div className='col-span-3 space-y-1'>
+                      <FormControl>
                         {field.type === 'select' ? (
                           field.name === 'position' ? (
                             <Select
@@ -90,26 +88,27 @@ export default function UpdateEmployeeModal({isOpen, onClose, employee} : Update
                                 <SelectItem value='Locked'>Locked</SelectItem>
                               </SelectContent>
                             </Select>
-                          )) : (
-                            <Input
-                              {...formField}
-                              type={field.type}
-                              placeholder={field.placeholder}
-                              disabled={field.readonly}
-                            />
-                          )}
-                        </FormControl>
-                        <FormMessage className='text-sm' />
-                      </div>
-                    </FormItem>
-                  )}
-                  />
-              ))}
-              <div className='flex justify-end mt-10'>
-                  <Button type='submit'>Submit</Button>
-              </div>
-            </form>
-          </Form>
+                          )
+                        ) : (
+                          <Input
+                            {...formField}
+                            type={field.type}
+                            placeholder={field.placeholder}
+                            disabled={field.readonly}
+                          />
+                        )}
+                      </FormControl>
+                      <FormMessage className='text-sm' />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            ))}
+            <div className='mt-10 flex justify-end'>
+              <Button type='submit'>Submit</Button>
+            </div>
+          </form>
+        </Form>
       </DialogContent>
       <ToastContainer />
     </Dialog>
