@@ -25,7 +25,7 @@ export default function CosmeticCheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) {}
+    } catch (e) { }
   }, [])
   async function onSubmitBase(method: string) {
     toast.error('Not yet')
@@ -92,7 +92,7 @@ export default function CosmeticCheckoutPage() {
                 type='submit'
                 onClick={payInCash}
                 disabled={cart.length === 0}
-                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-300'
+                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >
                 Submit request
               </button>
@@ -102,7 +102,7 @@ export default function CosmeticCheckoutPage() {
                 type='submit'
                 disabled={cart.length === 0}
                 onClick={submitWithVnPay}
-                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-300'
+                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >
                 Pay by VnPay
               </button>

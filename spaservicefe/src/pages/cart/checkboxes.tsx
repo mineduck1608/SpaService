@@ -69,3 +69,19 @@ export function AllRowCheckBox(params: { table: Table<SessionItem> }) {
     </div>
   )
 }
+export function RemoveButton(params: { row: Row<SessionItem> }) {
+  const context = useContext(SessionContext)
+  const productId = params.row.original.product.productId
+  return (
+    <button
+      className='rounded-sm bg-purple1 p-2 text-white'
+      onClick={(e) => {
+        const x = context.items.filter(x => x.product.productId !== productId)
+        context.setItems(x)
+        setCart(x)
+      }}
+    >
+      Remove
+    </button>
+  )
+}

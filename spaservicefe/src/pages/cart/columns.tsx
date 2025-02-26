@@ -3,7 +3,7 @@ import { SessionItem } from '@/types/sessionItem'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import { Checkbox } from '../../components/ui/checkbox'
 import { getCart, getCartItem, removeCartItem, setCart, setCartItem } from '../cosmeticDetailPage/detailPage.util'
-import RowCheckBox, { AllRowCheckBox } from './checkboxes'
+import RowCheckBox, { AllRowCheckBox, RemoveButton } from './checkboxes'
 
 export const columns: ColumnDef<SessionItem>[] = [
   {
@@ -31,7 +31,7 @@ export const columns: ColumnDef<SessionItem>[] = [
   {
     accessorKey: 'amount',
     header: 'Amount',
-    cell: ({ row }) => row.original.amount
+    cell: ({ row }) => formatNumber(row.original.amount)
   },
   {
     accessorKey: 'Sub Total',
@@ -42,20 +42,7 @@ export const columns: ColumnDef<SessionItem>[] = [
     accessorKey: 'other',
     header: '',
     cell: ({ row }) => (
-      <button
-        className='rounded-sm bg-purple1 p-2 text-white'
-        onClick={(e) => {
-          removeCartItem(row.original.product.productId)
-          var body = document.getElementById('body')
-          var curr = document.getElementById(row.original.product.productId)
-          console.log(body)
-          if (body && curr) {
-            body.removeChild(curr)
-          }
-        }}
-      >
-        Remove
-      </button>
+      <RemoveButton row={row} />
     )
   }
   // {

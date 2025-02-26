@@ -19,7 +19,7 @@ import { SessionContext } from './context/selectedContext'
 import { SessionItem } from '@/types/sessionItem'
 import { getAmount } from './cartPage.util'
 import { formatNumber } from '../servicesPage/servicesPage.util'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface DataTableProps {
   columns: any[]
@@ -29,6 +29,8 @@ interface DataTableProps {
 }
 
 export function DataTable({ columns, data }: DataTableProps) {
+  const nav = useNavigate()
+  const context = React.useContext(SessionContext)
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -84,10 +86,15 @@ export function DataTable({ columns, data }: DataTableProps) {
       </div>
 
       <div className='flex items-center justify-end space-x-2 pb-4'>
-        <Link className='bg-purple1 no-underline text-white p-2 rounded-sm'
-        to={'/cosmetics-check-out'}>
+        <button
+          className='rounded-sm bg-purple1 p-2 text-white no-underline disabled:bg-gray-400 disabled:text-white'
+          onClick={() => {
+            nav('/cosmetics-check-out')
+          }}
+          disabled={context.items.filter((x) => x.included).length === 0}
+        >
           Check Out
-        </Link>
+        </button>
       </div>
     </div>
   )
