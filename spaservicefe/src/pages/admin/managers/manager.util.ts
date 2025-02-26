@@ -18,7 +18,7 @@ export async function getAllManagers() {
 
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/managers/Create`, {
+    var res = await fetch(`${apiUrl}/accounts/RegisterManager`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -39,15 +39,20 @@ export async function handleCreateSubmit(data: any) {
   }
 }
 
-export async function handleUpdateSubmit(id: string, data: any) {
+export async function handleUpdateSubmit(manager: any, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/managers/Update/${id}`, {
+    const updatedData = {
+      ...data,
+      accountId: manager.accountId,
+      hireDate: manager.hireDate
+    }
+    var res = await fetch(`${apiUrl}/managers/Update/${manager.managerId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {

@@ -58,15 +58,19 @@ export async function GetRoleById(roleId: string) {
   }
 }
 
-export async function handleUpdateSubmit(id: string, data: any) {
+export async function handleUpdateSubmit(account: any, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/accounts/Update/${id}`, {
+    const updatedData = {
+      ...data,
+      password: account.password
+    }
+    var res = await fetch(`${apiUrl}/accounts/Update/${account.accountId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {

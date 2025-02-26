@@ -87,7 +87,7 @@ export default function UpdateTransactionModal({ isOpen, onClose, transaction }:
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value='VNPAY'>VNPAY</SelectItem>
+                                <SelectItem value='VnPay'>VnPay</SelectItem>
                                 <SelectItem value='Cash'>Cash</SelectItem>
                               </SelectContent>
                             </Select>

@@ -54,7 +54,6 @@ const ManagerActions: React.FC<ManagerActionsProps> = ({ manager }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
       <UpdateManagerModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} manager={manager} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

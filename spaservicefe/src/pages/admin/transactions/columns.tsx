@@ -52,9 +52,9 @@ export const columns: ColumnDef<TransactionBase>[] = [
     accessorKey: 'statusText',
     header: 'Status',
     cell: ({ row }) => {
-      const statusText = row.getValue<string>('statusText');
-      const statusColor = statusText === 'Done' ? 'text-green-500' : 'text-red-500'; // Change color logic here
-      return <span className={statusColor}>{statusText}</span>;
+      const statusText = row.getValue<string>('statusText')
+      const statusColor = statusText === 'Done' ? 'text-green-500' : 'text-red-500'
+      return <span className={statusColor}>{statusText}</span>
     }
   },  
   {

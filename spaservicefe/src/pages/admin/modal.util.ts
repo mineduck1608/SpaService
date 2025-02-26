@@ -185,14 +185,9 @@ export const employeeConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL'
     }
-  ],
-  api: {
-    create: 'api/accounts/RegisterEmployee',
-    update: 'api/employees/Update/{id}'
-  }
+  ]
 }
 
 export const managerConfig = {
@@ -229,14 +224,12 @@ export const managerConfig = {
       name: 'phone',
       label: 'Phone',
       type: 'tel',
-      required: true,
       placeholder: 'Enter phone number',  
     },
     {
       name: 'email',
       label: 'Email',
       type: 'email',
-      required: true,
       placeholder: 'Enter email',  
     }
   ],
@@ -288,14 +281,9 @@ export const managerConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL',  
     }
-  ],
-  api: {
-    create: 'api/accounts/RegisterEmployee',
-    update: 'api/employees/Update/{id}'
-  }
+  ]
 }
 
 export const accountConfig = {

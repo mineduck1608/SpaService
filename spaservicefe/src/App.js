@@ -55,7 +55,8 @@ import AdminFeedbackPage from './pages/admin/feedbacks/page.tsx'
 import AdminEmployeeCategoryPage from './pages/admin/employeeCategories/page.tsx'
 import CartPage from './pages/cart/cartPage.tsx'
 import ImageUpload from './components/imageUpload.tsx'
-import UserProfile from './pages/profile/profile.tsx'
+import AdminManagerPage from './pages/admin/managers/page.tsx'
+
 function Layout({ children }) {
   return (
     <>
@@ -94,14 +95,6 @@ function App() {
             element={
               <Layout>
                 <RequestPage />
-              </Layout>
-            }
-          />
-           <Route
-            path='profile'
-            element={
-              <Layout>
-                <UserProfile />
               </Layout>
             }
           />
@@ -285,7 +278,7 @@ function App() {
             <Route path='employee-categories' element={<AdminEmployeeCategoryPage />} />
 
             {/* Users Management */}
-            <Route path='managers' element={<Placeholder title='Managers' />} />
+            <Route path='managers' element={<AdminManagerPage />} />
             <Route path='customers' element={<CustomerPage />} />
             <Route path='employees' element={<EmployeePage />} />
 
