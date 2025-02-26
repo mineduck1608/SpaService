@@ -19,6 +19,7 @@ import { SelectedContext } from './context/selectedContext'
 import { SessionItem } from '@/types/sessionItem'
 import { getAmount } from './cartPage.util'
 import { formatNumber } from '../servicesPage/servicesPage.util'
+import { Link } from 'react-router-dom'
 
 interface DataTableProps {
   columns: any[]
@@ -77,15 +78,16 @@ export function DataTable({ columns, data }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      <div className='flex justify-end items-center gap-2'>
+      <div className='flex items-center justify-end gap-2'>
         <span className='text-lg font-medium'>Total amount is:</span>
-        <p className='mt-3 text-red-500 font-bold text-lg'>{formatNumber(getAmount())} VND</p>
+        <p className='mt-3 text-lg font-bold text-red-500'>{formatNumber(getAmount())} VND</p>
       </div>
 
       <div className='flex items-center justify-end space-x-2 pb-4'>
-        <Button className='block' variant='outline' size='sm' onClick={() => {}}>
+        <Link className='bg-purple1 no-underline text-white p-2 rounded-sm'
+        to={'/cosmetics-check-out'}>
           Check Out
-        </Button>
+        </Link>
       </div>
     </div>
   )

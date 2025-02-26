@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Repositories.Entities.RequestModel;
 using Services.IServices;
 using System.Text.Json;
 
@@ -40,48 +41,13 @@ namespace SpaServiceBE.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateOrderWithDetails([FromBody] dynamic request)
+        public async Task<ActionResult> CreateOrderWithDetails([FromBody] OrderRequest orderRequest)
         {
             try
             {
-                var jsonElement = (JsonElement)request;
-
-                // Extract and validate order-related data
-                if (!jsonElement.TryGetProperty("customerId", out var customerIdProp) ||
-                    !jsonElement.TryGetProperty("orderDate", out var orderDateProp) ||
-                    !jsonElement.TryGetProperty("productId", out var productIdProp) ||
-                    !jsonElement.TryGetProperty("quantity", out var quantityProp) ||
-                    !jsonElement.TryGetProperty("transactionType", out var transactionTypeProp) ||
-                    !jsonElement.TryGetProperty("paymentType", out var paymentTypeProp))
-                {
-                    return BadRequest(new { msg = "Missing required fields in request." });
-                }
-
-                string customerId = customerIdProp.GetString();
-                string productId = productIdProp.GetString();
-                DateTime orderDate = orderDateProp.GetDateTime();
-                int quantity = quantityProp.GetInt32();
-                string transactionType = transactionTypeProp.GetString();
-                string paymentType = paymentTypeProp.GetString();
-
-                if (string.IsNullOrWhiteSpace(customerId) || string.IsNullOrWhiteSpace(productId) || quantity <= 0 ||
-                    string.IsNullOrWhiteSpace(transactionType) || string.IsNullOrWhiteSpace(paymentType))
-                {
-                    return BadRequest(new { msg = "Invalid or incomplete order details." });
-                }
-
                 // Fetch and validate product
-                var cosmeticProduct = await _cosmeticProductService.GetCosmeticProductById(productId);
-                if (cosmeticProduct == null || !cosmeticProduct.IsSelling || !cosmeticProduct.Status)
-                {
-                    return BadRequest(new { msg = "The product is not available." });
-                }
 
                 // Check stock availability
-                if (cosmeticProduct.Quantity < (int)quantity)
-                {
-                    return BadRequest(new { msg = "Not enough stock available." });
-                }
 
                 // Calculate subtotal amount
                 float subAmount = (float)(quantity * cosmeticProduct.Price);
@@ -94,55 +60,31 @@ namespace SpaServiceBE.Controllers
                 // Create Transaction first
                 var transaction = new Transaction
                 {
-                    TransactionId = transactionId,
-                    TransactionType = transactionType,
-                    TotalPrice = subAmount,
-                    Status = true,
-                    PaymentType = paymentType
                 };
                 await _transactionService.Add(transaction);
 
                 // Create CosmeticTransaction before Order due to the foreign key constraint
                 var cosmeticTransaction = new CosmeticTransaction
                 {
-                    CosmeticTransactionId = cosmeticTransactionId,
-                    TransactionId = transactionId,
-                    OrderId = orderId  // We can set this because we pre-generated the orderId
+
                 };
                 await _cosmeticTransactionService.CreateAsync(cosmeticTransaction);
 
                 // Now create Order
                 var order = new Order
                 {
-                    OrderId = orderId,
-                    CustomerId = customerId,
-                    OrderDate = orderDate,
-                    TotalAmount = subAmount,
-                    Status = true,
-                    TransactionId = cosmeticTransactionId
+
                 };
                 await _orderService.AddOrderAsync(order);
 
                 // Create OrderDetail
-                var orderDetail = new OrderDetail
-                {
-                    OrderId = orderId,
-                    ProductId = productId,
-                    Quantity = quantity,
-                    SubTotalAmount = subAmount
-                };
-                await _orderDetailService.Create(orderDetail);
+                
 
                 // Update product stock last
-                cosmeticProduct.Quantity -= (int)quantity;
-                await _cosmeticProductService.Update(cosmeticProduct);
+                
 
                 return CreatedAtAction(nameof(GetOrderById), new { id = orderId }, new
                 {
-                    order,
-                    orderDetail,
-                    transaction,
-                    cosmeticTransaction
                 });
             }
             catch (Exception ex)
@@ -151,7 +93,6 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-
 
         [Authorize]
         [HttpPut("Update/{id}")]
