@@ -149,7 +149,6 @@ public partial class SpaserviceContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.AccountId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKApplicatio396292");
 
             entity.HasOne(d => d.ResolvedByNavigation).WithMany(p => p.Applications)

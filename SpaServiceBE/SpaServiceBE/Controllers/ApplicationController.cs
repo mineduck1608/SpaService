@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using Repositories.Entities;
+using Services;
 using Services.IServices;
+using Services.Services;
 using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
@@ -12,10 +14,12 @@ namespace SpaServiceBE.Controllers
     public class ApplicationController : ControllerBase
     {
         private readonly IApplicationService _applicationService;
+        private readonly IGuestApplicationService _guestApplicationService;
 
-        public ApplicationController(IApplicationService applicationService)
+        public ApplicationController(IApplicationService applicationService, IGuestApplicationService guestApplicationService)
         {
-            _applicationService = applicationService;
+            _applicationService = applicationService ?? throw new ArgumentNullException(nameof(applicationService));
+            _guestApplicationService = guestApplicationService ?? throw new ArgumentNullException(nameof(guestApplicationService)); 
         }
 
         [HttpGet("GetAll")]
@@ -43,12 +47,11 @@ namespace SpaServiceBE.Controllers
                 var jsonElement = (JsonElement)request;
 
                 // Lấy dữ liệu từ request
-                string status = jsonElement.GetProperty("status").GetString();
                 string content = jsonElement.GetProperty("content").GetString();
                 string accountId = jsonElement.GetProperty("accountId").GetString();
 
                 // Validate input
-                if (string.IsNullOrEmpty(status) || string.IsNullOrEmpty(content) || string.IsNullOrEmpty(accountId))
+                if (string.IsNullOrEmpty(content) || string.IsNullOrEmpty(accountId))
                 {
                     return BadRequest(new { msg = "Application details are incomplete or invalid." });
                 }
@@ -57,7 +60,7 @@ namespace SpaServiceBE.Controllers
                 var application = new Application
                 {
                     ApplicationId = Guid.NewGuid().ToString("N"), // Generate unique ID
-                    Status = status,
+                    Status = "Pending",
                     Content = content,
                     AccountId = accountId,
                     CreatedAt = DateTime.UtcNow,
@@ -69,6 +72,64 @@ namespace SpaServiceBE.Controllers
                 await _applicationService.CreateApplicationAsync(application);
 
                 return Ok(application);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
+
+        [HttpPost("GuestApplication")]
+        public async Task<ActionResult> GuestApplication([FromBody] dynamic request)
+        {
+            try
+            {
+                var jsonElement = (JsonElement)request;
+
+                // Lấy dữ liệu từ request
+                string content = jsonElement.GetProperty("content").GetString();
+                string fullName = jsonElement.GetProperty("fullName").GetString();
+                string phoneNumber = jsonElement.GetProperty("phoneNumber").GetString();
+                string email = jsonElement.GetProperty("email").GetString();
+
+                // Validate input
+                if (string.IsNullOrEmpty(content) || string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email))
+                {
+                    return BadRequest(new { msg = "Application details are incomplete or invalid." });
+                }
+                   
+
+
+                    var guest = new Application
+                    {
+                        ApplicationId = Guid.NewGuid().ToString("N"), // Generate unique ID
+                        Status = "Pending",
+                        Content = content,
+                        AccountId = "Guest",
+                        CreatedAt = DateTime.UtcNow,
+                        ResolvedBy = null,
+                        ResolvedAt = null
+                    };
+
+
+                    // Create GuestApplication object
+                    var guestApplication = new GuestApplication
+                    {
+                        GuestApplicationId = Guid.NewGuid().ToString("N"), // Generate unique ID
+                        FullName = fullName,
+                        PhoneNumber = phoneNumber,
+                        Email = email,
+                        ApplicationId = guest.ApplicationId,
+                    };
+
+                    // Call service to add guest application
+                    await _guestApplicationService.AddAsync(guestApplication);
+
+
+                    // Call service to add application
+                    await _applicationService.CreateApplicationAsync(guest);
+
+                    return Ok(guest);
             }
             catch (Exception ex)
             {

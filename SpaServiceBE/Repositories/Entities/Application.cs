@@ -11,7 +11,7 @@ public partial class Application
 
     public string Content { get; set; } = null!;
 
-    public string AccountId { get; set; } = null!;
+    public string? AccountId { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Application
 
     public DateTime? ResolvedAt { get; set; }
 
-    public virtual Account Account { get; set; } = null!;
+    public virtual Account? Account { get; set; }
 
     public virtual ICollection<GuestApplication> GuestApplications { get; set; } = new List<GuestApplication>();
 

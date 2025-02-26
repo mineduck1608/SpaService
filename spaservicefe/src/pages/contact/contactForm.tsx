@@ -8,7 +8,7 @@ interface Form {
   fullName: string
   phoneNumber: string
   email: string
-  contactContent: string
+  content: string
 }
 const ReCAPTCHAFixed = ReCAPTCHA as unknown as React.FC<
   PropsWithChildren<{
@@ -22,7 +22,7 @@ const ContactForm = () => {
     fullName: '',
     phoneNumber: '',
     email: '',
-    contactContent: ''
+    content: ''
   })
   const [errors, setErrors] = useState<Partial<Form>>({})
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
@@ -69,7 +69,8 @@ const ContactForm = () => {
     e.preventDefault()
     if (validateForm()) {
       try {
-        const response = await fetch('https://localhost:7205/api/contacts/Create', {
+        console.log(formData)
+        const response = await fetch('https://localhost:7205/api/applications/GuestApplication', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
@@ -80,7 +81,7 @@ const ContactForm = () => {
             fullName: '',
             phoneNumber: '',
             email: '',
-            contactContent: ''
+            content: ''
           })
           setCaptchaToken(null)
         } else {
@@ -189,14 +190,14 @@ const ContactForm = () => {
             </div>
             <div>
               <textarea
-                name='contactContent'
+                name='content'
                 placeholder='Content'
                 rows={3}
                 className='w-full rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-purple1'
-                value={formData.contactContent}
+                value={formData.content}
                 onChange={handleInputChange}
               />
-              {errors.contactContent && <p className='ml-2 text-sm text-red-500'>{errors.contactContent}</p>}
+              {errors.content && <p className='ml-2 text-sm text-red-500'>{errors.content}</p>}
             </div>
             <div className='flex flex-col items-center justify-center'>
               <ReCAPTCHAFixed sitekey='6LeUZdIqAAAAAPlUPWL-M5n_aaSahKjHd8rfsoB_' onChange={handleCaptchaChange} />

@@ -226,6 +226,22 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "GuestApplication",
+    "RelativePath": "api/applications/GuestApplication",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
     "Method": "UpdateApplication",
     "RelativePath": "api/applications/Update/{id}",
     "HttpMethod": "PUT",

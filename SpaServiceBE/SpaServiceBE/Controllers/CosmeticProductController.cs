@@ -57,7 +57,7 @@ namespace SpaServiceBE.Controllers
             {
                 var jsonElement = (JsonElement)request;
                 string productName = jsonElement.GetProperty("productName").GetString();
-                float? price = jsonElement.GetProperty("price").GetSingle();
+                float price = jsonElement.GetProperty("price").GetSingle();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 string description = jsonElement.GetProperty("description").GetString();
                 bool isSelling = jsonElement.GetProperty("isSelling").GetBoolean();
@@ -94,7 +94,7 @@ namespace SpaServiceBE.Controllers
             {
                 var jsonElement = (JsonElement)request;
                 string productName = jsonElement.GetProperty("productName").GetString();
-                float? price = jsonElement.GetProperty("price").GetSingle();
+                float price = jsonElement.GetProperty("price").GetSingle();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 string description = jsonElement.GetProperty("description").GetString();
                 bool isSelling = jsonElement.GetProperty("isSelling").GetBoolean();
