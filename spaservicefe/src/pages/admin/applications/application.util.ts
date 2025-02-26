@@ -16,14 +16,15 @@ export async function getAllApplications() {
   }
 }
 
-export async function handleUpdateSubmit(id: string, application: any, data: any) {
+export async function handleUpdateSubmit(application: any, data: any) {
   try {
     const updatedData = {
       ...data,
       accountId: application.accountId,
-      createdAt: application.createdAt
+      createdAt: application.createdAt,
+      resolvedAt: new Date().toISOString()
     }
-    var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/applications/Update/${application.applicationId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,

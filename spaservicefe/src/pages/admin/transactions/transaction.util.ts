@@ -41,14 +41,17 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    data.completeTime = new Date().toISOString()
+    const updatedData = {
+      ...data,
+      completeTime: new Date().toISOString()
+    }
     var res = await fetch(`${apiUrl}/transactions/Update/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully update!', {

@@ -3,6 +3,8 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Application } from '@/types/type'
 import { getAllApplications } from './application.util'
+import { getAllManagers } from '../managers/manager.util'
+import { format } from 'date-fns'
 
 export default function ApplicationPage() {
   const [data, setData] = useState<Application[]>([])
@@ -12,8 +14,22 @@ export default function ApplicationPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const applications = await getAllApplications()
-        setData(applications)
+        const [applications, managers] = await Promise.all([getAllApplications(), getAllManagers()])
+
+        const managerMap = managers.reduce(
+          (application, manager) => {
+            application[manager.managerId] = manager.fullName
+            return application
+          },
+          {} as Record<string, string>
+        )
+
+        const formattedApplications = applications.map((application) => ({
+          ...application,
+          managerName: managerMap[application.resolvedBy] || 'N/A'
+        }))
+
+        setData(formattedApplications)
       } catch (err) {
         setError("Can't load the data.")
       } finally {

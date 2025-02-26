@@ -3,7 +3,7 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { TransactionBase } from '@/types/type'
 import { getAllTransactions } from '../transactions/transaction.util'
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
+import { format } from 'date-fns'
 
 export default function TransactionPage() {
   const [data, setData] = useState<TransactionBase[]>([])
@@ -14,14 +14,6 @@ export default function TransactionPage() {
     const fetchData = async () => {
       try {
         const transactions = await getAllTransactions()
-
-        // const memberMap = members.reduce(
-        //   (acc, member) => {
-        //     acc[member.membershipId] = member.type
-        //     return acc
-        //   },
-        //   {} as Record<string, string>
-        // )
         const formattedTransactions = transactions.map((transaction) => ({
           ...transaction,
           completeTime: format(new Date(transaction.completeTime), 'dd/MM/yyyy HH:mm:ss'),

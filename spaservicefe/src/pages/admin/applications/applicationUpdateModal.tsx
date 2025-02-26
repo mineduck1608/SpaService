@@ -12,7 +12,6 @@ import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './application.util'
 import { applicatonConfig } from '../modal.util'
-import { DatePicker } from 'antd'
 import { Manager } from '@/types/type'
 import { getAllManagers } from '../managers/manager.util'
 
@@ -33,13 +32,8 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
 
   const handleSubmit = async (data: any) => {
     const selectedManager = managers.find(manager => manager.managerId === data.resolvedBy)
-    if (selectedManager) 
-      data.resolvedBy = selectedManager.managerId
-    handleUpdateSubmit(application.applicationId, application, data)
-  }
-
-  const handleChange = (field: string, value: string) => {
-    form.setValue(field, value)
+    if (selectedManager) data.resolvedBy = selectedManager.managerId
+    handleUpdateSubmit(application, data)
   }
 
   useEffect(() => {
@@ -57,7 +51,6 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
           }
         })
       }
-
     }
     fetchManagers()
   }, [application, form])
@@ -78,20 +71,7 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
                     <FormLabel className='text-md text-right'>{field.label}</FormLabel>
                     <div className='col-span-3 space-y-1'>
                       <FormControl>
-                        {field.type === 'datetime-local' ? (
-                          <DatePicker
-                            step={1800}
-                            showTime
-                            showHour
-                            showMinute
-                            showSecond={false}
-                            minuteStep={30}
-                            className='w-75 border-[1px] p-2'
-                            onChange={(date) =>
-                              handleChange(field.name, date ? date.format('YYYY-MM-DDTHH:mm:ss') : '')
-                            }
-                          />
-                        ) : field.type === 'select' ? (
+                        {field.type === 'select' ? (
                           field.name === 'status' ? (
                             <Select
                               onValueChange={formField.onChange}
@@ -103,7 +83,7 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value='Resolved'>Resolved</SelectItem>
-                                <SelectItem value='Unresolved'>Unresolved</SelectItem>
+                                <SelectItem value='Pending'>Pending</SelectItem>
                               </SelectContent>
                             </Select>
                           ) : (

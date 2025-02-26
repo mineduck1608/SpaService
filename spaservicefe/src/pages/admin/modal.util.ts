@@ -396,23 +396,32 @@ export const applicatonConfig = {
       name: 'content',
       label: 'Content',
       type: 'text',
-      required: true,
-      minLength: 4,
+      readonly: true,
       placeholder: 'Enter content'
-    },
-    {
-      name: 'resolvedAt',
-      label: 'Resolved At',
-      type: 'datetime-local',
-      required: true,
-      placeholder: 'Enter the resolved date',
     },
     {
       name: 'resolvedBy',
       label: 'Resolved By',
       type: 'select',
-      // required: true,
-      placeholder: 'Select manager name'
+      required: true,
+      placeholder: 'Select manager'
+    }
+  ],
+  fields: [
+    {
+      name: 'content',
+      label: 'Content',
+      type: 'text',
+      required: true,
+      minLength: 4,
+      placeholder: 'Enter content'
+    },
+    {
+      name: 'accountId',
+      label: 'Account',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter the account',
     }
   ]
 }
