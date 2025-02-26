@@ -119,7 +119,6 @@ namespace SpaServiceBE.Controllers
                     OrderDate = orderDate,
                     TotalAmount = subAmount,
                     Status = true,
-                    TransactionId = cosmeticTransactionId
                 };
                 await _orderService.AddOrderAsync(order);
 
@@ -179,7 +178,6 @@ namespace SpaServiceBE.Controllers
                     OrderDate = orderDate,
                     TotalAmount = totalAmount,
                     Status = status,
-                    TransactionId = transactionId
                 };
 
                 var isUpdated = await _orderService.UpdateOrderAsync(id, order);

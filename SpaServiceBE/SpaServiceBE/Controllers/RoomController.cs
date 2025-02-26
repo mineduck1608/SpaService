@@ -53,7 +53,6 @@ namespace SpaServiceBE.Controllers
                     RoomId = Guid.NewGuid().ToString("N"),
                     FloorId = floorId,
                     RoomNum = roomNum,
-                    IsDeleted = false
                 };
 
                 await _roomService.CreateRoom(room);
@@ -83,7 +82,6 @@ namespace SpaServiceBE.Controllers
                 {
                     RoomId = id,
                     RoomNum = roomNum,
-                    IsDeleted = isDeleted
                 };
 
                 var isUpdated = await _roomService.UpdateRoom(room);

@@ -287,7 +287,7 @@ namespace API.Controllers
                     <ul>
                         <li><strong>Date:</strong> {appointment.StartTime:dd/MM/yyyy}</li>
                         <li><strong>Start Time:</strong> {appointment.StartTime:HH:mm}</li>
-                        <li><strong>End Time:</strong> {appointment.StartTime.Add(spaServiceInfo.Duration):HH:mm}</li>
+                        <li><strong>End Time:</strong> {appointment.StartTime.Add(spaServiceInfo.Duration.ToTimeSpan()):HH:mm}</li>
                         <li><strong>Service:</strong> {spaServiceInfo.ServiceName}</li>
                         <li><strong>Employee:</strong> {employee.FullName}</li>
                         <li><strong>Room:</strong> {room.RoomNum}, Floor {floor.FloorNum}</li>
@@ -321,7 +321,7 @@ namespace API.Controllers
                         <li><strong>Customer:</strong> {customerInfo.FullName}</li>
                         <li><strong>Date:</strong> {appointment.StartTime:dd/MM/yyyy}</li>
                         <li><strong>Start Time:</strong> {appointment.StartTime:HH:mm}</li>
-                        <li><strong>End Time:</strong> {appointment.StartTime.Add(spaServiceInfo.Duration):HH:mm}</li>
+                        <li><strong>End Time:</strong> {appointment.StartTime.Add(spaServiceInfo.Duration.ToTimeSpan()):HH:mm}</li>
                         <li><strong>Service:</strong> {spaServiceInfo.ServiceName}</li>
                         <li><strong>Room:</strong> {room.RoomNum}, Floor {floor.FloorNum}</li>
                         <li><strong>Customer Note:</strong> {request.CustomerNote}</li>

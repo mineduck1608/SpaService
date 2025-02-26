@@ -75,7 +75,7 @@ namespace SpaServiceBE.Controllers
                 var req = await _requestService.GetById(serviceTxn.RequestId);
                 var service = await _spaService.GetById(req.ServiceId);
                 rs.Add("startTime", req.StartTime.ToString());
-                rs.Add("endTime", req.StartTime.Add(service.Duration).ToString());
+                rs.Add("endTime", req.StartTime.Add(service.Duration.ToTimeSpan()).ToString());
                 rs.Add("serviceName", service.ServiceName);
                 var rand = await _requestService.PickRandomResource(req, req.EmployeeId == null);
                 var emp = await _employeeService.GetEmployeeById(rand.employeeId);
@@ -86,7 +86,7 @@ namespace SpaServiceBE.Controllers
                     RequestId = req.RequestId,
                     EmployeeId = rand.employeeId,
                     StartTime = req.StartTime,
-                    EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
+                    EndTime = req.StartTime.Add(service.Duration.ToTimeSpan()),
                     Status = "Pending",
                     UpdatedAt = null,
                     AppointmentId = Guid.NewGuid().ToString(),
@@ -112,7 +112,7 @@ namespace SpaServiceBE.Controllers
             {
                 var added = await _transactionService.Update(tr.TransactionId, tr);
                 rs.Add("type", "Product");
-                var products = cosTransaction.Orders.Select(x => x.OrderDetails);
+                var products = cosTransaction.Order.OrderDetails;
                 var s = JsonConvert.SerializeObject(products);
                 rs.Add("products", s);
             }

@@ -114,7 +114,7 @@ namespace API.Controllers
 
                 //create endtime
 
-                DateTime endTime = startTime.Add(SpaServiceInfo.Duration);
+                DateTime endTime = startTime.Add(SpaServiceInfo.Duration.ToTimeSpan());
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
                     startTime == default(DateTime))
@@ -202,7 +202,7 @@ namespace API.Controllers
 
                 //create endtime
 
-                DateTime endTime = startTime.Add(SpaServiceInfo.Duration);
+                DateTime endTime = startTime.Add(SpaServiceInfo.Duration.ToTimeSpan());
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
                     startTime == default(DateTime) || string.IsNullOrEmpty(status))
@@ -341,7 +341,7 @@ namespace API.Controllers
                 <li><strong>Request ID:</strong> {id}</li>
                 <li><strong>Date:</strong> {request.StartTime.Day}/{request.StartTime.Month}/{request.StartTime.Year}</li>
                 <li><strong>Start Time:</strong> {request.StartTime.Hour}:{request.StartTime.Minute:D2}</li>
-                <li><strong>End Time:</strong> {request.StartTime.Add(SpaServiceInfo.Duration):HH:mm}</li>
+                <li><strong>End Time:</strong> {request.StartTime.Add(SpaServiceInfo.Duration.ToTimeSpan()):HH:mm}</li>
                 <li><strong>Service Name:</strong> {SpaServiceInfo.ServiceName}</li>
                 <li><strong>Price:</strong> {SpaServiceInfo.Price} VND</li>
             </ul>
