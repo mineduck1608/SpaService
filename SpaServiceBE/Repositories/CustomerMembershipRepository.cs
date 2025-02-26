@@ -37,6 +37,12 @@ namespace Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<CustomerMembership> FindNewestByCustomerId(string id)
+        {
+            return await _context.CustomerMemberships.FirstOrDefaultAsync(a => a.CustomerId == id && a.EndDate == null);
+            
+        }
+
         public async Task DeleteAsync(string customerId, string membershipId)
         {
             //var entity = await GetByIdAsync(customerId, membershipId);

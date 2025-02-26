@@ -1,0 +1,170 @@
+import React, { useEffect, useState } from 'react'
+import { Card, CardContent } from '../../components/ui/card'
+import { Avatar } from '../../components/ui/avatar'
+import { Button } from '../../components/ui/button'
+import { Input } from '../../components/ui/input'
+import { Label } from '../../components/ui/label'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../components/ui/dialog'
+import male from '../../images/user/male.png'
+import female from '../../images/user/female.png'
+import { GetCustomerByAccountId, FindNewestByCustomerId, GetMemberShipId, handleUpdateSubmit } from './profile.uitl'
+import { Customer, Membership } from '@/types/type'
+import { getToken } from '../../types/constants'
+import { jwtDecode } from 'jwt-decode'
+
+const membershipLevels = {
+  Silver: 'bg-gray-400 text-white',
+  Platinum: 'bg-blue-400 text-white',
+  Gold: 'bg-yellow-500 text-white',
+  Diamond: 'bg-purple-600 text-white'
+}
+
+const UserProfile = () => {
+  const [user, setUser] = useState<Customer[]>([])
+  const [membership, setMembership] = useState<Membership[]>([])
+  const [isOpen, setIsOpen] = useState(false)
+  const [updatedUser, setUpdatedUser] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    dateOfBirth: '',
+    gender: ''
+  })
+
+  const getAvatar = (gender: string) => {
+    return gender === 'Male' ? male : female
+  }
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = getToken()
+      if (token) {
+        var jwtData: { UserId: string } = jwtDecode(token)
+        const data = await GetCustomerByAccountId(jwtData.UserId)
+        setUser(data)
+        setUpdatedUser({
+          fullName: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          dateOfBirth: data.dateOfBirth || '',
+          gender: data.gender
+        })
+        if (data) {
+          const membershipData = await FindNewestByCustomerId(data.customerId)
+          if (membershipData) {
+            const membershipType = await GetMemberShipId(membershipData.membershipId)
+            setMembership(membershipType)
+          }
+        }
+      }
+    }
+    fetchUserData()
+  }, [])
+
+  // Generalized change handler for both input and select elements
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setUpdatedUser((prevState) => ({ ...prevState, [name]: value }))
+  }
+
+  const handleSubmit = () => {
+    handleUpdateSubmit(user.customerId, updatedUser)
+    console.log('Updated User Info:', updatedUser)
+    setIsOpen(false)
+  }
+
+  return (
+    <div
+      className='flex justify-center bg-slate-400 bg-cover bg-no-repeat'
+      style={{
+        background: 'url(https://senspa.com.vn/wp-content/uploads/2021/01/2-3.png)'
+      }}
+    >
+      <div className='flex justify-center items-center mt-40 mb-20'>
+        <Card className='w-full max-w-md p-6 rounded-2xl shadow-lg bg-white'>
+          <CardContent className='flex flex-col items-center gap-4'>
+            <Avatar className='w-24 h-24 rounded-full border-2 border-gray-300'>
+              <img src={getAvatar(user.gender || 'Male')} alt='User Avatar' className='w-full h-full rounded-full' />
+            </Avatar>
+            <div className='text-center'>
+              <h2 className='text-xl font-semibold'>{user.fullName}</h2>
+              <p className='text-gray-600'>Email: {user.email}</p>
+              <p className='text-gray-600'>Phone: {user.phone}</p>
+              <div className='flex justify-center gap-4 text-gray-600'>
+                <p>Born: {user.dateOfBirth ? new Date(user.dateOfBirth).toLocaleDateString('en-GB') : ''}</p>
+                <p>Gender: {user.gender}</p>
+              </div>
+              {membership?.type && (
+                <p className={`mt-2 px-4 py-1 rounded-full font-bold ${membershipLevels[membership.type]}`}>
+                  {membership.type} Member
+                </p>
+              )}
+            </div>
+            <Button
+              onClick={() => setIsOpen(true)}
+              className='w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg'
+            >
+              Update Info
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Modal for updating user info */}
+        <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Update User Info</DialogTitle>
+            </DialogHeader>
+            <div className='space-y-4'>
+              <div>
+                <Label htmlFor='fullName'>Full Name</Label>
+                <Input id='fullName' name='fullName' value={updatedUser.fullName} onChange={handleInputChange} />
+              </div>
+              <div>
+                <Label htmlFor='email'>Email</Label>
+                <Input id='email' name='email' value={updatedUser.email} onChange={handleInputChange} />
+              </div>
+              <div>
+                <Label htmlFor='phone'>Phone</Label>
+                <Input id='phone' name='phone' value={updatedUser.phone} onChange={handleInputChange} />
+              </div>
+              {/* Grouping Gender and Date of Birth in the same row */}
+              <div className='flex gap-4'>
+                <div className='w-1/2'>
+                  <Label htmlFor='dateOfBirth'>Date of Birth</Label>
+                  <Input
+                    id='dateOfBirth'
+                    name='dateOfBirth'
+                    type='date'
+                    value={updatedUser.dateOfBirth}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className='w-1/2'>
+                  <Label htmlFor='gender'>Gender</Label>
+                  <select
+                    id='gender'
+                    name='gender'
+                    value={updatedUser.gender}
+                    onChange={handleInputChange}
+                    className='w-full p-2 border rounded-md'
+                  >
+                    <option value='Male'>Male</option>
+                    <option value='Female'>Female</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className='mt-4'>
+              <Button onClick={handleSubmit} className='w-full bg-blue-500 hover:bg-blue-600 text-white'>
+                Save Changes
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </div>
+  )
+}
+
+export default UserProfile

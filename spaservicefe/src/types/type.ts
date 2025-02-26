@@ -226,3 +226,17 @@ export type CategoryEmployee = {
   categoryId: string
   employeeId: string
 }
+
+export type CustomerMembership = {
+  customerId: string
+  membershipId: string
+  startDate: string
+  enđate: string
+}
+
+export type Membership = {
+  membershipId: string
+  type: string
+  totalPayment: GLfloat
+  discount: number
+}

@@ -1113,6 +1113,32 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "FindNewestByCustomerId",
+    "RelativePath": "api/customermemberships/FindNewestByCustomerId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.CustomerMembership",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
     "Method": "GetAllCustomerMembership",
     "RelativePath": "api/customermemberships/GetAll",
     "HttpMethod": "GET",
@@ -1218,7 +1244,7 @@
   {
     "ContainingType": "API.Controllers.CustomerController",
     "Method": "GetCustomerByAccId",
-    "RelativePath": "api/customers/GetByAccId",
+    "RelativePath": "api/customers/GetByAccId/{accId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1226,7 +1252,7 @@
       {
         "Name": "accId",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
