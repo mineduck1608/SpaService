@@ -10,12 +10,10 @@ import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
 import { SessionItem } from '@/types/sessionItem.ts'
 import { getCusByAcc } from '../checkout/checkoutPage.util.ts'
+import { getCart } from '../cosmeticDetailPage/detailPage.util.ts'
 
 export default function CosmeticCheckoutPage() {
-  const cart = JSON.parse(sessionStorage.getItem('cart') ?? '[]') as SessionItem[]
-  if (cart.length === 0) {
-    window.location.assign('/services')
-  }
+  const cart = getCart()
   useEffect(() => {
     async function fetchData() {
       var t = getToken()
@@ -27,7 +25,7 @@ export default function CosmeticCheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) {}
+    } catch (e) { }
   }, [])
   async function onSubmitBase(method: string) {
     toast.error('Not yet')
@@ -86,7 +84,6 @@ export default function CosmeticCheckoutPage() {
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
             <ProductList s={cart} />
           </div>
-
           {/* Sidebar with buttons */}
           <div className='flex w-1/3 flex-col items-center rounded-br-lg rounded-tr-lg bg-purple1 bg-[url(https://senspa.com.vn/wp-content/themes/thuythu/images/background1.png)] bg-[bottom_50px_right] bg-no-repeat px-5 py-4'>
             <p className='text-white'>You can pay via cash or VnPay</p>
@@ -94,7 +91,8 @@ export default function CosmeticCheckoutPage() {
               <button
                 type='submit'
                 onClick={payInCash}
-                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-300'
+                disabled={cart.length === 0}
+                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >
                 Submit request
               </button>
@@ -102,8 +100,9 @@ export default function CosmeticCheckoutPage() {
             <div className='my-3 w-1/2'>
               <button
                 type='submit'
+                disabled={cart.length === 0}
                 onClick={submitWithVnPay}
-                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-300'
+                className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >
                 Pay by VnPay
               </button>

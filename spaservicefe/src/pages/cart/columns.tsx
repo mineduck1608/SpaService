@@ -3,54 +3,13 @@ import { SessionItem } from '@/types/sessionItem'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import { Checkbox } from '../../components/ui/checkbox'
 import { getCart, getCartItem, removeCartItem, setCart, setCartItem } from '../cosmeticDetailPage/detailPage.util'
-
-function checkAllState() {
-  console.log('run')
-  const cart = getCart()
-  var count = 0
-  cart.forEach((v) => {
-    if (v.included) {
-      count++
-    }
-  })
-  if (count === 0) {
-    return false
-  }
-  if (count === cart.length) {
-    return true
-  }
-  return 'indeterminate'
-}
+import RowCheckBox, { AllRowCheckBox, RemoveButton } from './checkboxes'
 
 export const columns: ColumnDef<SessionItem>[] = [
   {
     id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={checkAllState()}
-        onCheckedChange={(value: boolean) => {
-          var cart = getCart()
-          cart.forEach((v) => {
-            v.included = value
-          })
-          setCart(cart)
-          table.toggleAllPageRowsSelected(value)
-          checkAllState()
-        }}
-        aria-label='Select all'
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={getCartItem(row.original.product.productId)?.included}
-        onCheckedChange={(value: boolean) => {
-          var prodId = row.original.product.productId
-          setCartItem(prodId, undefined, value, undefined)
-          row.toggleSelected(value)
-        }}
-        aria-label='Select row'
-      />
-    ),
+    header: ({ table }) => <AllRowCheckBox table={table} />,
+    cell: ({ row }) => <RowCheckBox row={row} />,
     enableSorting: false,
     enableHiding: false
   },
@@ -72,7 +31,7 @@ export const columns: ColumnDef<SessionItem>[] = [
   {
     accessorKey: 'amount',
     header: 'Amount',
-    cell: ({ row }) => row.original.amount
+    cell: ({ row }) => formatNumber(row.original.amount)
   },
   {
     accessorKey: 'Sub Total',
@@ -83,20 +42,7 @@ export const columns: ColumnDef<SessionItem>[] = [
     accessorKey: 'other',
     header: '',
     cell: ({ row }) => (
-      <button
-        className='rounded-sm bg-purple1 p-2 text-white'
-        onClick={(e) => {
-          removeCartItem(row.original.product.productId)
-          var body = document.getElementById('body')
-          var curr = document.getElementById(row.original.product.productId)
-          console.log(body)
-          if (body && curr) {
-            body.removeChild(curr)
-          }
-        }}
-      >
-        Remove
-      </button>
+      <RemoveButton row={row} />
     )
   }
   // {
