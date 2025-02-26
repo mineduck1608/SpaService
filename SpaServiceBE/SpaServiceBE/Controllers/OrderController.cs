@@ -46,42 +46,84 @@ namespace SpaServiceBE.Controllers
             try
             {
                 // Fetch and validate product
-
-                // Check stock availability
-
-                // Calculate subtotal amount
-                float subAmount = (float)(quantity * cosmeticProduct.Price);
-
+                var productIdList = orderRequest.Details.Select(x => x.ProductId).ToList();
+                var products = await _cosmeticProductService.GetProductsOfList(productIdList);
+                productIdList = null;
+                if (products.Count != products.Count)
+                {
+                    return BadRequest(new { msg = "Some products don't exist" });
+                }
+                // Check stock availability AND calculate price at the same time
+                double total = 0;
+                var detailMap = new Dictionary<string, double>();
+                foreach (var product in orderRequest.Details)
+                {
+                    var stockItem = products[product.ProductId];
+                    if (stockItem.Quantity < product.Quantity)
+                    {
+                        return BadRequest(new { msg = $"Cannot order more than stock for {stockItem.ProductName}" });
+                    }
+                    var subTotal = product.Quantity * stockItem.Price;
+                    detailMap.Add(product.ProductId, subTotal);
+                    total += subTotal;
+                }
                 // Generate IDs first
                 string orderId = Guid.NewGuid().ToString("N");
                 string transactionId = Guid.NewGuid().ToString("N");
                 string cosmeticTransactionId = Guid.NewGuid().ToString("N");
 
-                // Create Transaction first
+                var order = new Order
+                {
+                    OrderId = orderId,
+                    CustomerId = orderRequest.CustomerId,
+                    OrderDate = DateTime.Now,
+                    Status = true,
+                    Address = orderRequest.Address,
+                    TotalAmount = (float)total
+                };
+                await _orderService.AddOrderAsync(order);
+                //Order details
+                foreach (var product in orderRequest.Details)
+                {
+                    var orderDetail = new OrderDetail
+                    {
+                        ProductId = product.ProductId,
+                        OrderDetailId = Guid.NewGuid().ToString("N"),
+                        OrderId = orderId,
+                        Quantity = product.Quantity,
+                        SubTotalAmount = (float)detailMap[product.ProductId]
+                    };
+                    await _orderDetailService.Create(orderDetail);
+                }
                 var transaction = new Transaction
                 {
+                    TransactionId = transactionId,
+                    TransactionType = orderRequest.TransactionType,
+                    PaymentType = orderRequest.PaymentType,
+                    PromotionId = orderRequest.PromotionId,
+                    Status = false,
+                    TotalPrice = (float)total,
                 };
                 await _transactionService.Add(transaction);
 
                 // Create CosmeticTransaction before Order due to the foreign key constraint
                 var cosmeticTransaction = new CosmeticTransaction
                 {
-
+                    CosmeticTransactionId = Guid.NewGuid().ToString("N"),
+                    TransactionId = transactionId,
+                    OrderId = orderId,
                 };
                 await _cosmeticTransactionService.CreateAsync(cosmeticTransaction);
 
-                // Now create Order
-                var order = new Order
-                {
 
-                };
                 await _orderService.AddOrderAsync(order);
-
-                // Create OrderDetail
-                
-
                 // Update product stock last
-                
+                foreach (var product in orderRequest.Details)
+                {
+                    var stockItem = products[product.ProductId];
+                    stockItem.Quantity -= product.Quantity;
+                    await _cosmeticProductService.Update(stockItem);
+                }
 
                 return CreatedAtAction(nameof(GetOrderById), new { id = orderId }, new
                 {
