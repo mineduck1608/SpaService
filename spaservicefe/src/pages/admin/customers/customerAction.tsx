@@ -45,23 +45,15 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(customer.customerId)}
-            className='cursor-pointer'
-          >
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(customer.customerId)} className='cursor-pointer'>
             Copy customer ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
       <UpdateCustomerModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} customer={customer} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

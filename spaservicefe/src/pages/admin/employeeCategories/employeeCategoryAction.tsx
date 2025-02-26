@@ -30,7 +30,7 @@ const EmployeeCategoryActions: React.FC<EmployeeCategoryActionsProps> = ({ emplo
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
-    handleDelete(employeeCategory.categoryEmployeeId)
+    handleDelete(employeeCategory)
     closeDeleteModal()
   }
 
@@ -45,28 +45,16 @@ const EmployeeCategoryActions: React.FC<EmployeeCategoryActionsProps> = ({ emplo
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(employeeCategory.categoryEmployeeId)}
-            className='cursor-pointer'
-          >
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employeeCategory.categoryEmployeeId)} className='cursor-pointer'>
             Copy Employee Category ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-
-      <UpdateEmployeeCategoryModal
-        isOpen={isUpdateModalOpen}
-        onClose={closeUpdateModal}
-        employeeCategory={employeeCategory}
-      />
+      <UpdateEmployeeCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employeeCategory={employeeCategory}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

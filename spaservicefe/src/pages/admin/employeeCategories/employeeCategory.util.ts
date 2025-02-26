@@ -18,7 +18,7 @@ export async function getAllEmployeeCategory() {
 
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/spaservices/Create`, {
+    var res = await fetch(`${apiUrl}/categoryemployees/Create`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -41,7 +41,7 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/spaservices/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/categoryemployees/Update/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -62,9 +62,9 @@ export async function handleUpdateSubmit(id: string, data: any) {
   }
 }
 
-export async function handleDelete(id: string) {
+export async function handleDelete(employeeCategory: any) {
   try {
-    var res = await fetch(`${apiUrl}/spaservices/Delete/${id}`, {
+    var res = await fetch(`${apiUrl}/categoryemployees/Delete/${employeeCategory.categoryId}/${employeeCategory.employeeId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -80,7 +80,7 @@ export async function handleDelete(id: string) {
       toast.error('Delete failed. Try again.')
     }
   } catch (error) {
-    console.error('Error deleting customer:', error)
+    console.error('Error deleting employee category:', error)
   }
 }
 

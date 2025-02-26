@@ -926,6 +926,39 @@ export const cosmeticProductConfig = {
   ]
 }
 
+export const employeeCategoryConfig = {
+  updatefields: [
+    {
+      name: 'categoryId',
+      label: 'Category',
+      type: 'select',
+      required: true
+    },
+    {
+      name: 'employeeId',
+      label: 'Employee',
+      type: 'select',
+      required: true
+    }
+  ],
+  fields: [
+    {
+      name: 'categoryId',
+      label: 'Category',
+      type: 'select',
+      required: true,
+      placeholder: 'Select category'
+    },
+    {
+      name: 'employeeId',
+      label: 'Employee',
+      type: 'select',
+      required: true,
+      placeholder: 'Select employee'
+    }
+  ]
+}
+
 export const generateZodSchema = (fields: FieldConfig[]) => {
   const schemaObject: Record<string, any> = {}
 
