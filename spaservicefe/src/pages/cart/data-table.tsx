@@ -15,7 +15,7 @@ import {
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Button } from '../../components/ui/button'
-import { SelectedContext } from './context/selectedContext'
+import { SessionContext } from './context/selectedContext'
 import { SessionItem } from '@/types/sessionItem'
 import { getAmount } from './cartPage.util'
 import { formatNumber } from '../servicesPage/servicesPage.util'
