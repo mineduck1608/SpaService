@@ -12,6 +12,9 @@ namespace Repositories.Entities.RequestModel
         public DateTime OrderDate { get; set; }
         public string Address {  get; set; }
         public List<OrderDetailRequest> Details { get; set; }
+        public string TransactionType { get; set; }
+        public string PaymentType { get; set; }
+        public string? PromotionId { get; set; }
     }
     public class OrderDetailRequest
     {

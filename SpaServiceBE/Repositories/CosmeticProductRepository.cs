@@ -55,11 +55,11 @@ namespace Repositories
                 .Where(p => p.CategoryId == categoryId)
                 .ToListAsync();
         }
-        public async Task<ISet<CosmeticProduct>> GetProductsOfList(string[] list)
+        public async Task<Dictionary<string, CosmeticProduct>> GetProductsOfList(List<string> list)
         {
             return await _context.CosmeticProducts
                 .Where(p => list.Contains(p.ProductId))
-                .ToHashSetAsync();
+                .ToDictionaryAsync(x => x.ProductId, x => x);
         }
     }
 }

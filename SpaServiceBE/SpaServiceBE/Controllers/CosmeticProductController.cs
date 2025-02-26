@@ -69,7 +69,7 @@ namespace SpaServiceBE.Controllers
                 {
                     ProductId = Guid.NewGuid().ToString("N"),
                     ProductName = productName,
-                    Price = price ?? 0,
+                    Price = price ,
                     Quantity = quantity,
                     Description = description,
                     Status = true,
@@ -113,7 +113,7 @@ namespace SpaServiceBE.Controllers
                     return BadRequest(new { msg = "Product ID mismatch." });
                 else
                 product.ProductName = productName;
-                product.Price = price ?? 0;
+                product.Price = price;
                 product.Quantity = quantity;
                 product.Description = description;
                 product.IsSelling = isSelling;
