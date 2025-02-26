@@ -76,8 +76,8 @@ namespace API.Controllers
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
                 // Chuyển đổi Duration từ string sang TimeSpan
-                TimeSpan duration;
-                if (!TimeSpan.TryParse(durationString, out duration))
+                TimeOnly duration;
+                if (!TimeOnly.TryParse(durationString, out duration))
                 {
                     return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
                 }
@@ -147,8 +147,8 @@ namespace API.Controllers
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
                 // Chuyển đổi Duration từ string sang TimeSpan
-                TimeSpan duration;
-                if (!TimeSpan.TryParse(durationString, out duration))
+                TimeOnly duration;
+                if (!TimeOnly.TryParse(durationString, out duration))
                 {
                     return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
                 }

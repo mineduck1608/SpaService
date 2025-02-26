@@ -69,14 +69,13 @@ namespace SpaServiceBE.Controllers
                 {
                     ProductId = Guid.NewGuid().ToString("N"),
                     ProductName = productName,
-                    Price = price,
+                    Price = price ,
                     Quantity = quantity,
                     Description = description,
                     Status = true,
                     IsSelling = true,
                     Image = image,
-                    CategoryId = categoryId, 
-                    IsDeleted = false
+                    CategoryId = categoryId,
                 };
 
                 await _service.Create(item);

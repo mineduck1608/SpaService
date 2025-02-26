@@ -15,10 +15,11 @@ import {
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Button } from '../../components/ui/button'
-import { SelectedContext } from './context/selectedContext'
+import { SessionContext } from './context/selectedContext'
 import { SessionItem } from '@/types/sessionItem'
 import { getAmount } from './cartPage.util'
 import { formatNumber } from '../servicesPage/servicesPage.util'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface DataTableProps {
   columns: any[]
@@ -28,6 +29,8 @@ interface DataTableProps {
 }
 
 export function DataTable({ columns, data }: DataTableProps) {
+  const nav = useNavigate()
+  const context = React.useContext(SessionContext)
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -52,7 +55,7 @@ export function DataTable({ columns, data }: DataTableProps) {
   })
 
   return (
-    <div className=''>
+    <div className='mt-10'>
       <div className='mt-2 rounded-md border bg-slate-50'>
         <Table className=''>
           <TableHeader>
@@ -77,15 +80,21 @@ export function DataTable({ columns, data }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      <div className='flex justify-end items-center gap-2'>
+      <div className='flex items-center justify-end gap-2'>
         <span className='text-lg font-medium'>Total amount is:</span>
-        <p className='mt-3 text-red-500 font-bold text-lg'>{formatNumber(getAmount())} VND</p>
+        <p className='mt-3 text-lg font-bold text-red-500'>{formatNumber(getAmount())} VND</p>
       </div>
 
       <div className='flex items-center justify-end space-x-2 pb-4'>
-        <Button className='block' variant='outline' size='sm' onClick={() => {}}>
+        <button
+          className='rounded-sm bg-purple1 p-2 text-white no-underline disabled:bg-gray-400 disabled:text-white'
+          onClick={() => {
+            nav('/cosmetics-check-out')
+          }}
+          disabled={context.items.filter((x) => x.included).length === 0}
+        >
           Check Out
-        </Button>
+        </button>
       </div>
     </div>
   )

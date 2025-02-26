@@ -1,6 +1,7 @@
 import { SessionItem } from '../../types/sessionItem'
 import React from 'react'
 import { formatNumber } from '../servicesPage/servicesPage.util'
+import { getCart } from '../cosmeticDetailPage/detailPage.util'
 
 export default function ProductList(params: { s: SessionItem[] }) {
   const items = params.s
@@ -41,6 +42,8 @@ export default function ProductList(params: { s: SessionItem[] }) {
           ))}
         </tbody>
       </table>
+
+      {getCart().length === 0 && <p className='mt-2'>There's nothing here...</p>}
       <div className='mt-2 flex flex-row justify-end'>
         <p>
           The total amount is:&nbsp;

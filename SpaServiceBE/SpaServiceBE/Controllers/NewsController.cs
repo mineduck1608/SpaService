@@ -83,7 +83,6 @@ namespace API.Controllers
                     Content = content,
                     Type = type,
                     Image = image,
-                    IsDeleted = false
                 };
 
                 // Call service to add news
