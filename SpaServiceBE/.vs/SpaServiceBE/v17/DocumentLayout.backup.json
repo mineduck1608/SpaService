@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "D:\\Coding\\SpaService\\SpaServiceBE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\cosmeticproductcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\cosmeticproductcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\entities\\cosmeticproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\entities\\cosmeticproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\spaservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\spaservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\entities\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\entities\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\entities\\spaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\entities\\spaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\entities\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\entities\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\cosmeticproductcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\cosmeticproductcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\spaservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\spaservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\entities\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -370,7 +370,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
@@ -413,13 +413,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "CosmeticProduct.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\CosmeticProduct.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\CosmeticProduct.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\CosmeticProduct.cs",
               "RelativeToolTip": "Repositories\\Entities\\CosmeticProduct.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-25T14:21:44.865Z",
               "EditorCaption": ""
@@ -439,7 +439,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Application.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Application.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Application.cs",
@@ -452,12 +452,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "SpaService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\SpaService.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\SpaService.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\SpaService.cs",
-              "RelativeToolTip": "Repositories\\Entities\\SpaService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\SpaService.cs*",
+              "RelativeToolTip": "Repositories\\Entities\\SpaService.cs*",
               "ViewState": "AgIAAAgAAAAAAAAAAAAQwA0AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T16:15:46.372Z",
@@ -465,7 +465,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "SpaServiceController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\SpaServiceController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\SpaServiceController.cs",
@@ -478,13 +478,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "CosmeticProductController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\CosmeticProductController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\CosmeticProductController.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\CosmeticProductController.cs*",
-              "RelativeToolTip": "SpaServiceBE\\Controllers\\CosmeticProductController.cs*",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAiwGAAAAAVAAAAAAAAAA==",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\CosmeticProductController.cs",
+              "RelativeToolTip": "SpaServiceBE\\Controllers\\CosmeticProductController.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAiwGAAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-23T07:23:18.414Z",
               "EditorCaption": ""

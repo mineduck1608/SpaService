@@ -105,15 +105,18 @@ namespace SpaServiceBE.Controllers
                         ApplicationId = Guid.NewGuid().ToString("N"), // Generate unique ID
                         Status = "Pending",
                         Content = content,
-                        AccountId = "Guest",
+                        AccountId = null,
                         CreatedAt = DateTime.UtcNow,
                         ResolvedBy = null,
                         ResolvedAt = null
                     };
 
 
-                    // Create GuestApplication object
-                    var guestApplication = new GuestApplication
+                // Call service to add application
+                await _applicationService.CreateApplicationAsync(guest);
+
+                // Create GuestApplication object
+                var guestApplication = new GuestApplication
                     {
                         GuestApplicationId = Guid.NewGuid().ToString("N"), // Generate unique ID
                         FullName = fullName,
@@ -125,9 +128,6 @@ namespace SpaServiceBE.Controllers
                     // Call service to add guest application
                     await _guestApplicationService.AddAsync(guestApplication);
 
-
-                    // Call service to add application
-                    await _applicationService.CreateApplicationAsync(guest);
 
                     return Ok(guest);
             }
