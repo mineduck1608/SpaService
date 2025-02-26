@@ -62,8 +62,8 @@ export default function AddPromotionModal() {
                               <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value='true'>Active</SelectItem>
-                              <SelectItem value='false'>Locked</SelectItem>
+                              <SelectItem value='true'>Available</SelectItem>
+                              <SelectItem value='false'>Unavailable</SelectItem>
                             </SelectContent>
                           </Select>
                         ) : (

@@ -53,7 +53,7 @@ export const columns: ColumnDef<Promotion>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const isActive = row.getValue<boolean>('isActive')
-      const statusText = isActive ? 'Active' : 'Locked'
+      const statusText = isActive ? 'Available' : 'Unavailable'
       const statusColor = isActive ? 'text-green-500' : 'text-red-500'
       return <span className={statusColor}>{statusText}</span>
     }

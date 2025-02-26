@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Floor, Room, ServiceCategory } from '../../../types/type'
+import { Floor, Room } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllRooms() {

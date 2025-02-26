@@ -15,7 +15,7 @@ import { roomConfig } from '../modal.util'
 import { Floor } from 'src/types/type'
 import { getAllFloors } from '../floors/floor.util'
 
-export default function AddFloorModal() {
+export default function AddRoomModal() {
   const fieldsToUse = roomConfig.fields
   const [floors, setFloors] = useState<Floor[]>([])
   const formSchema = generateZodSchema(fieldsToUse)
@@ -28,6 +28,7 @@ export default function AddFloorModal() {
     const selectedFloor = floors.find((floor) => floor.floorId === data.floorId)
     if (selectedFloor) data.floorId = selectedFloor.floorId
     data.roomNum = parseInt(data.roomNum) || 0
+    data.status = data.status === 'Available'
     handleCreateSubmit(data)
   }
 
@@ -59,23 +60,39 @@ export default function AddFloorModal() {
                     <div className='col-span-3 space-y-1'>
                       <FormControl>
                         {field.type === 'select' ? (
-                          <Select
-                            onValueChange={(value) => {
-                              form.setValue('floorId', value)
-                            }}
-                            disabled={field.readonly}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {floors.map((floor) => (
-                                <SelectItem key={floor.floorId} value={floor.floorId}>
-                                  {floor.floorNum}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                          field.name === 'floorId' ? (
+                            <Select
+                              onValueChange={(value) => {
+                                form.setValue('floorId', value)
+                              }}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {floors.map((floor) => (
+                                  <SelectItem key={floor.floorId} value={floor.floorId}>
+                                    {floor.floorNum}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          ) : (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='Available'>Available</SelectItem>
+                                <SelectItem value='Occupied'>Occupied</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )  
                         ) : (
                           <Input
                             {...formField}
