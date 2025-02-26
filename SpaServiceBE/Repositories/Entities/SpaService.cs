@@ -19,6 +19,8 @@ public partial class SpaService
 
     public string CategoryId { get; set; } = null!;
 
+    public bool IsDeleted { get; set; }
+
     public virtual ServiceCategory Category { get; set; } = null!;
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();

@@ -11,6 +11,8 @@ public partial class Floor
 
     public string CategoryId { get; set; } = null!;
 
+    public bool IsDeleted { get; set; }
+
     public virtual ServiceCategory Category { get; set; } = null!;
 
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();

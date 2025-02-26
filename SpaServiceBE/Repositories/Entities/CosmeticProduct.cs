@@ -23,6 +23,8 @@ public partial class CosmeticProduct
 
     public string CategoryId { get; set; } = null!;
 
+    public bool IsDeleted { get; set; }
+
     public virtual CosmeticCategory Category { get; set; } = null!;
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();

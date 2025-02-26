@@ -53,7 +53,7 @@ namespace SpaServiceBE.Controllers
                     RoomId = Guid.NewGuid().ToString("N"),
                     FloorId = floorId,
                     RoomNum = roomNum,
-                    Status = true
+                    IsDeleted = false
                 };
 
                 await _roomService.CreateRoom(room);

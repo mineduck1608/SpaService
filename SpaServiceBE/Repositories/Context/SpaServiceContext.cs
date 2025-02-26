@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Repositories.Entities;
 
 namespace Repositories.Context;
@@ -74,15 +73,10 @@ public partial class SpaserviceContext : DbContext
     public virtual DbSet<SpaService> SpaServices { get; set; }
 
     public virtual DbSet<Transaction> Transactions { get; set; }
-    private string? GetConnectionString()
-    {
-        IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true).Build();
-        return configuration["ConnectionStrings:DefaultConnectionStringDB"];
-    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=MINEDUCK\\MINEDUCK;Database=spaservice;UID=sa;PWD=12345;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -325,6 +319,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("image");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.IsSelling).HasColumnName("isSelling");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ProductName)
@@ -562,6 +557,7 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("categoryId");
             entity.Property(e => e.FloorNum).HasColumnName("floorNum");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
 
             entity.HasOne(d => d.Category).WithMany(p => p.Floors)
                 .HasForeignKey(d => d.CategoryId)
@@ -683,6 +679,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("image");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.Type)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -862,8 +859,8 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("floorId");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.RoomNum).HasColumnName("roomNum");
-            entity.Property(e => e.Status).HasColumnName("status");
 
             entity.HasOne(d => d.Floor).WithMany(p => p.Rooms)
                 .HasForeignKey(d => d.FloorId)
@@ -946,6 +943,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Duration).HasColumnName("duration");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ServiceImage).HasColumnName("serviceImage");
             entity.Property(e => e.ServiceName)

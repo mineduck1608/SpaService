@@ -109,7 +109,8 @@ namespace API.Controllers
                     Duration = duration,
                     Description = description,
                     ServiceImage = serviceImage,
-                    CategoryId = categoryId
+                    CategoryId = categoryId,
+                    IsDeleted = false
                 };
 
                 // Gọi service để thêm vào database

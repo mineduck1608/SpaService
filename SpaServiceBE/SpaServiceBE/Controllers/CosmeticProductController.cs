@@ -75,7 +75,8 @@ namespace SpaServiceBE.Controllers
                     Status = true,
                     IsSelling = true,
                     Image = image,
-                    CategoryId = categoryId
+                    CategoryId = categoryId, 
+                    IsDeleted = false
                 };
 
                 await _service.Create(item);
