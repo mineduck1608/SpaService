@@ -53,7 +53,7 @@ export function DataTable({ columns, data }: DataTableProps) {
   })
 
   return (
-    <div className=''>
+    <div className='mt-10'>
       <div className='mt-2 rounded-md border bg-slate-50'>
         <Table className=''>
           <TableHeader>
