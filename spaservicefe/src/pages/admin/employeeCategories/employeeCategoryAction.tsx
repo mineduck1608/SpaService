@@ -11,7 +11,6 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { CategoryEmployee } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './employeeCategory.util'
 import UpdateEmployeeCategoryModal from './employeeCategoryUpdateModal'
 
@@ -53,7 +52,6 @@ const EmployeeCategoryActions: React.FC<EmployeeCategoryActionsProps> = ({ emplo
           <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateEmployeeCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employeeCategory={employeeCategory}/>
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

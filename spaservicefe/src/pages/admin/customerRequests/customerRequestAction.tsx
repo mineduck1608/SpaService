@@ -55,7 +55,6 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
           <DropdownMenuItem onClick={openModal}>Cancelled</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
       <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
       <EditRequestModal isOpen={isEditModalOpen} onClose={closeEditModal} request={request} onSave={handleUpdate} />
     </>

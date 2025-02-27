@@ -53,7 +53,6 @@ const RoomActions: React.FC<RoomActionsProps> = ({ room }) => {
           <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateRoomModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} room={room} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

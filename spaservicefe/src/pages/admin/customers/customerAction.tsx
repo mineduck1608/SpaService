@@ -12,7 +12,6 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Customer } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateCustomerModal from './customerUpdateModal'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './customer.util'
 
 interface CustomerActionsProps {
@@ -53,7 +52,6 @@ const CustomerActions: React.FC<CustomerActionsProps> = ({ customer }) => {
           <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateCustomerModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} customer={customer} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

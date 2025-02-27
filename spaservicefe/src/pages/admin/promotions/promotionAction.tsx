@@ -11,7 +11,6 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Promotion } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './promotion.util'
 import UpdatePromotionModal from './promotionUpdateModal'
 
@@ -52,15 +51,10 @@ const PromotionActions: React.FC<PromotionActionsProps> = ({ promotion }) => {
             Copy promotion ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdatePromotionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} promotion={promotion} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

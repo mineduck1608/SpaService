@@ -58,7 +58,6 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
           <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

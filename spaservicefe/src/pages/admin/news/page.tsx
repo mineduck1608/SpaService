@@ -3,7 +3,6 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { News } from '@/types/type'
 import { getAllNews } from './new.util'
-import { format } from 'date-fns'
 import { getServiceCategoryById } from '../employeeCategories/employeeCategory.util'
 
 export default function AdminNewsPage() {
@@ -18,16 +17,14 @@ export default function AdminNewsPage() {
 
         const formattedNews = await Promise.all(
           news.map(async (item) => {
-            const category = await getServiceCategoryById(item.categoryId) // Fetch category for floor
-        
-                    const categoryName = category ? category.categoryName : 'Unknown' // Set default category name
-                    return {
-                      ...item,
-                      categoryName, // Add category name to floor data
-                    }
-                  })
-                )
-        
+            const category = await getServiceCategoryById(item.categoryId)
+            const categoryName = category ? category.categoryName : 'Unknown'
+            return {
+              ...item,
+              categoryName,
+            }
+          })
+        )
 
         setData(formattedNews)
       } catch (err) {

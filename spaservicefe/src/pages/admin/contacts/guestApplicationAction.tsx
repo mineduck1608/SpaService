@@ -12,7 +12,6 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { GuestApplication } from '../../../types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { handleDelete } from './guestApplication.util'
-import { ToastContainer } from 'react-toastify'
 
 interface GuestContactActionsProps {
   guestApplication: GuestApplication
@@ -47,7 +46,6 @@ const GuestApplicationActions: React.FC<GuestContactActionsProps> = ({ guestAppl
           {/* <DropdownMenuItem onClick={openModal} className='cursor-pointer'>Delete</DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       {/* <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} /> */}
     </>
   )

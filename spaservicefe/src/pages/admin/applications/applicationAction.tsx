@@ -51,7 +51,6 @@ const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) 
           <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateApplicationModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} application={application} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

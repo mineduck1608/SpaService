@@ -12,7 +12,6 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { CosmeticCategory } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateCategoryModal from './categoryUpdateModal'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './category.util'
 
 interface CategoryActionsProps {
@@ -53,7 +52,6 @@ const CategoriesActions: React.FC<CategoryActionsProps> = ({ category }) => {
           <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} category={category} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

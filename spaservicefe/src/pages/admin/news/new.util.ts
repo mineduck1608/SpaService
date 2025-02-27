@@ -1,6 +1,6 @@
 import { apiUrl, getToken } from '../../../types/constants'
 import { News, ServiceCategory } from '../../../types/type'
-import { toast } from 'react-toastify'
+import { toast, Bounce } from 'react-toastify'
 
 export async function getAllNews() {
   try {
@@ -41,12 +41,13 @@ export async function handleCreateSubmit(data: any) {
       body: JSON.stringify(data)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully create!', {
-        autoClose: 2000
-      })
+      toast.success('Successfully create!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.')
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      })
     }
   } catch (e) {
     return []
@@ -63,13 +64,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
       },
       body: JSON.stringify(data)
     })
-    if (res.status >= 200 && res.status < 3004) {
-      toast.success('Successfully update!', {
-        autoClose: 2000
-      })
+    if (res.status >= 200 && res.status < 300) {
+      toast.success('Successfully update!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.')
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      })
     }
   } catch (e) {
     return []
@@ -86,12 +88,13 @@ export async function handleDelete(newsId: string) {
       }
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Delete successfully', {
-        autoClose: 2000
-      })
+      toast.success('Delete successfully')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Delete failed. Try again.')
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      })
     }
   } catch (error) {
     console.error('Error deleting news:', error)

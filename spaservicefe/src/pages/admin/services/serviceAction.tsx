@@ -12,7 +12,6 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { SpaService } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateServiceModal from './serviceUpdateModal'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './service.util'
 
 interface SpaServiceActionsProps {
@@ -57,7 +56,6 @@ const ServiceActions: React.FC<SpaServiceActionsProps> = ({ service }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateServiceModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} service={service} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
