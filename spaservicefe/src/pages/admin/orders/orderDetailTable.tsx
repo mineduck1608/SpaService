@@ -10,9 +10,8 @@ import {
   TableRow
 } from '../../../components/ui/table'
 import { OrderDetail } from '@/types/type'
-import { GetCosmeticProductById, GetOrderDetailByOrderId } from './order.util'
+import { getCosmeticProductById, getOrderDetailByOrderId } from './order.util'
 
-// Helper function to fetch product details by productId
 const GetProductById = async (productId: string) => {
   const response = await fetch(`/api/products/${productId}`)
   if (!response.ok) {
@@ -21,32 +20,30 @@ const GetProductById = async (productId: string) => {
   return response.json()
 }
 
-// Function to format the number with commas
 const formatPrice = (price: number) => {
-  return price.toLocaleString('vi-VN') // Format as VND with comma separators
+  return price.toLocaleString('vi-VN')
 }
 
 interface OrderDetailTableProps {
-  orderId: string // The orderId passed as a prop
+  orderId: string
 }
 
 export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
-  const [orderDetails, setOrderDetails] = useState<OrderDetail[]>([]) // State to store order details
+  const [orderDetails, setOrderDetails] = useState<OrderDetail[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const fetchedDetails = await GetOrderDetailByOrderId(orderId) // Fetch order details using orderId
+        const fetchedDetails = await getOrderDetailByOrderId(orderId)
         const enrichedDetails = await Promise.all(
           fetchedDetails.map(async (detail: OrderDetail) => {
-            // Fetch product details for each order detail
-            const product = await GetCosmeticProductById(detail.productId)
+            const product = await getCosmeticProductById(detail.productId)
             return { ...detail, product }
           })
         )
-        setOrderDetails(enrichedDetails) // Store the enriched order details
+        setOrderDetails(enrichedDetails)
       } catch (err) {
         setError('Failed to load data.')
       } finally {
@@ -54,9 +51,8 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
       }
     }
     fetchOrderDetails()
-  }, [orderId]) // Fetch data whenever the orderId changes
+  }, [orderId])
 
-  // Check if data is still loading or an error occurred
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error}</div>
 
@@ -74,17 +70,15 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
       </TableHeader>
       <TableBody>
         {orderDetails.map((detail, index) => {
-          // Using index to generate incremental numbers for "No"
-          const { product } = detail // Get the product details
+          const { product } = detail
 
           return (
             <TableRow key={detail.orderDetailId}>
-              <TableCell>{index + 1}</TableCell> {/* Displaying the incremented "No" */}
+              <TableCell>{index + 1}</TableCell>
               <TableCell>{product.productName}</TableCell>
               <TableCell>{detail.quantity}</TableCell>
-              <TableCell>{`${formatPrice(product.price)}`}</TableCell> {/* Price in VND with commas */}
+              <TableCell>{`${formatPrice(product.price)}`}</TableCell>
               <TableCell className='text-right'>{`${formatPrice(product.price * detail.quantity)}`}</TableCell>{' '}
-              {/* Subtotal in VND with commas */}
             </TableRow>
           )
         })}

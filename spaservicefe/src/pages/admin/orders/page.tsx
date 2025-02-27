@@ -3,9 +3,10 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Order } from '@/types/type'
 import { getAllOrders } from '../orders/order.util'
+import { getAllCustomers } from '../customers/customer.util'
 import { format } from 'date-fns'
 
-export default function EmployeePage() {
+export default function OrderPage() {
   const [data, setData] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -13,11 +14,25 @@ export default function EmployeePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const orders = await getAllOrders()
+        const [orders, allCustomers] = await Promise.all([getAllOrders(), getAllCustomers()])
+
+        const customerMap = allCustomers.reduce(
+          (acc, customer) => {
+            acc[customer.customerId] = {
+              fullName: customer.fullName,
+              phone: customer.phone
+            }
+            return acc
+          },
+          {} as Record<string, { fullName: string; phone: string }>
+        )
 
         const formattedOrders = orders.map((order) => ({
           ...order,
-          hireDate: format(new Date(order.orderDate), 'dd/MM/yyyy')
+          orderDate: format(new Date(order.orderDate), 'dd/MM/yyyy'),
+          name: customerMap[order.customerId]?.fullName || 'Unknown',
+          phone: customerMap[order.customerId]?.phone || 'Unknown',
+          status: order.status ? 'Processed' : 'Unprocessed'
         }))
 
         setData(formattedOrders)
@@ -27,6 +42,7 @@ export default function EmployeePage() {
         setLoading(false)
       }
     }
+
     fetchData()
   }, [])
 
@@ -35,7 +51,7 @@ export default function EmployeePage() {
 
   return (
     <div className='h-[96%] items-center justify-center'>
-      <h2 className='container mx-auto my-4 ml-11'>Order Management</h2> {/* Đổi thành Employee Management */}
+      <h2 className='container mx-auto my-4 ml-11'>Orders Management</h2>
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

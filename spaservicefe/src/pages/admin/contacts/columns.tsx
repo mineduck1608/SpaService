@@ -2,10 +2,10 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
-import ContactActions from './contactAction' // Assuming updated actions for contacts
-import { Contact } from '@/types/type' // Assuming `Contact` is the correct type based on the entity
+import GuestApplicationActions from './guestApplicationAction'
+import { GuestApplication } from '@/types/type'
 
-export const columns: ColumnDef<Contact>[] = [
+export const columns: ColumnDef<GuestApplication>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -26,18 +26,13 @@ export const columns: ColumnDef<Contact>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'contactId',
+    accessorKey: 'fullName',
     header: ({ column }) => (
       <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Contact ID
+        Full Name
         <ArrowUpDown className='ml-2 h-4 w-4' />
       </Button>
     )
-  },
-  {
-    accessorKey: 'fullName',
-    header: 'Full Name',
-    cell: ({ row }) => row.getValue('fullName')
   },
   {
     accessorKey: 'phoneNumber',
@@ -50,24 +45,14 @@ export const columns: ColumnDef<Contact>[] = [
     cell: ({ row }) => row.getValue('email')
   },
   {
-    accessorKey: 'contactContent',
+    accessorKey: 'content',
     header: 'Contact Content',
-    cell: ({ row }) => row.getValue('contactContent') || 'No content provided'
-  },
-  {
-    accessorKey: 'isProcessed',
-    header: 'Processed',
-    cell: ({ row }) => {
-      const isProcessed = row.getValue<boolean>('isProcessed')
-      const processedColor = isProcessed ? 'text-green-500' : 'text-red-500'
-      return <span className={processedColor}>{isProcessed ? 'Yes' : 'No'}</span>
-    }
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const contact = row.original
-      return <ContactActions contact={contact} /> // Assuming this component handles actions for the contact
+      const guestApplication = row.original
+      return <GuestApplicationActions guestApplication={guestApplication} />
     }
   }
 ]

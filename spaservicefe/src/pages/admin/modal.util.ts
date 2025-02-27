@@ -646,9 +646,8 @@ export const transactionConfig = {
     {
       name: 'transactionType',
       label: 'Transaction Type',
-      type: 'text',
+      type: 'select',
       required: true,
-      placeholder: 'Enter new type'
     },
     {
       name: 'totalPrice',
@@ -664,7 +663,6 @@ export const transactionConfig = {
       label: 'Payment Type',
       type: 'select',
       required: true,
-      placeholder: 'Select payment type'
     },
     {
       name: 'status',

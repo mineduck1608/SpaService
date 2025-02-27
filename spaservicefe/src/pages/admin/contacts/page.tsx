@@ -1,25 +1,31 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { Contact } from '../../../types/type' // Updated to Contact type
-import { getAllContacts } from '../contacts/contact.util' // Assuming a new function to get all contacts
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
+import { GuestApplication } from '../../../types/type'
+import { getAllGuestApplications } from './guestApplication.util'
+import { getAllApplications } from '../applications/application.util'
 
 export default function ContactAdminPage() {
-  const [data, setData] = useState<Contact[]>([]) // Updated to Contact type
+  const [data, setData] = useState<GuestApplication[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const contacts = await getAllContacts() // Fetch the contacts
+        const [guestContacts, applications] = await Promise.all([getAllGuestApplications(), getAllApplications()])
+        
+        const applicationMap = applications.reduce(
+          (guestContact, application) => {
+            guestContact[application.applicationId] = application.content
+            return guestContact
+          },
+          {} as Record<string, string>
+        )
 
-        const formattedContacts = contacts.map((contact) => ({
-          ...contact
-          // If you want to format the date or other fields, you can apply here
-          // For instance, formatting the `createdAt` date if you have it:
-          // createdAt: format(new Date(contact.createdAt), 'dd/MM/yyyy HH:mm:ss'),
+        const formattedContacts = guestContacts.map((guestContact) => ({
+          ...guestContact,
+          content: applicationMap[guestContact.applicationId] || 'N/A'
         }))
 
         setData(formattedContacts)
@@ -37,7 +43,7 @@ export default function ContactAdminPage() {
 
   return (
     <div className='h-[96%] items-center justify-center'>
-      <h2 className='container mx-auto my-4 ml-11'>Contact Management</h2>
+      <h2 className='container mx-auto my-4 ml-11'>Guest Contact Management</h2>
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

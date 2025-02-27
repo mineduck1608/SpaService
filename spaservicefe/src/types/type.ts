@@ -118,6 +118,13 @@ export type Promotion = {
   discountValue: number
   isActive: boolean
 }
+export type GuestApplication = {
+  guestApplicationId: string
+  fullName: string
+  phoneNumber: string
+  email: string
+  applicationId: string
+}
 
 export type Application = {
   applicationId: string

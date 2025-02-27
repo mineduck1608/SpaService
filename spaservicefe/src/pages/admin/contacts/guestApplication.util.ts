@@ -1,59 +1,29 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { CosmeticProduct, Order, OrderDetail } from '../../../types/type'
+import { GuestApplication } from '../../../types/type'
 import { toast } from 'react-toastify'
 
-export async function getAllOrders() {
+export async function getAllGuestApplications() {
   try {
-    const res = await fetch(`${apiUrl}/orders/GetAll`, {
+    var res = await fetch(`${apiUrl}/guestapplications/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    const json = (await res.json()) as Order[]
+    var json = (await res.json()) as GuestApplication[]
     return json
   } catch (e) {
     return []
   }
 }
 
-export async function getOrderDetailByOrderId(id: string) {
+export async function getAllContacts() {
   try {
-    var s = await fetch(`${apiUrl}/orderdetails/GetOrderDetailByOrderId/${id}`, {
+    var res = await fetch(`${apiUrl}/guestapplications/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    var rs = (await s.json()) as OrderDetail
-    return rs
-  } catch (e) {
-    return []
-  }
-}
-
-export async function getCosmeticProductById(id: string) {
-  try {
-    var res = await fetch(`${apiUrl}/cosmeticproducts/GetById/${id}`, {
-
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
-    var json = (await res.json()) as CosmeticProduct[]
-    return json
-  } catch (e) {
-    return []
-  }
-}
-
-export async function updateOrderStatus(id: string) {
-  try {
-    var res = await fetch(`${apiUrl}/orders/ConfirmOrder/${id}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
-    var json = await res.json()
+    var json = (await res.json()) as GuestApplication[]
     return json
   } catch (e) {
     return []
@@ -62,7 +32,7 @@ export async function updateOrderStatus(id: string) {
 
 export async function handleCreateSubmit(data: any) {
   try {
-    var res = await fetch(`${apiUrl}/orders/Create`, {
+    var res = await fetch(`${apiUrl}/guestapplications/Create`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -83,9 +53,15 @@ export async function handleCreateSubmit(data: any) {
   }
 }
 
-export async function handleUpdateSubmit(id: string, data: any) {
+export async function handleUpdateSubmit(application: any, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/orders/Update/${id}`, {
+    const updatedData = {
+      ...data,
+      accountId: application.accountId,
+      createdAt: application.createdAt,
+      resolvedAt: new Date().toISOString()
+    }
+    var res = await fetch(`${apiUrl}/guestapplications/Update/${application.applicationId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -108,7 +84,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
 
 export async function handleDelete(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/orders/Delete/${id}`, {
+    var res = await fetch(`${apiUrl}/guestapplications/Delete/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -124,6 +100,6 @@ export async function handleDelete(id: string) {
       toast.error('Delete failed. Try again.')
     }
   } catch (error) {
-    console.error('Error deleting order:', error)
+    console.error('Error deleting application:', error)
   }
 }
