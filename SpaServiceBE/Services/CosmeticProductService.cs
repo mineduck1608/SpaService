@@ -48,9 +48,9 @@ namespace Services
             return await _repository.GetProductsByCategoryId(categoryId);
         }
 
-        public Task<Dictionary<string, CosmeticProduct>> GetProductsOfList(List<string> productIdList)
+        public async Task<Dictionary<string, CosmeticProduct>> GetProductsOfList(List<string> productIdList)
         {
-            throw new NotImplementedException();
+            return await _repository.GetProductsOfList(productIdList);
         }
     }
 }

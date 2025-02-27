@@ -1,19 +1,17 @@
 import { Service } from '../../types/services.ts'
 import { FormEvent, useEffect, useState } from 'react'
 import ProductList from './productList.tsx'
-import { SpaRequest } from '@/types/request.ts'
-import { Input, DatePicker } from 'antd'
-import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
 import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
-import { SessionItem } from '@/types/sessionItem.ts'
-import { getCusByAcc } from '../checkout/checkoutPage.util.ts'
+import { getCusByAcc, getCustomerIdByAcc } from '../checkout/checkoutPage.util.ts'
 import { getCart } from '../cosmeticDetailPage/detailPage.util.ts'
+import { createOrder } from './checkoutPage.util.ts'
 
 export default function CosmeticCheckoutPage() {
-  const cart = getCart()
+  const cart = getCart().filter((x) => x.included)
+  const [addr, setAddr] = useState('')
   useEffect(() => {
     async function fetchData() {
       var t = getToken()
@@ -28,23 +26,33 @@ export default function CosmeticCheckoutPage() {
     } catch (e) { }
   }, [])
   async function onSubmitBase(method: string) {
-    toast.error('Not yet')
+    try {
+      const customerId = await getCustomerIdByAcc()
+      const result = await createOrder({
+        address: addr,
+        customerId: customerId ?? '',
+        orderDate: new Date(),
+        paymentType: method,
+        details: cart.map(v => {
+          return {
+            productId: v.product.productId,
+            quantity: v.amount
+          }
+        })
+      })
+      return result
+    } catch (e) {
+      toast.error(e as string)
+      return ''
+    }
   }
   async function payInCash(e: FormEvent) {
     e.preventDefault()
-    onSubmitBase('')
-    // try {
-    //   var r = await onSubmitBase('Cash')
-    //   if (r) {
-    //     toast.success('Request created successfully')
-    //   }
-    // } catch (e) {
-    //   toast.error(e as string)
-    // }
+    onSubmitBase('Cash')
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
-    onSubmitBase('')
+    onSubmitBase('VnPay')
     // try {
     //   var r = await onSubmitBase('VnPay')
 
@@ -66,23 +74,31 @@ export default function CosmeticCheckoutPage() {
     //   toast.error(e as string)
     // }
   }
-
+  const disabled = cart.length === 0 || addr.length === 0
   return (
-    <div className='relative h-[100vh] w-full overflow-hidden'>
+    <div
+      className='w-full overflow-hidden'
+      style={{
+        backgroundImage: `url(https://senspa.com.vn/wp-content/uploads/2020/11/banner-2.png)`,
+        backgroundSize: 'cover'
+      }}
+    >
       <ToastContainer />
-      {/* Hình ảnh nền */}
-      <div
-        className='h-full w-full bg-cover bg-center transition-all'
-        style={{
-          backgroundImage: `url(https://senspa.com.vn/wp-content/uploads/2020/11/banner-2.png)`
-        }}
-      ></div>
-
       {/* Khung form */}
-      <div className='absolute left-0 right-0 top-20 z-10 mt-32 flex justify-center'>
+      <div className='mb-48 mt-48 flex justify-center'>
         <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
             <ProductList s={cart} />
+            <div>
+              <p>Address</p>
+              <input
+                type='text'
+                className='w-full border-[1px] p-2'
+                value={addr}
+                required
+                onChange={(e) => setAddr(e.target.value)}
+              />
+            </div>
           </div>
           {/* Sidebar with buttons */}
           <div className='flex w-1/3 flex-col items-center rounded-br-lg rounded-tr-lg bg-purple1 bg-[url(https://senspa.com.vn/wp-content/themes/thuythu/images/background1.png)] bg-[bottom_50px_right] bg-no-repeat px-5 py-4'>
@@ -91,16 +107,16 @@ export default function CosmeticCheckoutPage() {
               <button
                 type='submit'
                 onClick={payInCash}
-                disabled={cart.length === 0}
+                disabled={disabled}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >
-                Submit request
+                Submit order
               </button>
             </div>
             <div className='my-3 w-1/2'>
               <button
                 type='submit'
-                disabled={cart.length === 0}
+                disabled={disabled}
                 onClick={submitWithVnPay}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >

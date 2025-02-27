@@ -1,6 +1,25 @@
 import { SpaRequest } from '@/types/request'
 import { apiUrl, getToken } from '../../types/constants'
 import { Customer, Employee } from '@/types/type'
+import { jwtDecode } from 'jwt-decode'
+
+export async function getCustomerIdByAcc() {
+  try {
+    var t = getToken()
+    if (!t) {
+      return
+    }
+    var x = jwtDecode(t ?? '')
+    var c = await getCusByAcc(x.UserId)
+    if (c.customerId) {
+      return c.customerId as string
+    }
+    return null
+  }
+  catch (e) {
+    return null
+  }
+}
 
 export async function getEmployees(id: string) {
   try {
@@ -79,7 +98,7 @@ export async function createTransaction(method: string, price: number, requestId
 
 export async function getCusByAcc(id: string) {
   try {
-    var c = await fetch(`${apiUrl}/customers/GetByAccId?accId=${id}`, {
+    var c = await fetch(`${apiUrl}/customers/GetByAccId/${id}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
