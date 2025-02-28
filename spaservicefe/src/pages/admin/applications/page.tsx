@@ -26,7 +26,9 @@ export default function ApplicationPage() {
 
         const formattedApplications = applications.map((application) => ({
           ...application,
-          managerName: managerMap[application.resolvedBy] || 'N/A'
+          managerName: managerMap[application.resolvedBy] || 'N/A',
+          createdAt : format(new Date(application.createdAt), 'dd/MM/yyyy HH:mm:ss'),
+          resolvedAt: format(new Date(application.resolvedAt), 'dd/MM/yyyy HH:mm:ss')
         }))
 
         setData(formattedApplications)

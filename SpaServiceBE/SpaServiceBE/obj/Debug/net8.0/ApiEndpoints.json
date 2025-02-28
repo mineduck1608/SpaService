@@ -1951,6 +1951,46 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "GetAllRetiredManagers",
+    "RelativePath": "api/managers/GetAllRetiredManager",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Manager, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "GetAllWorkingManagers",
+    "RelativePath": "api/managers/GetAllWorkingManager",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Manager, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
     "Method": "GetManager",
     "RelativePath": "api/managers/GetById/{id}",
     "HttpMethod": "GET",

@@ -34,7 +34,6 @@ namespace API.Controllers
         }
 
         // GET: api/requests/GetAll
-        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Request>>> GetAllRequests()
         {

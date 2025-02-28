@@ -21,7 +21,7 @@ namespace Repositories
 
         public async Task<IEnumerable<Room>> GetAllRooms()
         {
-            return await _context.Rooms.Where(r => r.Status).ToListAsync(); //Only get avaliable room
+            return await _context.Rooms.Where(r => r.IsDeleted == true).ToListAsync(); //Only get avaliable room
         }
 
         public async Task<Room> GetRoomById(string id)
@@ -50,11 +50,13 @@ namespace Repositories
                 await _context.SaveChangesAsync();
             }
         }
-        public async Task<List<Room>> GetRoomsOfCategory(string catId)
+        public async Task<IEnumerable<Room>> GetRoomsOfCategory(string catId)
         {
-            var rooms = await _context.Floors.Include(x => x.Rooms).FirstOrDefaultAsync(x => x.CategoryId == catId);
-            return rooms?.Rooms?.ToList();
+            return await _context.Rooms.Include(x => x.Floor)
+                .Where(r => r.Floor.CategoryId == catId)
+                .ToListAsync();
         }
+
     }
 
 }

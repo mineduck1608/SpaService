@@ -676,9 +676,8 @@ export const roomConfig = {
     {
       name: 'roomNum',
       label: 'Room Number',
-      type: 'number',
+      type: 'text',
       required: true,
-      min: 0,
       placeholder: 'Enter new room number'
     },
     {
@@ -700,9 +699,8 @@ export const roomConfig = {
     {
       name: 'roomNum',
       label: 'Room Number',
-      type: 'number',
+      type: 'text',
       required: true,
-      min: 0,
       placeholder: 'Enter new room number'
     },
     {

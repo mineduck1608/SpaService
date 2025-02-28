@@ -31,7 +31,7 @@ namespace SpaServiceBE.Controllers
                 return NotFound();
             return Ok(room);
         }
-        [Authorize]
+   
         [HttpPost("Create")]
         public async Task<ActionResult> CreateRoom([FromBody] dynamic request)
         {
