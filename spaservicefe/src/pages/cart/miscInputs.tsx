@@ -50,7 +50,6 @@ export function AllRowCheckBox(params: { table: Table<SessionItem> }) {
     return 'indeterminate'
   }
   const check = checkAllState()
-  console.log(check)
 
   return (
     <div>
@@ -76,12 +75,46 @@ export function RemoveButton(params: { row: Row<SessionItem> }) {
     <button
       className='rounded-sm bg-purple1 p-2 text-white'
       onClick={(e) => {
-        const x = context.items.filter(x => x.product.productId !== productId)
+        const x = context.items.filter((x) => x.product.productId !== productId)
         context.setItems(x)
         setCart(x)
       }}
     >
       Remove
     </button>
+  )
+}
+
+export function AmountButton(params: { row: Row<SessionItem> }) {
+  const context = useContext(SessionContext)
+  const item = params.row.original
+  const entry = context.items.findIndex((x) => x.product.productId === params.row.original.product.productId)
+  const [amount, setAmount] = useState(item.amount)
+  return (
+    <input
+      className='border-[1px] p-1'
+      type='number'
+      value={amount}
+      onChange={(e) => {
+        var s = e.target.value
+        if (s.length === 0) {
+          return
+        }
+        var rs = parseInt(s)
+        if (rs <= 0) {
+          return
+        }
+        const x = [...context.items]
+        x.map((c, i) => {
+          if (i === entry) {
+            c.amount = rs
+          }
+          return c
+        })
+        context.setItems(x)
+        setCart(x)
+        setAmount(rs)
+      }}
+    />
   )
 }

@@ -58,7 +58,7 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
       <div className='mb-3 flex w-3/5 justify-between '>
         <button
           onClick={addToCart} // Sử dụng hàm handleCheckout để kiểm tra token
-          className='w-[45%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'
+          className='lg:w-[50%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'
         >
           Add to cart
         </button>

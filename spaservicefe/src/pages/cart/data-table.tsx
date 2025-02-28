@@ -17,7 +17,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { Button } from '../../components/ui/button'
 import { SessionContext } from './context/selectedContext'
 import { SessionItem } from '@/types/sessionItem'
-import { getAmount } from './cartPage.util'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -54,6 +53,16 @@ export function DataTable({ columns, data }: DataTableProps) {
     }
   })
 
+  function getAmount() {
+    var cart = context.items
+    var amount = 0
+    cart.forEach(v => {
+      if (v.included) {
+        amount += parseFloat((v.product.price * v.amount).toFixed(1))
+      }
+    })
+    return amount
+  }
   return (
     <div className='mt-10'>
       <div className='mt-2 rounded-md border bg-slate-50'>

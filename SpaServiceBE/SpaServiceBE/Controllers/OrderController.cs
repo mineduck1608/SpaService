@@ -48,8 +48,11 @@ namespace SpaServiceBE.Controllers
                 // Fetch and validate product
                 var productIdList = orderRequest.Details.Select(x => x.ProductId).ToList();
                 var products = await _cosmeticProductService.GetProductsOfList(productIdList);
-                productIdList = null;
-                if (products.Count != products.Count)
+                if(orderRequest.Details.Count == 0)
+                {
+                    return BadRequest(new { msg = "Empty cart" });
+                }
+                if (products.Count != orderRequest.Details.Count)
                 {
                     return BadRequest(new { msg = "Some products don't exist" });
                 }
@@ -59,6 +62,10 @@ namespace SpaServiceBE.Controllers
                 foreach (var product in orderRequest.Details)
                 {
                     var stockItem = products[product.ProductId];
+                    if(product.Quantity <= 0)
+                    {
+                        return BadRequest(new { msg = $"Item {stockItem.ProductName} has invalid amount" });
+                    }
                     if (stockItem.Quantity < product.Quantity)
                     {
                         return BadRequest(new { msg = $"Cannot order more than stock for {stockItem.ProductName}" });
@@ -76,7 +83,7 @@ namespace SpaServiceBE.Controllers
                 {
                     OrderId = orderId,
                     CustomerId = orderRequest.CustomerId,
-                    OrderDate = DateTime.Now,
+                    OrderDate = orderRequest.OrderDate,
                     Status = true,
                     Address = orderRequest.Address,
                     TotalAmount = (float)total
@@ -98,7 +105,7 @@ namespace SpaServiceBE.Controllers
                 var transaction = new Transaction
                 {
                     TransactionId = transactionId,
-                    TransactionType = orderRequest.TransactionType,
+                    TransactionType = "Product",
                     PaymentType = orderRequest.PaymentType,
                     PromotionId = orderRequest.PromotionId,
                     Status = false,
@@ -114,8 +121,6 @@ namespace SpaServiceBE.Controllers
                     OrderId = orderId,
                 };
                 await _cosmeticTransactionService.CreateAsync(cosmeticTransaction);
-
-                await _orderService.AddOrderAsync(order);
                 // Update product stock last
                 foreach (var product in orderRequest.Details)
                 {
@@ -124,9 +129,7 @@ namespace SpaServiceBE.Controllers
                     await _cosmeticProductService.Update(stockItem);
                 }
 
-                return CreatedAtAction(nameof(GetOrderById), new { id = orderId }, new
-                {
-                });
+                return Ok(new { id = orderId, total, transactionId });
             }
             catch (Exception ex)
             {

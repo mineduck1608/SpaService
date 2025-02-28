@@ -3,7 +3,7 @@ import { FormEvent, useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
-import { createTransaction, getCusByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
+import { createTransaction, getCusByAcc, getCustomerIdByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
@@ -18,21 +18,16 @@ export default function CheckoutPage() {
   }
   useEffect(() => {
     async function fetchData() {
-      var t = getToken()
-      if (!t) {
-        return
-      }
-      var x = jwtDecode(t ?? '')
       var s = await getEmployees(booked.categoryId)
       setEmp(s)
-      var c = await getCusByAcc(x.UserId)
-      if (c.customerId) {
-        setReq({ ...req, customerId: c.customerId })
+      const cus = await getCustomerIdByAcc()
+      if (cus) {
+        setReq({ ...req, customerId: cus })
       }
     }
     try {
       fetchData()
-    } catch (e) {}
+    } catch (e) { }
   }, [])
   async function onSubmitBase(method: string) {
     try {
@@ -81,7 +76,7 @@ export default function CheckoutPage() {
       var transId = sessionStorage.getItem('trId') ?? ''
       sessionStorage.removeItem('trId')
 
-      var url = await getPaymentUrl(booked.price, jwtDecode(getToken() ?? '').UserId, transId)
+      var url = await getPaymentUrl(booked.price, transId)
       if (url.startsWith('http')) {
         toast.success('We will redirect you to VnPay page')
         window.location.replace(url)

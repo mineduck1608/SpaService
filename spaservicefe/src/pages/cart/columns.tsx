@@ -1,9 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { SessionItem } from '@/types/sessionItem'
 import { formatNumber } from '../servicesPage/servicesPage.util'
-import { Checkbox } from '../../components/ui/checkbox'
-import { getCart, getCartItem, removeCartItem, setCart, setCartItem } from '../cosmeticDetailPage/detailPage.util'
-import RowCheckBox, { AllRowCheckBox, RemoveButton } from './checkboxes'
+import RowCheckBox, { AllRowCheckBox, AmountButton, RemoveButton } from './miscInputs'
 
 export const columns: ColumnDef<SessionItem>[] = [
   {
@@ -31,7 +29,7 @@ export const columns: ColumnDef<SessionItem>[] = [
   {
     accessorKey: 'amount',
     header: 'Amount',
-    cell: ({ row }) => formatNumber(row.original.amount)
+    cell: ({ row }) => <AmountButton row={row} />
   },
   {
     accessorKey: 'Sub Total',

@@ -75,6 +75,10 @@ namespace SpaServiceBE.Utils
 
         public static string QueryStringFromDict(Dictionary<string, string> dict)
         {
+            if(dict.Count == 0)
+            {
+                return "";
+            }
             StringBuilder result = new StringBuilder();
             foreach(KeyValuePair<string, string> kvp in dict)
             {
