@@ -20,7 +20,7 @@ namespace Repositories
 
         public async Task<IEnumerable<Floor>> GetAllFloors()
         {
-            return await _context.Floors.ToListAsync();
+            return await _context.Floors.Where(f => !f.IsDeleted).ToListAsync();
         }
 
         public async Task<Floor> GetFloorById(string id)

@@ -154,6 +154,26 @@ namespace SpaServiceBE.Controllers
                     return BadRequest(new { msg = "Order details are incomplete or invalid." });
                 }
 
+                var existingOrder = await _orderService.GetOrderByIdAsync(id);
+                if (existingOrder == null)
+                {
+                    return NotFound(new { msg = $"Order with ID = {id} not found." });
+                }
+
+                var orderDetails = await _orderDetailService.GetOrderDetailsByOrderId(id);
+                var products = await _cosmeticProductService.GetProductsOfList(orderDetails.Select(d => d.ProductId).ToList());
+
+                // If the order is being canceled, restock the products
+                if (!status)
+                {
+                    foreach (var detail in orderDetails)
+                    {
+                        var product = products[detail.ProductId];
+                        product.Quantity += detail.Quantity;
+                        await _cosmeticProductService.Update(product);
+                    }
+                }
+
                 var order = new Order
                 {
                     OrderId = id,

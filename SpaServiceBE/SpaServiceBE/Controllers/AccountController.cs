@@ -62,6 +62,11 @@ namespace API.Controllers
             {
                 return NotFound(new {msg = "Username or password is incorrect." });
             }
+            //check status of the account
+            if (!account.Status)
+            {
+                return BadRequest(new {msg = "Your account had been deactivated !" });
+            } 
             var accessToken = string.Empty;
             if(account.Role.RoleName == "Customer")
             {

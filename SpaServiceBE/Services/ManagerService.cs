@@ -52,5 +52,15 @@ namespace Services
         {
             return await _repository.GetManagerByEmail(email);
         }
+
+        public async Task<IEnumerable<Manager>> GetAllWorkingManagers()
+        {
+            return await _repository.GetAllWorkingManagerAsync();
+        }
+
+        public async Task<IEnumerable<Manager>> GetAllRetiredManagers()
+        {
+            return await _repository.GetAllRetiredManagerAsync();
+        }
     }
 }

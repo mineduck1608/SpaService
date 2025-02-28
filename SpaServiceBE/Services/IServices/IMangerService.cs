@@ -16,5 +16,7 @@ namespace Services.IServices
         Task DeleteManager(string id);
         Task<Manager> GetManagerByPhone(string phone);
         Task<Manager> GetManagerByEmail(string email);
+        Task<IEnumerable<Manager>> GetAllWorkingManagers();
+        Task<IEnumerable<Manager>> GetAllRetiredManagers();
     }
 }

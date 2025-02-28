@@ -21,7 +21,7 @@ namespace Repositories
 
         public async Task<IEnumerable<Room>> GetAllRooms()
         {
-            return await _context.Rooms.ToListAsync();
+            return await _context.Rooms.Where(r => r.Status).ToListAsync(); //Only get avaliable room
         }
 
         public async Task<Room> GetRoomById(string id)

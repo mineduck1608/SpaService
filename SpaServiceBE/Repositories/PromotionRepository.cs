@@ -29,6 +29,7 @@ namespace Repositories
         public async Task<List<Promotion>> GetAll()
         {
             return await _context.Promotions
+                .Where(p =>p.IsActive) // only include active promotion
                 .Include(p => p.Transactions)   // Bao gồm Transactions liên quan đến Promotion
                 .ToListAsync();
         }

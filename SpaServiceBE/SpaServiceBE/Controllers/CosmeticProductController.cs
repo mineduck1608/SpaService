@@ -60,11 +60,17 @@ namespace SpaServiceBE.Controllers
                 float price = jsonElement.GetProperty("price").GetSingle();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 string description = jsonElement.GetProperty("description").GetString();
-                bool isSelling = jsonElement.GetProperty("isSelling").GetBoolean();
+               
                 string? image = jsonElement.GetProperty("image").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
-
-
+                bool isSelling = true;
+                bool status = true;
+                //if check if the stocks is avaliable
+                if (quantity == 0)
+                {
+                    status = false;
+                    
+                }
                 var item = new CosmeticProduct
                 {
                     ProductId = Guid.NewGuid().ToString("N"),
@@ -72,8 +78,8 @@ namespace SpaServiceBE.Controllers
                     Price = price ,
                     Quantity = quantity,
                     Description = description,
-                    Status = true,
-                    IsSelling = true,
+                    Status = status,
+                    IsSelling = isSelling,
                     Image = image,
                     CategoryId = categoryId,
                 };
@@ -96,14 +102,20 @@ namespace SpaServiceBE.Controllers
                 float price = jsonElement.GetProperty("price").GetSingle();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 string description = jsonElement.GetProperty("description").GetString();
+                bool status = jsonElement.GetProperty("status").GetBoolean();
                 bool isSelling = jsonElement.GetProperty("isSelling").GetBoolean();
                 string? image = jsonElement.GetProperty("image").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
+                if (quantity == 0)
+                {
+                    status = false;
+
+                }
                 if (string.IsNullOrEmpty(productName) || price <= 0 ||
                    string.IsNullOrEmpty(description) ||
-                   string.IsNullOrEmpty(categoryId) ||
-                   string.IsNullOrEmpty(isSelling.ToString()))
+                   string.IsNullOrEmpty(categoryId))
+         
                 {
                     return BadRequest(new { msg = "Spa service details are incomplete or invalid." });
                 }

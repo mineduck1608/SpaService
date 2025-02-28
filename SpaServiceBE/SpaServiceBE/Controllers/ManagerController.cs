@@ -22,7 +22,16 @@ namespace SpaServiceBE.Controllers
         {
             return Ok(await _managerService.GetAllManagers());
         }
-
+        [HttpGet("GetAllWorkingManager")]
+        public async Task<ActionResult<IEnumerable<Manager>>> GetAllWorkingManagers()
+        {
+            return Ok(await _managerService.GetAllWorkingManagers());
+        }
+        [HttpGet("GetAllRetiredManager")]
+        public async Task<ActionResult<IEnumerable<Manager>>> GetAllRetiredManagers()
+        {
+            return Ok(await _managerService.GetAllRetiredManagers());
+        }
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Manager>> GetManager(string id)
         {

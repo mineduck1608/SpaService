@@ -20,7 +20,11 @@ namespace Repositories
 
         public async Task<IEnumerable<CosmeticProduct>> GetAllCosmeticProduct()
         {
-            return await _context.CosmeticProducts.ToListAsync();
+            //only get product when status is true and isSelling
+            return await _context.CosmeticProducts
+                .Where(c => c.Status)
+                .Where(c =>c.IsSelling)
+                .ToListAsync();
         }
 
         public async Task<CosmeticProduct> GetCosmeticProductById(string id)
