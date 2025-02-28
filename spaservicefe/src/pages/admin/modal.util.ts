@@ -647,27 +647,25 @@ export const transactionConfig = {
       name: 'transactionType',
       label: 'Transaction Type',
       type: 'select',
-      required: true,
+      readonly: true,
     },
     {
       name: 'totalPrice',
       label: 'Total Price',
       type: 'number',
-      required: true,
-      step: '0.01',
-      min: 0,
-      placeholder: 'Enter new total price'
+      readonly: true,
     },
     {
       name: 'paymentType',
       label: 'Payment Type',
       type: 'select',
-      required: true,
+      readonly: true,
     },
     {
       name: 'status',
       label: 'Status',
       type: 'select',
+      require: true,
       placeholder: 'Select status'
     }
   ]

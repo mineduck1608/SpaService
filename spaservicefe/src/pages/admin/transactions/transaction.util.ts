@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { TransactionBase } from '../../../types/type'
+import { TransactionBase, SpaRequest, Order, CosmeticProduct, ServiceTransaction, CosmeticTransaction } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllTransactions() {
@@ -10,6 +10,62 @@ export async function getAllTransactions() {
       }
     })
     const json = (await res.json()) as TransactionBase[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getAllServiceTransactions() {
+  try {
+    const res = await fetch(`${apiUrl}/servicetransactions/GetAll`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as ServiceTransaction[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getAllCosmeticTransactions() {
+  try {
+    const res = await fetch(`${apiUrl}/cosmetictransactions/GetAll`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as CosmeticTransaction[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getSpaRequestById(id: string) {
+  try {
+    const res = await fetch(`${apiUrl}/requests/GetById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as SpaRequest[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getOrderById(id: string) {
+  try {
+    const res = await fetch(`${apiUrl}/orders/GetById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as Order[]
     return json
   } catch (e) {
     return []

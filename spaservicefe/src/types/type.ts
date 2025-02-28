@@ -56,13 +56,15 @@ export type Member = {
 
 export type SpaRequest = {
   requestId: string
-  startTime: string
+  startTime: Date
   status: string
   customerNote: string
   managerNote: string
   serviceId: string
   customerId: string
+  employeeId: string
   service?: SpaService
+  customer?: Customer
   employee?: Employee
   serviceTransaction?: ServiceTransaction
 }
@@ -184,8 +186,7 @@ export type ServiceTransaction = TransactionBase & {
 
 export type CosmeticTransaction = TransactionBase & {
   cosmeticTransactionId: string
-  requestId: string
-  orderId?: string
+  orderId: string
 }
 
 export type Order = {
@@ -196,6 +197,7 @@ export type Order = {
   status: boolean
   transactionId: string
   address: string
+  customer?: Customer
 }
 
 export type OrderDetail = {

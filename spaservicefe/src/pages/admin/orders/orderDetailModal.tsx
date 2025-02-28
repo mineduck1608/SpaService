@@ -3,13 +3,13 @@ import { DialogTitle } from '@radix-ui/react-dialog'
 import { ToastContainer } from 'react-toastify'
 import { OrderDetailTable } from './orderDetailTable'
 
-interface UpdateOrderModalProps {
+interface DetailOrderModalProps {
   isOpen: boolean
   onClose: () => void
   order: any
 }
 
-export default function UpdateOrderModal({ isOpen, onClose, order }: UpdateOrderModalProps) {
+export default function DetailOrderModal({ isOpen, onClose, order }: DetailOrderModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>

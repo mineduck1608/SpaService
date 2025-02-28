@@ -13,7 +13,7 @@ import { Order } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { handleDelete } from './order.util'
 import { toast, ToastContainer } from 'react-toastify'
-import UpdateDetailModal from './orderDetailModal'
+import DetailOrderModal from './orderDetailModal'
 import UpdateOrderModal from './orderUpdateModal'
 import { updateOrderStatus } from './order.util'
 
@@ -75,7 +75,7 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
           <DropdownMenuItem onClick={confirmOrder} className='cursor-pointer'>Confirm</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <UpdateDetailModal isOpen={isDetailModalOpen} onClose={closeDetailModal} order={order}/>
+      <DetailOrderModal isOpen={isDetailModalOpen} onClose={closeDetailModal} order={order}/>
       {/* <UpdateOrderModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} order={order} /> */}
       {/* <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} /> */}
     </>
