@@ -135,13 +135,22 @@ namespace SpaServiceBE.Controllers
             {
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
-        }
-        [Authorize]
+        } [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteRoom(string id)
         {
+            var room = await _roomService.GetRoomById(id);
+            if (room == null)
+                return NotFound(new { msg = $"Room with ID = {id} not found." });
+
+            room.IsDeleted = true;
             await _roomService.DeleteRoom(id);
+            var isUpdated = await _roomService.UpdateRoom(room);
+
+            if (!isUpdated)
+                return NotFound(new { msg = $"Room with ID = {id} not found." });
             return NoContent();
         }
+       
     }
 }

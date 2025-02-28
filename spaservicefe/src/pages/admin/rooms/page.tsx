@@ -17,6 +17,7 @@ export default function AdminRoomPage() {
           rooms.map(async (room) => {
             const floor = await getFloorById(room.floorId)
             const floorName = floor ? `Floor ${floor.floorNum}` : 'Unknown'
+            console.log(floor?.floorNum)
 
             return {
               ...room,

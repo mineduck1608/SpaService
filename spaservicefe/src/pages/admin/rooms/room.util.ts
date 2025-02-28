@@ -89,7 +89,7 @@ export async function handleDelete(id: string) {
 
 export async function getFloorById(id: string) {
   try {
-    var res = await fetch(`${apiUrl}/rooms/GetById/${id}`, {
+    var res = await fetch(`${apiUrl}/floors/GetById/${id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${getToken()}`,

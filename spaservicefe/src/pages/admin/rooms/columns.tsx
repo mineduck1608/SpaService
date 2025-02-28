@@ -24,22 +24,14 @@ export const columns: ColumnDef<Room>[] = [
     enableHiding: false
   },
   {
+    accessorKey: 'floorName',
+    header: 'Floor'
+  },
+  {
     accessorKey: 'roomNum',
     header: 'Room Number'
   },
-  {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => {
-      const status = row.getValue<string>('status')
-      const statusColor = status === 'Available' ? 'text-green-500' : 'text-red-500'
-      return <span className={statusColor}>{status}</span>
-    }
-  },
-  {
-    accessorKey: 'floorNum',
-    header: 'Floor'
-  },
+ 
   {
     id: 'actions',
     header: 'Actions',
