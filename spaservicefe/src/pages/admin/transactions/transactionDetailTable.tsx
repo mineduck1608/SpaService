@@ -60,7 +60,7 @@ export function TransactionDetailTable({ transactionId, transactionType }: Trans
               <TableHead>Start Time</TableHead>
               <TableHead>Customer Note</TableHead>
               <TableHead>Manager Note</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>Request Status</TableHead>
               <TableHead>Employee</TableHead>
             </TableRow>
           </TableHeader>
@@ -86,7 +86,7 @@ export function TransactionDetailTable({ transactionId, transactionType }: Trans
               <TableHead>Order Date</TableHead>
               <TableHead>Total Amount</TableHead>
               <TableHead>Address</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>Process Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
