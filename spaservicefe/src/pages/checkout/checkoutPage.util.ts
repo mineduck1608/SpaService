@@ -52,7 +52,7 @@ export async function submitRequest(req: SpaRequest) {
   }
 }
 
-export async function getPaymentUrl(price: number, username: string, txnId: string) {
+export async function getPaymentUrl(price: number, txnId: string) {
   try {
     var s = await fetch(`${apiUrl}/Payment/service`, {
       method: 'POST',
@@ -62,7 +62,7 @@ export async function getPaymentUrl(price: number, username: string, txnId: stri
       body: JSON.stringify({
         orderType: 'other',
         amount: price,
-        orderDescription: txnId,
+        orderDescription: `${txnId}`,
         name: ''
       })
     })

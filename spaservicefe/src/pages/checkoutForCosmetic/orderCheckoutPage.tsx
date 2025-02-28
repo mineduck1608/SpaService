@@ -5,7 +5,7 @@ import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
 import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
-import { getCusByAcc, getCustomerIdByAcc } from '../checkout/checkoutPage.util.ts'
+import { getCusByAcc, getCustomerIdByAcc, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
 import { getCart } from '../cosmeticDetailPage/detailPage.util.ts'
 import { createOrder } from './checkoutPage.util.ts'
 
@@ -23,7 +23,7 @@ export default function CosmeticCheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) { }
+    } catch (e) {}
   }, [])
   async function onSubmitBase(method: string) {
     try {
@@ -33,46 +33,47 @@ export default function CosmeticCheckoutPage() {
         customerId: customerId ?? '',
         orderDate: new Date(),
         paymentType: method,
-        details: cart.map(v => {
+        details: cart.map((v) => {
           return {
             productId: v.product.productId,
             quantity: v.amount
           }
         })
       })
+      console.log(result);
+      
       return result
     } catch (e) {
       toast.error(e as string)
-      return ''
+      return null
     }
   }
   async function payInCash(e: FormEvent) {
     e.preventDefault()
-    onSubmitBase('Cash')
+    try {
+      var s = await onSubmitBase('Cash')
+      if (s) {
+        if (s.success) {
+          toast.success('Order submitted')
+          return
+        }
+        toast.error(s.rs)
+      }
+    } catch (e) {}
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
-    onSubmitBase('VnPay')
-    // try {
-    //   var r = await onSubmitBase('VnPay')
-
-    //   if (!r) {
-    //     return
-    //   }
-    //   var transId = sessionStorage.getItem('trId') ?? ''
-    //   sessionStorage.removeItem('trId')
-
-    //   var url = await getPaymentUrl(cart.price, jwtDecode(getToken() ?? '').UserId, transId)
-    //   if (url.startsWith('http')) {
-    //     toast.success('We will redirect you to VnPay page')
-    //     window.location.replace(url)
-    //     return
-    //   }
-
-    //   toast.error(url)
-    // } catch (e) {
-    //   toast.error(e as string)
-    // }
+    try {
+      var s = await onSubmitBase('VnPay')
+      if (s?.total) {
+        var url = await getPaymentUrl(s.total, s.rs) //Rs is transactionId
+        window.location.replace(url)
+        return;
+      }
+      toast.error(s?.rs)
+    } catch (e) {
+      toast.error(e as string)
+    }
   }
   const disabled = cart.length === 0 || addr.length === 0
   return (

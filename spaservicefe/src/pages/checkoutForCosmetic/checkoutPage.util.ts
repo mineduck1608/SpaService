@@ -23,10 +23,10 @@ export async function createOrder(params: OrderRequest) {
     })
     const asJson = await res.json()
     if (asJson.id) {
-      return asJson.id as string
+      return { rs: asJson.transactionId as string, success: true, total: asJson.total as number }
     }
-    return asJson.msg as string
+    return { rs: asJson.msg as string, success: false }
   } catch (e) {
-    return "Couldn't connect to server"
+    return { rs: "Couldn't connect to server", success: false }
   }
 }

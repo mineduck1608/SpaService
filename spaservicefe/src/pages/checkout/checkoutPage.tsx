@@ -76,7 +76,7 @@ export default function CheckoutPage() {
       var transId = sessionStorage.getItem('trId') ?? ''
       sessionStorage.removeItem('trId')
 
-      var url = await getPaymentUrl(booked.price, jwtDecode(getToken() ?? '').UserId, transId)
+      var url = await getPaymentUrl(booked.price, transId)
       if (url.startsWith('http')) {
         toast.success('We will redirect you to VnPay page')
         window.location.replace(url)

@@ -62,6 +62,10 @@ namespace SpaServiceBE.Controllers
                 foreach (var product in orderRequest.Details)
                 {
                     var stockItem = products[product.ProductId];
+                    if(product.Quantity <= 0)
+                    {
+                        return BadRequest(new { msg = $"Item {stockItem.ProductName} has invalid amount" });
+                    }
                     if (stockItem.Quantity < product.Quantity)
                     {
                         return BadRequest(new { msg = $"Cannot order more than stock for {stockItem.ProductName}" });
@@ -125,7 +129,7 @@ namespace SpaServiceBE.Controllers
                     await _cosmeticProductService.Update(stockItem);
                 }
 
-                return CreatedAtAction(nameof(GetOrderById), new { id = orderId });
+                return Ok(new { id = orderId, total, transactionId });
             }
             catch (Exception ex)
             {
