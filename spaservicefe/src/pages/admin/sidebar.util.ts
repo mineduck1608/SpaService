@@ -33,7 +33,7 @@ export const sideData = {
   navMain: [
     {
       title: 'Home',
-      url: '/admin',
+      url: 'admin',
       icon: Home
     }
   ],
@@ -41,16 +41,16 @@ export const sideData = {
     {
       title: 'Appointments',
       icon: ClipboardList,
-      url: '/appointments'
+      url: 'appointments'
     },
     {
       title: 'Orders',
       icon: Boxes,
-      url: '/orders'
+      url: 'orders'
     },
     {
       title: 'Transactions',
-      url: '/transactions',
+      url: 'transactions',
       icon: ArrowLeftRight
     },
     {
