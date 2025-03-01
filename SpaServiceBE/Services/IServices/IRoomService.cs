@@ -16,5 +16,6 @@ namespace Services.IServices
         Task<bool> UpdateRoom(Room room);
         Task DeleteRoom(string id);
         Task<Room> GetRoomByFloorAndNumber(string floorId, int roomNum);
+        Task<IEnumerable<Room>> GetRoomsOfCategory(string id);
     }
 }

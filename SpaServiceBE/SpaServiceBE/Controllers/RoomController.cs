@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Services;
 using Services.IServices;
 using System.Text.Json;
 
@@ -135,7 +136,9 @@ namespace SpaServiceBE.Controllers
             {
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
-        } [Authorize]
+        } 
+        
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteRoom(string id)
         {
@@ -151,6 +154,20 @@ namespace SpaServiceBE.Controllers
                 return NotFound(new { msg = $"Room with ID = {id} not found." });
             return NoContent();
         }
-       
+
+        [HttpGet("GetRoomsOfCategory/{id}")]
+        public async Task<ActionResult<Account>> GetRoomsOfCategory(string id)
+        {
+
+            var room = await _roomService.GetRoomsOfCategory(id);
+
+            if (room == null)
+                return NotFound($"Room with ID = {id} not found.");
+
+            return Ok(room);
+
+
+        }
+
     }
 }

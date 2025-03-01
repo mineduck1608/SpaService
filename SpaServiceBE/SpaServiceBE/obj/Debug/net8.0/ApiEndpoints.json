@@ -2965,6 +2965,32 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "GetRoomsOfCategory",
+    "RelativePath": "api/rooms/GetRoomsOfCategory/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Account",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
     "Method": "UpdateRoom",
     "RelativePath": "api/rooms/Update/{id}",
     "HttpMethod": "PUT",

@@ -50,5 +50,10 @@ namespace Services
         {
             return await _roomRepository.GetRoomByFloorAndNumber(floorId, roomNum);
         }
+
+        public async Task<IEnumerable<Room>> GetRoomsOfCategory(string id)
+        {
+            return await _roomRepository.GetRoomsOfCategory(id);
+        }
     }
 }

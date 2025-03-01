@@ -40,9 +40,20 @@ export const columns: ColumnDef<SpaRequest>[] = [
     cell: ({ row }) => row.getValue('serviceName')
   },
   {
+    accessorKey: 'employeeName',
+    header: 'Employee',
+    cell: ({ row }) => row.getValue('employeeName')
+  },
+  {
     accessorKey: 'startTime',
     header: 'Start Time',
     cell: ({ row }) => row.getValue('startTime')
+  },
+  
+  {
+    accessorKey: 'createdAt',
+    header: 'Create At',
+    cell: ({ row }) => row.getValue('createdAt')
   },
   {
     accessorKey: 'status',

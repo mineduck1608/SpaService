@@ -32,8 +32,9 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
     closeModal()
   }
 
-  const handleUpdate = (updatedRequest: SpaRequest) => {
+  const handleUpdate = (updatedRequest: SpaRequest, roomId: string) => {
     console.log('Updated request: ', updatedRequest)
+    console.log('roomID: ', roomId)
   }
 
   return (
@@ -52,7 +53,7 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openEditModal}>Assign</DropdownMenuItem>
-          <DropdownMenuItem onClick={openModal}>Cancelled</DropdownMenuItem>
+          <DropdownMenuItem onClick={openModal}>Decline</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
