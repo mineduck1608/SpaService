@@ -147,7 +147,6 @@ export type CosmeticCategory = {
 export type ServiceCategory = {
   categoryId: string
   categoryName: string
-  categoryImage: string
   categoryDescription: string
 }
 
