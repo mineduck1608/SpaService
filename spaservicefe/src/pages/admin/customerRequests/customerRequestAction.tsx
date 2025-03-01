@@ -12,6 +12,7 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { SpaRequest } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { EditRequestModal } from './editRequestModal'
+import { AssignRequest } from './customerRequest.util'
 
 interface RequestActionsProps {
   request: SpaRequest
@@ -33,8 +34,7 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
   }
 
   const handleUpdate = (updatedRequest: SpaRequest, roomId: string) => {
-    console.log('Updated request: ', updatedRequest)
-    console.log('roomID: ', roomId)
+    AssignRequest(updatedRequest, roomId)
   }
 
   return (

@@ -4,42 +4,42 @@ import { createEventsServicePlugin } from '@schedule-x/events-service'
 import '@schedule-x/theme-default/dist/index.css'
 import { useEffect, useState } from 'react'
 import { fetchAppointments, fetchEmployees } from './appointments.util'
+import { createEventModalPlugin } from '@schedule-x/event-modal'
+
 
 function CalendarApp() {
-  const eventsService = useState(() => createEventsServicePlugin())[0]
-
   const [events, setEvents] = useState(() => {
-    const savedEvents = localStorage.getItem('events')
+    const savedEvents = sessionStorage.getItem('events')
     return savedEvents ? JSON.parse(savedEvents) : []
   })
-  const [selectedEvent, setSelectedEvent] = useState(null)
-  const [employees, setEmployees] = useState([])
 
   useEffect(() => {
     const loadEvents = async () => {
       const fetchedEvents = await fetchAppointments()
       setEvents(fetchedEvents)
-      localStorage.setItem('events', JSON.stringify(fetchedEvents))
+      sessionStorage.setItem('events', JSON.stringify(fetchedEvents))
     }
 
     const loadEmployees = async () => {
       const fetchedEmployees = await fetchEmployees()
-      setEmployees(fetchedEmployees)
     }
 
     loadEvents()
     loadEmployees()
   }, [])
 
+  const eventModal = createEventModalPlugin()
+
   const calendar = useCalendarApp({
     views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
     events: events,
-    plugins: [eventsService]
+    plugins: [eventModal],
   })
+  
 
   return (
     <div style={{ minHeight: '500px' }}>
-      <ScheduleXCalendar calendarApp={calendar} />
+      <ScheduleXCalendar calendarApp={calendar}  />
     </div>
   )
 }

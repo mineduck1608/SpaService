@@ -76,7 +76,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
               showSecond={false}
               minuteStep={30}
               className='w-75 border-[1px] p-2'
-              onChange={(date) => handleChange('startTime', date ? date.format('YYYY-MM-DD HH:mm:ss') : '')}
+              onChange={(date) => handleChange('startTime', date ? date.format('DD/MM/YYYY HH:mm:ss') : '')}
             />
           </div>
 

@@ -6,8 +6,6 @@ import { Input, DatePicker } from 'antd'
 import { createTransaction, getCusByAcc, getCustomerIdByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
 import { Employee } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
-import { getToken } from '../../types/constants.ts'
-import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
 
 export default function CheckoutPage() {

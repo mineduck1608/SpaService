@@ -2647,6 +2647,27 @@
   },
   {
     "ContainingType": "API.Controllers.RequestController",
+    "Method": "AssignRequest",
+    "RelativePath": "api/requests/AssignRequest/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.RequestController",
     "Method": "CreateRequest",
     "RelativePath": "api/requests/Create",
     "HttpMethod": "POST",
