@@ -19,6 +19,10 @@ public partial class Order
 
     public string Address { get; set; }
 
+    public string RecepientName { get; set; }
+
+    public string Phone { get; set; }
+
     public virtual ICollection<CosmeticTransaction> CosmeticTransactions { get; set; } = new List<CosmeticTransaction>();
 
     public virtual Customer Customer { get; set; }

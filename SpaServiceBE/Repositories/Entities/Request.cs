@@ -23,6 +23,8 @@ public partial class Request
 
     public string EmployeeId { get; set; }
 
+    public DateTime CreatedAt { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual Customer Customer { get; set; }

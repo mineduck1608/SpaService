@@ -92,16 +92,15 @@ public partial class SpaserviceContext : DbContext
         optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnectionStringDB")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         optionsBuilder.EnableDetailedErrors(true);
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.AccountId).HasName("PK__Account__F267251E54EA4A8A");
+            entity.HasKey(e => e.AccountId).HasName("PK__Account__F267251E07DCD724");
 
             entity.ToTable("Account");
 
-            entity.HasIndex(e => e.Username, "UQ__Account__F3DBC572F454F4A6").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Account__F3DBC572ED7912A6").IsUnique();
 
             entity.Property(e => e.AccountId)
                 .HasMaxLength(50)
@@ -136,7 +135,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Application>(entity =>
         {
-            entity.HasKey(e => e.ApplicationId).HasName("PK__Applicat__79FDB1CFD8E2C0CA");
+            entity.HasKey(e => e.ApplicationId).HasName("PK__Applicat__79FDB1CF57DEBD17");
 
             entity.ToTable("Application");
 
@@ -179,7 +178,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Appointment>(entity =>
         {
-            entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__D06765FE7F03D777");
+            entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__D06765FE32220307");
 
             entity.ToTable("Appointment");
 
@@ -235,7 +234,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<AttendanceRecord>(entity =>
         {
-            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__0F09E0E63B72092A");
+            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__0F09E0E699079233");
 
             entity.Property(e => e.AttendanceId)
                 .HasMaxLength(50)
@@ -261,7 +260,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CategoryEmployee>(entity =>
         {
-            entity.HasKey(e => e.CategoryEmployeeId).HasName("PK__Category__C3CC48564BD4C6E7");
+            entity.HasKey(e => e.CategoryEmployeeId).HasName("PK__Category__C3CC4856EBC791F7");
 
             entity.ToTable("CategoryEmployee");
 
@@ -293,7 +292,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Commission>(entity =>
         {
-            entity.HasKey(e => e.CommissionId).HasName("PK__Commissi__6A570BF26E4E5273");
+            entity.HasKey(e => e.CommissionId).HasName("PK__Commissi__6A570BF2FC61EE3A");
 
             entity.ToTable("Commission");
 
@@ -306,7 +305,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CosmeticCategory>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Cosmetic__23CAF1D8CFDF3CE5");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Cosmetic__23CAF1D84095FFBB");
 
             entity.ToTable("CosmeticCategory");
 
@@ -327,7 +326,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CosmeticProduct>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Cosmetic__2D10D16ADE0BA868");
+            entity.HasKey(e => e.ProductId).HasName("PK__Cosmetic__2D10D16AC93D179F");
 
             entity.ToTable("CosmeticProduct");
 
@@ -365,7 +364,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CosmeticTransaction>(entity =>
         {
-            entity.HasKey(e => e.CosmeticTransactionId).HasName("PK__Cosmetic__CA8F7BAC17C4B302");
+            entity.HasKey(e => e.CosmeticTransactionId).HasName("PK__Cosmetic__CA8F7BAC6D1A72F3");
 
             entity.ToTable("CosmeticTransaction");
 
@@ -397,7 +396,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__B611CB7D51E69C21");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__B611CB7D0FB389FA");
 
             entity.ToTable("Customer");
 
@@ -428,7 +427,7 @@ public partial class SpaserviceContext : DbContext
                 .HasColumnName("gender");
             entity.Property(e => e.Phone)
                 .IsRequired()
-                .HasMaxLength(10)
+                .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("phone");
 
@@ -440,7 +439,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CustomerMembership>(entity =>
         {
-            entity.HasKey(e => new { e.CustomerId, e.MembershipId }).HasName("PK__Customer__2D841CBF2FA5E919");
+            entity.HasKey(e => new { e.CustomerId, e.MembershipId }).HasName("PK__Customer__2D841CBF69D28D35");
 
             entity.ToTable("CustomerMembership");
 
@@ -466,7 +465,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__C134C9C168130ED5");
+            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__C134C9C199B74673");
 
             entity.ToTable("Employee");
 
@@ -514,7 +513,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<EmployeeCommission>(entity =>
         {
-            entity.HasKey(e => new { e.EmployeeId, e.CommissionId }).HasName("PK__Employee__F791B97EBF7AF474");
+            entity.HasKey(e => new { e.EmployeeId, e.CommissionId }).HasName("PK__Employee__F791B97ECE3EBF1B");
 
             entity.ToTable("EmployeeCommission");
 
@@ -556,7 +555,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__2613FD241AE3E351");
+            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__2613FD24B29C7276");
 
             entity.ToTable("Feedback");
 
@@ -596,7 +595,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Floor>(entity =>
         {
-            entity.HasKey(e => e.FloorId).HasName("PK__Floor__867E915CD33E7429");
+            entity.HasKey(e => e.FloorId).HasName("PK__Floor__867E915C00440730");
 
             entity.ToTable("Floor");
 
@@ -620,7 +619,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<GuestApplication>(entity =>
         {
-            entity.HasKey(e => e.GuestApplicationId).HasName("PK__GuestApp__C9EF5313AFB3D071");
+            entity.HasKey(e => e.GuestApplicationId).HasName("PK__GuestApp__C9EF53139BE2FB8A");
 
             entity.ToTable("GuestApplication");
 
@@ -655,7 +654,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Manager>(entity =>
         {
-            entity.HasKey(e => e.ManagerId).HasName("PK__Manager__47E0141F85CE454B");
+            entity.HasKey(e => e.ManagerId).HasName("PK__Manager__47E0141FC97B19AB");
 
             entity.ToTable("Manager");
 
@@ -703,7 +702,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Membership>(entity =>
         {
-            entity.HasKey(e => e.MembershipId).HasName("PK__Membersh__86AA3B171E3B5511");
+            entity.HasKey(e => e.MembershipId).HasName("PK__Membersh__86AA3B17429B889B");
 
             entity.ToTable("Membership");
 
@@ -722,7 +721,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<News>(entity =>
         {
-            entity.HasKey(e => e.NewsId).HasName("PK__News__5218041E83E848EC");
+            entity.HasKey(e => e.NewsId).HasName("PK__News__5218041EE66271F4");
 
             entity.Property(e => e.NewsId)
                 .HasMaxLength(50)
@@ -761,7 +760,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Order__0809335D3EA16D4B");
+            entity.HasKey(e => e.OrderId).HasName("PK__Order__0809335D9A14DD4F");
 
             entity.ToTable("Order");
 
@@ -781,6 +780,13 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.OrderDate)
                 .HasColumnType("datetime")
                 .HasColumnName("orderDate");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("phone");
+            entity.Property(e => e.RecepientName)
+                .HasMaxLength(50)
+                .HasColumnName("recepientName");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalAmount).HasColumnName("totalAmount");
 
@@ -792,7 +798,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__E4FEDE4A7D87710F");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__E4FEDE4A37A275D2");
 
             entity.ToTable("OrderDetail");
 
@@ -826,11 +832,11 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Promotion>(entity =>
         {
-            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__99EB696EEE6B463D");
+            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__99EB696E0D94AB10");
 
             entity.ToTable("Promotion");
 
-            entity.HasIndex(e => e.PromotionCode, "UQ__Promotio__E968577062B8F451").IsUnique();
+            entity.HasIndex(e => e.PromotionCode, "UQ__Promotio__E9685770D4D35BEC").IsUnique();
 
             entity.Property(e => e.PromotionId)
                 .HasMaxLength(50)
@@ -852,7 +858,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Request>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__Request__E3C5DE3116686913");
+            entity.HasKey(e => e.RequestId).HasName("PK__Request__E3C5DE31F33CD5EA");
 
             entity.ToTable("Request");
 
@@ -860,6 +866,9 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("requestId");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.CustomerId)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -907,7 +916,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__CD98462ABD6C0399");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__CD98462AEEFBECA3");
 
             entity.ToTable("Role");
 
@@ -923,7 +932,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Room>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__Room__6C3BF5BE6BD9E0BF");
+            entity.HasKey(e => e.RoomId).HasName("PK__Room__6C3BF5BE4A99F56B");
 
             entity.ToTable("Room");
 
@@ -947,7 +956,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<ServiceCategory>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__ServiceC__23CAF1D8EFF1E831");
+            entity.HasKey(e => e.CategoryId).HasName("PK__ServiceC__23CAF1D8C15D3421");
 
             entity.ToTable("ServiceCategory");
 
@@ -968,7 +977,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<ServiceTransaction>(entity =>
         {
-            entity.HasKey(e => e.ServiceTransactionId).HasName("PK__ServiceT__BD73A2A4820E8C4E");
+            entity.HasKey(e => e.ServiceTransactionId).HasName("PK__ServiceT__BD73A2A40FF03DC0");
 
             entity.ToTable("ServiceTransaction");
 
@@ -1008,7 +1017,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<SpaService>(entity =>
         {
-            entity.HasKey(e => e.ServiceId).HasName("PK__SpaServi__455070DFA452AB78");
+            entity.HasKey(e => e.ServiceId).HasName("PK__SpaServi__455070DFBA62033F");
 
             entity.ToTable("SpaService");
 
@@ -1045,7 +1054,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Transaction>(entity =>
         {
-            entity.HasKey(e => e.TransactionId).HasName("PK__Transact__9B57CF72FAA0E7B1");
+            entity.HasKey(e => e.TransactionId).HasName("PK__Transact__9B57CF72BFB5130A");
 
             entity.ToTable("Transaction");
 
