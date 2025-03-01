@@ -2,6 +2,20 @@ import { apiUrl, getToken } from '../../../types/constants'
 import { Customer } from '../../../types/type'
 import { toast } from 'react-toastify'
 
+export async function getCustomerByAccountId(id: string) {
+  try {
+    const res = await fetch(`${apiUrl}/customers/GetCustomerByAccountId/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as Customer[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
 export async function getAllCustomers() {
   try {
     const res = await fetch(`${apiUrl}/customers/GetAll`, {

@@ -37,6 +37,10 @@ export const columns: ColumnDef<Application>[] = [
     header: 'Content'
   },
   {
+    accessorKey: 'createBy',
+    header: 'Created By'
+  },
+  {
     accessorKey: 'createdAt',
     header: 'Created At'
   },
