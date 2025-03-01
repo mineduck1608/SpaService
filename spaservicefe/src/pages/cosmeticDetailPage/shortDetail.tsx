@@ -9,7 +9,6 @@ import { getCartItem, setCartItem } from './detailPage.util'
 
 export default function ShortDetail(params: { d?: CosmeticProduct }) {
   const CATEGORY = JSON.parse(sessionStorage.getItem('cosmeticcategories') ?? '[]') as CosmeticCategory[]
-  const navigate = useNavigate() // Initialize useNavigate
   const [amount, setAmount] = useState(1)
 
   // Hàm kiểm tra và chuyển hướng

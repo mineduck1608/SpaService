@@ -15,10 +15,8 @@ export default function ServiceList(params?: { service: Service[] }) {
 }
 
 export function ServiceCard(params?: { s: Service }) {
-  const navigate = useNavigate() // Initialize useNavigate
-
   const handleNavigate = () => {
-    // Use navigate() for routing
+    window.location.assign(`/services-detail/${params?.s?.serviceId}`)
   }
 
   return (
@@ -42,9 +40,7 @@ export function ServiceCard(params?: { s: Service }) {
         </div>
         <div className='mb-4 flex justify-center'>
           <button
-            onClick={() => {
-              navigate(`/services-detail/${params?.s?.serviceId}`)
-            }}
+            onClick={handleNavigate}
             className={`w-1/2 rounded-br-2xl rounded-tl-2xl border-2 border-[#8D388A] bg-white p-2 text-[#8D388A] 
             duration-300 hover:-translate-x-1 hover:shadow-[1px_1px_#8D388A,2px_2px_#8D388A]`}
           >

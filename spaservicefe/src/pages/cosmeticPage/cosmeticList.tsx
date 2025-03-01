@@ -15,10 +15,9 @@ export default function CosmeticList(params?: { cosmetic: CosmeticProduct[] }) {
 }
 
 export function CosmeticCard(params?: { s: CosmeticProduct }) {
-  const navigate = useNavigate() // Initialize useNavigate
 
   const handleNavigate = () => {
-    navigate(`/cosmetics-detail/${params?.s?.productId}`) // Use navigate() for routing
+    window.location.assign(`/cosmetics-detail/${params?.s?.productId}`) // Use navigate() for routing
   }
 
   return (
