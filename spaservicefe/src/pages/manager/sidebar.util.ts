@@ -59,7 +59,7 @@ export const sideData = {
       pages: [
         {
           title: 'Customer Requests',
-          url: '/manager/customer-requests'
+          url: '/customer-requests'
         },
         {
           title: 'Applications',
