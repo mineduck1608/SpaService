@@ -2,6 +2,20 @@ import { apiUrl, getToken } from '../../../types/constants'
 import { Employee } from '../../../types/type'
 import { toast } from 'react-toastify'
 
+export async function getEmployeeByAccountId(id: string) {
+  try {
+    const res = await fetch(`${apiUrl}/employees/GetEmployeeByAccountId/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as Employee[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
 export async function getAllEmployees() {
   try {
     const res = await fetch(`${apiUrl}/employees/GetAll`, {
