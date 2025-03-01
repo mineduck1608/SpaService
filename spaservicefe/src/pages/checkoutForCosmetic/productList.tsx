@@ -21,7 +21,7 @@ export default function ProductList(params: { s: SessionItem[] }) {
     })
 
   return (
-    <div className='flex flex-col rounded-lg'>
+    <div className='flex w-full flex-col rounded-lg'>
       <table>
         <thead className='bg-purple1 text-white *:border-[1px] *:border-purple1 *:p-3'>
           <td>Product name</td>

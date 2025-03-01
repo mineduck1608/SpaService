@@ -11,7 +11,14 @@ import { createOrder } from './checkoutPage.util.ts'
 
 export default function CosmeticCheckoutPage() {
   const cart = getCart().filter((x) => x.included)
-  const [addr, setAddr] = useState('')
+  const [data, setData] = useState({
+    fullName: '',
+    phone: '',
+    address: '',
+    orderOnBehalf: false,
+    name: '',
+    tel: ''
+  })
   useEffect(() => {
     async function fetchData() {
       var t = getToken()
@@ -23,13 +30,13 @@ export default function CosmeticCheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) {}
+    } catch (e) { }
   }, [])
   async function onSubmitBase(method: string) {
     try {
       const customerId = await getCustomerIdByAcc()
       const result = await createOrder({
-        address: addr,
+        address: data.address,
         customerId: customerId ?? '',
         orderDate: new Date(),
         paymentType: method,
@@ -40,8 +47,7 @@ export default function CosmeticCheckoutPage() {
           }
         })
       })
-      console.log(result);
-      
+
       return result
     } catch (e) {
       toast.error(e as string)
@@ -59,7 +65,7 @@ export default function CosmeticCheckoutPage() {
         }
         toast.error(s.rs)
       }
-    } catch (e) {}
+    } catch (e) { }
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
@@ -68,14 +74,14 @@ export default function CosmeticCheckoutPage() {
       if (s?.total) {
         var url = await getPaymentUrl(s.total, s.rs) //Rs is transactionId
         window.location.replace(url)
-        return;
+        return
       }
       toast.error(s?.rs)
     } catch (e) {
       toast.error(e as string)
     }
   }
-  const disabled = cart.length === 0 || addr.length === 0
+  const verifyRequiredData = cart.length === 0 || data.address.length === 0
   return (
     <div
       className='w-full overflow-hidden'
@@ -89,17 +95,37 @@ export default function CosmeticCheckoutPage() {
       <div className='mb-48 mt-48 flex justify-center'>
         <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
-            <ProductList s={cart} />
-            <div>
-              <p>Address</p>
-              <input
-                type='text'
-                className='w-full border-[1px] p-2'
-                value={addr}
-                required
-                onChange={(e) => setAddr(e.target.value)}
-              />
+            <div className='mb-4'>
+              <label className='grid'>
+                Address:
+                <input className='border-[1px] p-2'
+                  value={data.address}
+                  onChange={(e) => {
+                    setData({ ...data, address: e.currentTarget.value })
+                  }} />
+              </label>
+              <p className='mt-4'>
+                Order on behalf of a person? &nbsp;
+                <input type='checkbox'
+                  className='size-4'
+                  checked={data.orderOnBehalf}
+                  onChange={(e) => {
+                    setData({ ...data, orderOnBehalf: !data.orderOnBehalf })
+                  }}
+                />
+              </p>
+              <div className='flex justify-between gap-6'>
+                <label className='grid 2xl:w-[50%]'>
+                  Full Name:
+                  <input className='border-[1px] p-2 ' />
+                </label>
+                <label className='grid 2xl:w-[50%]'>
+                  Telephone:
+                  <input className='border-[1px] p-2' type='tel' />
+                </label>
+              </div>
             </div>
+            <ProductList s={cart} />
           </div>
           {/* Sidebar with buttons */}
           <div className='flex w-1/3 flex-col items-center rounded-br-lg rounded-tr-lg bg-purple1 bg-[url(https://senspa.com.vn/wp-content/themes/thuythu/images/background1.png)] bg-[bottom_50px_right] bg-no-repeat px-5 py-4'>
@@ -108,7 +134,7 @@ export default function CosmeticCheckoutPage() {
               <button
                 type='submit'
                 onClick={payInCash}
-                disabled={disabled}
+                disabled={verifyRequiredData}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >
                 Submit order
@@ -117,7 +143,7 @@ export default function CosmeticCheckoutPage() {
             <div className='my-3 w-1/2'>
               <button
                 type='submit'
-                disabled={disabled}
+                disabled={verifyRequiredData}
                 onClick={submitWithVnPay}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >
