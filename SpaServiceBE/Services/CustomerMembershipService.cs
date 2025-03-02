@@ -28,7 +28,10 @@ namespace Services
         {
             return await _repository.FindNewestByCustomerId(id);
         }
+        public async Task<CustomerMembership> GetCustomerMembershipByCustomerId(string customerId)
+        {
+            return await _repository.GetCustomerMembershipByCustomerId(customerId);
+        }
 
-        
     }
 }

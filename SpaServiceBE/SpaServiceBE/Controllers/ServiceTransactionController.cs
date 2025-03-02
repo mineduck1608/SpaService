@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Services;
 using Services.IServices;
 using System.Text.Json;
 
@@ -10,7 +11,7 @@ namespace SpaServiceBE.Controllers
     public class ServiceTransactionController : ControllerBase
     {
         private readonly IServiceTransactionService _serviceTransactionService;
-
+      
         public ServiceTransactionController(IServiceTransactionService serviceTransactionService)
         {
             _serviceTransactionService = serviceTransactionService;
@@ -21,7 +22,7 @@ namespace SpaServiceBE.Controllers
         {
             return Ok(await _serviceTransactionService.GetAll());
         }
-
+        //get by transaction id
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<ServiceTransaction>> GetServiceTransactionById(string id)
         {

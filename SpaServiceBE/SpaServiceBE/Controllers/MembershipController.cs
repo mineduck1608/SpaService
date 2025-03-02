@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,26 @@ namespace API.Controllers
     public class MembershipController : ControllerBase
     {
         private readonly IMembershipService _service;
+        private readonly ICustomerService _customerService;
+        private readonly IOrderService _orderService;
+        private readonly IRequestService _requestService; // Added service for requests
+        private readonly ISpaServiceService _spaServiceService; // Added service for spa services
+        private readonly ICustomerMembershipService _customerMembershipService;
 
-        public MembershipController(IMembershipService service)
+
+        public MembershipController(IMembershipService service,
+            ICustomerService customerService,
+            IOrderService orderService,
+            IRequestService requestService,
+            ISpaServiceService spaServiceService,
+            ICustomerMembershipService customerMembershipService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+            _requestService = requestService ?? throw new ArgumentNullException(nameof(requestService));
+            _spaServiceService = spaServiceService ?? throw new ArgumentNullException(nameof(spaServiceService));
+            _customerMembershipService = customerMembershipService ?? throw new ArgumentNullException(nameof(customerMembershipService));
         }
 
         // GET: api/memberships/GetAll
@@ -101,7 +118,7 @@ namespace API.Controllers
 
 
         // PUT: api/memberships/Update/{id}
-        [Authorize]
+       [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateMembership(string id, [FromBody] dynamic request)
         {

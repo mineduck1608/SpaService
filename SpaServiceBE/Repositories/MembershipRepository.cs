@@ -52,9 +52,32 @@ namespace Repositories
             var existingMembership = await GetById(membershipId);
             if (existingMembership == null) return false;
 
-            existingMembership.Type = membership.Type;
-            existingMembership.TotalPayment = membership.TotalPayment;
-            existingMembership.Discount = membership.Discount;
+            // First, determine the membership type and discount based on total payment
+            if (existingMembership.TotalPayment >= 100000000)
+            {
+                existingMembership.Type = "Diamond";
+                existingMembership.Discount = 10;
+            }
+            else if (existingMembership.TotalPayment >= 60000000)
+            {
+                existingMembership.Type = "Platinum";
+                existingMembership.Discount = 7;
+            }
+            else if (existingMembership.TotalPayment >= 30000000)
+            {
+                existingMembership.Type = "Gold";
+                existingMembership.Discount = 5;
+            }
+            else if (existingMembership.TotalPayment >= 10000000)
+            {
+                existingMembership.Type = "Silver";
+                existingMembership.Discount = 2;
+            }
+
+            // Then update with provided values if necessary
+                existingMembership.TotalPayment = membership.TotalPayment;
+                existingMembership.Type = membership.Type;
+                existingMembership.Discount = membership.Discount;
 
             try
             {
