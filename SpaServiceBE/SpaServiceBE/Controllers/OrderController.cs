@@ -19,10 +19,8 @@ namespace SpaServiceBE.Controllers
         private readonly ITransactionService _transactionService;
         private readonly ICustomerMembershipService _customerMembershipService;
         private readonly IMembershipService _membershipService;
-
-        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService)
         private readonly IPromotionService _promotionService;
-        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService)
+        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService)
         {
             _cosmeticProductService = cosmeticProductService;
             _orderService = orderService;

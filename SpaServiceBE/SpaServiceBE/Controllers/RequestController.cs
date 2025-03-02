@@ -149,7 +149,6 @@ namespace API.Controllers
                     ManagerNote = null,
                     CreatedAt = DateTime.Now,
                     EmployeeId = employeeId,
-                    CreatedAt = DateTime.Now
                 };
                 var b = await _service.CheckResourceAvailable(newRequest);
                 var errList = new List<string>();

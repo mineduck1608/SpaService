@@ -146,7 +146,7 @@ namespace SpaServiceBE.Controllers
             if (room == null)
                 return NotFound(new { msg = $"Room with ID = {id} not found." });
 
-            room.IsDeleted = true;
+            room.Status = false;
             await _roomService.DeleteRoom(id);
             var isUpdated = await _roomService.UpdateRoom(room);
 
