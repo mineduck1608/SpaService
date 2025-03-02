@@ -88,5 +88,10 @@ namespace Repositories
                 return false;
             }
         }
+
+        public async Task<Promotion> GetByCode(string code)
+        {
+            return _context.Promotions.FirstOrDefault(x => x.PromotionCode == code && x.IsActive);
+        }
     }
 }

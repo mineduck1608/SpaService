@@ -1,6 +1,6 @@
 import { SpaRequest } from '@/types/request'
 import { apiUrl, getToken } from '../../types/constants'
-import { Customer, Employee } from '@/types/type'
+import { Customer, Employee, Promotion } from '@/types/type'
 import { jwtDecode } from 'jwt-decode'
 
 export async function getCustomerIdByAcc() {
@@ -107,6 +107,21 @@ export async function getCusByAcc(id: string) {
       return (await c.json()) as Customer
     }
     return await c.json()
+  } catch (e) {
+    return "Couldn't connect to server"
+  }
+}
+export async function getCode(code: string) {
+  try {
+    var c = await fetch(`${apiUrl}/promotions/GetByCode/${code}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    if (c.ok) {
+      return (await c.json()) as Promotion
+    }
+    return await c.text()
   } catch (e) {
     return "Couldn't connect to server"
   }

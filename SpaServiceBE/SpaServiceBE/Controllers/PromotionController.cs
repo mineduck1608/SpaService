@@ -60,6 +60,28 @@ namespace API.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet("GetByCode/{code}")]
+        public async Task<ActionResult<Promotion>> GetPromotionByCode(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+                return BadRequest("PromotionId is required.");
+
+            try
+            {
+                var promotion = await _service.GetByCode(code);
+
+                if (promotion == null)
+                    return NotFound($"Promotion with code {code} not found.");
+
+                return Ok(promotion);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // POST: api/promotions/Create
         [HttpPost("Create")]
         public async Task<ActionResult> CreatePromotion([FromBody] dynamic request)
