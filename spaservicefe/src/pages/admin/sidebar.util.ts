@@ -20,6 +20,47 @@ import {
   Package,
   Blocks
 } from 'lucide-react'
+
+import { jwtDecode } from 'jwt-decode'
+import { roleJWT } from '../../types/constants'
+
+
+const token = sessionStorage.getItem('token');
+let userRole;
+if (token) {
+  const jwtData = jwtDecode(token);
+  userRole = jwtData[roleJWT];
+  console.log(userRole)
+} else {
+  console.error('Token not found');
+}
+const adminNavMain = [
+  {
+    title: 'Home',
+    url: '/admin',
+    icon: Home,
+  },
+  // Add more items for Admin
+];
+
+const managerNavMain = [
+  {
+    title: 'Home',
+    url: '/manager',
+    icon: Home,
+  },
+  // Add more items for Manager
+];
+
+const employeeNavMain = [
+  {
+    title: 'Home',
+    url: '/employee',
+    icon: Home,
+  },
+// Add more items for Employee
+];
+
 export type SideBarItem = {
   title: string
   url?: string
@@ -30,13 +71,7 @@ export type SideBarItem = {
   isFavorite?: boolean
 }
 export const sideData = {
-  navMain: [
-    {
-      title: 'Home',
-      url: 'admin',
-      icon: Home
-    }
-  ],
+  navMain: userRole === 'Admin' ? adminNavMain : userRole === 'Manager' ? managerNavMain : employeeNavMain,
   workspaces: [
     {
       title: 'Appointments',

@@ -263,7 +263,7 @@ function App() {
               </ProtectedAdmin>
             }
           >
-            <Route index element={<Dashboard />} />
+            <Route path='' index element={<Dashboard />} />
 
             {/* Workspaces */}
             <Route path='appointments' element={<CalendarApp />} />
