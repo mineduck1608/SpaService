@@ -2,7 +2,7 @@ import { Service } from '@/types/services'
 import React from 'react'
 import { formatNumber } from './servicesPage.util'
 import sep from '../../images/serviceBg/separator.png'
-import { useNavigate } from 'react-router-dom' // Import useNavigate
+import { useNavigate } from 'react-router-dom'
 
 export default function ServiceList(params?: { service: Service[] }) {
   return (
@@ -15,20 +15,23 @@ export default function ServiceList(params?: { service: Service[] }) {
 }
 
 export function ServiceCard(params?: { s: Service }) {
-  const navigate = useNavigate() // Initialize useNavigate
+  const navigate = useNavigate()
 
   const handleNavigate = () => {
-    // Use navigate() for routing
+    // Use window.location to navigate
+    window.location.href = `/services-detail/${params?.s?.serviceId}`;
+    // Or reload the page to force the update
+    // window.location.reload();
   }
 
   return (
-    <div className='w-full min-w-[300px] '>
+    <div className='w-full min-w-[300px]'>
       {/* Container */}
       <div className='flex flex-col rounded-md shadow'>
         <img
           src={params?.s?.serviceImage}
           alt={params?.s?.serviceName}
-          className='aspect-[1/0.65] w-full rounded-t-md '
+          className='aspect-[1/0.65] w-full rounded-t-md'
         />
         <div className='flex items-center justify-center pt-4'>
           <button onClick={handleNavigate}>
@@ -42,9 +45,7 @@ export function ServiceCard(params?: { s: Service }) {
         </div>
         <div className='mb-4 flex justify-center'>
           <button
-            onClick={() => {
-              navigate(`/services-detail/${params?.s?.serviceId}`)
-            }}
+            onClick={handleNavigate}
             className={`w-1/2 rounded-br-2xl rounded-tl-2xl border-2 border-[#8D388A] bg-white p-2 text-[#8D388A] 
             duration-300 hover:-translate-x-1 hover:shadow-[1px_1px_#8D388A,2px_2px_#8D388A]`}
           >

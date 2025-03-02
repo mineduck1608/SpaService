@@ -32,6 +32,7 @@ export default function CheckoutPage() {
       var req2 = { ...req }
       req2.startTime.setTime(req2.startTime.getTime() + 7 * 3600 * 1000) //Account for JS stupid date API
       var s = await submitRequest(req2)
+      console.log(req2)
       if (s.msg) {
         toast.error(s.msg)
         return false

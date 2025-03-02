@@ -1150,6 +1150,22 @@
   {
     "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
     "Method": "GetCustomerMembershipById",
+    "RelativePath": "api/customermemberships/GetByCustomerId/{customerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "GetCustomerMembershipById",
     "RelativePath": "api/customermemberships/GetById/{customerId}/{membershipId}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -2475,6 +2491,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "GetAllPaidOrdersByCustomerId",
+    "RelativePath": "api/orders/GetAllPaidOrdersByCustomerId/{customerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

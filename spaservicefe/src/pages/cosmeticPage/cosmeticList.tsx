@@ -1,7 +1,6 @@
 import React from 'react'
 import { formatNumber } from './cosmeticPage.util'
 import sep from '../../images/serviceBg/separator.png'
-import { useNavigate } from 'react-router-dom' // Import useNavigate
 import { CosmeticProduct } from '@/types/type'
 
 export default function CosmeticList(params?: { cosmetic: CosmeticProduct[] }) {
@@ -15,17 +14,16 @@ export default function CosmeticList(params?: { cosmetic: CosmeticProduct[] }) {
 }
 
 export function CosmeticCard(params?: { s: CosmeticProduct }) {
-  const navigate = useNavigate() // Initialize useNavigate
-
   const handleNavigate = () => {
-    navigate(`/cosmetics-detail/${params?.s?.productId}`) // Use navigate() for routing
+    // Use window.location to navigate
+    window.location.href = `/cosmetics-detail/${params?.s?.productId}`;
   }
 
   return (
-    <div className='w-full min-w-[300px] '>
+    <div className='w-full min-w-[300px]'>
       {/* Container */}
       <div className='flex flex-col rounded-md shadow'>
-        <img src={params?.s?.image} alt={params?.s?.productName} className='aspect-[1/0.65] w-full rounded-t-md ' />
+        <img src={params?.s?.image} alt={params?.s?.productName} className='aspect-[1/0.65] w-full rounded-t-md' />
         <div className='flex items-center justify-center pt-4'>
           <button onClick={handleNavigate}>
             <p className='text-center text-lg font-bold'>{params?.s?.productName}</p>
