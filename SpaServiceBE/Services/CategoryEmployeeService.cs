@@ -24,6 +24,11 @@ namespace Services
             return await _categoryEmployeeRepository.GetByCategoryId(categoryId);
         }
 
+        public async Task<bool> GetByCategoryIdAndEmployeeId(string categoryId, string employeeId)
+        {
+            return await _categoryEmployeeRepository.GetByCategoryIdAndEmployeeID(categoryId, employeeId);
+        }
+
         public async Task<List<CategoryEmployee>> GetByEmployeeIdAsync(string employeeId)
         {
             return await _categoryEmployeeRepository.GetByEmployeeId(employeeId);

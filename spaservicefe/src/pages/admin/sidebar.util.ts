@@ -111,12 +111,12 @@ export const sideData = {
     {
       title: 'Accounts',
       icon: UserCircle,
-      url: '/accounts'
+      url: 'accounts'
     },
     {
       title: 'Employee Categories',
       icon: UserCog,
-      url: '/employee-categories'
+      url: 'employee-categories'
     },
     {
       title: 'Users',
@@ -141,24 +141,24 @@ export const sideData = {
     {
       title: 'Services Categories',
       icon: Sparkle,
-      url: '/service-categories'
+      url: 'service-categories'
     },
     {
       title: 'Spa Services',
       icon: Sparkles,
-      url: '/spa-services'
+      url: 'spa-services'
     }
   ],
   cosmetics: [
     {
       title: 'Cosmetic Categories',
       icon: Package,
-      url: '/cosmetic-categories'
+      url: 'cosmetic-categories'
     },
     {
       title: 'Cosmetic Products',
       icon: Blocks,
-      url: '/cosmetic-product'
+      url: 'cosmetic-product'
     }
   ],
   navSecondary: [

@@ -107,12 +107,7 @@ function App() {
               </Layout>
             }
           />
-          <Route
-            path='upload'
-            element={
-              <ImageUpload />
-            }
-          />
+          <Route path='upload' element={<ImageUpload />} />
           <Route
             path='appointments'
             element={
@@ -163,7 +158,14 @@ function App() {
               </Layout>
             }
           />
-          <Route path='carts' element={<Layout><CartPage /></Layout>} />
+          <Route
+            path='carts'
+            element={
+              <Layout>
+                <CartPage />
+              </Layout>
+            }
+          />
           <Route
             path='cosmetics/:id'
             element={

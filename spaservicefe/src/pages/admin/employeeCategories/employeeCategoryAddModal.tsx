@@ -35,6 +35,7 @@ export default function AddCosmeticModal() {
     const selectedEmployee = employees.find((employee) => employee.employeeId === data.employeeId)
     if (selectedCategory) data.categoryId = selectedCategory.categoryId
     if (selectedEmployee) data.employeeId = selectedEmployee.employeeId
+    console.log(data)
     handleCreateSubmit(data)
   }
 
