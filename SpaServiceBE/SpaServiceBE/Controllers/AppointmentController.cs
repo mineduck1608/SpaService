@@ -134,6 +134,58 @@ namespace API.Controllers
             }
         }
 
+        //// POST: api/appointments/Create
+        //[HttpPost("Create")]
+        //public async Task<ActionResult> CreateAppointment([FromBody] dynamic request)
+        //{
+        //    try
+        //    {
+        //        var jsonElement = (JsonElement)request;
+
+        //        // Lấy dữ liệu từ request
+        //        string requestId = jsonElement.GetProperty("requestId").GetString();
+        //        string employeeId = jsonElement.GetProperty("employeeId").GetString();
+        //        DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
+        //        string roomId = jsonElement.GetProperty("roomId").GetString();
+
+        //        // Kiểm tra dữ liệu đầu vào
+        //        if (string.IsNullOrEmpty(requestId) || string.IsNullOrEmpty(employeeId) || string.IsNullOrEmpty(roomId))
+        //            return BadRequest(new { msg = "Appointment details are incomplete." });
+
+        //        var spaSerivceId = _requestService.GetSpaServiceIdByRequestId(requestId);
+        //        var duration = _spaService.GetTimeByServiceId(spaSerivceId.ToString());
+
+        //        TimeOnly durationValue = await duration; // Lấy giá trị thực từ Task<TimeOnly>
+        //        TimeSpan timeSpan = durationValue.ToTimeSpan(); // Chuyển thành TimeSpan
+        //        DateTime endTime = startTime + timeSpan; // Cộng vào DateTime
+
+
+        //        // Tạo đối tượng Appointment
+        //        var appointment = new Appointment
+        //        {
+        //            AppointmentId = Guid.NewGuid().ToString(), // Generate unique ID
+        //            RequestId = requestId,
+        //            EmployeeId = employeeId,
+        //            Status = "Unprocessed", // Default status
+        //            StartTime = startTime,
+        //            EndTime = endTime,
+        //            RoomId = roomId,
+        //        };
+
+        //        // Gọi service để thêm appointment
+        //        var isCreated = await _service.AddAppointment(appointment);
+
+        //        if (!isCreated)
+        //            return StatusCode(500, new { msg = "An error occurred while creating the appointment." });
+
+        //        return CreatedAtAction(nameof(GetAppointmentById), new { id = appointment.AppointmentId }, appointment);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+        //    }
+        //}
+
         [Authorize]
         [HttpGet("GetByAccId/{id}")]
         public async Task<ActionResult<List<Request>>> GetRequestByAccId(string id)

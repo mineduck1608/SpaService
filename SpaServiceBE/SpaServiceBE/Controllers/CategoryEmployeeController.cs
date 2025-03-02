@@ -88,11 +88,18 @@ namespace API.Controllers
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
 
-                if (request == null || string.IsNullOrEmpty(categoryId) || string.IsNullOrEmpty(employeeId))
+                if (string.IsNullOrEmpty(categoryId) || string.IsNullOrEmpty(employeeId))
                     return BadRequest(new { msg = "CategoryEmployee details are incomplete." });
 
+                var checkExist = await _service.GetByCategoryIdAndEmployeeId(categoryId, employeeId);
+                if(checkExist == true)
+                {
+                    return BadRequest(new { msg = "CategoryEmployee is exist." });
+
+                }
                 var categoryEmployee = new CategoryEmployee
                 {
+                    CategoryEmployeeId = Guid.NewGuid().ToString("N"),
                     CategoryId = categoryId,
                     EmployeeId = employeeId
                 };

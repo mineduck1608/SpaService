@@ -1,10 +1,10 @@
 import React from 'react'
 import seperator from '../../images/serviceBg/separator.png'
 import { Service } from '@/types/services'
-import { Category } from '@/types/serviceCategory'
+import { ServiceCategory } from '@/types/type'
 
 export default function ServiceIntro(params: { s?: Service }) {
-  const CATEGORIES = JSON.parse(sessionStorage.getItem('categories') ?? '{}') as Category[]
+  const CATEGORIES = JSON.parse(sessionStorage.getItem('categories') ?? '{}') as ServiceCategory[]
   const CATEGORY = CATEGORIES.find((x) => x.categoryId === params.s?.categoryId)
   return (
     <div>
@@ -12,7 +12,6 @@ export default function ServiceIntro(params: { s?: Service }) {
       <div className='mb-4 flex justify-center'>
         <img src={seperator} />
       </div>
-      {/* Sample text */}
       <div>{CATEGORY?.categoryDescription}</div>
     </div>
   )

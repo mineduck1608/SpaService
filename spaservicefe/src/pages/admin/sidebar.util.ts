@@ -33,7 +33,7 @@ export const sideData = {
   navMain: [
     {
       title: 'Home',
-      url: '/admin',
+      url: 'admin',
       icon: Home
     }
   ],
@@ -41,16 +41,16 @@ export const sideData = {
     {
       title: 'Appointments',
       icon: ClipboardList,
-      url: '/admin/appointments'
+      url: 'appointments'
     },
     {
       title: 'Orders',
       icon: Boxes,
-      url: '/admin/orders'
+      url: 'orders'
     },
     {
       title: 'Transactions',
-      url: '/admin/transactions',
+      url: 'transactions',
       icon: ArrowLeftRight
     },
     {
@@ -111,12 +111,12 @@ export const sideData = {
     {
       title: 'Accounts',
       icon: UserCircle,
-      url: '/admin/accounts'
+      url: 'accounts'
     },
     {
       title: 'Employee Categories',
       icon: UserCog,
-      url: '/admin/employee-categories'
+      url: 'employee-categories'
     },
     {
       title: 'Users',
@@ -141,24 +141,24 @@ export const sideData = {
     {
       title: 'Services Categories',
       icon: Sparkle,
-      url: '/admin/service-categories'
+      url: 'service-categories'
     },
     {
       title: 'Spa Services',
       icon: Sparkles,
-      url: '/admin/spa-services'
+      url: 'spa-services'
     }
   ],
   cosmetics: [
     {
       title: 'Cosmetic Categories',
       icon: Package,
-      url: '/admin/cosmetic-categories'
+      url: 'cosmetic-categories'
     },
     {
       title: 'Cosmetic Products',
       icon: Blocks,
-      url: '/admin/cosmetic-product'
+      url: 'cosmetic-product'
     }
   ],
   navSecondary: [

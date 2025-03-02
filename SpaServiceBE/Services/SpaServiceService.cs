@@ -20,6 +20,12 @@ namespace Services
             return await _spaServiceRepository.GetById(serviceId);
         }
 
+        public async Task<TimeOnly> GetTimeByServiceId(string serviceId)
+        {
+            var duration = await _spaServiceRepository.GetById(serviceId);
+            return duration.Duration;
+        }
+
         public async Task<SpaService> GetByName(string serviceName)
         {
             return await _spaServiceRepository.GetByName(serviceName);

@@ -12,6 +12,7 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { SpaRequest } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { EditRequestModal } from './editRequestModal'
+import { AssignRequest } from './customerRequest.util'
 
 interface RequestActionsProps {
   request: SpaRequest
@@ -32,8 +33,8 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
     closeModal()
   }
 
-  const handleUpdate = (updatedRequest: SpaRequest) => {
-    console.log('Updated request: ', updatedRequest)
+  const handleUpdate = (updatedRequest: SpaRequest, roomId: string) => {
+    AssignRequest(updatedRequest, roomId)
   }
 
   return (
@@ -52,7 +53,7 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openEditModal}>Assign</DropdownMenuItem>
-          <DropdownMenuItem onClick={openModal}>Cancelled</DropdownMenuItem>
+          <DropdownMenuItem onClick={openModal}>Decline</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />

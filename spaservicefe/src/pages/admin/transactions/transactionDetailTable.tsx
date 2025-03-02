@@ -51,57 +51,65 @@ export function TransactionDetailTable({ transactionId, transactionType }: Trans
 
   return (
     <Table>
-      {transactionType === 'Service' ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Service</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Start Time</TableHead>
-              <TableHead>Customer Note</TableHead>
-              <TableHead>Manager Note</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Employee</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {transactionDetails.map((request: SpaRequest, index) => (
-              <TableRow key={request.requestId}>
+      <TableBody>
+        {transactionType === 'Service'
+          ? transactionDetails.map((request: SpaRequest) => (
+            <React.Fragment key={request.requestId}>
+              <TableRow>
+                <TableHead>Service</TableHead>
                 <TableCell>{request.service?.serviceName || 'N/A'}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Customer</TableHead>
                 <TableCell>{request.customer?.fullName || 'N/A'}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Start Time</TableHead>
                 <TableCell>{new Date(request.startTime).toLocaleString()}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Customer Note</TableHead>
                 <TableCell>{request.customerNote || 'N/A'}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Manager Note</TableHead>
                 <TableCell>{request.managerNote || 'N/A'}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Request Status</TableHead>
                 <TableCell>{request.status}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Employee</TableHead>
                 <TableCell>{request.employee?.fullName || 'N/A'}</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      ) : (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Customer</TableHead>
-              <TableHead>Order Date</TableHead>
-              <TableHead>Total Amount</TableHead>
-              <TableHead>Address</TableHead>
-              <TableHead>Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {transactionDetails.map((order: Order, index) => (
-              <TableRow key={order.orderId}>
+            </React.Fragment>
+          )) : transactionDetails.map((order: Order) => (
+            <React.Fragment key={order.orderId}>
+              <TableRow>
+                <TableHead>Customer</TableHead>
                 <TableCell>{order.customer?.fullName || 'N/A'}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Order Date</TableHead>
                 <TableCell>{new Date(order.orderDate).toLocaleString()}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Total Amount</TableHead>
                 <TableCell>{order.totalAmount}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Address</TableHead>
                 <TableCell>{order.address}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>Process Status</TableHead>
                 <TableCell>{order.status}</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
+            </React.Fragment>
+          ))
+        }
+      </TableBody>
     </Table>
   )
 }

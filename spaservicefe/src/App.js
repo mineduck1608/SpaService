@@ -107,12 +107,7 @@ function App() {
               </Layout>
             }
           />
-          <Route
-            path='upload'
-            element={
-              <ImageUpload />
-            }
-          />
+          <Route path='upload' element={<ImageUpload />} />
           <Route
             path='appointments'
             element={
@@ -163,7 +158,14 @@ function App() {
               </Layout>
             }
           />
-          <Route path='carts' element={<Layout><CartPage /></Layout>} />
+          <Route
+            path='carts'
+            element={
+              <Layout>
+                <CartPage />
+              </Layout>
+            }
+          />
           <Route
             path='cosmetics/:id'
             element={
@@ -311,6 +313,7 @@ function App() {
             <Route index element={<Dashboard />} />
 
             {/* Workspaces */}
+            <Route path='appointments' element={<CalendarApp />} />
             <Route path='orders' element={<OrderPage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
@@ -332,7 +335,6 @@ function App() {
             <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
 
             {/* Users Management */}
-            <Route path='managers' element={<Placeholder title='Managers' />} />
             <Route path='customers' element={<CustomerPage />} />
             <Route path='employees' element={<EmployeePage />} />
 

@@ -41,16 +41,16 @@ export const sideData = {
     {
       title: 'Appointments',
       icon: ClipboardList,
-      url: '/admin/appointments'
+      url: '/manager/appointments'
     },
     {
       title: 'Orders',
       icon: Boxes,
-      url: '/admin/orders'
+      url: '/manager/orders'
     },
     {
       title: 'Transactions',
-      url: '/admin/transactions',
+      url: '/manager/transactions',
       icon: ArrowLeftRight
     },
     {
@@ -63,11 +63,11 @@ export const sideData = {
         },
         {
           title: 'Applications',
-          url: '/applications'
+          url: '/manager/applications'
         },
         {
           title: 'Guest Contacts',
-          url: '/guest-contacts'
+          url: '/manager/guest-contacts'
         }
       ]
     },
@@ -78,11 +78,11 @@ export const sideData = {
       pages: [
         {
           title: 'Floors',
-          url: '/floors'
+          url: '/manager/floors'
         },
         {
           title: 'Rooms',
-          url: '/rooms'
+          url: '/manager/rooms'
         }
       ]
     },
@@ -93,15 +93,15 @@ export const sideData = {
       pages: [
         {
           title: 'Promotions',
-          url: '/promotions'
+          url: '/manager/promotions'
         },
         {
           title: 'News',
-          url: '/news'
+          url: '/manager/news'
         },
         {
           title: 'Feedbacks',
-          url: '/feedbacks'
+          url: '/manager/feedbacks'
         }
 
       ]
@@ -123,7 +123,7 @@ export const sideData = {
         },
         {
           title: 'Employees',
-          url: '/employees'
+          url: '/manager/employees'
         }
       ]
     }
@@ -132,24 +132,24 @@ export const sideData = {
     {
       title: 'Services Categories',
       icon: Sparkle,
-      url: '/admin/service-categories'
+      url: '/manager/service-categories'
     },
     {
       title: 'Spa Services',
       icon: Sparkles,
-      url: '/admin/spa-services'
+      url: '/manager/spa-services'
     }
   ],
   cosmetics: [
     {
       title: 'Cosmetic Categories',
       icon: Package,
-      url: '/admin/cosmetic-categories'
+      url: '/manager/cosmetic-categories'
     },
     {
       title: 'Cosmetic Products',
       icon: Blocks,
-      url: '/admin/cosmetic-product'
+      url: '/manager/cosmetic-product'
     }
   ],
   navSecondary: [

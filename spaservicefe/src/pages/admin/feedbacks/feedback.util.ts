@@ -3,11 +3,7 @@ import { Customer, Feedback, SpaService } from '../../../types/type'
 
 export async function getAllFeedbacks() {
   try {
-    const res = await fetch(`${apiUrl}/feedbacks/GetAll`, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
+    const res = await fetch(`${apiUrl}/feedbacks/GetAll`)
     const json = (await res.json()) as Feedback[]
     return json
   } catch (e) {

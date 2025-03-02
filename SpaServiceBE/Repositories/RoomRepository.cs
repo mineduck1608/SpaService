@@ -21,13 +21,23 @@ namespace Repositories
 
         public async Task<IEnumerable<Room>> GetAllRooms()
         {
-            return await _context.Rooms.Where(r => r.IsDeleted == true).ToListAsync(); //Only get avaliable room
+            return await _context.Rooms.Where(r => r.IsDeleted == false).ToListAsync(); //Only get avaliable room
         }
 
         public async Task<Room> GetRoomById(string id)
         {
             return await _context.Rooms.FindAsync(id);
         }
+
+
+
+        public async Task<Room> GetRoomByFloorAndNumber(string floorId, int roomNum)
+        {
+            return await _context.Rooms
+                .Where(r => r.FloorId == floorId && r.RoomNum == roomNum)
+                .FirstOrDefaultAsync();
+        }
+
 
         public async Task CreateRoom(Room room)
         {

@@ -11,5 +11,6 @@ namespace Services
         Task<List<CategoryEmployee>> GetByEmployeeIdAsync(string employeeId);
         Task<bool> AddAsync(CategoryEmployee categoryEmployee);
         Task<bool> DeleteAsync(string categoryId, string employeeId);
+        Task<bool> GetByCategoryIdAndEmployeeId(string categoryId, string employeeId);
     }
 }
