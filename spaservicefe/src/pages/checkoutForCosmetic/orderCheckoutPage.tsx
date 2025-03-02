@@ -17,7 +17,9 @@ export default function CosmeticCheckoutPage() {
     address: '',
     orderOnBehalf: false,
     name: '',
-    tel: ''
+    tel: '',
+    promoCode: '',
+    value: 0
   })
   useEffect(() => {
     async function fetchData() {
@@ -81,7 +83,10 @@ export default function CosmeticCheckoutPage() {
       toast.error(e as string)
     }
   }
-  const verifyRequiredData = cart.length === 0 || data.address.length === 0
+  const verifyRequiredData = cart.length !== 0 && data.address.length !== 0
+  const verifyOptionalData = !data.orderOnBehalf || (data.fullName.length !== 0 && data.tel.length !== 0)
+  const valid = verifyOptionalData && verifyRequiredData
+
   return (
     <div
       className='w-full overflow-hidden'
@@ -98,30 +103,64 @@ export default function CosmeticCheckoutPage() {
             <div className='mb-4'>
               <label className='grid'>
                 Address:
-                <input className='border-[1px] p-2'
+                <input
+                  className='border-[1px] p-2'
                   value={data.address}
                   onChange={(e) => {
                     setData({ ...data, address: e.currentTarget.value })
-                  }} />
+                  }}
+                />
+              </label>
+              <label className='mt-3 flex items-center justify-between'>
+                Promotion Code:
+                <input
+                  className='mt-2 border-[1px] p-2'
+                  // value={req.promotionCode}
+                  // onChange={(e) => {
+                  //   setReq({ ...req, promotionCode: e.currentTarget.value })
+                  // }}
+                  placeholder='Promotion code'
+                />
+                <div className='flex items-center'>
+                  <input
+                    type='checkbox'
+                    className='size-5'
+                  // checked={checked}
+                  disabled={data.promoCode.length === 0}
+                  // onChange={async (e) => {
+                  //   var arg = !checked
+                  //   setChecked(arg)
+                  //   //Only execute this block if req.isActive is true
+                  //   if (arg) {
+                  //     await applyPromo()
+                  //     return
+                  //   }
+                  //   setReq({ ...req, active: 0 })
+                  // }}
+                  />
+                  <span>&nbsp;Apply promotion</span>
+                </div>
               </label>
               <p className='mt-4'>
                 Order on behalf of a person? &nbsp;
-                <input type='checkbox'
-                  className='size-4'
+                <input
+                  type='checkbox'
+                  className='size-5'
                   checked={data.orderOnBehalf}
                   onChange={(e) => {
                     setData({ ...data, orderOnBehalf: !data.orderOnBehalf })
                   }}
                 />
               </p>
-              <div className='flex justify-between gap-6'>
+              <div className='flex justify-between gap-6'
+              >
                 <label className='grid 2xl:w-[50%]'>
                   Full Name:
-                  <input className='border-[1px] p-2 ' />
+                  <input className='border-[1px] p-2 ' disabled={!data.orderOnBehalf} />
                 </label>
                 <label className='grid 2xl:w-[50%]'>
                   Telephone:
-                  <input className='border-[1px] p-2' type='tel' />
+                  <input className='border-[1px] p-2' type='tel' disabled={!data.orderOnBehalf} />
                 </label>
               </div>
             </div>
@@ -134,7 +173,7 @@ export default function CosmeticCheckoutPage() {
               <button
                 type='submit'
                 onClick={payInCash}
-                disabled={verifyRequiredData}
+                disabled={!valid}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >
                 Submit order
@@ -143,7 +182,7 @@ export default function CosmeticCheckoutPage() {
             <div className='my-3 w-1/2'>
               <button
                 type='submit'
-                disabled={verifyRequiredData}
+                disabled={!valid}
                 onClick={submitWithVnPay}
                 className='w-full transform rounded-br-2xl rounded-tl-2xl border-2 border-transparent bg-white p-1 text-purple1 transition-all duration-300 hover:scale-105 hover:border-purple3 hover:bg-purple2 hover:text-white disabled:bg-gray-400 disabled:text-white'
               >

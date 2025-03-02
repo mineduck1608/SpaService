@@ -23,20 +23,20 @@ import MainForm from './mainForm.tsx'
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
   const [emp, setEmp] = useState<Employee[]>([])
+  const [codes, setCodes] = useState<Map<string, string | Promotion>>(new Map<string, string | Promotion>())
   const [req, setReq] = useState<SpaRequestModel>({
-    active: false,
+    active: 0,
     customerId: '',
     customerNote: '',
     promotionCode: '',
     serviceId: booked.serviceId,
-    startTime: new Date(),
-
+    startTime: new Date()
   })
+  const [checked, setChecked] = useState(false)
   const { TextArea } = Input
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
-  const map: Map<string, Promotion> = new Map<string, Promotion>()
   useEffect(() => {
     async function fetchData() {
       var s = await getEmployees(booked.categoryId)
@@ -111,17 +111,38 @@ export default function CheckoutPage() {
   }
   async function applyPromo() {
     try {
-      const s = await getCode(req.promotionCode)
+      var code = req.promotionCode
+      var entry = codes.get(code)
+      if (entry) {
+        if (typeof entry === 'string') {
+          toast.error(entry, {
+            toastId: new Date().getTime()
+          })
+          return;
+        }
+        setReq({ ...req, active: entry.discountValue })
+        return;
+      }
+      const s = await getCode(code)
+      setCodes((v) => {
+        v.set(code, s)
+        return v
+      })
       if (typeof s === 'string') {
-        toast.error(s)
+        toast.error(s, {
+          toastId: new Date().getTime()
+        })
         return
       }
-    } catch (e) { }
+      setReq({ ...req, active: s.discountValue })
+    } catch (e) {
+      console.log(e as string)
+    }
   }
   const disable = (req.startTime ?? new Date()).getTime() < new Date().getTime() + 3600 * 1000
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
-      <ToastContainer />
+      <ToastContainer containerId={'checkout-page'} />
       {/* Hình ảnh nền */}
       <ServiceCheckoutContext.Provider value={{ req, setReq, emp }}>
         <div
@@ -151,15 +172,17 @@ export default function CheckoutPage() {
                     <input
                       type='checkbox'
                       className='size-5'
-                      checked={req.active}
+                      checked={checked}
                       disabled={req.promotionCode.length === 0}
-                      onChange={(e) => {
-                        if (req.active) {
-                          setReq({ ...req, active: false })
+                      onChange={async (e) => {
+                        var arg = !checked
+                        setChecked(arg)
+                        //Only execute this block if req.isActive is true
+                        if (arg) {
+                          await applyPromo()
                           return
                         }
-                        applyPromo()
-                        setReq({ ...req, active: true })
+                        setReq({ ...req, active: 0 })
                       }}
                     />
                     <span>&nbsp;Apply promotion</span>

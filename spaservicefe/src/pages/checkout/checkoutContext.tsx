@@ -1,7 +1,7 @@
 import { SpaRequest } from "@/types/request"
 import { Employee } from "@/types/type"
 import { createContext } from "react"
-export type SpaRequestModel = SpaRequest & { promotionCode: string, active: boolean }
+export type SpaRequestModel = SpaRequest & { promotionCode: string, active: number }
 export type ContextProps = {
   req: SpaRequestModel,
   setReq: (r: SpaRequestModel) => void,
