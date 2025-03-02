@@ -43,14 +43,14 @@ namespace API.Controllers
         public async Task<ActionResult<Promotion>> GetPromotionById(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return BadRequest("PromotionId is required.");
+                return BadRequest("PromotionCode is required.");
 
             try
             {
                 var promotion = await _service.GetById(id);
 
                 if (promotion == null)
-                    return NotFound($"Promotion with ID = {id} not found.");
+                    return NotFound($"PromotionCode with ID = {id} not found.");
 
                 return Ok(promotion);
             }
@@ -65,14 +65,14 @@ namespace API.Controllers
         public async Task<ActionResult<Promotion>> GetPromotionByCode(string code)
         {
             if (string.IsNullOrEmpty(code))
-                return BadRequest("PromotionId is required.");
+                return BadRequest("PromotionCode is required.");
 
             try
             {
                 var promotion = await _service.GetByCode(code);
 
                 if (promotion == null)
-                    return NotFound($"Promotion with code {code} not found.");
+                    return NotFound($"PromotionCode with code {code} not found.");
 
                 return Ok(promotion);
             }
@@ -99,10 +99,10 @@ namespace API.Controllers
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(promotionCode) || string.IsNullOrEmpty(promotionName) || discountValue <= 0)
                 {
-                    return BadRequest(new { msg = "Promotion details are incomplete or invalid." });
+                    return BadRequest(new { msg = "PromotionCode details are incomplete or invalid." });
                 }
 
-                // Tạo đối tượng Promotion
+                // Tạo đối tượng PromotionCode
                 var promotion = new Promotion
                 {
                     PromotionId = Guid.NewGuid().ToString(), // Generate unique ID
@@ -145,10 +145,10 @@ namespace API.Controllers
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(promotionCode) || string.IsNullOrEmpty(promotionName) || discountValue <= 0)
                 {
-                    return BadRequest(new { msg = "Promotion details are incomplete or invalid." });
+                    return BadRequest(new { msg = "PromotionCode details are incomplete or invalid." });
                 }
 
-                // Tạo đối tượng Promotion và gán ID cho update
+                // Tạo đối tượng PromotionCode và gán ID cho update
                 var promotion = new Promotion
                 {
                     PromotionId = id, // Assign the ID for the update
@@ -162,7 +162,7 @@ namespace API.Controllers
                 var isUpdated = await _service.Update(id, promotion);
 
                 if (!isUpdated)
-                    return NotFound(new { msg = $"Promotion with ID = {id} not found." });
+                    return NotFound(new { msg = $"PromotionCode with ID = {id} not found." });
 
                 return NoContent();
             }
@@ -179,14 +179,14 @@ namespace API.Controllers
         public async Task<ActionResult> DeletePromotion(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return BadRequest("PromotionId is required.");
+                return BadRequest("PromotionCode is required.");
 
             try
             {
                 var isDeleted = await _service.Delete(id);
 
                 if (!isDeleted)
-                    return NotFound($"Promotion with ID = {id} not found.");
+                    return NotFound($"PromotionCode with ID = {id} not found.");
 
                 return NoContent();
             }

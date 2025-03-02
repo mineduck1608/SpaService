@@ -30,7 +30,8 @@ export default function CheckoutPage() {
     customerNote: '',
     promotionCode: '',
     serviceId: booked.serviceId,
-    startTime: new Date()
+    startTime: new Date(),
+    employeeId: null
   })
   const [checked, setChecked] = useState(false)
   const { TextArea } = Input
@@ -60,7 +61,7 @@ export default function CheckoutPage() {
         return false
       }
       if (s.requestId) {
-        var y = await createTransaction(method, booked.price, s.requestId)
+        var y = await createTransaction(method, booked.price, s.requestId ?? '', req.promotionCode)
         if (y.transactionId) {
           //State is stupid
           sessionStorage.setItem('trId', y.transactionId)

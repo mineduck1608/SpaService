@@ -11,7 +11,7 @@ export default function ServiceOverview(params: { s: Service }) {
       <img className='aspect-[1/0.65] w-1/3 rounded-l-lg' src={params.s.serviceImage} />
       <div className='flex flex-col justify-center pl-5'>
         <p className='text-2xl font-bold'>{params.s.serviceName}</p>
-        <p className={`text-xl font-bold text-purple1 ${context.req.active !== 0 ? 'text-[#00dd00]' : ''}`}>
+        <p className={`text-xl font-bold  ${context.req.active !== 0 ? 'text-[#00dd00]' : 'text-purple1'}`}>
           {formatNumber(price)} VND
         </p>
       </div>

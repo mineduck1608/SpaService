@@ -17,9 +17,10 @@ namespace SpaServiceBE.Controllers
         private readonly ICustomerService _customerService;
         private readonly ICosmeticTransactionService _cosmeticTransactionService;
         private readonly ITransactionService _transactionService;
-
-        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService)
+        private readonly IPromotionService _promotionService;
+        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService)
         {
+            _cosmeticProductService = cosmeticProductService;
             _orderService = orderService;
             _cosmeticProductService = cosmeticProductService;
             _orderDetailService = orderDetailService;
@@ -48,6 +49,11 @@ namespace SpaServiceBE.Controllers
                 // Fetch and validate product
                 var productIdList = orderRequest.Details.Select(x => x.ProductId).ToList();
                 var products = await _cosmeticProductService.GetProductsOfList(productIdList);
+                var promo = await _promotionService.GetByCode(orderRequest.PromotionCode);
+                if (promo == null)
+                {
+                    return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
+                }
                 if(orderRequest.Details.Count == 0)
                 {
                     return BadRequest(new { msg = "Empty cart" });
@@ -86,7 +92,8 @@ namespace SpaServiceBE.Controllers
                     OrderDate = orderRequest.OrderDate,
                     Status = true,
                     Address = orderRequest.Address,
-                    TotalAmount = (float)total
+                    TotalAmount = (float)total,
+                    
                 };
                 await _orderService.AddOrderAsync(order);
                 //Order details
@@ -98,7 +105,8 @@ namespace SpaServiceBE.Controllers
                         OrderDetailId = Guid.NewGuid().ToString("N"),
                         OrderId = orderId,
                         Quantity = product.Quantity,
-                        SubTotalAmount = (float)detailMap[product.ProductId]
+                        SubTotalAmount = (float)detailMap[product.ProductId],
+                        
                     };
                     await _orderDetailService.Create(orderDetail);
                 }
@@ -107,7 +115,7 @@ namespace SpaServiceBE.Controllers
                     TransactionId = transactionId,
                     TransactionType = "Product",
                     PaymentType = orderRequest.PaymentType,
-                    PromotionId = orderRequest.PromotionId,
+                    PromotionId = orderRequest.PromotionCode,
                     Status = false,
                     TotalPrice = (float)total,
                 };
