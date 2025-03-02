@@ -27,6 +27,7 @@ namespace SpaServiceBE.Controllers
             _customerService = customerService;
             _cosmeticTransactionService = cosmeticTransactionService;
             _transactionService = transactionService;
+            _promotionService = promotionService;
         }
 
         [HttpGet("GetAll")]
@@ -50,7 +51,10 @@ namespace SpaServiceBE.Controllers
                 var productIdList = orderRequest.Details.Select(x => x.ProductId).ToList();
                 var products = await _cosmeticProductService.GetProductsOfList(productIdList);
                 var promo = await _promotionService.GetByCode(orderRequest.PromotionCode);
-                if (promo == null)
+                var customer = await _customerService.GetCustomerById(orderRequest.CustomerId);
+                var name = orderRequest.RecepientName ?? customer.FullName;
+                var phone = orderRequest.Phone ?? customer.Phone;
+                if (!string.IsNullOrEmpty(orderRequest.PromotionCode) && promo == null)
                 {
                     return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
                 }
@@ -76,7 +80,7 @@ namespace SpaServiceBE.Controllers
                     {
                         return BadRequest(new { msg = $"Cannot order more than stock for {stockItem.ProductName}" });
                     }
-                    var subTotal = product.Quantity * stockItem.Price;
+                    var subTotal = product.Quantity * stockItem.Price * (100 - (promo?.DiscountValue ?? 0)) / 100;
                     detailMap.Add(product.ProductId, subTotal);
                     total += subTotal;
                 }
@@ -93,7 +97,8 @@ namespace SpaServiceBE.Controllers
                     Status = true,
                     Address = orderRequest.Address,
                     TotalAmount = (float)total,
-                    
+                    RecepientName = name,
+                    Phone = phone,
                 };
                 await _orderService.AddOrderAsync(order);
                 //Order details
@@ -115,7 +120,7 @@ namespace SpaServiceBE.Controllers
                     TransactionId = transactionId,
                     TransactionType = "Product",
                     PaymentType = orderRequest.PaymentType,
-                    PromotionId = orderRequest.PromotionCode,
+                    PromotionId = promo?.PromotionId,
                     Status = false,
                     TotalPrice = (float)total,
                 };

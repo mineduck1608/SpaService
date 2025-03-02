@@ -52,19 +52,14 @@ export async function submitRequest(req: SpaRequest) {
   }
 }
 
-export async function getPaymentUrl(price: number, txnId: string) {
+export async function getPaymentUrl(txnId: string) {
   try {
     var s = await fetch(`${apiUrl}/Payment/service`, {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        orderType: 'other',
-        amount: price,
-        orderDescription: `${txnId}`,
-        name: ''
-      })
+      body: JSON.stringify(txnId)
     })
     return await s.text()
   } catch (e) {

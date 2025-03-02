@@ -98,7 +98,7 @@ export default function CheckoutPage() {
       var transId = sessionStorage.getItem('trId') ?? ''
       sessionStorage.removeItem('trId')
 
-      var url = await getPaymentUrl(booked.price, transId)
+      var url = await getPaymentUrl(transId)
       if (url.startsWith('http')) {
         toast.success('We will redirect you to VnPay page')
         window.location.replace(url)

@@ -5,8 +5,10 @@ export type OrderRequest = {
   address: string
   orderDate: Date
   paymentType: string
-  promotionId?: string
-  details: OrderDetailRequest[]
+  promotionCode?: string
+  details: OrderDetailRequest[],
+  recepientName?: string,
+  phone?: string
 }
 export type OrderDetailRequest = {
   productId: string

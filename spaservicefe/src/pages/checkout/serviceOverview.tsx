@@ -12,7 +12,7 @@ export default function ServiceOverview(params: { s: Service }) {
       <div className='flex flex-col justify-center pl-5'>
         <p className='text-2xl font-bold'>{params.s.serviceName}</p>
         <p className={`text-xl font-bold  ${context.req.active !== 0 ? 'text-[#00dd00]' : 'text-purple1'}`}>
-          {formatNumber(price)} VND
+          {formatNumber(price)} VND {context.req.active > 0 ? `(-${context.req.active}%)` : ''}
         </p>
       </div>
     </div>
