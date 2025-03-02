@@ -52,7 +52,7 @@ namespace SpaServiceBE.Libraries
             var ipAddress = string.Empty;
             try
             {
-                var remoteIpAddress = Connection.RemoteIpAddress;
+                var remoteIpAddress = context.Connection.RemoteIpAddress;
 
                 if (remoteIpAddress != null)
                 {

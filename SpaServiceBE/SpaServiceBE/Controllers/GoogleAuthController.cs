@@ -14,9 +14,9 @@ namespace SpaServiceBE.Controllers
     [ApiController]
     public class GoogleAuthController : ControllerBase
     {
-        private readonly Repositories.SpaserviceContext _context;
+        private readonly SpaserviceContext _context;
 
-        public GoogleAuthController(Repositories.SpaserviceContext context)
+        public GoogleAuthController(SpaserviceContext context)
         {
             _context = context;
         }

@@ -18,7 +18,7 @@ using SpaServiceBE;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add SpaServiceContext to DI
-builder.Services.AddDbContext<Repositories.SpaserviceContext>(options =>
+builder.Services.AddDbContext<SpaserviceContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionStringDB")));
 
 // Add repositories to DI
