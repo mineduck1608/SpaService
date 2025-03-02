@@ -1,3 +1,5 @@
+import { Transaction } from "@/pages/checkout/checkoutPage.util"
+
 export type Account = {
   accountId: string
   username: string
@@ -66,7 +68,7 @@ export type SpaRequest = {
   service?: SpaService
   customer?: Customer
   employee?: Employee
-  serviceTransaction?: ServiceTransaction
+  serviceTransactions?: ServiceTransaction[]
 }
 
 export type Contact = {
@@ -180,7 +182,8 @@ export type TransactionBase = {
 export type ServiceTransaction = TransactionBase & {
   serviceTransactionId: string
   requestId: string
-  membershipId?: string
+  membership?: string,
+  transaction: TransactionBase
 }
 
 export type CosmeticTransaction = TransactionBase & {

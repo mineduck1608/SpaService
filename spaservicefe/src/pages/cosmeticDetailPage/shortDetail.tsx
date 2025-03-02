@@ -9,11 +9,14 @@ import { getCartItem, setCartItem } from './detailPage.util'
 
 export default function ShortDetail(params: { d?: CosmeticProduct }) {
   const CATEGORY = JSON.parse(sessionStorage.getItem('cosmeticcategories') ?? '[]') as CosmeticCategory[]
-  const navigate = useNavigate() // Initialize useNavigate
   const [amount, setAmount] = useState(1)
 
   // Hàm kiểm tra và chuyển hướng
   const addToCart = () => {
+    if(amount <= 0){
+      toast.error('Invalid amount')
+      return;
+    }
     const token = sessionStorage.getItem('token') // Kiểm tra token trong sessionStorage
     if (!params.d || amount <= 0) {
       return
@@ -24,12 +27,19 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
       return
     }
     const item = getCartItem(params.d.productId)
-    if(item){
-      setCartItem(params.d.productId, item.amount + amount, true)
-      toast.success(`Added ${amount} x ${params.d.productName} to cart`)
-      return;
+    var newAmount = (item?.amount ?? 0) + amount
+    if (newAmount > params.d.quantity) {
+      toast.error(`Your cart cannot have more than ${params.d.quantity} items of this product`)
+      return
     }
-    setCartItem(params.d.productId, amount, true, params.d)
+    if (item) {
+      setCartItem(params.d.productId, newAmount)
+      toast.success(
+        `Added ${amount} x ${params.d.productName} to cart. Cart has ${newAmount} x ${params.d.productName}`
+      )
+      return
+    }
+    setCartItem(params.d.productId, newAmount, true, params.d)
     toast.success(`Added ${amount} x ${params.d.productName} to cart`)
   }
 
@@ -46,6 +56,7 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
         className='mb-2 border-2 p-1'
         value={amount}
         min={1}
+        max={params.d?.quantity}
         onChange={(e) => {
           var s = e.currentTarget.value
           if (s.length === 0) {
@@ -54,14 +65,17 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
           setAmount(parseInt(s))
         }}
       />
+      <p>Max: {params.d?.quantity}</p>
       {/* Add cart */}
       <div className='mb-3 flex w-3/5 justify-between '>
-        <button
-          onClick={addToCart} // Sử dụng hàm handleCheckout để kiểm tra token
-          className='lg:w-[50%] rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white'
-        >
-          Add to cart
-        </button>
+        <input
+          type='submit'
+          onClick={(e) => {
+            addToCart()
+          }} // Sử dụng hàm handleCheckout để kiểm tra token
+          className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[50%]'
+          value={'Add to cart'}
+        />
       </div>
       <p className='text-black'>
         Category:&nbsp;

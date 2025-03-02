@@ -36,7 +36,10 @@ export default function RequestTable() {
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
       <PastBookingContext.Provider value={{ pastBooking, setPastBooking }}>
-        <DataTable columns={columns} data={data} />
+        <DataTable
+          columns={columns}
+          data={data.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime())}
+        />
       </PastBookingContext.Provider>
     </div>
   )

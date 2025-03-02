@@ -17,11 +17,11 @@ namespace Repositories
             _context = context;
         }
 
-        // Lấy Transaction theo ID với các thông tin liên quan như Appointment, EmployeeCommission, Membership, Promotion
+        // Lấy Transaction theo ID với các thông tin liên quan như Appointment, EmployeeCommission, Membership, PromotionCode
         public async Task<Transaction> GetById(string transactionId)
         {
             return await _context.Transactions
-                     // Bao gồm thông tin Promotion liên quan đến giao dịch
+                     // Bao gồm thông tin PromotionCode liên quan đến giao dịch
                 .FirstOrDefaultAsync(t => t.TransactionId == transactionId);
         }
 

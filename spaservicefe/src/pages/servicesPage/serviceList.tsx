@@ -15,13 +15,8 @@ export default function ServiceList(params?: { service: Service[] }) {
 }
 
 export function ServiceCard(params?: { s: Service }) {
-  const navigate = useNavigate()
-
   const handleNavigate = () => {
-    // Use window.location to navigate
-    window.location.href = `/services-detail/${params?.s?.serviceId}`;
-    // Or reload the page to force the update
-    // window.location.reload();
+    window.location.assign(`/services-detail/${params?.s?.serviceId}`)
   }
 
   return (

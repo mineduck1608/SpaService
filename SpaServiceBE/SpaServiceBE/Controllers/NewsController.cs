@@ -187,7 +187,7 @@ namespace API.Controllers
         {
             try
             {
-                var promotions = await _service.GetNewsByType("Promotion"); // Filter news by type "Promotion"
+                var promotions = await _service.GetNewsByType("PromotionCode"); // Filter news by type "PromotionCode"
                 return Ok(promotions);
             }
             catch (Exception ex)

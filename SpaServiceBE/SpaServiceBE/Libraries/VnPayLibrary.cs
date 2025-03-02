@@ -37,7 +37,7 @@ namespace SpaServiceBE.Libraries
                 };
             return new PaymentResponseModel()
             {
-                Success = true,
+                Success = vnpResponseCode == "00",
                 PaymentMethod = "VnPay",
                 OrderDescription = orderInfo,
                 OrderId = orderId.ToString(),

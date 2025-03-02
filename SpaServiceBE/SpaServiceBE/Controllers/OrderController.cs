@@ -21,7 +21,10 @@ namespace SpaServiceBE.Controllers
         private readonly IMembershipService _membershipService;
 
         public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService)
+        private readonly IPromotionService _promotionService;
+        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService)
         {
+            _cosmeticProductService = cosmeticProductService;
             _orderService = orderService;
             _cosmeticProductService = cosmeticProductService;
             _orderDetailService = orderDetailService;
@@ -30,6 +33,7 @@ namespace SpaServiceBE.Controllers
             _transactionService = transactionService;
             _customerMembershipService = customerMembershipService;
             _membershipService = membershipService;
+            _promotionService = promotionService;
         }
 
         [HttpGet("GetAll")]
@@ -52,6 +56,14 @@ namespace SpaServiceBE.Controllers
                 // Fetch and validate product
                 var productIdList = orderRequest.Details.Select(x => x.ProductId).ToList();
                 var products = await _cosmeticProductService.GetProductsOfList(productIdList);
+                var promo = await _promotionService.GetByCode(orderRequest.PromotionCode);
+                var customer = await _customerService.GetCustomerById(orderRequest.CustomerId);
+                var name = orderRequest.RecepientName ?? customer.FullName;
+                var phone = orderRequest.Phone ?? customer.Phone;
+                if (!string.IsNullOrEmpty(orderRequest.PromotionCode) && promo == null)
+                {
+                    return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
+                }
                 if(orderRequest.Details.Count == 0)
                 {
                     return BadRequest(new { msg = "Empty cart" });
@@ -74,7 +86,7 @@ namespace SpaServiceBE.Controllers
                     {
                         return BadRequest(new { msg = $"Cannot order more than stock for {stockItem.ProductName}" });
                     }
-                    var subTotal = product.Quantity * stockItem.Price;
+                    var subTotal = product.Quantity * stockItem.Price * (100 - (promo?.DiscountValue ?? 0)) / 100;
                     detailMap.Add(product.ProductId, subTotal);
                     total += subTotal;
                 }
@@ -90,7 +102,9 @@ namespace SpaServiceBE.Controllers
                     OrderDate = orderRequest.OrderDate,
                     Status = true,
                     Address = orderRequest.Address,
-                    TotalAmount = (float)total
+                    TotalAmount = (float)total,
+                    RecepientName = name,
+                    Phone = phone,
                 };
                 await _orderService.AddOrderAsync(order);
                 //Order details
@@ -102,7 +116,8 @@ namespace SpaServiceBE.Controllers
                         OrderDetailId = Guid.NewGuid().ToString("N"),
                         OrderId = orderId,
                         Quantity = product.Quantity,
-                        SubTotalAmount = (float)detailMap[product.ProductId]
+                        SubTotalAmount = (float)detailMap[product.ProductId],
+                        
                     };
                     await _orderDetailService.Create(orderDetail);
                 }
@@ -111,7 +126,7 @@ namespace SpaServiceBE.Controllers
                     TransactionId = transactionId,
                     TransactionType = "Product",
                     PaymentType = orderRequest.PaymentType,
-                    PromotionId = orderRequest.PromotionId,
+                    PromotionId = promo?.PromotionId,
                     Status = false,
                     TotalPrice = (float)total,
                 };

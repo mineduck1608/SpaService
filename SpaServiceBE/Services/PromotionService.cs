@@ -39,5 +39,10 @@ namespace Services
         {
             return await _promotionRepository.Delete(promotionId);
         }
+
+        public async Task<Promotion> GetByCode(string code)
+        {
+            return await _promotionRepository.GetByCode(code);
+        }
     }
 }

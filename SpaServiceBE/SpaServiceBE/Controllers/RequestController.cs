@@ -147,6 +147,7 @@ namespace API.Controllers
                     Status = "Pending",
                     CustomerNote = customerNote,
                     ManagerNote = null,
+                    CreatedAt = DateTime.Now,
                     EmployeeId = employeeId,
                     CreatedAt = DateTime.Now
                 };
@@ -166,7 +167,7 @@ namespace API.Controllers
                 }
                 if (errList.Count > 0)
                 {
-                    return BadRequest(errList);
+                    return BadRequest(new {msg = string.Join(",", errList)});
                 }
                 // Gọi service để thêm request
                 var isCreated = await _service.Add(newRequest);

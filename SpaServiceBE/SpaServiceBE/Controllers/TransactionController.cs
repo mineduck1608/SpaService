@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Repositories.Entities.RequestModel;
 using Services;
 using Services.IServices;
 using System;
@@ -16,6 +17,7 @@ namespace API.Controllers
     {
         private readonly ITransactionService _service;
         private readonly IRequestService _requestService;
+        private readonly IPromotionService _promotionService;
         private readonly IServiceTransactionService _serviceTransactionService;
         private readonly IMembershipService _membershipService;
         public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService)
@@ -78,22 +80,30 @@ namespace API.Controllers
                 string transactionType = jsonElement.GetProperty("transactionType").GetString();
                 string paymentType = jsonElement.GetProperty("paymentType").GetString();
                 float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
-                bool status = jsonElement.GetProperty("status").GetBoolean();
-
+                var code = jsonElement.TryGetProperty("promotionCode", out var promoCode) ? promoCode.GetString() : null;
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0)
                 {
                     return BadRequest(new { msg = "Transaction details are incomplete or invalid." });
                 }
-
+                var promo = await _promotionService.GetByCode(code);
+                if (code != null && promo == null)
+                {
+                    return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
+                }
+                else
+                {
+                    totalPrice *= (100 - promo.DiscountValue) / 100;
+                }
                 // Tạo đối tượng Transaction
                 var transaction = new Transaction
                 {
                     TransactionId = Guid.NewGuid().ToString(), // Generate unique ID
                     TransactionType = transactionType,
                     TotalPrice = totalPrice,
-                    Status = status,
+                    Status = false,
                     PaymentType = paymentType,
+                    PromotionId = promo.PromotionId,
                 };
 
                 // Gọi service để thêm transaction
