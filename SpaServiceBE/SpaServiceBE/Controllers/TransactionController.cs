@@ -17,11 +17,13 @@ namespace API.Controllers
         private readonly ITransactionService _service;
         private readonly IRequestService _requestService;
         private readonly IServiceTransactionService _serviceTransactionService;
-        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService svc)
+        private readonly IMembershipService _membershipService;
+        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _requestService = requestService;
-            _serviceTransactionService = svc;
+            _serviceTransactionService = serviceTransactionService;
+            _membershipService = membershipService;
         }
 
         // GET: api/transactions/GetAll
@@ -158,7 +160,22 @@ namespace API.Controllers
                     PaymentType = paymentType,
                     CompleteTime = completeTime
                 };
-
+                //cap nhat membership neu la loai service va da thanh toan
+                if (transactionType == "Service" && status == true)
+                {
+                   var serviceTransaction = await _serviceTransactionService.GetByTransId(id);
+                    if (serviceTransaction == null) 
+                    { 
+                    return BadRequest(new {msg=$"serviceTransaction with id {id} not found."});
+                    }
+                    var membership = await _membershipService.GetMembershipById(serviceTransaction.MembershipId);
+                    if (membership == null)
+                    {
+                    return BadRequest(new { msg = $"Membership with id {serviceTransaction.MembershipId} not found."});
+                    }
+                    membership.TotalPayment += totalPrice;
+                    await _membershipService.UpdateMembership(membership.MembershipId, membership);
+                }
                 // Gọi service để cập nhật transaction
                 var isUpdated = await _service.Update(id, transaction);
 

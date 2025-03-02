@@ -17,8 +17,10 @@ namespace SpaServiceBE.Controllers
         private readonly ICustomerService _customerService;
         private readonly ICosmeticTransactionService _cosmeticTransactionService;
         private readonly ITransactionService _transactionService;
+        private readonly ICustomerMembershipService _customerMembershipService;
+        private readonly IMembershipService _membershipService;
 
-        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService)
+        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService)
         {
             _orderService = orderService;
             _cosmeticProductService = cosmeticProductService;
@@ -26,6 +28,8 @@ namespace SpaServiceBE.Controllers
             _customerService = customerService;
             _cosmeticTransactionService = cosmeticTransactionService;
             _transactionService = transactionService;
+            _customerMembershipService = customerMembershipService;
+            _membershipService = membershipService;
         }
 
         [HttpGet("GetAll")]
@@ -222,7 +226,7 @@ namespace SpaServiceBE.Controllers
 
                 // Update the order status to true
                 order.Status = true;
-
+                
                 // Update the order in the database
                 var isUpdated = await _orderService.UpdateOrderAsync(orderId, order);
                 if (!isUpdated)
@@ -243,6 +247,11 @@ namespace SpaServiceBE.Controllers
         public async Task<IActionResult> GetOrderByCustomerId(string id)
         {
             return Ok(await _orderService.GetOrderByCustomerIdAsync(id));
+        }
+        [HttpGet("GetAllPaidOrdersByCustomerId/{customerId}")]
+        public async Task<IActionResult> GetAllPaidOrdersByCustomerId(string customerId)
+        {
+            return Ok(await _orderService.GetAllPaidOrdersByCustomerId(customerId));
         }
     }
 }

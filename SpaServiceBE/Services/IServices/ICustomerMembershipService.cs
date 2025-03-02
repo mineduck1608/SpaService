@@ -14,7 +14,7 @@ namespace Services.IServices
         Task CreateAsync(CustomerMembership entity);
         Task<bool> UpdateAsync(CustomerMembership entity);
         Task DeleteAsync(string customerId, string membershipId);
-
+        Task<CustomerMembership> GetCustomerMembershipByCustomerId(string customerId);
         Task<CustomerMembership> FindNewestByCustomerId(string id);
     }
 }

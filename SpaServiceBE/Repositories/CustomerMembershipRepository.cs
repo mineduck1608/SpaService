@@ -45,12 +45,16 @@ namespace Repositories
 
         public async Task DeleteAsync(string customerId, string membershipId)
         {
-            //var entity = await GetByIdAsync(customerId, membershipId);
-            //if (entity != null)
-            //{
-            //    _context.CustomerMemberships.Remove(entity);
-            //    await _context.SaveChangesAsync();
-            //}
+            var entity = await GetCustomerMembershipById(customerId, membershipId);
+            if (entity != null)
+            {
+                _context.CustomerMemberships.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task<CustomerMembership> GetCustomerMembershipByCustomerId(string customerId)
+        {
+            return await _context.CustomerMemberships.FirstOrDefaultAsync(cm => cm.CustomerId == customerId);
         }
     }
 

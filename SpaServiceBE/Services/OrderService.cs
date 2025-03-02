@@ -47,5 +47,10 @@ namespace Services
         {
             return await _orderRepository.GetByCustomerIdAsync(id);
         }
+
+        public async Task<List<Order>> GetAllPaidOrdersByCustomerId(string customerId)
+        {
+            return  await _orderRepository.GetAllPaidOrdersByCustomerId(customerId);
+        }
     }
 }

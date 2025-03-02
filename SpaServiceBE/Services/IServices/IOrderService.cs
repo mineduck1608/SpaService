@@ -15,5 +15,6 @@ namespace Services.IServices
         Task<bool> UpdateOrderAsync(string id, Order order);
         Task DeleteOrderAsync(string id);
         Task <List<Order>> GetOrderByCustomerIdAsync(string customerId);
+        Task <List<Order>> GetAllPaidOrdersByCustomerId(string customerId);
     }
 }

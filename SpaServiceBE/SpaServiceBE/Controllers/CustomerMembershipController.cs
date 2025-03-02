@@ -28,6 +28,11 @@ namespace SpaServiceBE.Controllers
         {
             return Ok(await _customerMembershipService.GetCustomerMembershipById(customerId, membershipId));
         }
+        [HttpGet("GetByCustomerId/{customerId}")]
+        public async Task<IActionResult> GetCustomerMembershipById(string customerId)
+        {
+            return Ok(await _customerMembershipService.GetCustomerMembershipByCustomerId(customerId));
+        }
 
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCustomerMembership([FromBody] CustomerMembership entity)
