@@ -8,15 +8,18 @@ import { createEventModalPlugin } from '@schedule-x/event-modal'
 
 
 function CalendarApp() {
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState(() => {
+    const savedEvents = sessionStorage.getItem('events')
+    return savedEvents ? JSON.parse(savedEvents) : []
+  })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const loadEvents = async () => {
-      setLoading(true)
       const fetchedEvents = await fetchAppointments()
       console.log('Fetched events:', fetchedEvents)
       setEvents(fetchedEvents)
+      sessionStorage.setItem('events', JSON.stringify(fetchedEvents))
       setLoading(false)
     }
 
