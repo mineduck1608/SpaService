@@ -99,11 +99,6 @@ export const sideData = {
           title: 'News',
           url: '/manager/news'
         },
-        {
-          title: 'Feedbacks',
-          url: '/manager/feedbacks'
-        }
-
       ]
     }
   ],

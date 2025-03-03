@@ -28,6 +28,7 @@ import DemoPage from './pages/admin/accounts/page.tsx'
 import CalendarApp from './pages/admin/appointments/page.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
+import EmployeeMainPage from './pages/admin/employee/employeeMainPage.tsx'
 import ManagerPage from './pages/manager/managerMainPage.tsx'
 import PayResultPage from './pages/payResult/payResultPage.tsx'
 import { ToastContainer } from 'react-toastify'
@@ -349,6 +350,55 @@ function App() {
             <Route path='requests' />
             <Route path='contacts' />
           </Route>
+
+          <Route
+            path='employee'
+            element={
+              <ProtectedAdmin>
+                <EmployeeMainPage />
+              </ProtectedAdmin>
+            }
+          >
+            <Route index element={<Dashboard />} />
+
+            {/* Workspaces */}
+            <Route path='appointments' element={<CalendarApp />} />
+            <Route path='orders' element={<OrderPage />} />
+            <Route path='transactions' element={<TransactionPage />} />
+
+            {/* Requests */}
+            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            <Route path='applications' element={<ApplicationPage />} />
+            <Route path='guest-contacts' element={<ContactAdminPage />} />
+
+            {/* Facilities */}
+            <Route path='floors' element={<AdminFloorPage />} />
+            <Route path='rooms' element={<AdminRoomPage />} />
+
+            {/* Others */}
+            <Route path='promotions' element={<PromotionPage />} />
+            <Route path='news' element={<AdminNewsPage />} />
+            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+
+            {/* Users */}
+            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+
+            {/* Users Management */}
+            <Route path='customers' element={<CustomerPage />} />
+            <Route path='employees' element={<EmployeePage />} />
+
+            {/* Spa Services */}
+            <Route path='service-categories' element={<ServiceCategoriesPage />} />
+            <Route path='spa-services' element={<SpaServicePage />} />
+
+            {/* Cosmetics */}
+            <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
+            <Route path='cosmetic-product' element={<AdminCosmeticPage />} />
+            <Route path='applications' />
+            <Route path='requests' />
+            <Route path='contacts' />
+          </Route>
+
         </Routes>
       </BrowserRouter>
       <ToastContainer />
