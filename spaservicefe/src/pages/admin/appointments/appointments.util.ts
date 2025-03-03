@@ -32,7 +32,9 @@ export const fetchAppointments = async () => {
           title: event.status,
           start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
           end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
-          people: [employeeInfo.fullName]
+          people: [employeeInfo.fullName],
+          //location,
+          //description
         }
       }
     )
@@ -65,3 +67,48 @@ export const fetchEmployees = async () => {
     return []
   }
 }
+
+export const fetchRequests = async() => {
+  try {
+    const response = await fetch ('https://localhost:7205/api/requests/GetAll', {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch requests')
+    }
+
+    const data = await response.json()
+    console.log('Fetched Requests', data)
+
+    return data
+  } catch (error) {
+    console.error('Error fetching requests:', error)
+    return []
+  }
+}
+
+export const fetchCustomers = async() => {
+  try {
+    const response = await fetch ('https://localhost:7205/api/customers/GetAll', {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch Customers')
+    }
+
+    const data = await response.json()
+    console.log('Fetched Customers', data)
+
+    return data
+  } catch (error) {
+    console.error('Error fetching customers:', error)
+    return []
+  }
+}
+
