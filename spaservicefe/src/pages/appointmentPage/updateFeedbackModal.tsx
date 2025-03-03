@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { Service } from '@/types/services'
-import { Customer } from '@/types/type'
 import { IoIosStar } from 'react-icons/io'
-import { handleCreateSubmit } from './detailPage.util'
+import { getFeedbackByServiceAndCus, handleUpdateSubmit } from '../serviceDetailPage/detailPage.util'
 import { getCustomerIdByAcc } from '../checkout/checkoutPage.util'
 
 interface FeedbackModalProps {
   isOpen: boolean
   onClose: () => void
   service?: Service
-  customer?: Customer
 }
 
 type StarRatingProps = {
@@ -42,21 +40,41 @@ const StarRating: React.FC<StarRatingProps> = ({ value, onChange }) => {
   )
 }
 
-export default function FeedbackModal({ isOpen, onClose, service, customer }: FeedbackModalProps) {
+export default function UpdateFeedbackModal({ isOpen, onClose, service }: FeedbackModalProps) {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
+  const [feedbackId, setFeedbackId] = useState<string | null>(null)
 
   async function handleSubmit (e: React.FormEvent) {
     e.preventDefault()
     const customerId = await getCustomerIdByAcc()
     const feedbackData = {
+      feedbackId: feedbackId,
       feedbackMessage: comment,
       rating: rating,
       createdBy: customerId,
       serviceId: service?.serviceId
     }
-    handleCreateSubmit(feedbackData)
+
+    console.log(feedbackData)
+    handleUpdateSubmit(feedbackData)
   }
+
+  useEffect(() => {
+    const fetchFeedback = async () => {
+      const data = {
+        createdBy: await getCustomerIdByAcc(),
+        serviceId: service?.serviceId
+      }
+      const previousData = await getFeedbackByServiceAndCus(data)
+      if (isOpen && previousData) {
+        setRating(previousData.rating)
+        setComment(previousData.feedbackMessage)
+        setFeedbackId(previousData.feedbackId)
+      }
+    }
+    fetchFeedback()
+  }, [isOpen])
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -70,9 +88,7 @@ export default function FeedbackModal({ isOpen, onClose, service, customer }: Fe
             {rating > 0 ? 'Thank You!' : ''}
           </h3>
           <div className='mb-4'>
-            <label htmlFor='comment' className='block text-lg font-medium mb-2'>
-              Comment
-            </label>
+            <label htmlFor='comment' className='block text-lg font-medium mb-2'>Comment</label>
             <textarea
               id='comment'
               rows={5}

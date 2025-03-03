@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Appointment, SpaRequest } from '../../types/type' // Updated to CustomerRequest type
-
 import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 import { getAppointments } from './appointmentPage.util'
 import { jwtDecode } from 'jwt-decode'
@@ -39,6 +38,7 @@ export default function AppointmentTable() {
     }
     return !d
   }
+  
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
       <PastAppointmentContext.Provider value={{ pastBooking, setPastBooking }}>

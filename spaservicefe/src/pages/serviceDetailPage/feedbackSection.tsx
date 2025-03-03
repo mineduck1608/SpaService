@@ -4,7 +4,7 @@ import { getAllFeedbacks } from '../admin/feedbacks/feedback.util'
 import { Service } from '@/types/services'
 import { IoIosStar } from 'react-icons/io'
 import avatar from 'src/images/user/male.png'
-import FeedbackModal from './feedbackModal'
+import FeedbackModal from '../appointmentPage/feedbackModal'
 import { getCustomerIdByAcc } from '../checkout/checkoutPage.util'
 import { hasPurchasedService } from './detailPage.util'
 
@@ -13,10 +13,6 @@ interface FeedbackProps {
 }
 
 const FeedbackSection = ({ service } : FeedbackProps) => {
-  const [isFeedbackModalOpen, setFeedbackModalOpen] = useState(false)
-  const openFeedbackModal = () => setFeedbackModalOpen(true)
-  const closeFeedbackModal = () => setFeedbackModalOpen(false)
-  const [canLeaveFeedback, setCanLeaveFeedback] = useState(false)
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -59,17 +55,7 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
         setLoading(false)
       }
     }
-
-    const checkEligibility = async () => {
-      const customerId = await getCustomerIdByAcc()
-      if (customerId) {
-        const eligible = await hasPurchasedService(service?.serviceId, customerId)
-        setCanLeaveFeedback(eligible)
-      }
-    }
-
     fetchFeedbacks()
-    checkEligibility()
   }, [])
 
   if (loading) return <div className='flex items-center justify-center w-full h-full'>Loading...</div>
@@ -111,13 +97,6 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
           </div>
         </div>
       </div>
-
-      {canLeaveFeedback && (
-        <div className='w-full flex justify-end -mt-4 -ml-3 opacity-60'>
-          <button onClick={openFeedbackModal} className='cursor-pointer'>Leave Review</button>
-        </div>
-      )}
-      <FeedbackModal isOpen={isFeedbackModalOpen} onClose={closeFeedbackModal} service={service}/>
 
       <h2 className='text-xl font-semibold mb-4'>Reviews</h2>
 
