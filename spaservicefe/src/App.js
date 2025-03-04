@@ -59,6 +59,8 @@ import ImageUpload from './components/imageUpload.tsx'
 import AdminManagerPage from './pages/admin/managers/page.tsx'
 import UserProfile from './pages/profile/profile.tsx'
 import RecruitmentPage from './pages/recruitment/page.tsx'
+import { ProtectedManager } from './pages/admin/protectedManager.tsx'
+import { ProtectedEmployee } from './pages/admin/protectedEmployee.tsx'
 
 function Layout({ children }) {
   return (
@@ -315,9 +317,9 @@ function App() {
           <Route
             path='manager'
             element={
-              <ProtectedAdmin>
+              <ProtectedManager>
                 <ManagerPage />
-              </ProtectedAdmin>
+              </ProtectedManager>
             }
           >
             <Route index element={<Dashboard />} />
@@ -363,9 +365,9 @@ function App() {
           <Route
             path='employee'
             element={
-              <ProtectedAdmin>
+              <ProtectedEmployee>
                 <EmployeeMainPage />
-              </ProtectedAdmin>
+              </ProtectedEmployee>
             }
           >
             <Route index element={<Dashboard />} />
