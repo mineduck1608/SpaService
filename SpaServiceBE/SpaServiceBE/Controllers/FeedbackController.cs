@@ -59,7 +59,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize]
+
         [HttpGet("GetFeedbackByServiceId/{id}")]
         public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedbackByService(string id)
         {

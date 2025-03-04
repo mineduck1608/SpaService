@@ -39,8 +39,11 @@ export const columns: ColumnDef<SpaRequest>[] = [
   {
     accessorKey: 'price',
     header: 'Total Price',
-    cell: (r) => formatNumber(r.row.original.serviceTransactions?.[0].transaction.totalPrice ?? 0)
-  },
+    cell: (r) => {
+      const transaction = r.row.original.serviceTransactions?.[0]?.transaction;
+      return JSON.stringify(transaction?.totalPrice ?? 0);
+    }
+  },  
   {
     id: 'actions',
     cell: ({ row }) => {
