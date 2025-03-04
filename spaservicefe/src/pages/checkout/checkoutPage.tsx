@@ -5,7 +5,7 @@ import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
 import {
   createTransaction,
-  getCode,
+  getPromoByCode,
   getCusByAcc,
   getCustomerIdByAcc,
   getEmployees,
@@ -17,6 +17,7 @@ import logoColor from '../../images/logos/logoColor.png'
 import { toast, ToastContainer } from 'react-toastify'
 import { ServiceCheckoutContext, SpaRequestModel } from './checkoutContext.tsx'
 import MainForm from './mainForm.tsx'
+import dayjs from 'dayjs'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
@@ -28,11 +29,13 @@ export default function CheckoutPage() {
     customerNote: '',
     promotionCode: '',
     serviceId: booked.serviceId,
-    startTime: new Date(),
+    startTime: dayjs(),
     employeeId: null
   })
   const [checked, setChecked] = useState(false)
   const { TextArea } = Input
+  const now = dayjs()
+  const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
@@ -52,7 +55,7 @@ export default function CheckoutPage() {
   async function onSubmitBase(method: string) {
     try {
       var req2 = { ...req }
-      req2.startTime.setTime(req2.startTime.getTime() + 7 * 3600 * 1000) //Account for JS stupid date API
+      req2.startTime = req2.startTime.add(7, 'h')
       var s = await submitRequest(req2)
       console.log(req2)
       if (s.msg) {
@@ -123,7 +126,7 @@ export default function CheckoutPage() {
         setReq({ ...req, active: entry.discountValue })
         return;
       }
-      const s = await getCode(code)
+      const s = await getPromoByCode(code)
       setCodes((v) => {
         v.set(code, s)
         return v
@@ -139,7 +142,6 @@ export default function CheckoutPage() {
       console.log(e as string)
     }
   }
-  const disable = (req.startTime ?? new Date()).getTime() < new Date().getTime() + 3600 * 1000
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
       <ToastContainer containerId={'checkout-page'} />

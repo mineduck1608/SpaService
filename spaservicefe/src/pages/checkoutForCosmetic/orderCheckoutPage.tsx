@@ -5,7 +5,7 @@ import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
 import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
-import { getCode, getCusByAcc, getCustomerIdByAcc, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
+import { getPromoByCode, getCusByAcc, getCustomerIdByAcc, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
 import { getCart } from '../cosmeticDetailPage/detailPage.util.ts'
 import { createOrder } from './checkoutPage.util.ts'
 import { Promotion } from '@/types/type.ts'
@@ -107,7 +107,7 @@ export default function CosmeticCheckoutPage() {
         setData({ ...data, active: entry.discountValue })
         return
       }
-      const s = await getCode(code)
+      const s = await getPromoByCode(code)
       setCodes((v) => {
         v.set(code, s)
         return v

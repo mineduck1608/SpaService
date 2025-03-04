@@ -11,6 +11,16 @@ export async function getAllFeedbacks() {
   }
 }
 
+export async function getFeedbacksByServiceId(id?: string) {
+  try {
+    const res = await fetch(`${apiUrl}/feedbacks/GetFeedbackByServiceId/${id}`)
+    const json = (await res.json()) as Feedback[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
 export async function getSpaServiceById(id: string) {
   try {
     var res = await fetch(`${apiUrl}/spaservices/GetById/${id}`, {
