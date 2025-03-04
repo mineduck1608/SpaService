@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Repositories.Entities;
 
 namespace Repositories.Context;
@@ -24,6 +23,8 @@ public partial class SpaserviceContext : DbContext
     public virtual DbSet<Appointment> Appointments { get; set; }
 
     public virtual DbSet<AttendanceRecord> AttendanceRecords { get; set; }
+
+    public virtual DbSet<CartCosmeticProduct> CartCosmeticProducts { get; set; }
 
     public virtual DbSet<CategoryEmployee> CategoryEmployees { get; set; }
 
@@ -75,19 +76,9 @@ public partial class SpaserviceContext : DbContext
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
-    public static string GetConnectionString(string connectionStringName)
-    {
-        var config = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-        string connectionString = config.GetConnectionString(connectionStringName);
-        return connectionString;
-    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnectionStringDB")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=MINEDUCK\\MINEDUCK;Database=spaservice;UID=sa;PWD=12345;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -244,6 +235,37 @@ public partial class SpaserviceContext : DbContext
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKAttendance248059");
+        });
+
+        modelBuilder.Entity<CartCosmeticProduct>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__CartCosm__3213E83F62D1F19B");
+
+            entity.ToTable("CartCosmeticProduct");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("id");
+            entity.Property(e => e.CustomerId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("customerId");
+            entity.Property(e => e.ProductId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("productId");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.CartCosmeticProducts)
+                .HasForeignKey(d => d.CustomerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKCartCosmet861510");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.CartCosmeticProducts)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKCartCosmet941400");
         });
 
         modelBuilder.Entity<CategoryEmployee>(entity =>

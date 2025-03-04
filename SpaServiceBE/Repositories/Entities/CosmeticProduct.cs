@@ -25,6 +25,8 @@ public partial class CosmeticProduct
 
     public bool IsDeleted { get; set; }
 
+    public virtual ICollection<CartCosmeticProduct> CartCosmeticProducts { get; set; } = new List<CartCosmeticProduct>();
+
     public virtual CosmeticCategory Category { get; set; } = null!;
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();

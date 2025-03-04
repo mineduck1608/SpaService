@@ -23,6 +23,7 @@ builder.Services.AddDbContext<SpaserviceContext>(options =>
 
 // Add repositories to DI
 builder.Services.AddScoped<AccountRepository>();
+builder.Services.AddScoped<CartCosmeticProductRepository>();
 builder.Services.AddScoped<ApplicationRepository>();
 builder.Services.AddScoped<AppointmentRepository>();
 builder.Services.AddScoped<AttendanceRecordRepository>();
@@ -58,6 +59,7 @@ builder.Services.AddScoped<ServiceTransactionRepository>();
 
 // Add services to DI
 builder.Services.AddScoped<IApplicationService, ApplicationService>();
+builder.Services.AddScoped<ICartCosmeticProductService, CartCosmeticProductService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IAttendanceRecordService, AttendanceRecordService>();
 builder.Services.AddScoped<ICosmeticCategoryService, CosmeticCategoryService>();

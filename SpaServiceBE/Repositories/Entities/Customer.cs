@@ -21,6 +21,8 @@ public partial class Customer
 
     public virtual Account Account { get; set; } = null!;
 
+    public virtual ICollection<CartCosmeticProduct> CartCosmeticProducts { get; set; } = new List<CartCosmeticProduct>();
+
     public virtual ICollection<CustomerMembership> CustomerMemberships { get; set; } = new List<CustomerMembership>();
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
