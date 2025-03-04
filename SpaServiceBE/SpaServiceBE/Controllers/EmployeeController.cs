@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
 using Services.IServices;
@@ -14,10 +15,11 @@ namespace API.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _service;
-
-        public EmployeeController(IEmployeeService service)
+        private readonly IAccountService _accountService;
+        public EmployeeController(IEmployeeService service, IAccountService accountService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         }
 
         // GET: api/employees/GetAll
@@ -73,7 +75,8 @@ namespace API.Controllers
                 string status = jsonElement.GetProperty("status").GetString();
                 string image = jsonElement.GetProperty("image").GetString();
                 string accountId = jsonElement.GetProperty("accountId").GetString();
-
+                string? phone = jsonElement.GetProperty("phone").GetString();
+                string? email = jsonElement.GetProperty("email").GetString();
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(position) ||
                     string.IsNullOrEmpty(status) || string.IsNullOrEmpty(image) ||
@@ -90,7 +93,9 @@ namespace API.Controllers
                     Position = position,
                     Status = status,
                     Image = image,
-                    AccountId = accountId
+                    AccountId = accountId,
+                    Phone = phone,
+                    Email = email,
                 };
 
                 // Gọi service để thêm employee
@@ -123,15 +128,32 @@ namespace API.Controllers
                 string status = jsonElement.GetProperty("status").GetString();
                 string image = jsonElement.GetProperty("image").GetString();
                 string accountId = jsonElement.GetProperty("accountId").GetString();
-
+                string? phone = jsonElement.GetProperty("phone").GetString();
+                string? email = jsonElement.GetProperty("email").GetString();
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(position) ||
                     string.IsNullOrEmpty(status) || string.IsNullOrEmpty(image) ||
-                    string.IsNullOrEmpty(accountId))
+                    string.IsNullOrEmpty(accountId)|| string.IsNullOrEmpty(phone)
+                    || string.IsNullOrEmpty(email))
                 {
                     return BadRequest(new { msg = "Employee details are incomplete or invalid." });
                 }
-
+                //get account info
+                var account = await _accountService.GetAccountById(accountId);
+                if (account == null) {
+                    return BadRequest(new { msg = "Account is not avaliable." }); 
+                }
+                //check if account is Retired or not
+                if (status == "Retired")
+                {
+                    account.Status = false;
+                }
+                else
+                {
+                    account.Status = true;
+                }
+                // Update Account
+                await _accountService.UpdateAccount(account, account.AccountId); 
                 // Tạo đối tượng Employee và gán ID cho update
                 var employee = new Employee
                 {
@@ -140,7 +162,9 @@ namespace API.Controllers
                     Position = position,
                     Status = status,
                     Image = image,
-                    AccountId = accountId
+                    AccountId = accountId,
+                    Phone = phone,
+                    Email = email
                 };
 
                 // Gọi service để cập nhật employee

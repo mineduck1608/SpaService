@@ -11,7 +11,6 @@ import {
 import { Account } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateAccountModal from './accountUpdateModal'
-import { ToastContainer } from 'react-toastify'
 
 interface AccountActionsProps {
   account: Account
@@ -38,13 +37,9 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
             Copy account ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
-
       <UpdateAccountModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} account={account} />
     </>
   )

@@ -54,7 +54,8 @@ namespace SpaServiceBE.Controllers
                 {
                     FloorId = Guid.NewGuid().ToString("N"), // Generate unique ID
                     FloorNum = floorNum,
-                    CategoryId = categoryId
+                    CategoryId = categoryId,
+                    IsDeleted = false
                 };
 
                 // Call service to add floor

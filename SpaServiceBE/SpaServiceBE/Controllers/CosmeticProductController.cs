@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Repositories.Entities;
 using Services.IServices;
 using System.Text.Json;
@@ -56,25 +57,31 @@ namespace SpaServiceBE.Controllers
             {
                 var jsonElement = (JsonElement)request;
                 string productName = jsonElement.GetProperty("productName").GetString();
-                float? price = jsonElement.GetProperty("price").GetSingle();
+                float price = jsonElement.GetProperty("price").GetSingle();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 string description = jsonElement.GetProperty("description").GetString();
-                bool isSelling = jsonElement.GetProperty("isSelling").GetBoolean();
+               
                 string? image = jsonElement.GetProperty("image").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
-
-
+                bool isSelling = true;
+                bool status = true;
+                //if check if the stocks is avaliable
+                if (quantity == 0)
+                {
+                    status = false;
+                    
+                }
                 var item = new CosmeticProduct
                 {
                     ProductId = Guid.NewGuid().ToString("N"),
                     ProductName = productName,
-                    Price = price,
+                    Price = price ,
                     Quantity = quantity,
                     Description = description,
-                    Status = true,
-                    IsSelling = true,
+                    Status = status,
+                    IsSelling = isSelling,
                     Image = image,
-                    CategoryId = categoryId
+                    CategoryId = categoryId,
                 };
 
                 await _service.Create(item);
@@ -85,39 +92,48 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateCosmeticProduct(string id, [FromBody] dynamic request)
         {
             try
             {
                 var jsonElement = (JsonElement)request;
-                string productId = jsonElement.GetProperty("productId").GetString();
                 string productName = jsonElement.GetProperty("productName").GetString();
-                float? price = jsonElement.GetProperty("price").GetSingle();
+                float price = jsonElement.GetProperty("price").GetSingle();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 string description = jsonElement.GetProperty("description").GetString();
                 bool status = jsonElement.GetProperty("status").GetBoolean();
                 bool isSelling = jsonElement.GetProperty("isSelling").GetBoolean();
                 string? image = jsonElement.GetProperty("image").GetString();
+                string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
-                if (id != productId)
-                    return BadRequest(new { msg = "Product ID mismatch." });
-
-                var item = new CosmeticProduct
+                if (quantity == 0)
                 {
-                    ProductId = productId,
-                    ProductName = productName,
-                    Price = price,
-                    Quantity = quantity,
-                    Description = description,
-                    Status = status,
-                    IsSelling = isSelling,
-                    Image = image
-                };
+                    status = false;
 
-                await _service.Update(item);
-                return Ok(item);
+                }
+                if (string.IsNullOrEmpty(productName) || price <= 0 ||
+                   string.IsNullOrEmpty(description) ||
+                   string.IsNullOrEmpty(categoryId))
+         
+                {
+                    return BadRequest(new { msg = "Spa service details are incomplete or invalid." });
+                }
+
+                var product = await _service.GetCosmeticProductById(id);
+                if (product == null)
+                    return BadRequest(new { msg = "Product ID mismatch." });
+                else
+                product.ProductName = productName;
+                product.Price = price;
+                product.Quantity = quantity;
+                product.Description = description;
+                product.IsSelling = isSelling;
+                product.Image = image;
+                product.CategoryId = categoryId;
+
+                await _service.Update(product);
+                return Ok(product);
             }
             catch (Exception ex)
             {

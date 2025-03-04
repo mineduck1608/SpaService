@@ -74,15 +74,20 @@ public partial class SpaserviceContext : DbContext
     public virtual DbSet<SpaService> SpaServices { get; set; }
 
     public virtual DbSet<Transaction> Transactions { get; set; }
-    private string? GetConnectionString()
+
+    public static string GetConnectionString(string connectionStringName)
     {
-        IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true).Build();
-        return configuration["ConnectionStrings:DefaultConnectionStringDB"];
+        var config = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        string connectionString = config.GetConnectionString(connectionStringName);
+        return connectionString;
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+        => optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnectionStringDB")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -155,7 +160,6 @@ public partial class SpaserviceContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.AccountId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKApplicatio396292");
 
             entity.HasOne(d => d.ResolvedByNavigation).WithMany(p => p.Applications)
@@ -325,6 +329,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("image");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.IsSelling).HasColumnName("isSelling");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ProductName)
@@ -562,6 +567,7 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("categoryId");
             entity.Property(e => e.FloorNum).HasColumnName("floorNum");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
 
             entity.HasOne(d => d.Category).WithMany(p => p.Floors)
                 .HasForeignKey(d => d.CategoryId)
@@ -683,6 +689,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("image");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.Type)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -712,6 +719,12 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.OrderDate)
                 .HasColumnType("datetime")
                 .HasColumnName("orderDate");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(20)
+                .HasColumnName("phone");
+            entity.Property(e => e.RecepientName)
+                .HasMaxLength(50)
+                .HasColumnName("recepientName");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalAmount).HasColumnName("totalAmount");
             entity.Property(e => e.TransactionId)
@@ -792,6 +805,9 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("requestId");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.CustomerId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -862,6 +878,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("floorId");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.RoomNum).HasColumnName("roomNum");
             entity.Property(e => e.Status).HasColumnName("status");
 
@@ -946,6 +963,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Duration).HasColumnName("duration");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ServiceImage).HasColumnName("serviceImage");
             entity.Property(e => e.ServiceName)

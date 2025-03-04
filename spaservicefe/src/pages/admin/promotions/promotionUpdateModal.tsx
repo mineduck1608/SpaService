@@ -72,8 +72,8 @@ export default function UpdatePromotionModal({ isOpen, onClose, promotion }: Upd
                               <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value='true'>Active</SelectItem>
-                              <SelectItem value='false'>Locked</SelectItem>
+                              <SelectItem value='true'>Available</SelectItem>
+                              <SelectItem value='false'>Unavailable</SelectItem>
                             </SelectContent>
                           </Select>
                         ) : (

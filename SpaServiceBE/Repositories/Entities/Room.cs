@@ -11,6 +11,8 @@ public partial class Room
 
     public string FloorId { get; set; } = null!;
 
+    public bool IsDeleted { get; set; }
+
     public bool Status { get; set; }
 
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();

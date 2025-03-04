@@ -28,6 +28,12 @@ namespace Services
             return await _requestRepository.GetById(requestId);
         }
 
+        public async Task<string> GetSpaServiceIdByRequestId(string requestId)
+        {
+            var request = await _requestRepository.GetById(requestId);
+            return request?.ServiceId; // Dấu ? để tránh lỗi nếu request null
+        }
+
         public async Task<List<Request>> GetAll()
         {
             return await _requestRepository.GetAll();

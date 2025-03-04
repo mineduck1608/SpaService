@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Repositories.Entities;
@@ -18,6 +18,10 @@ public partial class Order
     public string TransactionId { get; set; } = null!;
 
     public string Address { get; set; } = null!;
+
+    public string RecepientName { get; set; } = null!;
+
+    public string Phone { get; set; } = null!;
 
     public virtual Customer Customer { get; set; } = null!;
 

@@ -1,7 +1,14 @@
+import { useContext } from 'react'
 import { ColumnDef } from '@tanstack/react-table'
-import { Appointment, SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
-import { formatNumber } from '../servicesPage/servicesPage.util'
+import { Appointment, SpaRequest } from '@/types/type'
 import Details from './details'
+import { PastAppointmentContext } from './context/pastAppointmentContext'
+
+const CellWithContext = ({ row }) => {
+  const { pastBooking } = useContext(PastAppointmentContext)
+  return <Details request={row.original} isPast={pastBooking} />
+}
+
 export const columns: ColumnDef<Appointment>[] = [
   {
     accessorKey: 'service',
@@ -24,7 +31,6 @@ export const columns: ColumnDef<Appointment>[] = [
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
       let statusColor = ''
-      // Set the color based on the status value
       if (status === 'Completed') {
         statusColor = 'text-green-500'
       } else if (status === 'Cancelled') {
@@ -48,8 +54,6 @@ export const columns: ColumnDef<Appointment>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => {
-      return <Details request={row.original} />
-    }
+    cell: CellWithContext
   }
 ]

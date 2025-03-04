@@ -185,14 +185,9 @@ export const employeeConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL'
     }
-  ],
-  api: {
-    create: 'api/accounts/RegisterEmployee',
-    update: 'api/employees/Update/{id}'
-  }
+  ]
 }
 
 export const managerConfig = {
@@ -229,14 +224,12 @@ export const managerConfig = {
       name: 'phone',
       label: 'Phone',
       type: 'tel',
-      required: true,
       placeholder: 'Enter phone number',  
     },
     {
       name: 'email',
       label: 'Email',
       type: 'email',
-      required: true,
       placeholder: 'Enter email',  
     }
   ],
@@ -288,14 +281,9 @@ export const managerConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL',  
     }
-  ],
-  api: {
-    create: 'api/accounts/RegisterEmployee',
-    update: 'api/employees/Update/{id}'
-  }
+  ]
 }
 
 export const accountConfig = {
@@ -369,13 +357,6 @@ export const serviceCategoriesConfig = {
       placeholder: 'Enter new name'
     },
     {
-      name: 'categoryImage',
-      label: 'Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new image URL'
-    },
-    {
       name: 'categoryDescription',
       label: 'Status',
       type: 'text',
@@ -391,13 +372,6 @@ export const serviceCategoriesConfig = {
       required: true,
       minLength: 5,
       placeholder: 'Enter category name'
-    },
-    {
-      name: 'categoryImage',
-      label: 'Image',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter image URL'
     },
     {
       name: 'categoryDescription',
@@ -422,23 +396,32 @@ export const applicatonConfig = {
       name: 'content',
       label: 'Content',
       type: 'text',
-      required: true,
-      minLength: 4,
+      readonly: true,
       placeholder: 'Enter content'
-    },
-    {
-      name: 'resolvedAt',
-      label: 'Resolved At',
-      type: 'datetime-local',
-      required: true,
-      placeholder: 'Enter the resolved date',
     },
     {
       name: 'resolvedBy',
       label: 'Resolved By',
       type: 'select',
-      // required: true,
-      placeholder: 'Select manager name'
+      required: true,
+      placeholder: 'Select manager'
+    }
+  ],
+  fields: [
+    {
+      name: 'content',
+      label: 'Content',
+      type: 'text',
+      required: true,
+      minLength: 4,
+      placeholder: 'Enter content'
+    },
+    {
+      name: 'accountId',
+      label: 'Account',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter the account',
     }
   ]
 }
@@ -663,30 +646,26 @@ export const transactionConfig = {
     {
       name: 'transactionType',
       label: 'Transaction Type',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new type'
+      type: 'select',
+      readonly: true,
     },
     {
       name: 'totalPrice',
       label: 'Total Price',
       type: 'number',
-      required: true,
-      step: '0.01',
-      min: 0,
-      placeholder: 'Enter new total price'
+      readonly: true,
     },
     {
       name: 'paymentType',
       label: 'Payment Type',
       type: 'select',
-      required: true,
-      placeholder: 'Select payment type'
+      readonly: true,
     },
     {
       name: 'status',
       label: 'Status',
       type: 'select',
+      require: true,
       placeholder: 'Select status'
     }
   ]
@@ -697,9 +676,8 @@ export const roomConfig = {
     {
       name: 'roomNum',
       label: 'Room Number',
-      type: 'number',
+      type: 'text',
       required: true,
-      min: 0,
       placeholder: 'Enter new room number'
     },
     {
@@ -708,15 +686,21 @@ export const roomConfig = {
       type: 'select',
       required: true,
       placeholder: 'Select floor'
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      required: true,
+      placeholder: 'Select status'
     }
   ],
   fields: [
     {
       name: 'roomNum',
       label: 'Room Number',
-      type: 'number',
+      type: 'text',
       required: true,
-      min: 0,
       placeholder: 'Enter new room number'
     },
     {
@@ -875,13 +859,6 @@ export const cosmeticProductConfig = {
       placeholder: 'Enter description'
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status'
-    },
-    {
       name: 'isSelling',
       label: 'Is Selling',
       type: 'select',
@@ -889,10 +866,10 @@ export const cosmeticProductConfig = {
       placeholder: 'Select an option'
     },
     {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter image URL'
+      name: 'categoryId',
+      label: 'Category',
+      type: 'select',
+      placeholder: 'Select category'
     }
   ],
   fields: [
@@ -928,13 +905,6 @@ export const cosmeticProductConfig = {
       placeholder: 'Enter description'
     },
     {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status'
-    },
-    {
       name: 'isSelling',
       label: 'Is Selling',
       type: 'select',
@@ -942,16 +912,43 @@ export const cosmeticProductConfig = {
       placeholder: 'Select an option'
     },
     {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter image URL'
-    },
-    {
       name: 'categoryId',
       label: 'Category',
       type: 'select',
       placeholder: 'Select category'
+    }
+  ]
+}
+
+export const employeeCategoryConfig = {
+  updatefields: [
+    {
+      name: 'categoryId',
+      label: 'Category',
+      type: 'select',
+      required: true
+    },
+    {
+      name: 'employeeId',
+      label: 'Employee',
+      type: 'select',
+      required: true
+    }
+  ],
+  fields: [
+    {
+      name: 'categoryId',
+      label: 'Category',
+      type: 'select',
+      required: true,
+      placeholder: 'Select category'
+    },
+    {
+      name: 'employeeId',
+      label: 'Employee',
+      type: 'select',
+      required: true,
+      placeholder: 'Select employee'
     }
   ]
 }

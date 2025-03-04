@@ -77,6 +77,20 @@ export default function UpdateTransactionModal({ isOpen, onClose, transaction }:
                                 <SelectItem value='false'>Unfinished</SelectItem>
                               </SelectContent>
                             </Select>
+                          ) : field.name === 'paymentType' ? (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='VnPay'>VnPay</SelectItem>
+                                <SelectItem value='Cash'>Cash</SelectItem>
+                              </SelectContent>
+                            </Select>
                           ) : (
                             <Select
                               onValueChange={formField.onChange}
@@ -87,8 +101,8 @@ export default function UpdateTransactionModal({ isOpen, onClose, transaction }:
                                 <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value='VNPAY'>VNPAY</SelectItem>
-                                <SelectItem value='Cash'>Cash</SelectItem>
+                                <SelectItem value='Service'>Service</SelectItem>
+                                <SelectItem value='Cosmetic'>Cosmetic</SelectItem>
                               </SelectContent>
                             </Select>
                           )

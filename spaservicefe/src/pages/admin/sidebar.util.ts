@@ -20,6 +20,47 @@ import {
   Package,
   Blocks
 } from 'lucide-react'
+
+import { jwtDecode } from 'jwt-decode'
+import { roleJWT } from '../../types/constants'
+
+
+const token = sessionStorage.getItem('token');
+let userRole;
+if (token) {
+  const jwtData = jwtDecode(token);
+  userRole = jwtData[roleJWT];
+  console.log(userRole)
+} else {
+  console.error('Token not found');
+}
+const adminNavMain = [
+  {
+    title: 'Home',
+    url: '/admin',
+    icon: Home,
+  },
+  // Add more items for Admin
+];
+
+const managerNavMain = [
+  {
+    title: 'Home',
+    url: '/manager',
+    icon: Home,
+  },
+  // Add more items for Manager
+];
+
+const employeeNavMain = [
+  {
+    title: 'Home',
+    url: '/employee',
+    icon: Home,
+  },
+// Add more items for Employee
+];
+
 export type SideBarItem = {
   title: string
   url?: string
@@ -30,27 +71,21 @@ export type SideBarItem = {
   isFavorite?: boolean
 }
 export const sideData = {
-  navMain: [
-    {
-      title: 'Home',
-      url: '/admin',
-      icon: Home
-    }
-  ],
+  navMain: userRole === 'Admin' ? adminNavMain : userRole === 'Manager' ? managerNavMain : employeeNavMain,
   workspaces: [
     {
       title: 'Appointments',
       icon: ClipboardList,
-      url: '/admin/appointments'
+      url: 'appointments'
     },
     {
       title: 'Orders',
       icon: Boxes,
-      url: '/admin/orders'
+      url: 'orders'
     },
     {
       title: 'Transactions',
-      url: '/admin/transactions',
+      url: 'transactions',
       icon: ArrowLeftRight
     },
     {
@@ -111,12 +146,12 @@ export const sideData = {
     {
       title: 'Accounts',
       icon: UserCircle,
-      url: '/admin/accounts'
+      url: 'accounts'
     },
     {
       title: 'Employee Categories',
       icon: UserCog,
-      url: '/admin/employee-categories'
+      url: 'employee-categories'
     },
     {
       title: 'Users',
@@ -141,24 +176,24 @@ export const sideData = {
     {
       title: 'Services Categories',
       icon: Sparkle,
-      url: '/admin/service-categories'
+      url: 'service-categories'
     },
     {
       title: 'Spa Services',
       icon: Sparkles,
-      url: '/admin/spa-services'
+      url: 'spa-services'
     }
   ],
   cosmetics: [
     {
       title: 'Cosmetic Categories',
       icon: Package,
-      url: '/admin/cosmetic-categories'
+      url: 'cosmetic-categories'
     },
     {
       title: 'Cosmetic Products',
       icon: Blocks,
-      url: '/admin/cosmetic-product'
+      url: 'cosmetic-product'
     }
   ],
   navSecondary: [
@@ -174,3 +209,4 @@ export const sideData = {
     }
   ]
 }
+

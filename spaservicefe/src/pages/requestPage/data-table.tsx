@@ -51,7 +51,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
 
   return (
     <div className=''>
-      <div className='mt-5 rounded-md border bg-slate-50'>
+      <div className='rounded-md border bg-slate-50'>
         <Table className=''>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

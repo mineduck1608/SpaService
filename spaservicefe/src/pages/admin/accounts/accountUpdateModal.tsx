@@ -32,7 +32,7 @@ export default function UpdateAccountModal({ isOpen, onClose, account }: UpdateA
     const selectedRole = roles.find((role) => role.roleName === data.role)
     if (selectedRole) data.role = selectedRole.roleId
     data.status = data.status === 'Active'
-    handleUpdateSubmit(account.accountId, data)
+    handleUpdateSubmit(account, data)
   }
 
   useEffect(() => {
@@ -53,6 +53,7 @@ export default function UpdateAccountModal({ isOpen, onClose, account }: UpdateA
     }
     fetchRoles()
   }, [account, form])
+  
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>

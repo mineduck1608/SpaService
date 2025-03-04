@@ -24,18 +24,14 @@ export const columns: ColumnDef<Room>[] = [
     enableHiding: false
   },
   {
+    accessorKey: 'floorName',
+    header: 'Floor'
+  },
+  {
     accessorKey: 'roomNum',
     header: 'Room Number'
   },
-  {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => (row.getValue('status') ? 'Available' : 'Occupied')
-  },
-  {
-    accessorKey: 'floorNum',
-    header: 'Floor'
-  },
+ 
   {
     id: 'actions',
     header: 'Actions',

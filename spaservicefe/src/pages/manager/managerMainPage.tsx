@@ -9,6 +9,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 export default function ManagerPage() {
   // Sử dụng useLocation để lấy thông tin location của trang hiện tại
   const location = useLocation()
+
   // Lấy path từ location.pathname và chuyển đổi thành dạng title
   const x = location.pathname.substring(9).replace(/-/g, ' ')
 
@@ -21,7 +22,15 @@ export default function ManagerPage() {
 
   return (
     <SidebarProvider>
-      <SidebarLeft main={sideData.workspaces} header={sideData.navMain} props={{}} />
+      <SidebarLeft 
+        workspaces={sideData.workspaces}
+        users={sideData.users}
+        spaservices={sideData.spaservices}
+        cosmetics={sideData.cosmetics}
+        header={sideData.navMain}
+        props={{}}
+        secondary={sideData.navSecondary} 
+      />
       <SidebarInset>
         <header className='sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background'>
           <div className='flex flex-1 items-center gap-2 px-3'>
@@ -44,6 +53,7 @@ export default function ManagerPage() {
         </header>
         <Outlet />
       </SidebarInset>
+      <SidebarRight />
     </SidebarProvider>
   )
 }

@@ -4,17 +4,18 @@ import { formatNumber, getServicesOfCategory, imgs } from '../servicesPage/servi
 import StockImg from './stockImg'
 import { Service } from '@/types/services'
 import { getService } from './detailPage.util'
-import { Category } from '@/types/serviceCategory'
+import { ServiceCategory } from '@/types/type'
 import ShortDetail from './shortDetail'
 import seperator from '../../images/serviceBg/separator.png'
 import DetailPageCarousel from './detailPageCarousel'
 import ServiceIntro from './serviceIntro'
+import FeedbackSection from './feedbackSection'
 
 export default function DetailPage() {
   const { id } = useParams()
   const [data, setData] = useState<Service>()
   const [related, setRelated] = useState<Service[]>([])
-  const CATEGORY = JSON.parse(sessionStorage.getItem('categories') ?? '{}') as Category[]
+  const CATEGORY = JSON.parse(sessionStorage.getItem('categories') ?? '{}') as ServiceCategory[]
   useEffect(() => {
     async function fetchData() {
       const x = await getService(id ?? '')
@@ -25,10 +26,10 @@ export default function DetailPage() {
       }
     }
     fetchData()
-  }, [])
+  }, [id])
 
   return (
-    <div>
+    <div className='font-montserrat'>
       <img src={imgs.headerBg} alt='Header' className='w-full' />
       <div className='mb-10 p-2 md:ml-28 lg:ml-5 xl:ml-[23rem]'>
         <span className='font-normal text-gray-400'>
@@ -47,7 +48,7 @@ export default function DetailPage() {
         {/* Service detail (img, short intro + long intro) */}
         <div className='mb-10 flex w-full  justify-center'>
           {/* Outer container for img + short intro */}
-          <div className='w-11/12 rounded-lg p-4 shadow-lg  shadow-md lg:w-3/5'>
+          <div className='w-11/12 rounded-lg p-4 shadow-md lg:w-3/5'>
             {/* Short intro and img */}
             <div className='flex justify-between'>
               <div className='w-[49.5%] '>
@@ -63,6 +64,10 @@ export default function DetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Feedbacks */}
+        {data ? <FeedbackSection service={data} /> : <p className='flex items-center justify-center w-full h-full'>Loading feedbacks...</p>}
+
         {/* Related services */}
         <div className='mb-10 w-full '>
           <p className='p-3 text-center text-[3rem] text-purple1'>Related services</p>

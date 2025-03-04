@@ -16,14 +16,15 @@ export async function getAllApplications() {
   }
 }
 
-export async function handleUpdateSubmit(id: string, application: any, data: any) {
+export async function handleUpdateSubmit(application: any, data: any) {
   try {
     const updatedData = {
       ...data,
       accountId: application.accountId,
-      createdAt: application.createdAt
+      createdAt: application.createdAt,
+      resolvedAt: new Date().toISOString()
     }
-    var res = await fetch(`${apiUrl}/applications/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/applications/Update/${application.applicationId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -32,12 +33,13 @@ export async function handleUpdateSubmit(id: string, application: any, data: any
       body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully update!', {
-        autoClose: 2000
-      })
+      toast.success('Successfully update!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.')
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      })
     }
   } catch (e) {
     return []
@@ -54,12 +56,13 @@ export async function handleDelete(id: string) {
       }
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Delete successfully', {
-        autoClose: 2000
-      })
+      toast.success('Delete successfully')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Delete failed. Try again.')
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      })
     }
   } catch (error) {
     console.error('Error deleting application:', error)

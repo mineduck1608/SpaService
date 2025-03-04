@@ -31,6 +31,17 @@ namespace Repositories
                 .ToListAsync();
         }
 
+        public async Task<bool> GetByCategoryIdAndEmployeeID(string categoryId, string employeeId)
+        {
+            var cateEmployee = await _context.CategoryEmployees
+                .FirstOrDefaultAsync(ce => ce.CategoryId == categoryId && ce.EmployeeId == employeeId);
+            if(cateEmployee == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         // Lấy danh sách category theo EmployeeId
         public async Task<List<CategoryEmployee>> GetByEmployeeId(string employeeId)
         {

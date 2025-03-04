@@ -58,7 +58,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
             context.setPastBooking(!context.pastBooking)
           }}
         >
-          {context.pastBooking ? 'Upcoming' : 'Past'} Appointments
+          {context.pastBooking ? 'Past' : 'Upcoming'} Appointments
         </button>
       </div>
       <div className='mt-2 rounded-md border bg-slate-50'>

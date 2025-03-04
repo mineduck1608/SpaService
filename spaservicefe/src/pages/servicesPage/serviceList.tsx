@@ -2,7 +2,7 @@ import { Service } from '@/types/services'
 import React from 'react'
 import { formatNumber } from './servicesPage.util'
 import sep from '../../images/serviceBg/separator.png'
-import { useNavigate } from 'react-router-dom' // Import useNavigate
+import { useNavigate } from 'react-router-dom'
 
 export default function ServiceList(params?: { service: Service[] }) {
   return (
@@ -15,20 +15,18 @@ export default function ServiceList(params?: { service: Service[] }) {
 }
 
 export function ServiceCard(params?: { s: Service }) {
-  const navigate = useNavigate() // Initialize useNavigate
-
   const handleNavigate = () => {
-    navigate(`/services-detail/${params?.s?.serviceId}`) // Use navigate() for routing
+    window.location.assign(`/services-detail/${params?.s?.serviceId}`)
   }
 
   return (
-    <div className='w-full min-w-[300px] '>
+    <div className='w-full min-w-[300px]'>
       {/* Container */}
       <div className='flex flex-col rounded-md shadow'>
         <img
           src={params?.s?.serviceImage}
           alt={params?.s?.serviceName}
-          className='aspect-[1/0.65] w-full rounded-t-md '
+          className='aspect-[1/0.65] w-full rounded-t-md'
         />
         <div className='flex items-center justify-center pt-4'>
           <button onClick={handleNavigate}>

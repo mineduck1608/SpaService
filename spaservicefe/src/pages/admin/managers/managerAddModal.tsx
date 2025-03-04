@@ -12,7 +12,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 's
 import { ToastContainer } from 'react-toastify'
 import { handleCreateSubmit } from './manager.util'
 import { managerConfig } from '../modal.util'
-import { DatePicker } from 'antd'
 
 export default function AddManagerModal() {
   const fieldsToUse = managerConfig.fields
@@ -24,10 +23,6 @@ export default function AddManagerModal() {
 
   const handleSubmit = async (data: any) => {
     handleCreateSubmit(data)
-  }
-
-  const handleChange = (field: string, value: string) => {
-    form.setValue(field, value)
   }
 
   return (
@@ -50,33 +45,36 @@ export default function AddManagerModal() {
                     <div className='col-span-3 space-y-1'>
                       <FormControl>
                         {field.type === 'select' ? (
-                          <Select
-                            onValueChange={formField.onChange}
-                            defaultValue={formField.value}
-                            disabled={field.readonly}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value='Male'>Male</SelectItem>
-                              <SelectItem value='Female'>Female</SelectItem>
-                              <SelectItem value='Other'>Other</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        ) : field.type === 'datetime-local' ? (
-                          <DatePicker
-                            step={1800}
-                            showTime
-                            showHour
-                            showMinute
-                            showSecond={false}
-                            minuteStep={30}
-                            className='w-75 border-[1px] p-2'
-                            onChange={(date) =>
-                              handleChange('dateOfBirth', date ? date.format('YYYY-MM-DDTHH:mm:ss') : '')
-                            }
-                          />
+                          field.name === 'position' ? (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='System Manager'>System Manager</SelectItem>
+                                <SelectItem value='Cosmetic Manager'>Cosmetic Manager</SelectItem>
+                                <SelectItem value='Service Manager'>Service Manager</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          ) : (
+                            <Select
+                              onValueChange={formField.onChange}
+                              defaultValue={formField.value}
+                              disabled={field.readonly}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value='Working'>Working</SelectItem>
+                                <SelectItem value='Retired'>Retired</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )
                         ) : (
                           <Input
                             {...formField}

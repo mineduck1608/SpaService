@@ -9,7 +9,7 @@ public partial class CosmeticProduct
 
     public string ProductName { get; set; } = null!;
 
-    public float? Price { get; set; }
+    public double Price { get; set; }
 
     public int Quantity { get; set; }
 
@@ -22,6 +22,8 @@ public partial class CosmeticProduct
     public string? Image { get; set; }
 
     public string CategoryId { get; set; } = null!;
+
+    public bool IsDeleted { get; set; }
 
     public virtual CosmeticCategory Category { get; set; } = null!;
 

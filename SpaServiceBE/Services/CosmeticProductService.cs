@@ -47,5 +47,10 @@ namespace Services
         {
             return await _repository.GetProductsByCategoryId(categoryId);
         }
+
+        public async Task<Dictionary<string, CosmeticProduct>> GetProductsOfList(List<string> productIdList)
+        {
+            return await _repository.GetProductsOfList(productIdList);
+        }
     }
 }

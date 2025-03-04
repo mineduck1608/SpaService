@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { TransactionBase } from '../../../types/type'
+import { TransactionBase, SpaRequest, Order, CosmeticProduct, ServiceTransaction, CosmeticTransaction } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllTransactions() {
@@ -10,6 +10,62 @@ export async function getAllTransactions() {
       }
     })
     const json = (await res.json()) as TransactionBase[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getAllServiceTransactions() {
+  try {
+    const res = await fetch(`${apiUrl}/servicetransactions/GetAll`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as ServiceTransaction[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getAllCosmeticTransactions() {
+  try {
+    const res = await fetch(`${apiUrl}/cosmetictransactions/GetAll`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as CosmeticTransaction[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getSpaRequestById(id: string) {
+  try {
+    const res = await fetch(`${apiUrl}/requests/GetById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as SpaRequest[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getOrderById(id: string) {
+  try {
+    const res = await fetch(`${apiUrl}/orders/GetById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as Order[]
     return json
   } catch (e) {
     return []
@@ -27,12 +83,13 @@ export async function handleCreateSubmit(data: any) {
       body: JSON.stringify(data)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully create!', {
-        autoClose: 2000
-      })
+      toast.success('Successfully create!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.')
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      })
     }
   } catch (e) {
     return []
@@ -41,23 +98,26 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(id: string, data: any) {
   try {
-    data.completeTime = new Date().toISOString()
-    console.log(data)
+    const updatedData = {
+      ...data,
+      completeTime: new Date().toISOString()
+    }
     var res = await fetch(`${apiUrl}/transactions/Update/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully update!', {
-        autoClose: 2000
-      })
+      toast.success('Successfully update!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.')
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      })
     }
   } catch (e) {
     return []
@@ -74,14 +134,15 @@ export async function handleDelete(id: string) {
       }
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Delete successfully', {
-        autoClose: 2000
-      })
+      toast.success('Delete successfully')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Delete failed. Try again.')
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      })
     }
   } catch (error) {
-    console.error('Error deleting customer:', error)
+    console.error('Error deleting transaction:', error)
   }
 }

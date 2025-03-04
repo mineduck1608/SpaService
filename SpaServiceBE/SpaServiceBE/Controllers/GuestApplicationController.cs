@@ -58,7 +58,7 @@ namespace SpaServiceBE.Controllers
                     FullName = fullName,
                     PhoneNumber = phoneNumber,
                     Email = email,
-                    ApplicationId = applicationId
+                    ApplicationId = applicationId,
                 };
 
                 // Call service to add guest application

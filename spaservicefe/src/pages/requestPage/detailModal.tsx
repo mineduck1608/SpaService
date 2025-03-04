@@ -34,15 +34,20 @@ function tableData(request: SpaRequest) {
     { key: 'Requested Employee', value: request.employee?.fullName ?? 'Did not request' },
     { key: "Manager's Note", value: request.managerNote ?? 'None' },
     { key: 'Your Note', value: request.customerNote.length === 0 ? 'None' : request.customerNote },
-    { key: 'Price', value: formatNumber(request.service?.price ?? 0) },
+    { 
+      key: 'Price', 
+      value: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
+               .format(request?.serviceTransactions?.[0]?.transaction?.totalPrice ?? 0)
+    },    
     {
       key: 'Transaction Status',
-      value: status(request.serviceTransaction?.status ?? false),
+      value: status(request?.serviceTransactions?.[0]?.transaction?.status ?? false),
       color: new Map<string, string>([
         ['Completed', 'text-green-500'],
         ['Not Completed', 'text-red-500']
       ])
     }
+    
   ]
 }
 export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteModalProps) {

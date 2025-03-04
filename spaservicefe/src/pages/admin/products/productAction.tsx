@@ -57,7 +57,6 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateProductModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} product={product} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

@@ -11,7 +11,7 @@ public partial class CustomerMembership
 
     public DateOnly StartDate { get; set; }
 
-    public DateOnly EndDate { get; set; }
+    public DateOnly? EndDate { get; set; }
 
     public virtual Customer Customer { get; set; } = null!;
 

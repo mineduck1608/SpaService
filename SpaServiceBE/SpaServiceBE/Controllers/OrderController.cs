@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Repositories.Entities.RequestModel;
 using Services.IServices;
 using System.Text.Json;
 
@@ -16,15 +17,21 @@ namespace SpaServiceBE.Controllers
         private readonly ICustomerService _customerService;
         private readonly ICosmeticTransactionService _cosmeticTransactionService;
         private readonly ITransactionService _transactionService;
-
-        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService)
+        private readonly ICustomerMembershipService _customerMembershipService;
+        private readonly IMembershipService _membershipService;
+        private readonly IPromotionService _promotionService;
+        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService)
         {
+            _cosmeticProductService = cosmeticProductService;
             _orderService = orderService;
             _cosmeticProductService = cosmeticProductService;
             _orderDetailService = orderDetailService;
             _customerService = customerService;
             _cosmeticTransactionService = cosmeticTransactionService;
             _transactionService = transactionService;
+            _customerMembershipService = customerMembershipService;
+            _membershipService = membershipService;
+            _promotionService = promotionService;
         }
 
         [HttpGet("GetAll")]
@@ -40,110 +47,106 @@ namespace SpaServiceBE.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateOrderWithDetails([FromBody] dynamic request)
+        public async Task<ActionResult> CreateOrderWithDetails([FromBody] OrderRequest orderRequest)
         {
             try
             {
-                var jsonElement = (JsonElement)request;
-
-                // Extract and validate order-related data
-                if (!jsonElement.TryGetProperty("customerId", out var customerIdProp) ||
-                    !jsonElement.TryGetProperty("orderDate", out var orderDateProp) ||
-                    !jsonElement.TryGetProperty("productId", out var productIdProp) ||
-                    !jsonElement.TryGetProperty("quantity", out var quantityProp) ||
-                    !jsonElement.TryGetProperty("transactionType", out var transactionTypeProp) ||
-                    !jsonElement.TryGetProperty("paymentType", out var paymentTypeProp))
-                {
-                    return BadRequest(new { msg = "Missing required fields in request." });
-                }
-
-                string customerId = customerIdProp.GetString();
-                string productId = productIdProp.GetString();
-                DateTime orderDate = orderDateProp.GetDateTime();
-                int quantity = quantityProp.GetInt32();
-                string transactionType = transactionTypeProp.GetString();
-                string paymentType = paymentTypeProp.GetString();
-
-                if (string.IsNullOrWhiteSpace(customerId) || string.IsNullOrWhiteSpace(productId) || quantity <= 0 ||
-                    string.IsNullOrWhiteSpace(transactionType) || string.IsNullOrWhiteSpace(paymentType))
-                {
-                    return BadRequest(new { msg = "Invalid or incomplete order details." });
-                }
-
                 // Fetch and validate product
-                var cosmeticProduct = await _cosmeticProductService.GetCosmeticProductById(productId);
-                if (cosmeticProduct == null || !cosmeticProduct.IsSelling || !cosmeticProduct.Status)
+                var productIdList = orderRequest.Details.Select(x => x.ProductId).ToList();
+                var products = await _cosmeticProductService.GetProductsOfList(productIdList);
+                var promo = await _promotionService.GetByCode(orderRequest.PromotionCode);
+                var customer = await _customerService.GetCustomerById(orderRequest.CustomerId);
+                var name = orderRequest.RecepientName ?? customer.FullName;
+                var phone = orderRequest.Phone ?? customer.Phone;
+                if (!string.IsNullOrEmpty(orderRequest.PromotionCode) && promo == null)
                 {
-                    return BadRequest(new { msg = "The product is not available." });
+                    return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
                 }
-
-                // Check stock availability
-                if (cosmeticProduct.Quantity < (int)quantity)
+                if(orderRequest.Details.Count == 0)
                 {
-                    return BadRequest(new { msg = "Not enough stock available." });
+                    return BadRequest(new { msg = "Empty cart" });
                 }
-
-                // Calculate subtotal amount
-                float subAmount = (float)(quantity * cosmeticProduct.Price);
-
+                if (products.Count != orderRequest.Details.Count)
+                {
+                    return BadRequest(new { msg = "Some products don't exist" });
+                }
+                // Check stock availability AND calculate price at the same time
+                double total = 0;
+                var detailMap = new Dictionary<string, double>();
+                foreach (var product in orderRequest.Details)
+                {
+                    var stockItem = products[product.ProductId];
+                    if(product.Quantity <= 0)
+                    {
+                        return BadRequest(new { msg = $"Item {stockItem.ProductName} has invalid amount" });
+                    }
+                    if (stockItem.Quantity < product.Quantity)
+                    {
+                        return BadRequest(new { msg = $"Cannot order more than stock for {stockItem.ProductName}" });
+                    }
+                    var subTotal = product.Quantity * stockItem.Price * (100 - (promo?.DiscountValue ?? 0)) / 100;
+                    detailMap.Add(product.ProductId, subTotal);
+                    total += subTotal;
+                }
                 // Generate IDs first
                 string orderId = Guid.NewGuid().ToString("N");
                 string transactionId = Guid.NewGuid().ToString("N");
                 string cosmeticTransactionId = Guid.NewGuid().ToString("N");
 
-                // Create Transaction first
+                var order = new Order
+                {
+                    OrderId = orderId,
+                    CustomerId = orderRequest.CustomerId,
+                    OrderDate = orderRequest.OrderDate,
+                    Status = true,
+                    Address = orderRequest.Address,
+                    TotalAmount = (float)total,
+                    RecepientName = name,
+                    Phone = phone,
+                };
+                await _orderService.AddOrderAsync(order);
+                //Order details
+                foreach (var product in orderRequest.Details)
+                {
+                    var orderDetail = new OrderDetail
+                    {
+                        ProductId = product.ProductId,
+                        OrderDetailId = Guid.NewGuid().ToString("N"),
+                        OrderId = orderId,
+                        Quantity = product.Quantity,
+                        SubTotalAmount = (float)detailMap[product.ProductId],
+                        
+                    };
+                    await _orderDetailService.Create(orderDetail);
+                }
                 var transaction = new Transaction
                 {
                     TransactionId = transactionId,
-                    TransactionType = transactionType,
-                    TotalPrice = subAmount,
-                    Status = true,
-                    PaymentType = paymentType
+                    TransactionType = "Product",
+                    PaymentType = orderRequest.PaymentType,
+                    PromotionId = promo?.PromotionId,
+                    Status = false,
+                    TotalPrice = (float)total,
                 };
                 await _transactionService.Add(transaction);
 
                 // Create CosmeticTransaction before Order due to the foreign key constraint
                 var cosmeticTransaction = new CosmeticTransaction
                 {
-                    CosmeticTransactionId = cosmeticTransactionId,
+                    CosmeticTransactionId = Guid.NewGuid().ToString("N"),
                     TransactionId = transactionId,
-                    OrderId = orderId  // We can set this because we pre-generated the orderId
+                    OrderId = orderId,
                 };
                 await _cosmeticTransactionService.CreateAsync(cosmeticTransaction);
-
-                // Now create Order
-                var order = new Order
-                {
-                    OrderId = orderId,
-                    CustomerId = customerId,
-                    OrderDate = orderDate,
-                    TotalAmount = subAmount,
-                    Status = true,
-                    TransactionId = cosmeticTransactionId
-                };
-                await _orderService.AddOrderAsync(order);
-
-                // Create OrderDetail
-                var orderDetail = new OrderDetail
-                {
-                    OrderId = orderId,
-                    ProductId = productId,
-                    Quantity = quantity,
-                    SubTotalAmount = subAmount
-                };
-                await _orderDetailService.Create(orderDetail);
-
                 // Update product stock last
-                cosmeticProduct.Quantity -= (int)quantity;
-                await _cosmeticProductService.Update(cosmeticProduct);
-
-                return CreatedAtAction(nameof(GetOrderById), new { id = orderId }, new
+                foreach (var product in orderRequest.Details)
                 {
-                    order,
-                    orderDetail,
-                    transaction,
-                    cosmeticTransaction
-                });
+                    var stockItem = products[product.ProductId];
+                    stockItem.Quantity -= product.Quantity;
+                    await _cosmeticProductService.Update(stockItem);
+                }
+
+                return Ok(new { id = orderId, total, transactionId });
             }
             catch (Exception ex)
             {
@@ -151,7 +154,6 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-
 
         [Authorize]
         [HttpPut("Update/{id}")]
@@ -172,6 +174,26 @@ namespace SpaServiceBE.Controllers
                     return BadRequest(new { msg = "Order details are incomplete or invalid." });
                 }
 
+                var existingOrder = await _orderService.GetOrderByIdAsync(id);
+                if (existingOrder == null)
+                {
+                    return NotFound(new { msg = $"Order with ID = {id} not found." });
+                }
+
+                var orderDetails = await _orderDetailService.GetOrderDetailsByOrderId(id);
+                var products = await _cosmeticProductService.GetProductsOfList(orderDetails.Select(d => d.ProductId).ToList());
+
+                // If the order is being canceled, restock the products
+                if (!status)
+                {
+                    foreach (var detail in orderDetails)
+                    {
+                        var product = products[detail.ProductId];
+                        product.Quantity += detail.Quantity;
+                        await _cosmeticProductService.Update(product);
+                    }
+                }
+
                 var order = new Order
                 {
                     OrderId = id,
@@ -179,7 +201,6 @@ namespace SpaServiceBE.Controllers
                     OrderDate = orderDate,
                     TotalAmount = totalAmount,
                     Status = status,
-                    TransactionId = transactionId
                 };
 
                 var isUpdated = await _orderService.UpdateOrderAsync(id, order);
@@ -218,7 +239,7 @@ namespace SpaServiceBE.Controllers
 
                 // Update the order status to true
                 order.Status = true;
-
+                
                 // Update the order in the database
                 var isUpdated = await _orderService.UpdateOrderAsync(orderId, order);
                 if (!isUpdated)
@@ -239,6 +260,11 @@ namespace SpaServiceBE.Controllers
         public async Task<IActionResult> GetOrderByCustomerId(string id)
         {
             return Ok(await _orderService.GetOrderByCustomerIdAsync(id));
+        }
+        [HttpGet("GetAllPaidOrdersByCustomerId/{customerId}")]
+        public async Task<IActionResult> GetAllPaidOrdersByCustomerId(string customerId)
+        {
+            return Ok(await _orderService.GetAllPaidOrdersByCustomerId(customerId));
         }
     }
 }

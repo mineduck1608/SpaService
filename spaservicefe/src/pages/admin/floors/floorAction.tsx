@@ -11,7 +11,6 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Floor } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './floor.util'
 import UpdateFloorModal from './floorUpdateModal'
 
@@ -57,8 +56,6 @@ const FloorActions: React.FC<FloorActionsProps> = ({ floor }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
-
       <UpdateFloorModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} floor={floor} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

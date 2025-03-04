@@ -1,4 +1,4 @@
-import { Category } from '@/types/serviceCategory'
+import { ServiceCategory } from '@/types/type'
 import { Service } from '@/types/services'
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
@@ -7,7 +7,7 @@ import seperator from '../../images/serviceBg/separator.png'
 import { toast } from 'react-toastify' // Import thư viện toast
 
 export default function ShortDetail(params: { d?: Service }) {
-  const CATEGORY = JSON.parse(sessionStorage.getItem('categories') ?? '[]') as Category[]
+  const CATEGORY = JSON.parse(sessionStorage.getItem('categories') ?? '[]') as ServiceCategory[]
   const navigate = useNavigate() // Initialize useNavigate
 
   // Hàm kiểm tra và chuyển hướng

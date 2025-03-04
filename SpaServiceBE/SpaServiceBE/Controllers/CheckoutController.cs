@@ -47,35 +47,35 @@ namespace SpaServiceBE.Controllers
             try
             {
                 var s = await _transactionService.GetById(txnId);
-                Dictionary<string, string> result = new Dictionary<string, string>();
+                Dictionary<string, string> result = new();
+                s.Status = true;
+                s.CompleteTime = DateTime.Now;
+                await _transactionService.Update(txnId, s);
                 if(s.TransactionType == "Service")
                 {
                     result = await UpdateServiceTransaction(s);
-                }
-                else
+                } else
                 {
-                    result = await UpdateProductTransaction(s);
+                    result.Add("success", "True");
+                    result.Add("type", "Product");
                 }
                 return Redirect($"http://localhost:3000/pay-result?{Util.QueryStringFromDict(result)}");
             }
             catch (Exception ex)
             {
-                return Redirect($"http://localhost:3000/pay-result?error={ex.InnerException.Message}");
+                return Redirect($"http://localhost:3000/pay-result?success=false");
             }
         }
         private async Task<Dictionary<string, string>> UpdateServiceTransaction(Transaction tr)
         {
             var rs = new Dictionary<string, string>();
-            tr.Status = true;
-            tr.CompleteTime = DateTime.Now;
             var serviceTxn = await _svTransService.GetByTransId(tr.TransactionId);
             try
             {
-                var added = await _transactionService.Update(tr.TransactionId, tr);
                 var req = await _requestService.GetById(serviceTxn.RequestId);
                 var service = await _spaService.GetById(req.ServiceId);
                 rs.Add("startTime", req.StartTime.ToString());
-                rs.Add("endTime", req.StartTime.Add(service.Duration).ToString());
+                rs.Add("endTime", req.StartTime.Add(service.Duration.ToTimeSpan()).ToString());
                 rs.Add("serviceName", service.ServiceName);
                 var rand = await _requestService.PickRandomResource(req, req.EmployeeId == null);
                 var emp = await _employeeService.GetEmployeeById(rand.employeeId);
@@ -93,14 +93,11 @@ namespace SpaServiceBE.Controllers
         private async Task<Dictionary<string, string>> UpdateProductTransaction(Transaction tr)
         {
             var rs = new Dictionary<string, string>();
-            tr.Status = true;
-            tr.CompleteTime = DateTime.Now;
             var cosTransaction = await _csTransService.GetByTransId(tr.TransactionId);
             try
             {
-                var added = await _transactionService.Update(tr.TransactionId, tr);
                 rs.Add("type", "Product");
-                var products = cosTransaction.Orders.Select(x => x.OrderDetails);
+                var products = cosTransaction.Orders;
                 var s = JsonConvert.SerializeObject(products);
                 rs.Add("products", s);
             }

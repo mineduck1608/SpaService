@@ -18,17 +18,17 @@ namespace Repositories
             _context = context;
         }
 
-        // Lấy Transaction theo ID với các thông tin liên quan như Appointment, EmployeeCommission, Membership, Promotion
+        // Lấy Transaction theo ID với các thông tin liên quan như Appointment, EmployeeCommission, Membership, PromotionCode
         public async Task<ServiceTransaction> GetById(string svTransId)
         {
             return await _context.ServiceTransactions
-                // Bao gồm thông tin Promotion liên quan đến giao dịch
+                // Bao gồm thông tin PromotionCode liên quan đến giao dịch
                 .FirstOrDefaultAsync(t => t.ServiceTransactionId == svTransId);
         }
         public async Task<ServiceTransaction> GetByTransId(string transId)
         {
             return await _context.ServiceTransactions
-                // Bao gồm thông tin Promotion liên quan đến giao dịch
+                // Bao gồm thông tin PromotionCode liên quan đến giao dịch
                 .FirstOrDefaultAsync(t => t.TransactionId == transId);
         }
         // Lấy tất cả các Transaction với các thông tin liên quan

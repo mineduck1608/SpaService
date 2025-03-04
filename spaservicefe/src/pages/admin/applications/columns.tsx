@@ -1,6 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
-import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
 import ApplicationActions from './applicationAction'
 import { Application } from '@/types/type'
@@ -39,6 +37,10 @@ export const columns: ColumnDef<Application>[] = [
     header: 'Content'
   },
   {
+    accessorKey: 'createBy',
+    header: 'Created By'
+  },
+  {
     accessorKey: 'createdAt',
     header: 'Created At'
   },
@@ -48,9 +50,8 @@ export const columns: ColumnDef<Application>[] = [
     cell: ({ row }) => row.original.resolvedAt ? row.original.resolvedAt : 'N/A'
   },
   {
-    accessorKey: 'resolvedBy',
+    accessorKey: 'managerName',
     header: 'Resolved By',
-    cell: ({ row }) => row.original.resolvedBy ? row.original.resolvedBy : 'N/A'
   },
   {
     id: 'actions',

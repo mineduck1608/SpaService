@@ -103,6 +103,7 @@ namespace Repositories
                 .Include(x => x.Service)
                 .Include(x => x.Employee)
                 .Include(x => x.ServiceTransactions)
+                .ThenInclude(x => x.Transaction)
                 .Where(x => x.Customer.AccountId == accId)
                 .ToListAsync();
         }
@@ -114,7 +115,7 @@ namespace Repositories
             //Lọc theo tg
             var start = request.StartTime;
             var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId);
-            var end = request.StartTime.Add(service.Duration);
+            var end = request.StartTime.Add(service.Duration.ToTimeSpan());
             //Tìm các appointment trong khoảng tg này => các phòng và nv trong đống này vứt hết
             var unavailable = appointments.Where(x =>
                 IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)

@@ -12,7 +12,6 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Manager } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateManagerModal from './managerUpdateModal'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './manager.util'
 
 interface ManagerActionsProps {
@@ -53,8 +52,6 @@ const ManagerActions: React.FC<ManagerActionsProps> = ({ manager }) => {
           <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
-
       <UpdateManagerModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} manager={manager} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

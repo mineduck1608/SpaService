@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Services;
 using Services.IServices;
 using System.Text.Json;
 
@@ -27,6 +28,11 @@ namespace SpaServiceBE.Controllers
         {
             return Ok(await _customerMembershipService.GetCustomerMembershipById(customerId, membershipId));
         }
+        [HttpGet("GetByCustomerId/{customerId}")]
+        public async Task<IActionResult> GetCustomerMembershipById(string customerId)
+        {
+            return Ok(await _customerMembershipService.GetCustomerMembershipByCustomerId(customerId));
+        }
 
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCustomerMembership([FromBody] CustomerMembership entity)
@@ -37,14 +43,6 @@ namespace SpaServiceBE.Controllers
 
                 string customerId = jsonElement.GetProperty("customerId").GetString();
                 string membershipId = jsonElement.GetProperty("membershipId").GetString();
-                DateOnly startDate;
-                DateOnly endDate;
-
-                if (!DateOnly.TryParse(jsonElement.GetProperty("startDate").GetString(), out startDate) ||
-                    !DateOnly.TryParse(jsonElement.GetProperty("endDate").GetString(), out endDate))
-                {
-                    return BadRequest(new { msg = "Invalid date format." });
-                }
 
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(membershipId))
                 {
@@ -55,8 +53,8 @@ namespace SpaServiceBE.Controllers
                 {
                     CustomerId = Guid.NewGuid().ToString("N"),
                     MembershipId = membershipId,
-                    StartDate = startDate,
-                    EndDate = endDate
+                    StartDate = DateOnly.FromDateTime(DateTime.Now),
+                    EndDate = null
                 };
 
                 await _customerMembershipService.CreateAsync(newMembership);
@@ -118,6 +116,20 @@ namespace SpaServiceBE.Controllers
         {
             await _customerMembershipService.DeleteAsync(customerId, membershipId);
             return Ok();
+        }
+
+        [HttpGet("FindNewestByCustomerId/{id}")]
+        public async Task<ActionResult<CustomerMembership>> FindNewestByCustomerId(string id)
+        {
+
+            var customerMembership = await _customerMembershipService.FindNewestByCustomerId(id);
+
+            if (customerMembership == null)
+                return null;
+
+            return Ok(customerMembership);
+
+
         }
     }
 }

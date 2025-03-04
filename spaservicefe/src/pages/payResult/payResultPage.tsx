@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import TableAppointment from './tableAppointment'
 
 export default function PayResultPage() {
   const [r, setR] = useState<boolean | null>(null)
@@ -47,26 +48,8 @@ export default function PayResultPage() {
                   <p className='text-center text-3xl font-bold text-green-400'>Payment successful!</p>
                   <p className='text-xl'>Thank you for your consideration. Here are your order information:</p>
                   <div className='flex justify-center py-4'>
-                    <table className='w-4/5 border-[1px]'>
-                      <tbody>
-                        <tr>
-                          <td className='border-[1px black solid] p-2'>Service</td>
-                          <td>{map.get('serviceName')}</td>
-                        </tr>
-                        <tr>
-                          <td className='p-2'>Requested Employee</td>
-                          <td>{map.get('empName')}</td>
-                        </tr>
-                        <tr>
-                          <td className='p-2'>Start Time</td>
-                          <td>{map.get('startTime')}</td>
-                        </tr>
-                        <tr>
-                          <td className='p-2'>End Time</td>
-                          <td>{map.get('endTime')}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    {map.get('type') === 'Service' && <TableAppointment map={map} />}
+                    {map.get('type') === 'Product' && <TableAppointment map={map} />}
                   </div>
                   <div className='flex justify-center'>
                     <Link className='rounded-xl bg-green-600 p-3 font-bold text-white no-underline' to='/requests'>

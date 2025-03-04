@@ -76,8 +76,8 @@ namespace API.Controllers
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
 
                 // Chuyển đổi Duration từ string sang TimeSpan
-                TimeSpan duration;
-                if (!TimeSpan.TryParse(durationString, out duration))
+                TimeOnly duration;
+                if (!TimeOnly.TryParse(durationString, out duration))
                 {
                     return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
                 }
@@ -109,7 +109,8 @@ namespace API.Controllers
                     Duration = duration,
                     Description = description,
                     ServiceImage = serviceImage,
-                    CategoryId = categoryId
+                    CategoryId = categoryId,
+                    IsDeleted = false
                 };
 
                 // Gọi service để thêm vào database
@@ -144,10 +145,10 @@ namespace API.Controllers
                 string description = jsonElement.GetProperty("description").GetString();
                 string serviceImage = jsonElement.GetProperty("serviceImage").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
-
+                bool isDeleted = jsonElement.GetProperty("isDeleted").GetBoolean();
                 // Chuyển đổi Duration từ string sang TimeSpan
-                TimeSpan duration;
-                if (!TimeSpan.TryParse(durationString, out duration))
+                TimeOnly duration;
+                if (!TimeOnly.TryParse(durationString, out duration))
                 {
                     return BadRequest(new { msg = "Invalid duration format. Use HH:mm:ss." });
                 }
@@ -174,7 +175,8 @@ namespace API.Controllers
                     Duration = duration,
                     Description = description,
                     ServiceImage = serviceImage,
-                    CategoryId = categoryId
+                    CategoryId = categoryId,
+                    IsDeleted = isDeleted
                 };
 
                 // Gọi service để cập nhật spa service

@@ -226,6 +226,22 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "GuestApplication",
+    "RelativePath": "api/applications/GuestApplication",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
     "Method": "UpdateApplication",
     "RelativePath": "api/applications/Update/{id}",
     "HttpMethod": "PUT",
@@ -272,6 +288,22 @@
       {
         "Name": "request",
         "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AppointmentController",
+    "Method": "CreateEmailRequest",
+    "RelativePath": "api/appointments/CreateMail/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -1081,12 +1113,54 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "FindNewestByCustomerId",
+    "RelativePath": "api/customermemberships/FindNewestByCustomerId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.CustomerMembership",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
     "Method": "GetAllCustomerMembership",
     "RelativePath": "api/customermemberships/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CustomerMembershipController",
+    "Method": "GetCustomerMembershipById",
+    "RelativePath": "api/customermemberships/GetByCustomerId/{customerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -1186,7 +1260,7 @@
   {
     "ContainingType": "API.Controllers.CustomerController",
     "Method": "GetCustomerByAccId",
-    "RelativePath": "api/customers/GetByAccId",
+    "RelativePath": "api/customers/GetByAccId/{accId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1194,7 +1268,7 @@
       {
         "Name": "accId",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -1606,6 +1680,32 @@
   },
   {
     "ContainingType": "API.Controllers.FeedbackController",
+    "Method": "GetFeedbackByService",
+    "RelativePath": "api/feedbacks/GetFeedbackByServiceId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Feedback, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.FeedbackController",
     "Method": "UpdateFeedback",
     "RelativePath": "api/feedbacks/Update/{id}",
     "HttpMethod": "PUT",
@@ -1875,6 +1975,46 @@
     "ContainingType": "SpaServiceBE.Controllers.ManagerController",
     "Method": "GetAllManagers",
     "RelativePath": "api/managers/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Manager, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "GetAllRetiredManagers",
+    "RelativePath": "api/managers/GetAllRetiredManager",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Manager, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "GetAllWorkingManagers",
+    "RelativePath": "api/managers/GetAllWorkingManager",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -2346,8 +2486,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "System.Object",
+        "Name": "orderRequest",
+        "Type": "Repositories.Entities.RequestModel.OrderRequest",
         "IsRequired": true
       }
     ],
@@ -2377,6 +2517,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "GetAllPaidOrdersByCustomerId",
+    "RelativePath": "api/orders/GetAllPaidOrdersByCustomerId/{customerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -2434,15 +2590,15 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.PaymentController",
-    "Method": "CreatePaymentUrlVnpayService",
+    "Method": "CreatePaymentUrlVnpay",
     "RelativePath": "api/Payment/service",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "model",
-        "Type": "Repositories.Entities.Vnpay.PaymentInformationModel",
+        "Name": "transactionId",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -2502,6 +2658,32 @@
   },
   {
     "ContainingType": "API.Controllers.PromotionController",
+    "Method": "GetPromotionByCode",
+    "RelativePath": "api/promotions/GetByCode/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Promotion",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.PromotionController",
     "Method": "GetPromotionById",
     "RelativePath": "api/promotions/GetById/{id}",
     "HttpMethod": "GET",
@@ -2530,6 +2712,27 @@
     "ContainingType": "API.Controllers.PromotionController",
     "Method": "UpdatePromotion",
     "RelativePath": "api/promotions/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.RequestController",
+    "Method": "AssignRequest",
+    "RelativePath": "api/requests/AssignRequest/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -2856,6 +3059,32 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Room, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "GetRoomsOfCategory",
+    "RelativePath": "api/rooms/GetRoomsOfCategory/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Account",
         "MediaTypes": [
           "text/plain",
           "application/json",

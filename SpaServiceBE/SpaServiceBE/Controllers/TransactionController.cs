@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using Repositories.Entities;
+using Repositories.Entities.RequestModel;
 using Services;
 using Services.IServices;
 using System;
@@ -16,12 +18,15 @@ namespace API.Controllers
     {
         private readonly ITransactionService _service;
         private readonly IRequestService _requestService;
+        private readonly IPromotionService _promotionService;
         private readonly IServiceTransactionService _serviceTransactionService;
-        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService svc)
+        private readonly IMembershipService _membershipService;
+        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _requestService = requestService;
-            _serviceTransactionService = svc;
+            _serviceTransactionService = serviceTransactionService;
+            _membershipService = membershipService;
         }
 
         // GET: api/transactions/GetAll
@@ -76,7 +81,7 @@ namespace API.Controllers
                 string transactionType = jsonElement.GetProperty("transactionType").GetString();
                 string paymentType = jsonElement.GetProperty("paymentType").GetString();
                 float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
-                bool status = jsonElement.GetProperty("status").GetBoolean();
+                var code = jsonElement.TryGetProperty("promotionCode", out var promoCode) ? promoCode.GetString() : null;
 
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0)
@@ -84,15 +89,27 @@ namespace API.Controllers
                     return BadRequest(new { msg = "Transaction details are incomplete or invalid." });
                 }
 
-                // Tạo đối tượng Transaction
                 var transaction = new Transaction
                 {
                     TransactionId = Guid.NewGuid().ToString(), // Generate unique ID
                     TransactionType = transactionType,
                     TotalPrice = totalPrice,
-                    Status = status,
-                    PaymentType = paymentType,
+                    Status = false,
+                    PaymentType = paymentType
                 };
+
+                // Handle promotion
+                if (!string.IsNullOrEmpty(code))
+                {
+                    var promo = await _promotionService.GetByCode(code);
+                    if (promo == null)
+                    {
+                        return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
+                    }
+
+                    transaction.TotalPrice *= (100 - promo.DiscountValue) / 100;
+                    transaction.PromotionId = promo.PromotionId;
+                }
 
                 // Gọi service để thêm transaction
                 var isCreated = await _service.Add(transaction);
@@ -101,22 +118,27 @@ namespace API.Controllers
                 {
                     return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
                 }
+
                 if (transactionType == "Service")
                 {
                     string reqId = jsonElement.GetProperty("requestId").GetString();
                     jsonElement.TryGetProperty("membershipId", out var membershipId);
-                    var serviceTrans = new ServiceTransaction()
+
+                    var serviceTrans = new ServiceTransaction
                     {
                         RequestId = reqId,
                         ServiceTransactionId = Guid.NewGuid().ToString(),
-                        TransactionId = transaction.TransactionId,
+                        TransactionId = transaction.TransactionId
                     };
-                    if(membershipId.ValueKind != JsonValueKind.Undefined)
+
+                    if (membershipId.ValueKind != JsonValueKind.Undefined)
                     {
                         serviceTrans.MembershipId = membershipId.GetString();
                     }
+
                     await _serviceTransactionService.Add(serviceTrans);
                 }
+
                 return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
             }
             catch (Exception ex)
@@ -124,6 +146,7 @@ namespace API.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
 
         // PUT: api/transactions/Update/{id}
@@ -158,7 +181,22 @@ namespace API.Controllers
                     PaymentType = paymentType,
                     CompleteTime = completeTime
                 };
-
+                //cap nhat membership neu la loai service va da thanh toan
+                if (transactionType == "Service" && status == true)
+                {
+                   var serviceTransaction = await _serviceTransactionService.GetByTransId(id);
+                    if (serviceTransaction == null) 
+                    { 
+                    return BadRequest(new {msg=$"serviceTransaction with id {id} not found."});
+                    }
+                    var membership = await _membershipService.GetMembershipById(serviceTransaction.MembershipId);
+                    if (membership == null)
+                    {
+                    return BadRequest(new { msg = $"Membership with id {serviceTransaction.MembershipId} not found."});
+                    }
+                    membership.TotalPayment += totalPrice;
+                    await _membershipService.UpdateMembership(membership.MembershipId, membership);
+                }
                 // Gọi service để cập nhật transaction
                 var isUpdated = await _service.Update(id, transaction);
 

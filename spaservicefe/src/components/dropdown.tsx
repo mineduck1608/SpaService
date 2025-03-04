@@ -61,8 +61,8 @@ export function Dropdown() {
       v: '/appointments'
     },
     {
-      k: 'Contacts',
-      v: '/contacts'
+      k: 'Carts',
+      v: '/carts'
     }
   ]
   return (

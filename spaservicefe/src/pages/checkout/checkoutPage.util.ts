@@ -1,6 +1,25 @@
 import { SpaRequest } from '@/types/request'
 import { apiUrl, getToken } from '../../types/constants'
-import { Customer, Employee } from '@/types/type'
+import { Customer, Employee, Promotion } from '@/types/type'
+import { jwtDecode } from 'jwt-decode'
+
+export async function getCustomerIdByAcc() {
+  try {
+    var t = getToken()
+    if (!t) {
+      return
+    }
+    var x = jwtDecode(t ?? '')
+    var c = await getCusByAcc(x.UserId)
+    if (c.customerId) {
+      return c.customerId as string
+    }
+    return null
+  }
+  catch (e) {
+    return null
+  }
+}
 
 export async function getEmployees(id: string) {
   try {
@@ -33,19 +52,14 @@ export async function submitRequest(req: SpaRequest) {
   }
 }
 
-export async function getPaymentUrl(price: number, username: string, txnId: string) {
+export async function getPaymentUrl(txnId: string) {
   try {
     var s = await fetch(`${apiUrl}/Payment/service`, {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        orderType: 'other',
-        amount: price,
-        orderDescription: txnId,
-        name: ''
-      })
+      body: JSON.stringify(txnId)
     })
     return await s.text()
   } catch (e) {
@@ -53,20 +67,22 @@ export async function getPaymentUrl(price: number, username: string, txnId: stri
   }
 }
 
-export async function createTransaction(method: string, price: number, requestId: string) {
+export async function createTransaction(method: string, price: number, requestId: string, promoCode?: string) {
+  var tmp = {
+    paymentType: method,
+    transactionType: 'Service',
+    totalPrice: price,
+    status: false,
+    requestId: requestId,
+    promotionCode: promoCode
+  }
   try {
     var s = await fetch(`${apiUrl}/transactions/Create`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({
-        paymentType: method,
-        transactionType: 'Service',
-        totalPrice: price,
-        status: false,
-        requestId: requestId
-      })
+      body: JSON.stringify(tmp)
     })
     if (s.ok) {
       return (await s.json()) as Transaction
@@ -79,7 +95,7 @@ export async function createTransaction(method: string, price: number, requestId
 
 export async function getCusByAcc(id: string) {
   try {
-    var c = await fetch(`${apiUrl}/customers/GetByAccId?accId=${id}`, {
+    var c = await fetch(`${apiUrl}/customers/GetByAccId/${id}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -88,6 +104,21 @@ export async function getCusByAcc(id: string) {
       return (await c.json()) as Customer
     }
     return await c.json()
+  } catch (e) {
+    return "Couldn't connect to server"
+  }
+}
+export async function getCode(code: string) {
+  try {
+    var c = await fetch(`${apiUrl}/promotions/GetByCode/${code}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    if (c.ok) {
+      return (await c.json()) as Promotion
+    }
+    return await c.text()
   } catch (e) {
     return "Couldn't connect to server"
   }

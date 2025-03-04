@@ -56,15 +56,15 @@ export const columns: ColumnDef<News>[] = [
     accessorKey: 'image',
     header: 'Image',
     cell: ({ row }) => {
-      const imageUrl = row.getValue('image') // Lấy URL hình ảnh từ dữ liệu
+      const imageUrl = row.getValue('image')
       return imageUrl ? (
         <img
           src={imageUrl}
           alt='News'
-          className='h-[100px] w-[500px] rounded object-cover' // Sử dụng chiều rộng và chiều cao cố định, có thể tùy chỉnh
+          className='h-[100px] w-[500px] rounded object-cover'
         />
       ) : (
-        <span>No Image</span> // Nếu không có URL hình ảnh, hiển thị "No Image"
+        <span>No Image</span>
       )
     }
   },

@@ -11,7 +11,6 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { News } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './new.util'
 import UpdateNewsModal from './newUpdateModal'
 
@@ -49,15 +48,10 @@ const NewsActions: React.FC<NewsActionsProps> = ({ news }) => {
             Copy news ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ToastContainer />
       <UpdateNewsModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} news={news} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

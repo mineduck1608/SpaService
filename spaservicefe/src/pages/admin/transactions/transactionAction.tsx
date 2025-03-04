@@ -14,6 +14,7 @@ import { MoreHorizontal } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './transaction.util'
 import UpdateTransactionModal from './transactionUpdateModal'
+import DetailTransactionModal from './transactionDetailModal'
 
 interface TransactionActionsProps {
   transaction: TransactionBase
@@ -22,12 +23,16 @@ interface TransactionActionsProps {
 const TransactionActions: React.FC<TransactionActionsProps> = ({ transaction }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
+  const [isDetailModalOpen, setDetailModalOpen] = useState(false)
 
   const openDeleteModal = () => setDeleteModalOpen(true)
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
   const openUpdateModal = () => setUpdateModalOpen(true)
   const closeUpdateModal = () => setUpdateModalOpen(false)
+
+  const openDetailModal = () => setDetailModalOpen(true)
+  const closeDetailModal = () => setDetailModalOpen(false)
 
   const handleConfirmDelete = async () => {
     handleDelete(transaction.transactionId)
@@ -45,24 +50,19 @@ const TransactionActions: React.FC<TransactionActionsProps> = ({ transaction }) 
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(transaction.transactionId)}
-            className='cursor-pointer'
-          >
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(transaction.transactionId)} className='cursor-pointer'>
             Copy transaction ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openDetailModal} className='cursor-pointer'>View Detail</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          {/* <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
+      <DetailTransactionModal isOpen={isDetailModalOpen} onClose={closeDetailModal} transaction={transaction}/>
       <UpdateTransactionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} transaction={transaction} />
-      <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
+      {/* <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} /> */}
     </>
   )
 }

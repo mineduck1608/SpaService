@@ -21,6 +21,11 @@ namespace Services
             return await _repository.GetById(feedbackId);
         }
 
+        public async Task<List<Feedback>> GetFeedbackByServiceId(string id)
+        {
+            return await _repository.GetByServiceId(id);
+        }
+
         // Lấy tất cả Feedbacks
         public async Task<List<Feedback>> GetAllFeedbacks()
         {

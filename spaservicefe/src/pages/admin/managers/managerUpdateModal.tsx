@@ -32,11 +32,7 @@ export default function UpdateManagerModal({isOpen, onClose, manager} : UpdateMa
   })
 
   const handleSubmit = async (data: any) => {
-    handleUpdateSubmit(manager.managerId, data)
-  }
-
-  const handleChange = (field: string, value: string) => {
-    form.setValue(field, value)
+    handleUpdateSubmit(manager, data)
   }
 
   useEffect(() => {
@@ -69,33 +65,37 @@ export default function UpdateManagerModal({isOpen, onClose, manager} : UpdateMa
                       <FormLabel className='text-right text-md'>{field.label}</FormLabel>
                       <div className='col-span-3 space-y-1'>
                         <FormControl>
-                        {field.type === 'select' ? (
-                          <Select 
-                            onValueChange={formField.onChange} 
-                            defaultValue={formField.value}
-                            disabled={field.readonly}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value='Male'>Male</SelectItem>
-                              <SelectItem value='Female'>Female</SelectItem>
-                              <SelectItem value='Other'>Other</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        ) : field.type === 'datetime-local' ? (
-                          <DatePicker
-                            step={1800}
-                            showTime
-                            showHour
-                            showMinute
-                            showSecond={false}
-                            minuteStep={30}
-                            className='border-[1px] p-2 w-75'
-                            value={form.watch("dateOfBirth") ? dayjs(form.watch("dateOfBirth")) : null}
-                            onChange={(date) => handleChange('dateOfBirth', date ? date.format('YYYY-MM-DDTHH:mm:ss') : '')}
-                          />
+                          {field.type === 'select' ? (
+                            field.name === 'position' ? (
+                              <Select
+                                onValueChange={formField.onChange}
+                                defaultValue={formField.value}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value='System Manager'>System Manager</SelectItem>
+                                  <SelectItem value='Cosmetic Manager'>Cosmetic Manager</SelectItem>
+                                  <SelectItem value='Service Manager'>Service Manager</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            ) : (
+                              <Select
+                                onValueChange={formField.onChange}
+                                defaultValue={formField.value}
+                                disabled={field.readonly}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value='Working'>Working</SelectItem>
+                                  <SelectItem value='Retired'>Retired</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            )
                           ) : (
                             <Input
                               {...formField}

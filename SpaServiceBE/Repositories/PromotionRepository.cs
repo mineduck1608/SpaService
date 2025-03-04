@@ -17,11 +17,11 @@ namespace Repositories
             _context = context;
         }
 
-        // Lấy Promotion theo ID với các thực thể liên quan
+        // Lấy PromotionCode theo ID với các thực thể liên quan
         public async Task<Promotion> GetById(string promotionId)
         {
             return await _context.Promotions
-                .Include(p => p.Transactions)   // Bao gồm Transactions liên quan đến Promotion
+                .Include(p => p.Transactions)   // Bao gồm Transactions liên quan đến PromotionCode
                 .FirstOrDefaultAsync(p => p.PromotionId == promotionId);
         }
 
@@ -29,11 +29,12 @@ namespace Repositories
         public async Task<List<Promotion>> GetAll()
         {
             return await _context.Promotions
+                .Where(p =>p.IsActive) // only include active promotion
                 .Include(p => p.Transactions)   // Bao gồm Transactions liên quan đến Promotion
                 .ToListAsync();
         }
 
-        // Thêm một Promotion mới
+        // Thêm một PromotionCode mới
         public async Task<bool> Add(Promotion promotion)
         {
             try
@@ -48,7 +49,7 @@ namespace Repositories
             }
         }
 
-        // Cập nhật Promotion
+        // Cập nhật PromotionCode
         public async Task<bool> Update(string promotionId, Promotion promotion)
         {
             var existingPromotion = await GetById(promotionId);
@@ -71,7 +72,7 @@ namespace Repositories
             }
         }
 
-        // Xóa Promotion
+        // Xóa PromotionCode
         public async Task<bool> Delete(string promotionId)
         {
             var promotion = await GetById(promotionId);
@@ -87,6 +88,11 @@ namespace Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<Promotion> GetByCode(string code)
+        {
+            return _context.Promotions.FirstOrDefault(x => x.PromotionCode == code && x.IsActive);
         }
     }
 }

@@ -25,16 +25,18 @@ namespace API.Controllers
         private readonly ICustomerService _customerService;
         private readonly IConfiguration _configuration;
         private readonly ISpaServiceService _spaService;
-        public RequestController(IRequestService service, ICustomerService customerService, IConfiguration configuration, ISpaServiceService paService)
+        private readonly IAppointmentService _appoinmentService;
+
+        public RequestController(IRequestService service, ICustomerService customerService, IConfiguration configuration, ISpaServiceService paService, IAppointmentService appointment)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
             _configuration = configuration;
             _spaService = paService ?? throw new ArgumentNullException(nameof(paService));
+            _appoinmentService = appointment ?? throw new ArgumentNullException(nameof(appointment));
         }
 
         // GET: api/requests/GetAll
-        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Request>>> GetAllRequests()
         {
@@ -114,7 +116,7 @@ namespace API.Controllers
 
                 //create endtime
 
-                DateTime endTime = startTime.Add(SpaServiceInfo.Duration);
+                DateTime endTime = startTime.Add(SpaServiceInfo.Duration.ToTimeSpan());
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
                     startTime == default(DateTime))
@@ -145,6 +147,7 @@ namespace API.Controllers
                     Status = "Pending",
                     CustomerNote = customerNote,
                     ManagerNote = null,
+                    CreatedAt = DateTime.Now,
                     EmployeeId = employeeId,
                 };
                 var b = await _service.CheckResourceAvailable(newRequest);
@@ -163,7 +166,7 @@ namespace API.Controllers
                 }
                 if (errList.Count > 0)
                 {
-                    return BadRequest(errList);
+                    return BadRequest(new {msg = string.Join(",", errList)});
                 }
                 // Gọi service để thêm request
                 var isCreated = await _service.Add(newRequest);
@@ -202,7 +205,7 @@ namespace API.Controllers
 
                 //create endtime
 
-                DateTime endTime = startTime.Add(SpaServiceInfo.Duration);
+                DateTime endTime = startTime.Add(SpaServiceInfo.Duration.ToTimeSpan());
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(serviceId) ||
                     startTime == default(DateTime) || string.IsNullOrEmpty(status))
@@ -245,6 +248,93 @@ namespace API.Controllers
 
                 if (!isUpdated)
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
+
+                return Ok(new { msg = "Update request successfully." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
+
+        [HttpPut("AssignRequest/{id}")]
+        public async Task<ActionResult> AssignRequest(string id, [FromBody] dynamic request)
+        {
+            try
+            {
+                var jsonElement = (JsonElement)request;
+
+                string employeeId = jsonElement.GetProperty("employeeId").GetString();
+                DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
+                string roomId = jsonElement.GetProperty("roomId").GetString();
+                string serviceId = jsonElement.GetProperty("serviceId").GetString();
+
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(employeeId) || string.IsNullOrEmpty(roomId))
+                    return BadRequest(new { msg = "Appointment details are incomplete." });
+
+                //create endtime
+                var duration = _spaService.GetTimeByServiceId(serviceId);
+
+                TimeOnly durationValue = await duration; // Lấy giá trị thực từ Task<TimeOnly>
+                TimeSpan timeSpan = durationValue.ToTimeSpan(); // Chuyển thành TimeSpan
+                DateTime endTime = startTime.Add(timeSpan); // Cộng vào DateTime
+
+                //handle Start time
+                if (startTime < DateTime.Now.AddMinutes(15))
+                {
+                    return BadRequest(new { msg = "Start time must be at least 15 minutes in the future." });
+                }
+                if (startTime > DateTime.Now.AddMonths(1))
+                {
+                    return BadRequest(new { msg = "The Start should be booked 1 months early." });
+                }
+                if (startTime.Hour > 20 || startTime.Hour < 8)
+                {
+                    return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 20:00 PM." });
+                }
+                //handle duration
+                if (endTime.Hour > 20)
+                {
+                    return BadRequest(new { msg = "The duration can not last until 8PM or later" });
+                }
+
+                var updatedRequest = await _service.GetById(id);
+                if (updatedRequest == null)
+                    return NotFound(new { msg = $"Request with ID = {id} not found." });
+
+                updatedRequest.StartTime = startTime;
+                updatedRequest.Status = "Completed";
+
+                // Gọi service để cập nhật request
+                var isUpdated = await _service.Update(id, updatedRequest);
+
+                if (!isUpdated)
+                    return NotFound(new { msg = $"Request with ID = {id} not found." });
+
+                // Tạo đối tượng Appointment
+                var appointment = new Appointment
+                {
+                    AppointmentId = Guid.NewGuid().ToString("N"), // Generate unique ID
+                    RequestId = id,
+                    EmployeeId = employeeId,
+                    Status = "Unprocess", // Default status
+                    StartTime = startTime,
+                    EndTime = endTime,
+                    RoomId = roomId,
+                    UpdatedAt = DateTime.Now
+                };
+
+                // Gọi service để thêm appointment
+                var isCreated = _appoinmentService.AddAppointment(appointment);
+
+                bool result = await isCreated; // Giải quyết giá trị Task<bool>
+                if (result == false)
+                {
+                    return StatusCode(500, new { msg = "An error occurred while creating the appointment." });
+                }
+
 
                 return Ok(new { msg = "Update request successfully." });
             }
@@ -341,7 +431,7 @@ namespace API.Controllers
                 <li><strong>Request ID:</strong> {id}</li>
                 <li><strong>Date:</strong> {request.StartTime.Day}/{request.StartTime.Month}/{request.StartTime.Year}</li>
                 <li><strong>Start Time:</strong> {request.StartTime.Hour}:{request.StartTime.Minute:D2}</li>
-                <li><strong>End Time:</strong> {request.StartTime.Add(SpaServiceInfo.Duration):HH:mm}</li>
+                <li><strong>End Time:</strong> {request.StartTime.Add(SpaServiceInfo.Duration.ToTimeSpan()):HH:mm}</li>
                 <li><strong>Service Name:</strong> {SpaServiceInfo.ServiceName}</li>
                 <li><strong>Price:</strong> {SpaServiceInfo.Price} VND</li>
             </ul>

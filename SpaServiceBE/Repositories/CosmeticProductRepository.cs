@@ -20,7 +20,11 @@ namespace Repositories
 
         public async Task<IEnumerable<CosmeticProduct>> GetAllCosmeticProduct()
         {
-            return await _context.CosmeticProducts.ToListAsync();
+            //only get product when status is true and isSelling
+            return await _context.CosmeticProducts
+                .Where(c => c.Status)
+                .Where(c =>c.IsSelling)
+                .ToListAsync();
         }
 
         public async Task<CosmeticProduct> GetCosmeticProductById(string id)
@@ -54,6 +58,12 @@ namespace Repositories
             return await _context.CosmeticProducts
                 .Where(p => p.CategoryId == categoryId)
                 .ToListAsync();
+        }
+        public async Task<Dictionary<string, CosmeticProduct>> GetProductsOfList(List<string> list)
+        {
+            return await _context.CosmeticProducts
+                .Where(p => list.Contains(p.ProductId))
+                .ToDictionaryAsync(x => x.ProductId, x => x);
         }
     }
 }

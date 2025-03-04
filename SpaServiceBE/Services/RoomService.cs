@@ -45,5 +45,15 @@ namespace Services
         {
             await _roomRepository.DeleteRoom(id);
         }
+
+        public async Task<Room> GetRoomByFloorAndNumber(string floorId, int roomNum)
+        {
+            return await _roomRepository.GetRoomByFloorAndNumber(floorId, roomNum);
+        }
+
+        public async Task<IEnumerable<Room>> GetRoomsOfCategory(string id)
+        {
+            return await _roomRepository.GetRoomsOfCategory(id);
+        }
     }
 }

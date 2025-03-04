@@ -1,3 +1,5 @@
+import { Transaction } from "@/pages/checkout/checkoutPage.util"
+
 export type Account = {
   accountId: string
   username: string
@@ -56,15 +58,17 @@ export type Member = {
 
 export type SpaRequest = {
   requestId: string
-  startTime: string
+  startTime: Date
   status: string
   customerNote: string
   managerNote: string
   serviceId: string
   customerId: string
+  employeeId: string
   service?: SpaService
+  customer?: Customer
   employee?: Employee
-  serviceTransaction?: ServiceTransaction
+  serviceTransactions?: ServiceTransaction[]
 }
 
 export type Contact = {
@@ -118,6 +122,13 @@ export type Promotion = {
   discountValue: number
   isActive: boolean
 }
+export type GuestApplication = {
+  guestApplicationId: string
+  fullName: string
+  phoneNumber: string
+  email: string
+  applicationId: string
+}
 
 export type Application = {
   applicationId: string
@@ -138,7 +149,6 @@ export type CosmeticCategory = {
 export type ServiceCategory = {
   categoryId: string
   categoryName: string
-  categoryImage: string
   categoryDescription: string
 }
 
@@ -172,13 +182,13 @@ export type TransactionBase = {
 export type ServiceTransaction = TransactionBase & {
   serviceTransactionId: string
   requestId: string
-  membershipId?: string
+  membership?: string,
+  transaction: TransactionBase
 }
 
 export type CosmeticTransaction = TransactionBase & {
   cosmeticTransactionId: string
-  requestId: string
-  orderId?: string
+  orderId: string
 }
 
 export type Order = {
@@ -189,6 +199,7 @@ export type Order = {
   status: boolean
   transactionId: string
   address: string
+  customer?: Customer
 }
 
 export type OrderDetail = {
@@ -225,4 +236,18 @@ export type CategoryEmployee = {
   categoryEmployeeId: string
   categoryId: string
   employeeId: string
+}
+
+export type CustomerMembership = {
+  customerId: string
+  membershipId: string
+  startDate: string
+  enđate: string
+}
+
+export type Membership = {
+  membershipId: string
+  type: string
+  totalPayment: GLfloat
+  discount: number
 }

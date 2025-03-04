@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
-import { sampleService } from './detailPage.util'
 import { ServiceCard } from '../servicesPage/serviceList'
 import { Service } from '@/types/services'
 export default function DetailPageCarousel(params: { list: Service[] }) {

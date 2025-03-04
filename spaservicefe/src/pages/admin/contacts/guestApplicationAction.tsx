@@ -9,22 +9,22 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { ConfirmDeleteModal } from '../components/deleteModal'
-import { Contact } from '../../../types/type' // Updated to Contact type
+import { GuestApplication } from '../../../types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { handleDelete } from './contact.util'
+import { handleDelete } from './guestApplication.util'
 
-interface ContactActionsProps {
-  contact: Contact
+interface GuestContactActionsProps {
+  guestApplication: GuestApplication
 }
 
-const ContactActions: React.FC<ContactActionsProps> = ({ contact }) => {
+const GuestApplicationActions: React.FC<GuestContactActionsProps> = ({ guestApplication }) => {
   const [isModalOpen, setModalOpen] = useState(false)
 
   const openModal = () => setModalOpen(true)
   const closeModal = () => setModalOpen(false)
 
   const handleConfirmDelete = () => {
-    handleDelete(contact.contactId)
+    handleDelete(guestApplication.guestApplicationId)
     closeModal()
   }
 
@@ -39,17 +39,16 @@ const ContactActions: React.FC<ContactActionsProps> = ({ contact }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(contact.contactId)}>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(guestApplication.guestApplicationId)}>
             Copy Contact ID
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openModal}>Delete</DropdownMenuItem>
+          {/* <DropdownMenuSeparator /> */}
+          {/* <DropdownMenuItem onClick={openModal} className='cursor-pointer'>Delete</DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
-
-      <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
+      {/* <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} /> */}
     </>
   )
 }
 
-export default ContactActions
+export default GuestApplicationActions

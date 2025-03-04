@@ -68,5 +68,16 @@ namespace Repositories
         {
             return await _context.Managers.FirstOrDefaultAsync(a => a.Email == email);
         }
+
+        public async Task<IEnumerable<Manager>> GetAllWorkingManagerAsync()
+        {
+            return await _context.Managers.Where(m => m.Status == "Working").ToListAsync();
+        }
+
+        public async Task<IEnumerable<Manager>> GetAllRetiredManagerAsync()
+        {
+            return await _context.Managers.Where(m => m.Status == "Retired").ToListAsync();
+        }
+
     }
 }

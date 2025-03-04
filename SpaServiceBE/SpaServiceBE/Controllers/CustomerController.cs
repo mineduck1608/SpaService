@@ -100,7 +100,6 @@ namespace API.Controllers
 
 
         // PUT: api/customers/Update/{id}
-        [Authorize(Roles = "Admin, Customer")]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateCustomer(string id, [FromBody] dynamic request)
         {
@@ -180,8 +179,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [HttpGet("GetByAccId")]
-        [Authorize]
+        [HttpGet("GetByAccId/{accId}")]
         public async Task<ActionResult> GetCustomerByAccId(string accId)
         {
             try

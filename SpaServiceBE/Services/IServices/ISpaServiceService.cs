@@ -12,5 +12,6 @@ namespace Services.IServices
         Task<bool> Update(string serviceId, SpaService spaService);
         Task<bool> Delete(string serviceId);
         Task<SpaService> GetByName(string serviceName);
+        Task<TimeOnly> GetTimeByServiceId(string serviceId);
     }
 }

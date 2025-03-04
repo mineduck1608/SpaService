@@ -1,6 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
-import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
 import OrderActions from './orderAction'
 import { Order } from '@/types/type'
@@ -26,23 +24,31 @@ export const columns: ColumnDef<Order>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'customerId',
-    header: 'Customer Id'
+    accessorKey: 'name',
+    header: 'Customer'
+  },
+  {
+    accessorKey: 'phone',
+    header: 'Phone'
+  },
+  {
+    accessorKey: 'totalAmount',
+    header: 'Total Amount',
+    cell: ({ row }) => {
+      const totalAmount = row.getValue<string>('totalAmount')
+      return <span className='ml-10'>{totalAmount}</span>
+    }
   },
   {
     accessorKey: 'orderDate',
     header: 'Order Date'
   },
   {
-    accessorKey: 'totalAmount',
-    header: 'Total Amount'
-  },
-  {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
-      const statusColor = status === 'Active' ? 'text-green-500' : 'text-red-500'
+      const statusColor = status === 'Processed' ? 'text-green-500' : 'text-red-500'
       return <span className={statusColor}>{status}</span>
     }
   },

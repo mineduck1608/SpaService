@@ -59,6 +59,28 @@ namespace API.Controllers
             }
         }
 
+
+        [HttpGet("GetFeedbackByServiceId/{id}")]
+        public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedbackByService(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return BadRequest("FeedbackId is required.");
+
+            try
+            {
+                var feedback = await _service.GetFeedbackByServiceId(id);
+
+                if (feedback == null)
+                    return NotFound($"Feedback with ID = {id} not found.");
+
+                return Ok(feedback);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // POST: api/feedbacks/Create
         [HttpPost("Create")]
         public async Task<ActionResult> CreateFeedback([FromBody] dynamic request)
