@@ -1,6 +1,6 @@
 import { SpaRequest } from '@/types/request'
 import { apiUrl, getToken } from '../../types/constants'
-import { Customer, Employee, Promotion } from '@/types/type'
+import { Customer, Employee, Membership, Promotion } from '@/types/type'
 import { jwtDecode } from 'jwt-decode'
 
 export async function getCustomerIdByAcc() {
@@ -108,7 +108,7 @@ export async function getCusByAcc(id: string) {
     return "Couldn't connect to server"
   }
 }
-export async function getCode(code: string) {
+export async function getPromoByCode(code: string) {
   try {
     var c = await fetch(`${apiUrl}/promotions/GetByCode/${code}`, {
       headers: {
@@ -120,6 +120,17 @@ export async function getCode(code: string) {
     }
     return await c.text()
   } catch (e) {
+    return "Couldn't connect to server"
+  }
+}
+
+export async function getMembership(cusId: string){
+  try{
+    const resp = await fetch(`${apiUrl}/customermemberships/GetByCustomerId/${cusId}`)
+    const data = await resp.json()
+    return data.membership as Membership
+  }
+  catch(e){
     return "Couldn't connect to server"
   }
 }

@@ -59,7 +59,7 @@ namespace Repositories
         }
         public async Task<CustomerMembership> GetCustomerMembershipByCustomerId(string customerId)
         {
-            return await _context.CustomerMemberships.FirstOrDefaultAsync(cm => cm.CustomerId == customerId);
+            return await _context.CustomerMemberships.Include(x => x.Membership).FirstOrDefaultAsync(cm => cm.CustomerId == customerId);
         }
     }
 

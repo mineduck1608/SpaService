@@ -21,8 +21,9 @@ namespace API.Controllers
         private readonly IPromotionService _promotionService;
         private readonly IServiceTransactionService _serviceTransactionService;
         private readonly IMembershipService _membershipService;
-        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService)
+        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService, IPromotionService promotionService)
         {
+            _promotionService = promotionService; 
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _requestService = requestService;
             _serviceTransactionService = serviceTransactionService;

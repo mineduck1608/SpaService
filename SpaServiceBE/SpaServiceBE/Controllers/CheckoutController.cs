@@ -82,7 +82,6 @@ namespace SpaServiceBE.Controllers
                 rs.Add("empName", emp.FullName ?? "Did not request");
                 rs.Add("type", "Service");
                 rs.Add("success", "True");
-
             }
             catch (Exception ex)
             {

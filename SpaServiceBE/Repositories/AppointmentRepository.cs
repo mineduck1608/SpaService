@@ -34,8 +34,6 @@ namespace Repositories
         {
             var rs = _context.Appointments
                 .Include(x => x.Request)
-                .ThenInclude(x => x.Customer)
-                .Include(x => x.Request)
                 .ThenInclude(x => x.Service)
                 .Include(x => x.Room)
                 .Include(x => x.Employee)

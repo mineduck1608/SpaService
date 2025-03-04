@@ -13,9 +13,9 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
 
   // Hàm kiểm tra và chuyển hướng
   const addToCart = () => {
-    if(amount <= 0){
+    if (amount <= 0) {
       toast.error('Invalid amount')
-      return;
+      return
     }
     const token = sessionStorage.getItem('token') // Kiểm tra token trong sessionStorage
     if (!params.d || amount <= 0) {
@@ -66,28 +66,25 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
         }}
       />
       <p>Max: {params.d?.quantity}</p>
-      <div className='flex'>
-      <div className='mb-3 flex w-3/5 justify-between '>
-        <input
-          type='submit'
-          onClick={(e) => {
-            
-          }} // Sử dụng hàm handleCheckout để kiểm tra token
-          className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[50%]'
-          value={'Checkout'}
-        />
-      </div>
-      {/* Add cart */}
-      <div className='mb-3 flex w-3/5 justify-between '>
-        <input
-          type='submit'
-          onClick={(e) => {
-            addToCart()
-          }} // Sử dụng hàm handleCheckout để kiểm tra token
-          className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[50%]'
-          value={'Add to cart'}
-        />
-      </div>
+      <div className=''>
+        {/* Add cart */}
+        <div className='mb-3 flex justify-between w-3/5'>
+          <button
+            type='submit'
+            onClick={(e) => {
+              addToCart()
+            }} // Sử dụng hàm handleCheckout để kiểm tra token
+            className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[40%]'
+          >Add to cart</button>
+          <button
+            type='submit'
+            onClick={(e) => {
+              addToCart()
+              window.location.assign('/cosmetics-check-out')
+            }} // Sử dụng hàm handleCheckout để kiểm tra token
+            className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[40%]'
+          >Check out</button>
+        </div>
       </div>
       <p className='text-black'>
         Category:&nbsp;
