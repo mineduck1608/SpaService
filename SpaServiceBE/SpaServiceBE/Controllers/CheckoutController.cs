@@ -109,7 +109,7 @@ namespace SpaServiceBE.Controllers
             try
             {
                 rs.Add("type", "Product");
-                var products = cosTransaction.Order;
+                var products = cosTransaction.Orders;
                 var s = JsonConvert.SerializeObject(products);
                 rs.Add("products", s);
             }
