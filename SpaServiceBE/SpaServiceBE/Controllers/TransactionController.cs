@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using Repositories.Entities;
 using Repositories.Entities.RequestModel;
 using Services;
@@ -81,30 +82,34 @@ namespace API.Controllers
                 string paymentType = jsonElement.GetProperty("paymentType").GetString();
                 float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
                 var code = jsonElement.TryGetProperty("promotionCode", out var promoCode) ? promoCode.GetString() : null;
+
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0)
                 {
                     return BadRequest(new { msg = "Transaction details are incomplete or invalid." });
                 }
-                var promo = await _promotionService.GetByCode(code);
-                if (code != null && promo == null)
-                {
-                    return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
-                }
-                else
-                {
-                    totalPrice *= (100 - promo.DiscountValue) / 100;
-                }
-                // Tạo đối tượng Transaction
+
                 var transaction = new Transaction
                 {
                     TransactionId = Guid.NewGuid().ToString(), // Generate unique ID
                     TransactionType = transactionType,
                     TotalPrice = totalPrice,
                     Status = false,
-                    PaymentType = paymentType,
-                    PromotionId = promo.PromotionId,
+                    PaymentType = paymentType
                 };
+
+                // Handle promotion
+                if (!string.IsNullOrEmpty(code))
+                {
+                    var promo = await _promotionService.GetByCode(code);
+                    if (promo == null)
+                    {
+                        return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
+                    }
+
+                    transaction.TotalPrice *= (100 - promo.DiscountValue) / 100;
+                    transaction.PromotionId = promo.PromotionId;
+                }
 
                 // Gọi service để thêm transaction
                 var isCreated = await _service.Add(transaction);
@@ -113,22 +118,27 @@ namespace API.Controllers
                 {
                     return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
                 }
+
                 if (transactionType == "Service")
                 {
                     string reqId = jsonElement.GetProperty("requestId").GetString();
                     jsonElement.TryGetProperty("membershipId", out var membershipId);
-                    var serviceTrans = new ServiceTransaction()
+
+                    var serviceTrans = new ServiceTransaction
                     {
                         RequestId = reqId,
                         ServiceTransactionId = Guid.NewGuid().ToString(),
-                        TransactionId = transaction.TransactionId,
+                        TransactionId = transaction.TransactionId
                     };
-                    if(membershipId.ValueKind != JsonValueKind.Undefined)
+
+                    if (membershipId.ValueKind != JsonValueKind.Undefined)
                     {
                         serviceTrans.MembershipId = membershipId.GetString();
                     }
+
                     await _serviceTransactionService.Add(serviceTrans);
                 }
+
                 return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
             }
             catch (Exception ex)
@@ -136,6 +146,7 @@ namespace API.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
 
         // PUT: api/transactions/Update/{id}

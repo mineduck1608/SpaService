@@ -26,6 +26,14 @@ namespace Repositories
                 .FirstOrDefaultAsync(f => f.FeedbackId == feedbackId);
         }
 
+        public async Task<List<Feedback>> GetByServiceId(string id)
+        {
+            return await _context.Feedbacks
+                .Include(f => f.CreatedByNavigation)  
+                .Include(f => f.Service)              
+                .Where(f => f.ServiceId == id).ToListAsync();
+        }
+
         // Lấy tất cả Feedbacks với các thực thể liên quan
         public async Task<List<Feedback>> GetAll()
         {

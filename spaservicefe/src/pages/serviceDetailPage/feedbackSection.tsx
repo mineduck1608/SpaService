@@ -4,15 +4,12 @@ import { getAllFeedbacks } from '../admin/feedbacks/feedback.util'
 import { Service } from '@/types/services'
 import { IoIosStar } from 'react-icons/io'
 import avatar from 'src/images/user/male.png'
-import FeedbackModal from '../appointmentPage/feedbackModal'
-import { getCustomerIdByAcc } from '../checkout/checkoutPage.util'
-import { hasPurchasedService } from './detailPage.util'
 
 interface FeedbackProps {
   service?: Service
 }
 
-const FeedbackSection = ({ service } : FeedbackProps) => {
+const FeedbackSection = ({ service }: FeedbackProps) => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -20,7 +17,7 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
   const [visibleCount, setVisibleCount] = useState(2)
 
   const handleShowMore = () => {
-    setVisibleCount(prev => Math.min(prev + 2, feedbacks.length))
+    setVisibleCount((prev) => Math.min(prev + 2, feedbacks.length))
   }
 
   useEffect(() => {
@@ -28,19 +25,19 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
       try {
         const selectedService = await getAllFeedbacks()
         const filteredFeedbacks = selectedService.filter(
-          feedback => feedback.service?.serviceId === service.serviceId || feedback.serviceId === service.serviceId
+          (feedback) => feedback.serviceId === service.serviceId || feedback.serviceId === service.serviceId
         )
-        
+
         if (filteredFeedbacks.length > 0) {
           const counts = [0, 0, 0, 0, 0]
           let sum = 0
-          
-          filteredFeedbacks.forEach(feedback => {
+
+          filteredFeedbacks.forEach((feedback) => {
             const rating = feedback.rating
             counts[rating - 1]++
             sum += rating
           })
-          
+
           setStats({
             average: Number((sum / filteredFeedbacks.length).toFixed(1)),
             counts,
@@ -48,7 +45,6 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
           })
         }
         setFeedbacks(filteredFeedbacks)
-
       } catch (err) {
         setError("Can't load the data.")
       } finally {
@@ -69,11 +65,7 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
             <div className='text-5xl font-bold text-gray-800'>{stats.average}</div>
             <div className='flex text-yellow-400 mt-1'>
               {[...Array(5)].map((_, i) => (
-                <IoIosStar 
-                  key={i} 
-                  className='w-4 h-4' 
-                  fill='currentColor' 
-                />
+                <IoIosStar key={i} className='w-4 h-4' fill='currentColor' />
               ))}
             </div>
             <div className='text-sm text-gray-500 mt-1'>({stats.total} Reviews)</div>
@@ -84,14 +76,14 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
                 <span className='w-4 text-gray-600 mr-2'>{rating}</span>
                 <span className='text-yellow-400 mr-2'>★</span>
                 <div className='flex-1 h-3 bg-gray-200 rounded-full overflow-hidden'>
-                  <div 
+                  <div
                     className='h-full bg-yellow-400 rounded-full'
-                    style={{ 
-                      width: `${stats.total ? (stats.counts[rating-1] / stats.total) * 100 : 0}%` 
+                    style={{
+                      width: `${stats.total ? (stats.counts[rating - 1] / stats.total) * 100 : 0}%`
                     }}
                   ></div>
                 </div>
-                <span className='ml-2 text-gray-600 w-6 text-right'>{stats.counts[rating-1]}</span>
+                <span className='ml-2 text-gray-600 w-6 text-right'>{stats.counts[rating - 1]}</span>
               </div>
             ))}
           </div>
@@ -107,36 +99,29 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
               <div className='mr-4'>
                 <div className='w-12 h-12 rounded-full bg-gray-200 overflow-hidden'>
                   <div className='w-full h-full flex items-center justify-center bg-gray-200'>
-                    <img
-                      src={avatar}
-                      className='w-full h-full object-cover'
-                    />
+                    <img src={avatar} className='w-full h-full object-cover' />
                   </div>
                 </div>
               </div>
               <div className='flex-1'>
                 <div className='flex items-center'>
                   <div className='font-medium'>{feedback.createdByNavigation?.fullName || '?'}</div>
-                  <div className='text-sm text-gray-500 ml-2'>
-                    {new Date(feedback.createdAt).toLocaleDateString()}
-                  </div>
+                  <div className='text-sm text-gray-500 ml-2'>{new Date(feedback.createdAt).toLocaleDateString()}</div>
                 </div>
                 <div className='flex items-center'>
                   {[...Array(5)].map((_, i) => (
-                    <IoIosStar 
+                    <IoIosStar
                       key={i}
                       className={`w-4 h-4 ${i < feedback.rating ? 'text-yellow-400' : 'text-gray-300'}`}
                     />
                   ))}
                 </div>
-                <div className='text-gray-600 italic mt-1'>
-                  "{feedback.feedbackMessage}"
-                </div>
+                <div className='text-gray-600 italic mt-1'>"{feedback.feedbackMessage}"</div>
               </div>
             </div>
           </div>
         ))}
-        
+
         {visibleCount < feedbacks.length && (
           <div className='text-center'>
             <a
@@ -151,7 +136,7 @@ const FeedbackSection = ({ service } : FeedbackProps) => {
             </a>
           </div>
         )}
-        
+
         {feedbacks.length === 0 && (
           <div className='text-center p-8 bg-white rounded-lg shadow'>
             <p className='text-gray-500'>No reviews available yet.</p>
