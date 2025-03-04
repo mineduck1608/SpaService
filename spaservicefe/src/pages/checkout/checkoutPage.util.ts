@@ -67,14 +67,15 @@ export async function getPaymentUrl(txnId: string) {
   }
 }
 
-export async function createTransaction(method: string, price: number, requestId: string, promoCode?: string) {
+export async function createTransaction(method: string, price: number, requestId: string, promoCode?: string, membershipId?: string) {
   var tmp = {
     paymentType: method,
     transactionType: 'Service',
     totalPrice: price,
     status: false,
     requestId: requestId,
-    promotionCode: promoCode
+    promotionCode: promoCode,
+    membershipId: membershipId
   }
   try {
     var s = await fetch(`${apiUrl}/transactions/Create`, {

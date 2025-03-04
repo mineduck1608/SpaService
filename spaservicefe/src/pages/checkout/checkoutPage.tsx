@@ -10,9 +10,10 @@ import {
   getCustomerIdByAcc,
   getEmployees,
   getPaymentUrl,
-  submitRequest
+  submitRequest,
+  getMembership
 } from './checkoutPage.util.ts'
-import { Employee, Promotion } from '@/types/type.ts'
+import { Employee, Membership, Promotion } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
 import { toast, ToastContainer } from 'react-toastify'
 import { ServiceCheckoutContext, SpaRequestModel } from './checkoutContext.tsx'
@@ -33,6 +34,7 @@ export default function CheckoutPage() {
     employeeId: null
   })
   const [checked, setChecked] = useState(false)
+  const [membership, setMembership] = useState<Membership>()
   const { TextArea } = Input
   const now = dayjs()
   const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true
@@ -47,10 +49,16 @@ export default function CheckoutPage() {
       if (cus) {
         setReq({ ...req, customerId: cus })
       }
+      const membership = await getMembership(cus ?? '')
+      if (typeof membership === 'string') {
+        toast.error(membership)
+        return
+      }
+      setMembership(membership)
     }
     try {
       fetchData()
-    } catch (e) { }
+    } catch (e) {}
   }, [])
   async function onSubmitBase(method: string) {
     try {
@@ -63,7 +71,13 @@ export default function CheckoutPage() {
         return false
       }
       if (s.requestId) {
-        var y = await createTransaction(method, booked.price, s.requestId ?? '', req.promotionCode)
+        var y = await createTransaction(
+          method,
+          booked.price,
+          s.requestId ?? '',
+          req.promotionCode,
+          membership?.membershipId
+        )
         if (y.transactionId) {
           //State is stupid
           sessionStorage.setItem('trId', y.transactionId)
@@ -121,10 +135,10 @@ export default function CheckoutPage() {
           toast.error(entry, {
             toastId: new Date().getTime()
           })
-          return;
+          return
         }
         setReq({ ...req, active: entry.discountValue })
-        return;
+        return
       }
       const s = await getPromoByCode(code)
       setCodes((v) => {
@@ -157,7 +171,7 @@ export default function CheckoutPage() {
         <div className='absolute left-0 right-0 top-20 z-10 mt-32 flex justify-center'>
           <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
             <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
-              <ServiceOverview s={booked} />
+              <ServiceOverview s={booked} membershipValue={membership?.discount} />
               <MainForm />
               <div className=''>
                 <label className='flex items-center justify-between'>
