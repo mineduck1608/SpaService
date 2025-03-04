@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Feedback, Customer } from '@/types/type'
-import { getAllFeedbacks } from '../admin/feedbacks/feedback.util'
+import { getAllFeedbacks, getFeedbacksByServiceId } from '../admin/feedbacks/feedback.util'
 import { Service } from '@/types/services'
 import { IoIosStar } from 'react-icons/io'
 import avatar from 'src/images/user/male.png'
@@ -23,11 +23,7 @@ const FeedbackSection = ({ service }: FeedbackProps) => {
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
-        const selectedService = await getAllFeedbacks()
-        const filteredFeedbacks = selectedService.filter(
-          (feedback) => feedback.serviceId === service.serviceId || feedback.serviceId === service.serviceId
-        )
-
+        const filteredFeedbacks = await getFeedbacksByServiceId(service?.serviceId)
         if (filteredFeedbacks.length > 0) {
           const counts = [0, 0, 0, 0, 0]
           let sum = 0
