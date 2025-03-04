@@ -188,7 +188,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet("GetByAccId/{id}")]
-        public async Task<ActionResult<List<Request>>> GetRequestByAccId(string id)
+        public async Task<ActionResult<List<Request>>> GetAppointmentByAccId(string id)
         {
             try
             {
