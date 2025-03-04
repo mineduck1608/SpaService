@@ -41,9 +41,10 @@ export const columns: ColumnDef<SpaRequest>[] = [
     header: 'Total Price',
     cell: (r) => {
       const transaction = r.row.original.serviceTransactions?.[0]?.transaction;
-      return JSON.stringify(transaction?.totalPrice ?? 0);
+      const totalPrice = transaction?.totalPrice ?? 0;
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice);
     }
-  },  
+  },   
   {
     id: 'actions',
     cell: ({ row }) => {

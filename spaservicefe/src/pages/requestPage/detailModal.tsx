@@ -36,8 +36,9 @@ function tableData(request: SpaRequest) {
     { key: 'Your Note', value: request.customerNote.length === 0 ? 'None' : request.customerNote },
     { 
       key: 'Price', 
-      value: formatNumber(request?.serviceTransactions?.[0]?.transaction?.totalPrice ?? 0) 
-    },
+      value: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
+               .format(request?.serviceTransactions?.[0]?.transaction?.totalPrice ?? 0)
+    },    
     {
       key: 'Transaction Status',
       value: status(request?.serviceTransactions?.[0]?.transaction?.status ?? false),

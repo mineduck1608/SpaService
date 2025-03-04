@@ -66,6 +66,17 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
         }}
       />
       <p>Max: {params.d?.quantity}</p>
+      <div className='flex'>
+      <div className='mb-3 flex w-3/5 justify-between '>
+        <input
+          type='submit'
+          onClick={(e) => {
+            
+          }} // Sử dụng hàm handleCheckout để kiểm tra token
+          className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[50%]'
+          value={'Checkout'}
+        />
+      </div>
       {/* Add cart */}
       <div className='mb-3 flex w-3/5 justify-between '>
         <input
@@ -76,6 +87,7 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
           className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[50%]'
           value={'Add to cart'}
         />
+      </div>
       </div>
       <p className='text-black'>
         Category:&nbsp;
