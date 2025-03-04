@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Repositories.Entities;
 
 namespace Repositories.Context;
@@ -76,9 +77,17 @@ public partial class SpaserviceContext : DbContext
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
+    private string? GetConnectionString()
+    {
+        IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true, true).Build();
+        return configuration["ConnectionStrings:DefaultConnectionStringDB"];
+    }
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=MINEDUCK\\MINEDUCK;Database=spaservice;UID=sa;PWD=12345;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -547,6 +556,10 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("feedbackId");
+            entity.Property(e => e.AppointmentId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("appointmentId");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
@@ -558,20 +571,15 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("feedbackMessage");
             entity.Property(e => e.Rating).HasColumnName("rating");
-            entity.Property(e => e.ServiceId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("serviceId");
+
+            entity.HasOne(d => d.Appointment).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.AppointmentId)
+                .HasConstraintName("FK_Appointment_feedback");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.CreatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKFeedback851355");
-
-            entity.HasOne(d => d.Service).WithMany(p => p.Feedbacks)
-                .HasForeignKey(d => d.ServiceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKFeedback300803");
         });
 
         modelBuilder.Entity<Floor>(entity =>

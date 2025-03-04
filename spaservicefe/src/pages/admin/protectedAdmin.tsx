@@ -2,26 +2,41 @@ import { useEffect, useState } from 'react'
 
 export function ProtectedAdmin({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null)
 
-  // Giải mã JWT để kiểm tra thời gian hết hạn
-  const isTokenValid = (token: string | null) => {
-    if (!token) return false
+  // Giải mã JWT để kiểm tra thời gian hết hạn và vai trò
+  const decodeToken = (token: string | null) => {
+    if (!token) return null
     try {
       const payload = JSON.parse(atob(token.split('.')[1])) // Giải mã phần payload của JWT
-      return payload.exp * 1000 > Date.now() // Kiểm tra xem token còn hạn không
+      return payload
     } catch (error) {
-      return false
+      return null
     }
+  }
+
+  const isTokenValid = (payload: any) => {
+    if (!payload) return false
+    return payload.exp * 1000 > Date.now() // Kiểm tra xem token còn hạn không
+  }
+
+  const hasAdminRole = (payload: any) => {
+    if (!payload || !payload.roles) return false
+    return payload.roles.includes("Admin") // Kiểm tra vai trò Admin
   }
 
   useEffect(() => {
     const checkAuth = () => {
       const token = sessionStorage.getItem('token')
-      if (!isTokenValid(token)) {
+      const payload = decodeToken(token)
+
+      if (!isTokenValid(payload)) {
         sessionStorage.removeItem('token') // Xóa token nếu hết hạn
         setIsAuthenticated(false)
+        setIsAdmin(false)
       } else {
         setIsAuthenticated(true)
+        setIsAdmin(hasAdminRole(payload))
       }
     }
 
@@ -44,9 +59,9 @@ export function ProtectedAdmin({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  if (isAuthenticated === null) {
-    return null // Không hiển thị gì khi đang kiểm tra token
+  if (isAuthenticated === null || isAdmin === null) {
+    return null // Không hiển thị gì khi đang kiểm tra token và vai trò
   }
 
-  return isAuthenticated ? <>{children}</> : null
+  return isAuthenticated && isAdmin ? <>{children}</> : null
 }

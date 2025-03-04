@@ -186,18 +186,17 @@ namespace API.Controllers
         //    }
         //}
 
-        [Authorize]
         [HttpGet("GetByAccId/{id}")]
-        public async Task<ActionResult<List<Request>>> GetRequestByAccId(string id)
+        public async Task<ActionResult<List<Appointment>>> GetAppointmentByAccId(string id)
         {
             try
             {
-                var request = await _service.GetAllAppointmentsByAccId(id);
+                var appointments = await _service.GetAllAppointmentsByAccId(id);
 
-                if (request == null)
-                    return NotFound($"Request with ID = {id} not found.");
+                if (appointments == null)
+                    return NotFound($"Appointment with acc ID = {id} not found.");
 
-                return Ok(request);
+                return Ok(appointments);
             }
             catch (Exception ex)
             {

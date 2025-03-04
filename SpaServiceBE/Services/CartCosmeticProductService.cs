@@ -27,7 +27,7 @@ namespace Services
 
         public async Task<List<CartCosmeticProduct>> GetByCustomerId(string customerId)
         {
-            return await _cartCosmeticProductRepository.GetCartCosmeticProductById(customerId);
+            return await _cartCosmeticProductRepository.GetByCustomerId(customerId);
         }
 
 

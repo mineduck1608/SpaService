@@ -22,7 +22,7 @@ namespace Repositories
         {
             return await _context.Feedbacks
                 .Include(f => f.CreatedByNavigation)   // Bao gồm Customer (CreatedBy) liên quan đến Feedback
-                .Include(f => f.Service)               // Bao gồm SpaService liên quan đến Feedback
+                .Include(f => f.Appointment)               // Bao gồm SpaService liên quan đến Feedback
                 .FirstOrDefaultAsync(f => f.FeedbackId == feedbackId);
         }
 
@@ -30,8 +30,8 @@ namespace Repositories
         {
             return await _context.Feedbacks
                 .Include(f => f.CreatedByNavigation)  
-                .Include(f => f.Service)              
-                .Where(f => f.ServiceId == id).ToListAsync();
+                .Include(f => f.Appointment)              
+                .Where(f => f.AppointmentId == id).ToListAsync();
         }
 
         // Lấy tất cả Feedbacks với các thực thể liên quan
@@ -39,7 +39,7 @@ namespace Repositories
         {
             return await _context.Feedbacks
                 .Include(f => f.CreatedByNavigation)   // Bao gồm Customer (CreatedBy) liên quan đến Feedback
-                .Include(f => f.Service)               // Bao gồm SpaService liên quan đến Feedback
+                .Include(f => f.Appointment)               // Bao gồm SpaService liên quan đến Feedback
                 .ToListAsync();
         }
 
@@ -67,7 +67,7 @@ namespace Repositories
             existingFeedback.FeedbackMessage = feedback.FeedbackMessage;
             existingFeedback.Rating = feedback.Rating;
             existingFeedback.CreatedAt = feedback.CreatedAt;
-            existingFeedback.ServiceId = feedback.ServiceId;
+            existingFeedback.AppointmentId = feedback.AppointmentId;
 
             try
             {

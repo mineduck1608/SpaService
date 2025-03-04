@@ -23,6 +23,8 @@ public partial class Appointment
 
     public virtual Employee Employee { get; set; } = null!;
 
+    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+
     public virtual Request Request { get; set; } = null!;
 
     public virtual Room Room { get; set; } = null!;

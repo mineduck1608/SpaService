@@ -23,7 +23,5 @@ public partial class SpaService
 
     public virtual ServiceCategory Category { get; set; } = null!;
 
-    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 }

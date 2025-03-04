@@ -93,11 +93,11 @@ namespace API.Controllers
                 string feedbackMessage = jsonElement.GetProperty("feedbackMessage").GetString();
                 byte rating = jsonElement.GetProperty("rating").GetByte();
                 string createdBy = jsonElement.GetProperty("createdBy").GetString();
-                string serviceId = jsonElement.GetProperty("serviceId").GetString();
+                string appointmentId = jsonElement.GetProperty("appointmentId").GetString();
 
                 // Validate input
                 if (string.IsNullOrEmpty(feedbackMessage) || rating < 1 || rating > 5 ||
-                    string.IsNullOrEmpty(createdBy) || string.IsNullOrEmpty(serviceId))
+                    string.IsNullOrEmpty(createdBy) || string.IsNullOrEmpty(appointmentId))
                 {
                     return BadRequest(new { msg = "Feedback details are incomplete or invalid." });
                 }
@@ -109,7 +109,7 @@ namespace API.Controllers
                     FeedbackMessage = feedbackMessage,
                     Rating = rating,
                     CreatedBy = createdBy,
-                    ServiceId = serviceId,
+                    AppointmentId = appointmentId,
                     CreatedAt = DateTime.UtcNow
                 };
 
@@ -141,11 +141,11 @@ namespace API.Controllers
                 string feedbackMessage = jsonElement.GetProperty("feedbackMessage").GetString();
                 byte rating = jsonElement.GetProperty("rating").GetByte();
                 string createdBy = jsonElement.GetProperty("createdBy").GetString();
-                string serviceId = jsonElement.GetProperty("serviceId").GetString();
+                string appointmentId = jsonElement.GetProperty("appointmentId").GetString();
 
                 // Validate input
                 if (string.IsNullOrEmpty(feedbackMessage) || rating < 1 || rating > 5 ||
-                    string.IsNullOrEmpty(createdBy) || string.IsNullOrEmpty(serviceId))
+                    string.IsNullOrEmpty(createdBy) || string.IsNullOrEmpty(appointmentId))
                 {
                     return BadRequest(new { msg = "Feedback details are incomplete or invalid." });
                 }
@@ -157,7 +157,7 @@ namespace API.Controllers
                     FeedbackMessage = feedbackMessage,
                     Rating = rating,
                     CreatedBy = createdBy,
-                    ServiceId = serviceId,
+                    AppointmentId = appointmentId,
                     CreatedAt = DateTime.UtcNow  // Optionally update the created timestamp if necessary
                 };
 
