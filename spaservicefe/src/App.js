@@ -58,6 +58,7 @@ import CartPage from './pages/cart/cartPage.tsx'
 import ImageUpload from './components/imageUpload.tsx'
 import AdminManagerPage from './pages/admin/managers/page.tsx'
 import UserProfile from './pages/profile/profile.tsx'
+import RecruitmentPage from './pages/recruitment/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -97,6 +98,14 @@ function App() {
             element={
               <Layout>
                 <RequestPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='recruitment'
+            element={
+              <Layout>
+                <RecruitmentPage />
               </Layout>
             }
           />
