@@ -1,6 +1,7 @@
 import { DatePicker } from 'antd'
 import React, { useContext } from 'react'
 import { ServiceCheckoutContext } from './checkoutContext'
+import dayjs from 'dayjs'
 
 export default function MainForm() {
   const context = useContext(ServiceCheckoutContext)
@@ -17,8 +18,9 @@ export default function MainForm() {
           minuteStep={30}
           className='mt-2 border-[1px] p-2'
           onChange={(date) => {
-            context.setReq({ ...context.req, startTime: date?.toDate() })
+            context.setReq({ ...context.req, startTime: date })
           }}
+          minDate={dayjs()}
           required
         />
       </label>

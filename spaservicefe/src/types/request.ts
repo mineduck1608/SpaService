@@ -1,6 +1,8 @@
+import { Dayjs } from "dayjs"
+
 export type SpaRequest = {
   requestId?: string
-  startTime: Date
+  startTime: Dayjs
   status?: string
   customerNote: string
   managerNote?: string
