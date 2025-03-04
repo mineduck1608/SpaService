@@ -1,8 +1,13 @@
+import { useContext } from 'react'
 import { ColumnDef } from '@tanstack/react-table'
 import { Appointment, SpaRequest } from '@/types/type'
 import Details from './details'
-import { useContext } from 'react'
 import { PastAppointmentContext } from './context/pastAppointmentContext'
+
+const CellWithContext = ({ row }) => {
+  const { pastBooking } = useContext(PastAppointmentContext)
+  return <Details request={row.original} isPast={pastBooking} />
+}
 
 export const columns: ColumnDef<Appointment>[] = [
   {
@@ -49,9 +54,6 @@ export const columns: ColumnDef<Appointment>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => {
-      const { pastBooking } = useContext(PastAppointmentContext)
-      return <Details request={row.original} isPast={pastBooking} />
-    }
+    cell: CellWithContext
   }
 ]
