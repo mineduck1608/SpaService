@@ -19,6 +19,11 @@ namespace Repositories
         }
 
         public async Task<IEnumerable<CustomerMembership>> GetAllAsync() => await _context.CustomerMemberships.ToListAsync();
+        public async Task<IEnumerable<CustomerMembership>> GetByCusId(string id) 
+            => await _context.CustomerMemberships
+            .Where(x => x.CustomerId == id)
+            .Include(x => x.Membership)
+            .ToListAsync();
 
         public async Task<CustomerMembership> GetCustomerMembershipById(string customerId, string membershipId)
         {

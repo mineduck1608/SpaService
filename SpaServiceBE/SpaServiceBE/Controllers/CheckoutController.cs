@@ -81,19 +81,7 @@ namespace SpaServiceBE.Controllers
                 var emp = await _employeeService.GetEmployeeById(rand.employeeId);
                 rs.Add("empName", emp.FullName ?? "Did not request");
                 rs.Add("type", "Service");
-                Appointment app = new()
-                {
-                    RequestId = req.RequestId,
-                    EmployeeId = rand.employeeId,
-                    StartTime = req.StartTime,
-                    EndTime = req.StartTime.AddMinutes(service.Duration.TotalMinutes),
-                    Status = "Pending",
-                    UpdatedAt = null,
-                    AppointmentId = Guid.NewGuid().ToString(),
-                    RoomId = rand.roomId,
-                };
-                var check = await _appointmentService.AddAppointment(app);
-                rs.Add("success", check.ToString());
+                rs.Add("success", "True");
 
             }
             catch (Exception ex)

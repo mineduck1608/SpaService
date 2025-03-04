@@ -1,6 +1,7 @@
 import { Service } from '../../types/services.ts'
 import { FormEvent, useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
+import dayjs from 'dayjs'
 import { SpaRequest } from '@/types/request.ts'
 import { Input, DatePicker } from 'antd'
 import { createTransaction, getCusByAcc, getEmployees, getPaymentUrl, submitRequest } from './checkoutPage.util.ts'
@@ -13,9 +14,19 @@ import { toast, ToastContainer } from 'react-toastify'
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
   const [emp, setEmp] = useState<Employee[]>([])
+  const { TextArea } = Input
+  const [req, setReq] = useState<SpaRequest>({
+    customerId: '',
+    customerNote: '',
+    serviceId: booked.serviceId,
+    startTime: dayjs(),
+    employeeId: null
+  })
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
+  const now = dayjs()
+  const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'hour')) : true
   useEffect(() => {
     async function fetchData() {
       var t = getToken()
@@ -37,7 +48,7 @@ export default function CheckoutPage() {
   async function onSubmitBase(method: string) {
     try {
       var req2 = { ...req }
-      req2.startTime.setTime(req2.startTime.getTime() + 7 * 3600 * 1000) //Account for JS stupid date API
+      req2.startTime = req2.startTime.add(7, 'h')
       var s = await submitRequest(req2)
       if (s.msg) {
         toast.error(s.msg)
@@ -93,15 +104,6 @@ export default function CheckoutPage() {
       toast.error(e as string)
     }
   }
-  const { TextArea } = Input
-  const [req, setReq] = useState<SpaRequest>({
-    customerId: '',
-    customerNote: '',
-    serviceId: booked.serviceId,
-    startTime: new Date(),
-    employeeId: null
-  })
-  const disable = (req.startTime ?? new Date()).getTime() < new Date().getTime() + 3600 * 1000
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
       <ToastContainer />
@@ -130,9 +132,10 @@ export default function CheckoutPage() {
                   minuteStep={30}
                   className='mt-2 border-[1px] p-2'
                   onChange={(date) => {
-                    setReq({ ...req, startTime: date?.toDate() })
+                    setReq({ ...req, startTime: date })
                   }}
                   required
+                  minDate={now}
                 />
               </label>
               <label className='grid 2xl:w-[45%]'>

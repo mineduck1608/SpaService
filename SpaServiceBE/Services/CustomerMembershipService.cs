@@ -23,5 +23,23 @@ namespace Services
         public async Task CreateAsync(CustomerMembership entity) => await _repository.CreateAsync(entity);
         public async Task<bool> UpdateAsync(CustomerMembership entity) => await _repository.UpdateAsync(entity);
         public async Task DeleteAsync(string customerId, string membershipId) => await _repository.DeleteAsync(customerId, membershipId);
+        public async Task<Membership> ClosestMememebrshipOfCustomer(string customerId)
+        {
+            var memberships = (await _repository.GetByCusId(customerId)).ToList();
+            if (memberships.Count() == 0)
+            {
+                return null;
+            }
+            DateOnly max = DateOnly.MinValue;
+
+            foreach (var membership in memberships)
+            {
+                if (membership.StartDate > max)
+                {
+                    max = membership.StartDate;
+                }
+            }
+            return
+        }
     }
 }
