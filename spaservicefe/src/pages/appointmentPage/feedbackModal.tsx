@@ -4,11 +4,12 @@ import { Service } from '@/types/services'
 import { IoIosStar } from 'react-icons/io'
 import { handleCreateSubmit } from '../serviceDetailPage/detailPage.util'
 import { getCustomerIdByAcc } from '../checkout/checkoutPage.util'
+import { Appointment } from '@/types/type'
 
 interface FeedbackModalProps {
   isOpen: boolean
   onClose: () => void
-  service?: Service
+  appointment?: Appointment
 }
 
 type StarRatingProps = {
@@ -40,7 +41,7 @@ const StarRating: React.FC<StarRatingProps> = ({ value, onChange }) => {
   )
 }
 
-export default function FeedbackModal({ isOpen, onClose, service }: FeedbackModalProps) {
+export default function FeedbackModal({ isOpen, onClose, appointment }: FeedbackModalProps) {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
 
@@ -51,7 +52,8 @@ export default function FeedbackModal({ isOpen, onClose, service }: FeedbackModa
       feedbackMessage: comment,
       rating: rating,
       createdBy: customerId,
-      serviceId: service?.serviceId
+      serviceId: appointment?.service?.serviceId,
+      appointmentId: appointment?.appointmentId
     }
     handleCreateSubmit(feedbackData)
   }

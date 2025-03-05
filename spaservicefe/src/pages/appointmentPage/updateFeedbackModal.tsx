@@ -4,11 +4,12 @@ import { Service } from '@/types/services'
 import { IoIosStar } from 'react-icons/io'
 import { getFeedbackByServiceAndCus, handleUpdateSubmit } from '../serviceDetailPage/detailPage.util'
 import { getCustomerIdByAcc } from '../checkout/checkoutPage.util'
+import { Appointment } from '@/types/type'
 
 interface FeedbackModalProps {
   isOpen: boolean
   onClose: () => void
-  service?: Service
+  appointment?: Appointment
 }
 
 type StarRatingProps = {
@@ -40,7 +41,7 @@ const StarRating: React.FC<StarRatingProps> = ({ value, onChange }) => {
   )
 }
 
-export default function UpdateFeedbackModal({ isOpen, onClose, service }: FeedbackModalProps) {
+export default function UpdateFeedbackModal({ isOpen, onClose, appointment }: FeedbackModalProps) {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const [feedbackId, setFeedbackId] = useState<string | null>(null)
@@ -53,7 +54,8 @@ export default function UpdateFeedbackModal({ isOpen, onClose, service }: Feedba
       feedbackMessage: comment,
       rating: rating,
       createdBy: customerId,
-      serviceId: service?.serviceId
+      serviceId: appointment?.service?.serviceId,
+      appointmentId: appointment?.appointmentId
     }
 
     console.log(feedbackData)
@@ -64,7 +66,7 @@ export default function UpdateFeedbackModal({ isOpen, onClose, service }: Feedba
     const fetchFeedback = async () => {
       const data = {
         createdBy: await getCustomerIdByAcc(),
-        serviceId: service?.serviceId
+        serviceId: appointment?.service?.serviceId
       }
       const previousData = await getFeedbackByServiceAndCus(data)
       if (isOpen && previousData) {
