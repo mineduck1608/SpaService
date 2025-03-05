@@ -8,6 +8,8 @@ import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 import { Dropdown } from '../dropdown.tsx'
 import { findCosmeticCategories } from '../../pages/cosmeticPage/cosmeticPage.util.ts'
 import { CosmeticCategory } from '../../types/type.ts'
+import { jwtDecode } from 'jwt-decode'
+import { roleJWT } from '../../types/constants.ts'
 
 const Header = () => {
   // Giải mã JWT để kiểm tra thời gian hết hạn
@@ -24,8 +26,22 @@ const Header = () => {
   useEffect(() => {
     const checkAuth = () => {
       const token = sessionStorage.getItem('token')
+      
       if (!isTokenValid(token)) {
         sessionStorage.removeItem('token') // Xóa token nếu hết hạn
+      }
+if (token) {
+        var jwtData = jwtDecode(token)
+        const role = jwtData[roleJWT] as string
+        if(role === 'Admin') {
+          window.location.assign('/admin')
+        }
+        if(role === 'Manager') {
+          window.location.assign('/manager')
+        }
+        if(role === 'Employee') {
+          window.location.assign('/employee')
+        }
       }
     }
 

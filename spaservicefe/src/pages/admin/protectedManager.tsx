@@ -1,3 +1,4 @@
+import { roleJWT } from '../../types/constants'
 import { useEffect, useState } from 'react'
 
 export function ProtectedManager({ children }: { children: React.ReactNode }) {
@@ -21,8 +22,8 @@ export function ProtectedManager({ children }: { children: React.ReactNode }) {
   }
 
   const hasAdminRole = (payload: any) => {
-    if (!payload || !payload.roles) return false
-    return payload.roles.includes("Manager") // Kiểm tra vai trò Admin
+    if (!payload) return false
+    return payload.includes("Manager") // Kiểm tra vai trò Admin
   }
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export function ProtectedManager({ children }: { children: React.ReactNode }) {
         setIsAdmin(false)
       } else {
         setIsAuthenticated(true)
-        setIsAdmin(hasAdminRole(payload))
+        setIsAdmin(hasAdminRole(payload[roleJWT] as string))
       }
     }
 

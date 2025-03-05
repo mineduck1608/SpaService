@@ -38,7 +38,6 @@ namespace Repositories
             return await _context.SpaServices
                 .Where(s => !s.IsDeleted) // not include service has been deleted
                 .Include(s => s.Category)    // Bao gồm thông tin Category liên quan
-                .Include(s => s.Feedbacks)   // Bao gồm các Feedback liên quan đến dịch vụ
                 //.Include(s => s.Requests)    // Bao gồm các Request liên quan đến dịch vụ
                 .ToListAsync();
         }
