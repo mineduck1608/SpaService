@@ -44,6 +44,10 @@ export default function CheckoutPage() {
   useEffect(() => {
     async function fetchData() {
       var s = await getEmployees(booked.categoryId)
+      if (typeof s === 'string') {
+        toast.error('No employees found for this category')
+        return
+      }
       setEmp(s)
       const cus = await getCustomerIdByAcc()
       if (cus) {
@@ -54,7 +58,7 @@ export default function CheckoutPage() {
         toast.error(membership)
         return
       }
-      setMembership(membership)
+      setMembership(membership ?? { discount: 0, membershipId: '', totalPayment: 0, type: '' })
     }
     try {
       fetchData()
