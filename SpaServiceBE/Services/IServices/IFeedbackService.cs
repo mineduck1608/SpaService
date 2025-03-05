@@ -12,5 +12,6 @@ namespace Services.IServices
         Task<bool> UpdateFeedback(string feedbackId, Feedback feedback);
         Task<bool> DeleteFeedback(string feedbackId);
         Task<List<Feedback>> GetFeedbackByServiceId(string id);
+        Task<Feedback> GetFeedbackByAppointmentId(string id);
     }
 }

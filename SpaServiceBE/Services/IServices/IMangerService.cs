@@ -18,5 +18,6 @@ namespace Services.IServices
         Task<Manager> GetManagerByEmail(string email);
         Task<IEnumerable<Manager>> GetAllWorkingManagers();
         Task<IEnumerable<Manager>> GetAllRetiredManagers();
+        Task<Manager> GetManagerByAccountId(string id);
     }
 }

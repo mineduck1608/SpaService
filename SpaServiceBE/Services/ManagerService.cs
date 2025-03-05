@@ -28,6 +28,12 @@ namespace Services
             return await _repository.GetByIdAsync(id);
         }
 
+        public async Task<Manager> GetManagerByAccountId(string id)
+        {
+            return await _repository.GetByAccountId(id);
+        }
+
+
         public async Task<bool> AddManager(Manager manager)
         {
             return await _repository.Add(manager);

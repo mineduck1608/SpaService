@@ -1,5 +1,5 @@
 import { apiUrl } from '../types/constants'
-import { Employee } from '@/types/type'
+import { Employee, Manager } from '@/types/type'
 
 export async function getEmployeeByAccountId(id: string) {
   try {
@@ -9,6 +9,19 @@ export async function getEmployeeByAccountId(id: string) {
       }
     })
     return (await s.json()) as Employee[]
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getManagerByAccountId(id: string) {
+  try {
+    var s = await fetch(`${apiUrl}/managers/GetManagerByAccountId/${id}`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`
+      }
+    })
+    return (await s.json()) as Manager[]
   } catch (e) {
     return []
   }

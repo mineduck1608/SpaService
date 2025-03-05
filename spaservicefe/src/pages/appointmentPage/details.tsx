@@ -27,7 +27,7 @@ const Details: React.FC<RequestActionsProps> = ({ request, isPast }) => {
     const checkEligibility = async () => {
       const customerId = await getCustomerIdByAcc()
       if (customerId && request.appointmentId) {
-        const feedbackExists = await hasSendFeedback(request.appointmentId)
+        const feedbackExists = !!(await hasSendFeedback(request.appointmentId))
         console.log("This feedback exists: ",feedbackExists)
         setHasFeedback(feedbackExists)
       }

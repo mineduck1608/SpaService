@@ -5,13 +5,13 @@ import { Calendars } from 'src/components/calendars'
 import { DatePicker } from 'src/components/date-picker'
 import { NavUser } from 'src/components/nav-user'
 import { Sidebar, SidebarContent, SidebarHeader, SidebarSeparator } from 'src/components/ui/sidebar'
-import { getEmployeeByAccountId } from './utils' // Import hàm getEmployeeById
+import { getEmployeeByAccountId, getManagerByAccountId } from './utils' // Import hàm getEmployeeById
 import { Employee } from '@/types/type' // Import kiểu dữ liệu Employee
 import { roleJWT } from '../types/constants'
 import { RoleName } from '../types/role'
 
 export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const [user, setUser] = useState<{ name: string; email: string; image: string } | null>(null) // Lưu trữ thông tin người dùng
+  const [user, setUser] = useState<{ name: string; email: string; image: string; role: string } | null>(null) // Lưu trữ thông tin người dùng
   const [loading, setLoading] = useState<boolean>(true) // Quản lý trạng thái tải dữ liệu
 
   useEffect(() => {
@@ -30,17 +30,31 @@ export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>)
             setUser({
               name: 'Admin',
               email: 'admin@gmail.com',
-              image: ''
+              image: '',
+              role: 'Admin'
             })
           }
           if (role == RoleName.EMPLOYEE) {
-            const employeeData: Employee = await getEmployeeByAccountId(userId) // Gọi API với UserId
+            const employeeData = await getEmployeeByAccountId(userId) // Gọi API với UserId
 
             if (employeeData) {
               setUser({
                 name: employeeData.fullName,
                 email: employeeData.email,
-                image: employeeData.image
+                image: employeeData.image,
+                role: 'Employee'
+              })
+            }
+          }
+          if (role == RoleName.MANAGER) {
+            const managerData = await getManagerByAccountId(userId) // Gọi API với UserId
+
+            if (managerData) {
+              setUser({
+                name: managerData.fullName,
+                email: managerData.email,
+                image: managerData.image,
+                role: 'Manager'
               })
             }
           }

@@ -152,5 +152,23 @@ namespace SpaServiceBE.Controllers
             await _managerService.DeleteManager(id);
             return NoContent();
         }
+
+        [HttpGet("GetManagerByAccountId/{id}")]
+        public async Task<ActionResult<Manager>> GetManagerByAccountId(string id)
+        {
+            try
+            {
+                var manager = await _managerService.GetManagerByAccountId(id);
+
+                if (manager == null)
+                    return NotFound($"No managers found.");
+
+                return Ok(manager);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
