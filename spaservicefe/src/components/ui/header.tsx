@@ -3,11 +3,10 @@ import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons'
 import logoColor from '../../images/logos/logoColor.png'
-import { ServiceCategory } from '@/types/serviceCategory.ts'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 import { Dropdown } from '../dropdown.tsx'
 import { findCosmeticCategories } from '../../pages/cosmeticPage/cosmeticPage.util.ts'
-import { CosmeticCategory } from '../../types/type.ts'
+import { CosmeticCategory, ServiceCategory } from '../../types/type.ts'
 import { jwtDecode } from 'jwt-decode'
 import { roleJWT } from '../../types/constants.ts'
 
@@ -26,20 +25,20 @@ const Header = () => {
   useEffect(() => {
     const checkAuth = () => {
       const token = sessionStorage.getItem('token')
-      
+
       if (!isTokenValid(token)) {
         sessionStorage.removeItem('token') // Xóa token nếu hết hạn
       }
-if (token) {
+      if (token) {
         var jwtData = jwtDecode(token)
         const role = jwtData[roleJWT] as string
-        if(role === 'Admin') {
+        if (role === 'Admin') {
           window.location.assign('/admin')
         }
-        if(role === 'Manager') {
+        if (role === 'Manager') {
           window.location.assign('/manager')
         }
-        if(role === 'Employee') {
+        if (role === 'Employee') {
           window.location.assign('/employee')
         }
       }

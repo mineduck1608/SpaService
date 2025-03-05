@@ -2215,6 +2215,32 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.ManagerController",
+    "Method": "GetManagerByAccountId",
+    "RelativePath": "api/managers/GetManagerByAccountId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Manager",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ManagerController",
     "Method": "UpdateManager",
     "RelativePath": "api/managers/Update/{id}",
     "HttpMethod": "PUT",

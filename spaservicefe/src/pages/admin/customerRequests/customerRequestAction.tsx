@@ -12,7 +12,8 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { SpaRequest } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { EditRequestModal } from './editRequestModal'
-import { AssignRequest } from './customerRequest.util'
+import { AssignRequest, DenyRequest } from './customerRequest.util'
+import { ConfirmDenyModal } from './denyModal'
 
 interface RequestActionsProps {
   request: SpaRequest
@@ -28,10 +29,10 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
   const openEditModal = () => setEditModalOpen(true)
   const closeEditModal = () => setEditModalOpen(false)
 
-  const handleConfirmDelete = () => {
-    console.log(`Deleting request with id: ${request.requestId}`)
-    closeModal()
-  }
+  const handleDenyRequest = async (managerNote: string) => {
+    DenyRequest(request.requestId.toString(), managerNote)
+  };
+  
 
   const handleUpdate = (updatedRequest: SpaRequest, roomId: string) => {
     AssignRequest(updatedRequest, roomId)
@@ -53,10 +54,10 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={openEditModal}>Assign</DropdownMenuItem>
-          <DropdownMenuItem onClick={openModal}>Decline</DropdownMenuItem>
+          <DropdownMenuItem onClick={openModal}>Deny</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ConfirmDeleteModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} />
+      <ConfirmDenyModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleDenyRequest} />
       <EditRequestModal isOpen={isEditModalOpen} onClose={closeEditModal} request={request} onSave={handleUpdate} />
     </>
   )

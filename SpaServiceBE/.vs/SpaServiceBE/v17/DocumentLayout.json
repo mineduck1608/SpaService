@@ -1,11 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ADMIN\\OneDrive\\M\u00E1y t\u00EDnh\\SWD391\\SpaService\\SpaServiceBE\\",
+  "WorkspaceRootPath": "D:\\Coding\\SpaService\\SpaServiceBE\\",
   "Documents": [
     {
-<<<<<<< HEAD
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\entities\\spaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\entities\\spaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\managerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -16,12 +15,24 @@
       "RelativeMoniker": "D:0:0:{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}|Services\\Services.csproj|solutionrelative:services\\iservices\\imangerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}|Services\\Services.csproj|d:\\coding\\spaservice\\spaservicebe\\services\\managerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}|Services\\Services.csproj|solutionrelative:services\\managerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}|Services\\Services.csproj|d:\\coding\\spaservice\\spaservicebe\\services\\managerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}|Services\\Services.csproj|solutionrelative:services\\managerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}|Services\\Services.csproj|d:\\coding\\spaservice\\spaservicebe\\services\\feedbackservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -40,10 +51,6 @@
       "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\feedbackrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\floorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\floorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -54,10 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}|Services\\Services.csproj|d:\\coding\\spaservice\\spaservicebe\\services\\requestservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59C12C42-3F9B-47CF-B1AC-74FD642F5A21}|Services\\Services.csproj|solutionrelative:services\\requestservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\entities\\spaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\entities\\spaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\entities\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -296,10 +299,6 @@
       "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\entities\\commission.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\CartCosmeticProduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Repositories\\Entities\\CartCosmeticProduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -318,18 +317,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\ICartCosmeticProductService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\IServices\\ICartCosmeticProductService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-=======
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\swd391\\spaservice\\spaservicebe\\spaservicebe\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\swd391\\spaservice\\spaservicebe\\repositories\\feedbackrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\feedbackrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\swd391\\spaservice\\spaservicebe\\repositories\\appointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|solutionrelative:repositories\\appointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
->>>>>>> 2658d9e9218b56a2be011c51cb6b48d4eb5d812a
     }
   ],
   "DocumentGroupContainers": [
@@ -339,89 +326,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-<<<<<<< HEAD
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "EmployeeController.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\EmployeeController.cs",
-              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\EmployeeController.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\EmployeeController.cs",
-              "RelativeToolTip": "SpaServiceBE\\Controllers\\EmployeeController.cs",
-              "ViewState": "AgIAAHEAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T12:58:00.893Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FeedbackService.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\FeedbackService.cs",
-              "RelativeDocumentMoniker": "Services\\FeedbackService.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\FeedbackService.cs",
-              "RelativeToolTip": "Services\\FeedbackService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T04:15:41.871Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IFeedbackService.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\IFeedbackService.cs",
-              "RelativeDocumentMoniker": "Services\\IServices\\IFeedbackService.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\IFeedbackService.cs",
-              "RelativeToolTip": "Services\\IServices\\IFeedbackService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T04:16:08.899Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\AccountController.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AccountController.cs",
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAmwG0AAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAMgBAAAAAAAAAAAYwCkBAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T16:36:24.364Z",
-=======
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FeedbackController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\M\u00E1y t\u00EDnh\\SWD391\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\FeedbackController.cs",
-              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\FeedbackController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\M\u00E1y t\u00EDnh\\SWD391\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\FeedbackController.cs",
-              "RelativeToolTip": "SpaServiceBE\\Controllers\\FeedbackController.cs",
-              "ViewState": "AQIAAE0AAAAAAAAAAAAIwFoAAABJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-05T03:40:43.956Z",
->>>>>>> 2658d9e9218b56a2be011c51cb6b48d4eb5d812a
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 6,
-              "Title": "FloorService.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\FloorService.cs",
-              "RelativeDocumentMoniker": "Services\\FloorService.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\FloorService.cs",
-              "RelativeToolTip": "Services\\FloorService.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAmwC4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T04:16:23.98Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "Room.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Room.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Room.cs",
@@ -433,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "ManagerService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\ManagerService.cs",
               "RelativeDocumentMoniker": "Services\\ManagerService.cs",
@@ -452,7 +374,7 @@
               "RelativeDocumentMoniker": "Services\\IServices\\IMangerService.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\IMangerService.cs",
               "RelativeToolTip": "Services\\IServices\\IMangerService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIAwwBQAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T03:10:33.335Z",
               "EditorCaption": ""
@@ -465,14 +387,102 @@
               "RelativeDocumentMoniker": "Repositories\\ManagerRepository.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\ManagerRepository.cs",
               "RelativeToolTip": "Repositories\\ManagerRepository.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAxwCAAAABTAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwCAAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T03:12:29.772Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ManagerController.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\ManagerController.cs",
+              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\ManagerController.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\ManagerController.cs*",
+              "RelativeToolTip": "SpaServiceBE\\Controllers\\ManagerController.cs*",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAuwKAAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T03:09:02.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FeedbackController.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\FeedbackController.cs",
+              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\FeedbackController.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\FeedbackController.cs",
+              "RelativeToolTip": "SpaServiceBE\\Controllers\\FeedbackController.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAuwBYAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T04:14:26.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EmployeeController.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\EmployeeController.cs",
+              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\EmployeeController.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\EmployeeController.cs",
+              "RelativeToolTip": "SpaServiceBE\\Controllers\\EmployeeController.cs",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAmwPIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T12:58:00.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SpaService.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\SpaService.cs",
+              "RelativeDocumentMoniker": "Repositories\\Entities\\SpaService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\SpaService.cs",
+              "RelativeToolTip": "Repositories\\Entities\\SpaService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T00:23:13.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FloorService.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\FloorService.cs",
+              "RelativeDocumentMoniker": "Services\\FloorService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\FloorService.cs",
+              "RelativeToolTip": "Services\\FloorService.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAmwC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T04:16:23.98Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IFeedbackService.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\IFeedbackService.cs",
+              "RelativeDocumentMoniker": "Services\\IServices\\IFeedbackService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\IFeedbackService.cs",
+              "RelativeToolTip": "Services\\IServices\\IFeedbackService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T04:16:08.899Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "FeedbackService.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\FeedbackService.cs",
+              "RelativeDocumentMoniker": "Services\\FeedbackService.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\FeedbackService.cs",
+              "RelativeToolTip": "Services\\FeedbackService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T04:15:41.871Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "FeedbackRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\FeedbackRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\FeedbackRepository.cs",
@@ -484,7 +494,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "FloorRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\FloorRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\FloorRepository.cs",
@@ -496,44 +506,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "SpaService.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\SpaService.cs",
-              "RelativeDocumentMoniker": "Repositories\\Entities\\SpaService.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\SpaService.cs",
-              "RelativeToolTip": "Repositories\\Entities\\SpaService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-01T00:23:13.962Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FeedbackController.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\FeedbackController.cs",
-              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\FeedbackController.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\FeedbackController.cs",
-              "RelativeToolTip": "SpaServiceBE\\Controllers\\FeedbackController.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAuwGAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T04:14:26.233Z",
-=======
-              "DocumentIndex": 1,
-              "Title": "FeedbackRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\M\u00E1y t\u00EDnh\\SWD391\\SpaService\\SpaServiceBE\\Repositories\\FeedbackRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\FeedbackRepository.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\M\u00E1y t\u00EDnh\\SWD391\\SpaService\\SpaServiceBE\\Repositories\\FeedbackRepository.cs",
-              "RelativeToolTip": "Repositories\\FeedbackRepository.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAQwCMAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-05T03:30:03.933Z",
->>>>>>> 2658d9e9218b56a2be011c51cb6b48d4eb5d812a
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Feedback.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Feedback.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Feedback.cs",
@@ -545,7 +518,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Account.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Account.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Account.cs",
@@ -557,7 +530,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Request.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Request.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Request.cs",
@@ -569,7 +542,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Appointment.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Appointment.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Appointment.cs",
@@ -581,7 +554,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "AppointmentController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AppointmentController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\AppointmentController.cs",
@@ -593,7 +566,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "SpaServiceRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\SpaServiceRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\SpaServiceRepository.cs",
@@ -605,7 +578,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "RequestService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\RequestService.cs",
               "RelativeDocumentMoniker": "Services\\RequestService.cs",
@@ -617,23 +590,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-=======
-              "DocumentIndex": 2,
->>>>>>> 2658d9e9218b56a2be011c51cb6b48d4eb5d812a
+              "DocumentIndex": 21,
               "Title": "AppointmentRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\M\u00E1y t\u00EDnh\\SWD391\\SpaService\\SpaServiceBE\\Repositories\\AppointmentRepository.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AppointmentRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\AppointmentRepository.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\M\u00E1y t\u00EDnh\\SWD391\\SpaService\\SpaServiceBE\\Repositories\\AppointmentRepository.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AppointmentRepository.cs",
               "RelativeToolTip": "Repositories\\AppointmentRepository.cs",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAmwB4AAAAJAAAA",
+              "ViewState": "AgIAAAoAAAAAAAAAAIA3wCcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-<<<<<<< HEAD
               "WhenOpened": "2025-02-28T11:55:16.466Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "GoogleAuthController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\GoogleAuthController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\GoogleAuthController.cs",
@@ -645,7 +614,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "Customer.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Customer.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Customer.cs",
@@ -657,7 +626,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "FloorController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\FloorController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\FloorController.cs",
@@ -669,7 +638,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "AppointmentService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\AppointmentService.cs",
               "RelativeDocumentMoniker": "Services\\AppointmentService.cs",
@@ -693,7 +662,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "CosmeticProduct.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\CosmeticProduct.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\CosmeticProduct.cs",
@@ -717,7 +686,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "OrderController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\OrderController.cs",
@@ -729,7 +698,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "AttendanceRecordController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AttendanceRecordController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\AttendanceRecordController.cs",
@@ -753,7 +722,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "IAppointmentService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\IAppointmentService.cs",
               "RelativeDocumentMoniker": "Services\\IServices\\IAppointmentService.cs",
@@ -777,7 +746,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Program.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Program.cs",
@@ -801,7 +770,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "OrderDetailController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\OrderDetailController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\OrderDetailController.cs",
@@ -813,7 +782,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "Order.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Order.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Order.cs",
@@ -825,7 +794,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "CustomerRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\CustomerRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\CustomerRepository.cs",
@@ -837,7 +806,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "RoomService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\RoomService.cs",
               "RelativeDocumentMoniker": "Services\\RoomService.cs",
@@ -849,7 +818,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "CosmeticTransactionRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\CosmeticTransactionRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\CosmeticTransactionRepository.cs",
@@ -861,7 +830,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "SpaServiceContext.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Context\\SpaServiceContext.cs",
               "RelativeDocumentMoniker": "Repositories\\Context\\SpaServiceContext.cs",
@@ -873,7 +842,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "CosmeticCategory.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\CosmeticCategory.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\CosmeticCategory.cs",
@@ -885,7 +854,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "TransactionController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\TransactionController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\TransactionController.cs",
@@ -897,7 +866,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "CosmeticTransaction.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\CosmeticTransaction.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\CosmeticTransaction.cs",
@@ -909,7 +878,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "RoomController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\RoomController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\RoomController.cs",
@@ -921,7 +890,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "CheckoutController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\CheckoutController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\CheckoutController.cs",
@@ -933,7 +902,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\appsettings.json",
               "RelativeDocumentMoniker": "SpaServiceBE\\appsettings.json",
@@ -945,7 +914,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "RoomRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\RoomRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\RoomRepository.cs",
@@ -957,7 +926,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "AttendanceRecord.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\AttendanceRecord.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\AttendanceRecord.cs",
@@ -969,7 +938,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "CategoryEmployee.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\CategoryEmployee.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\CategoryEmployee.cs",
@@ -981,7 +950,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 55,
               "Title": "ComsissionController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\ComsissionController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\ComsissionController.cs",
@@ -993,7 +962,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "CategoryEmployeeController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\CategoryEmployeeController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\CategoryEmployeeController.cs",
@@ -1005,7 +974,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "CosmeticCategoryController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\CosmeticCategoryController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\CosmeticCategoryController.cs",
@@ -1017,7 +986,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "SpaServiceController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\SpaServiceController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\SpaServiceController.cs",
@@ -1029,7 +998,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "CosmeticProductController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\CosmeticProductController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\CosmeticProductController.cs",
@@ -1041,7 +1010,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "ICategoryEmployeeService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\ICategoryEmployeeService.cs",
               "RelativeDocumentMoniker": "Services\\IServices\\ICategoryEmployeeService.cs",
@@ -1053,7 +1022,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "CategoryEmployeeRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\CategoryEmployeeRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\CategoryEmployeeRepository.cs",
@@ -1065,7 +1034,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "ServiceCategoryController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\ServiceCategoryController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\ServiceCategoryController.cs",
@@ -1077,7 +1046,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "CategoryEmployeeService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\CategoryEmployeeService.cs",
               "RelativeDocumentMoniker": "Services\\CategoryEmployeeService.cs",
@@ -1089,7 +1058,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 54,
               "Title": "efpt.config.json",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\efpt.config.json",
               "RelativeDocumentMoniker": "Repositories\\efpt.config.json",
@@ -1101,7 +1070,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 56,
               "Title": "RequestController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\RequestController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\RequestController.cs",
@@ -1113,7 +1082,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 61,
               "Title": "AccountService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\AccountService.cs",
               "RelativeDocumentMoniker": "Services\\AccountService.cs",
@@ -1125,7 +1094,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 58,
               "Title": "SpaServiceService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\SpaServiceService.cs",
               "RelativeDocumentMoniker": "Services\\SpaServiceService.cs",
@@ -1137,7 +1106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 57,
               "Title": "RoleController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\RoleController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\RoleController.cs",
@@ -1149,7 +1118,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 59,
               "Title": "IRoomService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\IServices\\IRoomService.cs",
               "RelativeDocumentMoniker": "Services\\IServices\\IRoomService.cs",
@@ -1161,7 +1130,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 60,
               "Title": "AccountRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AccountRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\AccountRepository.cs",
@@ -1173,7 +1142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 64,
               "Title": "Transaction.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Transaction.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Transaction.cs",
@@ -1185,7 +1154,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 62,
               "Title": "ServiceCategoryService.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\ServiceCategoryService.cs",
               "RelativeDocumentMoniker": "Services\\ServiceCategoryService.cs",
@@ -1197,7 +1166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 67,
               "Title": "PaymentController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\PaymentController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\PaymentController.cs",
@@ -1209,7 +1178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 63,
               "Title": "RequestRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\RequestRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\RequestRepository.cs",
@@ -1221,7 +1190,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 65,
               "Title": "TransactionRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\TransactionRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\TransactionRepository.cs",
@@ -1233,7 +1202,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 68,
               "Title": "CustomerMembershipController.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\CustomerMembershipController.cs",
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\CustomerMembershipController.cs",
@@ -1245,7 +1214,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 69,
               "Title": "ServiceTransaction.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\ServiceTransaction.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\ServiceTransaction.cs",
@@ -1257,7 +1226,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 66,
               "Title": "Application.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Application.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Application.cs",
@@ -1269,7 +1238,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 70,
               "Title": "AttendanceRecordRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AttendanceRecordRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\AttendanceRecordRepository.cs",
@@ -1281,7 +1250,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 71,
               "Title": "Floor.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Floor.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Floor.cs",
@@ -1293,7 +1262,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 72,
               "Title": "CustomerMembership.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\CustomerMembership.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\CustomerMembership.cs",
@@ -1305,7 +1274,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 73,
               "Title": "Commission.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Commission.cs",
               "RelativeDocumentMoniker": "Repositories\\Entities\\Commission.cs",
@@ -1314,22 +1283,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T11:54:37.459Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 73,
-              "Title": "ManagerController.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\ManagerController.cs",
-              "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\ManagerController.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\ManagerController.cs",
-              "RelativeToolTip": "SpaServiceBE\\Controllers\\ManagerController.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAvwBsAAABFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T03:09:02.508Z"
-=======
-              "WhenOpened": "2025-02-28T11:55:16.466Z",
-              "EditorCaption": ""
->>>>>>> 2658d9e9218b56a2be011c51cb6b48d4eb5d812a
             }
           ]
         }
