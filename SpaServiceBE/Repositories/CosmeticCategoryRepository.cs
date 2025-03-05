@@ -51,6 +51,10 @@ namespace Repositories
                     await _context.SaveChangesAsync();
                 }
             }
+            public async Task<int> GetTotalCosmeticCategory()
+        {
+            return await _context.CosmeticCategories.CountAsync();
         }
+    }
     
 }

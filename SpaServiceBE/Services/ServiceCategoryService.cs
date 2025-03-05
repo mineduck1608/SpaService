@@ -54,5 +54,9 @@ namespace Services
         {
             return await _repository.GetWithEmployee(categoryId);
         }
+        public async Task<int> GetTotalServiceCategory()
+        {
+            return await _repository.GetTotalServiceCategory();
+        }
     }
 }

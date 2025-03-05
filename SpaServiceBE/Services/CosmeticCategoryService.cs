@@ -42,5 +42,9 @@ namespace Services
         {
             await _cosmeticCategoryRepository.DeleteCosmeticCategory(id);
         }
+        public async Task<int> GetTotalCosmeticCategory()
+        {
+            return await _cosmeticCategoryRepository.GetTotalCosmeticCategory();
+        }
     }
 }

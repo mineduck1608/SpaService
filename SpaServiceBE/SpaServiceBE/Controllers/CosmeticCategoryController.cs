@@ -101,5 +101,11 @@ namespace SpaServiceBE.Controllers
             await _cosmeticCategoryService.DeleteCosmeticCategory(id);
             return NoContent();
         }
+        [HttpGet("CosmeticCategory")]
+        public async Task<ActionResult> GetTotalCosmeticCategory()
+        {
+            var total = await _cosmeticCategoryService.GetTotalCosmeticCategory();
+            return Ok($"total Cosmetic Category:{total}");
+        }
     }
 }

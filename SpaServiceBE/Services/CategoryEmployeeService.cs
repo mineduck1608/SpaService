@@ -43,5 +43,10 @@ namespace Services
         {
             return await _categoryEmployeeRepository.Delete(categoryId, employeeId);
         }
+
+        public async Task<int> GetTotalCategoryEmployee()
+        {
+            return await _categoryEmployeeRepository.GetTotalCategoryEmployee();
+        }
     }
 }

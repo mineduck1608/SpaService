@@ -16,5 +16,7 @@ namespace Services.IServices
         Task Delete(string id);
         Task<IEnumerable<CosmeticProduct>> GetProductsByCategoryId(string categoryId);
         Task<Dictionary<string, CosmeticProduct>> GetProductsOfList(List<string> productIdList);
+        Task<int> GetTotalCosmeticProduct();
+        Task<int> GetTotalCosmeticProductStock();
     }
 }

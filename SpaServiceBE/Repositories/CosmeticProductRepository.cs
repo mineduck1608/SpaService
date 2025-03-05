@@ -65,5 +65,13 @@ namespace Repositories
                 .Where(p => list.Contains(p.ProductId))
                 .ToDictionaryAsync(x => x.ProductId, x => x);
         }
+        public async Task<int> GetTotalCosmeticProduct()
+        {
+            return await _context.CosmeticProducts.CountAsync();
+        }
+        public async Task<int> GetTotalCosmeticProductStock()
+        {
+            return await _context.CosmeticProducts.SumAsync(c => c.Quantity);
+        }
     }
 }

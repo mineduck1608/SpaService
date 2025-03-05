@@ -266,5 +266,23 @@ namespace SpaServiceBE.Controllers
         {
             return Ok(await _orderService.GetAllPaidOrdersByCustomerId(customerId));
         }
+        [HttpGet("GetTotalProcessedOrder")]
+        public async Task<ActionResult<Order>> GetTotalProcessedOrder()
+        {
+            var total = await _orderService.GetTotalProcessedOrder();
+            return Ok($"Total processed Order:{total}");
+        }
+        [HttpGet("GetTotalPendingOrder")]
+        public async Task<ActionResult<Order>> GetTotalPendingOrder()
+        {
+            var total = await _orderService.GetTotalPendingOrder();
+            return Ok($"Total pending Order:{total}");
+        }
+        [HttpGet("GetTotalOrder")]
+        public async Task<ActionResult<Order>> GetTotalOrder()
+        {
+            var total = await _orderService.GetTotalOrder();
+            return Ok($"Total Order:{total}");
+        }
     }
 }

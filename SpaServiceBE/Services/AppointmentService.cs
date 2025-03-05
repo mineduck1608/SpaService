@@ -54,5 +54,9 @@ namespace Services
         {
             return await _repository.GetAppointmentsFromCustomer(accId);
         }
+        public async Task<int> GetTotalAppointmentInMonth(int year, int month)
+        {
+            return await _repository.GetTotalAppointmentInMonth(year, month);
+        }
     }
 }

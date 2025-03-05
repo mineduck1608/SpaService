@@ -52,5 +52,15 @@ namespace Services
         {
             return await _repository.GetProductsOfList(productIdList);
         }
+
+        public async Task<int> GetTotalCosmeticProduct()
+        {
+            return await _repository.GetTotalCosmeticProduct();
+        }
+
+        public async Task<int> GetTotalCosmeticProductStock()
+        {
+            return await _repository.GetTotalCosmeticProductStock();
+        }
     }
 }

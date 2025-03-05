@@ -52,5 +52,20 @@ namespace Services
         {
             return  await _orderRepository.GetAllPaidOrdersByCustomerId(customerId);
         }
+
+        public async Task<int> GetTotalProcessedOrder()
+        {
+            return await _orderRepository.GetTotalProcessedOrder();
+        }
+
+        public async Task<int> GetTotalPendingOrder()
+        {
+            return await _orderRepository.GetTotalPendingOrder();
+        }
+
+        public async Task<int> GetTotalOrder()
+        {
+            return await _orderRepository.GetTotalOrder();
+        }
     }
 }

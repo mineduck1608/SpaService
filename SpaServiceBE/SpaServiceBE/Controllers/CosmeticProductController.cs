@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Repositories.Entities;
+using Services;
 using Services.IServices;
 using System.Text.Json;
 
@@ -146,6 +147,18 @@ namespace SpaServiceBE.Controllers
         {
             await _service.Delete(id);
             return NoContent();
+        }
+        [HttpGet("GetTotalCosmeticProduct")]
+        public async Task<ActionResult<Order>> GetTotalCosmeticProduct()
+        {
+            var total = await _service.GetTotalCosmeticProduct();
+            return Ok($"Total Cosmetic Product:{total}");
+        }
+        [HttpGet("GetTotalCosmeticProductStock")]
+        public async Task<ActionResult<Order>> GetTotalCosmeticProductStock()
+        {
+            var total = await _service.GetTotalCosmeticProductStock();
+            return Ok($"Total Cosmetic Stock:{total}");
         }
     }
 }

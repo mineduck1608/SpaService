@@ -71,5 +71,17 @@ namespace Repositories
                         .Where(o => o.Status == true)
                         .ToListAsync();
                 }
+        public async Task<int> GetTotalProcessedOrder()
+        {
+            return await _context.Orders.Where(o => o.Status == true).CountAsync();
+        }
+        public async Task<int> GetTotalPendingOrder()
+        {
+            return await _context.Orders.Where(o => o.Status != true).CountAsync();
+        }
+        public async Task<int> GetTotalOrder()
+        {
+            return await _context.Orders.CountAsync();
+        }
     }
 }

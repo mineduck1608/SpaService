@@ -84,6 +84,9 @@ namespace Repositories
                 return false;
             }
         }
-
+        public async Task<int> GetTotalCategoryEmployee()
+        {
+            return await _context.CategoryEmployees.CountAsync();
+        }
     }
 }

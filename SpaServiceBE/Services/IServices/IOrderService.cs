@@ -16,5 +16,8 @@ namespace Services.IServices
         Task DeleteOrderAsync(string id);
         Task <List<Order>> GetOrderByCustomerIdAsync(string customerId);
         Task <List<Order>> GetAllPaidOrdersByCustomerId(string customerId);
+        Task<int> GetTotalProcessedOrder();
+        Task<int> GetTotalPendingOrder();
+        Task<int> GetTotalOrder();
     }
 }

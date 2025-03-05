@@ -436,5 +436,21 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("GetById/{month}/{year}")]
+        public async Task<ActionResult<Appointment>> GetTotalAppointmentInMonth(int year, int month)
+        {
+            try
+            {
+                var totalAppointmentInMonth = await _service.GetTotalAppointmentInMonth(year,month);
+
+                
+
+                return Ok(totalAppointmentInMonth);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

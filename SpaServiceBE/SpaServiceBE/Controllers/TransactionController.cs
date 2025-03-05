@@ -235,5 +235,19 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        //get total revenue with true status
+        [HttpGet("GetTotalRevenue")]
+        public async Task<ActionResult<IEnumerable<Transaction>>> GetTotalRevenue()
+        {
+            try
+            {
+                var totalRevenue = await _service.GetTotalRevenue();
+                return Ok($"Total Revenue:{totalRevenue}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

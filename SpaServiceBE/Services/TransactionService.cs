@@ -39,5 +39,9 @@ namespace Services
         {
             return await _transactionRepository.Delete(transactionId);
         }
+        public async Task<float> GetTotalRevenue()
+        {
+            return await _transactionRepository.GetTotalRevenue();
+        }
     }
 }

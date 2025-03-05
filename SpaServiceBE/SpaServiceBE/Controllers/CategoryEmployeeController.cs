@@ -135,5 +135,11 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("GetTotalCategoryEmployee")]
+        public async Task<ActionResult> GetTotalCategoryEmployee()
+        {
+            var total = await _service.GetTotalCategoryEmployee();
+            return Ok($"Total Category Employee: {total}");
+        }
     }
 }

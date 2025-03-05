@@ -13,5 +13,6 @@ namespace Services.IServices
         Task<bool> DeleteCategory(string categoryId);
         Task<ServiceCategory> GetCategoryByName(string categoryName);
         Task<ServiceCategory> GetWithEmployee(string categoryId);
+        Task<int> GetTotalServiceCategory();
     }
 }

@@ -102,5 +102,13 @@ namespace Repositories
                 return false;
             }
         }
+        public async Task<int> GetTotalAppointmentInMonth(int year, int month)
+        {
+            
+                return await _context.Appointments
+                    .Where(a => a.StartTime.Year == year && a.StartTime.Month == month)
+                    .CountAsync();
+            
+        }
     }
 }

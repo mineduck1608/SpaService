@@ -87,5 +87,12 @@ namespace Repositories
                 return false;
             }
         }
+        public async Task<float> GetTotalRevenue()
+        {
+            return await _context.Transactions
+             .Where(t => t.Status == true) // Assuming 'true' means "Done"
+             .SumAsync(t => t.TotalPrice);
+        }
+
     }
 }

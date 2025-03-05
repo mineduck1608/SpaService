@@ -13,5 +13,6 @@ namespace Services.IServices
         Task<bool> DeleteAppointment(string appointmentId);
         Task <List<Appointment>> GetAllAppointmentsFromEmployee(string employeeId);
         Task<List<Appointment>> GetAllAppointmentsByAccId(string accId);
+        Task<int> GetTotalAppointmentInMonth(int year, int month);
     }
 }

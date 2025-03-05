@@ -96,5 +96,9 @@ namespace Repositories
                 return false;
             }
         }
+        public async Task<int> GetTotalServiceCategory()
+        {
+            return await _context.ServiceCategories.CountAsync();
+        }
     }
 }
