@@ -19,13 +19,21 @@ export const fetchAppointments = async () => {
     const employees = await fetchEmployees()
     console.log('Fetched employees:', employees)
 
+    const rooms = await fetchRooms();
+    console.log('rooms:', rooms);
+
     const employeeMap = new Map<string, { fullName: string }>(
       employees.map((emp: any) => [emp.employeeId, { fullName: emp.fullName }])
     )
 
+    const roomMap = new Map<string, { roomNum: number; floorId: string | null }>(
+      rooms.map((room: any) => [room.roomId, { roomNum: room.roomNum, floorId: room.floorId }])
+    );
+
     const formattedAppointments = appointments.map(
-      (event: { status: string; startTime: string; endTime: string; employeeId: string }, index: number) => {
-        const employeeInfo = employeeMap.get(event.employeeId) || { fullName: 'Unknown' }
+      (event: { status: string; startTime: string; endTime: string; employeeId: string; roomId: string }, index: number) => {
+        const employeeInfo = employeeMap.get(event.employeeId) || { fullName: 'Unknown' };
+        const roomInfo = roomMap.get(event.roomId) || { roomNum: null, floorId: null };
 
         return {
           id: index + 1,
@@ -33,7 +41,8 @@ export const fetchAppointments = async () => {
           start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
           end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
           people: [employeeInfo.fullName],
-          //location,
+          location: roomInfo.floorId ? `Floor: ${roomInfo.floorId}` : 'Unknown',
+          description: roomInfo.roomNum ? `Room ${roomInfo.roomNum}` : 'Unknown'
           //description
         }
       }
@@ -68,9 +77,9 @@ export const fetchEmployees = async () => {
   }
 }
 
-export const fetchRequests = async() => {
+export const fetchRequests = async () => {
   try {
-    const response = await fetch ('https://localhost:7205/api/requests/GetAll', {
+    const response = await fetch('https://localhost:7205/api/requests/GetAll', {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -90,9 +99,9 @@ export const fetchRequests = async() => {
   }
 }
 
-export const fetchCustomers = async() => {
+export const fetchCustomers = async () => {
   try {
-    const response = await fetch ('https://localhost:7205/api/customers/GetAll', {
+    const response = await fetch('https://localhost:7205/api/customers/GetAll', {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -108,6 +117,28 @@ export const fetchCustomers = async() => {
     return data
   } catch (error) {
     console.error('Error fetching customers:', error)
+    return []
+  }
+}
+
+export const fetchRooms = async () => {
+  try {
+    const response = await fetch('https://localhost:7205/api/rooms/GetAll', {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch Rooms')
+    }
+    
+    const data = await response.json()
+    console.log('Fetched Rooms', data)
+
+    return data
+  } catch (error) {
+    console.error('Error fetching rooms:', error)
     return []
   }
 }
