@@ -21,7 +21,6 @@ namespace API.Controllers
         }
 
         // GET: api/feedbacks/GetAll
-        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Feedback>>> GetAllFeedbacks()
         {
@@ -81,6 +80,27 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("GetFeedbackByAppointmentId/{id}")]
+        public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedbackByAppointment(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return BadRequest("FeedbackId is required.");
+
+            try
+            {
+                var feedback = await _service.GetFeedbackByAppointmentId(id);
+
+                if (feedback == null)
+                    return NotFound($"Feedback with ID = {id} not found.");
+
+                return Ok(feedback);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // POST: api/feedbacks/Create
         [HttpPost("Create")]
         public async Task<ActionResult> CreateFeedback([FromBody] dynamic request)
@@ -110,7 +130,7 @@ namespace API.Controllers
                     Rating = rating,
                     CreatedBy = createdBy,
                     AppointmentId = appointmentId,
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.Now
                 };
 
                 // Gọi service để thêm feedback
