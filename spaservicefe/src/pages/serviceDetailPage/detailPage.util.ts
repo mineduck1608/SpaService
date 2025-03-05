@@ -81,13 +81,10 @@ export async function handleUpdateSubmit(data: any) {
   }
 }
 
-export async function hasSendFeedback(serviceId?: string, customerId?: string) {
+export async function hasSendFeedback(appointmentId?:string) {
   try {
     const feedbacks = await getAllFeedbacks()
-    return feedbacks.some((feedback: any) => 
-      feedback.serviceId === serviceId &&
-      feedback.createdBy === customerId 
-    )
+    return feedbacks.some((feedback: any) => feedback.appointmentId === appointmentId)
   } catch (e) {
     return false
   }

@@ -24,6 +24,7 @@ const FeedbackSection = ({ service }: FeedbackProps) => {
     const fetchFeedbacks = async () => {
       try {
         const filteredFeedbacks = await getFeedbacksByServiceId(service?.serviceId)
+        console.log("filteredFeedbacks: ",filteredFeedbacks)
         if (filteredFeedbacks.length > 0) {
           const counts = [0, 0, 0, 0, 0]
           let sum = 0
