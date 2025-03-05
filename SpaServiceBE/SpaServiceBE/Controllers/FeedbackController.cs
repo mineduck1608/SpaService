@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         // GET: api/feedbacks/GetAll
-        [Authorize]
+        
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Feedback>>> GetAllFeedbacks()
         {

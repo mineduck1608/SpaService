@@ -29,9 +29,11 @@ namespace Repositories
         public async Task<List<Feedback>> GetByServiceId(string id)
         {
             return await _context.Feedbacks
-                .Include(f => f.CreatedByNavigation)  
-                .Include(f => f.Appointment)              
-                .Where(f => f.AppointmentId == id).ToListAsync();
+             .Include(f => f.CreatedByNavigation)
+             .Include(f => f.Appointment)
+                 .ThenInclude(a => a.Request)
+             .Where(f => f.Appointment.Request.ServiceId == id)
+             .ToListAsync();
         }
 
         // Lấy tất cả Feedbacks với các thực thể liên quan
