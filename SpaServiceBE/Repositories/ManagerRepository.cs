@@ -28,6 +28,11 @@ namespace Repositories
             return await _context.Managers.FindAsync(id);
         }
 
+        public async Task<Manager> GetByAccountId(string id)
+        {
+            return await _context.Managers.FirstOrDefaultAsync(x => x.AccountId == id);
+        }
+
         public async Task<bool> Add(Manager manager)
         {
             try

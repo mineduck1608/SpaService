@@ -345,6 +345,41 @@ namespace API.Controllers
         }
 
 
+        [HttpPut("DeclineRequest/{id}")]
+        public async Task<ActionResult> DeclineRequest(string id, [FromBody] dynamic request)
+        {
+            try
+            {
+                var jsonElement = (JsonElement)request;
+
+                string managerNote = jsonElement.GetProperty("managerNote").GetString();
+
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(managerNote))
+                    return BadRequest(new { msg = "Note is not provided" });
+
+                var updatedRequest = await _service.GetById(id);
+                if (updatedRequest == null)
+                    return NotFound(new { msg = $"Request with ID = {id} not found." });
+
+                updatedRequest.Status = "Denied";
+                updatedRequest.ManagerNote = managerNote;
+
+                // Gọi service để cập nhật request
+                var isUpdated = await _service.Update(id, updatedRequest);
+
+                if (!isUpdated)
+                    return NotFound(new { msg = $"Request with ID = {id} not found." });
+
+                return Ok(new { msg = "Request denied successfully." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
+
         // DELETE: api/requests/Delete/{id}
         [Authorize(Roles = "Admin, Customer")]
         [HttpDelete("Delete/{id}")]

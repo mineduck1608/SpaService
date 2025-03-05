@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
-import { Service } from '@/types/services'
 import { IoIosStar } from 'react-icons/io'
 import { getFeedbackByServiceAndCus, handleUpdateSubmit } from '../serviceDetailPage/detailPage.util'
 import { getCustomerIdByAcc } from '../checkout/checkoutPage.util'
 import { Appointment } from '@/types/type'
+import { getFeedBackByAppointmentId } from './appointmentPage.util'
 
 interface FeedbackModalProps {
   isOpen: boolean
   onClose: () => void
   appointment?: Appointment
-}
+  }
+
 
 type StarRatingProps = {
   value: number
@@ -64,19 +65,20 @@ export default function UpdateFeedbackModal({ isOpen, onClose, appointment }: Fe
 
   useEffect(() => {
     const fetchFeedback = async () => {
-      const data = {
-        createdBy: await getCustomerIdByAcc(),
-        serviceId: appointment?.service?.serviceId
-      }
-      const previousData = await getFeedbackByServiceAndCus(data)
+      if (appointment) {
+        const previousData = await getFeedBackByAppointmentId(appointment.appointmentId)
+
       if (isOpen && previousData) {
+        console.log(previousData)
         setRating(previousData.rating)
         setComment(previousData.feedbackMessage)
         setFeedbackId(previousData.feedbackId)
       }
     }
+  }
     fetchFeedback()
   }, [isOpen])
+
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

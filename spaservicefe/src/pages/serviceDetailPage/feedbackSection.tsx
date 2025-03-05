@@ -103,7 +103,17 @@ const FeedbackSection = ({ service }: FeedbackProps) => {
               <div className='flex-1'>
                 <div className='flex items-center'>
                   <div className='font-medium'>{feedback.createdByNavigation?.fullName || '?'}</div>
-                  <div className='text-sm text-gray-500 ml-2'>{new Date(feedback.createdAt).toLocaleDateString()}</div>
+                  <div className='text-sm text-gray-500 ml-2'>
+  {new Date(feedback.createdAt).toLocaleString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, // 24-hour format
+  })}
+</div>
                 </div>
                 <div className='flex items-center'>
                   {[...Array(5)].map((_, i) => (

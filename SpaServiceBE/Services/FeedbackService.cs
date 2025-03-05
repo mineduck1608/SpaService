@@ -26,6 +26,12 @@ namespace Services
             return await _repository.GetByServiceId(id);
         }
 
+
+        public async Task<Feedback> GetFeedbackByAppointmentId(string id)
+        {
+            return await _repository.GetByAppointmentId(id);
+        }
+
         // Lấy tất cả Feedbacks
         public async Task<List<Feedback>> GetAllFeedbacks()
         {

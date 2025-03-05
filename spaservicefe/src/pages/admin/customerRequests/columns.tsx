@@ -63,7 +63,7 @@ export const columns: ColumnDef<SpaRequest>[] = [
       let statusColor = ''
       if (status === 'Completed') {
         statusColor = 'text-green-500'
-      } else if (status === 'Cancelled') {
+      } else if (status === 'Denied') {
         statusColor = 'text-red-500'
       } else if (status === 'Pending') {
         statusColor = 'text-gray-500'

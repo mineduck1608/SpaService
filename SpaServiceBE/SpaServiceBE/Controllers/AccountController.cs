@@ -89,12 +89,25 @@ namespace API.Controllers
 
             }
 
+            if(account.Role.RoleName == "Employee") { 
             var employee = await _employeeService.GetEmployeeByAccountId(account.AccountId);
             accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, employee.FullName);
             return Ok(new
             {
                 accessToken,
             });
+            }
+
+            if (account.Role.RoleName == "Manager")
+            {
+                var manager = await _managerService.GetManagerByAccountId(account.AccountId);
+                accessToken = Util.GenerateToken(account.AccountId, account.Username, account.Role.RoleName, manager.FullName);
+                return Ok(new
+                {
+                    accessToken,
+                });
+            }
+            return NotFound();
         }
 
 
@@ -282,7 +295,7 @@ namespace API.Controllers
                 AccountId = Guid.NewGuid().ToString("N"),
                 Username = username,
                 Password = Util.ToHashString(password),
-                RoleId = "6219a63fab414127aa8ac13f2a3eb2a4", // Replace with your Employee Role ID
+                RoleId = "70061484c29840fbb22ca3f6b3203e39", // Replace with your Employee Role ID
                 Status = true,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now

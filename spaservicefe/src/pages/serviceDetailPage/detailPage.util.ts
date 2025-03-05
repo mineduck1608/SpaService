@@ -83,9 +83,19 @@ export async function handleUpdateSubmit(data: any) {
 
 export async function hasSendFeedback(appointmentId?:string) {
   try {
-    const feedbacks = await getAllFeedbacks()
-    return feedbacks.some((feedback: any) => feedback.appointmentId === appointmentId)
+    var res = await fetch(`${apiUrl}/feedbacks/GetFeedbackByAppointmentId/${appointmentId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+    })
+    if (res.status >= 200 && res.status < 300) {
+      return true
+    } else {
+      return false
+    }
   } catch (e) {
-    return false
+    return []
   }
 }

@@ -12,7 +12,6 @@ dayjs.extend(timezone)
 
 dayjs.extend(customParseFormat) // Kích hoạt plugin để parse custom format
 
-
 export async function getAllCustomerRequests() {
   try {
     var res = await fetch(`${apiUrl}/requests/GetAll`, {
@@ -97,27 +96,52 @@ export async function GetEmployeeByCategoryId(categoryId: string) {
   }
 }
 
+export async function DenyRequest(id: string, managerNote: string) {
+  try {
+    var res = await fetch(`${apiUrl}/requests/DeclineRequest/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({managerNote})
+    })
+    if (res.status >= 200 && res.status < 300) {
+      toast.success('Successfully deny!')
+      setTimeout(() => window.location.reload(), 1000)
+    } else {
+      toast.error('Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false
+      })
+    }
+  } catch (e) {
+    console.error('❌ Error in AssignRequest:', e)
+    return []
+  }
+}
+
 export async function AssignRequest(request: SpaRequest, roomId: string) {
   try {
-    let parsedStartTime = null;
+    let parsedStartTime = null
 
     if (typeof request.startTime === 'string' && request.startTime.trim() !== '') {
-      const tempDate = dayjs(request.startTime, "DD/MM/YYYY HH:mm:ss", true).tz("Asia/Ho_Chi_Minh");
-      
+      const tempDate = dayjs(request.startTime, 'DD/MM/YYYY HH:mm:ss', true).tz('Asia/Ho_Chi_Minh')
+
       if (tempDate.isValid()) {
-        parsedStartTime = tempDate.format("YYYY-MM-DDTHH:mm:ssZ"); // Format chuẩn ISO với VN timezone
+        parsedStartTime = tempDate.format('YYYY-MM-DDTHH:mm:ssZ') // Format chuẩn ISO với VN timezone
       } else {
-        console.warn("❌ Invalid date format:", request.startTime);
+        console.warn('❌ Invalid date format:', request.startTime)
       }
     }
 
     const data = {
       roomId: roomId,
       ...request,
-      startTime: parsedStartTime, // Chỉ gán nếu hợp lệ
-    };
+      startTime: parsedStartTime // Chỉ gán nếu hợp lệ
+    }
 
-    console.log("🚀 ~ Sending data:", data);
+    console.log('🚀 ~ Sending data:', data)
 
     const res = await fetch(`${apiUrl}/requests/AssignRequest/${request.requestId}`, {
       method: 'PUT',
@@ -126,19 +150,19 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    });
+    })
 
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully assigned!');
-      setTimeout(() => window.location.reload(), 2000);
+      toast.success('Successfully assigned!')
+      setTimeout(() => window.location.reload(), 1000)
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
-      });
+        closeButton: false
+      })
     }
   } catch (e) {
-    console.error("❌ Error in AssignRequest:", e);
-    return [];
+    console.error('❌ Error in AssignRequest:', e)
+    return []
   }
 }

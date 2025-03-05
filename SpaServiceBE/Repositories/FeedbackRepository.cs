@@ -36,6 +36,12 @@ namespace Repositories
              .ToListAsync();
         }
 
+        public async Task<Feedback> GetByAppointmentId(string id)
+        {
+            return await _context.Feedbacks.FirstOrDefaultAsync(x => x.AppointmentId == id);
+        }
+
+
         // Lấy tất cả Feedbacks với các thực thể liên quan
         public async Task<List<Feedback>> GetAll()
         {

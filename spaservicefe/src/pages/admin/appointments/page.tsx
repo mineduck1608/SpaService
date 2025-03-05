@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import { fetchAppointments, fetchEmployees } from './appointments.util'
 import { createEventModalPlugin } from '@schedule-x/event-modal'
 
-
 function CalendarApp() {
   const [events, setEvents] = useState(() => {
     const savedEvents = sessionStorage.getItem('events')
@@ -39,9 +38,15 @@ function CalendarApp() {
     plugins: [eventModal],
   })
 
+  const handleReload = () => {
+    window.location.reload()
+  }
 
   return (
     <div style={{ minHeight: '500px' }}>
+      <button onClick={handleReload} style={{ marginBottom: '10px', padding: '8px 16px', cursor: 'pointer' }}>
+        Show appointments
+      </button>
       {loading ? (
         <p>Loading schedule...</p>
       ) : events.length > 0 ? (
