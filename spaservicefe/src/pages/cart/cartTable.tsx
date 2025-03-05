@@ -19,7 +19,7 @@ export default function CartTable() {
   }, [])
   return (
     <div className='container mx-auto w-[100%] rounded-md border bg-slate-50'>
-      <SessionContext.Provider value={{ items, setItems }}>
+      <SessionContext.Provider value={{ items, setItems, customerId: cus }}>
         <DataTable columns={columns} data={items} />
       </SessionContext.Provider>
     </div>

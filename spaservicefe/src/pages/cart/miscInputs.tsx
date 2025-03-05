@@ -1,8 +1,8 @@
 import { Checkbox } from '../../components/ui/checkbox'
 import { SessionItem } from '@/types/sessionItem'
 import { Row, Table } from '@tanstack/react-table'
-import React, { useContext, useState } from 'react'
-import { getCartItem, setCart, setCartItem } from '../cosmeticDetailPage/detailPage.util'
+import React, { useContext, useRef, useState } from 'react'
+import { getCartItem, removeCartItem, setCart, setCartItem } from '../cosmeticDetailPage/detailPage.util'
 import { SessionContext } from './context/selectedContext'
 
 export default function RowCheckBox(params: { row: Row<SessionItem> }) {
@@ -74,10 +74,10 @@ export function RemoveButton(params: { row: Row<SessionItem> }) {
   return (
     <button
       className='rounded-sm bg-purple1 p-2 text-white'
-      onClick={(e) => {
+      onClick={async (e) => {
         const x = context.items.filter((x) => x.product.productId !== productId)
         context.setItems(x)
-        setCart(x)
+        await removeCartItem(params.row.original.id ?? '')
       }}
     >
       Remove
@@ -90,8 +90,13 @@ export function AmountButton(params: { row: Row<SessionItem> }) {
   const item = params.row.original
   const entry = context.items.findIndex((x) => x.product.productId === params.row.original.product.productId)
   const [amount, setAmount] = useState(item.amount)
+  const inputRef = useRef<HTMLInputElement>(null)
+  inputRef?.current?.addEventListener('blur', (e) => {
+    
+  })
   return (
     <input
+      ref={inputRef}
       className='border-[1px] p-1'
       type='number'
       value={amount}

@@ -11,13 +11,13 @@ export type CartCosmeticProduct = {
   id: string
   customerId: string
   productId: string
-  cosmeticProduct: CosmeticProduct
+  product: CosmeticProduct
   quantity: number
 }
 
 export function toSessionItem(c: CartCosmeticProduct): SessionItem {
   return {
-    product: c.cosmeticProduct,
+    product: c.product,
     amount: c.quantity,
     included: true,
     id: c.id

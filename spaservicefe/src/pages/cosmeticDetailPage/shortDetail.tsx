@@ -33,6 +33,7 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
       return
     }
     setCartItem(cus, params.d.productId, amount)
+    toast.success(`Added ${amount} item(s)`)
   }
 
   return (

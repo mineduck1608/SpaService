@@ -19,11 +19,13 @@ import dayjs from 'dayjs'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
+  const cus = sessionStorage.getItem('customerId') ?? ''
+  const now = dayjs()
   const [emp, setEmp] = useState<Employee[]>([])
   const [codes, setCodes] = useState<Map<string, string | Promotion>>(new Map<string, string | Promotion>())
   const [req, setReq] = useState<SpaRequestModel>({
     active: 0,
-    customerId: '',
+    customerId: cus,
     customerNote: '',
     promotionCode: '',
     serviceId: booked.serviceId,
@@ -33,12 +35,10 @@ export default function CheckoutPage() {
   const [checked, setChecked] = useState(false)
   const [membership, setMembership] = useState<Membership>()
   const { TextArea } = Input
-  const now = dayjs()
   const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
-  const cus = sessionStorage.getItem('customerId')
   useEffect(() => {
     async function fetchData() {
       var s = await getEmployees(booked.categoryId)
@@ -47,23 +47,24 @@ export default function CheckoutPage() {
         return
       }
       setEmp(s)
-      const membership = await getMembership(cus ?? '')
+      const membership = await getMembership(cus)
       if (typeof membership === 'string') {
         toast.error(membership)
         return
       }
-      setMembership(membership ?? { discount: 0, membershipId: '', totalPayment: 0, type: '' })
+      if (membership?.membershipId) {
+        setMembership(membership ?? { discount: 0, membershipId: '', totalPayment: 0, type: '' })
+      }
     }
     try {
       fetchData()
-    } catch (e) {}
+    } catch (e) { }
   }, [])
   async function onSubmitBase(method: string) {
     try {
       var req2 = { ...req }
       req2.startTime = req2.startTime.add(7, 'h')
       var s = await submitRequest(req2)
-      console.log(req2)
       if (s.msg) {
         toast.error(s.msg)
         return false
@@ -77,11 +78,10 @@ export default function CheckoutPage() {
           membership?.membershipId
         )
         if (y.transactionId) {
-          //State is stupid
           sessionStorage.setItem('trId', y.transactionId)
           return true
         }
-        toast.error(req2.msg)
+        toast.error(y.msg)
         return false
       }
       toast.error(s)

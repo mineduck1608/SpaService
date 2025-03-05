@@ -21,10 +21,13 @@ export async function getCart(customerId: string) {
   try {
     var resp = await fetch(`${apiUrl}/cartcosmeticproducts/GetByCustomerId/${customerId}`)
     if (resp.ok) {
-      var data = (await resp.json()) as CartCosmeticProduct[]
-      return data.map(v => toSessionItem(v))
+      var data = (await resp.json())
+      return (data as CartCosmeticProduct[]).map(v => toSessionItem(v))
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+    
+  }
 }
 export function setCart(items: SessionItem[]) {
   sessionStorage.setItem('cart', JSON.stringify(items))
@@ -40,7 +43,9 @@ export async function getCartItem(customerId: string, productId: string) {
 }
 export async function removeCartItem(entry: string) {
   try {
-    await fetch(`${apiUrl}/cartcosmeticproducts/Delete/${entry}`)
+    await fetch(`${apiUrl}/cartcosmeticproducts/Delete/${entry}`, {
+      method: 'delete'
+    })
   } catch (e) {}
 }
 export async function setCartItem(customerId: string, productId: string, quantity: number) {

@@ -9,6 +9,7 @@ import { register } from './registerPage.util.ts'
 import { Tooltip } from 'react-tooltip'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
+import dayjs from 'dayjs'
 
 export default function RegisterForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({
@@ -42,9 +43,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
 
   const handleSuccess = (response: any) => {
     console.log('Login Success:', response.credential)
-    // Gửi JWT token (response.credential) tới backend để xử lý
     const user = jwtDecode(response.credential)
-    console.log('User Info:', user) // { name, email, picture, ... }
   }
 
   const handleError = () => {
@@ -179,7 +178,8 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
               disabled={
                 fetching ||
                 Object.values(data).some((value) => value.length === 0 || value === '') ||
-                data.confirmPassword !== data.password
+                data.confirmPassword !== data.password ||
+                dayjs(data.dateOfBirth).add(18, 'y').isAfter(dayjs())
               }
             >
               Sign Up
