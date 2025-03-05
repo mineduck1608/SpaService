@@ -88,7 +88,7 @@ namespace API.Controllers
 
             try
             {
-                var feedback = await _service.GetFeedbackByAppointmentId(id);
+                var feedback = await _service.GetFeedbackByServiceId(id);
 
                 if (feedback == null)
                     return NotFound($"Feedback with ID = {id} not found.");
