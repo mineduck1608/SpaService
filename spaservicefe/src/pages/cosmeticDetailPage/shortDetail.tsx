@@ -10,9 +10,9 @@ import { getCartItem, setCartItem } from './detailPage.util'
 export default function ShortDetail(params: { d?: CosmeticProduct }) {
   const CATEGORY = JSON.parse(sessionStorage.getItem('cosmeticcategories') ?? '[]') as CosmeticCategory[]
   const [amount, setAmount] = useState(1)
-
+  const cus = sessionStorage.getItem('customerId') ?? ''
   // Hàm kiểm tra và chuyển hướng
-  const addToCart = () => {
+  const addToCart = async () => {
     if (amount <= 0) {
       toast.error('Invalid amount')
       return
@@ -26,21 +26,13 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
       toast.error('Please login to continue!')
       return
     }
-    const item = getCartItem(params.d.productId)
+    const item = await getCartItem(cus, params.d.productId)
     var newAmount = (item?.amount ?? 0) + amount
     if (newAmount > params.d.quantity) {
       toast.error(`Your cart cannot have more than ${params.d.quantity} items of this product`)
       return
     }
-    if (item) {
-      setCartItem(params.d.productId, newAmount)
-      toast.success(
-        `Added ${amount} x ${params.d.productName} to cart. Cart has ${newAmount} x ${params.d.productName}`
-      )
-      return
-    }
-    setCartItem(params.d.productId, newAmount, true, params.d)
-    toast.success(`Added ${amount} x ${params.d.productName} to cart`)
+    setCartItem(cus, params.d.productId, amount)
   }
 
   return (
@@ -68,14 +60,16 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
       <p>Max: {params.d?.quantity}</p>
       <div className=''>
         {/* Add cart */}
-        <div className='mb-3 flex justify-between w-3/5'>
+        <div className='mb-3 flex w-3/5 justify-between'>
           <button
             type='submit'
             onClick={(e) => {
               addToCart()
             }} // Sử dụng hàm handleCheckout để kiểm tra token
             className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[40%]'
-          >Add to cart</button>
+          >
+            Add to cart
+          </button>
           <button
             type='submit'
             onClick={(e) => {
@@ -83,7 +77,9 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
               window.location.assign('/cosmetics-check-out')
             }} // Sử dụng hàm handleCheckout để kiểm tra token
             className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[40%]'
-          >Check out</button>
+          >
+            Check out
+          </button>
         </div>
       </div>
       <p className='text-black'>

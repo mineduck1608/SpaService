@@ -1,6 +1,6 @@
 import { CosmeticProduct } from '@/types/type'
 import { apiUrl, getToken } from '../../types/constants'
-import { SessionItem } from '@/types/sessionItem'
+import { CartCosmeticProduct, SessionItem, toSessionItem } from '../../types/sessionItem'
 
 export async function getCosmetic(id: string) {
   try {
@@ -16,40 +16,45 @@ export async function getCosmetic(id: string) {
   }
 }
 
-export function getCart() {
-  return JSON.parse(sessionStorage.getItem('cart') ?? '[]') as SessionItem[]
+export async function getCart(customerId: string) {
+  //return JSON.parse(sessionStorage.getItem('cart') ?? '[]') as SessionItem[]
+  try {
+    var resp = await fetch(`${apiUrl}/cartcosmeticproducts/GetByCustomerId/${customerId}`)
+    if (resp.ok) {
+      var data = (await resp.json()) as CartCosmeticProduct[]
+      return data.map(v => toSessionItem(v))
+    }
+  } catch (e) {}
 }
 export function setCart(items: SessionItem[]) {
   sessionStorage.setItem('cart', JSON.stringify(items))
 }
-export function getCartItem(productId: string) {
-  var cart = getCart()
-  return cart.find((x) => x.product.productId === productId)
-}
-export function removeCartItem(productId: string) {
-  var cart = getCart()
-  cart = cart.filter((x) => x.product.productId !== productId)
-  setCart(cart)
-}
-export function setCartItem(productId: string, amount?: number, included?: boolean, product?: CosmeticProduct) {
-  var cart = getCart()
-  var item = cart.findIndex((x) => x.product.productId === productId)
-  if (item === -1) {
-    if (product) {
-      cart.push({
-        amount: amount ?? 0,
-        included: included ?? false,
-        product: product
-      })
+export async function getCartItem(customerId: string, productId: string) {
+  try {
+    var resp = await fetch(`${apiUrl}/cartcosmeticproducts/GetCartItem?customerId=${customerId}&productId=${productId}`)
+    if (resp.ok) {
+      var data = (await resp.json()) as CartCosmeticProduct
+      return toSessionItem(data)
     }
-    setCart(cart)
-    return
-  }
-  if (amount) {
-    cart[item].amount = amount
-  }
-  if (!Object.is(included, undefined)) {
-    cart[item].included = included
-  }
-  setCart(cart)
+  } catch (e) {}
+}
+export async function removeCartItem(entry: string) {
+  try {
+    await fetch(`${apiUrl}/cartcosmeticproducts/Delete/${entry}`)
+  } catch (e) {}
+}
+export async function setCartItem(customerId: string, productId: string, quantity: number) {
+  try {
+    await fetch(`${apiUrl}/cartcosmeticproducts/Create`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        customerId,
+        productId,
+        quantity
+      })
+    })
+  } catch (e) {}
 }

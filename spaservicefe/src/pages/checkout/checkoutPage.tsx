@@ -1,13 +1,10 @@
 import { Service } from '../../types/services.ts'
 import { FormEvent, useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
-import { SpaRequest } from '@/types/request.ts'
-import { Input, DatePicker } from 'antd'
+import { Input } from 'antd'
 import {
   createTransaction,
   getPromoByCode,
-  getCusByAcc,
-  getCustomerIdByAcc,
   getEmployees,
   getPaymentUrl,
   submitRequest,
@@ -41,6 +38,7 @@ export default function CheckoutPage() {
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
+  const cus = sessionStorage.getItem('customerId')
   useEffect(() => {
     async function fetchData() {
       var s = await getEmployees(booked.categoryId)
@@ -49,10 +47,6 @@ export default function CheckoutPage() {
         return
       }
       setEmp(s)
-      const cus = await getCustomerIdByAcc()
-      if (cus) {
-        setReq({ ...req, customerId: cus })
-      }
       const membership = await getMembership(cus ?? '')
       if (typeof membership === 'string') {
         toast.error(membership)

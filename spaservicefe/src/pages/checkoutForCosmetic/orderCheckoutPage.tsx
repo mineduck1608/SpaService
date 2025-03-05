@@ -1,17 +1,15 @@
-import { Service } from '../../types/services.ts'
 import { FormEvent, useEffect, useState } from 'react'
 import ProductList from './productList.tsx'
 import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
-import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
-import { getPromoByCode, getCusByAcc, getCustomerIdByAcc, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
+import { getPromoByCode, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
 import { getCart } from '../cosmeticDetailPage/detailPage.util.ts'
 import { createOrder } from './checkoutPage.util.ts'
 import { Promotion } from '@/types/type.ts'
+import { SessionItem } from '@/types/sessionItem.ts'
 
 export default function CosmeticCheckoutPage() {
-  const cart = getCart().filter((x) => x.included)
   const [checked, setChecked] = useState(false)
   const [codes, setCodes] = useState<Map<string, string | Promotion>>(new Map<string, string | Promotion>())
   const [data, setData] = useState({
@@ -23,25 +21,28 @@ export default function CosmeticCheckoutPage() {
     promotionCode: '',
     active: 0
   })
+  const [cart, setCart] = useState<SessionItem[]>([])
+  const cus = sessionStorage.getItem('customerId')
   useEffect(() => {
     async function fetchData() {
       var t = getToken()
       if (!t) {
         return
       }
-      var x = jwtDecode(t ?? '')
-      var c = await getCusByAcc(x.UserId)
+      var cart = await getCart(cus ?? '')
+      if (cart) {
+        setCart(cart)
+      }
     }
     try {
       fetchData()
-    } catch (e) { }
+    } catch (e) {}
   }, [])
   async function onSubmitBase(method: string) {
     try {
-      const customerId = await getCustomerIdByAcc()
       const result = await createOrder({
         address: data.address,
-        customerId: customerId ?? '',
+        customerId: cus ?? '',
         orderDate: new Date(),
         paymentType: method,
         promotionCode: data.promotionCode,
@@ -52,7 +53,7 @@ export default function CosmeticCheckoutPage() {
           }
         }),
         phone: data.orderOnBehalf ? data.phone : undefined,
-        recepientName: data.orderOnBehalf ? data.fullName : undefined,
+        recepientName: data.orderOnBehalf ? data.fullName : undefined
       })
 
       return result
@@ -68,12 +69,11 @@ export default function CosmeticCheckoutPage() {
       if (s) {
         if (s.success) {
           toast.success('Order submitted')
-          sessionStorage.removeItem('cart')
           return
         }
         toast.error(s.rs)
       }
-    } catch (e) { }
+    } catch (e) {}
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
@@ -207,7 +207,8 @@ export default function CosmeticCheckoutPage() {
                     disabled={!data.orderOnBehalf}
                     onChange={(e) => {
                       setData({ ...data, phone: e.target.value })
-                    }} />
+                    }}
+                  />
                 </label>
               </div>
             </div>
