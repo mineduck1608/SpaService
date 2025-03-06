@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { IoIosStar } from 'react-icons/io'
 import { getFeedbackByServiceAndCus, handleUpdateSubmit } from '../serviceDetailPage/detailPage.util'
-import { getCustomerIdByAcc } from '../checkout/checkoutPage.util'
 import { Appointment } from '@/types/type'
 import { getFeedBackByAppointmentId } from './appointmentPage.util'
 

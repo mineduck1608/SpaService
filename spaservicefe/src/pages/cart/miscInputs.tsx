@@ -23,7 +23,7 @@ export default function RowCheckBox(params: { row: Row<SessionItem> }) {
             return c
           })
           context.setItems(x)
-          setCart(params.row.original.id ?? '', customerId, params.row.original)
+          setCart(customerId, params.row.original)
           params.row.toggleSelected(value)
           setState(value)
         }}
@@ -35,6 +35,7 @@ export default function RowCheckBox(params: { row: Row<SessionItem> }) {
 
 export function AllRowCheckBox(params: { table: Table<SessionItem> }) {
   const context = useContext(SessionContext)
+  const customerId = sessionStorage.getItem('customerId') ?? ''
   function checkAllState() {
     var count = 0
     context.items.forEach((v) => {
@@ -58,8 +59,10 @@ export function AllRowCheckBox(params: { table: Table<SessionItem> }) {
         checked={check}
         onCheckedChange={(value: boolean) => {
           context.setItems((v) => {
-            context.items.forEach((v) => (v.included = value))
-            setCart(v)
+            context.items.forEach((v) => {
+              v.included = value
+              setCart(customerId, v)
+            })
             return v
           })
           params.table.toggleAllRowsSelected(value)
@@ -91,13 +94,11 @@ export function AmountButton(params: { row: Row<SessionItem> }) {
   const item = params.row.original
   const entry = context.items.findIndex((x) => x.product.productId === params.row.original.product.productId)
   const [amount, setAmount] = useState(item.amount)
-  const inputRef = useRef<HTMLInputElement>(null)
-  inputRef?.current?.addEventListener('blur', (e) => {
-    
-  })
+  const customerId = sessionStorage.getItem('customerId') ?? ''
+  const input = useRef<HTMLInputElement>(null)
   return (
     <input
-      ref={inputRef}
+      ref={input}
       className='border-[1px] p-1'
       type='number'
       value={amount}
@@ -117,8 +118,8 @@ export function AmountButton(params: { row: Row<SessionItem> }) {
           }
           return c
         })
+        setCart(customerId, params.row.original)
         context.setItems(x)
-        setCart(x)
         setAmount(rs)
       }}
     />
