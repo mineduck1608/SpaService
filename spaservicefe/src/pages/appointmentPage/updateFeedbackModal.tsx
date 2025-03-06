@@ -27,15 +27,12 @@ const StarRating: React.FC<StarRatingProps> = ({ value, onChange }) => {
         <button
           key={star}
           type='button'
-          className='focus:outline-none p-1'
+          className='p-1 focus:outline-none'
           onMouseEnter={() => setHoverValue(star)}
           onMouseLeave={() => setHoverValue(null)}
           onClick={() => onChange(star)}
         >
-          <IoIosStar
-            size={32}
-            color={star <= (hoverValue || value) ? '#FFD700' : '#D1D5DB'}
-          />
+          <IoIosStar size={32} color={star <= (hoverValue || value) ? '#FFD700' : '#D1D5DB'} />
         </button>
       ))}
     </div>
@@ -46,10 +43,9 @@ export default function UpdateFeedbackModal({ isOpen, onClose, appointment }: Fe
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const [feedbackId, setFeedbackId] = useState<string | null>(null)
-
-  async function handleSubmit (e: React.FormEvent) {
+  const customerId = sessionStorage.getItem('customerId') ?? ''
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const customerId = await getCustomerIdByAcc()
     const feedbackData = {
       feedbackId: feedbackId,
       feedbackMessage: comment,
@@ -82,21 +78,21 @@ export default function UpdateFeedbackModal({ isOpen, onClose, appointment }: Fe
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='bg-white border-none shadow-none max-w-lg w-auto mx-auto px-12 font-montserrat'>
-        <div className='max-w-md mx-auto p-6'>
-          <h2 className='text-2xl font-bold text-center mb-6'>How was your experience?</h2>
-          <div className='flex justify-center mb-6'>
+      <DialogContent className='mx-auto w-auto max-w-lg border-none bg-white px-12 font-montserrat shadow-none'>
+        <div className='mx-auto max-w-md p-6'>
+          <h2 className='mb-6 text-center text-2xl font-bold'>How was your experience?</h2>
+          <div className='mb-6 flex justify-center'>
             <StarRating value={rating} onChange={setRating} />
           </div>
-          <h3 className='text-xl text-center mb-8 -mt-3'>
-            {rating > 0 ? 'Thank You!' : ''}
-          </h3>
+          <h3 className='-mt-3 mb-8 text-center text-xl'>{rating > 0 ? 'Thank You!' : ''}</h3>
           <div className='mb-4'>
-            <label htmlFor='comment' className='block text-lg font-medium mb-2'>Comment</label>
+            <label htmlFor='comment' className='mb-2 block text-lg font-medium'>
+              Comment
+            </label>
             <textarea
               id='comment'
               rows={5}
-              className='w-full p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500'
+              className='w-full rounded-md border border-gray-600 p-3 focus:outline-none focus:ring-2 focus:ring-yellow-500'
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             ></textarea>
@@ -106,11 +102,10 @@ export default function UpdateFeedbackModal({ isOpen, onClose, appointment }: Fe
               type='button'
               onClick={handleSubmit}
               disabled={rating === 0}
-              className={`w-1/2 py-2 text-md font-semibold rounded-md transition-colors ${
-                rating > 0
-                  ? 'bg-yellow-400 hover:bg-yellow-600 text-black'
-                  : 'bg-gray-300 cursor-not-allowed text-gray-500'
-              }`}
+              className={`text-md w-1/2 rounded-md py-2 font-semibold transition-colors ${rating > 0
+                  ? 'bg-yellow-400 text-black hover:bg-yellow-600'
+                  : 'cursor-not-allowed bg-gray-300 text-gray-500'
+                }`}
             >
               Submit
             </button>

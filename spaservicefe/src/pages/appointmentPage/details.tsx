@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Appointment, SpaRequest } from '@/types/type'
 import { DetailModal } from './detailModal'
-import { getCustomerIdByAcc } from '../checkout/checkoutPage.util'
 import { hasSendFeedback } from '../serviceDetailPage/detailPage.util'
 import FeedbackModal from './feedbackModal'
 import UpdateFeedbackModal from './updateFeedbackModal'
@@ -25,7 +24,7 @@ const Details: React.FC<RequestActionsProps> = ({ request, isPast }) => {
 
   useEffect(() => {
     const checkEligibility = async () => {
-      const customerId = await getCustomerIdByAcc()
+      const customerId = sessionStorage.getItem('customerId') ?? ''
       if (customerId && request.appointmentId) {
         const feedbackExists = !!(await hasSendFeedback(request.appointmentId))
         console.log("This feedback exists: ",feedbackExists)

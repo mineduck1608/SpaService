@@ -23,7 +23,7 @@ namespace API.Controllers
         private readonly IMembershipService _membershipService;
         public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService, IPromotionService promotionService)
         {
-            _promotionService = promotionService; 
+            _promotionService = promotionService;
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _requestService = requestService;
             _serviceTransactionService = serviceTransactionService;
@@ -83,7 +83,8 @@ namespace API.Controllers
                 string paymentType = jsonElement.GetProperty("paymentType").GetString();
                 float totalPrice = jsonElement.GetProperty("totalPrice").GetSingle();
                 var code = jsonElement.TryGetProperty("promotionCode", out var promoCode) ? promoCode.GetString() : null;
-
+                jsonElement.TryGetProperty("membershipId", out var membershipId);
+                float promoValue = 0, membershipValue = 0;
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0)
                 {
@@ -94,7 +95,6 @@ namespace API.Controllers
                 {
                     TransactionId = Guid.NewGuid().ToString(), // Generate unique ID
                     TransactionType = transactionType,
-                    TotalPrice = totalPrice,
                     Status = false,
                     PaymentType = paymentType
                 };
@@ -107,25 +107,17 @@ namespace API.Controllers
                     {
                         return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
                     }
-
-                    transaction.TotalPrice *= (100 - promo.DiscountValue) / 100;
+                    promoValue = promo.DiscountValue;
                     transaction.PromotionId = promo.PromotionId;
                 }
-
                 // Gọi service để thêm transaction
-                var isCreated = await _service.Add(transaction);
-
-                if (!isCreated)
-                {
-                    return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
-                }
+                ServiceTransaction serviceTrans = null;
 
                 if (transactionType == "Service")
                 {
                     string reqId = jsonElement.GetProperty("requestId").GetString();
-                    jsonElement.TryGetProperty("membershipId", out var membershipId);
 
-                    var serviceTrans = new ServiceTransaction
+                    serviceTrans = new ServiceTransaction
                     {
                         RequestId = reqId,
                         ServiceTransactionId = Guid.NewGuid().ToString(),
@@ -135,11 +127,25 @@ namespace API.Controllers
                     if (membershipId.ValueKind != JsonValueKind.Undefined)
                     {
                         serviceTrans.MembershipId = membershipId.GetString();
+                        var membership = await _membershipService.GetMembershipById(serviceTrans.MembershipId);
+                        if (membership == null)
+                        {
+                            return BadRequest(new { msg = "Membership not found" });
+                        }
+                        membershipValue = membership.Discount;
                     }
-
+                }
+                totalPrice = (100 - (membershipValue + promoValue)) / 100 * totalPrice;
+                transaction.TotalPrice = totalPrice;
+                var isCreated = await _service.Add(transaction);
+                if (serviceTrans != null)
+                {
                     await _serviceTransactionService.Add(serviceTrans);
                 }
-
+                if (!isCreated)
+                {
+                    return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
+                }
                 return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
             }
             catch (Exception ex)
@@ -185,15 +191,15 @@ namespace API.Controllers
                 //cap nhat membership neu la loai service va da thanh toan
                 if (transactionType == "Service" && status == true)
                 {
-                   var serviceTransaction = await _serviceTransactionService.GetByTransId(id);
-                    if (serviceTransaction == null) 
-                    { 
-                    return BadRequest(new {msg=$"serviceTransaction with id {id} not found."});
+                    var serviceTransaction = await _serviceTransactionService.GetByTransId(id);
+                    if (serviceTransaction == null)
+                    {
+                        return BadRequest(new { msg = $"serviceTransaction with id {id} not found." });
                     }
                     var membership = await _membershipService.GetMembershipById(serviceTransaction.MembershipId);
                     if (membership == null)
                     {
-                    return BadRequest(new { msg = $"Membership with id {serviceTransaction.MembershipId} not found."});
+                        return BadRequest(new { msg = $"Membership with id {serviceTransaction.MembershipId} not found." });
                     }
                     membership.TotalPayment += totalPrice;
                     await _membershipService.UpdateMembership(membership.MembershipId, membership);

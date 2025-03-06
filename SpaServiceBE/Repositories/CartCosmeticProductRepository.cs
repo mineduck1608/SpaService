@@ -27,7 +27,7 @@ namespace Repositories
 
         public async Task<List<CartCosmeticProduct>> GetByCustomerId(string customerId)
         {
-            return await _context.CartCosmeticProducts.Where(c => c.CustomerId == customerId).ToListAsync();
+            return await _context.CartCosmeticProducts.Include(x => x.Product).Where(c => c.CustomerId == customerId).ToListAsync();
         }
 
         public async Task CreateCartCosmeticProduct(CartCosmeticProduct cartCosmeticProduct)

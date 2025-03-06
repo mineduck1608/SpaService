@@ -16,6 +16,9 @@ import Autoplay from 'embla-carousel-autoplay'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 import { roleJWT } from '../../types/constants'
+import { RoleName } from '../../types/role'
+import { getCusByAcc } from '../checkout/checkoutPage.util'
+import { Customer } from '@/types/type'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({ username: '', password: '' })
@@ -33,6 +36,13 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         var jwtData = jwtDecode(token)
         const role = jwtData[roleJWT] as string
         toast.success('Login success.')
+        if (role === RoleName.CUSTOMER) {
+          const getCusId = await getCusByAcc(jwtData['UserId'] as string)
+          const asCustomer = getCusId as Customer
+          if (asCustomer.customerId) {
+            sessionStorage.setItem('customerId', asCustomer.customerId)
+          }
+        }
         window.location.assign(routeByRole(role))
       } else {
         toast.error('Login failed!')
@@ -62,6 +72,13 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         var jwtData = jwtDecode(token)
         const role = jwtData[roleJWT] as string
         toast.success('Login success.')
+        if (role === RoleName.CUSTOMER) {
+          const getCusId = await getCusByAcc(jwtData['UserId'] as string)
+          const asCustomer = getCusId as Customer
+          if (asCustomer.customerId) {
+            sessionStorage.setItem('customerId', asCustomer.customerId)
+          }
+        }
         window.location.assign(routeByRole(role))
       } else {
         toast.error('Google login failed!')

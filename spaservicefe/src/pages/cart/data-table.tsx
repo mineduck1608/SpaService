@@ -80,7 +80,7 @@ export function DataTable({ columns, data }: DataTableProps) {
           </TableHeader>
           <TableBody id='body'>
             {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} id={row.original.product.productId}>
+              <TableRow key={row.id} id={row.original.product?.productId}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                 ))}

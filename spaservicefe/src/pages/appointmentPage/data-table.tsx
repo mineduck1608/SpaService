@@ -51,6 +51,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
 
   return (
     <div className=''>
+      <h1 className="text-center text-2xl font-bold py-2">Appointments</h1>
       <div className='flex justify-end'>
         <button
           className='my-2 rounded-sm bg-purple1 p-1 text-white'
@@ -58,7 +59,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
             context.setPastBooking(!context.pastBooking)
           }}
         >
-          {context.pastBooking ? 'Upcoming' : 'Past'} Appointments
+          {!context.pastBooking ? 'Past' : 'Upcoming'} Appointments
         </button>
       </div>
       <div className='mt-2 rounded-md border bg-slate-50'>

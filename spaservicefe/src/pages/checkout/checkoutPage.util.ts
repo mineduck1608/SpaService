@@ -3,24 +3,6 @@ import { apiUrl, getToken } from '../../types/constants'
 import { Customer, Employee, Membership, Promotion } from '@/types/type'
 import { jwtDecode } from 'jwt-decode'
 
-export async function getCustomerIdByAcc() {
-  try {
-    var t = getToken()
-    if (!t) {
-      return
-    }
-    var x = jwtDecode(t ?? '')
-    var c = await getCusByAcc(x.UserId)
-    if (c.customerId) {
-      return c.customerId as string
-    }
-    return null
-  }
-  catch (e) {
-    return null
-  }
-}
-
 export async function getEmployees(id: string) {
   try {
     var s = await fetch(`${apiUrl}/employees/GetEmployeeByCategoryId/${id}`, {
@@ -28,7 +10,10 @@ export async function getEmployees(id: string) {
         Authorization: `Bearer ${sessionStorage.getItem('token')}`
       }
     })
-    return (await s.json()) as Employee[]
+    if (s.ok) {
+      return (await s.json()) as Employee[]
+    }
+    return await s.text()
   } catch (e) {
     return []
   }
@@ -67,14 +52,21 @@ export async function getPaymentUrl(txnId: string) {
   }
 }
 
-export async function createTransaction(method: string, price: number, requestId: string, promoCode?: string) {
+export async function createTransaction(
+  method: string,
+  price: number,
+  requestId: string,
+  promoCode?: string,
+  membershipId?: string
+) {
   var tmp = {
     paymentType: method,
     transactionType: 'Service',
     totalPrice: price,
     status: false,
     requestId: requestId,
-    promotionCode: promoCode
+    promotionCode: promoCode,
+    membershipId: membershipId
   }
   try {
     var s = await fetch(`${apiUrl}/transactions/Create`, {
@@ -103,7 +95,7 @@ export async function getCusByAcc(id: string) {
     if (c.ok) {
       return (await c.json()) as Customer
     }
-    return await c.json()
+    return (await c.json()) as { mg: string }
   } catch (e) {
     return "Couldn't connect to server"
   }
@@ -124,13 +116,17 @@ export async function getPromoByCode(code: string) {
   }
 }
 
-export async function getMembership(cusId: string){
-  try{
+export async function getMembership(cusId: string) {
+  try {
     const resp = await fetch(`${apiUrl}/customermemberships/GetByCustomerId/${cusId}`)
-    const data = await resp.json()
-    return data.membership as Membership
-  }
-  catch(e){
+    if (resp.status === 200) {
+      const data = await resp.json()
+      return data.membership as Membership
+    }
+    return null
+  } catch (e) {
+    console.log(e)
+
     return "Couldn't connect to server"
   }
 }

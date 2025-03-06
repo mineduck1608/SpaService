@@ -1,18 +1,16 @@
 import { Service } from '../../types/services.ts'
 import { FormEvent, useEffect, useState } from 'react'
 import ServiceOverview from './serviceOverview.tsx'
-import { SpaRequest } from '@/types/request.ts'
-import { Input, DatePicker } from 'antd'
+import { Input } from 'antd'
 import {
   createTransaction,
   getPromoByCode,
-  getCusByAcc,
-  getCustomerIdByAcc,
   getEmployees,
   getPaymentUrl,
-  submitRequest
+  submitRequest,
+  getMembership
 } from './checkoutPage.util.ts'
-import { Employee, Promotion } from '@/types/type.ts'
+import { Employee, Membership, Promotion } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
 import { toast, ToastContainer } from 'react-toastify'
 import { ServiceCheckoutContext, SpaRequestModel } from './checkoutContext.tsx'
@@ -21,11 +19,13 @@ import dayjs from 'dayjs'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
+  const cus = sessionStorage.getItem('customerId') ?? ''
+  const now = dayjs()
   const [emp, setEmp] = useState<Employee[]>([])
   const [codes, setCodes] = useState<Map<string, string | Promotion>>(new Map<string, string | Promotion>())
   const [req, setReq] = useState<SpaRequestModel>({
     active: 0,
-    customerId: '',
+    customerId: cus,
     customerNote: '',
     promotionCode: '',
     serviceId: booked.serviceId,
@@ -33,8 +33,8 @@ export default function CheckoutPage() {
     employeeId: null
   })
   const [checked, setChecked] = useState(false)
+  const [membership, setMembership] = useState<Membership>()
   const { TextArea } = Input
-  const now = dayjs()
   const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true
   if (!booked.serviceId) {
     window.location.assign('/services')
@@ -42,10 +42,18 @@ export default function CheckoutPage() {
   useEffect(() => {
     async function fetchData() {
       var s = await getEmployees(booked.categoryId)
+      if (typeof s === 'string') {
+        toast.error('No employees found for this category')
+        return
+      }
       setEmp(s)
-      const cus = await getCustomerIdByAcc()
-      if (cus) {
-        setReq({ ...req, customerId: cus })
+      const membership = await getMembership(cus)
+      if (typeof membership === 'string') {
+        toast.error(membership)
+        return
+      }
+      if (membership?.membershipId) {
+        setMembership(membership ?? { discount: 0, membershipId: '', totalPayment: 0, type: '' })
       }
     }
     try {
@@ -57,19 +65,23 @@ export default function CheckoutPage() {
       var req2 = { ...req }
       req2.startTime = req2.startTime.add(7, 'h')
       var s = await submitRequest(req2)
-      console.log(req2)
       if (s.msg) {
         toast.error(s.msg)
         return false
       }
       if (s.requestId) {
-        var y = await createTransaction(method, booked.price, s.requestId ?? '', req.promotionCode)
+        var y = await createTransaction(
+          method,
+          booked.price,
+          s.requestId ?? '',
+          req.promotionCode,
+          membership?.membershipId
+        )
         if (y.transactionId) {
-          //State is stupid
           sessionStorage.setItem('trId', y.transactionId)
           return true
         }
-        toast.error(req2.msg)
+        toast.error(y.msg)
         return false
       }
       toast.error(s)
@@ -121,10 +133,10 @@ export default function CheckoutPage() {
           toast.error(entry, {
             toastId: new Date().getTime()
           })
-          return;
+          return
         }
         setReq({ ...req, active: entry.discountValue })
-        return;
+        return
       }
       const s = await getPromoByCode(code)
       setCodes((v) => {
@@ -157,7 +169,7 @@ export default function CheckoutPage() {
         <div className='absolute left-0 right-0 top-20 z-10 mt-32 flex justify-center'>
           <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
             <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
-              <ServiceOverview s={booked} />
+              <ServiceOverview s={booked} membershipValue={membership?.discount} />
               <MainForm />
               <div className=''>
                 <label className='flex items-center justify-between'>

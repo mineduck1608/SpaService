@@ -20,13 +20,13 @@ export const columns: ColumnDef<SessionItem>[] = [
     accessorKey: 'product Image',
     header: 'Image',
     cell: ({ row }) => (
-      <img 
-        src={row.original.product.image} 
-        alt={'Image of ' + row.original.product.productName} 
+      <img
+        src={row.original.product.image}
+        alt={'Image of ' + row.original.product.productName}
         style={{ width: '200px', height: '200px', objectFit: 'cover' }}
       />
     )
-  },  
+  },
   {
     accessorKey: 'price',
     header: 'Price',
@@ -45,9 +45,7 @@ export const columns: ColumnDef<SessionItem>[] = [
   {
     accessorKey: 'other',
     header: '',
-    cell: ({ row }) => (
-      <RemoveButton row={row} />
-    )
+    cell: ({ row }) => <RemoveButton row={row} />
   }
   // {
   //   id: 'actions',
