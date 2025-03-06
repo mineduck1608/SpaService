@@ -29,8 +29,22 @@ export async function getCart(customerId: string) {
     
   }
 }
-export function setCart(items: SessionItem[]) {
-  sessionStorage.setItem('cart', JSON.stringify(items))
+export async function setCart(customerId: string, item: SessionItem) {
+  var body = {
+    customerId,
+    quantity: item.amount,
+    productId: item.product.productId,
+    included: item.included
+  }
+  try {
+    await fetch(`${apiUrl}/cartcosmeticproducts/Update/${item.id}`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+  } catch (e) {}
 }
 export async function getCartItem(customerId: string, productId: string) {
   try {

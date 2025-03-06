@@ -7,6 +7,7 @@ import { SessionContext } from './context/selectedContext'
 
 export default function RowCheckBox(params: { row: Row<SessionItem> }) {
   const context = useContext(SessionContext)
+  const customerId = sessionStorage.getItem('customerId') ?? ''
   const entry = context.items.findIndex((x) => x.product.productId === params.row.original.product.productId)
   const [state, setState] = useState(context.items[entry].included)
   return (
@@ -22,7 +23,7 @@ export default function RowCheckBox(params: { row: Row<SessionItem> }) {
             return c
           })
           context.setItems(x)
-          setCart(x)
+          setCart(params.row.original.id ?? '', customerId, params.row.original)
           params.row.toggleSelected(value)
           setState(value)
         }}

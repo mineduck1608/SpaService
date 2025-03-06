@@ -23,12 +23,16 @@ export default function CosmeticCheckoutPage() {
   })
   const [cart, setCart] = useState<SessionItem[]>([])
   const cus = sessionStorage.getItem('customerId')
+  console.log(cus);
+  
   useEffect(() => {
     async function fetchData() {
       var t = getToken()
       if (!t) {
         return
       }
+      console.log('get cart');
+      
       var cart = await getCart(cus ?? '')
       if (cart) {
         setCart(cart)
@@ -36,7 +40,10 @@ export default function CosmeticCheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+      
+    }
   }, [])
   async function onSubmitBase(method: string) {
     try {

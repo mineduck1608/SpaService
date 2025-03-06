@@ -74,7 +74,6 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
           <button
             type='submit'
             onClick={(e) => {
-              addToCart()
               window.location.assign('/cosmetics-check-out')
             }} // Sử dụng hàm handleCheckout để kiểm tra token
             className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[40%]'
