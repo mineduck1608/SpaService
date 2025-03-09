@@ -28,7 +28,7 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
   const [updatedAppointment, setUpdatedAppointment] = useState<Appointment>(appointment)
   const [employees, setEmployees] = useState<Employee[]>([])
   const [rooms, setRooms] = useState<Room[]>([])
-  const [selectedRoomId, setSelectedRoomId] = useState<string>('')
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,12 +46,12 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
   }, [isOpen])
 
   const handleChange = (field: string, value: string) => {
-    if(value != '')
-    setUpdatedAppointment((prevState) => ({
-      ...prevState,
-      [field]: value
-    }))
-    else{
+    if (value != '')
+      setUpdatedAppointment((prevState) => ({
+        ...prevState,
+        [field]: value
+      }))
+    else {
       setUpdatedAppointment((prevState) => ({
         ...prevState,
         [field]: appointment.employeeId
@@ -59,17 +59,11 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
     }
   }
 
-  const handleRoomChange = (value: string) => {
-  if(value)
-    setSelectedRoomId(value)
 
-  else{
-    setSelectedRoomId(appointment.roomId)
-  }
-  }
 
   const handleSave = () => {
-    onSave(updatedAppointment, selectedRoomId)
+    onSave(updatedAppointment, updatedAppointment.roomId)
+    console.log(updatedAppointment, updatedAppointment.roomId)
     onClose()
   }
 
@@ -122,8 +116,8 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
             </Label>
             <select
               id='roomId'
-              value={selectedRoomId || appointment.roomId}
-              onChange={(e) => handleRoomChange(e.target.value)}
+              value={updatedAppointment.roomId || appointment.roomId}
+              onChange={(e) => handleChange('roomId', e.target.value)}
               className='col-span-3 rounded-lg border p-2'
             >
               <option value=''>Select Room</option>
