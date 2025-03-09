@@ -20,8 +20,10 @@ namespace SpaServiceBE.Controllers
         private readonly ICustomerMembershipService _customerMembershipService;
         private readonly IMembershipService _membershipService;
         private readonly IPromotionService _promotionService;
-        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService)
+        private readonly ICartCosmeticProductService _cartCosmeticProductService;
+        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService, ICartCosmeticProductService cartCosmeticProductService)
         {
+            _cartCosmeticProductService = cartCosmeticProductService;
             _cosmeticProductService = cosmeticProductService;
             _orderService = orderService;
             _cosmeticProductService = cosmeticProductService;
@@ -62,7 +64,7 @@ namespace SpaServiceBE.Controllers
                 {
                     return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
                 }
-                if(orderRequest.Details.Count == 0)
+                if (orderRequest.Details.Count == 0)
                 {
                     return BadRequest(new { msg = "Empty cart" });
                 }
@@ -76,7 +78,7 @@ namespace SpaServiceBE.Controllers
                 foreach (var product in orderRequest.Details)
                 {
                     var stockItem = products[product.ProductId];
-                    if(product.Quantity <= 0)
+                    if (product.Quantity <= 0)
                     {
                         return BadRequest(new { msg = $"Item {stockItem.ProductName} has invalid amount" });
                     }
@@ -92,7 +94,16 @@ namespace SpaServiceBE.Controllers
                 string orderId = Guid.NewGuid().ToString("N");
                 string transactionId = Guid.NewGuid().ToString("N");
                 string cosmeticTransactionId = Guid.NewGuid().ToString("N");
-
+                var transaction = new Transaction
+                {
+                    TransactionId = transactionId,
+                    TransactionType = "Product",
+                    PaymentType = orderRequest.PaymentType,
+                    PromotionId = promo?.PromotionId,
+                    Status = false,
+                    TotalPrice = (float)total,
+                };
+                await _transactionService.Add(transaction);
                 var order = new Order
                 {
                     OrderId = orderId,
@@ -115,20 +126,11 @@ namespace SpaServiceBE.Controllers
                         OrderId = orderId,
                         Quantity = product.Quantity,
                         SubTotalAmount = (float)detailMap[product.ProductId],
-                        
+
                     };
                     await _orderDetailService.Create(orderDetail);
                 }
-                var transaction = new Transaction
-                {
-                    TransactionId = transactionId,
-                    TransactionType = "Product",
-                    PaymentType = orderRequest.PaymentType,
-                    PromotionId = promo?.PromotionId,
-                    Status = false,
-                    TotalPrice = (float)total,
-                };
-                await _transactionService.Add(transaction);
+
 
                 // Create CosmeticTransaction before Order due to the foreign key constraint
                 var cosmeticTransaction = new CosmeticTransaction
@@ -145,7 +147,10 @@ namespace SpaServiceBE.Controllers
                     stockItem.Quantity -= product.Quantity;
                     await _cosmeticProductService.Update(stockItem);
                 }
-
+                if (orderRequest.PaymentType == "Cash")
+                {
+                    _cartCosmeticProductService.ClearCart(customer.CustomerId);
+                }
                 return Ok(new { id = orderId, total, transactionId });
             }
             catch (Exception ex)
@@ -204,6 +209,7 @@ namespace SpaServiceBE.Controllers
                 };
 
                 var isUpdated = await _orderService.UpdateOrderAsync(id, order);
+
                 if (!isUpdated)
                     return NotFound(new { msg = $"Order with ID = {id} not found." });
 
@@ -239,7 +245,7 @@ namespace SpaServiceBE.Controllers
 
                 // Update the order status to true
                 order.Status = true;
-                
+
                 // Update the order in the database
                 var isUpdated = await _orderService.UpdateOrderAsync(orderId, order);
                 if (!isUpdated)

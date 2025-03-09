@@ -13,7 +13,7 @@ public partial class CartCosmeticProduct
 
     public int Quantity { get; set; }
 
-    public bool? Included { get; set; }
+    public bool? Included { get; set; } = null!;
 
     public virtual Customer Customer { get; set; } = null!;
 

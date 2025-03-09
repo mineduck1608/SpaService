@@ -132,6 +132,10 @@ namespace API.Controllers
                 {
                     return BadRequest(new { msg = "The Start should be booked within 1 month." });
                 }
+                if (startTime.Hour < 8)
+                {
+                    return BadRequest(new { msg = "Spa isn't open at this hour" });
+                }
                 //handle duration
                 if (endTime.Hour > 22)
                 {

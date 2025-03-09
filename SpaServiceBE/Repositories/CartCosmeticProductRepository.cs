@@ -51,5 +51,12 @@ namespace Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public void ClearCart(string customerId)
+        {
+            var cart = _context.CartCosmeticProducts.Where(x => x.CustomerId == customerId).ToList();
+            _context.CartCosmeticProducts.RemoveRange(cart);
+            _context.SaveChanges();
+        }
     }
 }

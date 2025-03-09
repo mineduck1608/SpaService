@@ -79,7 +79,8 @@ namespace SpaServiceBE.Controllers
                     Id = Guid.NewGuid().ToString("N"), // Generate unique ID
                     CustomerId = customerId,
                     ProductId = productId,
-                    Quantity = quantity
+                    Quantity = quantity,
+                    Included = true,
                 };
 
                 // Call service to add cart cosmetic product
@@ -104,6 +105,7 @@ namespace SpaServiceBE.Controllers
                 string customerId = jsonElement.GetProperty("customerId").GetString();
                 string productId = jsonElement.GetProperty("productId").GetString();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
+                bool included = jsonElement.GetProperty("included").GetBoolean();
 
                 // Validate input
                 if (string.IsNullOrEmpty(customerId) || string.IsNullOrEmpty(productId) || quantity <= 0)
@@ -117,7 +119,8 @@ namespace SpaServiceBE.Controllers
                     Id = id, // Use provided ID for update
                     CustomerId = customerId,
                     ProductId = productId,
-                    Quantity = quantity
+                    Quantity = quantity,
+                    Included = included
                 };
 
                 // Call service to update cart cosmetic product

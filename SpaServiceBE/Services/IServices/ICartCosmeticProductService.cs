@@ -12,5 +12,6 @@ namespace Services.IServices
         Task<bool> UpdateCartCosmeticProduct(CartCosmeticProduct cartCosmeticProduct);
         Task DeleteCartCosmeticProduct(string id);
         Task<List<CartCosmeticProduct>> GetByCustomerId(string customerId);
+        void ClearCart(string customerId);
     }
 }

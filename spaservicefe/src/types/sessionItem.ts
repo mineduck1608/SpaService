@@ -12,14 +12,15 @@ export type CartCosmeticProduct = {
   customerId: string
   productId: string
   product: CosmeticProduct
-  quantity: number
+  quantity: number,
+  included: boolean
 }
 
 export function toSessionItem(c: CartCosmeticProduct): SessionItem {
   return {
     product: c.product,
     amount: c.quantity,
-    included: true,
+    included: c.included,
     id: c.id
   }
 }
