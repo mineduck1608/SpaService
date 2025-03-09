@@ -92,7 +92,16 @@ namespace SpaServiceBE.Controllers
                 string orderId = Guid.NewGuid().ToString("N");
                 string transactionId = Guid.NewGuid().ToString("N");
                 string cosmeticTransactionId = Guid.NewGuid().ToString("N");
-
+                var transaction = new Transaction
+                {
+                    TransactionId = transactionId,
+                    TransactionType = "Product",
+                    PaymentType = orderRequest.PaymentType,
+                    PromotionId = promo?.PromotionId,
+                    Status = false,
+                    TotalPrice = (float)total,
+                };
+                await _transactionService.Add(transaction);
                 var order = new Order
                 {
                     OrderId = orderId,
@@ -103,6 +112,7 @@ namespace SpaServiceBE.Controllers
                     TotalAmount = (float)total,
                     RecepientName = name,
                     Phone = phone,
+                    TransactionId = transactionId,
                 };
                 await _orderService.AddOrderAsync(order);
                 //Order details
@@ -119,16 +129,7 @@ namespace SpaServiceBE.Controllers
                     };
                     await _orderDetailService.Create(orderDetail);
                 }
-                var transaction = new Transaction
-                {
-                    TransactionId = transactionId,
-                    TransactionType = "Product",
-                    PaymentType = orderRequest.PaymentType,
-                    PromotionId = promo?.PromotionId,
-                    Status = false,
-                    TotalPrice = (float)total,
-                };
-                await _transactionService.Add(transaction);
+                
 
                 // Create CosmeticTransaction before Order due to the foreign key constraint
                 var cosmeticTransaction = new CosmeticTransaction

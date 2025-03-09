@@ -265,7 +265,7 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("productId");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
-
+            entity.Property(e => e.Included).HasColumnName("included");
             entity.HasOne(d => d.Customer).WithMany(p => p.CartCosmeticProducts)
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

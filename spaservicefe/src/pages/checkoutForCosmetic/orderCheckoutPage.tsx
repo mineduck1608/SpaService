@@ -31,11 +31,9 @@ export default function CosmeticCheckoutPage() {
       if (!t) {
         return
       }
-      console.log('get cart');
-      
       var cart = await getCart(cus ?? '')
       if (cart) {
-        setCart(cart)
+        setCart(cart.filter(x => x.included))
       }
     }
     try {
