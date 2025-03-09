@@ -14,6 +14,7 @@ import { MoreHorizontal } from 'lucide-react'
 import UpdateEmployeeModal from './employeeUpdateModal'
 import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './employee.util'
+import EmployeeStatisticModal from './employeeStatisticModal'
 
 interface EmployeeActionsProps {
   employee: Employee
@@ -21,14 +22,16 @@ interface EmployeeActionsProps {
 
 const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [isStatisticModalOpen, setStatisticModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
+
+  const openStatisticModal = () => setStatisticModalOpen(true)
+  const closeStatisticModal = () => setStatisticModalOpen(false)
 
   const openDeleteModal = () => setDeleteModalOpen(true)
   const closeDeleteModal = () => setDeleteModalOpen(false)
 
-  const openUpdateModal = () => {
-    setUpdateModalOpen(true)
-  }
+  const openUpdateModal = () => setUpdateModalOpen(true)
   const closeUpdateModal = () => setUpdateModalOpen(false)
 
   const handleConfirmDelete = async () => {
@@ -47,17 +50,17 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employee.employeeId)}>
-            {' '}
-            Copy employee ID
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employee.employeeId)}>Copy employee ID</DropdownMenuItem>
+          <DropdownMenuItem onClick={openStatisticModal} className='cursor-pointer'>View statistics</DropdownMenuItem>
+
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem>
+
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <EmployeeStatisticModal isOpen={isStatisticModalOpen} onClose={closeStatisticModal} employee={employee}/>
       <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

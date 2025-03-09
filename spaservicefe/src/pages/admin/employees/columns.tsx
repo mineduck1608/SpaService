@@ -2,8 +2,8 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
-import EmployeeActions from './employeeAction' // Đổi tên thành EmployeeActions
-import { Employee } from '@/types/type' // Cập nhật kiểu dữ liệu từ Customer thành Employee
+import EmployeeActions from './employeeAction'
+import { Employee } from '@/types/type'
 
 export const columns: ColumnDef<Employee>[] = [
   {
