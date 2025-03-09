@@ -1,42 +1,39 @@
 import { TrendingUp } from 'lucide-react'
-import { Line, LineChart, XAxis, CartesianGrid } from 'recharts'
+import { Line, LineChart, XAxis, CartesianGrid, YAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
 import { lineChartData, lineChartConfig } from './chart.util'
+import { array } from 'zod'
+import { lineChartXAxis } from '../../pages/admin/dashboard/dashboard.util'
 
-export function LineChartComp() {
+export function LineChartComp(params: { array: number[] }) {
+  const data = lineChartXAxis(params.array)
   return (
     <Card className='w-full'>
       <CardHeader>
-        <CardTitle>Website Views</CardTitle>
-        <CardDescription>
+        <CardTitle>Revenue this year</CardTitle>
+        {/* <CardDescription>
           <div className='flex items-center gap-2 text-2xl font-semibold'>
             1,194 <TrendingUp className='h-5 w-5' />
           </div>
-        </CardDescription>
-        <CardDescription className='text-base text-green-500'>+ 20.1% from last month</CardDescription>
+        </CardDescription> */}
+        {/* <CardDescription className='text-base text-green-500'>+ 20.1% from last month</CardDescription> */}
       </CardHeader>
       <CardContent>
         <ChartContainer config={lineChartConfig}>
           <LineChart
             accessibilityLayer
-            data={lineChartData}
+            data={data}
             margin={{
-              left: 12,
-              right: 12
+              left: 6,
+              right: 6
             }}
           >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey='month'
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
+            <XAxis dataKey='month' tickLine={true} axisLine={true} tickMargin={5} />
+            <YAxis dataKey={'revenue'} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Line
-              dataKey='views'
+              dataKey='revenue'
               type='linear'
               stroke='var(--color-views)'
               strokeWidth={2}

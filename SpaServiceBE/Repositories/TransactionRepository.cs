@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
 using Repositories.Context;
+using System.Diagnostics;
 
 namespace Repositories
 {
@@ -94,5 +95,32 @@ namespace Repositories
              .SumAsync(t => t.TotalPrice);
         }
 
+        public async Task<IEnumerable<float>> OrderByMonth()
+        {
+            var now = DateTime.Now;
+            var lower = now.AddYears(-1);
+            var month = now.Month;
+            var year = now.Year;
+            Debug.WriteLine($"{month} {year}");
+            //Get trans 1 year from now
+            var trans = _context.Transactions.Where(t => 
+            t.Status == true 
+            && (t.CompleteTime != null && ((DateTime) t.CompleteTime) >= lower)
+            ).Select(x => new 
+            {
+                m = x.CompleteTime.GetValueOrDefault().Month, 
+                y = x.CompleteTime.GetValueOrDefault().Year - year + 1, 
+                t = x.TotalPrice,
+            });
+            var buckets = new float[13];
+            //Group the transactions by month/year
+            foreach ( var t in trans)
+            {
+                Debug.WriteLineIf(t.m == 3, $"{t.m}, {t.y} => {(t.m + (t.y == 1 ? 12 : 0) - month) % 13}");
+                int index = t.m + (t.y == 1 ? 12 : 0) - month;
+                buckets[index % 13] += t.t;
+            }
+            return buckets;
+        }
     }
 }
