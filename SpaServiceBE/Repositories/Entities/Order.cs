@@ -25,7 +25,6 @@ public partial class Order
 
     public virtual ICollection<CosmeticTransaction> CosmeticTransactions { get; set; } = new List<CosmeticTransaction>();
 
-    public virtual ICollection<CosmeticTransaction> CosmeticTransactions { get; set; } = new List<CosmeticTransaction>();
 
     public virtual Customer Customer { get; set; } = null!;
 
