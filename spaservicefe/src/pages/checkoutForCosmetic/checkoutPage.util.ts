@@ -6,8 +6,8 @@ export type OrderRequest = {
   orderDate: Date
   paymentType: string
   promotionCode?: string
-  details: OrderDetailRequest[],
-  recepientName?: string,
+  details: OrderDetailRequest[]
+  recepientName?: string
   phone?: string
 }
 export type OrderDetailRequest = {
@@ -31,4 +31,23 @@ export async function createOrder(params: OrderRequest) {
   } catch (e) {
     return { rs: "Couldn't connect to server", success: false }
   }
+}
+
+export function setCookie(cname: string, cvalue: string) {
+  document.cookie = cname + '=' + cvalue + ';'
+}
+
+export function getCookie(cname: string) {
+  let name = cname + '='
+  let ca = document.cookie.split(';')
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i]
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1)
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return ''
 }

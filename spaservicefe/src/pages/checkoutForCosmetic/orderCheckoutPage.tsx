@@ -5,9 +5,10 @@ import { getToken } from '../../types/constants.ts'
 import { toast, ToastContainer } from 'react-toastify'
 import { getPromoByCode, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
 import { getCart } from '../cosmeticDetailPage/detailPage.util.ts'
-import { createOrder } from './checkoutPage.util.ts'
+import { createOrder, setCookie } from './checkoutPage.util.ts'
 import { Promotion } from '@/types/type.ts'
 import { SessionItem } from '@/types/sessionItem.ts'
+import { ProductPayResult } from '../payResult/productPayResult.ts'
 
 export default function CosmeticCheckoutPage() {
   const [checked, setChecked] = useState(false)
@@ -24,7 +25,7 @@ export default function CosmeticCheckoutPage() {
   const [cart, setCart] = useState<SessionItem[]>([])
   const cus = sessionStorage.getItem('customerId')
   console.log(cus);
-  
+
   useEffect(() => {
     async function fetchData() {
       var t = getToken()
@@ -40,7 +41,7 @@ export default function CosmeticCheckoutPage() {
       fetchData()
     } catch (e) {
       console.log(e);
-      
+
     }
   }, [])
   async function onSubmitBase(method: string) {
@@ -78,10 +79,12 @@ export default function CosmeticCheckoutPage() {
         }
         toast.error(s.rs)
       }
-    } catch (e) {}
+    } catch (e) { }
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
+    var token = getToken() ?? ''
+    setCookie('token', token)
     try {
       var s = await onSubmitBase('VnPay')
       if (s?.total) {

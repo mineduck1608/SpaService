@@ -22,8 +22,13 @@ namespace SpaServiceBE.Controllers
         private readonly IServiceTransactionService _svTransService;
         private readonly ICosmeticTransactionService _csTransService;
         private readonly ICartCosmeticProductService _cartCosmeticProductService;
-        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService, IEmployeeService employeeService, IServiceTransactionService svTransService, ICosmeticTransactionService cosmeticTransaction, ICartCosmeticProductService cartCosmeticProductService)
+        private readonly ICosmeticTransactionService _csCosmeticTransactionService;
+        private readonly IOrderService _orderService;
+
+        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService, IEmployeeService employeeService, IServiceTransactionService svTransService, ICosmeticTransactionService cosmeticTransaction, ICartCosmeticProductService cartCosmeticProductService, ICosmeticTransactionService cosmeticTransactionService, IOrderService orderService)
         {
+            _orderService = orderService;
+            _csCosmeticTransactionService = cosmeticTransactionService;
             _csTransService = cosmeticTransaction;
             _vnPayService = vnPayService;
             _transactionService = transactionService;
@@ -58,8 +63,12 @@ namespace SpaServiceBE.Controllers
                     result = await UpdateServiceTransaction(s);
                 } else
                 {
+                    var prodTrans = await _csCosmeticTransactionService.GetByTransId(txnId);
+                    var order = await _orderService.GetOrderByIdAsync(prodTrans.OrderId);
                     result.Add("success", "True");
                     result.Add("type", "Product");
+                    result.Add("customerId", order.CustomerId);
+                    result.Add("promotionId", s.PromotionId);
                 }
                 return Redirect($"http://localhost:3000/pay-result?{Util.QueryStringFromDict(result)}");
             }
@@ -84,6 +93,7 @@ namespace SpaServiceBE.Controllers
                 rs.Add("empName", emp.FullName ?? "Did not request");
                 rs.Add("type", "Service");
                 rs.Add("success", "True");
+                rs.Add("promotionId", tr.PromotionId);
             }
             catch (Exception ex)
             {

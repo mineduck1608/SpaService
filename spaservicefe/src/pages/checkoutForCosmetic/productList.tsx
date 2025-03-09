@@ -36,7 +36,7 @@ export default function ProductList(params: { s: SessionItem[]; discountAmount?:
           {items.map((v, i) => (
             <tr className='border-purple1 *:border-[1px] *:p-3'>
               <td>{v.product.productName}</td>
-              <td>{v.product.price}</td>
+              <td>{formatNumber(v.product.price)}</td>
               <td>{formatNumber(v.amount)}</td>
               <td className={`${discount ? 'text-[#00dd00]' : ''}`}>
                 {formatNumber(applyPromo(v.product.price * v.amount))}
@@ -45,8 +45,6 @@ export default function ProductList(params: { s: SessionItem[]; discountAmount?:
           ))}
         </tbody>
       </table>
-
-      {getCart().length === 0 && <p className='mt-2'>There's nothing here...</p>}
       <div className='mt-2 flex flex-row justify-end'>
         <p className='text-xl'>
           The total amount is:&nbsp;
