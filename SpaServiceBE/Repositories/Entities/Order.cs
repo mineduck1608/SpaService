@@ -15,17 +15,15 @@ public partial class Order
 
     public bool Status { get; set; }
 
-    public string TransactionId { get; set; } = null!;
-
     public string Address { get; set; } = null!;
 
-    public string RecepientName { get; set; } = null!;
+    public string? RecepientName { get; set; }
 
-    public string Phone { get; set; } = null!;
+    public string? Phone { get; set; }
+
+    public virtual ICollection<CosmeticTransaction> CosmeticTransactions { get; set; } = new List<CosmeticTransaction>();
 
     public virtual Customer Customer { get; set; } = null!;
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
-
-    public virtual CosmeticTransaction Transaction { get; set; } = null!;
 }

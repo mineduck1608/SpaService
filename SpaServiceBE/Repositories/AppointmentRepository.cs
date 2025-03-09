@@ -20,8 +20,14 @@ namespace Repositories
         // Get an appointment by its ID
         public async Task<Appointment> GetById(string appointmentId)
         {
-            return await _context.Appointments
+            return await _context.Appointments.Include(x => x.Employee)
                 .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
+        }
+
+        public async Task<Appointment> GetByRequestId(string requestId)
+        {
+            return await _context.Appointments
+                .FirstOrDefaultAsync(a => a.RequestId == requestId);
         }
         public async Task <List<Appointment>> GetAppointmentsFromEmployeeId(string employeeId)
         {
@@ -44,7 +50,7 @@ namespace Repositories
         // Get all appointments
         public async Task<List<Appointment>> GetAll()
         {
-            return await _context.Appointments
+            return await _context.Appointments.Include(x => x.Employee).Include(x => x.Room).Include(x => x.Request).ThenInclude(x => x.Customer).Include(x => x.Request).ThenInclude(x => x.Service)
                 .ToListAsync();
         }
 
@@ -71,7 +77,10 @@ namespace Repositories
 
             existingAppointment.Status = updatedAppointment.Status;
             existingAppointment.EmployeeId = updatedAppointment.EmployeeId;
-            existingAppointment.RequestId = updatedAppointment.RequestId;
+            existingAppointment.StartTime = updatedAppointment.StartTime;
+            existingAppointment.EndTime = updatedAppointment.EndTime;
+            existingAppointment.RoomId = updatedAppointment.RoomId;
+            existingAppointment.UpdatedAt = updatedAppointment.UpdatedAt;
 
             try
             {

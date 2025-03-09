@@ -21,6 +21,11 @@ namespace Services
             return await _repository.GetById(appointmentId);
         }
 
+        public async Task<Appointment> GetAppointmentByRequestId(string requestId)
+        {
+            return await _repository.GetByRequestId(requestId);
+        }
+
         // Get all appointments
         public async Task<List<Appointment>> GetAllAppointments()
         {

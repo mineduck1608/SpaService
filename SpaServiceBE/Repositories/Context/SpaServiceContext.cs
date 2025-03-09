@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Repositories.Entities;
 
 namespace Repositories.Context;
@@ -77,27 +76,19 @@ public partial class SpaserviceContext : DbContext
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
-    private string? GetConnectionString()
-    {
-        IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true).Build();
-        return configuration["ConnectionStrings:DefaultConnectionStringDB"];
-    }
-
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=MINEDUCK\\MINEDUCK;Database=spaservice;UID=sa;PWD=12345;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.AccountId).HasName("PK__Account__F267251EFC18ABA6");
+            entity.HasKey(e => e.AccountId).HasName("PK__Account__F267251E2C2575B2");
 
             entity.ToTable("Account");
 
-            entity.HasIndex(e => e.Username, "UQ__Account__F3DBC57276AC1D9C").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Account__F3DBC572E2F91974").IsUnique();
 
             entity.Property(e => e.AccountId)
                 .HasMaxLength(50)
@@ -128,7 +119,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Application>(entity =>
         {
-            entity.HasKey(e => e.ApplicationId).HasName("PK__Applicat__79FDB1CF9CDD5B0D");
+            entity.HasKey(e => e.ApplicationId).HasName("PK__Applicat__79FDB1CF0B3F9A07");
 
             entity.ToTable("Application");
 
@@ -169,7 +160,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Appointment>(entity =>
         {
-            entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__D06765FE957F131D");
+            entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__D06765FEB707CFB2");
 
             entity.ToTable("Appointment");
 
@@ -177,6 +168,12 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("appointmentId");
+            entity.Property(e => e.CheckIn)
+                .HasColumnType("datetime")
+                .HasColumnName("checkIn");
+            entity.Property(e => e.CheckOut)
+                .HasColumnType("datetime")
+                .HasColumnName("checkOut");
             entity.Property(e => e.EmployeeId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -221,18 +218,16 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<AttendanceRecord>(entity =>
         {
-            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__0F09E0E6829E7A7D");
+            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__0F09E0E65DA83AAD");
 
             entity.Property(e => e.AttendanceId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("attendanceId");
             entity.Property(e => e.CheckInTime)
-                .HasComment("null if hasn't checked in")
                 .HasColumnType("datetime")
                 .HasColumnName("checkInTime");
             entity.Property(e => e.CheckOutTime)
-                .HasComment("null if hasn't checked out")
                 .HasColumnType("datetime")
                 .HasColumnName("checkOutTime");
             entity.Property(e => e.EmployeeId)
@@ -248,7 +243,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CartCosmeticProduct>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__CartCosm__3213E83F62D1F19B");
+            entity.HasKey(e => e.Id).HasName("PK__CartCosm__3213E83FA1B4A66C");
 
             entity.ToTable("CartCosmeticProduct");
 
@@ -260,6 +255,7 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("customerId");
+            entity.Property(e => e.Included).HasColumnName("included");
             entity.Property(e => e.ProductId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -279,7 +275,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CategoryEmployee>(entity =>
         {
-            entity.HasKey(e => e.CategoryEmployeeId).HasName("PK__Category__C3CC485658186C2E");
+            entity.HasKey(e => e.CategoryEmployeeId).HasName("PK__Category__C3CC485636B46175");
 
             entity.ToTable("CategoryEmployee");
 
@@ -309,7 +305,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Commission>(entity =>
         {
-            entity.HasKey(e => e.CommissionId).HasName("PK__Commissi__6A570BF2B034DB62");
+            entity.HasKey(e => e.CommissionId).HasName("PK__Commissi__6A570BF2BF2E55F5");
 
             entity.ToTable("Commission");
 
@@ -322,7 +318,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CosmeticCategory>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Cosmetic__23CAF1D8BD89BD63");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Cosmetic__23CAF1D868D405B5");
 
             entity.ToTable("CosmeticCategory");
 
@@ -341,7 +337,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CosmeticProduct>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Cosmetic__2D10D16A556121B1");
+            entity.HasKey(e => e.ProductId).HasName("PK__Cosmetic__2D10D16A786B98D7");
 
             entity.ToTable("CosmeticProduct");
 
@@ -360,7 +356,9 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("image");
-            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+            entity.Property(e => e.IsDeleted)
+                .HasDefaultValue(true)
+                .HasColumnName("isDeleted");
             entity.Property(e => e.IsSelling).HasColumnName("isSelling");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ProductName)
@@ -377,7 +375,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CosmeticTransaction>(entity =>
         {
-            entity.HasKey(e => e.CosmeticTransactionId).HasName("PK__Cosmetic__CA8F7BACAB8B8562");
+            entity.HasKey(e => e.CosmeticTransactionId).HasName("PK__Cosmetic__CA8F7BACAE0D4FD8");
 
             entity.ToTable("CosmeticTransaction");
 
@@ -394,6 +392,11 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("transactionId");
 
+            entity.HasOne(d => d.Order).WithMany(p => p.CosmeticTransactions)
+                .HasForeignKey(d => d.OrderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKCosmeticTr963293");
+
             entity.HasOne(d => d.Transaction).WithMany(p => p.CosmeticTransactions)
                 .HasForeignKey(d => d.TransactionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -402,7 +405,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__B611CB7D9FDE9736");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__B611CB7D771EAA12");
 
             entity.ToTable("Customer");
 
@@ -428,7 +431,7 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("gender");
             entity.Property(e => e.Phone)
-                .HasMaxLength(10)
+                .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("phone");
 
@@ -440,7 +443,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<CustomerMembership>(entity =>
         {
-            entity.HasKey(e => new { e.CustomerId, e.MembershipId }).HasName("PK__Customer__2D841CBFCA74310A");
+            entity.HasKey(e => new { e.CustomerId, e.MembershipId }).HasName("PK__Customer__2D841CBFBFCC3CD3");
 
             entity.ToTable("CustomerMembership");
 
@@ -466,7 +469,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__C134C9C12C991D7A");
+            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__C134C9C1A04B9280");
 
             entity.ToTable("Employee");
 
@@ -508,7 +511,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<EmployeeCommission>(entity =>
         {
-            entity.HasKey(e => new { e.EmployeeId, e.CommissionId }).HasName("PK__Employee__F791B97EA9918843");
+            entity.HasKey(e => new { e.EmployeeId, e.CommissionId }).HasName("PK__Employee__F791B97E0688A74C");
 
             entity.ToTable("EmployeeCommission");
 
@@ -548,7 +551,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__2613FD241EEB8394");
+            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__2613FD24B53C4AA1");
 
             entity.ToTable("Feedback");
 
@@ -574,7 +577,8 @@ public partial class SpaserviceContext : DbContext
 
             entity.HasOne(d => d.Appointment).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.AppointmentId)
-                .HasConstraintName("FK_Appointment_feedback");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKFeedback524908");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.CreatedBy)
@@ -584,7 +588,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Floor>(entity =>
         {
-            entity.HasKey(e => e.FloorId).HasName("PK__Floor__867E915CFE926F6E");
+            entity.HasKey(e => e.FloorId).HasName("PK__Floor__867E915CF9BEAC11");
 
             entity.ToTable("Floor");
 
@@ -607,7 +611,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<GuestApplication>(entity =>
         {
-            entity.HasKey(e => e.GuestApplicationId).HasName("PK__GuestApp__C9EF5313AD99AAF6");
+            entity.HasKey(e => e.GuestApplicationId).HasName("PK__GuestApp__C9EF531370BB7F1C");
 
             entity.ToTable("GuestApplication");
 
@@ -638,7 +642,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Manager>(entity =>
         {
-            entity.HasKey(e => e.ManagerId).HasName("PK__Manager__47E0141F0C65DB22");
+            entity.HasKey(e => e.ManagerId).HasName("PK__Manager__47E0141F2F8DC4BD");
 
             entity.ToTable("Manager");
 
@@ -680,7 +684,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Membership>(entity =>
         {
-            entity.HasKey(e => e.MembershipId).HasName("PK__Membersh__86AA3B171E8903A2");
+            entity.HasKey(e => e.MembershipId).HasName("PK__Membersh__86AA3B176689A1AA");
 
             entity.ToTable("Membership");
 
@@ -698,7 +702,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<News>(entity =>
         {
-            entity.HasKey(e => e.NewsId).HasName("PK__News__5218041EE4641716");
+            entity.HasKey(e => e.NewsId).HasName("PK__News__5218041EC7A25104");
 
             entity.Property(e => e.NewsId)
                 .HasMaxLength(50)
@@ -719,7 +723,6 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("image");
-            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.Type)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -733,7 +736,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Order__0809335D0FDC838E");
+            entity.HasKey(e => e.OrderId).HasName("PK__Order__0809335D8372D595");
 
             entity.ToTable("Order");
 
@@ -741,7 +744,9 @@ public partial class SpaserviceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("orderId");
-            entity.Property(e => e.Address).HasColumnName("address");
+            entity.Property(e => e.Address)
+                .HasMaxLength(255)
+                .HasColumnName("address");
             entity.Property(e => e.CustomerId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -751,35 +756,30 @@ public partial class SpaserviceContext : DbContext
                 .HasColumnName("orderDate");
             entity.Property(e => e.Phone)
                 .HasMaxLength(20)
+                .IsUnicode(false)
                 .HasColumnName("phone");
             entity.Property(e => e.RecepientName)
                 .HasMaxLength(50)
                 .HasColumnName("recepientName");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalAmount).HasColumnName("totalAmount");
-            entity.Property(e => e.TransactionId)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("transactionId");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKOrder872949");
-
-            entity.HasOne(d => d.Transaction).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.TransactionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKOrder618118");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__E4FEDE4AD4D88D3F");
+
             entity.ToTable("OrderDetail");
 
             entity.Property(e => e.OrderDetailId)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("orderDetailId");
             entity.Property(e => e.OrderId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -789,6 +789,7 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("productId");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.SubTotalAmount).HasColumnName("subTotalAmount");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
@@ -803,11 +804,11 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Promotion>(entity =>
         {
-            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__99EB696E99323CA4");
+            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__99EB696E741A2D43");
 
             entity.ToTable("Promotion");
 
-            entity.HasIndex(e => e.PromotionCode, "UQ__Promotio__E9685770BDEA21AC").IsUnique();
+            entity.HasIndex(e => e.PromotionCode, "UQ__Promotio__E968577068D77586").IsUnique();
 
             entity.Property(e => e.PromotionId)
                 .HasMaxLength(50)
@@ -827,7 +828,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Request>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__Request__E3C5DE318C98CFEB");
+            entity.HasKey(e => e.RequestId).HasName("PK__Request__E3C5DE316478BA41");
 
             entity.ToTable("Request");
 
@@ -881,7 +882,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__CD98462A4B1CA1B5");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__CD98462A79BEA641");
 
             entity.ToTable("Role");
 
@@ -896,7 +897,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Room>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__Room__6C3BF5BE34D9B905");
+            entity.HasKey(e => e.RoomId).HasName("PK__Room__6C3BF5BE0B1042B6");
 
             entity.ToTable("Room");
 
@@ -920,7 +921,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<ServiceCategory>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__ServiceC__23CAF1D85B69A0B6");
+            entity.HasKey(e => e.CategoryId).HasName("PK__ServiceC__23CAF1D863CE5C4D");
 
             entity.ToTable("ServiceCategory");
 
@@ -939,7 +940,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<ServiceTransaction>(entity =>
         {
-            entity.HasKey(e => e.ServiceTransactionId).HasName("PK__ServiceT__BD73A2A47A961992");
+            entity.HasKey(e => e.ServiceTransactionId).HasName("PK__ServiceT__BD73A2A4B9E57AE5");
 
             entity.ToTable("ServiceTransaction");
 
@@ -977,7 +978,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<SpaService>(entity =>
         {
-            entity.HasKey(e => e.ServiceId).HasName("PK__SpaServi__455070DF5584294D");
+            entity.HasKey(e => e.ServiceId).HasName("PK__SpaServi__455070DF49B0CB47");
 
             entity.ToTable("SpaService");
 
@@ -1009,7 +1010,7 @@ public partial class SpaserviceContext : DbContext
 
         modelBuilder.Entity<Transaction>(entity =>
         {
-            entity.HasKey(e => e.TransactionId).HasName("PK__Transact__9B57CF721F77C018");
+            entity.HasKey(e => e.TransactionId).HasName("PK__Transact__9B57CF7264694D22");
 
             entity.ToTable("Transaction");
 
@@ -1033,7 +1034,6 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.TransactionType)
                 .HasMaxLength(10)
                 .IsUnicode(false)
-                .HasComment("Trực tiếp/VNPay")
                 .HasColumnName("transactionType");
 
             entity.HasOne(d => d.Promotion).WithMany(p => p.Transactions)

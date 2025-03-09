@@ -15,11 +15,15 @@ public partial class Appointment
 
     public string RequestId { get; set; } = null!;
 
-    public string EmployeeId { get; set; } = null!;
-
     public DateTime? UpdatedAt { get; set; }
 
     public string RoomId { get; set; } = null!;
+
+    public string EmployeeId { get; set; } = null!;
+
+    public DateTime? CheckIn { get; set; }
+
+    public DateTime? CheckOut { get; set; }
 
     public virtual Employee Employee { get; set; } = null!;
 

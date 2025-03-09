@@ -17,7 +17,5 @@ public partial class News
 
     public string CategoryId { get; set; } = null!;
 
-    public bool IsDeleted { get; set; }
-
     public virtual ServiceCategory Category { get; set; } = null!;
 }

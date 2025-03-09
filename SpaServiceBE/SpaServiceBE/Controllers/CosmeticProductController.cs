@@ -50,7 +50,6 @@ namespace SpaServiceBE.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
-        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateCosmeticProduct([FromBody] dynamic request)
         {

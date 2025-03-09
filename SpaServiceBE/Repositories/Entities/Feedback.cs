@@ -15,9 +15,9 @@ public partial class Feedback
 
     public string CreatedBy { get; set; } = null!;
 
-    public string? AppointmentId { get; set; }
+    public string AppointmentId { get; set; } = null!;
 
-    public virtual Appointment? Appointment { get; set; }
+    public virtual Appointment Appointment { get; set; } = null!;
 
     public virtual Customer CreatedByNavigation { get; set; } = null!;
 }

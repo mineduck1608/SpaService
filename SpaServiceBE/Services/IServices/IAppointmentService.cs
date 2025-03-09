@@ -7,6 +7,7 @@ namespace Services.IServices
     public interface IAppointmentService
     {
         Task<Appointment> GetAppointmentById(string appointmentId);
+        Task<Appointment> GetAppointmentByRequestId(string requestId);
         Task<List<Appointment>> GetAllAppointments();
         Task<bool> AddAppointment(Appointment appointment);
         Task<bool> UpdateAppointment(string appointmentId, Appointment appointment);

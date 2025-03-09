@@ -9,7 +9,7 @@ public partial class CosmeticProduct
 
     public string ProductName { get; set; } = null!;
 
-    public double Price { get; set; }
+    public float Price { get; set; }
 
     public int Quantity { get; set; }
 
@@ -23,7 +23,7 @@ public partial class CosmeticProduct
 
     public string CategoryId { get; set; } = null!;
 
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public virtual ICollection<CartCosmeticProduct> CartCosmeticProducts { get; set; } = new List<CartCosmeticProduct>();
 

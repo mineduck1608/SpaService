@@ -8,8 +8,6 @@ import {
   LetterText,
   Contact2,
   MessageCircleQuestion,
-  LineChart,
-  HandHelping,
   Users2Icon,
   Trash2,
   Warehouse,
@@ -76,7 +74,17 @@ export const sideData = {
     {
       title: 'Appointments',
       icon: ClipboardList,
-      url: 'appointments'
+      pages: [
+        {
+          title: 'Schedule',
+          url: '/appointments/schedule'
+        },
+
+        {
+          title: 'Manage',
+          url: '/appointments/manage'
+        }
+      ]
     },
     {
       title: 'Orders',

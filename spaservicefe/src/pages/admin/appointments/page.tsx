@@ -11,7 +11,6 @@ function CalendarApp() {
     const savedEvents = sessionStorage.getItem('events')
     return savedEvents ? JSON.parse(savedEvents) : []
   })
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const loadEvents = async () => {
@@ -19,7 +18,6 @@ function CalendarApp() {
       console.log('Fetched events:', fetchedEvents)
       setEvents(fetchedEvents)
       sessionStorage.setItem('events', JSON.stringify(fetchedEvents))
-      setLoading(false)
     }
 
     const loadEmployees = async () => {
@@ -47,13 +45,8 @@ function CalendarApp() {
       <button onClick={handleReload} style={{ marginBottom: '10px', padding: '8px 16px', cursor: 'pointer' }}>
         Show appointments
       </button>
-      {loading ? (
-        <p>Loading schedule...</p>
-      ) : events.length > 0 ? (
+
         <ScheduleXCalendar calendarApp={calendar} />
-      ) : (
-        <p>No events found</p>
-      )}
     </div>
   )
 }

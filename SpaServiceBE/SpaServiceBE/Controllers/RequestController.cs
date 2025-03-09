@@ -25,7 +25,7 @@ namespace API.Controllers
         private readonly ICustomerService _customerService;
         private readonly IConfiguration _configuration;
         private readonly ISpaServiceService _spaService;
-        private readonly IAppointmentService _appoinmentService;
+        private readonly IAppointmentService _appointmentService;
 
         public RequestController(IRequestService service, ICustomerService customerService, IConfiguration configuration, ISpaServiceService paService, IAppointmentService appointment)
         {
@@ -33,7 +33,7 @@ namespace API.Controllers
             _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
             _configuration = configuration;
             _spaService = paService ?? throw new ArgumentNullException(nameof(paService));
-            _appoinmentService = appointment ?? throw new ArgumentNullException(nameof(appointment));
+            _appointmentService = appointment ?? throw new ArgumentNullException(nameof(appointment));
         }
 
         // GET: api/requests/GetAll
@@ -313,13 +313,19 @@ namespace API.Controllers
                 if (!isUpdated)
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
 
+                var appointmentExit = _appointmentService.GetAppointmentByRequestId(id);
+                if (appointmentExit.Result != null)
+                {
+                    Console.WriteLine("Appointment exists: " + appointmentExit); // Debugging line
+                    return BadRequest(new { msg = "Appointment existed." });
+                }
                 // Tạo đối tượng Appointment
                 var appointment = new Appointment
                 {
                     AppointmentId = Guid.NewGuid().ToString("N"), // Generate unique ID
                     RequestId = id,
                     EmployeeId = employeeId,
-                    Status = "Unprocess", // Default status
+                    Status = "Pending", // Default status
                     StartTime = startTime,
                     EndTime = endTime,
                     RoomId = roomId,
@@ -327,7 +333,7 @@ namespace API.Controllers
                 };
 
                 // Gọi service để thêm appointment
-                var isCreated = _appoinmentService.AddAppointment(appointment);
+                var isCreated = _appointmentService.AddAppointment(appointment);
 
                 bool result = await isCreated; // Giải quyết giá trị Task<bool>
                 if (result == false)
@@ -336,7 +342,7 @@ namespace API.Controllers
                 }
 
 
-                return Ok(new { msg = "Update request successfully." });
+                return Ok(new { msg = "Assign request successfully." });
             }
             catch (Exception ex)
             {

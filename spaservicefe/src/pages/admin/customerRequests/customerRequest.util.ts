@@ -153,14 +153,16 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
     })
 
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully assigned!')
-      setTimeout(() => window.location.reload(), 1000)
+      const responseData = await res.json();
+      toast.success(responseData.msg || 'Successfully assigned!');
+      // Refresh specific UI part instead of full reload
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json();
+      toast.error(errorData.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
-      })
-    }
+        closeButton: false,
+      });
+    }    
   } catch (e) {
     console.error('❌ Error in AssignRequest:', e)
     return []

@@ -425,6 +425,63 @@
   },
   {
     "ContainingType": "API.Controllers.AppointmentController",
+    "Method": "GetTotalAppointmentInMonth",
+    "RelativePath": "api/appointments/GetById/{month}/{year}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "year",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "month",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Appointment",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.AppointmentController",
+    "Method": "GetAppointmentByRequestId",
+    "RelativePath": "api/appointments/GetByRequestId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Appointment",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.AppointmentController",
     "Method": "UpdateAppointment",
     "RelativePath": "api/appointments/Update/{id}",
     "HttpMethod": "PUT",
@@ -783,6 +840,16 @@
     ]
   },
   {
+    "ContainingType": "API.Controllers.CategoryEmployeeController",
+    "Method": "GetTotalCategoryEmployee",
+    "RelativePath": "api/categoryemployees/GetTotalCategoryEmployee",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SpaServiceBE.Controllers.CheckoutController",
     "Method": "PaymentCallbackVnpay",
     "RelativePath": "api/checkouts/PaymentCallbackVnPay",
@@ -889,6 +956,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticCategoryController",
+    "Method": "GetTotalCosmeticCategory",
+    "RelativePath": "api/cosmeticcategories/CosmeticCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -1059,6 +1136,46 @@
     "ReturnTypes": [
       {
         "Type": "Repositories.Entities.CosmeticProduct",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
+    "Method": "GetTotalCosmeticProduct",
+    "RelativePath": "api/cosmeticproducts/GetTotalCosmeticProduct",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Order",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
+    "Method": "GetTotalCosmeticProductStock",
+    "RelativePath": "api/cosmeticproducts/GetTotalCosmeticProductStock",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Order",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2751,6 +2868,66 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "GetTotalOrder",
+    "RelativePath": "api/orders/GetTotalOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Order",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "GetTotalPendingOrder",
+    "RelativePath": "api/orders/GetTotalPendingOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Order",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "GetTotalProcessedOrder",
+    "RelativePath": "api/orders/GetTotalProcessedOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Repositories.Entities.Order",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
     "Method": "UpdateOrder",
     "RelativePath": "api/orders/Update/{id}",
     "HttpMethod": "PUT",
@@ -2959,6 +3136,27 @@
       {
         "Name": "id",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.RequestController",
+    "Method": "DeclineRequest",
+    "RelativePath": "api/requests/DeclineRequest/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "System.Object",
         "IsRequired": true
       }
     ],
@@ -3429,6 +3627,16 @@
   },
   {
     "ContainingType": "API.Controllers.ServiceCategoryController",
+    "Method": "GetTotalServiceCategory",
+    "RelativePath": "api/servicecategories/GetTotalServiceCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.ServiceCategoryController",
     "Method": "UpdateCategory",
     "RelativePath": "api/servicecategories/Update/{id}",
     "HttpMethod": "PUT",
@@ -3710,6 +3918,26 @@
     "ReturnTypes": [
       {
         "Type": "Repositories.Entities.Transaction",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.TransactionController",
+    "Method": "GetTotalRevenue",
+    "RelativePath": "api/transactions/GetTotalRevenue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Transaction, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

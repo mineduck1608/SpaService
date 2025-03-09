@@ -70,6 +70,25 @@ namespace API.Controllers
             }
         }
 
+        // GET: api/appointments/GetById/{id}
+        [HttpGet("GetByRequestId/{id}")]
+        public async Task<ActionResult<Appointment>> GetAppointmentByRequestId(string id)
+        {
+            try
+            {
+                var appointment = await _service.GetAppointmentByRequestId(id);
+
+                if (appointment == null)
+                    return null;
+
+                return Ok(appointment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [HttpGet("GetAppointmentByEmployeeId/{id}")]
         public async Task<ActionResult<Appointment>> GetAppointmentFromEmployeeId(string id)
         {
@@ -213,26 +232,41 @@ namespace API.Controllers
             {
                 var jsonElement = (JsonElement)request;
 
-                // Lấy dữ liệu từ request
-                string requestId = jsonElement.GetProperty("requestId").GetString();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
                 DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
-                DateTime endTime = jsonElement.TryGetProperty("endTime", out JsonElement a) && a.ValueKind == JsonValueKind.String ? a.GetDateTime() : default;
+                string roomId = jsonElement.GetProperty("roomId").GetString();
+                string serviceId = jsonElement.GetProperty("serviceId").GetString();
+
+
 
 
                 // Kiểm tra dữ liệu đầu vào
-                if (string.IsNullOrEmpty(requestId) || string.IsNullOrEmpty(employeeId))
+                if (string.IsNullOrEmpty(employeeId) || string.IsNullOrEmpty(roomId) || string.IsNullOrEmpty(serviceId))
                     return BadRequest(new { msg = "Appointment details are incomplete." });
+
+                var checkAppointmentStatus = await _service.GetAppointmentById(id);
+                if (checkAppointmentStatus != null && checkAppointmentStatus.Status == "Finished")
+                {
+                    return BadRequest(new { msg = "Appointment was completed." });
+                }
+
+
+                //create endtime
+                var duration = _spaService.GetTimeByServiceId(serviceId);
+
+                TimeOnly durationValue = await duration; // Lấy giá trị thực từ Task<TimeOnly>
+                TimeSpan timeSpan = durationValue.ToTimeSpan(); // Chuyển thành TimeSpan
+                DateTime endTime = startTime.Add(timeSpan); // Cộng vào DateTime
 
                 // Tạo đối tượng Appointment và gán ID cho update
                 var appointment = new Appointment
                 {
                     AppointmentId = id, // Use the provided ID for the update
-                    RequestId = requestId,
                     EmployeeId = employeeId,
                     Status = "Pending", // Default status (you can update based on your logic)
                     StartTime = startTime,
                     EndTime = endTime,
+                    RoomId = roomId,
                     UpdatedAt = DateTime.Now // Automatically update the timestamp
                 };
 
