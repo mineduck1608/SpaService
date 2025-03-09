@@ -44,9 +44,10 @@ namespace Services
             return await _transactionRepository.GetTotalRevenue();
         }
 
-        public async Task<IEnumerable<float>> OrderByMonths()
+        public IEnumerable<float> OrderByMonths()
         {
-            return await _transactionRepository.OrderByMonth();
+            return _transactionRepository.OrderByMonth();
         }
+        public Dictionary<string, float> OrderByServiceCategory() => _transactionRepository.OrderByCategory();
     }
 }

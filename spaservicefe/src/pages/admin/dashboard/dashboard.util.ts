@@ -39,7 +39,29 @@ export function lineChartXAxis(arr: number[]) {
       revenue: v
     }
   })
-  console.log(map);
-  
-  return map;
+  return map
+}
+
+export interface CategoryRevenue {
+  category: string
+  revenue: number
+}
+
+export async function fetchTransactionsByServiceCategory(): Promise<CategoryRevenue[] | { msg: string }> {
+  try {
+    const response = await fetch(`${apiUrl}/transactions/OrderByServiceCategory`)
+
+    if (response.ok) {
+      const data: CategoryRevenue[] = await response.json()
+      return data
+    } else if (response.status === 500) {
+      const errorData: { msg: string } = await response.json()
+      return errorData
+    } else {
+      throw new Error(`Unexpected response status: ${response.status}`)
+    }
+  } catch (error) {
+    console.error('Error fetching transactions:', error)
+    return { msg: 'An error occurred while fetching transactions.' }
+  }
 }
