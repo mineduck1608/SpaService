@@ -20,8 +20,10 @@ namespace SpaServiceBE.Controllers
         private readonly ICustomerMembershipService _customerMembershipService;
         private readonly IMembershipService _membershipService;
         private readonly IPromotionService _promotionService;
-        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService)
+        private readonly ICartCosmeticProductService _cartCosmeticProductService;
+        public OrderController(IOrderService orderService, ICosmeticProductService cosmeticProductService, IOrderDetailService orderDetailService, ICustomerService customerService, ICosmeticTransactionService cosmeticTransactionService, ITransactionService transactionService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService, IMembershipService membershipService, ICartCosmeticProductService cartCosmeticProductService)
         {
+            _cartCosmeticProductService = cartCosmeticProductService;
             _cosmeticProductService = cosmeticProductService;
             _orderService = orderService;
             _cosmeticProductService = cosmeticProductService;
@@ -112,7 +114,6 @@ namespace SpaServiceBE.Controllers
                     TotalAmount = (float)total,
                     RecepientName = name,
                     Phone = phone,
-                    TransactionId = transactionId,
                 };
                 await _orderService.AddOrderAsync(order);
                 //Order details
@@ -146,7 +147,7 @@ namespace SpaServiceBE.Controllers
                     stockItem.Quantity -= product.Quantity;
                     await _cosmeticProductService.Update(stockItem);
                 }
-
+                _cartCosmeticProductService.ClearCart(customer.CustomerId);
                 return Ok(new { id = orderId, total, transactionId });
             }
             catch (Exception ex)
@@ -205,6 +206,7 @@ namespace SpaServiceBE.Controllers
                 };
 
                 var isUpdated = await _orderService.UpdateOrderAsync(id, order);
+                
                 if (!isUpdated)
                     return NotFound(new { msg = $"Order with ID = {id} not found." });
 

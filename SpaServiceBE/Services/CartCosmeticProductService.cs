@@ -45,5 +45,9 @@ namespace Services
         {
             await _cartCosmeticProductRepository.DeleteCartCosmeticProduct(id);
         }
+        public  void ClearCart(string customerId)
+        {
+            _cartCosmeticProductRepository.ClearCart(customerId);
+        }
     }
 }

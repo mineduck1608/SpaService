@@ -21,7 +21,8 @@ namespace SpaServiceBE.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IServiceTransactionService _svTransService;
         private readonly ICosmeticTransactionService _csTransService;
-        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService, IEmployeeService employeeService, IServiceTransactionService svTransService, ICosmeticTransactionService cosmeticTransaction)
+        private readonly ICartCosmeticProductService _cartCosmeticProductService;
+        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService, IEmployeeService employeeService, IServiceTransactionService svTransService, ICosmeticTransactionService cosmeticTransaction, ICartCosmeticProductService cartCosmeticProductService)
         {
             _csTransService = cosmeticTransaction;
             _vnPayService = vnPayService;
@@ -31,6 +32,7 @@ namespace SpaServiceBE.Controllers
             _spaService = spaService;
             _employeeService = employeeService;
             _svTransService = svTransService;
+            _cartCosmeticProductService = cartCosmeticProductService;
         }
 
 
@@ -82,23 +84,6 @@ namespace SpaServiceBE.Controllers
                 rs.Add("empName", emp.FullName ?? "Did not request");
                 rs.Add("type", "Service");
                 rs.Add("success", "True");
-            }
-            catch (Exception ex)
-            {
-            }
-            return rs;
-        }
-
-        private async Task<Dictionary<string, string>> UpdateProductTransaction(Transaction tr)
-        {
-            var rs = new Dictionary<string, string>();
-            var cosTransaction = await _csTransService.GetByTransId(tr.TransactionId);
-            try
-            {
-                rs.Add("type", "Product");
-                var products = cosTransaction.Orders;
-                var s = JsonConvert.SerializeObject(products);
-                rs.Add("products", s);
             }
             catch (Exception ex)
             {

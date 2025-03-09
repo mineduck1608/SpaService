@@ -11,7 +11,7 @@ public partial class CosmeticTransaction
 
     public string OrderId { get; set; } = null!;
 
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+    public virtual Order Order { get; set; } = null!;
 
     public virtual Transaction Transaction { get; set; } = null!;
 }
