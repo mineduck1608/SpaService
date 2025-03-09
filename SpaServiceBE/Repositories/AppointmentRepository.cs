@@ -20,7 +20,7 @@ namespace Repositories
         // Get an appointment by its ID
         public async Task<Appointment> GetById(string appointmentId)
         {
-            return await _context.Appointments.Include(x => x.Employee)
+            return await _context.Appointments.Include(x => x.Employee).Include(y => y.Request)
                 .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
         }
 
@@ -118,6 +118,81 @@ namespace Repositories
                     .Where(a => a.StartTime.Year == year && a.StartTime.Month == month)
                     .CountAsync();
             
+        }
+
+        public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Appointment appointment, bool findInAppointments)
+        {
+            //Tìm các appointment tg request => Tìm phòng nào, nv nào ko dùng đc
+            var appointments = _context.Appointments
+                .ToList()
+                .Select(x =>
+                {
+                    return new
+                    {
+                        x.StartTime,
+                        x.EndTime,
+                        x.EmployeeId,
+                        x.RoomId,
+                    };
+                });
+            //Lọc theo tg
+            var start = appointment.StartTime;
+            var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == appointment.Request.ServiceId);
+            var end = appointment.StartTime.Add(service.Duration.ToTimeSpan());
+            //Tìm các appointment trong khoảng tg này => các phòng và nv trong đống này vứt hết
+            var unavailableAppointment = appointments.Where(x =>
+                IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
+            ).Select(x => (x.EmployeeId, x.RoomId)).ToList();
+
+            //Trong request lun
+
+            (ISet<string> roomId, ISet<string> empId, bool conflict) result = new()
+            {
+                empId = new HashSet<string>(),
+                roomId = new HashSet<string>(),
+                conflict = false
+            };
+
+            foreach (var item in unavailableAppointment)
+            {
+                result.roomId.Add(item.RoomId);
+                result.empId.Add(item.EmployeeId);
+            }
+            if (!findInAppointments)
+            {
+                return result;
+            }
+            //Tìm trong request lun
+            var requests = _context.Requests
+                .Include(x => x.Service)
+                .ToList()
+                .Select(x => new
+                {
+                    x.StartTime,
+                    EndTime = x.StartTime.Add(x.Service.Duration.ToTimeSpan()),
+                    x.EmployeeId,
+                }
+            );
+            var unavailableRequest = requests.Where(x =>
+            IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
+            );
+
+            foreach (var item in unavailableRequest)
+            {
+                if (item.EmployeeId != null)
+                {
+                    result.empId.Add(item.EmployeeId);
+                }
+            }
+            result.conflict = unavailableRequest.Any();
+            return result;
+        }
+
+        private bool IsOverlap(long x1, long x2, long y1, long y2)
+        {
+            var low = Math.Min(x1, y1);
+            var high = Math.Max(x2, y2);
+            return high - low < (x2 - x1) + (y2 - y1);
         }
     }
 }

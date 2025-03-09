@@ -77,12 +77,12 @@ export const sideData = {
       pages: [
         {
           title: 'Schedule',
-          url: '/appointments/schedule'
+          url: '/appointments-schedule'
         },
 
         {
           title: 'Manage',
-          url: '/appointments/manage'
+          url: '/appointments-manage'
         }
       ]
     },

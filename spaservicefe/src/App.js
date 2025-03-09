@@ -279,8 +279,8 @@ function App() {
             <Route path='' index element={<Dashboard />} />
 
             {/* Workspaces */}
-            <Route path='appointments/schedule' element={<CalendarApp />} />
-            <Route path='appointments/manage' element={<AppointmentManagePage/>} />
+            <Route path='appointments-schedule' element={<CalendarApp />} />
+            <Route path='appointments-manage' element={<AppointmentManagePage/>} />
             <Route path='orders' element={<OrderPage />} />
             <Route path='transactions' element={<TransactionPage />} />
 

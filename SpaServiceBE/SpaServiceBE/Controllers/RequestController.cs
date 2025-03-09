@@ -320,7 +320,6 @@ namespace API.Controllers
                 var appointmentExit = _appointmentService.GetAppointmentByRequestId(id);
                 if (appointmentExit.Result != null)
                 {
-                    Console.WriteLine("Appointment exists: " + appointmentExit); // Debugging line
                     return BadRequest(new { msg = "Appointment existed." });
                 }
                 // Tạo đối tượng Appointment
@@ -335,6 +334,25 @@ namespace API.Controllers
                     RoomId = roomId,
                     UpdatedAt = DateTime.Now
                 };
+
+                var b = await _appointmentService.CheckResourceAvailable(appointment);
+                var errList = new List<string>();
+                if (!b.roomState)
+                {
+                    errList.Add("No rooms are available at the requested time");
+                }
+                if (b.employeeState == 1)
+                {
+                    errList.Add("The requested employee is busy at the requested time");
+                }
+                if (b.employeeState == 2)
+                {
+                    errList.Add("No employee is available at the requested time");
+                }
+                if (errList.Count > 0)
+                {
+                    return BadRequest(new { msg = string.Join(",", errList) });
+                }
 
                 // Gọi service để thêm appointment
                 var isCreated = _appointmentService.AddAppointment(appointment);

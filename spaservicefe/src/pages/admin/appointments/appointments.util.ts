@@ -179,7 +179,6 @@ async function fetchServices() {
 export async function UpdateAppoitment(appointment: Appointment, roomId: string) {
   try {
     let parsedStartTime = null
-
     if (typeof appointment.startTime === 'string' && appointment.startTime.trim() !== '') {
       const tempDate = dayjs(appointment.startTime, 'DD/MM/YYYY HH:mm:ss', true).tz('Asia/Ho_Chi_Minh')
 
@@ -193,6 +192,7 @@ export async function UpdateAppoitment(appointment: Appointment, roomId: string)
     const data = {
       ...appointment,
       roomId: roomId,
+      serviceId: appointment.request?.serviceId,
       startTime: parsedStartTime // Chỉ gán nếu hợp lệ
     }
 
@@ -210,7 +210,7 @@ export async function UpdateAppoitment(appointment: Appointment, roomId: string)
     if (res.status >= 200 && res.status < 300) {
       const responseData = await res.json();
       toast.success(responseData.msg || 'Successfully assigned!');
-      // Refresh specific UI part instead of full reload
+      setTimeout(() => window.location.reload(), 1000)
     } else {
       const errorData = await res.json();
       toast.error(errorData.msg || 'Failed. Please try again.', {

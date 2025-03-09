@@ -32,12 +32,10 @@ const RequestActions: React.FC<RequestActionsProps> = ({ request }) => {
   const handleDenyRequest = async (managerNote: string) => {
     DenyRequest(request.requestId.toString(), managerNote)
   };
-  
 
   const handleUpdate = (updatedRequest: SpaRequest, roomId: string) => {
     AssignRequest(updatedRequest, roomId)
   }
-
   return (
     <>
       <DropdownMenu>

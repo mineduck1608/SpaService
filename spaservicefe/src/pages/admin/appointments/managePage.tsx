@@ -18,24 +18,22 @@ export default function AppointmentManagePage() {
         // Get service and customer names for each appointment
         const formattedAppointments = await Promise.all(
           appointments.map(async (appointment: any) => {
-
             return {
-              ...appointments,
-              appointmentId: appointments[0].appointmentId,
-              customerName: appointments[0].request.customer.fullName,
-              serviceName: appointments[0].request.service.serviceName,
-              employeeName: appointments[0].request.employee.fullName,
-              roomNumber: appointments[0].room.roomNum,
-              startTime: format(new Date(appointments[0].startTime), 'yyyy-MM-dd HH:mm'),
-              endTime: format(new Date(appointments[0].endTime), 'yyyy-MM-dd HH:mm'),
-              status: appointments[0].status,
+              ...appointment,
+              appointmentId: appointment.appointmentId,
+              customerName: appointment.request.customer.fullName,
+              serviceName: appointment.request.service.serviceName,
+              employeeName: appointment.employee.fullName,
+              roomNumber: appointment.room.roomNum,
+              startTime: format(new Date(appointment.startTime), 'yyyy-MM-dd HH:mm'),
+              endTime: format(new Date(appointment.endTime), 'yyyy-MM-dd HH:mm'),
+              status: appointment.status,
             }
           })
         )
-        console.log('Formatted appointments:', appointments[0].request.serviceId)
         setData(formattedAppointments)
       } catch (err) {
-        setError("Can't load the data.")
+        setError("Can't load the data." + err)
       } finally {
         setLoading(false)
       }

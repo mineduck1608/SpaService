@@ -15,5 +15,6 @@ namespace Services.IServices
         Task <List<Appointment>> GetAllAppointmentsFromEmployee(string employeeId);
         Task<List<Appointment>> GetAllAppointmentsByAccId(string accId);
         Task<int> GetTotalAppointmentInMonth(int year, int month);
+        Task<(bool roomState, int employeeState, bool conflict)> CheckResourceAvailable(Appointment a);
     }
 }

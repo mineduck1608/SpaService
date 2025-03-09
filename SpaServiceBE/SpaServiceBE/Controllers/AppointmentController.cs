@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace API.Controllers
 {
@@ -35,7 +36,6 @@ namespace API.Controllers
         }
 
         // GET: api/appointments/GetAll
-        [Authorize(Roles = "Customer, Admin")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments()
         {
@@ -224,7 +224,6 @@ namespace API.Controllers
         }
 
         // PUT: api/appointments/Update/{id}
-        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateAppointment(string id, [FromBody] dynamic request)
         {
@@ -249,6 +248,25 @@ namespace API.Controllers
                 {
                     return BadRequest(new { msg = "Appointment was completed." });
                 }
+                if(startTime != null)
+                {
+                    startTime = checkAppointmentStatus.StartTime;
+                }
+
+                //handle Start time
+                if (startTime < DateTime.Now.AddMinutes(15))
+                {
+                    return BadRequest(new { msg = "Start time must be at least 15 minutes in the future." });
+                }
+                if (startTime > DateTime.Now.AddMonths(1))
+                {
+                    return BadRequest(new { msg = "The Start should be booked 1 months early." });
+                }
+                if (startTime.Hour > 20 || startTime.Hour < 8)
+                {
+                    return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 20:00 PM." });
+                }
+                
 
 
                 //create endtime
@@ -257,6 +275,12 @@ namespace API.Controllers
                 TimeOnly durationValue = await duration; // Lấy giá trị thực từ Task<TimeOnly>
                 TimeSpan timeSpan = durationValue.ToTimeSpan(); // Chuyển thành TimeSpan
                 DateTime endTime = startTime.Add(timeSpan); // Cộng vào DateTime
+
+                //handle duration
+                if (endTime.Hour > 20)
+                {
+                    return BadRequest(new { msg = "The duration can not last until 8PM or later" });
+                }
 
                 // Tạo đối tượng Appointment và gán ID cho update
                 var appointment = new Appointment
@@ -267,8 +291,28 @@ namespace API.Controllers
                     StartTime = startTime,
                     EndTime = endTime,
                     RoomId = roomId,
-                    UpdatedAt = DateTime.Now // Automatically update the timestamp
+                    Request = checkAppointmentStatus.Request,
+                    UpdatedAt = DateTime.Now // Automatically update the timestamp                  
                 };
+
+                var b = await _service.CheckResourceAvailable(appointment);
+                var errList = new List<string>();
+                if (!b.roomState)
+                {
+                    errList.Add("No rooms are available at the requested time");
+                }
+                if (b.employeeState == 1)
+                {
+                    errList.Add("The requested employee is busy at the requested time");
+                }
+                if (b.employeeState == 2)
+                {
+                    errList.Add("No employee is available at the requested time");
+                }
+                if (errList.Count > 0)
+                {
+                    return BadRequest(new { msg = string.Join(",", errList) });
+                }
 
                 // Gọi service để cập nhật appointment
                 var isUpdated = await _service.UpdateAppointment(id, appointment);

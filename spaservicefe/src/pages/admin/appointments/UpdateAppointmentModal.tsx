@@ -10,7 +10,6 @@ import {
 } from '../../../components/ui/dialog'
 import { Label } from '../../../components/ui/label'
 import { Appointment, Employee, Room } from '@/types/type'
-import { GetEmployees, GetAvailableRooms } from './appointments.util'
 import { DatePicker } from 'antd'
 import {
   GetCategoryByServiceId,
@@ -33,8 +32,8 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
 
   useEffect(() => {
     const fetchData = async () => {
-      if (appointment[0].request.serviceId) {
-        const categoryData = await GetCategoryByServiceId(appointment[0].request.serviceId)
+      if (appointment.request && appointment.request.serviceId) {
+        const categoryData = await GetCategoryByServiceId(appointment.request.serviceId)
         const employeesData = await GetEmployeeByCategoryId(categoryData.categoryId)
         const roomData = await GetRoomsOfCategory(categoryData.categoryId)
         setEmployees(employeesData)
@@ -44,17 +43,29 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
     if (isOpen) {
       fetchData()
     }
-  }, [isOpen]) 
+  }, [isOpen])
 
   const handleChange = (field: string, value: string) => {
+    if(value != '')
     setUpdatedAppointment((prevState) => ({
       ...prevState,
       [field]: value
     }))
+    else{
+      setUpdatedAppointment((prevState) => ({
+        ...prevState,
+        [field]: appointment.employeeId
+      }))
+    }
   }
 
   const handleRoomChange = (value: string) => {
+  if(value)
     setSelectedRoomId(value)
+
+  else{
+    setSelectedRoomId(appointment.roomId)
+  }
   }
 
   const handleSave = () => {
@@ -92,7 +103,7 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
             </Label>
             <select
               id='employeeId'
-              value={updatedAppointment.employeeId || ''}
+              value={updatedAppointment.employeeId || appointment.employeeId}
               onChange={(e) => handleChange('employeeId', e.target.value)}
               className='col-span-3 rounded-lg border p-2'
             >
@@ -111,7 +122,7 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
             </Label>
             <select
               id='roomId'
-              value={selectedRoomId}
+              value={selectedRoomId || appointment.roomId}
               onChange={(e) => handleRoomChange(e.target.value)}
               className='col-span-3 rounded-lg border p-2'
             >
