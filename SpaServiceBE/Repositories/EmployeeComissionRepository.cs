@@ -26,12 +26,22 @@ namespace Repositories
                                            ec.TransactionId == transactionId);
         }
 
+
+
         // Lấy tất cả EmployeeCommissions với các thực thể liên quan
         public async Task<List<EmployeeCommission>> GetAll()
         {
             return await _context.EmployeeCommissions
                 .ToListAsync();
         }
+
+
+        public async Task<List<EmployeeCommission>> GetEmployeeCommission(string employeeId)
+        {
+            return await _context.EmployeeCommissions.Include(y => y.ServiceTransaction.Request.Service.ServiceName).Include(y => y.ServiceTransaction.Request.StartTime).Include(y => y.ServiceTransaction.Request.Customer.FullName).Where(x => x.EmployeeId == employeeId)
+                .ToListAsync();
+        }
+
 
         // Thêm một EmployeeCommission mới
         public async Task<bool> Add(EmployeeCommission employeeCommission)
