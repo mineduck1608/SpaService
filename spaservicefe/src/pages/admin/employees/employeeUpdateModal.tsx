@@ -28,7 +28,7 @@ export default function UpdateEmployeeModal({ isOpen, onClose, employee }: Updat
   })
 
   const handleSubmit = async (data: any) => {
-    handleUpdateSubmit(employee.employeeId, employee.accountId, data)
+    handleUpdateSubmit(employee, data)
   }
 
   useEffect(() => {

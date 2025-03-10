@@ -30,6 +30,20 @@ export async function getAllEmployees() {
   }
 }
 
+export async function getMonthlyAppointments(id: string, year: number) {
+  try {
+    const res = await fetch(`${apiUrl}/appointments/GetMonthlyAppointments/${id}/${year}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = await res.json() as { month: string, totalAppointments: number }[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
 export async function getAllAppointmentByEmployeeId(id: string) {
   try {
     const res = await fetch(`${apiUrl}/appointments/GetAppointmentByEmployeeId/${id}`, {
@@ -68,13 +82,15 @@ export async function handleCreateSubmit(data: any) {
   }
 }
 
-export async function handleUpdateSubmit(id: string, accountId: string, data: any) {
+export async function handleUpdateSubmit(employee: any, data: any) {
   try {
     const updatedData = {
       ...data,
-      accountId: accountId
+      accountId: employee.accountId,
+      phone: employee.phone,
+      email: employee.email
     }
-    var res = await fetch(`${apiUrl}/employees/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/employees/Update/${employee.employeeId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,

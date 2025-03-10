@@ -200,6 +200,7 @@ export type Order = {
   status: boolean
   transactionId: string
   address: string
+  recepientName: string
   customer?: Customer
 }
 

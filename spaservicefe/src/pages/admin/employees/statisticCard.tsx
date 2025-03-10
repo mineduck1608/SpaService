@@ -1,59 +1,64 @@
 import React, { useState, useEffect } from 'react'
-import { TrendingUp } from 'lucide-react'
+import { TrendingUp, TrendingDown } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, XAxis, LabelList } from 'recharts'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
+import { getMonthlyAppointments } from './employee.util'
 
 interface EmployeeStatisticProps {
   employee: any
+  year: number
 }
 
-export const barChartData = [
-  { month: 'January', female: 186, male: 80 },
-  { month: 'February', female: 305, male: 200 },
-  { month: 'March', female: 237, male: 120 },
-  { month: 'April', female: 73, male: 190 },
-  { month: 'May', female: 209, male: 130 },
-  { month: 'June', female: 214, male: 140 },
-  { month: 'July', female: 140, male: 99 },
-  { month: 'August', female: 250, male: 80 },
-  { month: 'September', female: 214, male: 50 },
-  { month: 'October', female: 140, male: 140 },
-  { month: 'November', female: 240, male: 140 },
-  { month: 'December', female: 214, male: 140 }
-]
-
 export const barChartConfig = {
-  female: {
-    label: 'Female',
+  total: {
+    label: 'Total Appointments',
     color: 'hsl(var(--chart-1))'
-  },
-  male: {
-    label: 'Male',
-    color: 'hsl(var(--chart-2))'
   }
 } satisfies ChartConfig
 
-export default function StatisticCard  ({ employee }: EmployeeStatisticProps) {
-  const [efficiency, setEfficiency] = useState<any[]>([])
-  
+export default function StatisticCard({ employee, year }: EmployeeStatisticProps) {
+  const [barChartData, setBarChartData] = useState<any[]>([])
+  const [change, setChange] = useState<number | null>(null)
+
   useEffect(() => {
-    
-  }, [employee])
+    if (employee && employee.employeeId) {
+      const fetchAppointments = async () => {
+        const data = await getMonthlyAppointments(employee.employeeId, year)
+        const monthlyInYear = Array.from({ length: 12 }, (_, index) => {
+          const monthName = new Date(year, index).toLocaleString('en-US', { month: 'long' })
+          const monthData = data.find((item: any) => item.month === monthName)
+          return {
+            month: monthName,
+            total: monthData ? monthData.totalAppointments : 0,
+          }
+        })
+        setBarChartData(monthlyInYear)
+
+        const monthlyMap = Object.fromEntries(monthlyInYear.map(({ month, total }) => [month, total]))
+        const now = new Date()
+        const currentTotal = monthlyMap[now.toLocaleString('en-US', { month: 'long' })] || 0
+        const lastTotal = monthlyMap[new Date(now.setMonth(now.getMonth() - 1)).toLocaleString('en-US', { month: 'long' })] || 0
+
+        setChange(lastTotal ? ((currentTotal - lastTotal) / lastTotal) * 100 : null)
+      }
+      fetchAppointments()
+    }
+  }, [employee, year])
 
   return (
     <Card className='rounded-none border-white bg-transparent shadow-none -mt-5'>
       <CardHeader className='text-lg'>
         <CardTitle>Employee Performance Overview</CardTitle>
-        <CardDescription>January - December 2025</CardDescription>
+        <CardDescription>January - December {year}</CardDescription>
       </CardHeader>
-      <CardContent className='px-36'>
+      <CardContent className='px-32'>
         <ChartContainer config={barChartConfig}>
-          <BarChart accessibilityLayer data={barChartData} margin={{ top: 20 }}>
+          <BarChart data={barChartData} margin={{ top: 20 }}>
             <CartesianGrid vertical={false} />
             <XAxis dataKey='month' tickLine={false} tickMargin={10} axisLine={false} tickFormatter={(value) => value.slice(0, 3)} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Bar dataKey='female' fill='var(--color-female)' radius={8}>
+            <Bar dataKey='total' fill='var(--color-total)' radius={8}>
               <LabelList position='top' offset={12} className='fill-foreground' fontSize={12} />
             </Bar>
           </BarChart>
@@ -61,7 +66,14 @@ export default function StatisticCard  ({ employee }: EmployeeStatisticProps) {
       </CardContent>
       <CardFooter className='flex-col items-center justify-center gap-2 text-sm'>
         <div className='flex gap-2 font-medium'>
-          Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
+          {change === null ? (
+            'No data for last month'
+          ) : (
+            <>
+              {` Trending ${change > 0 ? 'up' : 'down'} by ${Math.abs(change).toFixed(2)}%`}
+              {change > 0 ? <TrendingUp color='green' /> : <TrendingDown color="red" />}
+            </>
+          )}
         </div>
       </CardFooter>
     </Card>
