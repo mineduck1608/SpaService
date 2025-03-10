@@ -285,5 +285,25 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("OrderByDay")]
+        public ActionResult<IEnumerable<float>> OrderByDay()
+        {
+            try
+            {
+                var buckets = _service.OrderByDay();
+                var result = buckets.Select(x => new
+                {
+                    date = x.Key.ToString("yyyy/MM/dd"),
+                    service = x.Value.service,
+                    product = x.Value.product
+                }
+                ).OrderBy(x => x.date);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

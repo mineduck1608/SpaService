@@ -12,8 +12,8 @@ export function PieChartComp() {
   return (
     <Card className='flex flex-col'>
       <CardHeader className='items-center pb-0 text-lg'>
-        <CardTitle>Revenue Breakdown</CardTitle>
-        <CardDescription>January - June 2025</CardDescription>
+        <CardTitle>Feedback Breakdown</CardTitle>
+        <CardDescription>Up to 1 year</CardDescription>
       </CardHeader>
       <CardContent className='flex-1 pb-0'>
         <ChartContainer config={pieChartConfig} className='mx-auto aspect-square max-h-[250px]'>

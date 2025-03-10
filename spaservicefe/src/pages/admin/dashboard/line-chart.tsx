@@ -19,14 +19,14 @@ export function LineChartComp(params: { array: number[] }) {
             accessibilityLayer
             data={data}
             margin={{
-              left: 6,
-              right: 6
+              left: -4,
+              right: 0
             }}
+            className='p-1'
           >
-            <XAxis dataKey='month' tickLine={true} axisLine={true} tickMargin={5} />
-            <YAxis dataKey={'revenue'} tickLine
-            />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+            <XAxis dataKey='month' />
+            <YAxis dataKey={'revenue'} tickLine />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
               dataKey='revenue'
               type='linear'

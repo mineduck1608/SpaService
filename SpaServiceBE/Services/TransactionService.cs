@@ -49,5 +49,7 @@ namespace Services
             return _transactionRepository.OrderByMonth();
         }
         public Dictionary<string, float> OrderByServiceCategory() => _transactionRepository.OrderByCategory();
+
+        public Dictionary<DateOnly, (float service, float product)> OrderByDay() => _transactionRepository.OrderByDay();
     }
 }

@@ -72,15 +72,36 @@ export async function fetchNumOfCustomers() {
 
     if (response.ok) {
       // Parse and return the object {total: number, newCustomer: number}
-      return await response.json() as {total: number, newCustomers: number}
+      return (await response.json()) as { total: number; newCustomers: number }
     } else if (response.status === 500) {
       // Parse and return the error object {msg: string}
-      return await response.json() as {msg: string}
+      return (await response.json()) as { msg: string }
     } else {
       throw new Error(`Unexpected response status: ${response.status}`)
     }
   } catch (error) {
     console.error('Error fetching number of customers:', error)
     return { msg: 'An error occurred while fetching the number of customers.' }
+  }
+}
+
+export async function fetchTransactionsOrderByDay(): Promise<
+  { date: string; service: number; product: number }[] | { msg: string }
+> {
+  try {
+    const response = await fetch(`${apiUrl}/transactions/OrderByDay`)
+
+    if (response.ok) {
+      // Parse and return the array of {date: string, service: number, product: number}
+      return await response.json()
+    } else if (response.status === 500) {
+      // Parse and return the error object {msg: string}
+      return await response.json()
+    } else {
+      throw new Error(`Unexpected response status: ${response.status}`)
+    }
+  } catch (error) {
+    console.error('Error fetching transactions by day:', error)
+    return { msg: 'An error occurred while fetching transactions by day.' }
   }
 }

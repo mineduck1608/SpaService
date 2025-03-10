@@ -14,5 +14,6 @@ namespace Services.IServices
         Task<float> GetTotalRevenue();
         IEnumerable<float> OrderByMonths();
         Dictionary<string, float> OrderByServiceCategory();
+        Dictionary<DateOnly, (float service, float product)> OrderByDay();
     }
 }

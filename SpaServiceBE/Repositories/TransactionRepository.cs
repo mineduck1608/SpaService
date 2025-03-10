@@ -23,7 +23,7 @@ namespace Repositories
         public async Task<Transaction> GetById(string transactionId)
         {
             return await _context.Transactions
-                     // Bao gồm thông tin PromotionCode liên quan đến giao dịch
+                // Bao gồm thông tin PromotionCode liên quan đến giao dịch
                 .FirstOrDefaultAsync(t => t.TransactionId == transactionId);
         }
 
@@ -102,10 +102,12 @@ namespace Repositories
             var lower = new DateTime(now.Year - 1, now.Month, 1);
             var month = now.Month;
             var year = now.Year;
-            //Get trans 1 year from now
+            //Get trans 1 year from today
             var trans = _context.Transactions.Where(t =>
-            t.Status == true
-            && (t.CompleteTime != null && ((DateTime)t.CompleteTime) >= lower)
+            t.Status
+            && t.CompleteTime != null
+            && ((DateTime)t.CompleteTime) >= lower
+            && ((DateTime)t.CompleteTime) < now
             ).Select(x => new
             {
                 m = x.CompleteTime.GetValueOrDefault().Month,
@@ -127,9 +129,10 @@ namespace Repositories
             var lower = new DateTime(now.Year - 1, now.Month, 1);
             var trans = _context.ServiceTransactions
                 .Include(x => x.Transaction)
-                .Where(x => 
+                .Where(x =>
                 x.Transaction.Status
-                && (x.Transaction.CompleteTime != null && ((DateTime)x.Transaction.CompleteTime) >= lower)
+            && ((DateTime)x.Transaction.CompleteTime) >= lower
+            && ((DateTime)x.Transaction.CompleteTime) < now
                 )
                 .Include(x => x.Request)
                 .ThenInclude(x => x.Service);
@@ -145,6 +148,52 @@ namespace Repositories
                 else
                 {
                     result[category] = amount;
+                }
+            }
+            return result;
+        }
+        public Dictionary<DateOnly, (float service, float product)> OrderByDay()
+        {
+            var lower = DateTime.Now.AddMonths(-3);
+            lower = new(lower.Year, lower.Month, 1);
+
+            var trans = _context.Transactions.Where(t =>
+            t.Status
+            && t.CompleteTime != null
+            && ((DateTime)t.CompleteTime) >= lower
+            && ((DateTime)t.CompleteTime) < DateTime.Now
+            );
+
+            var result = new Dictionary<DateOnly, (float service, float product)>();
+
+            foreach (var item in trans)
+            {
+                var date = DateOnly.FromDateTime(item.CompleteTime.GetValueOrDefault());
+                var amount = item.TotalPrice;
+                var isService = item.TransactionType == "Service";
+                if (result.ContainsKey(date))
+                {
+                    if (isService)
+                    {
+                        result[date] = (result[date].service, result[date].product + amount);
+                    }
+                    else
+                    {
+                        result[date] = (result[date].service + amount, result[date].product);
+                    }
+                }
+                else
+                {
+                    result.Add(date, (isService ? amount : 0, !isService ? amount : 0));
+                }
+            }
+            var dateOnly = DateOnly.FromDateTime(lower);
+            var today = DateOnly.FromDateTime(DateTime.Now);
+            for (; dateOnly <= today; dateOnly = dateOnly.AddDays(1))
+            {
+                if (!result.ContainsKey(dateOnly))
+                {
+                    result.Add(dateOnly, (0, 0));
                 }
             }
             return result;
