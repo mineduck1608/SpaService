@@ -108,5 +108,16 @@ namespace Repositories
         {
             return await _context.Customers.FirstOrDefaultAsync(x => x.AccountId == accId);
         }
+        public (int total, int newCustomer) NumOfCustomersThisYear()
+        {
+            var now = DateTime.Now;
+            var lower = new DateTime(now.Year - 1, now.Month, 1);
+            var customers = _context.Customers;
+            var total = customers.Count();
+            var filtered = customers
+                .Include(x => x.Account)
+                .Where(x => x.Account.CreatedAt >= lower);
+            return (total, filtered.Count());
+        }
     }
 }

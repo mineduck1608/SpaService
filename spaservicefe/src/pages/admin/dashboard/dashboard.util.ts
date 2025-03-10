@@ -65,3 +65,22 @@ export async function fetchTransactionsByServiceCategory(): Promise<CategoryReve
     return { msg: 'An error occurred while fetching transactions.' }
   }
 }
+
+export async function fetchNumOfCustomers() {
+  try {
+    const response = await fetch(`${apiUrl}/customers/NumOfCustomers`)
+
+    if (response.ok) {
+      // Parse and return the object {total: number, newCustomer: number}
+      return await response.json() as {total: number, newCustomers: number}
+    } else if (response.status === 500) {
+      // Parse and return the error object {msg: string}
+      return await response.json() as {msg: string}
+    } else {
+      throw new Error(`Unexpected response status: ${response.status}`)
+    }
+  } catch (error) {
+    console.error('Error fetching number of customers:', error)
+    return { msg: 'An error occurred while fetching the number of customers.' }
+  }
+}

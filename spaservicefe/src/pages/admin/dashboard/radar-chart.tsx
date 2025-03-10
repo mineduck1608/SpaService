@@ -1,10 +1,8 @@
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-import { radarChartData, radarChartConfig } from '../../../components/chart/chart.util'
+import { radarChartConfig } from '../../../components/chart/chart.util'
 import { CategoryRevenue } from './dashboard.util'
-import { useEffect, useState } from 'react'
-import { getAllServiceCategories } from '../servicecategories/servicecategory.util'
 
 export function RadarChartComp(params: { array: CategoryRevenue[] }) {
   return (

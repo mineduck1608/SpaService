@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
 using Repositories.Context;
 using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace Repositories
 {
@@ -98,10 +99,9 @@ namespace Repositories
         public IEnumerable<float> OrderByMonth()
         {
             var now = DateTime.Now;
-            var lower = now.AddYears(-1);
+            var lower = new DateTime(now.Year - 1, now.Month, 1);
             var month = now.Month;
             var year = now.Year;
-            Debug.WriteLine($"{month} {year}");
             //Get trans 1 year from now
             var trans = _context.Transactions.Where(t =>
             t.Status == true
@@ -116,7 +116,6 @@ namespace Repositories
             //Group the transactions by month/year
             foreach (var t in trans)
             {
-                Debug.WriteLineIf(t.m == 3, $"{t.m}, {t.y} => {(t.m + (t.y == 1 ? 12 : 0) - month) % 13}");
                 int index = t.m + (t.y == 1 ? 12 : 0) - month;
                 buckets[index % 13] += t.t;
             }
@@ -124,9 +123,14 @@ namespace Repositories
         }
         public Dictionary<string, float> OrderByCategory()
         {
+            var now = DateTime.Now;
+            var lower = new DateTime(now.Year - 1, now.Month, 1);
             var trans = _context.ServiceTransactions
                 .Include(x => x.Transaction)
-                .Where(x => x.Transaction.Status)
+                .Where(x => 
+                x.Transaction.Status
+                && (x.Transaction.CompleteTime != null && ((DateTime)x.Transaction.CompleteTime) >= lower)
+                )
                 .Include(x => x.Request)
                 .ThenInclude(x => x.Service);
             var result = new Dictionary<string, float>();
