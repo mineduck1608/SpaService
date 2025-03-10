@@ -25,7 +25,10 @@ namespace API.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IRoomService _roomService;
         private readonly IFloorService _floorService;
-        public AppointmentController(IAppointmentService appointmentService, ISpaServiceService spaService, ICustomerService customerService, IRequestService requestService, IEmployeeService employeeService, IRoomService roomService, IFloorService floorService)
+        private readonly IEmployeeCommissionService _employeeCommissionService;
+        private readonly IComissionService _commissionService;
+        public AppointmentController(IAppointmentService appointmentService, ISpaServiceService spaService, ICustomerService customerService, IRequestService requestService, IEmployeeService employeeService, IRoomService roomService, IFloorService floorService, IEmployeeCommissionService employeeCommissionService,
+            IComissionService commissionService)
         {
             _service = appointmentService ?? throw new ArgumentNullException(nameof(appointmentService));
             _spaService = spaService ?? throw new ArgumentNullException(nameof(spaService));
@@ -34,6 +37,8 @@ namespace API.Controllers
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             _roomService = roomService ?? throw new ArgumentNullException(nameof(roomService));
             _floorService = floorService ?? throw new ArgumentNullException(nameof(floorService));
+            _employeeCommissionService = employeeCommissionService ?? throw new ArgumentNullException(nameof(employeeCommissionService));
+            _commissionService = commissionService ?? throw new ArgumentNullException(nameof(commissionService));
         }
 
         // GET: api/appointments/GetAll
@@ -359,8 +364,36 @@ namespace API.Controllers
                         return BadRequest(new { msg = "Appointment must be in processing state to check out." });
                     }
 
-                    appointment.CheckOut = DateTime.Now;
-                    appointment.Status = "Finished";
+                    if (appointment != null && appointment.Request?.ServiceTransactions != null)
+                    {
+                        foreach (var serviceTransaction in appointment.Request.ServiceTransactions)
+                        {
+                            var transactionId = serviceTransaction.Transaction?.TransactionId;
+                            var serviceTransactionId = serviceTransaction.ServiceTransactionId;
+                            var totalTransaction = serviceTransaction.Transaction?.TotalPrice ?? 0.0f;
+
+                            if (!string.IsNullOrEmpty(appointment.EmployeeId) && transactionId != null && serviceTransactionId != null)
+                            {
+                                var commission = await _commissionService.GetCommissionById("commission");
+                                if(commission != null) { 
+                                var employeeCommission = new EmployeeCommission
+                                {
+                                    EmployeeId = appointment.EmployeeId,
+                                    CommissionId = commission.CommissionId,
+                                    TransactionId = transactionId,
+                                    CommissionValue = totalTransaction * (commission.Percentage/100),
+                                    ServiceTransactionId = serviceTransactionId
+                                };
+
+                                _employeeCommissionService.AddEmployeeCommission(employeeCommission);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Either appointment or ServiceTransactions is null.");
+                    }
                 }
                 else
                 {

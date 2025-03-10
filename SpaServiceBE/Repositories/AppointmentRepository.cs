@@ -20,7 +20,7 @@ namespace Repositories
         // Get an appointment by its ID
         public async Task<Appointment> GetById(string appointmentId)
         {
-            return await _context.Appointments.Include(x => x.Employee).Include(y => y.Request)
+            return await _context.Appointments.Include(x => x.Employee).Include(y => y.Request).ThenInclude(z => z.ServiceTransactions).ThenInclude(o => o.Transaction)
                 .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
         }
 
