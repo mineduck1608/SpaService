@@ -8,6 +8,7 @@ import { CategoryRevenue, fetchTransactionsByServiceCategory, fetchTransactionsO
 import { toast } from 'react-toastify'
 import { LineChartComp } from './line-chart.tsx'
 import { RadarChartComp } from './radar-chart.tsx'
+import { getAllServiceCategories } from '../servicecategories/servicecategory.util.ts'
 
 export const Dashboard = () => {
   const [lineChartData, setLineChartData] = useState<number[]>([])
@@ -29,7 +30,10 @@ export const Dashboard = () => {
         toast.error((s as { msg: string }).msg)
         return
       }
-      setRadarChartData(s as CategoryRevenue[])
+      var cat = await getAllServiceCategories()
+      var y = s as CategoryRevenue[]
+      y.forEach((v) => (v.category = cat.find((x) => x.categoryId === v.category)?.categoryName ?? ''))
+      setRadarChartData(y)
     } catch (e) {}
   }
   useEffect(() => {
@@ -40,7 +44,7 @@ export const Dashboard = () => {
     <div className='flex flex-1 flex-col gap-10 p-4'>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
         <LineChartComp array={lineChartData} />
-        <RadarChartComp array={radarChartData}/>
+        <RadarChartComp array={radarChartData} />
         <RadialChartComp />
       </div>
       <div>

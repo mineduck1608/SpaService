@@ -7,31 +7,14 @@ import { useEffect, useState } from 'react'
 import { getAllServiceCategories } from '../servicecategories/servicecategory.util'
 
 export function RadarChartComp(params: { array: CategoryRevenue[] }) {
-  const [data, setData] = useState([...params.array])
-  console.log(data);
-  
-  useEffect(() => {
-    async function setCategory() {
-      var s = await getAllServiceCategories()
-      setData((data) => {
-        data.forEach((v) => {
-          v.category = s.find((x) => x.categoryId === v.category)?.categoryName ?? ''
-        })
-        console.log(data);
-        
-        return data
-      })
-    }
-    setCategory()
-  }, [])
   return (
     <Card>
       <CardHeader className='items-center'>
         <CardTitle className='text-lg'>Service category revenue</CardTitle>
       </CardHeader>
       <CardContent className='-mt-6 pb-0'>
-        <ChartContainer config={radarChartConfig} className='mx-auto aspect-square max-h-[250px]'>
-          <RadarChart data={data}>
+        <ChartContainer config={radarChartConfig} className='p-2 -m-5'>
+          <RadarChart data={params.array}>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <PolarAngleAxis dataKey='category' />
             <PolarGrid />
