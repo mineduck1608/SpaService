@@ -41,8 +41,25 @@ export default function PastAppointmentTable  ({ employee, year }: EmployeeStati
                 {appointments.map((appointment) => (
                   <tr key={appointment.appointmentId} className='border-b'>
                     <td className='px-4 py-2'>{appointment.request?.service?.serviceName}</td>
-                    <td className='px-4 py-2'>{appointment.startTime}</td>
-                    <td className='px-4 py-2'>{appointment.endTime}</td>
+                    <td className='px-4 py-2'>{new Date(appointment.startTime).toLocaleString('en-GB', { 
+                        day: '2-digit', 
+                        month: '2-digit', 
+                        year: 'numeric', 
+                        hour: '2-digit', 
+                        minute: '2-digit', 
+                        second: '2-digit', 
+                        hour12: false 
+                      })}
+                    </td>
+                    <td className='px-4 py-2'>{new Date(appointment.endTime).toLocaleString('en-GB', { 
+                        day: '2-digit', 
+                        month: '2-digit', 
+                        year: 'numeric', 
+                        hour: '2-digit', 
+                        minute: '2-digit', 
+                        second: '2-digit', 
+                        hour12: false 
+                      })}</td>
                     <td className='px-4 py-2'>{appointment.request?.managerNote || 'N/A'}</td>
                     <td className='px-4 py-2'>N/A</td>
                   </tr>
