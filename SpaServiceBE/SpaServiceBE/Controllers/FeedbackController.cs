@@ -218,5 +218,23 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("OrderByRating")]
+        public IActionResult OrderByRating()
+        {
+            try
+            {
+                var s = _service.OrderByRating();
+                var rs = s.Select(x => new
+                {
+                    rating = x.Key,
+                    count = x.Value
+                });
+                return Ok(rs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

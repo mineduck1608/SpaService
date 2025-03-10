@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { AreaChartComp } from 'src/components/chart/area-chart'
-import { PieChartComp } from 'src/components/chart/pie-chart'
+import { PieChartComp } from './pie-chart.tsx'
 import { BarChartComp } from 'src/components/chart/bar-chart'
 import {
   CategoryRevenue,
+  fetchFeedbackOrderByRating,
   fetchNumOfCustomers,
   fetchTransactionsByServiceCategory,
   fetchTransactionsOrderByDay,
@@ -24,6 +25,7 @@ export const Dashboard = () => {
     newCustomers: 1
   })
   const [areaChart, setAreaChart] = useState<{ date: string; service: number; product: number }[]>([])
+  const [pieData, setPieData] = useState<{rating: number, count: number}[]>([])
   async function findYearRevenues() {
     try {
       var s = await fetchTransactionsOrderByMonth()
@@ -54,6 +56,15 @@ export const Dashboard = () => {
       setRadialData(s as { total: number; newCustomers: number })
     } catch (e) {}
   }
+  async function findFeedbacks() {
+    try {
+      var s = await fetchFeedbackOrderByRating()
+      if ((s as { msg: string }).msg) {
+        return
+      }
+      setPieData(s as { rating: number; count: number }[])
+    } catch (e) {}
+  }
   async function findRevenueByDays() {
     try {
       var s = await fetchTransactionsOrderByDay()
@@ -74,6 +85,7 @@ export const Dashboard = () => {
     findRevenueByServiceCat()
     findCustomerNumber()
     findRevenueByDays()
+    findFeedbacks()
   }, [])
   return (
     <div className='flex flex-1 flex-col gap-10 p-4'>
@@ -87,7 +99,7 @@ export const Dashboard = () => {
       </div>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
         {/* <AreaChartComp /> */}
-        <PieChartComp />
+        <PieChartComp data={pieData}/>
         <BarChartComp />
       </div>
     </div>

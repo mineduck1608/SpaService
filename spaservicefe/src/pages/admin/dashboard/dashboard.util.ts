@@ -105,3 +105,22 @@ export async function fetchTransactionsOrderByDay(): Promise<
     return { msg: 'An error occurred while fetching transactions by day.' }
   }
 }
+
+export async function fetchFeedbackOrderByRating(): Promise<{ rating: number; count: number }[] | { msg: string }> {
+  try {
+    const response = await fetch(`${apiUrl}/feedbacks/OrderByRating`)
+
+    if (response.ok) {
+      // Parse and return the array of {date: string, service: number, product: number}
+      return await response.json()
+    } else if (response.status === 500) {
+      // Parse and return the error object {msg: string}
+      return await response.json()
+    } else {
+      throw new Error(`Unexpected response status: ${response.status}`)
+    }
+  } catch (error) {
+    console.error('Error fetching transactions by day:', error)
+    return { msg: 'An error occurred while fetching transactions by day.' }
+  }
+}
