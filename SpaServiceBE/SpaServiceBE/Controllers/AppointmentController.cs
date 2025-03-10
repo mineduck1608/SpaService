@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Net;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace API.Controllers
 {
@@ -248,7 +249,7 @@ namespace API.Controllers
                 {
                     return BadRequest(new { msg = "Appointment was completed." });
                 }
-                if(startTime != null)
+                if(startTime == default)
                 {
                     startTime = checkAppointmentStatus.StartTime;
                 }
@@ -327,6 +328,61 @@ namespace API.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
+        // PUT: api/appointments/CheckInCheckOut/{id}
+        [HttpPut("CheckInCheckOut/{id}")]
+        public async Task<ActionResult> CheckInCheckOut(string id, [FromBody] string action)
+        {
+            try
+            {
+                var appointment = await _service.GetAppointmentById(id);
+
+                if (appointment == null)
+                {
+                    return NotFound(new { msg = $"Appointment with ID = {id} not found." });
+                }
+
+                if (action.Equals("checkin", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (appointment.Status == "Processing" || appointment.Status == "Finished")
+                    {
+                        return BadRequest(new { msg = "Appointment has already been checked in or completed." });
+                    }
+
+                    appointment.CheckIn = DateTime.Now;
+                    appointment.Status = "Processing";
+                }
+                else if (action.Equals("checkout", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (appointment.Status != "Processing")
+                    {
+                        return BadRequest(new { msg = "Appointment must be in processing state to check out." });
+                    }
+
+                    appointment.CheckOut = DateTime.Now;
+                    appointment.Status = "Finished";
+                }
+                else
+                {
+                    return BadRequest(new { msg = "Invalid action. Please use 'checkin' or 'checkout'." });
+                }
+
+                // Update appointment
+                var isUpdated = await _service.UpdateAppointment(id, appointment);
+
+                if (!isUpdated)
+                {
+                    return NotFound(new { msg = $"Failed to update appointment with ID = {id}." });
+                }
+
+                return Ok(new { msg = $"Appointment {action} successfully.", appointment });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
+
 
 
         // DELETE: api/appointments/Delete/{id}

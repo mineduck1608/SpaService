@@ -50,9 +50,33 @@ namespace Repositories
         // Get all appointments
         public async Task<List<Appointment>> GetAll()
         {
-            return await _context.Appointments.Include(x => x.Employee).Include(x => x.Room).Include(x => x.Request).ThenInclude(x => x.Customer).Include(x => x.Request).ThenInclude(x => x.Service)
+            var appointments = await _context.Appointments
+                .Include(x => x.Employee)
+                .Include(x => x.Room)
+                .Include(x => x.Request).ThenInclude(x => x.Customer)
+                .Include(x => x.Request).ThenInclude(x => x.Service)
                 .ToListAsync();
+
+            bool hasUpdates = false; // Biến cờ để kiểm tra có thay đổi nào cần lưu vào DB không
+
+            foreach (var item in appointments)
+            {
+                if (item.EndTime < DateTime.Now && item.Status != "Finished" && item.Status != "Processing")
+                {
+                    item.Status = "Not processed"; // Cập nhật trạng thái
+                    hasUpdates = true; // Đánh dấu là có thay đổi
+                }
+            }
+
+            // Lưu thay đổi vào cơ sở dữ liệu nếu có
+            if (hasUpdates)
+            {
+                await _context.SaveChangesAsync();
+            }
+
+            return appointments;
         }
+
 
         // Add a new appointment
         public async Task<bool> Add(Appointment appointment)

@@ -213,7 +213,7 @@ public partial class SpaserviceContext : DbContext
                 .HasColumnName("startTime");
             entity.Property(e => e.Status)
                 .IsRequired()
-                .HasMaxLength(10)
+                .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("status");
             entity.Property(e => e.UpdatedAt)

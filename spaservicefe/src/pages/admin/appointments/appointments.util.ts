@@ -223,3 +223,62 @@ export async function UpdateAppoitment(appointment: Appointment, roomId: string)
     return []
   }
 }
+
+// Function to call CheckIn API
+export const handleCheckInAPI = async (appointmentId: string) => {
+  try {
+    const res = await fetch(`${apiUrl}/appointments/CheckInCheckOut/${appointmentId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify('checkin')
+    });
+
+    if (res.status >= 200 && res.status < 300) {
+      const responseData = await res.json();
+      toast.success(responseData.msg || 'Check-in successful!');
+      setTimeout(() => window.location.reload(), 1000)
+    } else {
+      const errorData = await res.json();
+      toast.error(errorData.msg || 'Failed to check-in.', {
+        autoClose: 1000,
+        closeButton: false,
+      });
+    }
+  } catch (error) {
+    console.error('Error during check-in:', error);
+    toast.error('Internal server error. Please try again later.');
+  }
+};
+
+// Function to call CheckOut API
+export const handleCheckOutAPI = async (appointmentId: string) => {
+  try {
+    console.log('Checking out:', appointmentId);
+    const res = await fetch(`${apiUrl}/appointments/CheckInCheckOut/${appointmentId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify('checkout')
+    });
+
+    if (res.status >= 200 && res.status < 300) {
+      const responseData = await res.json();
+      toast.success(responseData.msg || 'Check-out successful!');
+      setTimeout(() => window.location.reload(), 1000);
+    } else {
+      const errorData = await res.json();
+      toast.error(errorData.msg || 'Failed to check-out.', {
+        autoClose: 1000,
+        closeButton: false,
+      });
+    }
+  } catch (error) {
+    console.error('Error during check-out:', error);
+    toast.error('Internal server error. Please try again later.');
+  }
+};
