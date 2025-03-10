@@ -586,5 +586,26 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("GetMonthlyAppointments/{id}/{year}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetMonthlyAppointments(string id, int year)
+        {
+            if (string.IsNullOrEmpty(id) || year <= 0)
+                return BadRequest("Employee ID and year are required.");
+
+            try
+            {
+                var monthlyAppointments = await _service.GetMonthlyAppointmentCount(id, year);
+
+                if (monthlyAppointments == null || !monthlyAppointments.Any())
+                    return NotFound($"No appointments found for Employee ID = {id} in year = {year}.");
+
+                return Ok(monthlyAppointments);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

@@ -77,6 +77,13 @@ namespace Repositories
             return appointments;
         }
 
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByEmployeeAndYear(string employeeId, int year)
+        {
+            return await _context.Appointments
+                .Where(a => a.EmployeeId == employeeId && a.CheckOut.HasValue && a.CheckOut.Value.Year == year)
+                .ToListAsync();
+        }
+
 
         // Add a new appointment
         public async Task<bool> Add(Appointment appointment)
