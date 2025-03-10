@@ -5,9 +5,10 @@ import { Appointment } from '@/types/type';
 
 interface EmployeeStatisticProps {
   employee: any
+  year: number
 }
 
-export default function PastAppointmentTable  ({ employee }: EmployeeStatisticProps) {
+export default function PastAppointmentTable  ({ employee, year }: EmployeeStatisticProps) {
   const [appointments, setAppointments] = useState<Appointment[]>([])
 
   useEffect(() => {
@@ -22,9 +23,8 @@ export default function PastAppointmentTable  ({ employee }: EmployeeStatisticPr
     <Card className='rounded-none border-white bg-transparent shadow-none -mt-5'>
       <CardHeader className='text-lg'>
         <CardTitle>Past Appointments</CardTitle>
-        <CardDescription>January - December 2025</CardDescription>
       </CardHeader>
-      <CardContent className='px-8 overflow-x-auto'>
+      <CardContent className='overflow-x-auto'>
         {appointments.length > 0 ? (
           <div className='overflow-x-auto'>
             <table className='table-auto w-full text-left'>
@@ -44,7 +44,7 @@ export default function PastAppointmentTable  ({ employee }: EmployeeStatisticPr
                     <td className='px-4 py-2'>{appointment.startTime}</td>
                     <td className='px-4 py-2'>{appointment.endTime}</td>
                     <td className='px-4 py-2'>{appointment.request?.managerNote || 'N/A'}</td>
-                    <td className='px-4 py-2'>'N/A'</td>
+                    <td className='px-4 py-2'>N/A</td>
                   </tr>
                 ))}
               </tbody>
