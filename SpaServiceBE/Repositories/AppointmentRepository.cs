@@ -33,6 +33,8 @@ namespace Repositories
         {
             return await _context.Appointments
                 .Where(e => e.EmployeeId == employeeId)
+                .Include(x => x.Request)
+                .ThenInclude(x => x.Service)
                 .ToListAsync();
         }
 
