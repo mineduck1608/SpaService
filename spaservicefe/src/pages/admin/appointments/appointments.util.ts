@@ -17,13 +17,13 @@ export const fetchAppointments = async () => {
     }
 
     const appointments = await response.json()
-    console.log('Fetched appointments:', appointments)
+
 
     const employees = await fetchEmployees()
-    console.log('Fetched employees:', employees)
+
 
     const rooms = await fetchRooms()
-    console.log('rooms:', rooms)
+
 
     const employeeMap = new Map<string, { fullName: string }>(
       employees.map((emp: any) => [emp.employeeId, { fullName: emp.fullName }])
@@ -35,21 +35,41 @@ export const fetchAppointments = async () => {
 
     const formattedAppointments = appointments.map(
       (
-        event: { status: string; startTime: string; endTime: string; employeeId: string; roomId: string },
+        event: { 
+          status: string; 
+          startTime: string; 
+          endTime: string; 
+          employeeId: string; 
+          roomId: string;
+          request?: {
+            customer?: {
+              fullName: string;
+            };
+            service?: {
+              serviceName: string;
+            }
+          };
+        },
         index: number
       ) => {
         const employeeInfo = employeeMap.get(event.employeeId) || { fullName: 'Unknown' }
         const roomInfo = roomMap.get(event.roomId) || { roomNum: null, floorId: null }
+        const customerName = event.request?.customer?.fullName || 'Unknown Customer'
+        const serviceName = event.request?.service?.serviceName || 'Unknown Service'
 
         return {
           id: index + 1,
-          title: event.status,
+          title: `${customerName} - ${event.status}`,
           start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
           end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
           people: [employeeInfo.fullName],
-          location: roomInfo.floorId ? `Floor: ${roomInfo.floorId}` : 'Unknown',
-          description: roomInfo.roomNum ? `Room ${roomInfo.roomNum}` : 'Unknown'
-          //description
+          location: serviceName,
+          description: roomInfo.roomNum ? `  Room ${roomInfo.roomNum}` : 'Unknown',
+          calendarId: event.status === 'Processing' ? 'personal'
+            : event.status === 'Finished' ? 'work'
+            : event.status === 'Pending' ? 'leisure'
+            : event.status === 'Cancelled' ? 'school'
+            : 'personal'
         }
       }
     )
