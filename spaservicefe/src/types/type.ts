@@ -170,6 +170,15 @@ export type Commission = {
   percentage: number
 }
 
+export type EmployeeCommission = {
+  commissionId: string
+  employeeId: string
+  percentage: number
+  commissionValue: number
+  serviceTransactionId: string
+  serviceTransaction?: ServiceTransaction
+}
+
 export type TransactionBase = {
   transactionId: string
   transactionType: string

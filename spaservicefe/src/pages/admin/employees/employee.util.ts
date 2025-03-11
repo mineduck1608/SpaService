@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Appointment, Employee } from '../../../types/type'
+import { Appointment, Employee, EmployeeCommission } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getEmployeeByAccountId(id: string) {
@@ -52,6 +52,20 @@ export async function getAllAppointmentByEmployeeId(id: string) {
       }
     })
     const json = (await res.json()) as Appointment[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
+export async function getAllCommissionByEmployeeId(id: string) {
+  try {
+    const res = await fetch(`${apiUrl}/employeecommissions/GetEmployeeCommission/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as EmployeeCommission[]
     return json
   } catch (e) {
     return []

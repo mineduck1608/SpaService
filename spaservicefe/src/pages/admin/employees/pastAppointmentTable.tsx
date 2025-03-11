@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
-import { getAllAppointmentByEmployeeId } from './employee.util';
-import { Appointment } from '@/types/type';
+import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
+import { getAllAppointmentByEmployeeId, getAllCommissionByEmployeeId } from './employee.util';
+import { Appointment, EmployeeCommission } from '@/types/type';
 
 interface EmployeeStatisticProps {
   employee: any
@@ -10,13 +10,26 @@ interface EmployeeStatisticProps {
 
 export default function PastAppointmentTable  ({ employee, year }: EmployeeStatisticProps) {
   const [appointments, setAppointments] = useState<Appointment[]>([])
+  const [commissions, setCommissions] = useState<EmployeeCommission[]>([])
+
+  const getCommissionForAppointment = (appointment: Appointment) => {
+    const requestId = appointment.request?.requestId
+    const matchedCommission = commissions.find((commission) =>
+      commission.serviceTransaction?.requestId === requestId
+    )
+    return matchedCommission ? matchedCommission.commissionValue : 'N/A'
+  }
 
   useEffect(() => {
-    const fetchAppointment = async () => {
-      const data = await getAllAppointmentByEmployeeId(employee.employeeId)
-      setAppointments(data)
+    const fetchData = async () => {
+      const appointmentData = await getAllAppointmentByEmployeeId(employee.employeeId)
+      setAppointments(appointmentData)
+
+      const commissionData = await getAllCommissionByEmployeeId(employee.employeeId)
+      console.log(commissionData)
+      setCommissions(commissionData)
     }
-    fetchAppointment()
+    fetchData()
   }, [employee])
 
   return (
@@ -31,8 +44,7 @@ export default function PastAppointmentTable  ({ employee, year }: EmployeeStati
               <thead className='border-b'>
                 <tr>
                   <th className='px-4 py-2'>Service</th>
-                  <th className='px-4 py-2'>Start Time</th>
-                  <th className='px-4 py-2'>End Time</th>
+                  <th className='px-4 py-2'>Date</th>
                   <th className='px-4 py-2'>Note</th>
                   <th className='px-4 py-2'>Commission</th>
                 </tr>
@@ -44,24 +56,12 @@ export default function PastAppointmentTable  ({ employee, year }: EmployeeStati
                     <td className='px-4 py-2'>{new Date(appointment.startTime).toLocaleString('en-GB', { 
                         day: '2-digit', 
                         month: '2-digit', 
-                        year: 'numeric', 
-                        hour: '2-digit', 
-                        minute: '2-digit', 
-                        second: '2-digit', 
+                        year: 'numeric',
                         hour12: false 
                       })}
                     </td>
-                    <td className='px-4 py-2'>{new Date(appointment.endTime).toLocaleString('en-GB', { 
-                        day: '2-digit', 
-                        month: '2-digit', 
-                        year: 'numeric', 
-                        hour: '2-digit', 
-                        minute: '2-digit', 
-                        second: '2-digit', 
-                        hour12: false 
-                      })}</td>
                     <td className='px-4 py-2'>{appointment.request?.managerNote || 'N/A'}</td>
-                    <td className='px-4 py-2'>N/A</td>
+                    <td className='px-4 py-2'>{getCommissionForAppointment(appointment)}</td>
                   </tr>
                 ))}
               </tbody>
