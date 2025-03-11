@@ -33,7 +33,41 @@ function CalendarApp() {
   const calendar = useCalendarApp({
     views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
     events: events,
-    plugins: [eventModal]
+    plugins: [eventModal],
+    calendars: {
+      personal: {
+        colorName: 'personal',
+        lightColors: {
+          main: '#4a90e2',
+          container: '#cfe5ff',
+          onContainer: '#003366',
+        },
+      },
+      work: {
+        colorName: 'work',
+        lightColors: {
+          main: '#28a745',
+          container: '#c8f7c5',
+          onContainer: '#0b3d20',
+        },
+      },
+      leisure: {
+        colorName: 'leisure',
+        lightColors: {
+          main: '#f9d71c',
+          container: '#fff5aa',
+          onContainer: '#594800',
+        },
+      },
+      school: {
+        colorName: 'school',
+        lightColors: {
+          main: '#dc3545',
+          container: '#ffccd5',
+          onContainer: '#60000b',
+        },
+      },
+    },
   })
 
   const handleReload = () => {
