@@ -15,7 +15,7 @@ export default function PastAppointmentTable({ employee, year }: EmployeeStatist
   const getCommissionForAppointment = (appointment: Appointment) => {
     const requestId = appointment.request?.requestId
     const matchedCommission = commissions.find((commission) => commission.serviceTransaction?.requestId === requestId)
-    return matchedCommission ? matchedCommission.commissionValue : 'N/A'
+    return matchedCommission ? matchedCommission.commissionValue : 0
   }
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function PastAppointmentTable({ employee, year }: EmployeeStatist
     }
     fetchData()
   }, [employee])
-
+console.log(appointments)
   return (
     <Card className='-mt-5 rounded-none border-white bg-transparent shadow-none'>
       <CardHeader className='text-lg'>
@@ -60,7 +60,13 @@ export default function PastAppointmentTable({ employee, year }: EmployeeStatist
                       })}
                     </td>
                     <td className='px-4 py-2'>{appointment.request?.managerNote || 'N/A'}</td>
-                    <td className='px-4 py-2'>{getCommissionForAppointment(appointment)}</td>
+                    <td className='px-4 py-2'>
+                      {getCommissionForAppointment(appointment) !== 0
+                        ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
+                            getCommissionForAppointment(appointment)
+                          )
+                        : 'N/A'}
+</td>
                   </tr>
                 ))}
               </tbody>

@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react'
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
-  TableHeader,
   TableRow
 } from '../../../components/ui/table'
 import { ServiceTransaction, CosmeticTransaction, SpaRequest, Order } from '@/types/type'
@@ -16,8 +13,6 @@ import {
   getAllServiceTransactions,
   getAllCosmeticTransactions
 } from './transaction.util'
-
-const formatPrice = (price: number) => price.toLocaleString('vi-VN')
 
 interface TransactionDetailTableProps {
   transactionId: string
