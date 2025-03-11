@@ -22,42 +22,41 @@ import {
 import { jwtDecode } from 'jwt-decode'
 import { roleJWT } from '../../types/constants'
 
-
-const token = sessionStorage.getItem('token');
-let userRole;
+const token = sessionStorage.getItem('token')
+let userRole
 if (token) {
-  const jwtData = jwtDecode(token);
-  userRole = jwtData[roleJWT];
+  const jwtData = jwtDecode(token)
+  userRole = jwtData[roleJWT]
   console.log(userRole)
 } else {
-  console.error('Token not found');
+  console.error('Token not found')
 }
 const adminNavMain = [
   {
     title: 'Home',
     url: '/admin',
-    icon: Home,
-  },
+    icon: Home
+  }
   // Add more items for Admin
-];
+]
 
 const managerNavMain = [
   {
     title: 'Home',
     url: '/manager',
-    icon: Home,
-  },
+    icon: Home
+  }
   // Add more items for Manager
-];
+]
 
 const employeeNavMain = [
   {
     title: 'Home',
     url: '/employee',
-    icon: Home,
-  },
-// Add more items for Employee
-];
+    icon: Home
+  }
+  // Add more items for Employee
+]
 
 export type SideBarItem = {
   title: string
@@ -217,4 +216,3 @@ export const sideData = {
     }
   ]
 }
-

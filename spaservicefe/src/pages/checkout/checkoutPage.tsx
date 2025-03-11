@@ -58,7 +58,7 @@ export default function CheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) { }
+    } catch (e) {}
   }, [])
   async function onSubmitBase(method: string) {
     try {

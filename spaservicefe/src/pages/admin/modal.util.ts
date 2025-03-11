@@ -197,7 +197,7 @@ export const managerConfig = {
       label: 'Full Name',
       type: 'text',
       required: true,
-      placeholder: 'Enter full name',
+      placeholder: 'Enter full name'
     },
     {
       name: 'position',
@@ -218,19 +218,19 @@ export const managerConfig = {
       label: 'Image',
       type: 'text',
       required: true,
-      placeholder: 'Enter image URL',  
+      placeholder: 'Enter image URL'
     },
     {
       name: 'phone',
       label: 'Phone',
       type: 'tel',
-      placeholder: 'Enter phone number',  
+      placeholder: 'Enter phone number'
     },
     {
       name: 'email',
       label: 'Email',
       type: 'email',
-      placeholder: 'Enter email',  
+      placeholder: 'Enter email'
     }
   ],
   fields: [
@@ -240,28 +240,28 @@ export const managerConfig = {
       type: 'text',
       required: true,
       minLength: 8,
-      placeholder: 'Enter username',
+      placeholder: 'Enter username'
     },
     {
       name: 'password',
       label: 'Password',
       type: 'password',
       required: true,
-      placeholder: 'Enter password',
+      placeholder: 'Enter password'
     },
     {
       name: 'fullName',
       label: 'Full Name',
       type: 'text',
       required: true,
-      placeholder: 'Enter full name',
+      placeholder: 'Enter full name'
     },
     {
       name: 'position',
       label: 'Position',
       type: 'select',
       required: true,
-      placeholder: 'Select position',  
+      placeholder: 'Select position'
     },
     {
       name: 'phone',
@@ -281,7 +281,7 @@ export const managerConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      placeholder: 'Enter image URL',  
+      placeholder: 'Enter image URL'
     }
   ]
 }
@@ -421,7 +421,7 @@ export const applicatonConfig = {
       label: 'Account',
       type: 'text',
       required: true,
-      placeholder: 'Enter the account',
+      placeholder: 'Enter the account'
     }
   ]
 }
@@ -647,19 +647,19 @@ export const transactionConfig = {
       name: 'transactionType',
       label: 'Transaction Type',
       type: 'select',
-      readonly: true,
+      readonly: true
     },
     {
       name: 'totalPrice',
       label: 'Total Price',
       type: 'number',
-      readonly: true,
+      readonly: true
     },
     {
       name: 'paymentType',
       label: 'Payment Type',
       type: 'select',
-      readonly: true,
+      readonly: true
     },
     {
       name: 'status',

@@ -20,7 +20,7 @@ export function NavUser({
     name: string
     email: string
     image: string
-    role:string
+    role: string
   }
 }) {
   const { isMobile } = useSidebar()

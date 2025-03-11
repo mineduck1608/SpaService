@@ -32,7 +32,7 @@ export async function handleCreateSubmit(data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -56,7 +56,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -79,7 +79,7 @@ export async function handleDelete(id: string) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (error) {

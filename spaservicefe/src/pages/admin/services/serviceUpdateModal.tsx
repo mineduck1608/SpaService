@@ -145,7 +145,12 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
                             </SelectContent>
                           </Select>
                         ) : (
-                          <Input {...formField} type={field.type} placeholder={field.placeholder} disabled={field.readonly} />
+                          <Input
+                            {...formField}
+                            type={field.type}
+                            placeholder={field.placeholder}
+                            disabled={field.readonly}
+                          />
                         )}
                       </FormControl>
                       <FormMessage className='text-sm' />
@@ -159,13 +164,7 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
             <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
               <FormLabel className='text-md text-right'>Update Duration</FormLabel>
               <div className='col-span-3'>
-                <TimePicker
-                  onChange={setDuration}
-                  value={duration}
-                  disableClock
-                  format='HH:mm'
-                  clearIcon={null}
-                />
+                <TimePicker onChange={setDuration} value={duration} disableClock format='HH:mm' clearIcon={null} />
               </div>
             </FormItem>
 
@@ -174,7 +173,7 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
               <FormLabel className='text-md text-right'>Update Image</FormLabel>
               <div className='col-span-3 space-y-2'>
                 <input type='file' accept='image/*' onChange={handleImageChange} className='' />
-                {imagePreview && <img src={imagePreview} alt='Preview' className='w-32 h-32 object-cover rounded' />}
+                {imagePreview && <img src={imagePreview} alt='Preview' className='h-32 w-32 rounded object-cover' />}
               </div>
             </FormItem>
 

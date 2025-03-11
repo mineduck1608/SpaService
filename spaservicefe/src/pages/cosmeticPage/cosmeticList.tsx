@@ -16,7 +16,7 @@ export default function CosmeticList(params?: { cosmetic: CosmeticProduct[] }) {
 export function CosmeticCard(params?: { s: CosmeticProduct }) {
   const handleNavigate = () => {
     // Use window.location to navigate
-    window.location.href = `/cosmetics-detail/${params?.s?.productId}`;
+    window.location.href = `/cosmetics-detail/${params?.s?.productId}`
   }
 
   return (

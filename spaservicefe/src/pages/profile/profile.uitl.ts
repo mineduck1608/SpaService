@@ -1,6 +1,6 @@
-import { toast } from "react-toastify"
-import { apiUrl, getToken } from "../../types/constants"
-import { Customer, CustomerMembership, Membership } from "@/types/type"
+import { toast } from 'react-toastify'
+import { apiUrl, getToken } from '../../types/constants'
+import { Customer, CustomerMembership, Membership } from '@/types/type'
 
 export async function GetCustomerByAccountId(accId: string) {
   try {

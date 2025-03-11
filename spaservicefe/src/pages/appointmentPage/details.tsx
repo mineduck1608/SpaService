@@ -27,7 +27,7 @@ const Details: React.FC<RequestActionsProps> = ({ request, isPast }) => {
       const customerId = sessionStorage.getItem('customerId') ?? ''
       if (customerId && request.appointmentId) {
         const feedbackExists = !!(await hasSendFeedback(request.appointmentId))
-        console.log("This feedback exists: ",feedbackExists)
+        console.log('This feedback exists: ', feedbackExists)
         setHasFeedback(feedbackExists)
       }
     }
@@ -38,28 +38,34 @@ const Details: React.FC<RequestActionsProps> = ({ request, isPast }) => {
     <div>
       {!isPast && (
         <>
-          <button className='rounded-md bg-purple1 p-2 text-white cursor-pointer' onClick={() => setModalOpen(true)}>
+          <button className='cursor-pointer rounded-md bg-purple1 p-2 text-white' onClick={() => setModalOpen(true)}>
             View Detail
           </button>
-          <DetailModal isOpen={isModalOpen} onClose={closeModal} onConfirm={closeModal} data={request}
-          />
+          <DetailModal isOpen={isModalOpen} onClose={closeModal} onConfirm={closeModal} data={request} />
         </>
       )}
       {isPast && (
         <>
           {!hasFeedback ? (
             <>
-              <button onClick={openFeedbackModal} className='rounded-md bg-purple1 p-1.5 text-white cursor-pointer'>
+              <button onClick={openFeedbackModal} className='cursor-pointer rounded-md bg-purple1 p-1.5 text-white'>
                 Leave a Review
               </button>
-              <FeedbackModal isOpen={isFeedbackModalOpen} onClose={closeFeedbackModal} appointment={request}/>
+              <FeedbackModal isOpen={isFeedbackModalOpen} onClose={closeFeedbackModal} appointment={request} />
             </>
           ) : (
             <>
-              <button onClick={openUpdateFeedbackModal} className='rounded-md bg-purple1 p-1.5 text-white cursor-pointer'>
+              <button
+                onClick={openUpdateFeedbackModal}
+                className='cursor-pointer rounded-md bg-purple1 p-1.5 text-white'
+              >
                 Update Review
               </button>
-              <UpdateFeedbackModal isOpen={isUpdateFeedbackModalOpen} onClose={closeUpdateFeedbackModal} appointment={request} />
+              <UpdateFeedbackModal
+                isOpen={isUpdateFeedbackModalOpen}
+                onClose={closeUpdateFeedbackModal}
+                appointment={request}
+              />
             </>
           )}
         </>

@@ -45,10 +45,16 @@ const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) 
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(application.applicationId)}>Copy application ID</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(application.applicationId)}>
+            Copy application ID
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
+            Delete
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <UpdateApplicationModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} application={application} />

@@ -14,7 +14,7 @@ export default function ContactAdminPage() {
     const fetchData = async () => {
       try {
         const [guestContacts, applications] = await Promise.all([getAllGuestApplications(), getAllApplications()])
-        
+
         const applicationMap = applications.reduce(
           (guestContact, application) => {
             guestContact[application.applicationId] = application.content

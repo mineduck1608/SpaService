@@ -21,7 +21,7 @@ export default function AdminNewsPage() {
             const categoryName = category ? category.categoryName : 'Unknown'
             return {
               ...item,
-              categoryName,
+              categoryName
             }
           })
         )

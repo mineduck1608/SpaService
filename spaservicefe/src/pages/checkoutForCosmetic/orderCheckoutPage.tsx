@@ -24,7 +24,7 @@ export default function CosmeticCheckoutPage() {
   })
   const [cart, setCart] = useState<SessionItem[]>([])
   const cus = sessionStorage.getItem('customerId')
-  console.log(cus);
+  console.log(cus)
 
   useEffect(() => {
     async function fetchData() {
@@ -34,14 +34,13 @@ export default function CosmeticCheckoutPage() {
       }
       var cart = await getCart(cus ?? '')
       if (cart) {
-        setCart(cart.filter(x => x.included))
+        setCart(cart.filter((x) => x.included))
       }
     }
     try {
       fetchData()
     } catch (e) {
-      console.log(e);
-
+      console.log(e)
     }
   }, [])
   async function onSubmitBase(method: string) {
@@ -79,7 +78,7 @@ export default function CosmeticCheckoutPage() {
         }
         toast.error(s.rs)
       }
-    } catch (e) { }
+    } catch (e) {}
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()

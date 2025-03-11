@@ -24,7 +24,7 @@ const FeedbackSection = ({ service }: FeedbackProps) => {
     const fetchFeedbacks = async () => {
       try {
         const filteredFeedbacks = await getFeedbacksByServiceId(service?.serviceId)
-        console.log("filteredFeedbacks: ",filteredFeedbacks)
+        console.log('filteredFeedbacks: ', filteredFeedbacks)
         if (filteredFeedbacks.length > 0) {
           const counts = [0, 0, 0, 0, 0]
           let sum = 0
@@ -51,79 +51,79 @@ const FeedbackSection = ({ service }: FeedbackProps) => {
     fetchFeedbacks()
   }, [])
 
-  if (loading) return <div className='flex items-center justify-center w-full h-full'>Loading...</div>
-  if (error) return <div className='flex items-center justify-center w-full h-full'>{error}</div>
+  if (loading) return <div className='flex h-full w-full items-center justify-center'>Loading...</div>
+  if (error) return <div className='flex h-full w-full items-center justify-center'>{error}</div>
 
   return (
-    <div className='max-w-3xl mx-auto p-4'>
-      <div className='bg-white rounded-lg shadow p-6 mb-8'>
+    <div className='mx-auto max-w-3xl p-4'>
+      <div className='mb-8 rounded-lg bg-white p-6 shadow'>
         <div className='flex items-center'>
           <div className='mr-6'>
             <div className='text-5xl font-bold text-gray-800'>{stats.average}</div>
-            <div className='flex text-yellow-400 mt-1'>
+            <div className='mt-1 flex text-yellow-400'>
               {[...Array(5)].map((_, i) => (
-                <IoIosStar key={i} className='w-4 h-4' fill='currentColor' />
+                <IoIosStar key={i} className='h-4 w-4' fill='currentColor' />
               ))}
             </div>
-            <div className='text-sm text-gray-500 mt-1'>({stats.total} Reviews)</div>
+            <div className='mt-1 text-sm text-gray-500'>({stats.total} Reviews)</div>
           </div>
           <div className='flex-1'>
             {[5, 4, 3, 2, 1].map((rating) => (
-              <div key={rating} className='flex items-center mb-1'>
-                <span className='w-4 text-gray-600 mr-2'>{rating}</span>
-                <span className='text-yellow-400 mr-2'>★</span>
-                <div className='flex-1 h-3 bg-gray-200 rounded-full overflow-hidden'>
+              <div key={rating} className='mb-1 flex items-center'>
+                <span className='mr-2 w-4 text-gray-600'>{rating}</span>
+                <span className='mr-2 text-yellow-400'>★</span>
+                <div className='h-3 flex-1 overflow-hidden rounded-full bg-gray-200'>
                   <div
-                    className='h-full bg-yellow-400 rounded-full'
+                    className='h-full rounded-full bg-yellow-400'
                     style={{
                       width: `${stats.total ? (stats.counts[rating - 1] / stats.total) * 100 : 0}%`
                     }}
                   ></div>
                 </div>
-                <span className='ml-2 text-gray-600 w-6 text-right'>{stats.counts[rating - 1]}</span>
+                <span className='ml-2 w-6 text-right text-gray-600'>{stats.counts[rating - 1]}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <h2 className='text-xl font-semibold mb-4'>Reviews</h2>
+      <h2 className='mb-4 text-xl font-semibold'>Reviews</h2>
 
       <div className='space-y-6'>
         {feedbacks.slice(0, visibleCount).map((feedback) => (
-          <div key={feedback.feedbackId} className='bg-white rounded-lg shadow p-6'>
-            <div className='flex items-start mb-4'>
+          <div key={feedback.feedbackId} className='rounded-lg bg-white p-6 shadow'>
+            <div className='mb-4 flex items-start'>
               <div className='mr-4'>
-                <div className='w-12 h-12 rounded-full bg-gray-200 overflow-hidden'>
-                  <div className='w-full h-full flex items-center justify-center bg-gray-200'>
-                    <img src={avatar} className='w-full h-full object-cover' />
+                <div className='h-12 w-12 overflow-hidden rounded-full bg-gray-200'>
+                  <div className='flex h-full w-full items-center justify-center bg-gray-200'>
+                    <img src={avatar} className='h-full w-full object-cover' />
                   </div>
                 </div>
               </div>
               <div className='flex-1'>
                 <div className='flex items-center'>
                   <div className='font-medium'>{feedback.createdByNavigation?.fullName || '?'}</div>
-                  <div className='text-sm text-gray-500 ml-2'>
-  {new Date(feedback.createdAt).toLocaleString('en-GB', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false, // 24-hour format
-  })}
-</div>
+                  <div className='ml-2 text-sm text-gray-500'>
+                    {new Date(feedback.createdAt).toLocaleString('en-GB', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                      hour12: false // 24-hour format
+                    })}
+                  </div>
                 </div>
                 <div className='flex items-center'>
                   {[...Array(5)].map((_, i) => (
                     <IoIosStar
                       key={i}
-                      className={`w-4 h-4 ${i < feedback.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                      className={`h-4 w-4 ${i < feedback.rating ? 'text-yellow-400' : 'text-gray-300'}`}
                     />
                   ))}
                 </div>
-                <div className='text-gray-600 italic mt-1'>"{feedback.feedbackMessage}"</div>
+                <div className='mt-1 italic text-gray-600'>"{feedback.feedbackMessage}"</div>
               </div>
             </div>
           </div>
@@ -137,7 +137,7 @@ const FeedbackSection = ({ service }: FeedbackProps) => {
                 e.preventDefault()
                 handleShowMore()
               }}
-              className='text-gray-500 cursor-pointer'
+              className='cursor-pointer text-gray-500'
             >
               Show More
             </a>
@@ -145,7 +145,7 @@ const FeedbackSection = ({ service }: FeedbackProps) => {
         )}
 
         {feedbacks.length === 0 && (
-          <div className='text-center p-8 bg-white rounded-lg shadow'>
+          <div className='rounded-lg bg-white p-8 text-center shadow'>
             <p className='text-gray-500'>No reviews available yet.</p>
           </div>
         )}

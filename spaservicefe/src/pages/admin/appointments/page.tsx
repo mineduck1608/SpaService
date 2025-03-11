@@ -33,7 +33,7 @@ function CalendarApp() {
   const calendar = useCalendarApp({
     views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
     events: events,
-    plugins: [eventModal],
+    plugins: [eventModal]
   })
 
   const handleReload = () => {
@@ -46,7 +46,7 @@ function CalendarApp() {
         Show appointments
       </button>
 
-        <ScheduleXCalendar calendarApp={calendar} />
+      <ScheduleXCalendar calendarApp={calendar} />
     </div>
   )
 }

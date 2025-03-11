@@ -175,7 +175,6 @@ async function fetchServices() {
   return await res.json()
 }
 
-
 export async function UpdateAppoitment(appointment: Appointment, roomId: string) {
   try {
     let parsedStartTime = null
@@ -208,16 +207,16 @@ export async function UpdateAppoitment(appointment: Appointment, roomId: string)
     })
 
     if (res.status >= 200 && res.status < 300) {
-      const responseData = await res.json();
-      toast.success(responseData.msg || 'Successfully assigned!');
+      const responseData = await res.json()
+      toast.success(responseData.msg || 'Successfully assigned!')
       setTimeout(() => window.location.reload(), 1000)
     } else {
-      const errorData = await res.json();
+      const errorData = await res.json()
       toast.error(errorData.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
-      });
-    }    
+        closeButton: false
+      })
+    }
   } catch (e) {
     console.error('❌ Error in AssignRequest:', e)
     return []
@@ -234,29 +233,29 @@ export const handleCheckInAPI = async (appointmentId: string) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify('checkin')
-    });
+    })
 
     if (res.status >= 200 && res.status < 300) {
-      const responseData = await res.json();
-      toast.success(responseData.msg || 'Check-in successful!');
+      const responseData = await res.json()
+      toast.success(responseData.msg || 'Check-in successful!')
       setTimeout(() => window.location.reload(), 1000)
     } else {
-      const errorData = await res.json();
+      const errorData = await res.json()
       toast.error(errorData.msg || 'Failed to check-in.', {
         autoClose: 1000,
-        closeButton: false,
-      });
+        closeButton: false
+      })
     }
   } catch (error) {
-    console.error('Error during check-in:', error);
-    toast.error('Internal server error. Please try again later.');
+    console.error('Error during check-in:', error)
+    toast.error('Internal server error. Please try again later.')
   }
-};
+}
 
 // Function to call CheckOut API
 export const handleCheckOutAPI = async (appointmentId: string) => {
   try {
-    console.log('Checking out:', appointmentId);
+    console.log('Checking out:', appointmentId)
     const res = await fetch(`${apiUrl}/appointments/CheckInCheckOut/${appointmentId}`, {
       method: 'PUT',
       headers: {
@@ -264,21 +263,21 @@ export const handleCheckOutAPI = async (appointmentId: string) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify('checkout')
-    });
+    })
 
     if (res.status >= 200 && res.status < 300) {
-      const responseData = await res.json();
-      toast.success(responseData.msg || 'Check-out successful!');
-      setTimeout(() => window.location.reload(), 1000);
+      const responseData = await res.json()
+      toast.success(responseData.msg || 'Check-out successful!')
+      setTimeout(() => window.location.reload(), 1000)
     } else {
-      const errorData = await res.json();
+      const errorData = await res.json()
       toast.error(errorData.msg || 'Failed to check-out.', {
         autoClose: 1000,
-        closeButton: false,
-      });
+        closeButton: false
+      })
     }
   } catch (error) {
-    console.error('Error during check-out:', error);
-    toast.error('Internal server error. Please try again later.');
+    console.error('Error during check-out:', error)
+    toast.error('Internal server error. Please try again later.')
   }
-};
+}

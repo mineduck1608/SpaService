@@ -66,7 +66,11 @@ export default function DetailPage() {
         </div>
 
         {/* Feedbacks */}
-        {data ? <FeedbackSection service={data} /> : <p className='flex items-center justify-center w-full h-full'>Loading feedbacks...</p>}
+        {data ? (
+          <FeedbackSection service={data} />
+        ) : (
+          <p className='flex h-full w-full items-center justify-center'>Loading feedbacks...</p>
+        )}
 
         {/* Related services */}
         <div className='mb-10 w-full '>

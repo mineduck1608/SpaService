@@ -23,7 +23,7 @@ export function ProtectedEmployee({ children }: { children: React.ReactNode }) {
 
   const hasAdminRole = (payload: any) => {
     if (!payload) return false
-    return payload.includes("Employee") // Kiểm tra vai trò Admin
+    return payload.includes('Employee') // Kiểm tra vai trò Admin
   }
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function ProtectedEmployee({ children }: { children: React.ReactNode }) {
         setIsAdmin(false)
       } else {
         setIsAuthenticated(true)
-         setIsAdmin(hasAdminRole(payload[roleJWT] as string))
+        setIsAdmin(hasAdminRole(payload[roleJWT] as string))
       }
     }
 

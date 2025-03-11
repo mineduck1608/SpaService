@@ -15,15 +15,16 @@ export default function CustomerRequestPage() {
     const fetchData = async () => {
       try {
         const customerRequests = await getAllCustomerRequests()
-  
+
         // Tạo danh sách Promise để lấy thông tin khách hàng & dịch vụ
         const formattedCustomerRequests = await Promise.all(
           customerRequests.map(async (request) => {
             const customer = request.customerId ? await getCustomerById(request.customerId) : { fullName: 'Unknown' }
             const service = request.serviceId ? await getServiceById(request.serviceId) : { serviceName: 'Unknown' }
-            const employee = request.employeeId ? await getEmployeeById(request.employeeId) : { employeeName: 'Unknown' }
+            const employee = request.employeeId
+              ? await getEmployeeById(request.employeeId)
+              : { employeeName: 'Unknown' }
 
-  
             return {
               ...request,
               createdAt: format(new Date(request.createdAt), 'dd/MM/yyyy HH:mm:ss'), // Format ngày
@@ -37,10 +38,10 @@ export default function CustomerRequestPage() {
             }
           })
         )
-  
+
         // **Sort dữ liệu sau khi tất cả Promise đã resolve**
         formattedCustomerRequests.sort((a, b) => b.rawCreatedAt.getTime() - a.rawCreatedAt.getTime())
-  
+
         setData(formattedCustomerRequests)
       } catch (err) {
         setError("Can't load the data.")
@@ -48,10 +49,9 @@ export default function CustomerRequestPage() {
         setLoading(false)
       }
     }
-  
+
     fetchData()
   }, [])
-  
 
   if (loading) return <div className='ml-5'>Loading...</div>
   if (error) return <div className='ml-5'>{error}</div>

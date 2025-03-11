@@ -98,7 +98,7 @@ export const sideData = {
         {
           title: 'News',
           url: '/manager/news'
-        },
+        }
       ]
     }
   ],
@@ -158,5 +158,5 @@ export const sideData = {
       url: '#',
       icon: MessageCircleQuestion
     }
-  ],
+  ]
 }

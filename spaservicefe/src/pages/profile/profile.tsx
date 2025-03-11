@@ -80,11 +80,11 @@ const UserProfile = () => {
         background: 'url(https://senspa.com.vn/wp-content/uploads/2021/01/2-3.png)'
       }}
     >
-      <div className='flex justify-center items-center mt-40 mb-20'>
-        <Card className='w-full max-w-md p-6 rounded-2xl shadow-lg bg-white'>
+      <div className='mb-20 mt-40 flex items-center justify-center'>
+        <Card className='w-full max-w-md rounded-2xl bg-white p-6 shadow-lg'>
           <CardContent className='flex flex-col items-center gap-4'>
-            <Avatar className='w-24 h-24 rounded-full border-2 border-gray-300'>
-              <img src={getAvatar(user.gender || 'Male')} alt='User Avatar' className='w-full h-full rounded-full' />
+            <Avatar className='h-24 w-24 rounded-full border-2 border-gray-300'>
+              <img src={getAvatar(user.gender || 'Male')} alt='User Avatar' className='h-full w-full rounded-full' />
             </Avatar>
             <div className='text-center'>
               <h2 className='text-xl font-semibold'>{user.fullName}</h2>
@@ -95,14 +95,14 @@ const UserProfile = () => {
                 <p>Gender: {user.gender}</p>
               </div>
               {membership?.type && (
-                <p className={`mt-2 px-4 py-1 rounded-full font-bold ${membershipLevels[membership.type]}`}>
+                <p className={`mt-2 rounded-full px-4 py-1 font-bold ${membershipLevels[membership.type]}`}>
                   {membership.type} Member
                 </p>
               )}
             </div>
             <Button
               onClick={() => setIsOpen(true)}
-              className='w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg'
+              className='w-full rounded-lg bg-blue-500 py-2 font-semibold text-white hover:bg-blue-600'
             >
               Update Info
             </Button>
@@ -147,7 +147,7 @@ const UserProfile = () => {
                     name='gender'
                     value={updatedUser.gender}
                     onChange={handleInputChange}
-                    className='w-full p-2 border rounded-md'
+                    className='w-full rounded-md border p-2'
                   >
                     <option value='Male'>Male</option>
                     <option value='Female'>Female</option>
@@ -156,7 +156,7 @@ const UserProfile = () => {
               </div>
             </div>
             <div className='mt-4'>
-              <Button onClick={handleSubmit} className='w-full bg-blue-500 hover:bg-blue-600 text-white'>
+              <Button onClick={handleSubmit} className='w-full bg-blue-500 text-white hover:bg-blue-600'>
                 Save Changes
               </Button>
             </div>

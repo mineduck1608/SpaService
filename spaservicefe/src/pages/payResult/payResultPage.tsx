@@ -87,7 +87,7 @@ export default function PayResultPage() {
                   <p className='text-xl'>Thank you for your consideration. Here are your order information:</p>
                   <div className='flex justify-center py-4'>
                     {map.get('type') === 'Service' && <TableAppointment map={map} />}
-                    {map.get('type') === 'Product' && <ProductList s={cart} discountAmount={promo}/>}
+                    {map.get('type') === 'Product' && <ProductList s={cart} discountAmount={promo} />}
                   </div>
                   <div className='flex justify-center'>
                     <Link

@@ -92,7 +92,7 @@ export default function AddRoomModal() {
                                 <SelectItem value='Occupied'>Occupied</SelectItem>
                               </SelectContent>
                             </Select>
-                          )  
+                          )
                         ) : (
                           <Input
                             {...formField}

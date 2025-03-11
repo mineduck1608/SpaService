@@ -22,10 +22,10 @@ export function ConfirmDenyModal({ isOpen, onClose, onConfirm }: ConfirmDeleteMo
 
   const handleConfirm = () => {
     if (!managerNote.trim()) {
-      alert('Please provide a reason for declining.');
-      return;
+      alert('Please provide a reason for declining.')
+      return
     }
-    onConfirm(managerNote);
+    onConfirm(managerNote)
   }
 
   return (
@@ -33,18 +33,20 @@ export function ConfirmDenyModal({ isOpen, onClose, onConfirm }: ConfirmDeleteMo
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. Please provide a reason before declining.
-          </DialogDescription>
+          <DialogDescription>This action cannot be undone. Please provide a reason before declining.</DialogDescription>
         </DialogHeader>
         <Textarea
-          placeholder="Enter your note here..."
+          placeholder='Enter your note here...'
           value={managerNote}
           onChange={(e) => setManagerNote(e.target.value)}
         />
         <DialogFooter>
-          <Button onClick={onClose} variant="default">Cancel</Button>
-          <Button onClick={handleConfirm} variant="destructive">Decline</Button>
+          <Button onClick={onClose} variant='default'>
+            Cancel
+          </Button>
+          <Button onClick={handleConfirm} variant='destructive'>
+            Decline
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -70,12 +70,16 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
             Copy order ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openDetailModal} className='cursor-pointer'>View Detail</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDetailModal} className='cursor-pointer'>
+            View Detail
+          </DropdownMenuItem>
           {/* <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem> */}
-          <DropdownMenuItem onClick={confirmOrder} className='cursor-pointer'>Confirm</DropdownMenuItem>
+          <DropdownMenuItem onClick={confirmOrder} className='cursor-pointer'>
+            Confirm
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DetailOrderModal isOpen={isDetailModalOpen} onClose={closeDetailModal} order={order}/>
+      <DetailOrderModal isOpen={isDetailModalOpen} onClose={closeDetailModal} order={order} />
       {/* <UpdateOrderModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} order={order} /> */}
       {/* <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} /> */}
     </>

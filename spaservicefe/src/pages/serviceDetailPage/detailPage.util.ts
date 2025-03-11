@@ -18,13 +18,11 @@ export async function getService(id: string) {
   }
 }
 
-
 export async function getFeedbackByServiceAndCus(data: any) {
   try {
     const feedbacks = await getAllFeedbacks()
-    const feedback = feedbacks.find((feedback: any) => 
-      feedback.service?.serviceId === data.serviceId &&
-      feedback.createdBy === data.createdBy 
+    const feedback = feedbacks.find(
+      (feedback: any) => feedback.service?.serviceId === data.serviceId && feedback.createdBy === data.createdBy
     )
     return feedback ?? null
   } catch (e) {
@@ -49,7 +47,7 @@ export async function handleCreateSubmit(data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -73,7 +71,7 @@ export async function handleUpdateSubmit(data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -81,14 +79,14 @@ export async function handleUpdateSubmit(data: any) {
   }
 }
 
-export async function hasSendFeedback(appointmentId?:string) {
+export async function hasSendFeedback(appointmentId?: string) {
   try {
     var res = await fetch(`${apiUrl}/feedbacks/GetFeedbackByAppointmentId/${appointmentId}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
-      },
+      }
     })
     if (res.status >= 200 && res.status < 300) {
       return true

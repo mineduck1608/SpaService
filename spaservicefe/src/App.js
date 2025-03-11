@@ -280,7 +280,7 @@ function App() {
 
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<CalendarApp />} />
-            <Route path='appointments-manage' element={<AppointmentManagePage/>} />
+            <Route path='appointments-manage' element={<AppointmentManagePage />} />
             <Route path='orders' element={<OrderPage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
@@ -411,7 +411,6 @@ function App() {
             <Route path='requests' />
             <Route path='contacts' />
           </Route>
-
         </Routes>
       </BrowserRouter>
       <ToastContainer />

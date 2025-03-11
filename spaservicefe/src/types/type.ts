@@ -1,4 +1,4 @@
-import { Transaction } from "@/pages/checkout/checkoutPage.util"
+import { Transaction } from '@/pages/checkout/checkoutPage.util'
 
 export type Account = {
   accountId: string
@@ -192,7 +192,7 @@ export type TransactionBase = {
 export type ServiceTransaction = TransactionBase & {
   serviceTransactionId: string
   requestId: string
-  membership?: string,
+  membership?: string
   transaction: TransactionBase
 }
 

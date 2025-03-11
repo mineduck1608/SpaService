@@ -148,16 +148,10 @@ export default function AddServiceModal() {
 
             {/* Time Picker (Chọn Duration) */}
             <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
-              <FormLabel className='text-md font-semibold text-gray-700 text-right'>Duration</FormLabel>
+              <FormLabel className='text-md text-right font-semibold text-gray-700'>Duration</FormLabel>
               <div className='col-span-3'>
                 <div className='relative flex items-center'>
-                  <TimePicker
-                    onChange={setDuration}
-                    value={duration}
-                    disableClock
-                    format='HH:mm'
-                    clearIcon={null}
-                  />
+                  <TimePicker onChange={setDuration} value={duration} disableClock format='HH:mm' clearIcon={null} />
                 </div>
               </div>
             </FormItem>
@@ -166,8 +160,8 @@ export default function AddServiceModal() {
             <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
               <FormLabel className='text-md text-right'>Upload Image</FormLabel>
               <div className='col-span-3 space-y-2'>
-                <input type='file' accept='image/*' onChange={handleImageChange}  />
-                {imagePreview && <img src={imagePreview} alt='Preview' className='w-32 h-32 object-cover rounded' />}
+                <input type='file' accept='image/*' onChange={handleImageChange} />
+                {imagePreview && <img src={imagePreview} alt='Preview' className='h-32 w-32 rounded object-cover' />}
               </div>
             </FormItem>
 

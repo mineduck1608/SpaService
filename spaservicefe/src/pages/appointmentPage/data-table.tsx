@@ -51,7 +51,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
 
   return (
     <div className=''>
-      <h1 className="text-center text-2xl font-bold py-2">Appointments</h1>
+      <h1 className='py-2 text-center text-2xl font-bold'>Appointments</h1>
       <div className='flex justify-end'>
         <button
           className='my-2 rounded-sm bg-purple1 p-1 text-white'

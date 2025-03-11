@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '../../../components/ui/checkbox'
-import { CategoryEmployee  } from '@/types/type'
+import { CategoryEmployee } from '@/types/type'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import EmployeeCategoryActions from './employeeCategoryAction'

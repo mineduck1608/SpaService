@@ -46,7 +46,7 @@ export const columns: ColumnDef<GuestApplication>[] = [
   },
   {
     accessorKey: 'content',
-    header: 'Contact Content',
+    header: 'Contact Content'
   },
   {
     id: 'actions',

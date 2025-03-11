@@ -29,7 +29,6 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
   const [employees, setEmployees] = useState<Employee[]>([])
   const [rooms, setRooms] = useState<Room[]>([])
 
-
   useEffect(() => {
     const fetchData = async () => {
       if (appointment.request && appointment.request.serviceId) {
@@ -58,8 +57,6 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
       }))
     }
   }
-
-
 
   const handleSave = () => {
     onSave(updatedAppointment, updatedAppointment.roomId)

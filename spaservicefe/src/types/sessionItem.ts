@@ -12,7 +12,7 @@ export type CartCosmeticProduct = {
   customerId: string
   productId: string
   product: CosmeticProduct
-  quantity: number,
+  quantity: number
   included: boolean
 }
 

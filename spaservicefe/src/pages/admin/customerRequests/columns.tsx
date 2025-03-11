@@ -49,7 +49,7 @@ export const columns: ColumnDef<SpaRequest>[] = [
     header: 'Start Time',
     cell: ({ row }) => row.getValue('startTime')
   },
-  
+
   {
     accessorKey: 'createdAt',
     header: 'Create At',

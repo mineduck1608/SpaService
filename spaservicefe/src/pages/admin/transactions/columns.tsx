@@ -56,7 +56,7 @@ export const columns: ColumnDef<TransactionBase>[] = [
       const statusColor = statusText === 'Done' ? 'text-green-500' : 'text-red-500'
       return <span className={statusColor}>{statusText}</span>
     }
-  },  
+  },
   {
     id: 'actions',
     cell: ({ row }) => {

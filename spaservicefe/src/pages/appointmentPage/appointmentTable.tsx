@@ -38,7 +38,7 @@ export default function AppointmentTable() {
     }
     return !d
   }
-  
+
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
       <PastAppointmentContext.Provider value={{ pastBooking, setPastBooking }}>

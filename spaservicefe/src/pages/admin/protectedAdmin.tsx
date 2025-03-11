@@ -23,7 +23,7 @@ export function ProtectedAdmin({ children }: { children: React.ReactNode }) {
 
   const hasAdminRole = (payload: any) => {
     if (!payload) return false
-    return payload.includes("Admin") // Kiểm tra vai trò Admin
+    return payload.includes('Admin') // Kiểm tra vai trò Admin
   }
 
   useEffect(() => {

@@ -181,7 +181,7 @@ export default function UpdateProductModal({ isOpen, onClose, product }: UpdateP
               <FormLabel className='text-md text-right'>Upload Image</FormLabel>
               <div className='col-span-3 space-y-2'>
                 <input type='file' accept='image/*' onChange={handleImageChange} />
-                {imagePreview && <img src={imagePreview} alt='Preview' className='w-32 h-32 object-cover rounded' />}
+                {imagePreview && <img src={imagePreview} alt='Preview' className='h-32 w-32 rounded object-cover' />}
               </div>
             </FormItem>
 

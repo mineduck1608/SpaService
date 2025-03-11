@@ -37,7 +37,7 @@ export async function getMonthlyAppointments(id: string, year: number) {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    const json = await res.json() as { month: string, totalAppointments: number }[]
+    const json = (await res.json()) as { month: string; totalAppointments: number }[]
     return json
   } catch (e) {
     return []
@@ -88,7 +88,7 @@ export async function handleCreateSubmit(data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -118,7 +118,7 @@ export async function handleUpdateSubmit(employee: any, data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -141,7 +141,7 @@ export async function handleDelete(employeeId: string) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (error) {

@@ -56,7 +56,7 @@ export function DataTable({ columns, data }: DataTableProps) {
   function getAmount() {
     var cart = context.items
     var amount = 0
-    cart.forEach(v => {
+    cart.forEach((v) => {
       if (v.included) {
         amount += parseFloat((v.product.price * v.amount).toFixed(1))
       }

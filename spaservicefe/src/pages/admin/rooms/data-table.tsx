@@ -56,7 +56,7 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'floorName
   return (
     <div>
       <div className='flex items-center py-3'>
-      <Input
+        <Input
           placeholder={`Filter by floor...`}
           value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}

@@ -31,7 +31,7 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
   })
 
   const handleSubmit = async (data: any) => {
-    const selectedManager = managers.find(manager => manager.managerId === data.resolvedBy)
+    const selectedManager = managers.find((manager) => manager.managerId === data.resolvedBy)
     if (selectedManager) data.resolvedBy = selectedManager.managerId
     handleUpdateSubmit(application, data)
   }
@@ -41,13 +41,12 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
       const data = await getAllManagers()
       setManagers(data)
       if (application) {
-        Object.keys(application).forEach((key : string) => {
+        Object.keys(application).forEach((key: string) => {
           if (form.getValues(key) !== undefined) {
             if (key === 'resolvedBy') {
-              const managerName = data.find(manager => manager.managerId === application.resolvedBy)?.managerId
+              const managerName = data.find((manager) => manager.managerId === application.resolvedBy)?.managerId
               form.setValue('resolvedBy', managerName || '')
-            }
-            else form.setValue(key, application[key])
+            } else form.setValue(key, application[key])
           }
         })
       }
@@ -105,7 +104,8 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
                                 ))}
                               </SelectContent>
                             </Select>
-                        )) : (
+                          )
+                        ) : (
                           <Input
                             {...formField}
                             type={field.type}

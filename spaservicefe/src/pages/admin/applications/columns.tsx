@@ -47,11 +47,11 @@ export const columns: ColumnDef<Application>[] = [
   {
     accessorKey: 'resolvedAt',
     header: 'Resolved At',
-    cell: ({ row }) => row.original.resolvedAt ? row.original.resolvedAt : 'N/A'
+    cell: ({ row }) => (row.original.resolvedAt ? row.original.resolvedAt : 'N/A')
   },
   {
     accessorKey: 'managerName',
-    header: 'Resolved By',
+    header: 'Resolved By'
   },
   {
     id: 'actions',

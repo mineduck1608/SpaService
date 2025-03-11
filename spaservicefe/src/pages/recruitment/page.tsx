@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default function RecruitmentPage() {
   return (
@@ -11,19 +11,18 @@ export default function RecruitmentPage() {
         position: 'relative'
       }}
     >
-      <div className="absolute inset-0 bg-gray-800 bg-opacity-10 flex items-center justify-center">
-        <div className="w-full max-w-4xl rounded-lg bg-white bg-opacity-75 p-10 shadow-lg text-center">
-          <h1 className="text-3xl font-bold text-gray-800">Join Our Team</h1>
-          <p className="mt-4 text-gray-600">
-            Currently, we are not hiring for any positions. Please check back later
-            for future opportunities.
+      <div className='absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-10'>
+        <div className='w-full max-w-4xl rounded-lg bg-white bg-opacity-75 p-10 text-center shadow-lg'>
+          <h1 className='text-3xl font-bold text-gray-800'>Join Our Team</h1>
+          <p className='mt-4 text-gray-600'>
+            Currently, we are not hiring for any positions. Please check back later for future opportunities.
           </p>
-          <div className="mt-6">
-           <p>No job available</p>
+          <div className='mt-6'>
+            <p>No job available</p>
           </div>
-          <p className="mt-4 text-gray-500">Stay connected with us for updates.</p>
+          <p className='mt-4 text-gray-500'>Stay connected with us for updates.</p>
         </div>
       </div>
     </div>
-  );
+  )
 }

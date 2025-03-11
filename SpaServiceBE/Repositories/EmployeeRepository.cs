@@ -119,7 +119,7 @@ namespace Repositories
 
             // Lấy thông tin nhân viên từ bảng Employee
             var employees = await _context.Employees
-                .Where(e => employeeIds.Contains(e.EmployeeId))
+                .Where(e => employeeIds.Contains(e.EmployeeId) && e.Status == "Working")
                 .ToListAsync();
 
             return employees;
