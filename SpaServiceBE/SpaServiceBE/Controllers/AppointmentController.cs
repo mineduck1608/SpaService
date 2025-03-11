@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Net;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace API.Controllers
 {
@@ -23,7 +25,10 @@ namespace API.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IRoomService _roomService;
         private readonly IFloorService _floorService;
-        public AppointmentController(IAppointmentService appointmentService, ISpaServiceService spaService, ICustomerService customerService, IRequestService requestService, IEmployeeService employeeService, IRoomService roomService, IFloorService floorService)
+        private readonly IEmployeeCommissionService _employeeCommissionService;
+        private readonly IComissionService _commissionService;
+        public AppointmentController(IAppointmentService appointmentService, ISpaServiceService spaService, ICustomerService customerService, IRequestService requestService, IEmployeeService employeeService, IRoomService roomService, IFloorService floorService, IEmployeeCommissionService employeeCommissionService,
+            IComissionService commissionService)
         {
             _service = appointmentService ?? throw new ArgumentNullException(nameof(appointmentService));
             _spaService = spaService ?? throw new ArgumentNullException(nameof(spaService));
@@ -32,10 +37,11 @@ namespace API.Controllers
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             _roomService = roomService ?? throw new ArgumentNullException(nameof(roomService));
             _floorService = floorService ?? throw new ArgumentNullException(nameof(floorService));
+            _employeeCommissionService = employeeCommissionService ?? throw new ArgumentNullException(nameof(employeeCommissionService));
+            _commissionService = commissionService ?? throw new ArgumentNullException(nameof(commissionService));
         }
 
         // GET: api/appointments/GetAll
-        [Authorize(Roles = "Customer, Admin")]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments()
         {
@@ -61,6 +67,25 @@ namespace API.Controllers
 
                 if (appointment == null)
                     return NotFound($"Appointment with ID = {id} not found.");
+
+                return Ok(appointment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // GET: api/appointments/GetById/{id}
+        [HttpGet("GetByRequestId/{id}")]
+        public async Task<ActionResult<Appointment>> GetAppointmentByRequestId(string id)
+        {
+            try
+            {
+                var appointment = await _service.GetAppointmentByRequestId(id);
+
+                if (appointment == null)
+                    return null;
 
                 return Ok(appointment);
             }
@@ -205,7 +230,6 @@ namespace API.Controllers
         }
 
         // PUT: api/appointments/Update/{id}
-        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateAppointment(string id, [FromBody] dynamic request)
         {
@@ -213,28 +237,88 @@ namespace API.Controllers
             {
                 var jsonElement = (JsonElement)request;
 
-                // Lấy dữ liệu từ request
-                string requestId = jsonElement.GetProperty("requestId").GetString();
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
                 DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
-                DateTime endTime = jsonElement.TryGetProperty("endTime", out JsonElement a) && a.ValueKind == JsonValueKind.String ? a.GetDateTime() : default;
+                string roomId = jsonElement.GetProperty("roomId").GetString();
+                string serviceId = jsonElement.GetProperty("serviceId").GetString();
+
+
 
 
                 // Kiểm tra dữ liệu đầu vào
-                if (string.IsNullOrEmpty(requestId) || string.IsNullOrEmpty(employeeId))
+                if (string.IsNullOrEmpty(employeeId) || string.IsNullOrEmpty(roomId) || string.IsNullOrEmpty(serviceId))
                     return BadRequest(new { msg = "Appointment details are incomplete." });
+
+                var checkAppointmentStatus = await _service.GetAppointmentById(id);
+                if (checkAppointmentStatus != null && checkAppointmentStatus.Status == "Finished")
+                {
+                    return BadRequest(new { msg = "Appointment was completed." });
+                }
+                if(startTime == default)
+                {
+                    startTime = checkAppointmentStatus.StartTime;
+                }
+
+                //handle Start time
+                if (startTime < DateTime.Now.AddMinutes(15))
+                {
+                    return BadRequest(new { msg = "Start time must be at least 15 minutes in the future." });
+                }
+                if (startTime > DateTime.Now.AddMonths(1))
+                {
+                    return BadRequest(new { msg = "The Start should be booked 1 months early." });
+                }
+                if (startTime.Hour > 20 || startTime.Hour < 8)
+                {
+                    return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 20:00 PM." });
+                }
+                
+
+
+                //create endtime
+                var duration = _spaService.GetTimeByServiceId(serviceId);
+
+                TimeOnly durationValue = await duration; // Lấy giá trị thực từ Task<TimeOnly>
+                TimeSpan timeSpan = durationValue.ToTimeSpan(); // Chuyển thành TimeSpan
+                DateTime endTime = startTime.Add(timeSpan); // Cộng vào DateTime
+
+                //handle duration
+                if (endTime.Hour > 20)
+                {
+                    return BadRequest(new { msg = "The duration can not last until 8PM or later" });
+                }
 
                 // Tạo đối tượng Appointment và gán ID cho update
                 var appointment = new Appointment
                 {
                     AppointmentId = id, // Use the provided ID for the update
-                    RequestId = requestId,
                     EmployeeId = employeeId,
                     Status = "Pending", // Default status (you can update based on your logic)
                     StartTime = startTime,
                     EndTime = endTime,
-                    UpdatedAt = DateTime.Now // Automatically update the timestamp
+                    RoomId = roomId,
+                    Request = checkAppointmentStatus.Request,
+                    UpdatedAt = DateTime.Now // Automatically update the timestamp                  
                 };
+
+                var b = await _service.CheckResourceAvailable(appointment);
+                var errList = new List<string>();
+                if (!b.roomState)
+                {
+                    errList.Add("No rooms are available at the requested time");
+                }
+                if (b.employeeState == 1)
+                {
+                    errList.Add("The requested employee is busy at the requested time");
+                }
+                if (b.employeeState == 2)
+                {
+                    errList.Add("No employee is available at the requested time");
+                }
+                if (errList.Count > 0)
+                {
+                    return BadRequest(new { msg = string.Join(",", errList) });
+                }
 
                 // Gọi service để cập nhật appointment
                 var isUpdated = await _service.UpdateAppointment(id, appointment);
@@ -249,6 +333,89 @@ namespace API.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
+        // PUT: api/appointments/CheckInCheckOut/{id}
+        [HttpPut("CheckInCheckOut/{id}")]
+        public async Task<ActionResult> CheckInCheckOut(string id, [FromBody] string action)
+        {
+            try
+            {
+                var appointment = await _service.GetAppointmentById(id);
+
+                if (appointment == null)
+                {
+                    return NotFound(new { msg = $"Appointment with ID = {id} not found." });
+                }
+
+                if (action.Equals("checkin", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (appointment.Status == "Processing" || appointment.Status == "Finished")
+                    {
+                        return BadRequest(new { msg = "Appointment has already been checked in or completed." });
+                    }
+
+                    appointment.CheckIn = DateTime.Now;
+                    appointment.Status = "Processing";
+                }
+                else if (action.Equals("checkout", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (appointment.Status != "Processing")
+                    {
+                        return BadRequest(new { msg = "Appointment must be in processing state to check out." });
+                    }
+
+                    if (appointment != null && appointment.Request?.ServiceTransactions != null)
+                    {
+                        foreach (var serviceTransaction in appointment.Request.ServiceTransactions)
+                        {
+                            var transactionId = serviceTransaction.Transaction?.TransactionId;
+                            var serviceTransactionId = serviceTransaction.ServiceTransactionId;
+                            var totalTransaction = serviceTransaction.Transaction?.TotalPrice ?? 0.0f;
+
+                            if (!string.IsNullOrEmpty(appointment.EmployeeId) && transactionId != null && serviceTransactionId != null)
+                            {
+                                var commission = await _commissionService.GetCommissionById("commission");
+                                if(commission != null) { 
+                                var employeeCommission = new EmployeeCommission
+                                {
+                                    EmployeeId = appointment.EmployeeId,
+                                    CommissionId = commission.CommissionId,
+                                    TransactionId = transactionId,
+                                    CommissionValue = totalTransaction * (commission.Percentage/100),
+                                    ServiceTransactionId = serviceTransactionId
+                                };
+
+                                _employeeCommissionService.AddEmployeeCommission(employeeCommission);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Either appointment or ServiceTransactions is null.");
+                    }
+                }
+                else
+                {
+                    return BadRequest(new { msg = "Invalid action. Please use 'checkin' or 'checkout'." });
+                }
+
+                // Update appointment
+                var isUpdated = await _service.UpdateAppointment(id, appointment);
+
+                if (!isUpdated)
+                {
+                    return NotFound(new { msg = $"Failed to update appointment with ID = {id}." });
+                }
+
+                return Ok(new { msg = $"Appointment {action} successfully.", appointment });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
+
 
 
         // DELETE: api/appointments/Delete/{id}
@@ -446,6 +613,27 @@ namespace API.Controllers
                 
 
                 return Ok(totalAppointmentInMonth);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetMonthlyAppointments/{id}/{year}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetMonthlyAppointments(string id, int year)
+        {
+            if (string.IsNullOrEmpty(id) || year <= 0)
+                return BadRequest("Employee ID and year are required.");
+
+            try
+            {
+                var monthlyAppointments = await _service.GetMonthlyAppointmentCount(id, year);
+
+                if (monthlyAppointments == null || !monthlyAppointments.Any())
+                    return NotFound($"No appointments found for Employee ID = {id} in year = {year}.");
+
+                return Ok(monthlyAppointments);
             }
             catch (Exception ex)
             {

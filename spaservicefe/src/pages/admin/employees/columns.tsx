@@ -2,8 +2,8 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
 import { Checkbox } from '../../../components/ui/checkbox'
-import EmployeeActions from './employeeAction' // Đổi tên thành EmployeeActions
-import { Employee } from '@/types/type' // Cập nhật kiểu dữ liệu từ Customer thành Employee
+import EmployeeActions from './employeeAction'
+import { Employee } from '@/types/type'
 
 export const columns: ColumnDef<Employee>[] = [
   {
@@ -59,7 +59,7 @@ export const columns: ColumnDef<Employee>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
-      const statusColor = status === 'Active' ? 'text-green-500' : 'text-red-500'
+      const statusColor = status === 'Working' ? 'text-green-500' : 'text-red-500'
       return <span className={statusColor}>{status}</span>
     }
   },

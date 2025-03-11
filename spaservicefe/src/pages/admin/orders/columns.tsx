@@ -35,8 +35,12 @@ export const columns: ColumnDef<Order>[] = [
     accessorKey: 'totalAmount',
     header: 'Total Amount',
     cell: ({ row }) => {
-      const totalAmount = row.getValue<string>('totalAmount')
-      return <span className='ml-10'>{totalAmount}</span>
+      const totalAmount = row.getValue('totalAmount')
+      const formattedPrice = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+      }).format(totalAmount)
+      return <span>{formattedPrice}</span>
     }
   },
   {

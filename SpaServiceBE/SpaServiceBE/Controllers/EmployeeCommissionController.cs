@@ -36,6 +36,20 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("GetEmployeeCommission/{id}")]
+        public async Task<ActionResult<IEnumerable<EmployeeCommission>>> GetEmployeeCommissions(string id)
+        {
+            try
+            {
+                var employeeCommissions = await _service.GetEmployeeCommissions(id);
+                return Ok(employeeCommissions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // GET: api/employeecommissions/GetById/{employeeId}/{commissionId}/{transactionId}
         [Authorize(Roles = "Admin")]
         [HttpGet("GetById/{employeeId}/{commissionId}/{transactionId}")]

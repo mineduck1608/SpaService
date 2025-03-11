@@ -27,12 +27,13 @@ export function TransactionDetailTable({ transactionId, transactionType }: Trans
             const spaRequest: SpaRequest[] = await getSpaRequestById(serviceTransaction.requestId)
             fetchedDetails = spaRequest ? [spaRequest] : []
           }
-        } else if (transactionType === 'Cosmetic') {
+        } else if (transactionType === 'Product') {
           const cosmeticTransactions: CosmeticTransaction[] = await getAllCosmeticTransactions()
           const cosmeticTransaction = cosmeticTransactions.find(ct => ct.transactionId === transactionId)
           if (cosmeticTransaction) {
             const order: Order[] = await getOrderById(cosmeticTransaction.orderId)
             fetchedDetails = order ? [order] : []
+            console.log(order)
           }
         }
         
@@ -103,8 +104,12 @@ export function TransactionDetailTable({ transactionId, transactionType }: Trans
                 <TableCell>{order.address}</TableCell>
               </TableRow>
               <TableRow>
+                <TableHead>Recepient Name</TableHead>
+                <TableCell>{order.recepientName}</TableCell>
+              </TableRow>
+              <TableRow>
                 <TableHead>Process Status</TableHead>
-                <TableCell>{order.status}</TableCell>
+                <TableCell>{order.status ? 'Completed' : 'Pending'}</TableCell>
               </TableRow>
             </React.Fragment>
           ))

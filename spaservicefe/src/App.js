@@ -26,6 +26,7 @@ import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
 import { Dashboard } from './pages/admin/dashboard/dashboard.tsx'
 import DemoPage from './pages/admin/accounts/page.tsx'
 import CalendarApp from './pages/admin/appointments/page.tsx'
+import AppointmentManagePage from './pages/admin/appointments/managePage.tsx'
 import CustomerPage from './pages/admin/customers/page.tsx'
 import EmployeePage from './pages/admin/employees/page.tsx'
 import EmployeeMainPage from './pages/admin/employee/employeeMainPage.tsx'
@@ -278,7 +279,8 @@ function App() {
             <Route path='' index element={<Dashboard />} />
 
             {/* Workspaces */}
-            <Route path='appointments' element={<CalendarApp />} />
+            <Route path='appointments-schedule' element={<CalendarApp />} />
+            <Route path='appointments-manage' element={<AppointmentManagePage/>} />
             <Route path='orders' element={<OrderPage />} />
             <Route path='transactions' element={<TransactionPage />} />
 

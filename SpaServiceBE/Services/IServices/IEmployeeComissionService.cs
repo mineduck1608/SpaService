@@ -11,5 +11,6 @@ namespace Services.IServices
         Task<bool> AddEmployeeCommission(EmployeeCommission employeeCommission);
         Task<bool> UpdateEmployeeCommission(string employeeId, string commissionId, string transactionId, EmployeeCommission employeeCommission);
         Task<bool> DeleteEmployeeCommission(string employeeId, string commissionId, string transactionId);
+        Task<List<EmployeeCommission>> GetEmployeeCommissions(string employeeId);
     }
 }

@@ -1,5 +1,8 @@
 import { Description } from '@radix-ui/react-dialog'
-import { getToken } from '../../../types/constants'
+import { apiUrl, getToken } from '../../../types/constants'
+import { Appointment } from '@/types/type'
+import dayjs from 'dayjs'
+import { toast } from 'react-toastify'
 
 export const fetchAppointments = async () => {
   try {
@@ -19,8 +22,8 @@ export const fetchAppointments = async () => {
     const employees = await fetchEmployees()
     console.log('Fetched employees:', employees)
 
-    const rooms = await fetchRooms();
-    console.log('rooms:', rooms);
+    const rooms = await fetchRooms()
+    console.log('rooms:', rooms)
 
     const employeeMap = new Map<string, { fullName: string }>(
       employees.map((emp: any) => [emp.employeeId, { fullName: emp.fullName }])
@@ -28,12 +31,15 @@ export const fetchAppointments = async () => {
 
     const roomMap = new Map<string, { roomNum: number; floorId: string | null }>(
       rooms.map((room: any) => [room.roomId, { roomNum: room.roomNum, floorId: room.floorId }])
-    );
+    )
 
     const formattedAppointments = appointments.map(
-      (event: { status: string; startTime: string; endTime: string; employeeId: string; roomId: string }, index: number) => {
-        const employeeInfo = employeeMap.get(event.employeeId) || { fullName: 'Unknown' };
-        const roomInfo = roomMap.get(event.roomId) || { roomNum: null, floorId: null };
+      (
+        event: { status: string; startTime: string; endTime: string; employeeId: string; roomId: string },
+        index: number
+      ) => {
+        const employeeInfo = employeeMap.get(event.employeeId) || { fullName: 'Unknown' }
+        const roomInfo = roomMap.get(event.roomId) || { roomNum: null, floorId: null }
 
         return {
           id: index + 1,
@@ -132,7 +138,7 @@ export const fetchRooms = async () => {
     if (!response.ok) {
       throw new Error('Failed to fetch Rooms')
     }
-    
+
     const data = await response.json()
     console.log('Fetched Rooms', data)
 
@@ -143,3 +149,136 @@ export const fetchRooms = async () => {
   }
 }
 
+export async function getAllAppointments() {
+  try {
+    var res = await fetch(`${apiUrl}/appointments/GetAll`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const appointments = await res.json()
+    console.log('Fetched appointments:', appointments)
+
+    return appointments
+  } catch (e) {
+    console.error('Error fetching data:', e)
+    return []
+  }
+}
+
+async function fetchServices() {
+  var res = await fetch(`${apiUrl}/services/GetAll`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`
+    }
+  })
+  return await res.json()
+}
+
+
+export async function UpdateAppoitment(appointment: Appointment, roomId: string) {
+  try {
+    let parsedStartTime = null
+    if (typeof appointment.startTime === 'string' && appointment.startTime.trim() !== '') {
+      const tempDate = dayjs(appointment.startTime, 'DD/MM/YYYY HH:mm:ss', true).tz('Asia/Ho_Chi_Minh')
+
+      if (tempDate.isValid()) {
+        parsedStartTime = tempDate.format('YYYY-MM-DDTHH:mm:ssZ') // Format chuẩn ISO với VN timezone
+      } else {
+        console.warn('❌ Invalid date format:', appointment.startTime)
+      }
+    }
+
+    const data = {
+      ...appointment,
+      roomId: roomId,
+      serviceId: appointment.request?.serviceId,
+      startTime: parsedStartTime // Chỉ gán nếu hợp lệ
+    }
+
+    console.log('🚀 ~ Sending data:', data)
+
+    const res = await fetch(`${apiUrl}/appointments/Update/${appointment.appointmentId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+    if (res.status >= 200 && res.status < 300) {
+      const responseData = await res.json();
+      toast.success(responseData.msg || 'Successfully assigned!');
+      setTimeout(() => window.location.reload(), 1000)
+    } else {
+      const errorData = await res.json();
+      toast.error(errorData.msg || 'Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false,
+      });
+    }    
+  } catch (e) {
+    console.error('❌ Error in AssignRequest:', e)
+    return []
+  }
+}
+
+// Function to call CheckIn API
+export const handleCheckInAPI = async (appointmentId: string) => {
+  try {
+    const res = await fetch(`${apiUrl}/appointments/CheckInCheckOut/${appointmentId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify('checkin')
+    });
+
+    if (res.status >= 200 && res.status < 300) {
+      const responseData = await res.json();
+      toast.success(responseData.msg || 'Check-in successful!');
+      setTimeout(() => window.location.reload(), 1000)
+    } else {
+      const errorData = await res.json();
+      toast.error(errorData.msg || 'Failed to check-in.', {
+        autoClose: 1000,
+        closeButton: false,
+      });
+    }
+  } catch (error) {
+    console.error('Error during check-in:', error);
+    toast.error('Internal server error. Please try again later.');
+  }
+};
+
+// Function to call CheckOut API
+export const handleCheckOutAPI = async (appointmentId: string) => {
+  try {
+    console.log('Checking out:', appointmentId);
+    const res = await fetch(`${apiUrl}/appointments/CheckInCheckOut/${appointmentId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify('checkout')
+    });
+
+    if (res.status >= 200 && res.status < 300) {
+      const responseData = await res.json();
+      toast.success(responseData.msg || 'Check-out successful!');
+      setTimeout(() => window.location.reload(), 1000);
+    } else {
+      const errorData = await res.json();
+      toast.error(errorData.msg || 'Failed to check-out.', {
+        autoClose: 1000,
+        closeButton: false,
+      });
+    }
+  } catch (error) {
+    console.error('Error during check-out:', error);
+    toast.error('Internal server error. Please try again later.');
+  }
+};

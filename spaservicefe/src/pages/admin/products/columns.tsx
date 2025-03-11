@@ -57,7 +57,7 @@ export const columns: ColumnDef<CosmeticProduct>[] = [
       const status = row.getValue('status')
       return (
         <span
-          className={`font-semibold ${status ? 'text-green-500' : 'text-red-500'}`}
+          className={`${status ? 'text-green-500' : 'text-red-500'}`}
           style={{ whiteSpace: 'nowrap' }} // Giữ nội dung trên cùng một dòng
         >
           {status ? 'Available' : 'Sold Out'}

@@ -150,6 +150,7 @@ export type ServiceCategory = {
   categoryId: string
   categoryName: string
   categoryDescription: string
+  spaServices: SpaService[]
 }
 
 export type CosmeticProduct = {
@@ -167,6 +168,15 @@ export type CosmeticProduct = {
 export type Commission = {
   commissionId: string
   percentage: number
+}
+
+export type EmployeeCommission = {
+  commissionId: string
+  employeeId: string
+  percentage: number
+  commissionValue: number
+  serviceTransactionId: string
+  serviceTransaction?: ServiceTransaction
 }
 
 export type TransactionBase = {
@@ -199,6 +209,7 @@ export type Order = {
   status: boolean
   transactionId: string
   address: string
+  recepientName: string
   customer?: Customer
 }
 

@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 import {
   ColumnFiltersState,
@@ -13,28 +15,22 @@ import {
 import { IoIosArrowDown } from 'react-icons/io'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 import { Button } from '../../../components/ui/button'
-import { Input } from '../../../components/ui/input'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import AddCosmeticModal from './employeeCategoryAddModal'
+import { Input } from '../../../components/ui/input'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
   filterKey1?: string // Key để lọc dữ liệu
-  filterKey2?: string // Key để lọc dữ liệu
+  filterKey2?: string
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-  filterKey1 = 'categoryName',
-  filterKey2 = 'employeeName'
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, filterKey1 = 'customerName', filterKey2 = 'status' }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -62,22 +58,19 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className='flex items-center py-3'>
-        <Input
-          placeholder={`Filter by service category..`}
+      <Input
+          placeholder={`Filter by customer name...`}
           value={(table.getColumn(filterKey1)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey1)?.setFilterValue(event.target.value)}
-          className='max-w-sm'
+          className='mr-2 max-w-sm'
         />
         <Input
-          placeholder={`Filter by name...`}
+          placeholder={`Filter by ${filterKey2}...`}
           value={(table.getColumn(filterKey2)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey2)?.setFilterValue(event.target.value)}
-          className='ml-5 max-w-sm'
+          className='max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
-          <div className='ml-4'>
-            <AddCosmeticModal />
-          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>

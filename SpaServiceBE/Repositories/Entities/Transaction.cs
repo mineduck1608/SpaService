@@ -7,9 +7,6 @@ public partial class Transaction
 {
     public string TransactionId { get; set; } = null!;
 
-    /// <summary>
-    /// Trực tiếp/VNPay
-    /// </summary>
     public string TransactionType { get; set; } = null!;
 
     public float TotalPrice { get; set; }
