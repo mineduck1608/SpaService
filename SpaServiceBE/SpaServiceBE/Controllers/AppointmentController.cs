@@ -375,17 +375,21 @@ namespace API.Controllers
                             if (!string.IsNullOrEmpty(appointment.EmployeeId) && transactionId != null && serviceTransactionId != null)
                             {
                                 var commission = await _commissionService.GetCommissionById("commission");
+                                float commissionValue = (float) commission.Percentage / 100;
                                 if(commission != null) { 
                                 var employeeCommission = new EmployeeCommission
                                 {
                                     EmployeeId = appointment.EmployeeId,
                                     CommissionId = commission.CommissionId,
                                     TransactionId = transactionId,
-                                    CommissionValue = totalTransaction * (commission.Percentage/100),
+                                    CommissionValue = totalTransaction * commissionValue,
                                     ServiceTransactionId = serviceTransactionId
                                 };
 
                                 _employeeCommissionService.AddEmployeeCommission(employeeCommission);
+
+                                    appointment.CheckOut = DateTime.Now;
+                                    appointment.Status = "Finished";
                                 }
                             }
                         }
