@@ -6,6 +6,7 @@ import {
   CategoryRevenue,
   fetchFeedbackOrderByRating,
   fetchNumOfCustomers,
+  fetchTransactionsByCosmeticCategory,
   fetchTransactionsByServiceCategory,
   fetchTransactionsOrderByDay,
   fetchTransactionsOrderByMonth
@@ -19,7 +20,8 @@ import { AreaChart2Comp } from './area-chart2.tsx'
 
 export const Dashboard = () => {
   const [lineChartData, setLineChartData] = useState<number[]>([])
-  const [radarChartData, setRadarChartData] = useState<CategoryRevenue[]>([])
+  const [serviceCatData, setServiceCatData] = useState<CategoryRevenue[]>([])
+  const [productCatData, setProductCatData] = useState<CategoryRevenue[]>([])
   const [radialData, setRadialData] = useState({
     total: 1,
     newCustomers: 1
@@ -44,7 +46,16 @@ export const Dashboard = () => {
       var cat = await getAllServiceCategories()
       var y = s as CategoryRevenue[]
       y.forEach((v) => (v.category = cat.find((x) => x.categoryId === v.category)?.categoryName ?? ''))
-      setRadarChartData(y)
+      setServiceCatData(y)
+    } catch (e) {}
+  }
+  async function findRevenueByCosmeticCat() {
+    try {
+      var s = await fetchTransactionsByCosmeticCategory()
+      if ((s as { msg: string }).msg) {
+        return
+      }
+      setProductCatData(s as CategoryRevenue[])
     } catch (e) {}
   }
   async function findCustomerNumber() {
@@ -86,19 +97,20 @@ export const Dashboard = () => {
     findCustomerNumber()
     findRevenueByDays()
     findFeedbacks()
+    findRevenueByCosmeticCat()
   }, [])
   return (
     <div className='flex flex-1 flex-col gap-10 p-4'>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
         <LineChartComp array={lineChartData} />
-        <RadarChartComp array={radarChartData} />
-        <RadialChartComp {...radialData} />
+        <RadarChartComp array={serviceCatData} />
+        <RadarChartComp array={productCatData} />
       </div>
       <div>
         <AreaChart2Comp data={areaChart}/>
       </div>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
-        {/* <AreaChartComp /> */}
+        <RadialChartComp {...radialData} />
         <PieChartComp data={pieData}/>
         <BarChartComp />
       </div>

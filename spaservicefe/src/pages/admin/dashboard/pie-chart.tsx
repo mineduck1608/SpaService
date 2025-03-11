@@ -43,8 +43,8 @@ export function PieChartComp(params: { data: { rating: number; count: number }[]
         <CardTitle>Feedback Breakdown</CardTitle>
         <CardDescription>Up to 1 year</CardDescription>
       </CardHeader>
-      <CardContent className='flex-1 pb-0'>
-        <ChartContainer config={pieChartConfig} className='mx-auto aspect-square max-h-[350px]'>
+      <CardContent className='flex'>
+        <ChartContainer config={pieChartConfig} className='mx-auto aspect-square max-h-[250px]'>
           <PieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Pie data={s} dataKey='count' innerRadius={80} strokeWidth={4} nameKey='rating'>
@@ -53,9 +53,11 @@ export function PieChartComp(params: { data: { rating: number; count: number }[]
                   if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                     return (
                       <text x={viewBox.cx} y={viewBox.cy} textAnchor='middle' dominantBaseline='middle'>
-                        <tspan x={viewBox.cx} y={viewBox.cy} className='fill-foreground text-3xl font-bold'></tspan>
+                        <tspan x={viewBox.cx} y={viewBox.cy} className='fill-foreground text-3xl font-bold'>
+                          {stats.count}
+                        </tspan>
                         <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className='fill-muted-foreground'>
-                          Visitors
+                          Feedbacks
                         </tspan>
                       </text>
                     )

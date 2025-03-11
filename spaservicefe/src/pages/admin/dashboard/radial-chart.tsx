@@ -8,7 +8,7 @@ export function RadialChartComp(params: { total: number; newCustomers: number })
     <Card className='flex flex-col'>
       <CardHeader className='items-center pb-0'>
         <CardTitle>Registered Users</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>Up to 1 year</CardDescription>
       </CardHeader>
       <CardContent className='-mt-3 flex-1 pb-0'>
         <ChartContainer config={radialChartConfig} className='mx-auto aspect-square max-h-[250px]'>

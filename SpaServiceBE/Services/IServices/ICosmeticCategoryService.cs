@@ -15,5 +15,6 @@ namespace Services.IServices
         Task<bool> UpdateCosmeticCategory(CosmeticCategory category);
         Task DeleteCosmeticCategory(string id);
         Task<int> GetTotalCosmeticCategory();
+        Dictionary<string, float> OrderByCategory();
     }
 }

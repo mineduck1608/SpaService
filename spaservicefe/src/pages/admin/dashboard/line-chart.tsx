@@ -14,7 +14,7 @@ export function LineChartComp(params: { array: number[] }) {
         <CardTitle>Revenue this year</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={lineChartConfig}>
+        <ChartContainer config={lineChartConfig} className=''>
           <LineChart
             accessibilityLayer
             data={data}
