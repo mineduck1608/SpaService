@@ -33,7 +33,7 @@ export const sideData = {
   navMain: [
     {
       title: 'Home',
-      url: '/manager',
+      url: 'manager',
       icon: Home
     }
   ],
@@ -59,7 +59,7 @@ export const sideData = {
       pages: [
         {
           title: 'Customer Requests',
-          url: '/customer-requests'
+          url: '/manager/customer-requests'
         },
         {
           title: 'Applications',
