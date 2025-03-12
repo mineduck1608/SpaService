@@ -53,7 +53,7 @@ export default function AdminPage() {
         </header>
         <Outlet />
       </SidebarInset>
-      <SidebarRight />
+      {/* <SidebarRight /> */}
     </SidebarProvider>
   )
 }

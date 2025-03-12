@@ -55,5 +55,7 @@ namespace Services
         {
             return await _repository.Delete(feedbackId);
         }
+
+        public Dictionary<int, int> OrderByRating() => _repository.OrderByRating();
     }
 }

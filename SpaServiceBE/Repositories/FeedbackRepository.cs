@@ -106,5 +106,32 @@ namespace Repositories
                 return false;
             }
         }
+        public Dictionary<int, int> OrderByRating()
+        {
+            var subtracted = DateTime.Now.AddYears(-1);
+            var lower = new DateTime(subtracted.Year, subtracted.Month, 1);
+            var rs = new Dictionary<int, int>();
+            var fb = _context.Feedbacks
+                .Where(x => x.CreatedAt >= lower);
+            foreach (var item in fb)
+            {
+                if (rs.ContainsKey(item.Rating))
+                {
+                    rs[item.Rating]++;
+                }
+                else
+                {
+                    rs.Add(item.Rating, 1);
+                }
+            }
+            for (int i = 1; i <= 5; i++)
+            {
+                if (!rs.ContainsKey(i))
+                {
+                    rs.Add(i, 0);
+                }
+            }
+            return rs;
+        }
     }
 }

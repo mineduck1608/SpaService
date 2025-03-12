@@ -13,5 +13,6 @@ namespace Services.IServices
         Task<bool> DeleteFeedback(string feedbackId);
         Task<List<Feedback>> GetFeedbackByServiceId(string id);
         Task<Feedback> GetFeedbackByAppointmentId(string id);
+        Dictionary<int, int> OrderByRating();
     }
 }
