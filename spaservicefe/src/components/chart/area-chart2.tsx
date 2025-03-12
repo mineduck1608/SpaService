@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
 import {
   ChartContainer,
@@ -74,6 +74,7 @@ export function AreaChart2Comp() {
                 })
               }}
             />
+            <YAxis axisLine />
             <ChartTooltip
               cursor={false}
               content={
@@ -88,6 +89,7 @@ export function AreaChart2Comp() {
                 />
               }
             />
+            <Area dataKey='sales' type='natural' fill='url(#fillSales)' stroke='var(--color-sales)' stackId='a' />
             <Area dataKey='sales' type='natural' fill='url(#fillSales)' stroke='var(--color-sales)' stackId='a' />
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>

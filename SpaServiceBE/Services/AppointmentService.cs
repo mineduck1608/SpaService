@@ -117,5 +117,10 @@ namespace Services
                 .OrderBy(x => DateTime.ParseExact(x.Month, "MMMM", null).Month)
                 .ToList();
         }
+
+        public Dictionary<DateOnly, (int male, int female)> OrderByGender()
+        {
+            return _repository.OrderByGender();
+        }
     }
 }

@@ -64,5 +64,10 @@ namespace Services
         {
             return await _repository.GetByAccId(accId);
         }
+
+        public (int, int) NumOfCustomersThisYear()
+        {
+            return _repository.NumOfCustomersThisYear();
+        }
     }
 }

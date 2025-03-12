@@ -12,5 +12,8 @@ namespace Services.IServices
         Task<bool> Update(string transactionId, Transaction transaction);
         Task<bool> Delete(string transactionId);
         Task<float> GetTotalRevenue();
+        IEnumerable<float> OrderByMonths();
+        Dictionary<string, float> OrderByServiceCategory();
+        Dictionary<DateOnly, (float service, float product)> OrderByDay();
     }
 }

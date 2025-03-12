@@ -13,8 +13,8 @@ namespace Services.IServices
         Task<bool> UpdateCustomer(string customerId, Customer customer);
         Task<bool> DeleteCustomer(string customerId);
         Task<Customer> GetCustomerByPhone(string phone);
-
         Task<Customer> GetCustomerByAccountId(string id);
         Task<Customer> GetCustomerByEmail(string email);
+        (int total, int newCustomers) NumOfCustomersThisYear();
     }
 }

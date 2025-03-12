@@ -46,5 +46,7 @@ namespace Services
         {
             return await _cosmeticCategoryRepository.GetTotalCosmeticCategory();
         }
+
+        public Dictionary<string, float> OrderByCategory() => _cosmeticCategoryRepository.OrderByCategory();
     }
 }

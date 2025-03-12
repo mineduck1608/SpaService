@@ -17,6 +17,7 @@ namespace Services.IServices
         Task<int> GetTotalAppointmentInMonth(int year, int month);
         Task<(bool roomState, int employeeState, bool conflict)> CheckResourceAvailable(Appointment a);
         Task<IEnumerable<object>> GetMonthlyAppointmentCount(string employeeId, int year);
+        Dictionary<DateOnly, (int male, int female)> OrderByGender();
     }
 
 }
