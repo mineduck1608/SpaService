@@ -327,7 +327,8 @@ function App() {
             <Route index element={<Dashboard />} />
 
             {/* Workspaces */}
-            <Route path='appointments' element={<CalendarApp />} />
+            <Route path='appointments-schedule' element={<CalendarApp />} />
+            <Route path='appointments-manage' element={<AppointmentManagePage />} />
             <Route path='orders' element={<OrderPage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
@@ -347,10 +348,6 @@ function App() {
 
             {/* Users */}
             <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
-
-            {/* Users Management */}
-            <Route path='customers' element={<CustomerPage />} />
-            <Route path='employees' element={<EmployeePage />} />
 
             {/* Spa Services */}
             <Route path='service-categories' element={<ServiceCategoriesPage />} />
@@ -375,8 +372,8 @@ function App() {
             <Route index element={<Dashboard />} />
 
             {/* Workspaces */}
-            <Route path='appointments' element={<CalendarApp />} />
-            <Route path='orders' element={<OrderPage />} />
+            <Route path='appointments-schedule' element={<CalendarApp />} />
+            <Route path='appointments-manage' element={<AppointmentManagePage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
             {/* Requests */}
@@ -392,13 +389,6 @@ function App() {
             <Route path='promotions' element={<PromotionPage />} />
             <Route path='news' element={<AdminNewsPage />} />
             {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
-
-            {/* Users */}
-            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
-
-            {/* Users Management */}
-            <Route path='customers' element={<CustomerPage />} />
-            <Route path='employees' element={<EmployeePage />} />
 
             {/* Spa Services */}
             <Route path='service-categories' element={<ServiceCategoriesPage />} />
