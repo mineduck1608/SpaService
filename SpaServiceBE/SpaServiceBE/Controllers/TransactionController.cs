@@ -290,14 +290,14 @@ namespace API.Controllers
         {
             try
             {
-                var buckets = _service.OrderByDay();
+                var buckets = _service.OrderByDay().OrderBy(x => x.Key);
                 var result = buckets.Select(x => new
                 {
-                    date = x.Key.ToString("yyyy/MM/dd"),
+                    date = x.Key.ToString("dd/MM/yyyy").Replace("-", "/"),
                     service = x.Value.service,
                     product = x.Value.product
                 }
-                ).OrderBy(x => x.date);
+                );
                 return Ok(result);
             }
             catch (Exception ex)

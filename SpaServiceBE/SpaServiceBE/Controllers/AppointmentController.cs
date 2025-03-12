@@ -254,7 +254,7 @@ namespace API.Controllers
                 {
                     return BadRequest(new { msg = "Appointment was completed." });
                 }
-                if(startTime == default)
+                if (startTime == default)
                 {
                     startTime = checkAppointmentStatus.StartTime;
                 }
@@ -272,7 +272,7 @@ namespace API.Controllers
                 {
                     return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 20:00 PM." });
                 }
-                
+
 
 
                 //create endtime
@@ -375,17 +375,18 @@ namespace API.Controllers
                             if (!string.IsNullOrEmpty(appointment.EmployeeId) && transactionId != null && serviceTransactionId != null)
                             {
                                 var commission = await _commissionService.GetCommissionById("commission");
-                                if(commission != null) { 
-                                var employeeCommission = new EmployeeCommission
+                                if (commission != null)
                                 {
-                                    EmployeeId = appointment.EmployeeId,
-                                    CommissionId = commission.CommissionId,
-                                    TransactionId = transactionId,
-                                    CommissionValue = totalTransaction * (commission.Percentage/100),
-                                    ServiceTransactionId = serviceTransactionId
-                                };
+                                    var employeeCommission = new EmployeeCommission
+                                    {
+                                        EmployeeId = appointment.EmployeeId,
+                                        CommissionId = commission.CommissionId,
+                                        TransactionId = transactionId,
+                                        CommissionValue = totalTransaction * (commission.Percentage / 100),
+                                        ServiceTransactionId = serviceTransactionId
+                                    };
 
-                                _employeeCommissionService.AddEmployeeCommission(employeeCommission);
+                                    _employeeCommissionService.AddEmployeeCommission(employeeCommission);
                                 }
                             }
                         }
@@ -608,9 +609,9 @@ namespace API.Controllers
         {
             try
             {
-                var totalAppointmentInMonth = await _service.GetTotalAppointmentInMonth(year,month);
+                var totalAppointmentInMonth = await _service.GetTotalAppointmentInMonth(year, month);
 
-                
+
 
                 return Ok(totalAppointmentInMonth);
             }
@@ -634,6 +635,25 @@ namespace API.Controllers
                     return NotFound($"No appointments found for Employee ID = {id} in year = {year}.");
 
                 return Ok(monthlyAppointments);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("OrderByGender")]
+        public IActionResult OrderByGender()
+        {
+            try
+            {
+                var map = _service.OrderByGender().OrderBy(x => x.Key);
+                var result = map.Select(x => new
+                {
+                    date = x.Key.ToString("MM/yyyy").Replace("-", "/"),
+                    x.Value.male,
+                    x.Value.female,
+                });
+                return Ok(result);
             }
             catch (Exception ex)
             {

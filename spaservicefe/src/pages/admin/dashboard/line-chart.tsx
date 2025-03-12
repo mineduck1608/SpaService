@@ -26,7 +26,7 @@ export function LineChartComp(params: { array: number[] }) {
           >
             <XAxis dataKey='month' />
             <YAxis dataKey={'revenue'} tickLine />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent unit='đ'/>} />
             <Line
               dataKey='revenue'
               type='linear'

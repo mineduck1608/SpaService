@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { AreaChartComp } from 'src/components/chart/area-chart'
 import { PieChartComp } from './pie-chart.tsx'
-import { BarChartComp } from 'src/components/chart/bar-chart'
+
 import {
   CategoryRevenue,
+  fetchAppointmentByGender,
   fetchFeedbackOrderByRating,
   fetchNumOfCustomers,
   fetchTransactionsByCosmeticCategory,
   fetchTransactionsByServiceCategory,
   fetchTransactionsOrderByDay,
-  fetchTransactionsOrderByMonth
+  fetchTransactionsOrderByMonth,
+  GenderData
 } from './dashboard.util.ts'
 import { toast } from 'react-toastify'
 import { LineChartComp } from './line-chart.tsx'
@@ -17,6 +19,7 @@ import { RadarChartComp } from './radar-chart.tsx'
 import { getAllServiceCategories } from '../servicecategories/servicecategory.util.ts'
 import { RadialChartComp } from './radial-chart.tsx'
 import { AreaChart2Comp } from './area-chart2.tsx'
+import { BarChartComp } from './bar-chart.tsx'
 
 export const Dashboard = () => {
   const [lineChartData, setLineChartData] = useState<number[]>([])
@@ -27,7 +30,8 @@ export const Dashboard = () => {
     newCustomers: 1
   })
   const [areaChart, setAreaChart] = useState<{ date: string; service: number; product: number }[]>([])
-  const [pieData, setPieData] = useState<{rating: number, count: number}[]>([])
+  const [pieData, setPieData] = useState<{ rating: number; count: number }[]>([])
+  const [barData, setBarData] = useState<GenderData[]>([])
   async function findYearRevenues() {
     try {
       var s = await fetchTransactionsOrderByMonth()
@@ -91,6 +95,15 @@ export const Dashboard = () => {
       )
     } catch (e) {}
   }
+  async function findGenderData() {
+    try {
+      var s = await fetchAppointmentByGender()
+      if ((s as { msg: string }).msg) {
+        return
+      }
+      setBarData(s as GenderData[])
+    } catch (e) {}
+  }
   useEffect(() => {
     findYearRevenues()
     findRevenueByServiceCat()
@@ -98,21 +111,22 @@ export const Dashboard = () => {
     findRevenueByDays()
     findFeedbacks()
     findRevenueByCosmeticCat()
+    findGenderData()
   }, [])
   return (
     <div className='flex flex-1 flex-col gap-10 p-4'>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
-        <LineChartComp array={lineChartData} />
         <RadarChartComp array={serviceCatData} />
-        <RadarChartComp array={productCatData} />
+        <LineChartComp array={lineChartData} />
+        <RadarChartComp array={productCatData} isProduct/>
       </div>
       <div>
-        <AreaChart2Comp data={areaChart}/>
+        <AreaChart2Comp data={areaChart} />
       </div>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
         <RadialChartComp {...radialData} />
-        <PieChartComp data={pieData}/>
-        <BarChartComp />
+        <PieChartComp data={pieData} />
+        <BarChartComp data={barData} />
       </div>
     </div>
   )

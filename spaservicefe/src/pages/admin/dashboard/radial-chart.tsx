@@ -1,5 +1,5 @@
 import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer } from 'src/components/ui/chart'
 import { radialChartData, radialChartConfig } from '../../../components/chart/chart.util'
 
@@ -10,8 +10,8 @@ export function RadialChartComp(params: { total: number; newCustomers: number })
         <CardTitle>Registered Users</CardTitle>
         <CardDescription>Up to 1 year</CardDescription>
       </CardHeader>
-      <CardContent className='-mt-3 flex-1 pb-0'>
-        <ChartContainer config={radialChartConfig} className='mx-auto aspect-square max-h-[250px]'>
+      <CardContent className='flex-1 pb-0 h-[350px]'>
+        <ChartContainer config={radialChartConfig} className='h-full aspect-auto max-h-[250px]'>
           <RadialBarChart
             data={[{ newCustomers: params.newCustomers, fill: 'var(--color-safari)' }]}
             endAngle={360 * (params.newCustomers / params.total)}
@@ -47,6 +47,10 @@ export function RadialChartComp(params: { total: number; newCustomers: number })
           </RadialBarChart>
         </ChartContainer>
       </CardContent>
+
+      <CardFooter className='flex-col gap-2 text-sm'>
+        <div className='flex items-center gap-2 text-center font-medium leading-none'>Total: {params.total}</div>
+      </CardFooter>
     </Card>
   )
 }

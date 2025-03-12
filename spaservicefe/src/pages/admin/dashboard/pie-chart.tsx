@@ -43,7 +43,7 @@ export function PieChartComp(params: { data: { rating: number; count: number }[]
         <CardTitle>Feedback Breakdown</CardTitle>
         <CardDescription>Up to 1 year</CardDescription>
       </CardHeader>
-      <CardContent className='flex'>
+      <CardContent className='max-h-[350px]'>
         <ChartContainer config={pieChartConfig} className='mx-auto aspect-square max-h-[250px]'>
           <PieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />

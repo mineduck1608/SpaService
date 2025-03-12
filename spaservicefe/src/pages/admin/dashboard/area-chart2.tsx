@@ -13,7 +13,8 @@ import { areaChartData, areaChartConfig } from '../../../components/chart/chart.
 
 export function AreaChart2Comp(params: { data: { date: string; service: number; product: number }[] }) {
   const [timeRange, setTimeRange] = React.useState('90')
-  const filteredData = params.data.filter((v, i) => {
+  const filteredData = params.data
+  .filter((v, i) => {
     return i >= params.data.length - parseInt(timeRange)
   })
   return (
@@ -44,22 +45,9 @@ export function AreaChart2Comp(params: { data: { date: string; service: number; 
         <ChartContainer config={areaChartConfig} className='aspect-auto h-[250px] w-full'>
           <AreaChart data={filteredData}>
             <CartesianGrid vertical={true} />
-            <XAxis
-              dataKey='date'
-              tickLine={true}
-              axisLine={true}
-              tickMargin={8}
-              minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value)
-                return date.toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric'
-                })
-              }}
-            />
+            <XAxis dataKey='date' tickLine={true} axisLine={true} tickMargin={8} minTickGap={32} />
             <YAxis axisLine />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator='dot' />} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator='dot' unit='đ' />} />
             <Area
               dataKey='service'
               type='monotone'
