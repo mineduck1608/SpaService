@@ -107,5 +107,24 @@ namespace SpaServiceBE.Controllers
             var total = await _cosmeticCategoryService.GetTotalCosmeticCategory();
             return Ok($"total Cosmetic Category:{total}");
         }
+        [HttpGet("OrderByCategory")]
+        public async Task<IActionResult> OrderByCategory()
+        {
+            try
+            {
+                var rs = _cosmeticCategoryService.OrderByCategory();
+                var cats = await _cosmeticCategoryService.GetAllCosmeticCategories();
+                var category = rs.Select(v => new
+                {
+                    category = cats.FirstOrDefault(x => x.CategoryId == v.Key).CategoryName,
+                    revenue = v.Value
+                });
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
     }
 }

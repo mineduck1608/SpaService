@@ -12,7 +12,7 @@ interface EmployeeStatisticProps {
 
 export const barChartConfig = {
   total: {
-    label: 'Total Appointments',
+    label: 'Total Appointments: ',
     color: 'hsl(var(--chart-1))'
   }
 } satisfies ChartConfig

@@ -255,5 +255,55 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("OrderByMonth")]
+        public ActionResult<IEnumerable<float>> OrderByMonth()
+        {
+            try
+            {
+                var buckets = _service.OrderByMonths();
+                return Ok(buckets);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("OrderByServiceCategory")]
+        public IActionResult OrderByServiceCategory()
+        {
+            try
+            {
+                var buckets = _service.OrderByServiceCategory().Select(x => new
+                {
+                    category = x.Key,
+                    revenue = x.Value,
+                });
+                return Ok(buckets);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("OrderByDay")]
+        public ActionResult<IEnumerable<float>> OrderByDay()
+        {
+            try
+            {
+                var buckets = _service.OrderByDay().OrderBy(x => x.Key);
+                var result = buckets.Select(x => new
+                {
+                    date = x.Key.ToString("dd/MM/yyyy").Replace("-", "/"),
+                    service = x.Value.service,
+                    product = x.Value.product
+                }
+                );
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
