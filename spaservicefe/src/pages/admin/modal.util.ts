@@ -444,19 +444,6 @@ export const newsConfig = {
       placeholder: 'Enter new content'
     },
     {
-      name: 'type',
-      label: 'Type',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter new type'
-    },
-    {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter new image URL'
-    },
-    {
       name: 'categoryId',
       label: 'Category',
       type: 'select',
@@ -479,19 +466,6 @@ export const newsConfig = {
       type: 'text',
       required: true,
       placeholder: 'Enter content'
-    },
-    {
-      name: 'type',
-      label: 'Type',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter type'
-    },
-    {
-      name: 'image',
-      label: 'Image URL',
-      type: 'text',
-      placeholder: 'Enter image URL'
     },
     {
       name: 'categoryId',

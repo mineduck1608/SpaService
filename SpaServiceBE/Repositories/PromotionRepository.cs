@@ -22,14 +22,14 @@ namespace Repositories
         {
             return await _context.Promotions
                 .Include(p => p.Transactions)   // Bao gồm Transactions liên quan đến PromotionCode
-                .FirstOrDefaultAsync(p => p.PromotionId == promotionId);
+                .FirstOrDefaultAsync(p => p.PromotionId == promotionId && p.IsDeleted == false);
         }
 
         // Lấy tất cả Promotions với các thực thể liên quan
         public async Task<List<Promotion>> GetAll()
         {
             return await _context.Promotions
-                .Where(p =>p.IsActive) // only include active promotion
+                .Where(p =>p.IsDeleted == false) // only include active promotion
                 .Include(p => p.Transactions)   // Bao gồm Transactions liên quan đến Promotion
                 .ToListAsync();
         }
@@ -80,7 +80,8 @@ namespace Repositories
 
             try
             {
-                _context.Promotions.Remove(promotion);
+                promotion.IsDeleted = true;
+                _context.Promotions.Update(promotion);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -92,7 +93,7 @@ namespace Repositories
 
         public async Task<Promotion> GetByCode(string code)
         {
-            return _context.Promotions.FirstOrDefault(x => x.PromotionCode == code && x.IsActive);
+            return _context.Promotions.FirstOrDefault(x => x.PromotionCode == code && x.IsDeleted == false);
         }
     }
 }

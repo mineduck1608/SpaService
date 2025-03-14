@@ -316,7 +316,7 @@
   },
   {
     "ContainingType": "API.Controllers.AppointmentController",
-    "Method": "CreateEmailRequest",
+    "Method": "SendEmailRequest",
     "RelativePath": "api/appointments/CreateMail/{id}",
     "HttpMethod": "POST",
     "IsController": true,
@@ -3367,6 +3367,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "API.Controllers.RequestController",
+    "Method": "SendEmailRequest",
+    "RelativePath": "api/requests/SendMail/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "API.Controllers.RequestController",

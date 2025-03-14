@@ -105,7 +105,12 @@ namespace API.Controllers
                     var promo = await _promotionService.GetByCode(code);
                     if (promo == null)
                     {
-                        return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
+                        return BadRequest(new { msg = "Promotion doesn't exist or inactive." });
+                    }
+                    if(promo.IsActive == false)
+                    {
+                        return BadRequest(new { msg = "Promotion is expired." });
+
                     }
                     promoValue = promo.DiscountValue;
                     transaction.PromotionId = promo.PromotionId;

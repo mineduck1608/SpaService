@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/promotions/GetAll
-        [Authorize]
+        
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Promotion>>> GetAllPromotions()
         {
