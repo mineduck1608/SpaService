@@ -37,11 +37,11 @@ try {
   userRole = 'Employee'
 }
 
-const basePath = userRole === 'Admin' ? '/admin' : userRole === 'Manager' ? '/manager' : '/employee'
 
 // Kiểm tra xem URL đã chứa basePath chưa trước khi thêm vào
 export const getFullPath = (path: string) =>
-  path.startsWith('/admin') || path.startsWith('/manager') || path.startsWith('/employee') ? path : `${basePath}${path}`
+  path.startsWith(`/${userRole.toLowerCase()}`) ? path : `/${userRole.toLowerCase()}${path}`;
+
 
 const adminNavMain = [{ title: 'Home', url: '/admin', icon: Home }]
 const managerNavMain = [{ title: 'Home', url: '/manager', icon: Home }]
