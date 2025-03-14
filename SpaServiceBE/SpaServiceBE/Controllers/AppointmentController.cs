@@ -326,6 +326,7 @@ namespace API.Controllers
                 if (!isUpdated)
                     return NotFound(new { msg = $"Appointment with ID = {id} not found." });
 
+                SendEmailRequest(appointment.AppointmentId);
                 return Ok(new { msg = "Update appoinment successfully." });
             }
             catch (Exception ex)
@@ -444,7 +445,7 @@ namespace API.Controllers
         //create mail appoint for customer and employee
         //put appointmentId in here to send email to both of them
         [HttpPost("CreateMail/{id}")]
-        public async Task<ActionResult> CreateEmailRequest(string id)
+        public async Task<ActionResult> SendEmailRequest(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
