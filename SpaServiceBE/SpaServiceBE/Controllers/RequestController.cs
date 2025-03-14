@@ -14,6 +14,7 @@ using MimeKit;
 using MimeKit.Utils;
 using Microsoft.VisualBasic;
 using Services.Services;
+using System.Drawing;
 
 
 namespace API.Controllers
@@ -572,9 +573,64 @@ namespace API.Controllers
 
                 if (!isUpdated)
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
+                else
+                {
+                    var customerInfo = await _customerService.GetCustomerById(updatedRequest.CustomerId);
+                    if (customerInfo == null)
+                        return NotFound($"Customer info with ID = {updatedRequest.CustomerId} not found.");
 
-                return Ok(new { msg = "Request denied successfully." });
+                    var customerEmail = customerInfo.Email;
+                    if (string.IsNullOrEmpty(customerEmail))
+                        return BadRequest("Customer email is missing.");
+
+                    var SpaServiceInfo = await _spaService.GetById(updatedRequest.ServiceId);
+                    if (SpaServiceInfo == null)
+                        return BadRequest("Spa Service is missing.");
+
+                    // Prepare the email
+                    var fromEmail = "dotruongthinh2212@gmail.com";
+                    var password = "qxwrvdoqfisooymd";
+                    var subject = "Spa Service's Declined Request";
+
+                    // Load both images
+                    var logoPath = Path.Combine(Directory.GetCurrentDirectory(), "Images", "SenSpa(Black).png");
+                    var brochurePath = Path.Combine(Directory.GetCurrentDirectory(), "Images", "brochure1.jpg");
+
+                    var logoBytes = await System.IO.File.ReadAllBytesAsync(logoPath);
+                    var brochureBytes = await System.IO.File.ReadAllBytesAsync(brochurePath);
+
+                    var rejectBody = $@"
+                <html>
+<body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 20px; background-color: #f9f9f9;'>
+    <div style='max-width: 700px; margin: auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);'>
+
+<!-- Header Section -->
+<div style='text-align: center; position: relative; border-bottom: 2px solid #e5e5e5; padding-bottom: 20px; margin-bottom: 30px;'>
+    <img src='cid:logo' alt='Sen Spa Logo' style='width: 200px; height: auto; display: block; margin: 0 auto; position: relative;' />
+    <h3 style='position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.6); padding: 3px 10px; color: #6b4b3e; font-size: 25px; font-weight: bold;'>Spa Service Declined Request</h3>
+</div>
+                <body>
+                    <h2>Dear {customerInfo.FullName},</h2>
+                    <p>Your request have been declined by our manager team</p>
+                    <ul>
+                        <li><strong>Customer:</strong> {customerInfo.FullName}</li>
+                        <li><strong>Request id declined:</strong> {updatedRequest.RequestId}
+                        <li><strong>Declined Reason:</strong> {updatedRequest.ManagerNote}</li>
+                    </ul>
+                    <p>We sincerely apologize for any inconvenience this may have caused.</p>
+                    <p>Warm regards,</p>
+                    <p><strong>Spa Service Team</strong></p>
+ <div style='text-align: center; margin-top: 40px;'>
+            <img src='cid:brochure' alt='Spa Brochure' style='max-width: 70%; height: auto; border-radius: 8px;' />
+        </div>
+                </body>
+                </html>";
+                    await SendEmail(fromEmail, password, customerEmail, customerInfo.FullName, subject, rejectBody, logoBytes, brochureBytes);
+                    return Ok(new { msg = "Request denied successfully." });
+                }
             }
+            //send email after denied complete
+
             catch (Exception ex)
             {
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
