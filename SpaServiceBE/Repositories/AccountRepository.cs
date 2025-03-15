@@ -26,7 +26,7 @@ namespace Repositories
 
         public async Task<Account> GetAccountById(string accountId)
         {
-            return await _context.Accounts.FirstOrDefaultAsync(a => a.AccountId == accountId);
+            return await _context.Accounts.Include(a => a.Role).FirstOrDefaultAsync(a => a.AccountId == accountId);
         }
 
         public async Task<Account> GetByUsername(string username)
