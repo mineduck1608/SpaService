@@ -11,28 +11,18 @@ export const fetchAppointments = async () => {
         Authorization: `Bearer ${getToken()}`
       }
     })
-
     if (!response.ok) {
       throw new Error('Failed to fetch appointments')
     }
-
     const appointments = await response.json()
-
-
     const employees = await fetchEmployees()
-
-
     const rooms = await fetchRooms()
-
-
     const employeeMap = new Map<string, { fullName: string }>(
       employees.map((emp: any) => [emp.employeeId, { fullName: emp.fullName }])
     )
-
     const roomMap = new Map<string, { roomNum: number; floorId: string | null }>(
       rooms.map((room: any) => [room.roomId, { roomNum: room.roomNum, floorId: room.floorId }])
     )
-
     const formattedAppointments = appointments.map(
       (
         event: { 
@@ -73,7 +63,65 @@ export const fetchAppointments = async () => {
         }
       }
     )
+    return formattedAppointments
+  } catch (error) {
+    console.error('Error fetching appointments: ', error)
+    return []
+  }
+}
 
+export const fetchAppointmentsByEmployee = async (id: string) => {
+  try {
+    const response = await fetch(`${apiUrl}/appointments/GetAppointmentByEmployeeId/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    if (!response.ok) {
+      throw new Error('Failed to fetch appointments')
+    }
+    const appointments = await response.json()
+    const rooms = await fetchRooms()
+    const roomMap = new Map<string, { roomNum: number; floorId: string | null }>(
+      rooms.map((room: any) => [room.roomId, { roomNum: room.roomNum, floorId: room.floorId }])
+    )
+    const formattedAppointments = appointments.map(
+      (
+        event: { 
+          status: string; 
+          startTime: string; 
+          endTime: string; 
+          roomId: string;
+          request?: {
+            customer?: {
+              fullName: string;
+            };
+            service?: {
+              serviceName: string;
+            }
+          };
+        },
+        index: number
+      ) => {
+        const roomInfo = roomMap.get(event.roomId) || { roomNum: null, floorId: null }
+        const customerName = event.request?.customer?.fullName || 'Unknown Customer'
+        const serviceName = event.request?.service?.serviceName || 'Unknown Service'
+
+        return {
+          id: index + 1,
+          title: `${customerName} - ${event.status}`,
+          start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
+          end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
+          location: serviceName,
+          description: roomInfo.roomNum ? `  Room ${roomInfo.roomNum}` : 'Unknown',
+          calendarId: event.status === 'Processing' ? 'personal'
+            : event.status === 'Finished' ? 'work'
+            : event.status === 'Pending' ? 'leisure'
+            : event.status === 'Cancelled' ? 'school'
+            : 'personal'
+        }
+      }
+    )
     return formattedAppointments
   } catch (error) {
     console.error('Error fetching appointments: ', error)
@@ -94,8 +142,6 @@ export const fetchEmployees = async () => {
     }
 
     const data = await response.json()
-    console.log('Fetched employees', data)
-
     return data
   } catch (error) {
     console.error('Error fetching employees:', error)
@@ -116,8 +162,6 @@ export const fetchRequests = async () => {
     }
 
     const data = await response.json()
-    console.log('Fetched Requests', data)
-
     return data
   } catch (error) {
     console.error('Error fetching requests:', error)
@@ -138,8 +182,6 @@ export const fetchCustomers = async () => {
     }
 
     const data = await response.json()
-    console.log('Fetched Customers', data)
-
     return data
   } catch (error) {
     console.error('Error fetching customers:', error)
@@ -160,8 +202,6 @@ export const fetchRooms = async () => {
     }
 
     const data = await response.json()
-    console.log('Fetched Rooms', data)
-
     return data
   } catch (error) {
     console.error('Error fetching rooms:', error)
@@ -206,77 +246,6 @@ async function fetchServices() {
     }
   })
   return await res.json()
-}
-
-export const fetchAppointmentsByEmployee = async (id: string) => {
-  try {
-    const response = await fetch(`${apiUrl}/appointments/GetAppointmentsFromEmployeeId/${id}`, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch appointments')
-    }
-
-    const appointments = await response.json()
-    const employees = await fetchEmployees()
-    const rooms = await fetchRooms()
-    const employeeMap = new Map<string, { fullName: string }>(
-      employees.map((emp: any) => [emp.employeeId, { fullName: emp.fullName }])
-    )
-
-    const roomMap = new Map<string, { roomNum: number; floorId: string | null }>(
-      rooms.map((room: any) => [room.roomId, { roomNum: room.roomNum, floorId: room.floorId }])
-    )
-
-    const formattedAppointments = appointments.map(
-      (
-        event: { 
-          status: string; 
-          startTime: string; 
-          endTime: string; 
-          employeeId: string; 
-          roomId: string;
-          request?: {
-            customer?: {
-              fullName: string;
-            };
-            service?: {
-              serviceName: string;
-            }
-          };
-        },
-        index: number
-      ) => {
-        const employeeInfo = employeeMap.get(event.employeeId) || { fullName: 'Unknown' }
-        const roomInfo = roomMap.get(event.roomId) || { roomNum: null, floorId: null }
-        const customerName = event.request?.customer?.fullName || 'Unknown Customer'
-        const serviceName = event.request?.service?.serviceName || 'Unknown Service'
-
-        return {
-          id: index + 1,
-          title: `${customerName} - ${event.status}`,
-          start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
-          end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
-          people: [employeeInfo.fullName],
-          location: serviceName,
-          description: roomInfo.roomNum ? `  Room ${roomInfo.roomNum}` : 'Unknown',
-          calendarId: event.status === 'Processing' ? 'personal'
-            : event.status === 'Finished' ? 'work'
-            : event.status === 'Pending' ? 'leisure'
-            : event.status === 'Cancelled' ? 'school'
-            : 'personal'
-        }
-      }
-    )
-
-    return formattedAppointments
-  } catch (error) {
-    console.error('Error fetching appointments: ', error)
-    return []
-  }
 }
 
 export async function UpdateAppoitment(appointment: Appointment, roomId: string) {

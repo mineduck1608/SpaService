@@ -65,6 +65,7 @@ import { ProtectedEmployee } from './pages/admin/protectedEmployee.tsx'
 import EmployeeApplicationPage from './pages/employee/application/page.tsx'
 import CustomerApplicationPage from './pages/application/customerApplicationPage.tsx'
 import EmployeeAppointmentManagePage from './pages/admin/employee/appointments/managePage.tsx'
+import EmployeeCalendarApp from './pages/admin/employee/appointments/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -383,7 +384,7 @@ function App() {
            
             <Route path='application' element={ <EmployeeApplicationPage />} />
             {/* Workspaces */}
-            <Route path='appointments-schedule' element={<CalendarApp />} />
+            <Route path='appointments-schedule' element={<EmployeeCalendarApp />} />
             <Route path='appointments-manage' element={<EmployeeAppointmentManagePage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
