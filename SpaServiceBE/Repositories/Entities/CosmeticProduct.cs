@@ -19,7 +19,7 @@ public partial class CosmeticProduct
 
     public bool IsSelling { get; set; }
 
-    public string Image { get; set; } = null!;
+    public string? Image { get; set; }
 
     public string CategoryId { get; set; } = null!;
 

@@ -84,7 +84,8 @@ namespace API.Controllers
                     Content = content,
                     Type = type,
                     Image = image,
-                    CategoryId = categoryId
+                    CategoryId = categoryId,
+                    CreatedAt = DateTime.Now,
                 };
 
                 // Call service to add news
@@ -189,7 +190,7 @@ namespace API.Controllers
         {
             try
             {
-                var promotions = await _service.GetNewsByType("PromotionCode"); // Filter news by type "PromotionCode"
+                var promotions = await _service.GetNewsByType("Promotion"); // Filter news by type "Promotion"
                 return Ok(promotions);
             }
             catch (Exception ex)

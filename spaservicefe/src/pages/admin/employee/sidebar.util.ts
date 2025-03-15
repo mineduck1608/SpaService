@@ -10,7 +10,8 @@ import {
   Sparkles,
   Sparkle,
   Package,
-  Blocks
+  Blocks,
+  PaperclipIcon
 } from 'lucide-react'
 
 import { jwtDecode } from 'jwt-decode'
@@ -61,6 +62,7 @@ export const sideData = {
         { title: 'Manage', url: getFullPath('/appointments-manage') }
       ]
     },
+    { title: 'Application', url: getFullPath('/application'), icon:  PaperclipIcon },
     { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
     {
       title: 'Requests',

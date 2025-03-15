@@ -109,7 +109,7 @@ namespace API.Controllers
                     }
                     if(promo.IsActive == false)
                     {
-                        return BadRequest(new { msg = "Promotion is expired." });
+                        return BadRequest(new { msg = "Promotion is inactive." });
 
                     }
                     promoValue = promo.DiscountValue;

@@ -28,6 +28,11 @@ namespace Services
             return await _repository.GetByIdAsync(id);
         }
 
+        public async Task<IEnumerable<Application>> GetApplicationByAccountIdAsync(string id)
+        {
+            return await _repository.GetByAccountIdAsync(id);
+        }
+
         public async Task CreateApplicationAsync(Application application)
         {
             await _repository.CreateAsync(application);

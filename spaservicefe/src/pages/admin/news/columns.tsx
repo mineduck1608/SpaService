@@ -58,7 +58,7 @@ export const columns: ColumnDef<News>[] = [
     cell: ({ row }) => {
       const imageUrl = row.getValue('image')
       return imageUrl ? (
-        <img src={imageUrl} alt='News' className='h-[100px] w-[300px] rounded object-cover' />
+        <img src={imageUrl} alt='News' className='h-[100px] w-[1000px] rounded object-cover' />
       ) : (
         <span>No Image</span>
       )

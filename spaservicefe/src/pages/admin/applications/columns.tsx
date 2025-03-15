@@ -24,25 +24,31 @@ export const columns: ColumnDef<Application>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => {
-      const status = row.getValue<string>('status')
-      const statusColor = status === 'Resolved' ? 'text-green-500' : 'text-red-500'
-      return <span className={statusColor}>{status}</span>
-    }
+    accessorKey: 'createBy',
+    header: 'Created By'
   },
+
   {
     accessorKey: 'content',
     header: 'Content'
   },
-  {
-    accessorKey: 'createBy',
-    header: 'Created By'
-  },
+  
   {
     accessorKey: 'createdAt',
     header: 'Created At'
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => {
+      const status = row.getValue<string>('status')
+      const statusColor = 
+      status === 'Accepted' ? 'text-green-500' :
+      status === 'Pending' ? 'text-gray-500' :
+      status === 'Denied' ? 'text-red-500' :
+      'text-black'; // Default color if the status doesn't match
+          return <span className={statusColor}>{status}</span>
+    }
   },
   {
     accessorKey: 'resolvedAt',
@@ -50,7 +56,7 @@ export const columns: ColumnDef<Application>[] = [
     cell: ({ row }) => (row.original.resolvedAt ? row.original.resolvedAt : 'N/A')
   },
   {
-    accessorKey: 'managerName',
+    accessorKey: 'resolvedBy',
     header: 'Resolved By'
   },
   {

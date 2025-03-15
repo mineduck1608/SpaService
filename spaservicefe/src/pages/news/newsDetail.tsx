@@ -90,7 +90,7 @@ const NewsDetail = () => {
         <div className='flex justify-center py-10 text-center'>
           {/* Nội dung bài viết hoặc các phần khác sẽ được render ở đây */}
           <div className='w-[60%] max-w-[60%] text-left'>
-            <p>{formatDate(new Date(posts.createAt))}</p>
+            <p>{formatDate(new Date(posts.createdAt))}</p>
             <h1 className='font-bold text-purple1'>{posts.header}</h1>
             <hr className='border-t-1 my-4 border-gray-500' />
             <div>{posts.content}</div>

@@ -60,6 +60,36 @@ namespace API.Controllers
             }
         }
 
+   
+        [HttpGet("GetByAccountId/{id}")]
+        public async Task<ActionResult> GetByAccountId(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return BadRequest("Id is required.");
+
+            try
+            {
+                var account = await _accountService.GetAccountById(id);
+
+                if (account.Role.RoleName == "Admin")
+                { 
+                    var result = new
+                    {
+                        FullName = "Admin",
+                        accountId = account.AccountId
+                    };
+                    return Ok(result)
+                }
+
+
+                return Ok(employee);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // POST: api/employees/Create
         [HttpPost("Create")]
         public async Task<ActionResult> CreateEmployee([FromBody] dynamic request)

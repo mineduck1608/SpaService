@@ -66,7 +66,7 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
         >
           <img src={posts[0].image} alt={posts[0].header} className='h-[524px] w-full object-cover' />
           <div className='bgblur absolute inset-0 flex flex-col justify-end p-4'>
-            <p className='text-light my-1 text-lg font-bold'>{formatDate(new Date(posts[0].createAt))}</p>
+            <p className='text-light my-1 text-lg font-bold'>{formatDate(new Date(posts[0].createdAt))}</p>
             <h3 className='text-light text-2xl font-bold'>{posts[0].header}</h3>
           </div>
         </div>
@@ -81,7 +81,7 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
             >
               <img src={post.image} alt={post.header} className='h-[250px] w-full object-cover' />
               <div className='bgblur absolute inset-0  flex flex-col justify-end p-4'>
-                <p className='text-light my-1 text-sm font-bold'>{formatDate(new Date(post.createAt))}</p>
+                <p className='text-light my-1 text-sm font-bold'>{formatDate(new Date(post.createdAt))}</p>
                 <h3 className='text-light text-lg font-bold'>{post.header}</h3>
               </div>
             </div>
@@ -102,7 +102,7 @@ const PostGrid: React.FC<PostGridProps> = ({ activeTab }) => {
 
             {/* Content below */}
             <div className='p-4'>
-              <p className='text-sm text-gray-500'>{formatDate(new Date(post.createAt))}</p>
+              <p className='text-sm text-gray-500'>{formatDate(new Date(post.createdAt))}</p>
               <h3 className='mt-1 text-lg font-semibold text-gray-800'>{post.header}</h3>
               <a href='/news/detail/:id' className='text-[#8B3A8B] transition-colors duration-300 hover:text-[#a040a0]'>
                 Details

@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Application } from '@/types/type'
-import { getAllApplications } from './application.util'
-import { getAllManagers } from '../managers/manager.util'
+import { getAllApplications, getByAccountId } from './application.util'
 import { format } from 'date-fns'
 import { getAllAccounts, getAllRoles } from '../accounts/account.util'
 import { getCustomerByAccountId } from '../customers/customer.util'
@@ -17,9 +16,8 @@ export default function ApplicationPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [applications, managers, accounts, roles] = await Promise.all([
+        const [applications, accounts, roles] = await Promise.all([
           getAllApplications(),
-          getAllManagers(),
           getAllAccounts(),
           getAllRoles()
         ])
@@ -40,14 +38,6 @@ export default function ApplicationPage() {
           {} as Record<string, string>
         )
 
-        const managerMap = managers.reduce(
-          (application, manager) => {
-            application[manager.managerId] = manager.fullName
-            return application
-          },
-          {} as Record<string, string>
-        )
-
         const formattedApplications = await Promise.all(
           applications.map(async (application) => {
             const roleId = accountMap[application.accountId]
@@ -57,19 +47,24 @@ export default function ApplicationPage() {
 
             if (roleName === 'Customer') {
               const customer = await getCustomerByAccountId(application.accountId)
-              createBy = customer?.fullName
+              createBy = customer?.fullName || 'N/A'
             } else if (roleName === 'Employee') {
               const employee = await getEmployeeByAccountId(application.accountId)
-              createBy = employee?.fullName
+              createBy = employee?.fullName || 'N/A'
             }
 
+            // Fetch FullName for resolvedBy field
+            const fullNameObj = await getByAccountId(application.resolvedBy)
+
+            // Format function for dates and fallback to 'N/A'
+            const formatOrNA = (date: string | null) => (date ? format(new Date(date), 'dd/MM/yyyy HH:mm:ss') : 'N/A')
+           console.log(fullNameObj)
             return {
               ...application,
-              managerName: managerMap[application.resolvedBy] || 'N/A',
-              createdAt: format(new Date(application.createdAt), 'dd/MM/yyyy HH:mm:ss'),
-              resolvedAt: format(new Date(application.resolvedAt), 'dd/MM/yyyy HH:mm:ss'),
+              resolvedBy: fullNameObj?.fullName || 'N/A',
+              createdAt: formatOrNA(application.createdAt),
+              resolvedAt: formatOrNA(application.resolvedAt),
               createBy: createBy,
-              roleName: roleName
             }
           })
         )

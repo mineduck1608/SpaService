@@ -14,5 +14,6 @@ namespace Services.IServices
         Task CreateApplicationAsync(Application application);
         Task<bool> UpdateApplicationAsync(Application application);
         Task DeleteApplicationAsync(string id);
+        Task<IEnumerable<Application>> GetApplicationByAccountIdAsync(string id);
     }
 }

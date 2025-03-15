@@ -23,5 +23,5 @@ public partial class Application
 
     public virtual ICollection<GuestApplication> GuestApplications { get; set; } = new List<GuestApplication>();
 
-    public virtual Manager? ResolvedByNavigation { get; set; }
+    public virtual Account? ResolvedByNavigation { get; set; }
 }

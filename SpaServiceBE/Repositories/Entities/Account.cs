@@ -19,7 +19,9 @@ public partial class Account
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+    public virtual ICollection<Application> ApplicationAccounts { get; set; } = new List<Application>();
+
+    public virtual ICollection<Application> ApplicationResolvedByNavigations { get; set; } = new List<Application>();
 
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 

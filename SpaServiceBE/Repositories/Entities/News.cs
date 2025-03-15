@@ -17,5 +17,7 @@ public partial class News
 
     public string CategoryId { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual ServiceCategory Category { get; set; } = null!;
 }

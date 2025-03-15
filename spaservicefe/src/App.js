@@ -62,6 +62,7 @@ import UserProfile from './pages/profile/profile.tsx'
 import RecruitmentPage from './pages/recruitment/page.tsx'
 import { ProtectedManager } from './pages/admin/protectedManager.tsx'
 import { ProtectedEmployee } from './pages/admin/protectedEmployee.tsx'
+import EmployeeApplicationPage from './pages/employee/application/page.tsx'
 
 function Layout({ children }) {
   return (
@@ -267,7 +268,6 @@ function App() {
               </Layout>
             }
           />
-
           <Route
             path='admin'
             element={
@@ -370,7 +370,8 @@ function App() {
             }
           >
             <Route index element={<Dashboard />} />
-
+           
+            <Route path='application' element={ <EmployeeApplicationPage />} />
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<CalendarApp />} />
             <Route path='appointments-manage' element={<AppointmentManagePage />} />

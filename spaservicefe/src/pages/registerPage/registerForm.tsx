@@ -10,6 +10,7 @@ import { Tooltip } from 'react-tooltip'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 import dayjs from 'dayjs'
+import { useNavigate } from 'react-router-dom'
 
 export default function RegisterForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({
@@ -50,13 +51,19 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
     console.log('Login Failed')
   }
 
+  const navigate = useNavigate();
+
+  const handleImageClick = () => {
+    navigate('/');
+  };
+
   return (
     <div className={cn('items-center justify-center', className)} {...props}>
       <form className='h-full min-w-fit content-center justify-center p-6 md:p-8' onSubmit={submit}>
         <Tooltip id='confirm-password' className='z-10' />
         <div className='flex flex-col gap-10'>
           <div className='flex w-full justify-center'>
-            <img src={logo} className='w-1/2 -translate-y-20' />
+            <img src={logo} className='w-1/2 -translate-y-20' onClick={handleImageClick}/>
           </div>
           <div className='-translate-y-24'>
             <div className='mb-6 flex flex-col items-center text-center'>

@@ -38,6 +38,17 @@ namespace SpaServiceBE.Controllers
             }
             return Ok(application);
         }
+
+        [HttpGet("GetByAccountId/{id}")]
+        public async Task<ActionResult<IEnumerable<Application>>> GetApplicationByAccountId(string id)
+        {
+            var application = await _applicationService.GetApplicationByAccountIdAsync(id);
+            if (application == null)
+            {
+                return NotFound();
+            }
+            return Ok(application);
+        }
         [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateApplication([FromBody] dynamic request)
@@ -63,7 +74,7 @@ namespace SpaServiceBE.Controllers
                     Status = "Pending",
                     Content = content,
                     AccountId = accountId,
-                    CreatedAt = DateTime.UtcNow,
+                    CreatedAt = DateTime.Now,
                     ResolvedBy = null,
                     ResolvedAt = null
                 };
@@ -105,7 +116,7 @@ namespace SpaServiceBE.Controllers
                         ApplicationId = Guid.NewGuid().ToString("N"), // Generate unique ID
                         Status = "Pending",
                         Content = content,
-                        AccountId = null,
+                        AccountId = "Guest",
                         CreatedAt = DateTime.UtcNow,
                         ResolvedBy = null,
                         ResolvedAt = null
@@ -137,7 +148,6 @@ namespace SpaServiceBE.Controllers
             }
         }
 
-        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateApplication(string id, [FromBody] dynamic request)
         {
@@ -147,28 +157,24 @@ namespace SpaServiceBE.Controllers
 
                 // Lấy dữ liệu từ request
                 string status = jsonElement.GetProperty("status").GetString();
-                string content = jsonElement.GetProperty("content").GetString();
-                string accountId = jsonElement.GetProperty("accountId").GetString();
-                DateTime createdAt = jsonElement.GetProperty("createdAt").GetDateTime();
                 string resolvedBy = jsonElement.GetProperty("resolvedBy").GetString();
-                DateTime resolvedAt = jsonElement.GetProperty("resolvedAt").GetDateTime();
                 // Validate input
-                if (string.IsNullOrEmpty(status) || string.IsNullOrEmpty(content))
+                if (string.IsNullOrEmpty(status) || string.IsNullOrEmpty(resolvedBy))
                 {
                     return BadRequest(new { msg = "Application details are incomplete or invalid." });
                 }
 
-                // Create Application object and assign ID for update
-                var application = new Application
+                var application = await _applicationService.GetApplicationByIdAsync(id);
+
+                if(application == null)
                 {
-                    ApplicationId = id, 
-                    Status = status,
-                    Content = content,
-                    AccountId = accountId,
-                    CreatedAt = createdAt,
-                    ResolvedBy = resolvedBy,
-                    ResolvedAt = resolvedAt
-                };
+                    return NotFound(new { msg = $"Application with ID = {id} not found." });
+
+                }
+                // Create Application object and assign ID for update
+                application.Status = status;
+                application.ResolvedBy = resolvedBy;
+                application.ResolvedAt = DateTime.Now;
 
                 // Call service to update application
                 var isUpdated = await _applicationService.UpdateApplicationAsync(application);

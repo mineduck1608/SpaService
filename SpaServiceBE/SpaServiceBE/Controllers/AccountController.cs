@@ -37,6 +37,43 @@ namespace API.Controllers
         }
 
 
+        [HttpGet("GetByAccountId/{id}")]
+        public async Task<ActionResult> GetByAccountId(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return BadRequest("Id is required.");
+
+            try
+            {
+                var account = await _accountService.GetAccountById(id);
+
+                if (account == null)
+                {
+                    return BadRequest("Account is not existed.");
+                }
+
+                if (account.Role.RoleName == "Admin")
+                {
+                    var result = new
+                    {
+                        FullName = "Admin",
+                    };
+                    return Ok(result);
+                }
+                var managerName = await _managerService.GetManagerByAccountId(account.AccountId);
+                var resultManager = new
+                {
+                    FullName = managerName.FullName,
+                };
+
+                return Ok(resultManager);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [HttpPost("Login")]
         public async Task<ActionResult<object>> Login([FromBody] object request)
         {

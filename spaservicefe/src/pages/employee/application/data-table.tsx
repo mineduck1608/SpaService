@@ -24,11 +24,10 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey1?: string
-  filterKey2?: string
+  filterKey?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey1 = 'content', filterKey2 = 'status' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, filterKey = 'username' }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -56,19 +55,6 @@ export function DataTable<TData, TValue>({ columns, data, filterKey1 = 'content'
   return (
     <div>
       <div className='flex items-center py-3'>
-        <Input
-          placeholder={`Filter by content...`}
-          value={(table.getColumn(filterKey1)?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn(filterKey1)?.setFilterValue(event.target.value)}
-          className='max-w-sm mr-5'
-        />
-
-<Input
-          placeholder={`Filter by status...`}
-          value={(table.getColumn(filterKey2)?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn(filterKey2)?.setFilterValue(event.target.value)}
-          className='max-w-sm'
-        />
         <div className='ml-auto flex items-center gap-x-2'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

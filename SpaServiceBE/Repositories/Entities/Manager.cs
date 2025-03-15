@@ -24,6 +24,4 @@ public partial class Manager
     public string? Email { get; set; }
 
     public virtual Account Account { get; set; } = null!;
-
-    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
 }

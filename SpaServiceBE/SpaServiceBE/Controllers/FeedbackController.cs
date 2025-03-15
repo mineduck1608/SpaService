@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -69,7 +70,7 @@ namespace API.Controllers
             {
                 var feedback = await _service.GetFeedbackByServiceId(id);
 
-                if (feedback == null)
+                if (feedback.IsNullOrEmpty())
                     return NotFound($"Feedback with ID = {id} not found.");
 
                 return Ok(feedback);
@@ -88,7 +89,7 @@ namespace API.Controllers
 
             try
             {
-                var feedback = await _service.GetFeedbackByServiceId(id);
+                var feedback = await _service.GetFeedbackByAppointmentId(id);
 
                 if (feedback == null)
                     return NotFound($"Feedback with ID = {id} not found.");

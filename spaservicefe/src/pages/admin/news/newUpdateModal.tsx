@@ -9,10 +9,12 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit, getAllServiceCategories } from './new.util'
 import { newsConfig } from '../modal.util'
 import { ServiceCategory } from 'src/types/type'
+import { storage } from '../../../firebaseConfig'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { ToastContainer, toast } from 'react-toastify'
 
 interface UpdateNewsModalProps {
   isOpen: boolean
@@ -31,11 +33,15 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
     defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
 
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [uploading, setUploading] = useState<boolean>(false) // Trạng thái upload ảnh
+
   // Danh sách loại tin tức
   const newsTypes = [
     { id: 'Event', name: 'Event' },
     { id: 'Promotion', name: 'Promotion' },
-    { id: 'Blog', name: 'Blog' },
+    { id: 'Blog', name: 'Blog' }
   ]
 
   useEffect(() => {
@@ -58,12 +64,21 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
       form.reset({
         ...news,
         categoryId: categories.find((c) => c.categoryId === news.categoryId)?.categoryId || '',
-        newsType: news.type || '',
+        newsType: news.type || ''
       })
     }
   }, [news, categories, form])
 
   const handleSubmit = async (data: any) => {
+
+    let imageUrl = ''
+    if (imageFile) {
+      try {
+        imageUrl = await uploadImage(imageFile)
+      } catch (error) {
+        return
+      }
+    }
     const selectedCategory = categories.find((category) => category.categoryId === data.categoryId)
     if (selectedCategory) {
       data.categoryId = selectedCategory.categoryId
@@ -73,13 +88,50 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
     const selectedType = newsTypes.find((type) => type.id === form.watch('newsType'))
     if (selectedType) {
       data.type = selectedType.id
+      data.image = imageUrl
     } else {
       console.warn('Invalid newsType:', form.watch('newsType'))
       data.type = ''
     }
-  console.log(data)
+    console.log(data)
     await handleUpdateSubmit(news.newsId, data)
     onClose()
+  }
+
+  // Xử lý chọn ảnh và tạo preview
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0]
+      setImageFile(file)
+      setImagePreview(URL.createObjectURL(file))
+    }
+  }
+
+  // Xử lý upload ảnh lên Firebase Storage
+  const uploadImage = async (file: File) => {
+    return new Promise<string>((resolve, reject) => {
+      setUploading(true)
+      const storageRef = ref(storage, `cosmetic-products/${file.name}`)
+      const uploadTask = uploadBytesResumable(storageRef, file)
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log(`Upload is ${progress}% done`)
+        },
+        (error) => {
+          setUploading(false)
+          toast.error('Image upload failed')
+          reject(error)
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+          setUploading(false)
+          resolve(downloadURL)
+        }
+      )
+    })
   }
 
   return (
@@ -109,7 +161,9 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
                             </SelectTrigger>
                             <SelectContent>
                               {isLoading ? (
-                                <SelectItem disabled value="">Loading...</SelectItem>
+                                <SelectItem disabled value=''>
+                                  Loading...
+                                </SelectItem>
                               ) : (
                                 categories.map((category) => (
                                   <SelectItem key={category.categoryId} value={category.categoryId}>
@@ -120,7 +174,12 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
                             </SelectContent>
                           </Select>
                         ) : (
-                          <Input {...formField} type={field.type} placeholder={field.placeholder} disabled={field.readonly} />
+                          <Input
+                            {...formField}
+                            type={field.type}
+                            placeholder={field.placeholder}
+                            disabled={field.readonly}
+                          />
                         )}
                       </FormControl>
                       <FormMessage className='text-sm' />
@@ -161,9 +220,20 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
               )}
             />
 
-            <div className='mt-10 flex justify-end'>
-              <Button type='submit'>Submit</Button>
-            </div>
+             {/* Thêm phần Upload Image */}
+                                    <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                                      <FormLabel className='text-md text-right'>Upload Image</FormLabel>
+                                      <div className='col-span-3 space-y-2'>
+                                        <input type='file' accept='image/*' onChange={handleImageChange} />
+                                        {imagePreview && <img src={imagePreview} alt='Preview' className='h-20 w-40 rounded object-cover' />}
+                                      </div>
+                                    </FormItem>
+                        
+                                    <div className='mt-10 flex justify-end'>
+                                      <Button type='submit' disabled={uploading}>
+                                        {uploading ? 'Uploading...' : 'Submit'}
+                                      </Button>
+                                    </div>
           </form>
         </Form>
       </DialogContent>

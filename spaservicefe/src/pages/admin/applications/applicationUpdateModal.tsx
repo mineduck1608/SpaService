@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'
@@ -12,8 +12,7 @@ import { Input } from 'src/components/ui/input'
 import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './application.util'
 import { applicatonConfig } from '../modal.util'
-import { Manager } from '@/types/type'
-import { getAllManagers } from '../managers/manager.util'
+import { jwtDecode } from 'jwt-decode' // Add this library if it's not already installed
 
 interface UpdateApplicationModalProps {
   isOpen: boolean
@@ -22,8 +21,7 @@ interface UpdateApplicationModalProps {
 }
 
 export default function UpdateApplicationModal({ isOpen, onClose, application }: UpdateApplicationModalProps) {
-  const fieldsToUse = applicatonConfig.updatefields
-  const [managers, setManagers] = useState<Manager[]>([])
+  const fieldsToUse = applicatonConfig.updatefields.filter((field) => field.name !== 'resolvedBy') // Remove resolvedBy
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,27 +29,31 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
   })
 
   const handleSubmit = async (data: any) => {
-    const selectedManager = managers.find((manager) => manager.managerId === data.resolvedBy)
-    if (selectedManager) data.resolvedBy = selectedManager.managerId
-    handleUpdateSubmit(application, data)
+    try {
+      // Decode the token to get `resolvedBy` (manager ID or similar)
+      const token = sessionStorage.getItem('token') // Replace with your token retrieval logic
+      const decodedToken: any = jwtDecode(token || '') // Adjust the token structure type if needed
+      const resolvedBy = decodedToken.UserId // Replace `managerId` with the correct field name from the token
+
+      // Set `resolvedBy` in the form data
+      data.resolvedBy = resolvedBy
+
+      // Call the update submit function
+      await handleUpdateSubmit(application, data)
+      console.log(data)
+    } catch (error) {
+      console.error('Error during submission:', error)
+    }
   }
 
   useEffect(() => {
-    async function fetchManagers() {
-      const data = await getAllManagers()
-      setManagers(data)
-      if (application) {
-        Object.keys(application).forEach((key: string) => {
-          if (form.getValues(key) !== undefined) {
-            if (key === 'resolvedBy') {
-              const managerName = data.find((manager) => manager.managerId === application.resolvedBy)?.managerId
-              form.setValue('resolvedBy', managerName || '')
-            } else form.setValue(key, application[key])
-          }
-        })
-      }
+    if (application) {
+      Object.keys(application).forEach((key: string) => {
+        if (form.getValues(key) !== undefined) {
+          form.setValue(key, application[key])
+        }
+      })
     }
-    fetchManagers()
   }, [application, form])
 
   return (
@@ -70,41 +72,20 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
                     <FormLabel className='text-md text-right'>{field.label}</FormLabel>
                     <div className='col-span-3 space-y-1'>
                       <FormControl>
-                        {field.type === 'select' ? (
-                          field.name === 'status' ? (
-                            <Select
-                              onValueChange={formField.onChange}
-                              defaultValue={formField.value}
-                              disabled={field.readonly}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value='Resolved'>Resolved</SelectItem>
-                                <SelectItem value='Pending'>Pending</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          ) : (
-                            <Select
-                              value={form.watch('resolvedBy') || ''}
-                              onValueChange={(value) => {
-                                form.setValue('resolvedBy', value)
-                              }}
-                              disabled={field.readonly}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {managers.map((manager) => (
-                                  <SelectItem key={manager.managerId} value={manager.managerId}>
-                                    {manager.fullName}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          )
+                        {field.type === 'select' && field.name === 'status' ? (
+                          <Select
+                            onValueChange={formField.onChange}
+                            defaultValue={formField.value}
+                            disabled={field.readonly}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value='Accepted'>Accepted</SelectItem>
+                              <SelectItem value='Denied'>Denied</SelectItem>
+                            </SelectContent>
+                          </Select>
                         ) : (
                           <Input
                             {...formField}

@@ -28,6 +28,11 @@ namespace Repositories
             return await _context.Applications.FindAsync(id);
         }
 
+        public async Task<IEnumerable<Application>> GetByAccountIdAsync(string id)
+        {
+            return await _context.Applications.Where(x => x.AccountId == id).ToListAsync();
+        }
+
         public async Task CreateAsync(Application application)
         {
             await _context.Applications.AddAsync(application);
