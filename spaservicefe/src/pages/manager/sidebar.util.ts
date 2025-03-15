@@ -83,6 +83,24 @@ export const sideData = {
         { title: 'Floors', url: getFullPath('/floors') },
         { title: 'Rooms', url: getFullPath('/rooms') }
       ]
+    },
+    {
+      title: 'Others',
+      icon: Grip,
+      pages: [
+        {
+          title: 'Promotions',
+          url: getFullPath('/promotions')
+        },
+        {
+          title: 'News',
+          url: getFullPath('/news')
+        },
+        {
+          title: 'Feedbacks',
+          url: getFullPath('/feedbacks')
+        }
+      ]
     }
   ],
   users: [

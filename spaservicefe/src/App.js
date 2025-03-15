@@ -353,10 +353,10 @@ function App() {
             {/* Others */}
             <Route path='promotions' element={<PromotionPage />} />
             <Route path='news' element={<AdminNewsPage />} />
-            {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
+            <Route path='feedbacks' element={<AdminFeedbackPage />} />
 
             {/* Users */}
-            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
+            <Route path='employee-categories' element={<AdminEmployeeCategoryPage />} />
 
             {/* Spa Services */}
             <Route path='service-categories' element={<ServiceCategoriesPage />} />

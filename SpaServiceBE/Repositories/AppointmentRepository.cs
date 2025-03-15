@@ -36,6 +36,8 @@ namespace Repositories
                 .Where(e => e.EmployeeId == employeeId)
                 .Include(x => x.Request)
                 .ThenInclude(x => x.Service)
+                .Include(x => x.Request)
+                .ThenInclude(x => x.Customer)
                 .ToListAsync();
         }
 

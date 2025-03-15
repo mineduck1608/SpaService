@@ -42,6 +42,7 @@ console.log(appointments)
               <thead className='border-b'>
                 <tr>
                   <th className='px-4 py-2'>Service</th>
+                  <th className='px-4 py-2'>Customer</th>
                   <th className='px-4 py-2'>Date</th>
                   <th className='px-4 py-2'>Note</th>
                   <th className='px-4 py-2'>Commission</th>
@@ -51,6 +52,7 @@ console.log(appointments)
                 {appointments.map((appointment) => (
                   <tr key={appointment.appointmentId} className='border-b'>
                     <td className='px-4 py-2'>{appointment.request?.service?.serviceName}</td>
+                    <td className='px-4 py-2'>{appointment.request?.customer?.fullName}</td>
                     <td className='px-4 py-2'>
                       {new Date(appointment.startTime).toLocaleString('en-GB', {
                         day: '2-digit',
