@@ -26,9 +26,9 @@ export function SidebarLeft(params: {
       </SidebarHeader>
       <SidebarContent>
         <NavWorkspaces items={params.workspaces ?? []} />
-        <NavUsers items={params.users ?? []} />
-        <NavSpaservices items={params.spaservices ?? []} />
-        <NavCosmetic items={params.cosmetics ?? []} />
+        {params.users.length > 0 && <NavUsers items={params.users ?? []} />}
+        {params.spaservices.length > 0 && <NavSpaservices items={params.spaservices ?? []} />}
+        {params.cosmetics.length > 0 && <NavCosmetic items={params.cosmetics ?? []} />}
         <NavSecondary items={params.secondary ?? []} className='mt-auto' />
       </SidebarContent>
       <SidebarRail />

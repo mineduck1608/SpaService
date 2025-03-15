@@ -22,14 +22,12 @@ export default function PastAppointmentTable({ employee, year }: EmployeeStatist
     const fetchData = async () => {
       const appointmentData = await getAllAppointmentByEmployeeId(employee.employeeId)
       setAppointments(appointmentData)
-
       const commissionData = await getAllCommissionByEmployeeId(employee.employeeId)
-      console.log(commissionData)
       setCommissions(commissionData)
     }
     fetchData()
   }, [employee])
-console.log(appointments)
+  
   return (
     <Card className='-mt-5 rounded-none border-white bg-transparent shadow-none'>
       <CardHeader className='text-lg'>
@@ -68,7 +66,7 @@ console.log(appointments)
                             getCommissionForAppointment(appointment)
                           )
                         : 'N/A'}
-</td>
+                    </td>
                   </tr>
                 ))}
               </tbody>
