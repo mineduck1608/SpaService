@@ -62,6 +62,7 @@ import UserProfile from './pages/profile/profile.tsx'
 import RecruitmentPage from './pages/recruitment/page.tsx'
 import { ProtectedManager } from './pages/admin/protectedManager.tsx'
 import { ProtectedEmployee } from './pages/admin/protectedEmployee.tsx'
+import CustomerApplicationPage from './pages/application/customerApplicationPage.tsx'
 
 function Layout({ children }) {
   return (
@@ -256,6 +257,14 @@ function App() {
             element={
               <Layout>
                 <ContactPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='application'
+            element={
+              <Layout>
+                <CustomerApplicationPage />
               </Layout>
             }
           />
