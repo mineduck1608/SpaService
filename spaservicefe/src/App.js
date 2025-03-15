@@ -64,6 +64,7 @@ import { ProtectedManager } from './pages/admin/protectedManager.tsx'
 import { ProtectedEmployee } from './pages/admin/protectedEmployee.tsx'
 import EmployeeApplicationPage from './pages/employee/application/page.tsx'
 import CustomerApplicationPage from './pages/application/customerApplicationPage.tsx'
+import EmployeeAppointmentManagePage from './pages/admin/employee/appointments/managePage.tsx'
 
 function Layout({ children }) {
   return (
@@ -383,33 +384,33 @@ function App() {
             <Route path='application' element={ <EmployeeApplicationPage />} />
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<CalendarApp />} />
-            <Route path='appointments-manage' element={<AppointmentManagePage />} />
+            <Route path='appointments-manage' element={<EmployeeAppointmentManagePage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
             {/* Requests */}
-            <Route path='customer-requests' element={<CustomerRequestPage />} />
+            {/* <Route path='customer-requests' element={<CustomerRequestPage />} />
             <Route path='applications' element={<ApplicationPage />} />
-            <Route path='guest-contacts' element={<ContactAdminPage />} />
+            <Route path='guest-contacts' element={<ContactAdminPage />} /> */}
 
             {/* Facilities */}
-            <Route path='floors' element={<AdminFloorPage />} />
-            <Route path='rooms' element={<AdminRoomPage />} />
+            {/* <Route path='floors' element={<AdminFloorPage />} />
+            <Route path='rooms' element={<AdminRoomPage />} /> */}
 
             {/* Others */}
-            <Route path='promotions' element={<PromotionPage />} />
-            <Route path='news' element={<AdminNewsPage />} />
+            {/* <Route path='promotions' element={<PromotionPage />} />
+            <Route path='news' element={<AdminNewsPage />} /> */}
             {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
 
             {/* Spa Services */}
-            <Route path='service-categories' element={<ServiceCategoriesPage />} />
-            <Route path='spa-services' element={<SpaServicePage />} />
+            {/* <Route path='service-categories' element={<ServiceCategoriesPage />} />
+            <Route path='spa-services' element={<SpaServicePage />} /> */}
 
             {/* Cosmetics */}
-            <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
+            {/* <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
             <Route path='cosmetic-product' element={<AdminCosmeticPage />} />
             <Route path='applications' />
             <Route path='requests' />
-            <Route path='contacts' />
+            <Route path='contacts' /> */}
           </Route>
         </Routes>
       </BrowserRouter>

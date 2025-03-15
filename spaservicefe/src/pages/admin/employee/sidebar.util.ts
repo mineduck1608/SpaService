@@ -64,31 +64,31 @@ export const sideData = {
     },
     { title: 'Application', url: getFullPath('/application'), icon:  PaperclipIcon },
     { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
-    {
-      title: 'Requests',
-      icon: Contact2,
-      pages: [
-        { title: 'Customer Requests', url: getFullPath('/customer-requests') },
-        { title: 'Applications', url: getFullPath('/applications') },
-        { title: 'Guest Contacts', url: getFullPath('/guest-contacts') }
-      ]
-    },
-    {
-      title: 'Facilities',
-      icon: Warehouse,
-      pages: [
-        { title: 'Floors', url: getFullPath('/floors') },
-        { title: 'Rooms', url: getFullPath('/rooms') }
-      ]
-    }
-  ],
-  spaservices: [
-    { title: 'Services Categories', icon: Sparkle, url: getFullPath('/service-categories') },
-    { title: 'Spa Services', icon: Sparkles, url: getFullPath('/spa-services') }
-  ],
-  cosmetics: [
-    { title: 'Cosmetic Categories', icon: Package, url: getFullPath('/cosmetic-categories') },
-    { title: 'Cosmetic Products', icon: Blocks, url: getFullPath('/cosmetic-product') }
+    // { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
+    // {
+    //   title: 'Requests',
+    //   icon: Contact2,
+    //   pages: [
+    //     { title: 'Customer Requests', url: getFullPath('/customer-requests') },
+    //     { title: 'Applications', url: getFullPath('/applications') },
+    //     { title: 'Guest Contacts', url: getFullPath('/guest-contacts') }
+    //   ]
+    // },
+    // {
+    //   title: 'Facilities',
+    //   icon: Warehouse,
+    //   pages: [
+    //     { title: 'Floors', url: getFullPath('/floors') },
+    //     { title: 'Rooms', url: getFullPath('/rooms') }
+    //   ]
+    // }
+  // spaservices: [
+  //   { title: 'Services Categories', icon: Sparkle, url: getFullPath('/service-categories') },
+  //   { title: 'Spa Services', icon: Sparkles, url: getFullPath('/spa-services') }
+  // ],
+  // cosmetics: [
+  //   { title: 'Cosmetic Categories', icon: Package, url: getFullPath('/cosmetic-categories') },
+  //   { title: 'Cosmetic Products', icon: Blocks, url: getFullPath('/cosmetic-product') }
   ],
   navSecondary: [
     { title: 'Trash', url: '#', icon: Trash2 },

@@ -24,9 +24,9 @@ export default function EmployeeMainPage() {
     <SidebarProvider>
       <SidebarLeft
         workspaces={sideData.workspaces}
-        users={sideData.users}
-        spaservices={sideData.spaservices}
-        cosmetics={sideData.cosmetics}
+        users={[]}
+        spaservices={[]}
+        cosmetics={[]}
         header={sideData.navMain}
         props={{}}
         secondary={sideData.navSecondary}
