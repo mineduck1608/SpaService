@@ -21,12 +21,11 @@ export async function getCart(customerId: string) {
   try {
     var resp = await fetch(`${apiUrl}/cartcosmeticproducts/GetByCustomerId/${customerId}`)
     if (resp.ok) {
-      var data = (await resp.json())
-      return (data as CartCosmeticProduct[]).map(v => toSessionItem(v))
+      var data = await resp.json()
+      return (data as CartCosmeticProduct[]).map((v) => toSessionItem(v))
     }
   } catch (e) {
-    console.log(e);
-    
+    console.log(e)
   }
 }
 export async function setCart(customerId: string, item: SessionItem) {

@@ -23,35 +23,64 @@ interface UpdateNewsModalProps {
 export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsModalProps) {
   const fieldsToUse = newsConfig.updatefields
   const [categories, setCategories] = useState<ServiceCategory[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
 
-  const handleSubmit = async (data: any) => {
-    const selectedCategory = categories.find((category) => category.categoryName === data.categoryName)
-    if (selectedCategory) data.categoryId = selectedCategory.categoryId
-    handleUpdateSubmit(news.newsId, data)
-  }
+  // Danh sách loại tin tức
+  const newsTypes = [
+    { id: 'Event', name: 'Event' },
+    { id: 'Promotion', name: 'Promotion' },
+    { id: 'Blog', name: 'Blog' },
+  ]
 
   useEffect(() => {
     async function fetchCategories() {
-      const data = await getAllServiceCategories()
-      setCategories(data)
-      if (news) {
-        Object.keys(news).forEach((key: string) => {
-          if (form.getValues(key) !== undefined) {
-            if (key === 'categoryId') {
-              const categoryName = data.find((category) => category.categoryId === news.categoryId)?.categoryId
-              form.setValue('categoryId', categoryName || '')
-            } else form.setValue(key, news[key])
-          }
-        })
+      try {
+        const data = await getAllServiceCategories()
+        setCategories(data)
+      } catch (error) {
+        console.error('Failed to fetch categories:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
+
     fetchCategories()
-  }, [news, form])
+  }, [])
+
+  useEffect(() => {
+    if (news && categories.length > 0) {
+      form.reset({
+        ...news,
+        categoryId: categories.find((c) => c.categoryId === news.categoryId)?.categoryId || '',
+        newsType: news.type || '',
+      })
+    }
+  }, [news, categories, form])
+
+  const handleSubmit = async (data: any) => {
+    const selectedCategory = categories.find((category) => category.categoryId === data.categoryId)
+    if (selectedCategory) {
+      data.categoryId = selectedCategory.categoryId
+    }
+
+    // Cập nhật newsType
+    const selectedType = newsTypes.find((type) => type.id === form.watch('newsType'))
+    if (selectedType) {
+      data.type = selectedType.id
+    } else {
+      console.warn('Invalid newsType:', form.watch('newsType'))
+      data.type = ''
+    }
+  console.log(data)
+    await handleUpdateSubmit(news.newsId, data)
+    onClose()
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -72,29 +101,26 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
                         {field.type === 'select' ? (
                           <Select
                             value={form.watch('categoryId') || ''}
-                            onValueChange={(value) => {
-                              form.setValue('categoryId', value)
-                            }}
+                            onValueChange={(value) => form.setValue('categoryId', value)}
                             disabled={field.readonly}
                           >
                             <SelectTrigger>
                               <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
                             </SelectTrigger>
                             <SelectContent>
-                              {categories.map((category) => (
-                                <SelectItem key={category.categoryId} value={category.categoryId}>
-                                  {category.categoryName}
-                                </SelectItem>
-                              ))}
+                              {isLoading ? (
+                                <SelectItem disabled value="">Loading...</SelectItem>
+                              ) : (
+                                categories.map((category) => (
+                                  <SelectItem key={category.categoryId} value={category.categoryId}>
+                                    {category.categoryName}
+                                  </SelectItem>
+                                ))
+                              )}
                             </SelectContent>
                           </Select>
                         ) : (
-                          <Input
-                            {...formField}
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            disabled={field.readonly}
-                          />
+                          <Input {...formField} type={field.type} placeholder={field.placeholder} disabled={field.readonly} />
                         )}
                       </FormControl>
                       <FormMessage className='text-sm' />
@@ -103,6 +129,38 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
                 )}
               />
             ))}
+
+            {/* Select News Type */}
+            <FormField
+              control={form.control}
+              name='newsType'
+              render={({ field }) => (
+                <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                  <FormLabel className='text-md text-right'>News Type</FormLabel>
+                  <div className='col-span-3 space-y-1'>
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) => form.setValue('newsType', value, { shouldValidate: true })}
+                        value={form.watch('newsType')}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select News Type' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {newsTypes.map((type) => (
+                            <SelectItem key={type.id} value={type.id}>
+                              {type.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage className='text-sm' />
+                  </div>
+                </FormItem>
+              )}
+            />
+
             <div className='mt-10 flex justify-end'>
               <Button type='submit'>Submit</Button>
             </div>

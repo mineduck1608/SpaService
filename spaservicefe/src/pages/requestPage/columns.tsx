@@ -40,11 +40,11 @@ export const columns: ColumnDef<SpaRequest>[] = [
     accessorKey: 'price',
     header: 'Total Price',
     cell: (r) => {
-      const transaction = r.row.original.serviceTransactions?.[0]?.transaction;
-      const totalPrice = transaction?.totalPrice ?? 0;
-      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice);
+      const transaction = r.row.original.serviceTransactions?.[0]?.transaction
+      const totalPrice = transaction?.totalPrice ?? 0
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)
     }
-  },   
+  },
   {
     id: 'actions',
     cell: ({ row }) => {

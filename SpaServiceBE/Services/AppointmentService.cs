@@ -99,5 +99,28 @@ namespace Services
             }
             return (roomState, empState, conflict);
         }
+
+        public async Task<IEnumerable<object>> GetMonthlyAppointmentCount(string employeeId, int year)
+        {
+            var appointments = await _repository.GetAppointmentsByEmployeeAndYear(employeeId, year);
+
+            if (appointments == null || !appointments.Any())
+                return new List<object>();
+
+            return appointments
+                .GroupBy(a => a.CheckOut.Value.Month)
+                .Select(g => new
+                {
+                    Month = new DateTime(year, g.Key, 1).ToString("MMMM"),
+                    TotalAppointments = g.Count()
+                })
+                .OrderBy(x => DateTime.ParseExact(x.Month, "MMMM", null).Month)
+                .ToList();
+        }
+
+        public Dictionary<DateOnly, (int male, int female)> OrderByGender()
+        {
+            return _repository.OrderByGender();
+        }
     }
 }

@@ -67,7 +67,9 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
         </DialogHeader>
         <div className='grid gap-4 py-4'>
           <div className='ml-3 flex items-center gap-4'>
-            <Label htmlFor='startTime' className='text-right'>Start Time</Label>
+            <Label htmlFor='startTime' className='text-right'>
+              Start Time
+            </Label>
             <DatePicker
               step={1800}
               showTime
@@ -81,7 +83,9 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
           </div>
 
           <div className='grid grid-cols-4 items-center gap-4'>
-            <Label htmlFor='employeeId' className='text-right'>Employee</Label>
+            <Label htmlFor='employeeId' className='text-right'>
+              Employee
+            </Label>
             <select
               id='employeeId'
               value={updatedRequest.employeeId || ''}
@@ -98,7 +102,9 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
           </div>
 
           <div className='grid grid-cols-4 items-center gap-4'>
-            <Label htmlFor='roomId' className='text-right'>Room</Label>
+            <Label htmlFor='roomId' className='text-right'>
+              Room
+            </Label>
             <select
               id='roomId'
               value={selectedRoomId}

@@ -21,7 +21,11 @@ interface UpdateEmployeeCategoryModalProps {
   employeeCategory: any
 }
 
-export default function UpdateEmployeeCategoryModal({ isOpen, onClose, employeeCategory }: UpdateEmployeeCategoryModalProps) {
+export default function UpdateEmployeeCategoryModal({
+  isOpen,
+  onClose,
+  employeeCategory
+}: UpdateEmployeeCategoryModalProps) {
   const [categories, setCategories] = useState<ServiceCategory[]>([])
   const [employees, setEmployees] = useState<Employee[]>([])
   const fieldsToUse = employeeCategoryConfig.updatefields
@@ -50,10 +54,14 @@ export default function UpdateEmployeeCategoryModal({ isOpen, onClose, employeeC
         Object.keys(employeeCategory).forEach((key: string) => {
           if (form.getValues(key) !== undefined) {
             if (key === 'categoryId') {
-              const categoryName = data1.find((category) => category.categoryId === employeeCategory.categoryId)?.categoryId
+              const categoryName = data1.find(
+                (category) => category.categoryId === employeeCategory.categoryId
+              )?.categoryId
               form.setValue('categoryId', categoryName || '')
             } else if (key === 'employeeId') {
-              const employeeName = data2.find((employee) => employee.employeeId === employeeCategory.employeeId)?.employeeId
+              const employeeName = data2.find(
+                (employee) => employee.employeeId === employeeCategory.employeeId
+              )?.employeeId
               form.setValue('employeeId', employeeName || '')
             } else form.setValue(key, employeeCategory[key])
           }

@@ -14,7 +14,10 @@ export default function DetailTransactionModal({ isOpen, onClose, transaction }:
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>Transaction Detail</DialogTitle>
-        <TransactionDetailTable transactionId={transaction.transactionId} transactionType={transaction.transactionType}/>
+        <TransactionDetailTable
+          transactionId={transaction.transactionId}
+          transactionType={transaction.transactionType}
+        />
       </DialogContent>
       <ToastContainer />
     </Dialog>

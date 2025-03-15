@@ -65,6 +65,7 @@ namespace API.Controllers
 
                 // Lấy dữ liệu từ request
                 string header = jsonElement.GetProperty("header").GetString();
+                string categoryId = jsonElement.GetProperty("categoryId").GetString();
                 string content = jsonElement.GetProperty("content").GetString();
                 string type = jsonElement.GetProperty("type").GetString();
                 string? image = jsonElement.TryGetProperty("image", out var img) ? img.GetString() : null;
@@ -83,6 +84,7 @@ namespace API.Controllers
                     Content = content,
                     Type = type,
                     Image = image,
+                    CategoryId = categoryId
                 };
 
                 // Call service to add news

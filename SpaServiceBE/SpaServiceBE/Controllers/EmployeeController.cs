@@ -22,8 +22,7 @@ namespace API.Controllers
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         }
 
-        // GET: api/employees/GetAll
-        [Authorize]
+
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {

@@ -105,7 +105,12 @@ namespace API.Controllers
                     var promo = await _promotionService.GetByCode(code);
                     if (promo == null)
                     {
-                        return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
+                        return BadRequest(new { msg = "Promotion doesn't exist or inactive." });
+                    }
+                    if(promo.IsActive == false)
+                    {
+                        return BadRequest(new { msg = "Promotion is expired." });
+
                     }
                     promoValue = promo.DiscountValue;
                     transaction.PromotionId = promo.PromotionId;
@@ -249,6 +254,56 @@ namespace API.Controllers
             {
                 var totalRevenue = await _service.GetTotalRevenue();
                 return Ok($"Total Revenue:{totalRevenue}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("OrderByMonth")]
+        public ActionResult<IEnumerable<float>> OrderByMonth()
+        {
+            try
+            {
+                var buckets = _service.OrderByMonths();
+                return Ok(buckets);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("OrderByServiceCategory")]
+        public IActionResult OrderByServiceCategory()
+        {
+            try
+            {
+                var buckets = _service.OrderByServiceCategory().Select(x => new
+                {
+                    category = x.Key,
+                    revenue = x.Value,
+                });
+                return Ok(buckets);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("OrderByDay")]
+        public ActionResult<IEnumerable<float>> OrderByDay()
+        {
+            try
+            {
+                var buckets = _service.OrderByDay().OrderBy(x => x.Key);
+                var result = buckets.Select(x => new
+                {
+                    date = x.Key.ToString("dd/MM/yyyy").Replace("-", "/"),
+                    service = x.Value.service,
+                    product = x.Value.product
+                }
+                );
+                return Ok(result);
             }
             catch (Exception ex)
             {

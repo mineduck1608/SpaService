@@ -1,4 +1,4 @@
-import { SideBarItem } from '@/pages/admin/sidebar.util'
+import { getFullPath, SideBarItem } from '../pages/admin/sidebar.util'
 import { ChevronRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
@@ -15,6 +15,7 @@ import {
   SidebarMenuSubItem
 } from 'src/components/ui/sidebar'
 import { Link } from 'react-router-dom'
+
 
 export function NavWorkspaces(params: { items: SideBarItem[] }) {
   const nav = useNavigate()
@@ -47,8 +48,8 @@ export function NavWorkspaces(params: { items: SideBarItem[] }) {
                     {(workspace.pages ?? []).map((page) => (
                       <SidebarMenuSubItem key={page.title}>
                         <SidebarMenuSubButton asChild>
-                          <Link to={'/admin' + (page.url ?? '')} className='text-black no-underline'>
-                            {page.icon && <page.icon className='mr-1 inline h-4 w-4' />}
+                        <Link to={getFullPath(page.url ?? '')} className='text-black no-underline'>
+                        {page.icon && <page.icon className='mr-1 inline h-4 w-4' />}
                             <span className='mb-0.5'>{page.title}</span>
                           </Link>
                         </SidebarMenuSubButton>

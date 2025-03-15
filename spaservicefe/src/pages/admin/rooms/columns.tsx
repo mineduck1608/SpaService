@@ -31,7 +31,7 @@ export const columns: ColumnDef<Room>[] = [
     accessorKey: 'roomNum',
     header: 'Room Number'
   },
- 
+
   {
     id: 'actions',
     header: 'Actions',

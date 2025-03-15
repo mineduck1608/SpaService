@@ -27,6 +27,11 @@ namespace Services
             return await _repository.GetAll();
         }
 
+        public async Task<List<EmployeeCommission>> GetEmployeeCommissions(string employeeId)
+        {
+            return await _repository.GetEmployeeCommission(employeeId);
+        }
+
         // Thêm một EmployeeCommission mới
         public async Task<bool> AddEmployeeCommission(EmployeeCommission employeeCommission)
         {

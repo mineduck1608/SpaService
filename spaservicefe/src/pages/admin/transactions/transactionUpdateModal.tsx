@@ -102,7 +102,7 @@ export default function UpdateTransactionModal({ isOpen, onClose, transaction }:
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value='Service'>Service</SelectItem>
-                                <SelectItem value='Cosmetic'>Cosmetic</SelectItem>
+                                <SelectItem value='Product'>Product</SelectItem>
                               </SelectContent>
                             </Select>
                           )

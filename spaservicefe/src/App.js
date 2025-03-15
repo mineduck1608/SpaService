@@ -23,7 +23,7 @@ import ResetPasswordPage from './pages/resetPassword/resetPasswordPage.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import React, { useEffect } from 'react'
 import { findCategories } from './pages/servicesPage/servicesPage.util.ts'
-import { Dashboard } from './pages/admin/dashboard.tsx'
+import { Dashboard } from './pages/admin/dashboard/dashboard.tsx'
 import DemoPage from './pages/admin/accounts/page.tsx'
 import CalendarApp from './pages/admin/appointments/page.tsx'
 import AppointmentManagePage from './pages/admin/appointments/managePage.tsx'
@@ -289,7 +289,7 @@ function App() {
 
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<CalendarApp />} />
-            <Route path='appointments-manage' element={<AppointmentManagePage/>} />
+            <Route path='appointments-manage' element={<AppointmentManagePage />} />
             <Route path='orders' element={<OrderPage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
@@ -336,7 +336,8 @@ function App() {
             <Route index element={<Dashboard />} />
 
             {/* Workspaces */}
-            <Route path='appointments' element={<CalendarApp />} />
+            <Route path='appointments-schedule' element={<CalendarApp />} />
+            <Route path='appointments-manage' element={<AppointmentManagePage />} />
             <Route path='orders' element={<OrderPage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
@@ -356,10 +357,6 @@ function App() {
 
             {/* Users */}
             <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
-
-            {/* Users Management */}
-            <Route path='customers' element={<CustomerPage />} />
-            <Route path='employees' element={<EmployeePage />} />
 
             {/* Spa Services */}
             <Route path='service-categories' element={<ServiceCategoriesPage />} />
@@ -384,8 +381,8 @@ function App() {
             <Route index element={<Dashboard />} />
 
             {/* Workspaces */}
-            <Route path='appointments' element={<CalendarApp />} />
-            <Route path='orders' element={<OrderPage />} />
+            <Route path='appointments-schedule' element={<CalendarApp />} />
+            <Route path='appointments-manage' element={<AppointmentManagePage />} />
             <Route path='transactions' element={<TransactionPage />} />
 
             {/* Requests */}
@@ -402,13 +399,6 @@ function App() {
             <Route path='news' element={<AdminNewsPage />} />
             {/* <Route path='feedbacks' element={<FeedbackPage />} /> */}
 
-            {/* Users */}
-            <Route path='employee-categories' element={<Placeholder title='Employee Categories' />} />
-
-            {/* Users Management */}
-            <Route path='customers' element={<CustomerPage />} />
-            <Route path='employees' element={<EmployeePage />} />
-
             {/* Spa Services */}
             <Route path='service-categories' element={<ServiceCategoriesPage />} />
             <Route path='spa-services' element={<SpaServicePage />} />
@@ -420,7 +410,6 @@ function App() {
             <Route path='requests' />
             <Route path='contacts' />
           </Route>
-
         </Routes>
       </BrowserRouter>
       <ToastContainer />

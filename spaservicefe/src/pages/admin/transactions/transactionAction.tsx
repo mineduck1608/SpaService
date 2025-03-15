@@ -50,17 +50,24 @@ const TransactionActions: React.FC<TransactionActionsProps> = ({ transaction }) 
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(transaction.transactionId)} className='cursor-pointer'>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(transaction.transactionId)}
+            className='cursor-pointer'
+          >
             Copy transaction ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openDetailModal} className='cursor-pointer'>View Detail</DropdownMenuItem>
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDetailModal} className='cursor-pointer'>
+            View Detail
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
           {/* <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
       <ToastContainer />
-      <DetailTransactionModal isOpen={isDetailModalOpen} onClose={closeDetailModal} transaction={transaction}/>
+      <DetailTransactionModal isOpen={isDetailModalOpen} onClose={closeDetailModal} transaction={transaction} />
       <UpdateTransactionModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} transaction={transaction} />
       {/* <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} /> */}
     </>

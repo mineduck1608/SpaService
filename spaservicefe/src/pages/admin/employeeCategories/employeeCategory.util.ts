@@ -32,7 +32,7 @@ export async function handleCreateSubmit(data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -56,7 +56,7 @@ export async function handleUpdateSubmit(id: string, data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -66,20 +66,23 @@ export async function handleUpdateSubmit(id: string, data: any) {
 
 export async function handleDelete(employeeCategory: any) {
   try {
-    var res = await fetch(`${apiUrl}/categoryemployees/Delete/${employeeCategory.categoryId}/${employeeCategory.employeeId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-        'Content-Type': 'application/json'
+    var res = await fetch(
+      `${apiUrl}/categoryemployees/Delete/${employeeCategory.categoryId}/${employeeCategory.employeeId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+          'Content-Type': 'application/json'
+        }
       }
-    })
+    )
     if (res.status >= 200 && res.status < 300) {
       toast.success('Delete successfully')
       setTimeout(() => window.location.reload(), 2000)
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (error) {

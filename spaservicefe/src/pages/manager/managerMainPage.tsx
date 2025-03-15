@@ -22,14 +22,14 @@ export default function ManagerPage() {
 
   return (
     <SidebarProvider>
-      <SidebarLeft 
+      <SidebarLeft
         workspaces={sideData.workspaces}
         users={sideData.users}
         spaservices={sideData.spaservices}
         cosmetics={sideData.cosmetics}
         header={sideData.navMain}
         props={{}}
-        secondary={sideData.navSecondary} 
+        secondary={sideData.navSecondary}
       />
       <SidebarInset>
         <header className='sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background'>

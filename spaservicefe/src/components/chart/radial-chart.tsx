@@ -12,16 +12,18 @@ export function RadialChartComp() {
       </CardHeader>
       <CardContent className='-mt-3 flex-1 pb-0'>
         <ChartContainer config={radialChartConfig} className='mx-auto aspect-square max-h-[250px]'>
-          <RadialBarChart data={radialChartData} endAngle={100} innerRadius={80} outerRadius={140}>
+          <RadialBarChart data={radialChartData} endAngle={360} innerRadius={80} outerRadius={140}>
             <PolarGrid
               gridType='circle'
-              radialLines={false}
-              stroke='none'
+              radialLines={true}
+              stroke='1'
               className='first:fill-muted last:fill-background'
-              polarRadius={[86, 74]}
+              polarRadius={[75, 25]}
             />
-            <RadialBar dataKey='visitors' background />
-            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+            <RadialBar dataKey='visitors' 
+            additive='sum'
+            />
+            {/* <PolarRadiusAxis tick={true} tickLine={true} axisLine={true}>
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
@@ -38,7 +40,7 @@ export function RadialChartComp() {
                   }
                 }}
               />
-            </PolarRadiusAxis>
+            </PolarRadiusAxis> */}
           </RadialBarChart>
         </ChartContainer>
       </CardContent>

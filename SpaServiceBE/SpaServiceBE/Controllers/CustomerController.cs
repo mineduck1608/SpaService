@@ -196,5 +196,22 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("NumOfCustomers")]
+        public IActionResult NumOfCustomersThisYear()
+        {
+            try
+            {
+                var s = _service.NumOfCustomersThisYear();
+                return Ok(new
+                {
+                    s.total,
+                    s.newCustomers,
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

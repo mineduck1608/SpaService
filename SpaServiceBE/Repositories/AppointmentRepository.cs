@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Repositories.Context;
+using System.Diagnostics;
 
 namespace Repositories
 {
@@ -20,7 +21,7 @@ namespace Repositories
         // Get an appointment by its ID
         public async Task<Appointment> GetById(string appointmentId)
         {
-            return await _context.Appointments.Include(x => x.Employee).Include(y => y.Request)
+            return await _context.Appointments.Include(x => x.Employee).Include(y => y.Request).ThenInclude(z => z.ServiceTransactions).ThenInclude(o => o.Transaction)
                 .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
         }
 
@@ -29,10 +30,12 @@ namespace Repositories
             return await _context.Appointments
                 .FirstOrDefaultAsync(a => a.RequestId == requestId);
         }
-        public async Task <List<Appointment>> GetAppointmentsFromEmployeeId(string employeeId)
+        public async Task<List<Appointment>> GetAppointmentsFromEmployeeId(string employeeId)
         {
             return await _context.Appointments
                 .Where(e => e.EmployeeId == employeeId)
+                .Include(x => x.Request)
+                .ThenInclude(x => x.Service)
                 .ToListAsync();
         }
 
@@ -75,6 +78,13 @@ namespace Repositories
             }
 
             return appointments;
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByEmployeeAndYear(string employeeId, int year)
+        {
+            return await _context.Appointments
+                .Where(a => a.EmployeeId == employeeId && a.CheckOut.HasValue && a.CheckOut.Value.Year == year)
+                .ToListAsync();
         }
 
 
@@ -137,11 +147,11 @@ namespace Repositories
         }
         public async Task<int> GetTotalAppointmentInMonth(int year, int month)
         {
-            
-                return await _context.Appointments
-                    .Where(a => a.StartTime.Year == year && a.StartTime.Month == month)
-                    .CountAsync();
-            
+
+            return await _context.Appointments
+                .Where(a => a.StartTime.Year == year && a.StartTime.Month == month)
+                .CountAsync();
+
         }
 
         public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Appointment appointment, bool findInAppointments)
@@ -217,6 +227,45 @@ namespace Repositories
             var low = Math.Min(x1, y1);
             var high = Math.Max(x2, y2);
             return high - low < (x2 - x1) + (y2 - y1);
+        }
+
+        public Dictionary<DateOnly, (int male, int female)> OrderByGender()
+        {
+            var lower = DateTime.Now.AddMonths(-3);
+            lower = new(lower.Year, lower.Month, 1);
+            var appointment = _context.Appointments
+                .Where(x =>
+                x.StartTime >= lower && x.EndTime <= DateTime.Now
+                && x.CheckIn != null
+                && x.CheckOut != null
+                )
+                .Include(x => x.Request)
+                .ThenInclude(x => x.Customer);
+            var rs = new Dictionary<DateOnly, (int male, int female)>();
+            foreach (var item in appointment)
+            {
+                var key = new DateOnly(item.StartTime.Year, item.StartTime.Month, 1);
+                var customer = item.Request.Customer;
+                var isMale = customer.Gender == "Male";
+                if (rs.ContainsKey(key))
+                {
+                    rs[key] = (rs[key].male + (isMale ? 1 : 0), rs[key].female + (!isMale ? 1 : 0));
+                }
+                else
+                {
+                    rs.Add(key, (isMale ? 1 : 0, !isMale ? 1 : 0));
+                }
+            }
+            var lowerDateOnly = DateOnly.FromDateTime(lower);
+            var nowDate = DateOnly.FromDateTime(DateTime.Now);
+            for (; lowerDateOnly <= nowDate; lowerDateOnly = lowerDateOnly.AddMonths(1))
+            {
+                if (!rs.ContainsKey(lowerDateOnly))
+                {
+                    rs.Add(lowerDateOnly, (0, 0));
+                }
+            }
+            return rs;
         }
     }
 }

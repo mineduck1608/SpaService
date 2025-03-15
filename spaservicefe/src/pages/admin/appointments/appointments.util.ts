@@ -17,13 +17,13 @@ export const fetchAppointments = async () => {
     }
 
     const appointments = await response.json()
-    console.log('Fetched appointments:', appointments)
+
 
     const employees = await fetchEmployees()
-    console.log('Fetched employees:', employees)
+
 
     const rooms = await fetchRooms()
-    console.log('rooms:', rooms)
+
 
     const employeeMap = new Map<string, { fullName: string }>(
       employees.map((emp: any) => [emp.employeeId, { fullName: emp.fullName }])
@@ -35,21 +35,41 @@ export const fetchAppointments = async () => {
 
     const formattedAppointments = appointments.map(
       (
-        event: { status: string; startTime: string; endTime: string; employeeId: string; roomId: string },
+        event: { 
+          status: string; 
+          startTime: string; 
+          endTime: string; 
+          employeeId: string; 
+          roomId: string;
+          request?: {
+            customer?: {
+              fullName: string;
+            };
+            service?: {
+              serviceName: string;
+            }
+          };
+        },
         index: number
       ) => {
         const employeeInfo = employeeMap.get(event.employeeId) || { fullName: 'Unknown' }
         const roomInfo = roomMap.get(event.roomId) || { roomNum: null, floorId: null }
+        const customerName = event.request?.customer?.fullName || 'Unknown Customer'
+        const serviceName = event.request?.service?.serviceName || 'Unknown Service'
 
         return {
           id: index + 1,
-          title: event.status,
+          title: `${customerName} - ${event.status}`,
           start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
           end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
           people: [employeeInfo.fullName],
-          location: roomInfo.floorId ? `Floor: ${roomInfo.floorId}` : 'Unknown',
-          description: roomInfo.roomNum ? `Room ${roomInfo.roomNum}` : 'Unknown'
-          //description
+          location: serviceName,
+          description: roomInfo.roomNum ? `  Room ${roomInfo.roomNum}` : 'Unknown',
+          calendarId: event.status === 'Processing' ? 'personal'
+            : event.status === 'Finished' ? 'work'
+            : event.status === 'Pending' ? 'leisure'
+            : event.status === 'Cancelled' ? 'school'
+            : 'personal'
         }
       }
     )
@@ -175,7 +195,6 @@ async function fetchServices() {
   return await res.json()
 }
 
-
 export async function UpdateAppoitment(appointment: Appointment, roomId: string) {
   try {
     let parsedStartTime = null
@@ -208,16 +227,16 @@ export async function UpdateAppoitment(appointment: Appointment, roomId: string)
     })
 
     if (res.status >= 200 && res.status < 300) {
-      const responseData = await res.json();
-      toast.success(responseData.msg || 'Successfully assigned!');
+      const responseData = await res.json()
+      toast.success(responseData.msg || 'Successfully assigned!')
       setTimeout(() => window.location.reload(), 1000)
     } else {
-      const errorData = await res.json();
+      const errorData = await res.json()
       toast.error(errorData.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
-      });
-    }    
+        closeButton: false
+      })
+    }
   } catch (e) {
     console.error('❌ Error in AssignRequest:', e)
     return []
@@ -234,29 +253,29 @@ export const handleCheckInAPI = async (appointmentId: string) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify('checkin')
-    });
+    })
 
     if (res.status >= 200 && res.status < 300) {
-      const responseData = await res.json();
-      toast.success(responseData.msg || 'Check-in successful!');
+      const responseData = await res.json()
+      toast.success(responseData.msg || 'Check-in successful!')
       setTimeout(() => window.location.reload(), 1000)
     } else {
-      const errorData = await res.json();
+      const errorData = await res.json()
       toast.error(errorData.msg || 'Failed to check-in.', {
         autoClose: 1000,
-        closeButton: false,
-      });
+        closeButton: false
+      })
     }
   } catch (error) {
-    console.error('Error during check-in:', error);
-    toast.error('Internal server error. Please try again later.');
+    console.error('Error during check-in:', error)
+    toast.error('Internal server error. Please try again later.')
   }
-};
+}
 
 // Function to call CheckOut API
 export const handleCheckOutAPI = async (appointmentId: string) => {
   try {
-    console.log('Checking out:', appointmentId);
+    console.log('Checking out:', appointmentId)
     const res = await fetch(`${apiUrl}/appointments/CheckInCheckOut/${appointmentId}`, {
       method: 'PUT',
       headers: {
@@ -264,21 +283,21 @@ export const handleCheckOutAPI = async (appointmentId: string) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify('checkout')
-    });
+    })
 
     if (res.status >= 200 && res.status < 300) {
-      const responseData = await res.json();
-      toast.success(responseData.msg || 'Check-out successful!');
-      setTimeout(() => window.location.reload(), 1000);
+      const responseData = await res.json()
+      toast.success(responseData.msg || 'Check-out successful!')
+      setTimeout(() => window.location.reload(), 1000)
     } else {
-      const errorData = await res.json();
+      const errorData = await res.json()
       toast.error(errorData.msg || 'Failed to check-out.', {
         autoClose: 1000,
-        closeButton: false,
-      });
+        closeButton: false
+      })
     }
   } catch (error) {
-    console.error('Error during check-out:', error);
-    toast.error('Internal server error. Please try again later.');
+    console.error('Error during check-out:', error)
+    toast.error('Internal server error. Please try again later.')
   }
-};
+}

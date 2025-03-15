@@ -9,8 +9,7 @@ interface FeedbackModalProps {
   isOpen: boolean
   onClose: () => void
   appointment?: Appointment
-  }
-
+}
 
 type StarRatingProps = {
   value: number
@@ -63,17 +62,16 @@ export default function UpdateFeedbackModal({ isOpen, onClose, appointment }: Fe
       if (appointment) {
         const previousData = await getFeedBackByAppointmentId(appointment.appointmentId)
 
-      if (isOpen && previousData) {
-        console.log(previousData)
-        setRating(previousData.rating)
-        setComment(previousData.feedbackMessage)
-        setFeedbackId(previousData.feedbackId)
+        if (isOpen && previousData) {
+          console.log(previousData)
+          setRating(previousData.rating)
+          setComment(previousData.feedbackMessage)
+          setFeedbackId(previousData.feedbackId)
+        }
       }
     }
-  }
     fetchFeedback()
   }, [isOpen])
-
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -101,10 +99,11 @@ export default function UpdateFeedbackModal({ isOpen, onClose, appointment }: Fe
               type='button'
               onClick={handleSubmit}
               disabled={rating === 0}
-              className={`text-md w-1/2 rounded-md py-2 font-semibold transition-colors ${rating > 0
+              className={`text-md w-1/2 rounded-md py-2 font-semibold transition-colors ${
+                rating > 0
                   ? 'bg-yellow-400 text-black hover:bg-yellow-600'
                   : 'cursor-not-allowed bg-gray-300 text-gray-500'
-                }`}
+              }`}
             >
               Submit
             </button>

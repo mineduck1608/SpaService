@@ -30,10 +30,10 @@ export async function handleCreateSubmit(data: any) {
       toast.success('Successfully create!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      const errorMsg = await res.json();
+      const errorMsg = await res.json()
       toast.error(errorMsg.message || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -62,7 +62,7 @@ export async function handleUpdateSubmit(manager: any, data: any) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (e) {
@@ -85,7 +85,7 @@ export async function handleDelete(id: string) {
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false,
+        closeButton: false
       })
     }
   } catch (error) {

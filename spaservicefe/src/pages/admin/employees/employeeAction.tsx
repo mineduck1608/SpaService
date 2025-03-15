@@ -50,17 +50,25 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employee.employeeId)}>Copy employee ID</DropdownMenuItem>
-          <DropdownMenuItem onClick={openStatisticModal} className='cursor-pointer'>View statistics</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employee.employeeId)}>
+            Copy employee ID
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openStatisticModal} className='cursor-pointer'>
+            View statistics
+          </DropdownMenuItem>
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
+            Delete
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <EmployeeStatisticModal isOpen={isStatisticModalOpen} onClose={closeStatisticModal} employee={employee}/>
+      <EmployeeStatisticModal isOpen={isStatisticModalOpen} onClose={closeStatisticModal} employee={employee} />
       <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>

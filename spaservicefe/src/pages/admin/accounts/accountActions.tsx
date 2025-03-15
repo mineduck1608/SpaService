@@ -37,7 +37,9 @@ const AccountActions: React.FC<AccountActionsProps> = ({ account }) => {
             Copy account ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
+            Update
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <UpdateAccountModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} account={account} />

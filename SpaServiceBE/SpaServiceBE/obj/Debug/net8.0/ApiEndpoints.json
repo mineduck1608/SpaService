@@ -316,7 +316,7 @@
   },
   {
     "ContainingType": "API.Controllers.AppointmentController",
-    "Method": "CreateEmailRequest",
+    "Method": "SendEmailRequest",
     "RelativePath": "api/appointments/CreateMail/{id}",
     "HttpMethod": "POST",
     "IsController": true,
@@ -500,6 +500,47 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "API.Controllers.AppointmentController",
+    "Method": "GetMonthlyAppointments",
+    "RelativePath": "api/appointments/GetMonthlyAppointments/{id}/{year}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "year",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.AppointmentController",
+    "Method": "OrderByGender",
+    "RelativePath": "api/appointments/OrderByGender",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "API.Controllers.AppointmentController",
@@ -1069,6 +1110,16 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.CosmeticCategoryController",
+    "Method": "OrderByCategory",
+    "RelativePath": "api/cosmeticcategories/OrderByCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticCategoryController",
     "Method": "UpdateCosmeticCategory",
     "RelativePath": "api/cosmeticcategories/Update/{id}",
     "HttpMethod": "PUT",
@@ -1569,6 +1620,16 @@
   },
   {
     "ContainingType": "API.Controllers.CustomerController",
+    "Method": "NumOfCustomersThisYear",
+    "RelativePath": "api/customers/NumOfCustomers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.CustomerController",
     "Method": "UpdateCustomer",
     "RelativePath": "api/customers/Update/{id}",
     "HttpMethod": "PUT",
@@ -1677,6 +1738,32 @@
     "ReturnTypes": [
       {
         "Type": "Repositories.Entities.EmployeeCommission",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.EmployeeCommissionController",
+    "Method": "GetEmployeeCommissions",
+    "RelativePath": "api/employeecommissions/GetEmployeeCommission/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.EmployeeCommission, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1997,6 +2084,16 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "API.Controllers.FeedbackController",
+    "Method": "OrderByRating",
+    "RelativePath": "api/feedbacks/OrderByRating",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "API.Controllers.FeedbackController",
@@ -3273,6 +3370,22 @@
   },
   {
     "ContainingType": "API.Controllers.RequestController",
+    "Method": "SendEmailRequest",
+    "RelativePath": "api/requests/SendMail/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.RequestController",
     "Method": "UpdateRequest",
     "RelativePath": "api/requests/Update/{id}",
     "HttpMethod": "PUT",
@@ -3967,6 +4080,56 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "API.Controllers.TransactionController",
+    "Method": "OrderByDay",
+    "RelativePath": "api/transactions/OrderByDay",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Single, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.TransactionController",
+    "Method": "OrderByMonth",
+    "RelativePath": "api/transactions/OrderByMonth",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Single, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.TransactionController",
+    "Method": "OrderByServiceCategory",
+    "RelativePath": "api/transactions/OrderByServiceCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "API.Controllers.TransactionController",

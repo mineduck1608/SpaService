@@ -75,7 +75,9 @@ export function DataTable<TData, TValue>({
           className='ml-5 max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
-          <AddCosmeticModal />
+          <div className='ml-4'>
+            <AddCosmeticModal />
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>
