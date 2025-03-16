@@ -104,6 +104,9 @@ namespace SpaServiceBE.Controllers
                     TotalPrice = (float)total,
                 };
                 await _transactionService.Add(transaction);
+
+                await _customerMembershipService.UpdateOrCreateCustomerMembershipAsync(orderRequest.CustomerId);
+
                 var order = new Order
                 {
                     OrderId = orderId,
