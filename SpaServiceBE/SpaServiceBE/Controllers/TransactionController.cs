@@ -21,13 +21,16 @@ namespace API.Controllers
         private readonly IPromotionService _promotionService;
         private readonly IServiceTransactionService _serviceTransactionService;
         private readonly IMembershipService _membershipService;
-        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService, IPromotionService promotionService)
+        private readonly ICustomerMembershipService _customerMembershipService;
+
+        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService)
         {
             _promotionService = promotionService;
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _requestService = requestService;
             _serviceTransactionService = serviceTransactionService;
             _membershipService = membershipService;
+            _customerMembershipService = customerMembershipService;
         }
 
         // GET: api/transactions/GetAll
@@ -117,10 +120,10 @@ namespace API.Controllers
                 }
                 // Gọi service để thêm transaction
                 ServiceTransaction serviceTrans = null;
-
+                string reqId = jsonElement.GetProperty("requestId").GetString();
                 if (transactionType == "Service")
                 {
-                    string reqId = jsonElement.GetProperty("requestId").GetString();
+                    
 
                     serviceTrans = new ServiceTransaction
                     {
@@ -151,6 +154,12 @@ namespace API.Controllers
                 {
                     return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
                 }
+
+                var requestCheck = await _requestService.GetById(reqId);
+                var customerId = requestCheck.CustomerId;
+                _customerMembershipService.UpdateOrCreateCustomerMembershipAsync(customerId);
+                
+
                 return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
             }
             catch (Exception ex)
@@ -158,6 +167,7 @@ namespace API.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
 
 

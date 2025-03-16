@@ -16,5 +16,6 @@ namespace Services.IServices
         Task DeleteAsync(string customerId, string membershipId);
         Task<CustomerMembership> GetCustomerMembershipByCustomerId(string customerId);
         Task<CustomerMembership> FindNewestByCustomerId(string id);
+        Task UpdateOrCreateCustomerMembershipAsync(string customerId);
     }
 }
