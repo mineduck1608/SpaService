@@ -12,7 +12,7 @@ export const columns: ColumnDef<SpaRequest>[] = [
   {
     accessorKey: 'createdDate',
     header: 'Created Time',
-    cell: (r) => formatDate(r.row.original.createdAt, 'dd/MM/yyyy hh:mm')
+    cell: (r) => formatDate(r.row.original.createdAt, 'dd/MM/yyyy hh:mm:ss')
   },
   {
     accessorKey: 'startTime',
