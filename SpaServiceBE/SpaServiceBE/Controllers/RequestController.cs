@@ -557,7 +557,7 @@ namespace API.Controllers
             {
                 var jsonElement = (JsonElement)request;
                 string managerNote = jsonElement.GetProperty("managerNote").GetString();
-
+               
                 // Kiểm tra dữ liệu đầu vào ngay từ đầu
                 if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(managerNote))
                     return BadRequest(new { msg = "Note is not provided" });
@@ -566,7 +566,10 @@ namespace API.Controllers
                 var updatedRequest = await _service.GetById(id);
                 if (updatedRequest == null)
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
-
+                if (updatedRequest.Status.Equals("Denied"))
+                {
+                    return BadRequest("Request Status is already declined !");
+                }
                 // Cập nhật trạng thái
                 updatedRequest.Status = "Denied";
                 updatedRequest.ManagerNote = managerNote;
