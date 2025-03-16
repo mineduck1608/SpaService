@@ -2,11 +2,12 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Application, SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import Details from './details'
+import { formatDate } from 'date-fns'
 export const columns: ColumnDef<Application>[] = [
   {
     accessorKey: 'time',
     header: 'Created At',
-    cell: (r) => r.row.original.createdAt as string
+    cell: (r) => formatDate(r.row.original.createdAt, 'dd/MM/yyyy hh:mm')
   },
   {
     accessorKey: 'status',
