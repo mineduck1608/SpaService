@@ -61,6 +61,45 @@ namespace Repositories
         {
             return await _context.CustomerMemberships.Include(x => x.Membership).FirstOrDefaultAsync(cm => cm.CustomerId == customerId);
         }
+
+        public async Task<float> GetTotalPaymentByCustomerIdAsync(string customerId)
+        {
+            var serviceTotal = await _context.ServiceTransactions
+                .Where(st => st.Request.CustomerId == customerId)
+                .SumAsync(st => st.Transaction.TotalPrice);
+
+            var cosmeticTotal = await _context.CosmeticTransactions
+                .Where(ct => ct.Order.CustomerId == customerId)
+                .SumAsync(ct => ct.Transaction.TotalPrice);
+
+            return serviceTotal + cosmeticTotal;
+        }
+
+        public async Task<Membership?> GetSuitableMembershipAsync(float totalPayment)
+        {
+            return await _context.Memberships
+                .Where(m => totalPayment >= m.TotalPayment)
+                .OrderByDescending(m => m.TotalPayment)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<CustomerMembership?> GetCustomerMembershipAsync(string customerId)
+        {
+            return await _context.CustomerMemberships
+                .FirstOrDefaultAsync(cm => cm.CustomerId == customerId);
+        }
+
+        public async Task UpdateCustomerMembershipAsync(CustomerMembership customerMembership)
+        {
+            _context.CustomerMemberships.Update(customerMembership);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CreateCustomerMembershipAsync(CustomerMembership customerMembership)
+        {
+            await _context.CustomerMemberships.AddAsync(customerMembership);
+            await _context.SaveChangesAsync();
+        }
     }
 
 }

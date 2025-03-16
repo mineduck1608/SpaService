@@ -69,7 +69,7 @@ export type SpaRequest = {
   customer?: Customer
   employee?: Employee
   serviceTransactions?: ServiceTransaction[],
-  createdAt: string
+  createdAt: Date
 }
 
 export type Contact = {

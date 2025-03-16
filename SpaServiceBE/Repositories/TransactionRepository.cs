@@ -7,6 +7,7 @@ using Repositories.Entities;
 using Repositories.Context;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Repositories
 {
