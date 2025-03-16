@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
 using Repositories.Context;
 using System.Collections;
+using System.Diagnostics;
 
 namespace Repositories
 {
@@ -98,7 +99,7 @@ namespace Repositories
         }
         public async Task<List<Request>> FilterByAccount(string accId)
         {
-            return await _context.Requests.Include(x => x.Customer)
+            var x = await _context.Requests.Include(x => x.Customer)
                 .ThenInclude(x => x.Account)
                 .Include(x => x.Service)
                 .Include(x => x.Employee)
@@ -107,6 +108,7 @@ namespace Repositories
                 .Where(x => x.Customer.AccountId == accId)
                 .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
+            return x;
         }
 
         public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Request request)
@@ -115,7 +117,7 @@ namespace Repositories
             var start = request.StartTime;
             var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId);
             var end = request.StartTime.Add(service.Duration.ToTimeSpan());
-            
+
             (ISet<string> roomId, ISet<string> empId, bool conflict) result = new()
             {
                 empId = new HashSet<string>(),

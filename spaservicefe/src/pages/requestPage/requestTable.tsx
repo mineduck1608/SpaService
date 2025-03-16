@@ -39,7 +39,7 @@ export default function RequestTable() {
         <h1 className='py-4 text-center text-2xl font-bold'>Request Information</h1>
         <DataTable
           columns={columns}
-          data={data.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime())}
+          data={data}
         />
       </PastBookingContext.Provider>
     </div>
