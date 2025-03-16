@@ -110,8 +110,7 @@ namespace API.Controllers
                     return StatusCode(500, new { msg = "An error occurred while creating the employee commission." });
 
                 return CreatedAtAction(nameof(GetEmployeeCommissionById),
-                    new { employeeId = employeeCommission.EmployeeId, commissionId = employeeCommission.CommissionId, transactionId = employeeCommission.TransactionId },
-                    employeeCommission);
+                    new { employeeId = employeeCommission.EmployeeId, commissionId = employeeCommission.CommissionId, transactionId = employeeCommission.TransactionId });
             }
             catch (Exception ex)
             {

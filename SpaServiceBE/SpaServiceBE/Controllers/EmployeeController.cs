@@ -106,7 +106,7 @@ namespace API.Controllers
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the employee." });
 
-                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.EmployeeId }, employee);
+                return CreatedAtAction(nameof(GetEmployeeById), new { employeeId = employee.EmployeeId });
             }
             catch (Exception ex)
             {

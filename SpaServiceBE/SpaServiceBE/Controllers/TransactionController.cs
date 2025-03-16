@@ -151,7 +151,7 @@ namespace API.Controllers
                 {
                     return StatusCode(500, new { msg = "An error occurred while creating the transaction." });
                 }
-                return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, transaction);
+                return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId });
             }
             catch (Exception ex)
             {

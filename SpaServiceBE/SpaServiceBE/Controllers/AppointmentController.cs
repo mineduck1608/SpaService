@@ -151,7 +151,7 @@ namespace API.Controllers
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the appointment." });
 
-                return CreatedAtAction(nameof(GetAppointmentById), new { id = appointment.AppointmentId }, appointment);
+                return CreatedAtAction(nameof(GetAppointmentById), new { id = appointment.AppointmentId }, new {appointmentId = appointment.AppointmentId});
             }
             catch (Exception ex)
             {
