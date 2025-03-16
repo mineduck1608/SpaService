@@ -188,7 +188,7 @@ namespace API.Controllers
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the request." });
                 CreateEmailRequest(newRequest.RequestId);
-                return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.RequestId }, newRequest);
+                return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.RequestId }, new { requestId = newRequest.RequestId });
             }
             catch (Exception ex)
             {

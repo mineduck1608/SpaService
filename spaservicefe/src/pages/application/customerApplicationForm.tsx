@@ -5,6 +5,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { toast } from 'react-toastify'
 import { getToken } from '../../types/constants'
 import { jwtDecode } from 'jwt-decode'
+import { Link } from 'react-router-dom'
 
 interface Form {
   content: string
@@ -82,7 +83,7 @@ const CustomerApplication = () => {
 
   return (
     <div
-      className='mx-auto mb-10 mt-4 flex w-full max-w-6xl flex-col border border-gray-200 bg-custom-bg6 font-montserrat shadow-xl lg:flex-row'
+      className='mx-auto mb-10 mt-4 flex w-[40%] max-w-6xl flex-col border border-gray-200 font-montserrat shadow-xl lg:flex-row'
       data-aos='fade-left'
       data-aos-delay='500'
     >
@@ -106,13 +107,20 @@ const CustomerApplication = () => {
               <ReCAPTCHAFixed sitekey='6LeUZdIqAAAAAPlUPWL-M5n_aaSahKjHd8rfsoB_' onChange={handleCaptchaChange} />
               {captchaError && <p className='ml-2 mt-2 text-sm text-red-500'>{captchaError}</p>}
             </div>
-            <div className='flex items-center justify-center'>
+            <div className='flex items-center justify-evenly'>
               <button
                 type='submit'
                 className='mt-3 rounded-full bg-purple1 px-6 py-3 text-sm text-white transition-colors duration-700 hover:bg-purple-800'
               >
                 SEND
               </button>
+              <Link
+                type='button'
+                to={'/application'}
+                className='mt-3 rounded-full bg-purple1 px-6 py-3 text-sm text-white no-underline transition-colors duration-700 hover:bg-purple-800'
+              >
+                VIEW APPLICATIONS
+              </Link>
             </div>
           </form>
         </div>

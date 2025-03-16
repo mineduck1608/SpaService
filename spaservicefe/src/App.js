@@ -66,6 +66,7 @@ import EmployeeApplicationPage from './pages/employee/application/page.tsx'
 import CustomerApplicationPage from './pages/application/customerApplicationPage.tsx'
 import EmployeeAppointmentManagePage from './pages/admin/employee/appointments/managePage.tsx'
 import EmployeeCalendarApp from './pages/admin/employee/appointments/page.tsx'
+import ApplicationList from './pages/applicationList/applicationList.tsx'
 
 function Layout({ children }) {
   return (
@@ -264,10 +265,18 @@ function App() {
             }
           />
           <Route
-            path='application'
+            path='create-application'
             element={
               <Layout>
                 <CustomerApplicationPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='application'
+            element={
+              <Layout>
+                <ApplicationList />
               </Layout>
             }
           />
