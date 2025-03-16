@@ -1,11 +1,9 @@
-import { useState } from 'react'
 import { Button } from 'src/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from 'src/components/ui/dropdown-menu'
 import { EmployeeCommission } from '@/types/type'

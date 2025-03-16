@@ -20,6 +20,8 @@ export default function CommissionPage() {
   }
 
   useEffect(() => {
+    setData([])
+    setLoading(true)
     const fetchData = async () => {
       try {
         const employee = await getEmployeeByAccountId(jwtDecode(getToken() ?? '').UserId)

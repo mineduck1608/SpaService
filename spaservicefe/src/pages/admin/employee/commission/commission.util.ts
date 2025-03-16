@@ -1,9 +1,5 @@
 import { apiUrl, getToken } from 'src/types/constants'
-import {
-  TransactionBase,
-  Order,
-  EmployeeCommission,
-} from 'src/types/type'
+import { EmployeeCommission } from 'src/types/type'
 
 export async function getAllCommissions() {
   try {

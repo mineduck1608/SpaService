@@ -45,7 +45,7 @@ export default function Overall<TData>({ year, data } : EmployeeStatisticProps<T
           const type = commission.transactionType === 'Product' ? 'product' : 'service'
           commissionByMonthAndType[month][type] += item.commissionValue
         } catch (error) {
-          console.error("Error fetching commission data:", error)
+          console.error(error)
         }
       }
 
@@ -69,7 +69,6 @@ export default function Overall<TData>({ year, data } : EmployeeStatisticProps<T
 
   const selectedMonthData = chartData.length > 0 ? 
     [{
-      name: 'Commission',
       service: chartData[selectedMonthIndex]?.service || 0,
       product: chartData[selectedMonthIndex]?.product || 0
     }] : []
@@ -95,14 +94,7 @@ export default function Overall<TData>({ year, data } : EmployeeStatisticProps<T
           {isDataEmpty ? (
             <p className='mt-20 text-center text-lg'>No data for this month</p>
           ) : (
-            <RadialBarChart
-              innerRadius={100}
-              outerRadius={160}
-              barSize={40}
-              data={selectedMonthData}
-              startAngle={180}
-              endAngle={0}
-            >
+            <RadialBarChart innerRadius={100} outerRadius={160} barSize={40} data={selectedMonthData} startAngle={180} endAngle={0}>
               <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
               <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
                 <Label

@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from 'src/components/ui/checkbox'
-import { Appointment, EmployeeCommission } from '@/types/type'
+import { EmployeeCommission } from '@/types/type'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from 'src/components/ui/button'
 import AppointmentActions from './commissionAction'
