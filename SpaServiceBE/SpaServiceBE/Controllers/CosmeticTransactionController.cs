@@ -52,7 +52,7 @@ namespace SpaServiceBE.Controllers
                 };
 
                 await _cosmeticTransactionService.CreateAsync(transaction);
-                return CreatedAtAction(nameof(GetCosmeticTransactionById), new { id = transaction.CosmeticTransactionId }, transaction);
+                return CreatedAtAction(nameof(GetCosmeticTransactionById), new { id = transaction.CosmeticTransactionId }, new { transactionId = transaction.CosmeticTransactionId });
             }
             catch (Exception ex)
             {

@@ -157,10 +157,10 @@ namespace API.Controllers
 
                 var requestCheck = await _requestService.GetById(reqId);
                 var customerId = requestCheck.CustomerId;
-                _customerMembershipService.UpdateOrCreateCustomerMembershipAsync(customerId);
+                await _customerMembershipService.UpdateOrCreateCustomerMembershipAsync(customerId);
                 
 
-                return CreatedAtAction(nameof(GetTransactionById), new { transaction.TransactionId });
+                return CreatedAtAction(nameof(GetTransactionById), new { id = transaction.TransactionId }, new { transaction.TransactionId });
             }
             catch (Exception ex)
             {

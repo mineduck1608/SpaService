@@ -86,7 +86,7 @@ namespace SpaServiceBE.Controllers
                 // Call service to add cart cosmetic product
                 await _cartCosmeticProductService.CreateCartCosmeticProduct(cartCosmeticProduct);
 
-                return CreatedAtAction(nameof(GetCartCosmeticProductById), new { cartCosmeticProduct.Id });
+                return CreatedAtAction(nameof(GetCartCosmeticProductById), new { id = cartCosmeticProduct.Id }, new { cartCosmeticProduct.Id });
             }
             catch (Exception ex)
             {

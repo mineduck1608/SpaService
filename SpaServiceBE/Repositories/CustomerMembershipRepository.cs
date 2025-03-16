@@ -64,13 +64,13 @@ namespace Repositories
 
         public async Task<float> GetTotalPaymentByCustomerIdAsync(string customerId)
         {
-            var serviceTotal = await _context.ServiceTransactions
+            var serviceTotal = _context.ServiceTransactions
                 .Where(st => st.Request.CustomerId == customerId)
-                .SumAsync(st => st.Transaction.TotalPrice);
+                .Sum(st => st.Transaction.TotalPrice);
 
-            var cosmeticTotal = await _context.CosmeticTransactions
+            var cosmeticTotal = _context.CosmeticTransactions
                 .Where(ct => ct.Order.CustomerId == customerId)
-                .SumAsync(ct => ct.Transaction.TotalPrice);
+                .Sum(ct => ct.Transaction.TotalPrice);
 
             return serviceTotal + cosmeticTotal;
         }
@@ -97,8 +97,15 @@ namespace Repositories
 
         public async Task CreateCustomerMembershipAsync(CustomerMembership customerMembership)
         {
-            await _context.CustomerMemberships.AddAsync(customerMembership);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.CustomerMemberships.Add(customerMembership);
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 

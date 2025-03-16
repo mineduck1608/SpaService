@@ -35,47 +35,53 @@ namespace Services
 
         public async Task UpdateOrCreateCustomerMembershipAsync(string customerId)
         {
-            if (string.IsNullOrEmpty(customerId))
+            try
             {
-                throw new ArgumentException("Customer ID cannot be null or empty.");
-            }
-
-            // Tính tổng tiền
-            float totalPayment = await _repository.GetTotalPaymentByCustomerIdAsync(customerId);
-
-            // Tìm Membership phù hợp
-            var suitableMembership = await _repository.GetSuitableMembershipAsync(totalPayment);
-            if (suitableMembership == null)
-            {
-                throw new Exception("No suitable membership found.");
-            }
-
-            // Kiểm tra Membership hiện tại của khách hàng
-            var currentMembership = await _repository.GetCustomerMembershipAsync(customerId);
-
-            if (currentMembership != null)
-            {
-                // Nếu khách hàng đã ở hạng đó thì không cập nhật
-                if (currentMembership.MembershipId == suitableMembership.MembershipId)
+                if (string.IsNullOrEmpty(customerId))
                 {
-                    return;
+                    throw new ArgumentException("Customer ID cannot be null or empty.");
                 }
 
-                // Cập nhật Membership hiện tại (set EndDate)
-                currentMembership.EndDate = DateOnly.FromDateTime(DateTime.Now);
-                await _repository.UpdateCustomerMembershipAsync(currentMembership);
+                // Tính tổng tiền
+                float totalPayment = await _repository.GetTotalPaymentByCustomerIdAsync(customerId);
+
+                // Tìm Membership phù hợp
+                var suitableMembership = await _repository.GetSuitableMembershipAsync(totalPayment);
+                if (suitableMembership == null)
+                {
+                    throw new Exception("No suitable membership found.");
+                }
+
+                // Kiểm tra Membership hiện tại của khách hàng
+                var currentMembership = await _repository.GetCustomerMembershipAsync(customerId);
+
+                if (currentMembership != null)
+                {
+                    // Nếu khách hàng đã ở hạng đó thì không cập nhật
+                    if (currentMembership.MembershipId == suitableMembership.MembershipId)
+                    {
+                        return;
+                    }
+
+                    // Cập nhật Membership hiện tại (set EndDate)
+                    currentMembership.EndDate = DateOnly.FromDateTime(DateTime.Now);
+                    await _repository.UpdateCustomerMembershipAsync(currentMembership);
+                }
+
+                // Tạo Membership mới
+                var newMembership = new CustomerMembership
+                {
+                    CustomerId = customerId,
+                    MembershipId = suitableMembership.MembershipId,
+                    StartDate = DateOnly.FromDateTime(DateTime.Now),
+                    EndDate = null // Membership mới không có EndDate
+                };
+
+                await _repository.CreateCustomerMembershipAsync(newMembership);
             }
-
-            // Tạo Membership mới
-            var newMembership = new CustomerMembership
+            catch (Exception ex)
             {
-                CustomerId = customerId,
-                MembershipId = suitableMembership.MembershipId,
-                StartDate = DateOnly.FromDateTime(DateTime.Now),
-                EndDate = null // Membership mới không có EndDate
-            };
-
-            await _repository.CreateCustomerMembershipAsync(newMembership);
+            }
         }
 
     }

@@ -85,7 +85,7 @@ namespace SpaServiceBE.Controllers
                 };
 
                 await _service.Create(item);
-                return CreatedAtAction(nameof(GetCosmeticProductById), new { productId = item.ProductId });
+                return CreatedAtAction(nameof(GetCosmeticProductById), new { id = item.ProductId }, new { productId = item.ProductId });
             }
             catch (Exception ex)
             {
