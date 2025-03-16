@@ -63,7 +63,7 @@ export const sideData = {
       ]
     },
     { title: 'Application', url: getFullPath('/application'), icon:  PaperclipIcon },
-    { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
+    // { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
     // { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
     // {
     //   title: 'Requests',
