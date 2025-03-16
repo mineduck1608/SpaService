@@ -49,7 +49,9 @@ namespace Repositories
                 .ThenInclude(x => x.Service)
                 .Include(x => x.Room)
                 .Include(x => x.Employee)
-                .Where(e => e.Request.Customer.AccountId == accId).ToList();
+                .Where(e => e.Request.Customer.AccountId == accId)
+                .OrderByDescending(x => x.StartTime)
+                .ToList();
             return rs;
         }
 

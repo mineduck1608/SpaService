@@ -2,6 +2,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import Details from './details'
+import { formatDate } from 'date-fns'
 export const columns: ColumnDef<SpaRequest>[] = [
   {
     accessorKey: 'serviceName',
@@ -9,9 +10,14 @@ export const columns: ColumnDef<SpaRequest>[] = [
     cell: (r) => r.row.original.service?.serviceName
   },
   {
+    accessorKey: 'createdDate',
+    header: 'Created Time',
+    cell: (r) => formatDate(r.row.original.createdAt, 'dd/MM/yyyy hh:mm')
+  },
+  {
     accessorKey: 'startTime',
     header: 'Start Time',
-    cell: (r) => new Date(r.row.original.startTime).toLocaleString()
+    cell: (r) => formatDate(r.row.original.startTime, 'dd/MM/yyyy hh:mm')
   },
   {
     accessorKey: 'status',

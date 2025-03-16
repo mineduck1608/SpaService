@@ -105,51 +105,23 @@ namespace Repositories
                 .Include(x => x.ServiceTransactions)
                 .ThenInclude(x => x.Transaction)
                 .Where(x => x.Customer.AccountId == accId)
+                .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
         }
 
-        public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Request request, bool findInRequests)
+        public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Request request)
         {
-            //Tìm các appointment tg request => Tìm phòng nào, nv nào ko dùng đc
-            var appointments = _context.Appointments
-                .ToList()
-                .Select(x =>
-            {
-                return new
-                {
-                    x.StartTime,
-                    x.EndTime,
-                    x.EmployeeId,
-                    x.RoomId,
-                };
-            });
             //Lọc theo tg
             var start = request.StartTime;
             var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId);
             var end = request.StartTime.Add(service.Duration.ToTimeSpan());
-            //Tìm các appointment trong khoảng tg này => các phòng và nv trong đống này vứt hết
-            var unavailableAppointment = appointments.Where(x =>
-                IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
-            ).Select(x => (x.EmployeeId, x.RoomId)).ToList();
-
-            //Trong request lun
-
+            
             (ISet<string> roomId, ISet<string> empId, bool conflict) result = new()
             {
                 empId = new HashSet<string>(),
                 roomId = new HashSet<string>(),
                 conflict = false
             };
-
-            foreach (var item in unavailableAppointment)
-            {
-                result.roomId.Add(item.RoomId);
-                result.empId.Add(item.EmployeeId);
-            }
-            if (!findInRequests)
-            {
-                return result;
-            }
             //Tìm trong request lun
             var requests = _context.Requests
                 .Include(x => x.Service)

@@ -12,7 +12,7 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
   const [amount, setAmount] = useState(1)
   const cus = sessionStorage.getItem('customerId') ?? ''
   // Hàm kiểm tra và chuyển hướng
-  const addToCart = async () => {
+  const addToCart = async (toCheckout?: boolean) => {
     if (amount <= 0) {
       toast.error('Invalid amount')
       return
@@ -34,6 +34,9 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
     }
     setCartItem(cus, params.d.productId, amount)
     toast.success(`Added ${amount} item(s)`)
+    if(toCheckout){
+      window.location.assign('/cosmetics-check-out')
+    }
   }
 
   return (
@@ -74,7 +77,7 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
           <button
             type='submit'
             onClick={(e) => {
-              window.location.assign('/cosmetics-check-out')
+              addToCart(true)
             }} // Sử dụng hàm handleCheckout để kiểm tra token
             className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[40%]'
           >

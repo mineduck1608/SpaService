@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Appointment, SpaRequest } from '@/types/type'
 import Details from './details'
 import { PastAppointmentContext } from './context/pastAppointmentContext'
+import { formatDate } from 'date-fns'
 
 const CellWithContext = ({ row }) => {
   const { pastBooking } = useContext(PastAppointmentContext)
@@ -18,12 +19,12 @@ export const columns: ColumnDef<Appointment>[] = [
   {
     accessorKey: 'start',
     header: 'Start Time',
-    cell: (r) => new Date(r.row.original.startTime).toLocaleString()
+    cell: (r) => formatDate(r.row.original.startTime, 'dd/MM/yyyy hh:mm')
   },
   {
     accessorKey: 'end',
     header: 'End Time',
-    cell: (r) => new Date(r.row.original.endTime).toLocaleString()
+    cell: (r) => formatDate(r.row.original.endTime, 'dd/MM/yyyy hh:mm')
   },
   {
     accessorKey: 'status',

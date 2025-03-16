@@ -54,7 +54,7 @@ namespace Repositories
 
         public void ClearCart(string customerId)
         {
-            var cart = _context.CartCosmeticProducts.Where(x => x.CustomerId == customerId).ToList();
+            var cart = _context.CartCosmeticProducts.Where(x => x.CustomerId == customerId && (x.Included ?? false)).ToList();
             _context.CartCosmeticProducts.RemoveRange(cart);
             _context.SaveChanges();
         }
