@@ -3,14 +3,8 @@ import {
   ClipboardList,
   LucideIcon,
   ArrowLeftRight,
-  Contact2,
   MessageCircleQuestion,
   Trash2,
-  Warehouse,
-  Sparkles,
-  Sparkle,
-  Package,
-  Blocks,
   PaperclipIcon
 } from 'lucide-react'
 
@@ -18,7 +12,7 @@ import { jwtDecode } from 'jwt-decode'
 import { roleJWT } from '../../../types/constants'
 
 const token = sessionStorage.getItem('token')
-let userRole = 'Employee' // Mặc định nếu không có token
+let userRole = 'Employee'
 
 try {
   if (token) {
@@ -63,7 +57,7 @@ export const sideData = {
       ]
     },
     { title: 'Application', url: getFullPath('/application'), icon:  PaperclipIcon },
-    // { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
+    { title: 'Commission', url: getFullPath('/commissions'), icon:  ArrowLeftRight },
     // { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
     // {
     //   title: 'Requests',
