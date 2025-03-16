@@ -108,8 +108,8 @@ namespace SpaServiceBE.Controllers
                 {
                     OrderId = orderId,
                     CustomerId = orderRequest.CustomerId,
-                    OrderDate = orderRequest.OrderDate,
-                    Status = true,
+                    OrderDate = DateTime.Now,
+                    Status = false,
                     Address = orderRequest.Address,
                     TotalAmount = (float)total,
                     RecepientName = name,

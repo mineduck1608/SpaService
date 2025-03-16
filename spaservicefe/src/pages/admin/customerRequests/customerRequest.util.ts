@@ -156,6 +156,7 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
       const responseData = await res.json()
       toast.success(responseData.msg || 'Successfully assigned!')
       // Refresh specific UI part instead of full reload
+      setTimeout(() => window.location.reload(), 1000)
     } else {
       const errorData = await res.json()
       toast.error(errorData.msg || 'Failed. Please try again.', {

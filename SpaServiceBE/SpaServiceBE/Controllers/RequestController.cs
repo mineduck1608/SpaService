@@ -318,14 +318,6 @@ namespace API.Controllers
                 if (updatedRequest == null)
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
 
-                updatedRequest.StartTime = startTime;
-                updatedRequest.Status = "Completed";
-
-                // Gọi service để cập nhật request
-                var isUpdated = await _service.Update(id, updatedRequest);
-
-                if (!isUpdated)
-                    return NotFound(new { msg = $"Request with ID = {id} not found." });
 
                 var appointmentExit = _appointmentService.GetAppointmentByRequestId(id);
                 if (appointmentExit.Result != null)
@@ -342,7 +334,8 @@ namespace API.Controllers
                     StartTime = startTime,
                     EndTime = endTime,
                     RoomId = roomId,
-                    UpdatedAt = DateTime.Now
+                    UpdatedAt = DateTime.Now,
+                    Request = updatedRequest
                 };
 
                 var b = await _appointmentService.CheckResourceAvailable(appointment);
@@ -372,6 +365,16 @@ namespace API.Controllers
                 {
                     return StatusCode(500, new { msg = "An error occurred while creating the appointment." });
                 }
+
+                updatedRequest.StartTime = startTime;
+                updatedRequest.Status = "Completed";
+
+                // Gọi service để cập nhật request
+                var isUpdated = await _service.Update(id, updatedRequest);
+
+                if (!isUpdated)
+                    return NotFound(new { msg = $"Request with ID = {id} not found." });
+
 
                 SendEmailRequest(appointment.AppointmentId);
                 return Ok(new { msg = "Assign request successfully." });
