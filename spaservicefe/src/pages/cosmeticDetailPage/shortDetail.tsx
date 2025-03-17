@@ -34,9 +34,6 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
     }
     setCartItem(cus, params.d.productId, amount)
     toast.success(`Added ${amount} item(s)`)
-    if(toCheckout){
-      window.location.assign('/cosmetics-check-out')
-    }
   }
 
   return (
@@ -77,7 +74,13 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
           <button
             type='submit'
             onClick={(e) => {
-              addToCart(true)
+              if (amount > (params.d?.quantity ?? 0)) {
+                toast.error(`Your cart cannot have more than ${params.d?.quantity} items of this product`)
+                return;
+              }
+              window.location.assign(
+                `/cosmetics-check-out?singular=True&productId=${params.d?.productId}&&quantity=${amount}`
+              )
             }} // Sử dụng hàm handleCheckout để kiểm tra token
             className='rounded-br-3xl rounded-tl-3xl bg-purple1 p-[0.625rem] text-white lg:w-[40%]'
           >
