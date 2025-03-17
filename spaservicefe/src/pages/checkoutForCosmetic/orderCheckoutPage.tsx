@@ -86,7 +86,7 @@ export default function CosmeticCheckoutPage() {
 
       return result
     } catch (e) {
-      toast.error(e as string)
+      toast.error(e as string, { toastId: 'toast' })
       return null
     }
   }
@@ -99,9 +99,9 @@ export default function CosmeticCheckoutPage() {
           toast.success('Order submitted')
           return
         }
-        toast.error(s.rs)
+        toast.error(s.rs, { containerId: 'toast' })
       }
-    } catch (e) {}
+    } catch (e) { }
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
@@ -114,7 +114,7 @@ export default function CosmeticCheckoutPage() {
         window.location.replace(url)
         return
       }
-      toast.error(s?.rs)
+      toast.error(s?.rs, { containerId: 'toast' })
     } catch (e) {
       toast.error(e as string)
     }
@@ -130,7 +130,7 @@ export default function CosmeticCheckoutPage() {
       if (entry) {
         if (typeof entry === 'string') {
           toast.error(entry, {
-            toastId: new Date().getTime()
+          containerId: 'toast'
           })
           return
         }
@@ -144,7 +144,7 @@ export default function CosmeticCheckoutPage() {
       })
       if (typeof s === 'string') {
         toast.error(s, {
-          toastId: new Date().getTime()
+          containerId: 'toast'
         })
         return
       }
@@ -162,7 +162,6 @@ export default function CosmeticCheckoutPage() {
         backgroundSize: 'cover'
       }}
     >
-      <ToastContainer />
       {/* Khung form */}
       <div className='mb-48 mt-48 flex justify-center'>
         <form className='flex w-3/5 justify-center' onSubmit={payInCash}>

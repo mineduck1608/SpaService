@@ -87,6 +87,7 @@ function App() {
   }, [])
   return (
     <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
+      <ToastContainer containerId={'toast'} />
       <BrowserRouter>
         <Routes>
           <Route
@@ -391,8 +392,8 @@ function App() {
             }
           >
             <Route index element={<Dashboard />} />
-           
-            <Route path='application' element={ <EmployeeApplicationPage />} />
+
+            <Route path='application' element={<EmployeeApplicationPage />} />
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<EmployeeCalendarApp />} />
             <Route path='appointments-manage' element={<EmployeeAppointmentManagePage />} />
@@ -426,7 +427,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-      <ToastContainer />
     </GoogleOAuthProvider>
   )
 }
