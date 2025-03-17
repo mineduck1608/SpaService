@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Repositories.Entities;
 using Services.IServices;
+using SpaServiceBE.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -114,6 +115,12 @@ namespace API.Controllers
                 string gender = jsonElement.GetProperty("gender").GetString();
                 DateTime dateOfBirth = jsonElement.GetProperty("dateOfBirth").GetDateTime();
 
+
+                // Validate phone, email, and password formats
+                if (!Util.IsPhoneFormatted(phone.Trim()))
+                    return BadRequest(new { msg = "Phone number is not properly formatted" });
+                if (!Util.IsMailFormatted(email))
+                    return BadRequest(new { msg = "Email is not properly formatted" });
 
                 var customer = await _service.GetCustomerById(id);
 

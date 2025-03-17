@@ -15,10 +15,12 @@ namespace API.Controllers
     public class PromotionController : ControllerBase
     {
         private readonly IPromotionService _service;
+        private readonly ITransactionService _transactionService;
 
-        public PromotionController(IPromotionService service)
+        public PromotionController(IPromotionService service, ITransactionService transactionService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _transactionService = transactionService ?? throw new ArgumentNullException(nameof(transactionService));
         }
 
         // GET: api/promotions/GetAll
@@ -61,16 +63,22 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpGet("GetByCode/{code}")]
-        public async Task<ActionResult<Promotion>> GetPromotionByCode(string code)
+        [HttpGet("GetByCode/{code}/{customerId}")]
+        public async Task<ActionResult<Promotion>> GetPromotionByCode(string code, string customerId)
         {
-            if (string.IsNullOrEmpty(code))
-                return BadRequest("PromotionCode is required.");
+            if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(customerId))
+                return BadRequest("PromotionCode and CustomerId are required.");
 
             try
             {
-                var promotion = await _service.GetByCode(code);
+                // Kiểm tra xem khách hàng đã sử dụng chưa
+                bool isUsed = await _service.IsPromotionUsed(customerId, code);
+                if (isUsed)
+                {
+                    return BadRequest("This promotion code has already been used.");
+                }
 
+                var promotion = await _service.GetByCode(code);
                 if (promotion == null)
                     return NotFound($"PromotionCode with code {code} not found.");
 
@@ -81,6 +89,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
 
         // POST: api/promotions/Create
         [HttpPost("Create")]

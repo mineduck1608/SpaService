@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Repositories.Entities;
 using Services.IServices;
@@ -44,5 +45,11 @@ namespace Services
         {
             return await _promotionRepository.GetByCode(code);
         }
+
+        public async Task<bool> IsPromotionUsed(string customerId, string code)
+        {
+            return await _promotionRepository.IsPromotionUsed(customerId, code);
+        }
+
     }
 }

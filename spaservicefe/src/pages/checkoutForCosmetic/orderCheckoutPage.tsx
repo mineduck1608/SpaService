@@ -4,11 +4,12 @@ import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
 import { toast, ToastContainer } from 'react-toastify'
 import { getPromoByCode, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
-import { getCart } from '../cosmeticDetailPage/detailPage.util.ts'
+import { getCart, getCosmetic } from '../cosmeticDetailPage/detailPage.util.ts'
 import { createOrder, setCookie } from './checkoutPage.util.ts'
 import { Promotion } from '@/types/type.ts'
 import { SessionItem } from '@/types/sessionItem.ts'
-import { ProductPayResult } from '../payResult/productPayResult.ts'
+import { getQueryParamsMap, ProductPayResult } from '../payResult/productPayResult.ts'
+import { getCosmeticProductById } from '../admin/orders/order.util.ts'
 
 export default function CosmeticCheckoutPage() {
   const [checked, setChecked] = useState(false)
@@ -24,24 +25,46 @@ export default function CosmeticCheckoutPage() {
   })
   const [cart, setCart] = useState<SessionItem[]>([])
   const cus = sessionStorage.getItem('customerId')
-  console.log(cus)
+  const map = getQueryParamsMap(window.location.search.substring(1))
+  async function fetchData() {
+    var t = getToken()
+    if (!t) {
+      return
+    }
+    var cart = await getCart(cus ?? '')
+    if (cart) {
+      setCart(cart.filter((x) => x.included))
+    }
+  }
+  async function getCheckoutItem() {
+    var item = map.get('productId') ?? ''
+    var qty = map.get('quantity') ?? ''
+    if (parseInt(qty) !== parseFloat(qty) || item.length === 0) {
+      return
+    }
+    var x = await getCosmetic(item)
+    if (!x) {
+      return
+    }
+    setCart([
+      {
+        amount: parseInt(qty),
+        product: x
+      }
+    ])
+  }
 
   useEffect(() => {
-    async function fetchData() {
-      var t = getToken()
-      if (!t) {
-        return
-      }
-      var cart = await getCart(cus ?? '')
-      if (cart) {
-        setCart(cart.filter((x) => x.included))
-      }
+    if (map.get('singular') === 'True') {
+      getCheckoutItem()
+      return
     }
     try {
       fetchData()
     } catch (e) {
       console.log(e)
     }
+    return
   }, [])
   async function onSubmitBase(method: string) {
     try {
@@ -63,7 +86,7 @@ export default function CosmeticCheckoutPage() {
 
       return result
     } catch (e) {
-      toast.error(e as string)
+      toast.error(e as string, { toastId: 'toast' })
       return null
     }
   }
@@ -76,9 +99,9 @@ export default function CosmeticCheckoutPage() {
           toast.success('Order submitted')
           return
         }
-        toast.error(s.rs)
+        toast.error(s.rs, { containerId: 'toast' })
       }
-    } catch (e) {}
+    } catch (e) { }
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
@@ -91,7 +114,7 @@ export default function CosmeticCheckoutPage() {
         window.location.replace(url)
         return
       }
-      toast.error(s?.rs)
+      toast.error(s?.rs, { containerId: 'toast' })
     } catch (e) {
       toast.error(e as string)
     }
@@ -107,21 +130,21 @@ export default function CosmeticCheckoutPage() {
       if (entry) {
         if (typeof entry === 'string') {
           toast.error(entry, {
-            toastId: new Date().getTime()
+          containerId: 'toast'
           })
           return
         }
         setData({ ...data, active: entry.discountValue })
         return
       }
-      const s = await getPromoByCode(code)
+      const s = await getPromoByCode(code, cus ?? '')
       setCodes((v) => {
         v.set(code, s)
         return v
       })
       if (typeof s === 'string') {
         toast.error(s, {
-          toastId: new Date().getTime()
+          containerId: 'toast'
         })
         return
       }
@@ -139,11 +162,13 @@ export default function CosmeticCheckoutPage() {
         backgroundSize: 'cover'
       }}
     >
-      <ToastContainer />
       {/* Khung form */}
       <div className='mb-48 mt-48 flex justify-center'>
         <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
+            <div className='flex items-center justify-center'>
+              <h1 className='font-bold'>Cosmetic Checkout</h1>
+            </div>
             <div className='mb-4'>
               <label className='grid'>
                 Address:

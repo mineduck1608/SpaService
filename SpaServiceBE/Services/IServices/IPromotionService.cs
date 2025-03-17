@@ -12,5 +12,6 @@ namespace Services.IServices
         Task<bool> Update(string promotionId, Promotion promotion);
         Task<bool> Delete(string promotionId);
         Task<Promotion> GetByCode(string code);
+        Task<bool> IsPromotionUsed(string customerId, string code);
     }
 }

@@ -20,7 +20,7 @@ namespace Repositories
 
         public async Task<IEnumerable<Application>> GetAllAsync()
         {
-            return await _context.Applications.ToListAsync();
+            return await _context.Applications.Include(a => a.Account).ToListAsync();
         }
 
         public async Task<Application> GetByIdAsync(string id)
@@ -30,7 +30,10 @@ namespace Repositories
 
         public async Task<IEnumerable<Application>> GetByAccountIdAsync(string id)
         {
-            return await _context.Applications.Where(x => x.AccountId == id).ToListAsync();
+            return await _context.Applications
+                .Where(x => x.AccountId == id)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync();
         }
 
         public async Task CreateAsync(Application application)
