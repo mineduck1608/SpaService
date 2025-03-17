@@ -95,5 +95,15 @@ namespace Repositories
         {
             return _context.Promotions.FirstOrDefault(x => x.PromotionCode == code && x.IsDeleted == false);
         }
+
+
+        public async Task<bool> IsPromotionUsed(string customerId, string code)
+        {
+            return await _context.Transactions.Include(t => t.Promotion)
+                .AnyAsync(t => t.Promotion.PromotionCode == code &&
+                               (t.CosmeticTransactions.Any(ct => ct.Order.CustomerId == customerId) ||
+                                t.ServiceTransactions.Any(st => st.Request.CustomerId == customerId)));
+        }
+
     }
 }

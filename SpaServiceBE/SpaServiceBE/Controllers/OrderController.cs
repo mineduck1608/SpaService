@@ -60,6 +60,12 @@ namespace SpaServiceBE.Controllers
                 var customer = await _customerService.GetCustomerById(orderRequest.CustomerId);
                 var name = orderRequest.RecepientName ?? customer.FullName;
                 var phone = orderRequest.Phone ?? customer.Phone;
+
+                if(phone == "None")
+                {
+                    return BadRequest(new { msg = "Phone is invalid." });
+
+                }
                 if (!string.IsNullOrEmpty(orderRequest.PromotionCode) && promo == null)
                 {
                     return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
@@ -102,14 +108,18 @@ namespace SpaServiceBE.Controllers
                     PromotionId = promo?.PromotionId,
                     Status = false,
                     TotalPrice = (float)total,
+                    CompleteTime = DateTime.Now
                 };
                 await _transactionService.Add(transaction);
+
+                await _customerMembershipService.UpdateOrCreateCustomerMembershipAsync(orderRequest.CustomerId);
+
                 var order = new Order
                 {
                     OrderId = orderId,
                     CustomerId = orderRequest.CustomerId,
-                    OrderDate = orderRequest.OrderDate,
-                    Status = true,
+                    OrderDate = DateTime.Now,
+                    Status = false,
                     Address = orderRequest.Address,
                     TotalAmount = (float)total,
                     RecepientName = name,

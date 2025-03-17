@@ -35,6 +35,8 @@ namespace Repositories
         public async Task<List<ServiceTransaction>> GetAll()
         {
             return await _context.ServiceTransactions
+                .Include(x => x.Request)
+                .ThenInclude(x => x.Customer)
                 .ToListAsync();
         }
 

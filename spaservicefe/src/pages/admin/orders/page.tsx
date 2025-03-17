@@ -27,13 +27,16 @@ export default function OrderPage() {
           {} as Record<string, { fullName: string; phone: string }>
         )
 
-        const formattedOrders = orders.map((order) => ({
-          ...order,
-          orderDate: format(new Date(order.orderDate), 'dd/MM/yyyy'),
-          name: customerMap[order.customerId]?.fullName || 'Unknown',
-          phone: customerMap[order.customerId]?.phone || 'Unknown',
-          status: order.status ? 'Processed' : 'Unprocessed'
-        }))
+        const formattedOrders = orders
+          .map((order) => ({
+            ...order,
+            orderDateRaw: new Date(order.orderDate), // Lưu thêm giá trị Date để sắp xếp
+            orderDate: format(new Date(order.orderDate), 'dd/MM/yyyy HH:mm:ss'),
+            name: customerMap[order.customerId]?.fullName || 'Unknown',
+            phone: customerMap[order.customerId]?.phone || 'Unknown',
+            status: order.status ? 'Processed' : 'Unprocessed'
+          }))
+          .sort((a, b) => b.orderDateRaw.getTime() - a.orderDateRaw.getTime()) // Sắp xếp mới nhất lên đầu
 
         setData(formattedOrders)
       } catch (err) {

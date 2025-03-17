@@ -49,6 +49,14 @@ export const columns: ColumnDef<TransactionBase>[] = [
     header: 'Complete Time'
   },
   {
+    accessorKey: 'name',
+    header: 'Customer'
+  },
+  {
+    accessorKey: 'phone',
+    header: 'Phone number'
+  },
+  {
     accessorKey: 'statusText',
     header: 'Status',
     cell: ({ row }) => {

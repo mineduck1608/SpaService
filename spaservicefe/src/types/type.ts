@@ -68,7 +68,8 @@ export type SpaRequest = {
   service?: SpaService
   customer?: Customer
   employee?: Employee
-  serviceTransactions?: ServiceTransaction[]
+  serviceTransactions?: ServiceTransaction[],
+  createdAt: Date
 }
 
 export type Contact = {
@@ -194,11 +195,13 @@ export type ServiceTransaction = TransactionBase & {
   requestId: string
   membership?: string
   transaction: TransactionBase
+  request?: SpaRequest
 }
 
 export type CosmeticTransaction = TransactionBase & {
   cosmeticTransactionId: string
   orderId: string
+  order?: Order
 }
 
 export type Order = {

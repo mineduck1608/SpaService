@@ -2,6 +2,7 @@ import { SpaRequest } from '@/types/request'
 import { apiUrl, getToken } from '../../types/constants'
 import { Customer, Employee, Membership, Promotion } from '@/types/type'
 import { jwtDecode } from 'jwt-decode'
+import { setCookie } from '../checkoutForCosmetic/checkoutPage.util'
 
 export async function getEmployees(id: string) {
   try {
@@ -100,9 +101,9 @@ export async function getCusByAcc(id: string) {
     return "Couldn't connect to server"
   }
 }
-export async function getPromoByCode(code: string) {
+export async function getPromoByCode(code: string, customerId: string) {
   try {
-    var c = await fetch(`${apiUrl}/promotions/GetByCode/${code}`, {
+    var c = await fetch(`${apiUrl}/promotions/GetByCode/${code}/${customerId}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -129,6 +130,11 @@ export async function getMembership(cusId: string) {
 
     return "Couldn't connect to server"
   }
+}
+
+export function setItems() {
+  setCookie('token', getToken() ?? '')
+  setCookie('customerId', sessionStorage.getItem('customerId') ?? '')
 }
 
 export type Transaction = {

@@ -23,6 +23,20 @@ export async function getAllTransactions() {
   }
 }
 
+export async function getTransactionsById(id: string) {
+  try {
+    const res = await fetch(`${apiUrl}/transactions/GetById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    const json = (await res.json()) as TransactionBase[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
 export async function getAllServiceTransactions() {
   try {
     const res = await fetch(`${apiUrl}/servicetransactions/GetAll`, {

@@ -7,10 +7,7 @@ import { sideData } from './sidebar.util'
 import { Outlet, useLocation } from 'react-router-dom'
 
 export default function EmployeeMainPage() {
-  // Sử dụng useLocation để lấy thông tin location của trang hiện tại
   const location = useLocation()
-
-  // Lấy path từ location.pathname và chuyển đổi thành dạng title
   const x = location.pathname.substring(10).replace(/-/g, ' ')
 
   function capitalizeEachWord(sentence: string): string {

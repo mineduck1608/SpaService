@@ -8,6 +8,7 @@ import { getPromoByCode } from '../checkout/checkoutPage.util'
 import { apiUrl, getToken } from '../../types/constants'
 import { Promotion } from '@/types/type'
 import { getCookie } from '../checkoutForCosmetic/checkoutPage.util'
+import { getQueryParamsMap } from './productPayResult'
 
 export default function PayResultPage() {
   const [r, setR] = useState<boolean | null>(null)
@@ -19,21 +20,6 @@ export default function PayResultPage() {
   //startTime: start time of the appointment
   //endTime:
   //service: service name
-
-  function getQueryParamsMap(queryString: string): Map<string, string> {
-    const paramsMap = new Map<string, string>()
-
-    // Remove the leading "?" if present
-    const query = queryString.startsWith('?') ? queryString.substring(1) : queryString
-
-    query.split('&').forEach((param) => {
-      const [key, value] = param.split('=')
-      if (key) {
-        paramsMap.set(decodeURIComponent(key), decodeURIComponent(value || ''))
-      }
-    })
-    return paramsMap
-  }
   async function getPromoById(code: string) {
     try {
       var c = await fetch(`${apiUrl}/promotions/GetById/${code}`, {

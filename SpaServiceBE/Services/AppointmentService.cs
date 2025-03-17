@@ -75,7 +75,7 @@ namespace Services
 
         public async Task<(bool roomState, int employeeState, bool conflict)> CheckResourceAvailable(Appointment a)
         {
-            var (roomId, empId, conflict) = await _repository.FindUnavailableRoomAndEmp(a, true);
+             var (roomId, empId, conflict) = await _repository.FindUnavailableRoomAndEmp(a, true);
             var service = await _spaServiceRepository.GetById(a.Request.ServiceId);
             var category = await _catRepository.GetById(service.CategoryId);
             var roomsOfCat = (await _roomRepository.GetRoomsOfCategory(category.CategoryId)).Select(x => x.RoomId).ToHashSet();

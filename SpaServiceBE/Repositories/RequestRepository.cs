@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
 using Repositories.Context;
 using System.Collections;
+using System.Diagnostics;
 
 namespace Repositories
 {
@@ -98,31 +99,34 @@ namespace Repositories
         }
         public async Task<List<Request>> FilterByAccount(string accId)
         {
-            return await _context.Requests.Include(x => x.Customer)
+            var x = await _context.Requests.Include(x => x.Customer)
                 .ThenInclude(x => x.Account)
                 .Include(x => x.Service)
                 .Include(x => x.Employee)
                 .Include(x => x.ServiceTransactions)
                 .ThenInclude(x => x.Transaction)
                 .Where(x => x.Customer.AccountId == accId)
+                .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
+            return x;
         }
 
-        public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Request request, bool findInRequests)
+        public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Request request)
         {
             //Tìm các appointment tg request => Tìm phòng nào, nv nào ko dùng đc
             var appointments = _context.Appointments
                 .ToList()
                 .Select(x =>
-            {
-                return new
                 {
-                    x.StartTime,
-                    x.EndTime,
-                    x.EmployeeId,
-                    x.RoomId,
-                };
-            });
+                    return new
+                    {
+                        x.StartTime,
+                        x.EndTime,
+                        x.EmployeeId,
+                        x.RoomId,
+                    };
+                });
+
             //Lọc theo tg
             var start = request.StartTime;
             var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId);
@@ -131,48 +135,40 @@ namespace Repositories
             var unavailableAppointment = appointments.Where(x =>
                 IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
             ).Select(x => (x.EmployeeId, x.RoomId)).ToList();
-
-            //Trong request lun
-
             (ISet<string> roomId, ISet<string> empId, bool conflict) result = new()
             {
                 empId = new HashSet<string>(),
                 roomId = new HashSet<string>(),
                 conflict = false
             };
-
             foreach (var item in unavailableAppointment)
             {
                 result.roomId.Add(item.RoomId);
                 result.empId.Add(item.EmployeeId);
             }
-            if (!findInRequests)
-            {
-                return result;
-            }
             //Tìm trong request lun
-            var requests = _context.Requests
-                .Include(x => x.Service)
-                .ToList()
-                .Select(x => new
-                {
-                    x.StartTime,
-                    EndTime = x.StartTime.Add(x.Service.Duration.ToTimeSpan()),
-                    x.EmployeeId,
-                }
-            );
-            var unavailableRequest = requests.Where(x =>
-            IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
-            );
+            //var requests = _context.Requests
+            //    .Include(x => x.Service)
+            //    .ToList()
+            //    .Select(x => new
+            //    {
+            //        x.StartTime,
+            //        EndTime = x.StartTime.Add(x.Service.Duration.ToTimeSpan()),
+            //        x.EmployeeId,
+            //    }
+            //);
+            //var unavailableRequest = requests.Where(x =>
+            //IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
+            //);
 
-            foreach (var item in unavailableRequest)
-            {
-                if (item.EmployeeId != null)
-                {
-                    result.empId.Add(item.EmployeeId);
-                }
-            }
-            result.conflict = unavailableRequest.Any();
+            //foreach (var item in unavailableRequest)
+            //{
+            //    if (item.EmployeeId != null)
+            //    {
+            //        result.empId.Add(item.EmployeeId);
+            //    }
+            //}
+            //result.conflict = unavailableRequest.Any();
             return result;
         }
 

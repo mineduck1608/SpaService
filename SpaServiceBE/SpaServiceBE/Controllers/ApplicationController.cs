@@ -31,7 +31,7 @@ namespace SpaServiceBE.Controllers
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Application>> GetApplication(string id)
         {
-            var application = await _applicationService.GetApplicationByIdAsync(id);
+            var application = await _applicationService.GetApplicationByAccountIdAsync(id);
             if (application == null)
             {
                 return NotFound();
@@ -195,6 +195,11 @@ namespace SpaServiceBE.Controllers
         {
             await _applicationService.DeleteApplicationAsync(id);
             return NoContent();
+        }
+        [HttpGet("ApplicationsOf/{accountId}")]
+        public async Task<ActionResult<List<Application>>> ApplicationsOfAccountAsync(string accountId)
+        {
+            return Ok(await _applicationService.GetApplicationByAccountIdAsync(accountId));
         }
     }
 }

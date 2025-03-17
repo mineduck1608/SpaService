@@ -8,7 +8,8 @@ import {
   getEmployees,
   getPaymentUrl,
   submitRequest,
-  getMembership
+  getMembership,
+  setItems
 } from './checkoutPage.util.ts'
 import { Employee, Membership, Promotion } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
@@ -111,7 +112,7 @@ export default function CheckoutPage() {
       }
       var transId = sessionStorage.getItem('trId') ?? ''
       sessionStorage.removeItem('trId')
-
+      setItems()
       var url = await getPaymentUrl(transId)
       if (url.startsWith('http')) {
         toast.success('We will redirect you to VnPay page')
@@ -138,7 +139,7 @@ export default function CheckoutPage() {
         setReq({ ...req, active: entry.discountValue })
         return
       }
-      const s = await getPromoByCode(code)
+      const s = await getPromoByCode(code, cus)
       setCodes((v) => {
         v.set(code, s)
         return v

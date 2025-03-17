@@ -27,7 +27,10 @@ export const columns: ColumnDef<Application>[] = [
     accessorKey: 'createBy',
     header: 'Created By'
   },
-
+  {
+    accessorKey: 'roleName',
+    header: 'Role'
+  },
   {
     accessorKey: 'content',
     header: 'Content'

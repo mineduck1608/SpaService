@@ -56,7 +56,7 @@ namespace SpaServiceBE.Controllers
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the category." });
 
-                return CreatedAtAction(nameof(GetCosmeticCategoryById), new { id = category.CategoryId }, category);
+                return CreatedAtAction(nameof(GetCosmeticCategoryById), new { id = category.CategoryId }, new { category.CategoryId });
             }
             catch (Exception ex)
             {

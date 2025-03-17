@@ -1,10 +1,12 @@
 import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react'
 import { createViewDay, createViewMonthAgenda, createViewWeek, createViewMonthGrid } from '@schedule-x/calendar'
-import { createEventsServicePlugin } from '@schedule-x/events-service'
 import '@schedule-x/theme-default/dist/index.css'
 import { useEffect, useState } from 'react'
-import { fetchAppointments, fetchEmployees } from '../../appointments/appointments.util'
+import { fetchAppointmentsByEmployee, fetchEmployees } from '../../appointments/appointments.util'
 import { createEventModalPlugin } from '@schedule-x/event-modal'
+import { getEmployeeByAccountId } from '../../employees/employee.util'
+import { jwtDecode } from 'jwt-decode'
+import { getToken } from 'src/types/constants'
 
 function CalendarApp() {
   const [events, setEvents] = useState(() => {
@@ -14,7 +16,8 @@ function CalendarApp() {
 
   useEffect(() => {
     const loadEvents = async () => {
-      const fetchedEvents = await fetchAppointments()
+      const employee = await getEmployeeByAccountId(jwtDecode(getToken() ?? '').UserId)
+      const fetchedEvents = await fetchAppointmentsByEmployee(employee.employeeId)
       console.log('Fetched events:', fetchedEvents)
       setEvents(fetchedEvents)
       sessionStorage.setItem('events', JSON.stringify(fetchedEvents))

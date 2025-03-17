@@ -62,7 +62,7 @@ export function Dropdown() {
     },
     {
       k: 'Application',
-      v: '/application'
+      v: '/create-application'
     },
     {
       k: 'Carts',
