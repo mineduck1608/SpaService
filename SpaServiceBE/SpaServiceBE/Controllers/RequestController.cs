@@ -578,64 +578,9 @@ namespace API.Controllers
                 var isUpdated = await _service.Update(id, updatedRequest);
                 if (!isUpdated)
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
+               CreateDeclineEmailRequest(id);
 
-                // Chạy song song để lấy thông tin khách hàng và dịch vụ
-                var customerTask = _customerService.GetCustomerById(updatedRequest.CustomerId);
-                var spaServiceTask = _spaService.GetById(updatedRequest.ServiceId);
 
-                await Task.WhenAll(customerTask, spaServiceTask);
-
-                var customerInfo = await customerTask;
-                if (customerInfo == null)
-                    return NotFound(new { msg = $"Customer info with ID = {updatedRequest.CustomerId} not found." });
-
-                var spaServiceInfo = await spaServiceTask;
-                if (spaServiceInfo == null)
-                    return BadRequest(new { msg = "Spa Service is missing." });
-
-                var customerEmail = customerInfo.Email;
-                if (string.IsNullOrEmpty(customerEmail))
-                    return BadRequest(new { msg = "Customer email is missing." });
-
-                // Load hình ảnh trước khi gửi email
-                var logoTask = System.IO.File.ReadAllBytesAsync(Path.Combine(Directory.GetCurrentDirectory(), "Images", "SenSpa(Black).png"));
-                var brochureTask = System.IO.File.ReadAllBytesAsync(Path.Combine(Directory.GetCurrentDirectory(), "Images", "brochure1.jpg"));
-
-                await Task.WhenAll(logoTask, brochureTask);
-                var logoBytes = await logoTask;
-                var brochureBytes = await brochureTask;
-
-                // Chuẩn bị nội dung email
-                var subject = "Spa Service's Declined Request";
-                var rejectBody = $@"
-        <html>
-        <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 20px; background-color: #f9f9f9;'>
-            <div style='max-width: 700px; margin: auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);'>
-
-            <div style='text-align: center; position: relative; border-bottom: 2px solid #e5e5e5; padding-bottom: 20px; margin-bottom: 30px;'>
-                <img src='cid:logo' alt='Sen Spa Logo' style='width: 200px; height: auto; display: block; margin: 0 auto; position: relative;' />
-                <h3 style='background: rgba(255, 255, 255, 0.6); padding: 3px 10px; color: #6b4b3e; font-size: 25px; font-weight: bold;'>Spa Service Declined Request</h3>
-            </div>
-            
-            <h2>Dear {customerInfo.FullName},</h2>
-            <p>Your request has been declined by our manager team.</p>
-            <ul>
-                <li><strong>Customer:</strong> {customerInfo.FullName}</li>
-                <li><strong>Request ID Declined:</strong> {updatedRequest.RequestId}</li>
-                <li><strong>Declined Reason:</strong> {updatedRequest.ManagerNote}</li>
-            </ul>
-            <p>We sincerely apologize for any inconvenience this may have caused.</p>
-            <p>Warm regards,</p>
-            <p><strong>Spa Service Team</strong></p>
-            
-            <div style='text-align: center; margin-top: 40px;'>
-                <img src='cid:brochure' alt='Spa Brochure' style='max-width: 70%; height: auto; border-radius: 8px;' />
-            </div>
-        </body>
-        </html>";
-
-                // Gửi email không chặn API
-                _ = Task.Run(() => SendEmail("dotruongthinh2212@gmail.com", "qxwrvdoqfisooymd", customerEmail, customerInfo.FullName, subject, rejectBody, logoBytes, brochureBytes));
 
                 return Ok(new { msg = "Request denied successfully." });
             }
@@ -802,6 +747,61 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpPost("CreateDeclinedMail/{id}")]
+        public async Task<ActionResult> CreateDeclineEmailRequest(string id)
+        {
+            var updatedRequest = await _service.GetById(id);
+            if (updatedRequest == null)
+                return NotFound(new { msg = $"Request with ID = {id} not found." });
+            var customerInfo = await _customerService.GetCustomerById(updatedRequest.CustomerId);
+            if (customerInfo == null)
+                return NotFound(new { msg = $"Customer info with ID = {updatedRequest.CustomerId} not found." });
+            var spaServiceInfo = await _spaService.GetById(updatedRequest.ServiceId);
+            if (spaServiceInfo == null)
+                return BadRequest(new { msg = "Spa Service is missing." });
 
+            var customerEmail = customerInfo.Email;
+            if (string.IsNullOrEmpty(customerEmail))
+                return BadRequest(new { msg = "Customer email is missing." });
+
+            // Load hình ảnh trước khi gửi email
+            var logoBytes = await System.IO.File.ReadAllBytesAsync(Path.Combine(Directory.GetCurrentDirectory(), "Images", "SenSpa(Black).png"));
+            var brochureBytes = await System.IO.File.ReadAllBytesAsync(Path.Combine(Directory.GetCurrentDirectory(), "Images", "brochure1.jpg"));
+
+
+
+            // Chuẩn bị nội dung email
+            var subject = "Spa Service's Declined Request";
+            var rejectBody = $@"
+        <html>
+        <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 20px; background-color: #f9f9f9;'>
+            <div style='max-width: 700px; margin: auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);'>
+
+            <div style='text-align: center; position: relative; border-bottom: 2px solid #e5e5e5; padding-bottom: 20px; margin-bottom: 30px;'>
+                <img src='cid:logo' alt='Sen Spa Logo' style='width: 200px; height: auto; display: block; margin: 0 auto; position: relative;' />
+                <h3 style='background: rgba(255, 255, 255, 0.6); padding: 3px 10px; color: #6b4b3e; font-size: 25px; font-weight: bold;'>Spa Service Declined Request</h3>
+            </div>
+            
+            <h2>Dear {customerInfo.FullName},</h2>
+            <p>Your request has been declined by our manager team.</p>
+            <ul>
+                <li><strong>Customer:</strong> {customerInfo.FullName}</li>
+                <li><strong>Request ID Declined:</strong> {updatedRequest.RequestId}</li>
+                <li><strong>Declined Reason:</strong> {updatedRequest.ManagerNote}</li>
+            </ul>
+            <p>We sincerely apologize for any inconvenience this may have caused.</p>
+            <p>Warm regards,</p>
+            <p><strong>Spa Service Team</strong></p>
+            
+            <div style='text-align: center; margin-top: 40px;'>
+                <img src='cid:brochure' alt='Spa Brochure' style='max-width: 70%; height: auto; border-radius: 8px;' />
+            </div>
+        </body>
+        </html>";
+
+            // Gửi email không chặn API
+            await SendEmail("dotruongthinh2212@gmail.com", "qxwrvdoqfisooymd", customerEmail, customerInfo.FullName, subject, rejectBody, logoBytes, brochureBytes);
+            return Ok("Declined mail success");
+        }
     }
 }
