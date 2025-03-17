@@ -42,7 +42,6 @@ export function TransactionDetailTable({ transactionId, transactionType }: Trans
           if (cosmeticTransaction) {
             const order: Order[] = await getOrderById(cosmeticTransaction.orderId)
             fetchedDetails = order ? [order] : []
-            console.log(order)
           }
         }
 

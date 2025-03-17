@@ -20,7 +20,10 @@ namespace Repositories
 
         public async Task<IEnumerable<CosmeticTransaction>> GetAllAsync()
         {
-            return await _context.Set<CosmeticTransaction>().ToListAsync();
+            return await _context.CosmeticTransactions
+                .Include(x => x.Order)
+                .ThenInclude(x => x.Customer)
+                .ToListAsync();
         }
 
         public async Task<CosmeticTransaction> GetCosmeticTransactionById(string id)
