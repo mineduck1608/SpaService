@@ -28,6 +28,9 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore backend
 
+      - name: Run unit tests
+        run: dotnet test backend/tests --logger "trx;LogFileName=test-results.trx"
+
       - name: Build and publish
         run: dotnet publish backend -c Release -o out
 
