@@ -113,40 +113,62 @@ namespace Repositories
 
         public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Request request)
         {
+            //Tìm các appointment tg request => Tìm phòng nào, nv nào ko dùng đc
+            var appointments = _context.Appointments
+                .ToList()
+                .Select(x =>
+                {
+                    return new
+                    {
+                        x.StartTime,
+                        x.EndTime,
+                        x.EmployeeId,
+                        x.RoomId,
+                    };
+                });
+
             //Lọc theo tg
             var start = request.StartTime;
             var service = _context.SpaServices.FirstOrDefault(x => x.ServiceId == request.ServiceId);
             var end = request.StartTime.Add(service.Duration.ToTimeSpan());
-
+            //Tìm các appointment trong khoảng tg này => các phòng và nv trong đống này vứt hết
+            var unavailableAppointment = appointments.Where(x =>
+                IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
+            ).Select(x => (x.EmployeeId, x.RoomId)).ToList();
             (ISet<string> roomId, ISet<string> empId, bool conflict) result = new()
             {
                 empId = new HashSet<string>(),
                 roomId = new HashSet<string>(),
                 conflict = false
             };
-            //Tìm trong request lun
-            var requests = _context.Requests
-                .Include(x => x.Service)
-                .ToList()
-                .Select(x => new
-                {
-                    x.StartTime,
-                    EndTime = x.StartTime.Add(x.Service.Duration.ToTimeSpan()),
-                    x.EmployeeId,
-                }
-            );
-            var unavailableRequest = requests.Where(x =>
-            IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
-            );
-
-            foreach (var item in unavailableRequest)
+            foreach (var item in unavailableAppointment)
             {
-                if (item.EmployeeId != null)
-                {
-                    result.empId.Add(item.EmployeeId);
-                }
+                result.roomId.Add(item.RoomId);
+                result.empId.Add(item.EmployeeId);
             }
-            result.conflict = unavailableRequest.Any();
+            //Tìm trong request lun
+            //var requests = _context.Requests
+            //    .Include(x => x.Service)
+            //    .ToList()
+            //    .Select(x => new
+            //    {
+            //        x.StartTime,
+            //        EndTime = x.StartTime.Add(x.Service.Duration.ToTimeSpan()),
+            //        x.EmployeeId,
+            //    }
+            //);
+            //var unavailableRequest = requests.Where(x =>
+            //IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
+            //);
+
+            //foreach (var item in unavailableRequest)
+            //{
+            //    if (item.EmployeeId != null)
+            //    {
+            //        result.empId.Add(item.EmployeeId);
+            //    }
+            //}
+            //result.conflict = unavailableRequest.Any();
             return result;
         }
 
