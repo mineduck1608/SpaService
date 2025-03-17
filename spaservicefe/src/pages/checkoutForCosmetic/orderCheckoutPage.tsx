@@ -114,7 +114,7 @@ export default function CosmeticCheckoutPage() {
         setData({ ...data, active: entry.discountValue })
         return
       }
-      const s = await getPromoByCode(code)
+      const s = await getPromoByCode(code, cus ?? '')
       setCodes((v) => {
         v.set(code, s)
         return v
@@ -144,7 +144,10 @@ export default function CosmeticCheckoutPage() {
       <div className='mb-48 mt-48 flex justify-center'>
         <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
-            <div className='mb-4'>
+          <div className="flex justify-center items-center">
+    <h1 className="font-bold">Cosmetic Checkout</h1>
+</div>
+         <div className='mb-4'>
               <label className='grid'>
                 Address:
                 <input

@@ -101,9 +101,9 @@ export async function getCusByAcc(id: string) {
     return "Couldn't connect to server"
   }
 }
-export async function getPromoByCode(code: string) {
+export async function getPromoByCode(code: string, customerId: string) {
   try {
-    var c = await fetch(`${apiUrl}/promotions/GetByCode/${code}`, {
+    var c = await fetch(`${apiUrl}/promotions/GetByCode/${code}/${customerId}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -132,7 +132,7 @@ export async function getMembership(cusId: string) {
   }
 }
 
-export function setItems(){
+export function setItems() {
   setCookie('token', getToken() ?? '')
   setCookie('customerId', sessionStorage.getItem('customerId') ?? '')
 }

@@ -68,7 +68,7 @@ export default function ProductList(params: { s: SessionItem[]; discountAmount?:
           The total amount is:&nbsp;
           {discount ? (
             <>
-              <span className='line-through text-gray-500'>{formatNumber(total)}</span>{' '}
+              <span className='line-through text-red-500'>{formatNumber(total)}</span>{' '}
               <span className='font-bold text-green-600'>
                 {formatNumber(discountedTotal)} (-{discount}%)
               </span>

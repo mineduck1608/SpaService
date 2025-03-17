@@ -139,7 +139,7 @@ export default function CheckoutPage() {
         setReq({ ...req, active: entry.discountValue })
         return
       }
-      const s = await getPromoByCode(code)
+      const s = await getPromoByCode(code, cus)
       setCodes((v) => {
         v.set(code, s)
         return v

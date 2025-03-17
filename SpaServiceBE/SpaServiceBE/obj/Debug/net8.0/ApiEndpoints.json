@@ -3204,13 +3204,18 @@
   {
     "ContainingType": "API.Controllers.PromotionController",
     "Method": "GetPromotionByCode",
-    "RelativePath": "api/promotions/GetByCode/{code}",
+    "RelativePath": "api/promotions/GetByCode/{code}/{customerId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "customerId",
         "Type": "System.String",
         "IsRequired": true
       }
