@@ -68,7 +68,7 @@ import EmployeeAppointmentManagePage from './pages/admin/employee/appointments/m
 import EmployeeCalendarApp from './pages/admin/employee/appointments/page.tsx'
 import ApplicationList from './pages/applicationList/applicationList.tsx'
 import EmployeeCommissionPage from './pages/admin/employee/commission/commissionPage.tsx'
-
+import CustomerTransPage from './pages/customerTransactionPage/customerTransPage.tsx'
 function Layout({ children }) {
   return (
     <>
@@ -183,6 +183,14 @@ function App() {
             element={
               <Layout>
                 <CartPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='transactions'
+            element={
+              <Layout>
+                <CustomerTransPage />
               </Layout>
             }
           />
