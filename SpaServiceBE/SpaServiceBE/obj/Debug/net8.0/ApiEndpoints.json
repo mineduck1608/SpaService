@@ -180,6 +180,32 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "ApplicationsOfAccountAsync",
+    "RelativePath": "api/applications/ApplicationsOf/{accountId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "accountId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Repositories.Entities.Application, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
     "Method": "CreateApplication",
     "RelativePath": "api/applications/Create",
     "HttpMethod": "POST",
