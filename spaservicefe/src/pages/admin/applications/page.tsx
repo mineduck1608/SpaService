@@ -61,6 +61,7 @@ export default function ApplicationPage() {
            console.log(fullNameObj)
             return {
               ...application,
+              roleName: roleName, 
               resolvedBy: fullNameObj?.fullName || 'N/A',
               createdAt: formatOrNA(application.createdAt),
               resolvedAt: formatOrNA(application.resolvedAt),
