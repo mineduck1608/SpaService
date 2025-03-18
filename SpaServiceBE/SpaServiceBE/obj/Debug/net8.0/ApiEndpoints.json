@@ -222,6 +222,22 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
+    "Method": "DeleteApplication",
+    "RelativePath": "api/applications/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
     "Method": "GetApplications",
     "RelativePath": "api/applications/GetAll",
     "HttpMethod": "GET",
@@ -324,22 +340,6 @@
       {
         "Name": "request",
         "Type": "System.Object",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SpaServiceBE.Controllers.ApplicationController",
-    "Method": "DeleteApplication",
-    "RelativePath": "api/applications/Update/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -3311,6 +3311,22 @@
       {
         "Name": "request",
         "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.RequestController",
+    "Method": "CreateDeclineEmailRequest",
+    "RelativePath": "api/requests/CreateDeclinedMail/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

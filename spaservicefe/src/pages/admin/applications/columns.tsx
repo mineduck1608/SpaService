@@ -63,6 +63,11 @@ export const columns: ColumnDef<Application>[] = [
     header: 'Resolved By'
   },
   {
+    accessorKey: 'managerNote',
+    header: 'Manager Note',
+    cell: ({ row }) => (row.original.managerNote ? row.original.managerNote : 'N/A')
+  },
+  {
     id: 'actions',
     cell: ({ row }) => {
       const application = row.original

@@ -19,6 +19,8 @@ public partial class Application
 
     public DateTime? ResolvedAt { get; set; }
 
+    public string? ManagerNote { get; set; }
+
     public virtual Account? Account { get; set; }
 
     public virtual ICollection<GuestApplication> GuestApplications { get; set; } = new List<GuestApplication>();

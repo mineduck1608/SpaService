@@ -61,6 +61,10 @@ export function Dropdown() {
       v: '/appointments'
     },
     {
+      k: 'Transactions',
+      v: '/transactions'
+    },
+    {
       k: 'Application',
       v: '/create-application'
     },

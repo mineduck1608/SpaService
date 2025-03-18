@@ -1,18 +1,3 @@
-D:\Coding\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.deps.json
-D:\Coding\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.dll
-D:\Coding\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.pdb
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.dll
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\refint\Repositories.dll
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.pdb
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\ref\Repositories.dll
-D:\Coding\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.runtimeconfig.json
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
-D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.genruntimeconfig.cache
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.deps.json
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.runtimeconfig.json
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.dll
@@ -28,3 +13,18 @@ C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\Repositories\o
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.pdb
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.genruntimeconfig.cache
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+D:\Coding\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.deps.json
+D:\Coding\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.runtimeconfig.json
+D:\Coding\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.dll
+D:\Coding\SpaService\SpaServiceBE\Repositories\bin\Debug\net8.0\Repositories.pdb
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.dll
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.pdb
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\Repositories.genruntimeconfig.cache
+D:\Coding\SpaService\SpaServiceBE\Repositories\obj\Debug\net8.0\ref\Repositories.dll

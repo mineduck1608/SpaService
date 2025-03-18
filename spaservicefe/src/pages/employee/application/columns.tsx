@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '../../../components/ui/checkbox'
-import { GuestApplication } from '@/types/type'
+import { Application } from '@/types/type'
 import { format } from 'date-fns'
 
 // Format function for dates
@@ -25,7 +25,7 @@ const getStatusStyle = (status: string | null) => {
   }
 }
 
-export const columns: ColumnDef<GuestApplication>[] = [
+export const columns: ColumnDef<Application>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -70,6 +70,11 @@ export const columns: ColumnDef<GuestApplication>[] = [
     accessorKey: 'resolvedBy',
     header: 'Resolved By',
     cell: ({ getValue }) => getValue() || 'Unknown'
+  },
+  {
+    accessorKey: 'managerNote',
+    header: 'Manager Note',
+    cell: ({ row }) => (row.original.managerNote ? row.original.managerNote : 'N/A')
   },
   {
     accessorKey: 'resolvedAt',

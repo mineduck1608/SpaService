@@ -146,6 +146,10 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
+            entity.Property(e => e.ManagerNote)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("managerNote");
             entity.Property(e => e.ResolvedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("resolvedAt");
