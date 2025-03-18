@@ -15,6 +15,6 @@ namespace Services.IServices
         IEnumerable<float> OrderByMonths();
         Dictionary<string, float> OrderByServiceCategory();
         Dictionary<DateOnly, (float service, float product)> OrderByDay();
-        IEnumerable<Transaction> GetTransactionsOfCustomer(string customerId);
+        IEnumerable<Transaction> GetTransactionsOfCustomer(string customerId, bool service);
     }
 }

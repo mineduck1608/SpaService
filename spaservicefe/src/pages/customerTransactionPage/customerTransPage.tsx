@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CustomerTransTable from './customerTransTable'
 import bg from '../../images/customerHistory/bg.jpg'
+import { TransTypeContext } from './context/transTypeContext'
 
 export default function CustomerTransPage() {
+  const [showServiceTrans, setShowServiceTrans] = useState(true)
   return (
     <div
       className='flex justify-center bg-slate-400 bg-cover bg-no-repeat'
@@ -11,7 +13,9 @@ export default function CustomerTransPage() {
       }}
     >
       <div className='mb-40 mt-60 w-full p-5 '>
-        <CustomerTransTable />
+        <TransTypeContext.Provider value={{ showServiceTrans, setShowServiceTrans }}>
+          <CustomerTransTable />
+        </TransTypeContext.Provider>
       </div>
     </div>
   )

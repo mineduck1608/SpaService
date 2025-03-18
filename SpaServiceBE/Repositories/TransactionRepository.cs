@@ -200,9 +200,23 @@ namespace Repositories
             return result;
         }
 
-        public IEnumerable<Transaction> GetTransactionsOfCustomer(string customerId)
+        public IEnumerable<Transaction> GetTransactionsOfCustomer(string customerId, bool service)
         {
-            throw new NotImplementedException();
+            var r = _context.Transactions.Include(x => x.Promotion);
+            if (service)
+            {
+                var x = r.Include(x => x.ServiceTransactions)
+                    .ThenInclude(x => x.Request)
+                    .ThenInclude(x => x.Service)
+                    .Where(x => x.ServiceTransactions.First().Request.CustomerId == customerId);
+                return x;
+            }
+            var y = r.Include(x => x.CosmeticTransactions)
+                    .ThenInclude(x => x.Order)
+                    .ThenInclude(x => x.OrderDetails)
+                    .ThenInclude(x => x.Product)
+                    .Where(x => x.CosmeticTransactions.First().Order.CustomerId == customerId);
+            return y;
         }
     }
 }

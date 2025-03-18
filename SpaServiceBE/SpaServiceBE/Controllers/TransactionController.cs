@@ -321,5 +321,18 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("TransactionsOfCustomer/{id}")]
+        public ActionResult<IEnumerable<float>> GetFromCustomers(string id, bool? findInService)
+        {
+            try
+            {
+                var result = _service.GetTransactionsOfCustomer(id, findInService ?? false);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

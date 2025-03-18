@@ -15,7 +15,7 @@ import {
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Button } from '../../components/ui/button'
-import { PastBookingContext } from './context/pastBookingContext'
+import { TransTypeContext } from './context/transTypeContext'
 
 interface DataTableProps<TData> {
   columns: any[]
@@ -29,7 +29,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const context = React.useContext(PastBookingContext)
+  const context = React.useContext(TransTypeContext)
   const table = useReactTable({
     data,
     columns,
@@ -51,6 +51,17 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
 
   return (
     <div className=''>
+      <h1 className='py-4 text-center text-2xl font-bold'>Transactions</h1>
+      <div className='flex justify-end'>
+        <button
+          className='my-2 rounded-sm bg-purple1 p-1 text-white'
+          onClick={(e) => {
+            context.setShowServiceTrans(!context.showServiceTrans)
+          }}
+        >
+          {context.showServiceTrans ? 'Product' : 'Service'} Transactions
+        </button>
+      </div>
       <div className='rounded-md border bg-slate-50'>
         <Table className=''>
           <TableHeader>

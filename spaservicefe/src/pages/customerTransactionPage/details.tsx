@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { SpaRequest } from '@/types/type' // Đổi từ Account sang Request
+import { SpaRequest, TransactionBase } from '@/types/type' // Đổi từ Account sang Request
 import { DetailModal } from './detailModal'
 
 interface RequestActionsProps {
-  request: SpaRequest // Cập nhật type từ Account thành Request
+  request: TransactionBase // Cập nhật type từ Account thành Request
 }
 
 const Details: React.FC<RequestActionsProps> = ({ request }) => {

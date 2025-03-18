@@ -8,61 +8,41 @@ import {
 } from '../../components/ui/dialog'
 
 import { Button } from '../../components/ui/button'
-import { SpaRequest } from '@/types/type'
+import { SpaRequest, TransactionBase } from '@/types/type'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import { status } from './customerTransPage.util'
+import { Transaction } from '../checkout/checkoutPage.util'
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean
   onClose: () => void
   onConfirm: () => void
-  data: SpaRequest
-}
-function tableData(request: SpaRequest) {
-  return [
-    { key: 'Service', value: request.service?.serviceName },
-    { key: 'Start Time', value: new Date(request.startTime).toLocaleString() },
-    {
-      key: 'Request Status',
-      value: request.status,
-      color: new Map<string, string>([
-        ['Processed', 'text-green-500'],
-        ['Pending', 'text-gray-500'],
-        ['Cancelled', 'text-red-500']
-      ])
-    },
-    { key: 'Requested Employee', value: request.employee?.fullName ?? 'Did not request' },
-    { key: "Manager's Note", value: request.managerNote ?? 'None' },
-    { key: 'Your Note', value: request.customerNote.length === 0 ? 'None' : request.customerNote },
-    {
-      key: 'Price',
-      value: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
-        request?.serviceTransactions?.[0]?.transaction?.totalPrice ?? 0
-      )
-    },
-    {
-      key: 'Transaction Status',
-      value: status(request?.serviceTransactions?.[0]?.transaction?.status ?? false),
-      color: new Map<string, string>([
-        ['Completed', 'text-green-500'],
-        ['Not Completed', 'text-red-500']
-      ])
-    }
-  ]
+  data: TransactionBase
 }
 export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteModalProps) {
+  const products = data.cosmeticTransactions[0].order.orderDetails
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Request Detail</DialogTitle>
+          <DialogTitle>Order Detail</DialogTitle>
           <DialogDescription className='flex justify-center'>
             <table className='w-full border-[1px] text-black'>
+              <thead>
+                <tr className='text-md bg-purple1 font-bold text-white *:p-1'>
+                  <td>Product name</td>
+                  <td>Price per item</td>
+                  <td>Quantity</td>
+                  <td>Sub Total</td>
+                </tr>
+              </thead>
               <tbody>
-                {tableData(data).map((v) => (
+                {products.map((v) => (
                   <tr>
-                    <td className='p-2'>{v.key}</td>
-                    <td className={`${v.color ? v.color.get(v.value) : ''}`}>{v.value}</td>
+                    <td className='p-2'>{v.product.productName}</td>
+                    <td>{formatNumber(v.subTotalAmount / v.quantity)}</td>
+                    <td>{v.quantity}</td>
+                    <td>{formatNumber(v.subTotalAmount)}</td>
                   </tr>
                 ))}
               </tbody>
