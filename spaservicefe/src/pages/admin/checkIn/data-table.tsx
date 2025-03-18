@@ -23,6 +23,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
+import CheckInModal from './checkInModal'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
@@ -65,6 +66,7 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'employeeI
           className='max-w-sm'
         />
         <div className='ml-auto flex items-center gap-x-2'>
+          <CheckInModal />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>

@@ -27,6 +27,7 @@ let userRole = 'Employee' // Mặc định nếu không có token
 try {
   if (token) {
     const jwtData = jwtDecode(token)
+    console.log(jwtData.UserId);
     userRole = jwtData[roleJWT] || 'Employee'
     console.log(userRole)
   } else {
