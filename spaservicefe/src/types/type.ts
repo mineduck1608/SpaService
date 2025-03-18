@@ -14,12 +14,19 @@ export type Employee = {
   employeeId: string
   fullName: string
   position: string
-  hireDate: Date | string
+  hireDate: string
   status: string
   image: string
   accountId: string
   phone: string
   email: string
+}
+
+export type Record = {
+  attendanceId: string
+  checkInTime: string
+  checkOutTime: string
+  employeeId: string
 }
 
 export type Role = {

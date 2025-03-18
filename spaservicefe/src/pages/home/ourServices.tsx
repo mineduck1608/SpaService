@@ -73,7 +73,7 @@ const OurServices = () => {
                     className='h-[350px] w-full object-cover transition-transform duration-500 group-hover:scale-110'
                   />
 
-                  <div className='absolute inset-0 flex flex-col items-center justify-center bg-[#a040a0]/90 p-8 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
+                  <div className='absolute inset-0 flex flex-col items-center justify-center bg-[#a040a0]/90 p-8 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10'>
                     <h3 className='mb-4 text-2xl font-semibold text-white'>{item.title}</h3>
                     <img
                       src='https://senspa.com.vn/wp-content/themes/thuythu/images/before_heading.png'
@@ -81,9 +81,12 @@ const OurServices = () => {
                       className='mb-4 h-5 brightness-0 invert'
                     />
                     <p className='text-base text-white'>{item.description}</p>
-                    <button className='mt-6 rounded-br-[1rem] rounded-tl-[1rem] border-2 border-white px-6 py-2 text-white transition-colors duration-300 hover:bg-white hover:text-[#a040a0]'>
-                      View all <span className='ml-1'>›</span>
-                    </button>
+                    <a 
+                      href='/services' 
+                      className='mt-6 rounded-br-[1rem] rounded-tl-[1rem] border-2 border-white px-6 py-2 text-white transition-colors duration-300 hover:bg-white hover:text-[#a040a0] inline-block no-underline'
+                    >
+                      View all ›
+                    </a>
                   </div>
 
                   <div className='absolute inset-0 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-300 group-hover:opacity-0'>
