@@ -83,8 +83,13 @@ export async function handleCreateSubmit(data: any) {
       body: JSON.stringify(data)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully create!')
-      setTimeout(() => window.location.reload(), 2000)
+      toast.success('Successfully created!')
+      setTimeout(() => window.location.reload(), 1000)
+    } else if (res.status === 409) {
+      toast.error('Employee already exists. Please try again with different details.', {
+        autoClose: 1000,
+        closeButton: false
+      })
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
@@ -92,6 +97,11 @@ export async function handleCreateSubmit(data: any) {
       })
     }
   } catch (e) {
+    console.error('Error creating employee:', e)
+    toast.error('An unexpected error occurred. Please try again later.', {
+      autoClose: 1000,
+      closeButton: false
+    })
     return []
   }
 }

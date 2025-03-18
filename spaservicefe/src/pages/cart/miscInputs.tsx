@@ -73,14 +73,15 @@ export function AllRowCheckBox(params: { table: Table<SessionItem> }) {
   )
 }
 export function RemoveButton(params: { row: Row<SessionItem> }) {
-  const context = useContext(SessionContext)
   const productId = params.row.original.product.productId
   return (
     <button
       className='rounded-sm bg-purple1 p-2 text-white'
       onClick={async (e) => {
-        const x = context.items.filter((x) => x.product.productId !== productId)
-        context.setItems(x)
+        var v = document.getElementById(productId)
+        if(v){
+          document.getElementById('body')?.removeChild(v)
+        }
         await removeCartItem(params.row.original.id ?? '')
       }}
     >
@@ -95,10 +96,8 @@ export function AmountButton(params: { row: Row<SessionItem> }) {
   const entry = context.items.findIndex((x) => x.product.productId === params.row.original.product.productId)
   const [amount, setAmount] = useState(item.amount)
   const customerId = sessionStorage.getItem('customerId') ?? ''
-  const input = useRef<HTMLInputElement>(null)
   return (
     <input
-      ref={input}
       className='border-[1px] p-1'
       type='number'
       value={amount}

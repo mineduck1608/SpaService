@@ -199,5 +199,10 @@ namespace Repositories
             }
             return result;
         }
+
+        public IEnumerable<Transaction> GetTransactionsOfCustomer(string customerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
