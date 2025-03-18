@@ -70,6 +70,7 @@ import ApplicationList from './pages/applicationList/applicationList.tsx'
 import EmployeeCommissionPage from './pages/admin/employee/commission/commissionPage.tsx'
 import CheckInPage from './pages/admin/checkIn/page.tsx'
 
+import CustomerTransPage from './pages/customerTransactionPage/customerTransPage.tsx'
 function Layout({ children }) {
   return (
     <>
@@ -184,6 +185,14 @@ function App() {
             element={
               <Layout>
                 <CartPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='transactions'
+            element={
+              <Layout>
+                <CustomerTransPage />
               </Layout>
             }
           />
