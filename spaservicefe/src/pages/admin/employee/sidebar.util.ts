@@ -3,15 +3,10 @@ import {
   ClipboardList,
   LucideIcon,
   ArrowLeftRight,
-  Contact2,
   MessageCircleQuestion,
   Trash2,
-  Warehouse,
-  Sparkles,
-  Sparkle,
-  Package,
-  Blocks,
-  PaperclipIcon
+  PaperclipIcon,
+  CalendarCheck2,
 } from 'lucide-react'
 
 import { jwtDecode } from 'jwt-decode'
@@ -64,6 +59,7 @@ export const sideData = {
     },
     { title: 'Application', url: getFullPath('/application'), icon:  PaperclipIcon },
     { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
+    { title: 'Check-In', url: getFullPath('/check-in'), icon: CalendarCheck2 },
     // { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
     // {
     //   title: 'Requests',
