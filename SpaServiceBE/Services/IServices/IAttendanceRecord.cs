@@ -20,5 +20,9 @@ namespace Services.IServices
 
         // Xóa một bản ghi điểm danh
         Task<bool> DeleteAttendanceRecord(string id);
+
+        Task<AttendanceRecord?> GetLatestAttendanceByEmployeeId(string employeeId);
+        Task AddAttendance(AttendanceRecord attendance);
+        Task UpdateAttendance(AttendanceRecord attendance);
     }
 }

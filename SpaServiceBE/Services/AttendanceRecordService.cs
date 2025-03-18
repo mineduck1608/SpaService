@@ -40,5 +40,20 @@ namespace Services.Services
         {
             return await _attendanceRecordRepository.Delete(id);
         }
+
+        public async Task<AttendanceRecord?> GetLatestAttendanceByEmployeeId(string employeeId)
+        {
+            return await _attendanceRecordRepository.GetLatestAttendanceByEmployeeId(employeeId);
+        }
+
+        public async Task AddAttendance(AttendanceRecord attendance)
+        {
+            await _attendanceRecordRepository.AddAttendance(attendance);
+        }
+
+        public async Task UpdateAttendance(AttendanceRecord attendance)
+        {
+            await _attendanceRecordRepository.UpdateAttendance(attendance);
+        }
     }
 }

@@ -68,5 +68,29 @@ namespace Repositories.Repositories
             var result = await _context.SaveChangesAsync();
             return result > 0;
         }
+
+        // Lấy bản ghi điểm danh mới nhất của nhân viên
+        public async Task<AttendanceRecord?> GetLatestAttendanceByEmployeeId(string employeeId)
+        {
+            return await _context.AttendanceRecords
+                .Where(a => a.EmployeeId == employeeId && a.CheckInTime.Value.Date == DateTime.Now.Date)
+                .OrderByDescending(a => a.CheckInTime)
+                .FirstOrDefaultAsync();
+        }
+
+
+        // Thêm bản ghi mới
+        public async Task AddAttendance(AttendanceRecord attendance)
+        {
+            await _context.AttendanceRecords.AddAsync(attendance);
+            await _context.SaveChangesAsync();
+        }
+
+        // Cập nhật bản ghi Check-Out
+        public async Task UpdateAttendance(AttendanceRecord attendance)
+        {
+            _context.AttendanceRecords.Update(attendance);
+            await _context.SaveChangesAsync();
+        }
     }
 }

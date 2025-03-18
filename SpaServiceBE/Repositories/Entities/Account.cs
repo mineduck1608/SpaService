@@ -25,7 +25,7 @@ public partial class Account
 
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
-    public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+    public virtual Employee Employees { get; set; } = null!;
 
     public virtual ICollection<Manager> Managers { get; set; } = new List<Manager>();
 

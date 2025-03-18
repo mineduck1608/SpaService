@@ -516,8 +516,8 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("status");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.Employees)
-                .HasForeignKey(d => d.AccountId)
+            entity.HasOne(d => d.Account).WithOne(p => p.Employees)
+                  .HasForeignKey<Employee>(e => e.AccountId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKEmployee613705");
         });
