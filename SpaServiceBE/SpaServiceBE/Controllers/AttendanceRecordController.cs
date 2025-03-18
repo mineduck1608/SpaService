@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Repositories.DTO;
 using Services;
 using Services.IServices;
 using System;
@@ -119,9 +120,30 @@ namespace API.Controllers
             }
         }
 
+        
+        private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            const double R = 6371.0; // Bán kính Trái Đất (km)
+            double dLat = ToRadians(lat2 - lat1);
+            double dLon = ToRadians(lon2 - lon1);
+
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                       Math.Cos(ToRadians(lat1)) * Math.Cos(ToRadians(lat2)) *
+                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            return R * c;
+        }
+
+        private double ToRadians(double angle)
+        {
+            return Math.PI * angle / 180.0;
+        }
+
+
         // PUT: api/employees/CheckInCheckOut/{id}
         [HttpPut("CheckInCheckOut/{id}")]
-        public async Task<ActionResult> CheckInCheckOutEmployee(string id, [FromBody] string action)
+        public async Task<ActionResult> CheckInCheckOutEmployee(string id, [FromBody] CheckInOutRequestDto request)
         {
             try
             {
@@ -137,11 +159,23 @@ namespace API.Controllers
                     return NotFound(new { msg = $"Employee not found for Account ID = {id}." });
                 }
 
+                double setupLatitude = 10.88931964301905;
+                double setupLongitude = 106.79658776930619;
+
+                double distance = CalculateDistance(setupLatitude, setupLongitude, request.Latitude, request.Longitude);
+
+                if (distance > 1.0)
+                {
+                    return BadRequest(new { msg = "You must be within 1km of the set location to check-in." });
+                }
+
                 // Lấy bản ghi điểm danh mới nhất của nhân viên
                 var latestAttendance = await _attendanceRecordService.GetLatestAttendanceByEmployeeId(employee.EmployeeId);
 
-                if (action.Equals("checkin", StringComparison.OrdinalIgnoreCase))
+                if (request.Action.Equals("checkin", StringComparison.OrdinalIgnoreCase))
                 {
+                   
+
                     // Nếu đã có CheckIn nhưng chưa CheckOut thì không được CheckIn lại
                     if (latestAttendance != null && latestAttendance.CheckInTime.HasValue && !latestAttendance.CheckOutTime.HasValue)
                     {
@@ -160,7 +194,7 @@ namespace API.Controllers
 
                     return Ok(new { msg = "Employee checked in successfully.", attendance = newAttendance });
                 }
-                else if (action.Equals("checkout", StringComparison.OrdinalIgnoreCase))
+                else if (request.Action.Equals("checkout", StringComparison.OrdinalIgnoreCase))
                 {
                     // Nếu chưa CheckIn thì không thể CheckOut
                     if (latestAttendance == null || !latestAttendance.CheckInTime.HasValue)
@@ -190,6 +224,7 @@ namespace API.Controllers
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
 
 
