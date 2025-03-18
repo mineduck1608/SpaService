@@ -139,6 +139,7 @@ export type Application = {
   createdAt: Date | string
   resolvedAt: Date | string
   resolvedBy: string
+  managerNote: string
 }
 
 export type CosmeticCategory = {
