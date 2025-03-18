@@ -8,3 +8,5 @@ appsettings.json
 /SpaServiceBE/.vs
 /SpaServiceBE/SpaServiceBE/obj
 *.puml
+
+docker-compose.yml

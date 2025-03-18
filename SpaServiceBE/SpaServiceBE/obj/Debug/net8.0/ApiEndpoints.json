@@ -645,8 +645,8 @@
         "IsRequired": true
       },
       {
-        "Name": "action",
-        "Type": "System.String",
+        "Name": "request",
+        "Type": "Repositories.DTO.CheckInOutRequestDto",
         "IsRequired": true
       }
     ],

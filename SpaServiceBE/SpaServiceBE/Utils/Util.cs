@@ -67,11 +67,11 @@ namespace SpaServiceBE.Utils
             }
         }
 
-        public static bool IsPhoneFormatted(string phone) => !phone.IsNullOrEmpty() ? new Regex(@"^0[9832]\d{8}$").IsMatch(phone) : false;
+        public static bool IsPhoneFormatted(string phone) => !string.IsNullOrEmpty(phone) ? new Regex(@"^0[9832]\d{8}$").IsMatch(phone) : false;
 
-        public static bool IsPasswordSecure(string password) => !password.IsNullOrEmpty() ? new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?])[A-Za-z\d!@#$%^&*()_\-+=<>?]{12,}$").IsMatch(password) : false;
+        public static bool IsPasswordSecure(string password) => !string.IsNullOrEmpty(password) ? new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?])[A-Za-z\d!@#$%^&*()_\-+=<>?]{12,}$").IsMatch(password) : false;
 
-        public static bool IsMailFormatted(string mail) => !mail.IsNullOrEmpty() ? new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$").IsMatch(mail) : false;
+        public static bool IsMailFormatted(string mail) => !string.IsNullOrEmpty(mail) ? new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$").IsMatch(mail) : false;
 
         public static string QueryStringFromDict(Dictionary<string, string> dict)
         {

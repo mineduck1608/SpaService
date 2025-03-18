@@ -1,20 +1,25 @@
 version: "3.8"
 
 services:
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile.backend
-    ports:
-      - "5000:5000"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+ backend:
+  build:
+    context: ./SpaServiceBE
+    dockerfile: Dockerfile
+  ports:
+    - "5000:5000"
+    - "5001:5001"
+  environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    - ConnectionStrings__DefaultConnection=Server=host.docker.internal,1433;Database=spaservice;UID=sa;PWD=12345;TrustServerCertificate=True
+  depends_on: []
 
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ./spaservicefe  # Thư mục chứa frontend
+      dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "3000:80"
     depends_on:
       - backend
+    volumes:
+      - ./spaservicefe/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro

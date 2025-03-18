@@ -130,19 +130,19 @@ namespace API.Controllers
 
                 }
 
-                if (!fullName.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(fullName))
                 {
                     customer.FullName = fullName;
                 }
-                if (!phone.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(phone))
                 {
                     customer.Phone = phone;
                 }
-                if (!email.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(email)) 
                 {
                     customer.Email = email;
                 }
-                if (!gender.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(gender))
                 {
                     customer.Gender = gender;
                 }
