@@ -39,28 +39,23 @@ export async function getAllEmployees() {
   }
 }
 
-export async function handleCheckInSubmit(data: any) {
+export async function checkInCheckOut(accountId: string): Promise<void> {
   try {
-    var res = await fetch(`${apiUrl}/attendancerecords/Create`, {
-      method: 'POST',
+    const res = await fetch(`${apiUrl}/attendancerecords/CheckInCheckOut/${accountId}`, {
+      method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully create!')
-      setTimeout(() => window.location.reload(), 2000)
-    } else {
-      const errorMsg = await res.json()
-      toast.error(errorMsg.message || 'Failed. Please try again.', {
-        autoClose: 1000,
-        closeButton: false
-      })
-    }
-  } catch (e) {
-    return []
+      }
+  })
+
+  if (res.status >= 200 && res.status < 300) {
+    toast.success('Check-in/Check-out successful')
+  } else {
+    toast.error('Failed to check in/check out')
+  }
+  } catch (error) {
+    toast.error('Error checking in/checking out')
   }
 }
 
