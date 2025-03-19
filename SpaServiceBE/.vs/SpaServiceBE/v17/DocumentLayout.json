@@ -3,24 +3,23 @@
   "WorkspaceRootPath": "D:\\Coding\\SpaService\\SpaServiceBE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\spaservicebe.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\spaservicebe.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Coding\\SpaService\\.github\\workflows\\backend.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE - Backup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SpaServiceBE\\SpaServiceBE - Backup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\spaservicebe.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\spaservicebe.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\spaservicebe.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
       "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\spaservicebe.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\spaservicebe - backup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\spaservicebe - backup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -114,28 +113,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Dockerfile",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Dockerfile",
-              "RelativeDocumentMoniker": "SpaServiceBE\\Dockerfile",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Dockerfile",
-              "RelativeToolTip": "SpaServiceBE\\Dockerfile",
+              "DocumentIndex": 1,
+              "Title": "backend.yml",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\.github\\workflows\\backend.yml",
+              "RelativeDocumentMoniker": "..\\.github\\workflows\\backend.yml",
+              "ToolTip": "D:\\Coding\\SpaService\\.github\\workflows\\backend.yml",
+              "RelativeToolTip": "..\\.github\\workflows\\backend.yml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-03-19T06:26:30.707Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2025-03-19T15:14:49.59Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SpaServiceBE.http",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.http",
               "RelativeDocumentMoniker": "SpaServiceBE\\SpaServiceBE.http",
@@ -143,12 +146,11 @@
               "RelativeToolTip": "SpaServiceBE\\SpaServiceBE.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-03-19T06:01:10.191Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T06:01:10.191Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "SpaServiceBE - Backup.csproj",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE - Backup.csproj",
               "RelativeDocumentMoniker": "SpaServiceBE\\SpaServiceBE - Backup.csproj",
@@ -169,12 +171,11 @@
               "RelativeToolTip": "SpaServiceBE\\Program.cs",
               "ViewState": "AgIAAMMAAAAAAAAAAAAjwLoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T07:59:11.284Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-17T07:59:11.284Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\appsettings.json",
               "RelativeDocumentMoniker": "SpaServiceBE\\appsettings.json",
@@ -182,8 +183,7 @@
               "RelativeToolTip": "SpaServiceBE\\appsettings.json",
               "ViewState": "AgIAABIAAAAAAAAAAAAcwBwAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-18T10:21:47.202Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T10:21:47.202Z"
             },
             {
               "$type": "Document",
@@ -199,7 +199,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "SpaServiceBE.csproj",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
               "RelativeDocumentMoniker": "SpaServiceBE\\SpaServiceBE.csproj",
