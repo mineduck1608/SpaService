@@ -22,7 +22,7 @@ interface ConfirmDeleteModalProps {
   data: TransactionBase
 }
 export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteModalProps) {
-  const products = data.cosmeticTransactions[0].order.orderDetails
+  const products = data.cosmeticTransactions[0].order?.orderDetails ?? []
   const context = useContext(TransTypeContext)
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

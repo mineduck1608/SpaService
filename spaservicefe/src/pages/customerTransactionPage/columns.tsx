@@ -51,20 +51,20 @@ export const columnsForService: ColumnDef<TransactionBase>[] = [
   {
     accessorKey: 'date',
     header: 'Date',
-    cell: (r) => formatDate(r.row.original.serviceTransactions[0].request.createdAt, 'dd/MM/yyyy hh:mm')
+    cell: (r) => formatDate(r.row.original.serviceTransactions[0].request?.createdAt ?? '', 'dd/MM/yyyy hh:mm')
   },
   ...columns,
   {
     accessorKey: 'service',
     header: 'Service',
-    cell: (r) => r.row.original.serviceTransactions[0].request.service?.serviceName
+    cell: (r) => r.row.original.serviceTransactions[0].request?.service?.serviceName
   },
 ]
 export const columnsForProduct: ColumnDef<TransactionBase>[] = [
   {
     accessorKey: 'date',
     header: 'Date',
-    cell: (r) => formatDate(r.row.original.cosmeticTransactions[0].order.orderDate, 'dd/MM/yyyy hh:mm')
+    cell: (r) => formatDate(r.row.original.cosmeticTransactions[0].order?.orderDate ?? '', 'dd/MM/yyyy hh:mm')
   },
   ...columns,
   {
