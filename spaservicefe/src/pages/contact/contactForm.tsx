@@ -3,6 +3,8 @@ import { MdOutlineEmail, MdPhone, MdMap, MdAddLink } from 'react-icons/md'
 import { FaFacebookSquare, FaYoutubeSquare, FaTwitterSquare } from 'react-icons/fa'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { toast } from 'react-toastify'
+import { apiUrl } from '../../types/constants'
+import { ToastContainer } from 'react-toastify';
 
 interface Form {
   fullName: string
@@ -70,7 +72,7 @@ const ContactForm = () => {
     if (validateForm()) {
       try {
         console.log(formData)
-        const response = await fetch('https://localhost:7205/api/applications/GuestApplication', {
+        const response = await fetch(`${apiUrl}/applications/GuestApplication`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
@@ -99,6 +101,7 @@ const ContactForm = () => {
       data-aos='fade-left'
       data-aos-delay='500'
     >
+      <ToastContainer />
       <div className='p-8 text-white lg:w-1/2'>
         <div className='mb-10 ml-7 max-w-full'>
           <div className='mb-8 mt-16 font-bold'>

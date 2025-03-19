@@ -3,7 +3,7 @@ import { MdOutlineEmail, MdPhone, MdMap, MdAddLink } from 'react-icons/md'
 import { FaFacebookSquare, FaYoutubeSquare, FaTwitterSquare } from 'react-icons/fa'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { toast } from 'react-toastify'
-import { getToken } from '../../types/constants'
+import { apiUrl, getToken } from '../../types/constants'
 import { jwtDecode } from 'jwt-decode'
 import { Link } from 'react-router-dom'
 
@@ -58,7 +58,7 @@ const CustomerApplication = () => {
     if (validateForm()) {
       try {
         console.log(formData)
-        const response = await fetch('https://localhost:7205/api/applications/Create', {
+        const response = await fetch(`${apiUrl}/applications/Create`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

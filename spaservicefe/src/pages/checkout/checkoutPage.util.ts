@@ -22,6 +22,7 @@ export async function getEmployees(id: string) {
 
 export async function submitRequest(req: SpaRequest) {
   try {
+    console.log(req)
     var s = await fetch(`${apiUrl}/requests/Create`, {
       method: 'POST',
       headers: {

@@ -4,6 +4,7 @@ import 'aos/dist/aos.css'
 import ContactForm from './contactForm'
 import IntroHeader from '../../components/introductionHeader'
 
+
 const ContactPage = () => {
   useEffect(() => {
     AOS.init({

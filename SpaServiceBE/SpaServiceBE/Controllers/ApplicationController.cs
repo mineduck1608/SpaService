@@ -116,7 +116,6 @@ namespace SpaServiceBE.Controllers
                         ApplicationId = Guid.NewGuid().ToString("N"), // Generate unique ID
                         Status = "Pending",
                         Content = content,
-                        AccountId = "Guest",
                         CreatedAt = DateTime.UtcNow,
                         ResolvedBy = null,
                         ResolvedAt = null
