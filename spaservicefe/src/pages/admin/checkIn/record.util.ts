@@ -1,28 +1,28 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import {Employee, Record} from '../../../types/type'
+import { Employee, Record } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getRecords(): Promise<Record[]> {
-    try {
-        const res = await fetch(`${apiUrl}/attendancerecords/GetAll`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${getToken()}`,
-                'Content-Type': 'application/json'
-            }
-        })
+  try {
+    const res = await fetch(`${apiUrl}/attendancerecords/GetAll`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      }
+    })
 
-        if (res. status >= 200 && res.status < 300) {
-            const data = await res.json()
-            return data
-        } else {
-            console.error('Failed to fetch records:' , res.statusText)
-            return []
-        }
-} catch (error) {
+    if (res.status >= 200 && res.status < 300) {
+      const data = await res.json()
+      return data
+    } else {
+      console.error('Failed to fetch records:', res.statusText)
+      return []
+    }
+  } catch (error) {
     console.error('Error fetching records: ', error)
     return []
-}
+  }
 }
 
 export async function getAllEmployees() {
@@ -39,28 +39,26 @@ export async function getAllEmployees() {
   }
 }
 
-export async function handleCheckInSubmit(data: any) {
+export async function checkInCheckOut(accountId:string, action: string, latitude: number, longitude: number): Promise<void> {
   try {
-    var res = await fetch(`${apiUrl}/attendancerecords/Create`, {
-      method: 'POST',
+    const res = await fetch(`${apiUrl}/attendancerecords/CheckInCheckOut/${accountId}`, {
+      method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({ action, latitude, longitude })
     })
+
+    const json = await res.json()
+
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully create!')
-      setTimeout(() => window.location.reload(), 2000)
+      toast.success(json.msg)
     } else {
-      const errorMsg = await res.json()
-      toast.error(errorMsg.message || 'Failed. Please try again.', {
-        autoClose: 1000,
-        closeButton: false
-      })
+      toast.error(json.msg)
     }
-  } catch (e) {
-    return []
+  } catch (error) {
+    toast.error('Error checking in/checking out')
   }
 }
 

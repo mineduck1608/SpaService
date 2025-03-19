@@ -1,14 +1,14 @@
-import { SpaRequest } from '@/types/type'
+import { SpaRequest, TransactionBase } from '@/types/type'
 import { apiUrl, getToken } from '../../types/constants'
 
-export async function getApplicationsOfAccId(id: string) {
+export async function getTransactionsOfCustomerId(id: string, findInService?: boolean) {
   try {
-    var s = await fetch(`${apiUrl}/applications/ApplicationsOf/${id}`, {
+    var s = await fetch(`${apiUrl}/transactions/TransactionsOfCustomer/${id}?findInService=${findInService ?? false}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
     })
-    var r = (await s.json()) as SpaRequest[]
+    var r = (await s.json()) as TransactionBase[]
     return r
   } catch (e) {
     return []

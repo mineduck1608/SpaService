@@ -31,7 +31,7 @@ interface DataTableProps<TData, TValue> {
   filterKey?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey = 'employeeId' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, filterKey = 'accountId' }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'employeeI
     <div>
       <div className='flex items-center py-3'>
         <Input
-          placeholder={`Filter by employee ID...`}
+          placeholder={`Filter by account ID...`}
           value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey)?.setFilterValue(event.target.value)}
           className='max-w-sm'

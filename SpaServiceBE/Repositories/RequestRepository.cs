@@ -105,8 +105,11 @@ namespace Repositories
                 .Include(x => x.Employee)
                 .Include(x => x.ServiceTransactions)
                 .ThenInclude(x => x.Transaction)
-                .Where(x => x.Customer.AccountId == accId)
+                .Where(x => 
+                x.Customer.AccountId == accId
+                )
                 .OrderByDescending(x => x.CreatedAt)
+                .Take(40)
                 .ToListAsync();
             return x;
         }

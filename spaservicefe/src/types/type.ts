@@ -193,12 +193,15 @@ export type TransactionBase = {
   transactionType: string
   totalPrice: number
   status: boolean
-  completeTime: string
+  completeTime?: string
   promotionId: string
-  paymentType: string
+  paymentType: string,
+  serviceTransactions: ServiceTransaction[],
+  cosmeticTransactions: CosmeticTransaction[],
+  promotion: Promotion
 }
 
-export type ServiceTransaction = TransactionBase & {
+export type ServiceTransaction = {
   serviceTransactionId: string
   requestId: string
   membership?: string
@@ -206,7 +209,7 @@ export type ServiceTransaction = TransactionBase & {
   request?: SpaRequest
 }
 
-export type CosmeticTransaction = TransactionBase & {
+export type CosmeticTransaction = {
   cosmeticTransactionId: string
   orderId: string
   order?: Order
@@ -221,7 +224,8 @@ export type Order = {
   transactionId: string
   address: string
   recepientName: string
-  customer?: Customer
+  customer?: Customer,
+  orderDetails: OrderDetail[]
 }
 
 export type OrderDetail = {
@@ -229,7 +233,8 @@ export type OrderDetail = {
   quantity: number
   subTotalAmount: GLfloat
   orderId: string
-  productId: string
+  productId: string,
+  product: CosmeticProduct
 }
 
 export type Floor = {

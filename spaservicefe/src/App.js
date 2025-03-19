@@ -285,6 +285,14 @@ function App() {
             }
           />
           <Route
+            path='transaction-list'
+            element={
+              <Layout>
+                <CustomerTransPage />
+              </Layout>
+            }
+          />
+          <Route
             path='application'
             element={
               <Layout>

@@ -52,9 +52,9 @@ namespace Services
 
         public Dictionary<DateOnly, (float service, float product)> OrderByDay() => _transactionRepository.OrderByDay();
 
-        public IEnumerable<Transaction> GetTransactionsOfCustomer(string customerId)
+        public IEnumerable<Transaction> GetTransactionsOfCustomer(string customerId, bool service)
         {
-            return _transactionRepository.GetTransactionsOfCustomer(customerId);
+            return _transactionRepository.GetTransactionsOfCustomer(customerId, service);
         }
     }
 }
