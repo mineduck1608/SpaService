@@ -15,7 +15,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from 'embla-carousel-autoplay'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
-import { roleJWT } from '../../types/constants'
+import { apiUrl, roleJWT } from '../../types/constants'
 import { RoleName } from '../../types/role'
 import { getCusByAcc } from '../checkout/checkoutPage.util'
 import { Customer } from '@/types/type'
@@ -61,7 +61,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     const token = response.credential
     setFetching(true)
     try {
-      const res = await fetch('https://localhost:7205/api/GoogleAuth/decode-and-check-or-create', {
+      const res = await fetch(`${apiUrl}/GoogleAuth/decode-and-check-or-create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token })

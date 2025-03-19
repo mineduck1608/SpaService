@@ -17,6 +17,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import { ServiceCheckoutContext, SpaRequestModel } from './checkoutContext.tsx'
 import MainForm from './mainForm.tsx'
 import dayjs from 'dayjs'
+import { getCookie } from '../checkoutForCosmetic/checkoutPage.util.ts'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
@@ -97,6 +98,8 @@ export default function CheckoutPage() {
       var r = await onSubmitBase('Cash')
       if (r) {
         toast.success('Request created successfully', { containerId: 'toast' })
+        window.location.assign('/requests')
+        return;
       }
     } catch (e) {
       toast.error(e as string, { containerId: 'toast' })
