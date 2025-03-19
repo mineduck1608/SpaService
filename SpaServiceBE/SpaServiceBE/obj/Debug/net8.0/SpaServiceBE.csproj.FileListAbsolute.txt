@@ -207,6 +207,7 @@ D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Humanizer.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\MailKit.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.Build.Locator.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -384,4 +385,7 @@ D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\refint\SpaServic
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.pdb
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.genruntimeconfig.cache
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\ref\SpaServiceBE.dll
-D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\web.config
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\appsettings.json
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\SpaServiceBE.deps.json
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\SpaServiceBE.runtimeconfig.json
