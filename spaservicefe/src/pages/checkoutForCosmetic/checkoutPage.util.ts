@@ -34,7 +34,7 @@ export async function createOrder(params: OrderRequest) {
 }
 
 export function setCookie(cname: string, cvalue: string) {
-  document.cookie = cname + '=' + cvalue + ';'
+  document.cookie = cname + '=' + cvalue + ';path=/'
 }
 
 export function getCookie(cname: string) {
