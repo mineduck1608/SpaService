@@ -1,32 +1,44 @@
-import { useState, useEffect } from 'react'
-import { columns } from './columns'
+import { useState, useEffect, useContext } from 'react'
+import { columnsForProduct, columnsForService } from './columns'
 import { DataTable } from './data-table'
-import { SpaRequest } from '../../types/type' // Updated to CustomerRequest type
+import { TransactionBase } from '../../types/type' // Updated to CustomerRequest type
 
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
-import { getApplicationsOfAccId } from './customerTransPage.util'
-import { jwtDecode } from 'jwt-decode'
-import { getToken } from '../../types/constants'
-import { PastBookingContext } from './context/pastBookingContext'
+import { getTransactionsOfCustomerId } from './customerTransPage.util'
+import { TransTypeContext } from './context/transTypeContext'
+import { getAllProducts } from '../admin/products/product.util'
 
 export default function CustomerTransTable() {
-  const [data, setData] = useState<SpaRequest[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [pastBooking, setPastBooking] = useState(false)
-
+  const [map, setMap] = useState<Map<boolean, TransactionBase[]>>(
+    new Map<boolean, TransactionBase[]>([
+      [true, []],
+      [false, []]
+    ])
+  )
+  const context = useContext(TransTypeContext)
   useEffect(() => {
     const fetchData = async () => {
+      var c = sessionStorage.getItem('customerId') ?? ''
       try {
-        const customerRequests = await getApplicationsOfAccId(jwtDecode(getToken() ?? '').UserId)
-        setData(customerRequests)
+        const services = await getTransactionsOfCustomerId(c, true)
+        setMap((v) => {
+          v.set(true, services)
+          return v
+        })
+        const product = await getTransactionsOfCustomerId(c, false)
+        setMap((v) => {
+          v.set(false, product)
+          return v
+        })
+        const products = await getAllProducts()
+        context.setProducts(products)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
         setLoading(false)
       }
     }
-
     fetchData()
   }, [])
 
@@ -35,13 +47,10 @@ export default function CustomerTransTable() {
 
   return (
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
-      <PastBookingContext.Provider value={{ pastBooking, setPastBooking }}>
-        <h1 className='py-4 text-center text-2xl font-bold'>Applications</h1>
-        <DataTable
-          columns={columns}
-          data={data.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime())}
-        />
-      </PastBookingContext.Provider>
+      <DataTable
+        columns={context.showServiceTrans ? columnsForService : columnsForProduct}
+        data={map.get(context.showServiceTrans) ?? []}
+      />
     </div>
   )
 }

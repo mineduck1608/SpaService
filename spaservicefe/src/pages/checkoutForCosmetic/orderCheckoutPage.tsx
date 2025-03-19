@@ -80,10 +80,9 @@ export default function CosmeticCheckoutPage() {
             quantity: v.amount
           }
         }),
-        phone: data.orderOnBehalf ? data.phone : undefined,
+        phone: data.orderOnBehalf ? data.phone : '',
         recepientName: data.orderOnBehalf ? data.fullName : undefined
       })
-
       return result
     } catch (e) {
       toast.error(e as string, { toastId: 'toast' })
@@ -96,7 +95,7 @@ export default function CosmeticCheckoutPage() {
       var s = await onSubmitBase('Cash')
       if (s) {
         if (s.success) {
-          toast.success('Order submitted')
+          toast.success('Order submitted', { containerId: 'toast' })
           return
         }
         toast.error(s.rs, { containerId: 'toast' })

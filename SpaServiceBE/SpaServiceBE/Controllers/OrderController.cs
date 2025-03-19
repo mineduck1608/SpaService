@@ -59,7 +59,7 @@ namespace SpaServiceBE.Controllers
                 var promo = await _promotionService.GetByCode(orderRequest.PromotionCode);
                 var customer = await _customerService.GetCustomerById(orderRequest.CustomerId);
                 var name = orderRequest.RecepientName ?? customer.FullName;
-                var phone = orderRequest.Phone ?? customer.Phone;
+                var phone = string.IsNullOrEmpty(orderRequest.Phone) ? customer.Phone : orderRequest.Phone;
 
                 if(phone == "None")
                 {
@@ -108,7 +108,6 @@ namespace SpaServiceBE.Controllers
                     PromotionId = promo?.PromotionId,
                     Status = false,
                     TotalPrice = (float)total,
-                    CompleteTime = DateTime.Now
                 };
                 await _transactionService.Add(transaction);
 
