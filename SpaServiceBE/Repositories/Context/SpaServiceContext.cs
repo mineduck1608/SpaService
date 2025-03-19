@@ -146,6 +146,10 @@ public partial class SpaserviceContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
+            entity.Property(e => e.ManagerNote)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("managerNote");
             entity.Property(e => e.ResolvedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("resolvedAt");
@@ -512,8 +516,8 @@ public partial class SpaserviceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("status");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.Employees)
-                .HasForeignKey(d => d.AccountId)
+            entity.HasOne(d => d.Account).WithOne(p => p.Employees)
+                  .HasForeignKey<Employee>(e => e.AccountId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKEmployee613705");
         });

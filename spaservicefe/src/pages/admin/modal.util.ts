@@ -393,18 +393,11 @@ export const applicatonConfig = {
       placeholder: 'Select status'
     },
     {
-      name: 'content',
-      label: 'Content',
+      name: 'managerNote',
+      label: 'Manager Note',
       type: 'text',
-      readonly: true,
-      placeholder: 'Enter content'
-    },
-    {
-      name: 'resolvedBy',
-      label: 'Resolved By',
-      type: 'select',
-      required: true,
-      placeholder: 'Select manager'
+      readonly: false,
+      placeholder: 'Enter note'
     }
   ],
   fields: [

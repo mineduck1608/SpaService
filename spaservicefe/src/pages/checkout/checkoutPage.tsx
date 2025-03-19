@@ -44,13 +44,13 @@ export default function CheckoutPage() {
     async function fetchData() {
       var s = await getEmployees(booked.categoryId)
       if (typeof s === 'string') {
-        toast.error('No employees found for this category')
+        toast.error('No employees found for this category', { containerId: 'toast' })
         return
       }
       setEmp(s)
       const membership = await getMembership(cus)
       if (typeof membership === 'string') {
-        toast.error(membership)
+        toast.error(membership, { containerId: 'toast' })
         return
       }
       if (membership?.membershipId) {
@@ -67,7 +67,7 @@ export default function CheckoutPage() {
       req2.startTime = req2.startTime.add(7, 'h')
       var s = await submitRequest(req2)
       if (s.msg) {
-        toast.error(s.msg)
+        toast.error(s.msg, { containerId: 'toast' })
         return false
       }
       if (s.requestId) {
@@ -82,7 +82,7 @@ export default function CheckoutPage() {
           sessionStorage.setItem('trId', y.transactionId)
           return true
         }
-        toast.error(y.msg)
+        toast.error(y.msg, { containerId: 'toast' })
         return false
       }
       toast.error(s)
@@ -96,10 +96,10 @@ export default function CheckoutPage() {
     try {
       var r = await onSubmitBase('Cash')
       if (r) {
-        toast.success('Request created successfully')
+        toast.success('Request created successfully', { containerId: 'toast' })
       }
     } catch (e) {
-      toast.error(e as string)
+      toast.error(e as string, { containerId: 'toast' })
     }
   }
   async function submitWithVnPay(e: FormEvent) {
@@ -115,14 +115,14 @@ export default function CheckoutPage() {
       setItems()
       var url = await getPaymentUrl(transId)
       if (url.startsWith('http')) {
-        toast.success('We will redirect you to VnPay page')
+        toast.success('We will redirect you to VnPay page', { containerId: 'toast' })
         window.location.replace(url)
         return
       }
 
-      toast.error(url)
+      toast.error(url, { containerId: 'toast' })
     } catch (e) {
-      toast.error(e as string)
+      toast.error(e as string, { containerId: 'toast' })
     }
   }
   async function applyPromo() {
@@ -131,9 +131,7 @@ export default function CheckoutPage() {
       var entry = codes.get(code)
       if (entry) {
         if (typeof entry === 'string') {
-          toast.error(entry, {
-            toastId: new Date().getTime()
-          })
+          toast.error(entry, { containerId: 'toast' })
           return
         }
         setReq({ ...req, active: entry.discountValue })
@@ -145,9 +143,7 @@ export default function CheckoutPage() {
         return v
       })
       if (typeof s === 'string') {
-        toast.error(s, {
-          toastId: new Date().getTime()
-        })
+        toast.error(s, { containerId: 'toast' })
         return
       }
       setReq({ ...req, active: s.discountValue })
@@ -157,7 +153,6 @@ export default function CheckoutPage() {
   }
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
-      <ToastContainer containerId={'checkout-page'} />
       {/* Hình ảnh nền */}
       <ServiceCheckoutContext.Provider value={{ req, setReq, emp }}>
         <div

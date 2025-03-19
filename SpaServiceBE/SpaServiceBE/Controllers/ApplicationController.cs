@@ -158,6 +158,8 @@ namespace SpaServiceBE.Controllers
                 // Lấy dữ liệu từ request
                 string status = jsonElement.GetProperty("status").GetString();
                 string resolvedBy = jsonElement.GetProperty("resolvedBy").GetString();
+                string managerNote = jsonElement.GetProperty("managerNote").GetString();
+
                 // Validate input
                 if (string.IsNullOrEmpty(status) || string.IsNullOrEmpty(resolvedBy))
                 {
@@ -175,6 +177,7 @@ namespace SpaServiceBE.Controllers
                 application.Status = status;
                 application.ResolvedBy = resolvedBy;
                 application.ResolvedAt = DateTime.Now;
+                application.ManagerNote = managerNote;
 
                 // Call service to update application
                 var isUpdated = await _applicationService.UpdateApplicationAsync(application);
@@ -190,7 +193,7 @@ namespace SpaServiceBE.Controllers
             }
         }
 
-        [HttpDelete("Update/{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteApplication(string id)
         {
             await _applicationService.DeleteApplicationAsync(id);

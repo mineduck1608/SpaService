@@ -6,6 +6,7 @@ import { ApplicationForm } from './form'
 import { getEmployeeApplications } from './application.util' // Adjust the path accordingly
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../../types/constants'
+import { getByAccountId } from '../../../pages/admin/applications/application.util'
 
 export default function EmployeeApplicationPage() {
   const [data, setData] = useState<Application[]>([])
@@ -24,7 +25,18 @@ export default function EmployeeApplicationPage() {
 
         // Fetch applications for the employee
         const applications = await getEmployeeApplications(id)
-        setData(applications)
+        const formattedData = await Promise.all(applications.map(async (application) => {
+
+          // Fetch FullName for resolvedBy field
+          const fullNameObj = await getByAccountId(application.resolvedBy)
+          console.log(fullNameObj)
+
+          return {
+            ...application,
+            resolvedBy: fullNameObj?.fullName || 'N/A',
+          }
+        }))
+        setData(formattedData)
       } catch (e: any) {
         setError(e.message || 'Failed to fetch data.')
       }
@@ -37,7 +49,7 @@ export default function EmployeeApplicationPage() {
   return (
     <div className='h-[96%] items-center justify-center'>
       <h2 className='container mx-auto my-4 ml-11'>Create Application</h2>
-      <div className='container mx-auto w-[96%] rounded-md border mb-10 p-4'> 
+      <div className='container mx-auto w-[96%] rounded-md border mb-10 p-4'>
         <ApplicationForm />
       </div>
       <div className='container mx-auto w-[96%] rounded-md border'>

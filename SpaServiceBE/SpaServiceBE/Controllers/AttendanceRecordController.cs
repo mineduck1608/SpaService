@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Entities;
+using Repositories.DTO;
+using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -15,16 +17,39 @@ namespace API.Controllers
     public class AttendanceRecordController : ControllerBase
     {
         private readonly IAttendanceRecordService _attendanceRecordService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IAccountService _accountService;
 
-        public AttendanceRecordController(IAttendanceRecordService attendanceRecordService)
+
+
+        public AttendanceRecordController(IAttendanceRecordService attendanceRecordService, IEmployeeService employeeService, IAccountService accountService)
         {
             _attendanceRecordService = attendanceRecordService ?? throw new ArgumentNullException(nameof(attendanceRecordService));
+            _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
+            _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
+
         }
 
         // GET: api/attendanceRecords
         [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<AttendanceRecord>>> GetAllAttendanceRecords()
+        {
+            try
+            {
+                var attendanceRecords = await _attendanceRecordService.GetAllAttendanceRecords();
+                return Ok(attendanceRecords);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // GET: api/attendanceRecords/GetByAccountId/{id}
+        [Authorize]
+        [HttpGet("GetByAccountId/{id}")]
+        public async Task<ActionResult<IEnumerable<AttendanceRecord>>> GetAllAttendanceRecordsByAccountId(string id)
         {
             try
             {
@@ -94,6 +119,114 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        
+        private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            const double R = 6371.0; // Bán kính Trái Đất (km)
+            double dLat = ToRadians(lat2 - lat1);
+            double dLon = ToRadians(lon2 - lon1);
+
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                       Math.Cos(ToRadians(lat1)) * Math.Cos(ToRadians(lat2)) *
+                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            return R * c;
+        }
+
+        private double ToRadians(double angle)
+        {
+            return Math.PI * angle / 180.0;
+        }
+
+
+        // PUT: api/employees/CheckInCheckOut/{id}
+        [HttpPut("CheckInCheckOut/{id}")]
+        public async Task<ActionResult> CheckInCheckOutEmployee(string id, [FromBody] CheckInOutRequestDto request)
+        {
+            try
+            {
+                var account = await _accountService.GetAccountById(id);
+                if (account == null || account.Employees == null)
+                {
+                    return NotFound(new { msg = $"Account with ID = {id} not found or does not have an associated employee." });
+                }
+
+                var employee = await _employeeService.GetEmployeeById(account.Employees.EmployeeId);
+                if (employee == null)
+                {
+                    return NotFound(new { msg = $"Employee not found for Account ID = {id}." });
+                }
+
+                double setupLatitude = 10.88931964301905;
+                double setupLongitude = 106.79658776930619;
+
+                double distance = CalculateDistance(setupLatitude, setupLongitude, request.Latitude, request.Longitude);
+
+                if (distance > 1.0)
+                {
+                    return BadRequest(new { msg = "You must be within 1km of the set location to check-in." });
+                }
+
+                // Lấy bản ghi điểm danh mới nhất của nhân viên
+                var latestAttendance = await _attendanceRecordService.GetLatestAttendanceByEmployeeId(employee.EmployeeId);
+
+                if (request.Action.Equals("checkin", StringComparison.OrdinalIgnoreCase))
+                {
+                   
+
+                    // Nếu đã có CheckIn nhưng chưa CheckOut thì không được CheckIn lại
+                    if (latestAttendance != null && latestAttendance.CheckInTime.HasValue && !latestAttendance.CheckOutTime.HasValue)
+                    {
+                        return BadRequest(new { msg = "Employee has already checked in and not yet checked out." });
+                    }
+
+                    // Tạo bản ghi mới cho CheckIn
+                    var newAttendance = new AttendanceRecord
+                    {
+                        AttendanceId = Guid.NewGuid().ToString(),
+                        EmployeeId = employee.EmployeeId,
+                        CheckInTime = DateTime.Now
+                    };
+
+                    await _attendanceRecordService.AddAttendance(newAttendance);
+
+                    return Ok(new { msg = "Employee checked in successfully.", attendance = newAttendance });
+                }
+                else if (request.Action.Equals("checkout", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Nếu chưa CheckIn thì không thể CheckOut
+                    if (latestAttendance == null || !latestAttendance.CheckInTime.HasValue)
+                    {
+                        return BadRequest(new { msg = "Employee must check in before checking out." });
+                    }
+
+                    // Nếu đã CheckOut rồi thì không thể CheckOut lại
+                    if (latestAttendance.CheckOutTime.HasValue)
+                    {
+                        return BadRequest(new { msg = "Employee has already checked out." });
+                    }
+
+                    // Cập nhật CheckOutTime
+                    latestAttendance.CheckOutTime = DateTime.Now;
+                    await _attendanceRecordService.UpdateAttendance(latestAttendance);
+
+                    return Ok(new { msg = "Employee checked out successfully.", attendance = latestAttendance });
+                }
+                else
+                {
+                    return BadRequest(new { msg = "Invalid action. Please use 'checkin' or 'checkout'." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
+            }
+        }
+
+
+
 
         // PUT: api/attendanceRecords/Update/{id}
         [Authorize]

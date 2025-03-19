@@ -70,7 +70,7 @@ namespace API.Controllers
             {
                 var feedback = await _service.GetFeedbackByServiceId(id);
 
-                if (feedback.IsNullOrEmpty())
+                if (feedback == null)
                     return NotFound($"Feedback with ID = {id} not found.");
 
                 return Ok(feedback);

@@ -68,7 +68,9 @@ import EmployeeAppointmentManagePage from './pages/admin/employee/appointments/m
 import EmployeeCalendarApp from './pages/admin/employee/appointments/page.tsx'
 import ApplicationList from './pages/applicationList/applicationList.tsx'
 import EmployeeCommissionPage from './pages/admin/employee/commission/commissionPage.tsx'
+import CheckInPage from './pages/admin/checkIn/page.tsx'
 
+import CustomerTransPage from './pages/customerTransactionPage/customerTransPage.tsx'
 function Layout({ children }) {
   return (
     <>
@@ -187,6 +189,14 @@ function App() {
             }
           />
           <Route
+            path='transactions'
+            element={
+              <Layout>
+                <CustomerTransPage />
+              </Layout>
+            }
+          />
+          <Route
             path='cosmetics/:id'
             element={
               <Layout>
@@ -271,6 +281,14 @@ function App() {
             element={
               <Layout>
                 <CustomerApplicationPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='transaction-list'
+            element={
+              <Layout>
+                <CustomerTransPage />
               </Layout>
             }
           />
@@ -391,14 +409,15 @@ function App() {
               </ProtectedEmployee>
             }
           >
-            <Route index element={<Dashboard />} />
-
-            <Route path='application' element={<EmployeeApplicationPage />} />
+            {/* <Route index element={<Dashboard />} /> */}
+           <Route index element={<CheckInPage />} />
+           
+            <Route path='application' element={ <EmployeeApplicationPage />} />
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<EmployeeCalendarApp />} />
             <Route path='appointments-manage' element={<EmployeeAppointmentManagePage />} />
-            <Route path='commissions' element={<EmployeeCommissionPage />} />
-            {/* <Route path='transactions' element={<TransactionPage />} /> */}
+            <Route path='transactions' element={<TransactionPage />} />
+            <Route path='check-in' element={<CheckInPage />} />
 
             {/* Requests */}
             {/* <Route path='customer-requests' element={<CustomerRequestPage />} />

@@ -58,7 +58,6 @@ export default function ApplicationPage() {
 
             // Format function for dates and fallback to 'N/A'
             const formatOrNA = (date: string | null) => (date ? format(new Date(date), 'dd/MM/yyyy HH:mm:ss') : 'N/A')
-           console.log(fullNameObj)
             return {
               ...application,
               roleName: roleName, 

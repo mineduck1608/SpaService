@@ -1,20 +1,27 @@
-version: "3.8"
+version: '3.8'
 
 services:
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ./SpaServiceBE
+      dockerfile: Dockerfile
+    container_name: backend
     ports:
-      - "5000:5000"
+      - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=tcp:spaservice.database.windows.net,1433;Initial Catalog=spaservice;User ID=spaservice;Password=YOUR_PASSWORD;Encrypt=True;
+    restart: always
 
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ./spaservicefe
+      dockerfile: Dockerfile
+    container_name: frontend
     ports:
-      - "80:80"
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://backend:8080/api
     depends_on:
       - backend
+    restart: always
