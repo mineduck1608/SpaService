@@ -1,16 +1,13 @@
 import { useState, useEffect, useContext } from 'react'
-import { columns, columnsForProduct, columnsForService } from './columns'
+import { columnsForProduct, columnsForService } from './columns'
 import { DataTable } from './data-table'
-import { SpaRequest, TransactionBase } from '../../types/type' // Updated to CustomerRequest type
+import { TransactionBase } from '../../types/type' // Updated to CustomerRequest type
 
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 import { getTransactionsOfCustomerId } from './customerTransPage.util'
-import { jwtDecode } from 'jwt-decode'
-import { getToken } from '../../types/constants'
 import { TransTypeContext } from './context/transTypeContext'
+import { getAllProducts } from '../admin/products/product.util'
 
 export default function CustomerTransTable() {
-  const [data, setData] = useState<TransactionBase[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [map, setMap] = useState<Map<boolean, TransactionBase[]>>(
@@ -34,14 +31,14 @@ export default function CustomerTransTable() {
           v.set(false, product)
           return v
         })
+        const products = await getAllProducts()
+        context.setProducts(products)
       } catch (err) {
-        console.log(err)
         setError("Can't load the data.")
       } finally {
         setLoading(false)
       }
     }
-
     fetchData()
   }, [])
 

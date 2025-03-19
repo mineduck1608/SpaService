@@ -48,6 +48,11 @@ export const columns: ColumnDef<TransactionBase>[] = [
 ]
 
 export const columnsForService: ColumnDef<TransactionBase>[] = [
+  {
+    accessorKey: 'date',
+    header: 'Date',
+    cell: (r) => formatDate(r.row.original.serviceTransactions[0].request.createdAt, 'dd/MM/yyyy hh:mm')
+  },
   ...columns,
   {
     accessorKey: 'service',
@@ -56,6 +61,11 @@ export const columnsForService: ColumnDef<TransactionBase>[] = [
   },
 ]
 export const columnsForProduct: ColumnDef<TransactionBase>[] = [
+  {
+    accessorKey: 'date',
+    header: 'Date',
+    cell: (r) => formatDate(r.row.original.cosmeticTransactions[0].order.orderDate, 'dd/MM/yyyy hh:mm')
+  },
   ...columns,
   {
     accessorKey: 'detail',

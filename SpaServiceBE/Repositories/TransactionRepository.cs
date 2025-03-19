@@ -208,14 +208,15 @@ namespace Repositories
                 var x = r.Include(x => x.ServiceTransactions)
                     .ThenInclude(x => x.Request)
                     .ThenInclude(x => x.Service)
-                    .Where(x => x.ServiceTransactions.First().Request.CustomerId == customerId);
+                    .Where(x => x.ServiceTransactions.First().Request.CustomerId == customerId)
+                    .OrderByDescending(x => x.ServiceTransactions.First().Request.CreatedAt);
                 return x;
             }
             var y = r.Include(x => x.CosmeticTransactions)
                     .ThenInclude(x => x.Order)
                     .ThenInclude(x => x.OrderDetails)
-                    .ThenInclude(x => x.Product)
-                    .Where(x => x.CosmeticTransactions.First().Order.CustomerId == customerId);
+                    .Where(x => x.CosmeticTransactions.First().Order.CustomerId == customerId)
+                    .OrderByDescending(x => x.CosmeticTransactions.First().Order.OrderDate);
             return y;
         }
     }

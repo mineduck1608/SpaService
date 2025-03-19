@@ -24,7 +24,9 @@ const Details: React.FC<RequestActionsProps> = ({ request }) => {
       >
         View Detail
       </button>
-      <DetailModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} data={request} />
+      {isModalOpen && (
+        <DetailModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmDelete} data={request} />
+      )}
     </div>
   )
 }

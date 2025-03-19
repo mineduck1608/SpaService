@@ -12,6 +12,8 @@ import { SpaRequest, TransactionBase } from '@/types/type'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import { status } from './customerTransPage.util'
 import { Transaction } from '../checkout/checkoutPage.util'
+import { useContext } from 'react'
+import { TransTypeContext } from './context/transTypeContext'
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean
@@ -21,12 +23,13 @@ interface ConfirmDeleteModalProps {
 }
 export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteModalProps) {
   const products = data.cosmeticTransactions[0].order.orderDetails
+  const context = useContext(TransTypeContext)
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Order Detail</DialogTitle>
-          <DialogDescription className='flex justify-center'>
+          <div className='flex justify-center'>
             <table className='w-full border-[1px] text-black'>
               <thead>
                 <tr className='text-md bg-purple1 font-bold text-white *:p-1'>
@@ -38,8 +41,8 @@ export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteM
               </thead>
               <tbody>
                 {products.map((v) => (
-                  <tr>
-                    <td className='p-2'>{v.product.productName}</td>
+                  <tr key={v.orderDetailId}>
+                    <td className='p-2'>{context.products.find(x => x.productId === v.productId)?.productName}</td>
                     <td>{formatNumber(v.subTotalAmount / v.quantity)}</td>
                     <td>{v.quantity}</td>
                     <td>{formatNumber(v.subTotalAmount)}</td>
@@ -47,7 +50,7 @@ export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteM
                 ))}
               </tbody>
             </table>
-          </DialogDescription>
+          </div>
         </DialogHeader>
         <Button onClick={onConfirm} className='bg-purple1'>
           Confirm
