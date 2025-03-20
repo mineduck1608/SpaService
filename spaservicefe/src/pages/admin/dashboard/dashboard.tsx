@@ -116,7 +116,7 @@ export const Dashboard = () => {
   }, [])
   return (
     <div className='flex flex-1 flex-col gap-10 p-4'>
-      <Link to='report' className='bg-slate-100 p-1 no-underline'>
+      <Link to='report' className=' p-1 no-underline'>
         Report
       </Link>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>

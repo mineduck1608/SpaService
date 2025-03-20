@@ -4,7 +4,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from 'src/
 import { Separator } from 'src/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from 'src/components/ui/sidebar'
 import { sideData } from './sidebar.util'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
 export default function AdminPage() {
   // Sử dụng useLocation để lấy thông tin location của trang hiện tại
@@ -40,9 +40,9 @@ export default function AdminPage() {
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbPage className='mt-3 line-clamp-1 text-base'>
-                    <a className='text-black no-underline' href='#'>
+                    <Link className='text-black no-underline' to='/admin'>
                       Home
-                    </a>
+                    </Link>
                     <span className='mx-2'>&gt;</span>
                     <span>{capitalizeEachWord(x)}</span>
                   </BreadcrumbPage>
