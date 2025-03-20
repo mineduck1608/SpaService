@@ -5,18 +5,24 @@ import {Employee, Record} from '../../../types/type'
 
 const columns = [
   {
-    accessorKey: 'attendanceId',
-    header: 'Attendance ID'
+    accessorKey: 'index',
+    header: 'No.',
+    cell: ({ row }: { row: any }) => {
+      return row.original.index
+    },
+    enableSorting: false
   },
   {
     accessorKey: 'checkInTime',
     header: 'Check-in Time',
-    cell: ({ getValue }: { getValue: () => string }) => new Date(getValue()).toLocaleString()
+    cell: ({ getValue }: { getValue: () => string }) => new Date(getValue()).toLocaleString(),
+    sortingFn: 'datetime'
   },
   {
     accessorKey: 'checkOutTime',
     header: 'Check-out Time',
-    cell: ({ getValue }: { getValue: () => string }) => getValue() ? new Date(getValue()).toLocaleString() : 'N/A'
+    cell: ({ getValue }: { getValue: () => string }) => getValue() ? new Date(getValue()).toLocaleString() : 'N/A',
+    sortingFn: 'datetime'
   },
   {
     accessorKey: 'employeeName',
@@ -38,9 +44,15 @@ export default function CheckInPage() {
           map[employee.employeeId] = employee.fullName
           return map
         }, {})
-        const recordsWithEmployeeNames = records.map((record: Record) => ({
+
+        const sortedRecords = [...records].sort((a, b) =>
+          new Date(b.checkInTime).getTime() - new Date(a.checkInTime).getTime()
+        )
+
+        const recordsWithEmployeeNames = sortedRecords.map((record: Record, idx: number) => ({
           ...record,
-          employeeName: employeeMap[record.employeeId] || 'Unknown'
+          employeeName: employeeMap[record.employeeId] || 'Unknown',
+          index: idx + 1
         }))
         setData(recordsWithEmployeeNames || [])
       } catch (err) {
