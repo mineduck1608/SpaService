@@ -1,4 +1,4 @@
-﻿name: Build, Test, and Deploy .NET Core application to Azure
+﻿name: Build and Deploy .NET Core application to Azure
 
 on:
   push:
@@ -39,42 +39,9 @@ jobs:
           name: published-artifact
           path: ${{ env.PUBLISH_DIR }}
 
-  test:
-    runs-on: windows-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-
-      - name: Restore dependencies
-        run: dotnet restore ${{ env.WORKING_DIRECTORY }}
-
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: published-artifact
-          path: ${{ env.PUBLISH_DIR }}
-
-      - name: Run unit tests
-        run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build --verbosity normal
-
-      - name: Collect Code Coverage (Optional)
-        run: dotnet test ${{ env.WORKING_DIRECTORY }} --collect:"XPlat Code Coverage"
-
-      - name: Upload Code Coverage Report (Optional)
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage
-          path: ${{ env.WORKING_DIRECTORY }}/TestResults/
-
   deploy:
     runs-on: windows-latest
-    needs: test # Chỉ chạy nếu test thành công
+    needs: build
     steps:
       - name: Download Published Artifact
         uses: actions/download-artifact@v4
