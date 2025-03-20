@@ -7,16 +7,17 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: spaservice
-  AZURE_WEBAPP_PACKAGE_PATH: SpaServiceBE/publish/
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: SpaServiceBE
+  PUBLISH_DIR: SpaServiceBE/publish
 
 jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
@@ -29,21 +30,35 @@ jobs:
       - name: Build project
         run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
 
+      - name: Publish project
+        run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --output ${{ env.PUBLISH_DIR }}
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-output
-          path: ${{ env.WORKING_DIRECTORY }}
+          name: published-artifact
+          path: ${{ env.PUBLISH_DIR }}
 
   test:
     runs-on: windows-latest
     needs: build
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.WORKING_DIRECTORY }}
+
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-output
-          path: ${{ env.WORKING_DIRECTORY }}
+          name: published-artifact
+          path: ${{ env.PUBLISH_DIR }}
 
       - name: Run unit tests
         run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build --verbosity normal
@@ -61,15 +76,15 @@ jobs:
     runs-on: windows-latest
     needs: test # Chỉ chạy nếu test thành công
     steps:
-      - name: Download Build Artifact
+      - name: Download Published Artifact
         uses: actions/download-artifact@v4
         with:
-            name: webapp
-            path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          name: published-artifact
+          path: ${{ env.PUBLISH_DIR }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-         app-name: spaservice
-         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-         package: SpaServiceBE/publish/
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: ${{ env.PUBLISH_DIR }}
