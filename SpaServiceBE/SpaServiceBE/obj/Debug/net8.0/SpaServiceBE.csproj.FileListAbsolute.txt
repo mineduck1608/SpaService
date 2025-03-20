@@ -191,7 +191,11 @@ C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\b
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\MimeKit.dll
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\ADMIN\OneDrive\Máy tính\SWD391\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\web.config
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\appsettings.json
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\appsettings.json
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\SpaServiceBE.deps.json
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\SpaServiceBE.runtimeconfig.json
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\SpaServiceBE.exe
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\SpaServiceBE.deps.json
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\SpaServiceBE.runtimeconfig.json
@@ -385,7 +389,3 @@ D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\refint\SpaServic
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.pdb
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.genruntimeconfig.cache
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\ref\SpaServiceBE.dll
-D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\web.config
-D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\appsettings.json
-D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\SpaServiceBE.deps.json
-D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\out\SpaServiceBE.runtimeconfig.json

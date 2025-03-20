@@ -1,4 +1,4 @@
-﻿name: Build and deploy .NET Core application to Web App spaservice with API Management Service SpaServiceBEapi-SpaServiceBE
+﻿name: Build, Test, and Deploy .NET Core application to Azure
 
 on:
   push:
@@ -8,15 +8,6 @@ on:
 env:
   AZURE_WEBAPP_NAME: spaservice
   AZURE_WEBAPP_PACKAGE_PATH: SpaServiceBE/publish/
-  AZURE_APIM_RESOURCE_PATH: /
-  AZURE_APIM_RESOURCEGROUP: spaservice
-  AZURE_APIM_SERVICENAME: SpaServiceBEapi
-  AZURE_APIM_API_ID: SpaServiceBE
-  AZURE_APIM_APPSERVICEURL: https://spaservice.azurewebsites.net
-  SWASHBUCKLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 6.5.0  # Bản mới nhất hỗ trợ .NET 8
-  API_IMPORT_SPECIFICATION_PATH: SpaServiceBE/publish/swagger.json
-  API_IMPORT_DLL: SpaServiceBE/bin/Release/net8.0/SpaServiceBE.dll
-  API_IMPORT_VERSION: v1
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: SpaServiceBE
@@ -32,47 +23,49 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
-      - name: Setup .NET 7 SDK (Nếu cần)
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 7.0.x
-
       - name: Restore dependencies
         run: dotnet restore ${{ env.WORKING_DIRECTORY }}
 
       - name: Build project
         run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
 
-      - name: Run unit tests
-        run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
-
-      - name: Publish project
-        run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-
-      - name: Debug check publish folder
-        run: Get-ChildItem -Path ${{ env.AZURE_WEBAPP_PACKAGE_PATH }} -Recurse
-
-      # - name: Install Swashbuckle CLI
-      #   run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCKLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
-
-      # - name: Generate Open API Specification Document
-      #   run: dotnet swagger tofile --output "${{ env.API_IMPORT_SPECIFICATION_PATH }}" "${{ env.API_IMPORT_DLL }}" "${{ env.API_IMPORT_VERSION }}"
-
-      - name: Upload Artifact
+      - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: webapp
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          name: build-output
+          path: ${{ env.WORKING_DIRECTORY }}
 
-  deploy:
+  test:
     runs-on: windows-latest
     needs: build
     steps:
-      - name: Download artifact from build job
+      - name: Download Build Artifact
         uses: actions/download-artifact@v4
         with:
-          name: webapp
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          name: build-output
+          path: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Run unit tests
+        run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build --verbosity normal
+
+      - name: Collect Code Coverage (Optional)
+        run: dotnet test ${{ env.WORKING_DIRECTORY }} --collect:"XPlat Code Coverage"
+
+      - name: Upload Code Coverage Report (Optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage
+          path: ${{ env.WORKING_DIRECTORY }}/TestResults/
+
+  deploy:
+    runs-on: windows-latest
+    needs: test # Chỉ chạy nếu test thành công
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+            name: webapp
+            path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
@@ -80,23 +73,3 @@ jobs:
          app-name: spaservice
          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
          package: SpaServiceBE/publish/
-
-
-      # - name: Azure Login
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{ secrets.SPASERVICEBEAPI_SPN }}
-
-      # - name: Import API into Azure API Management
-      #   run: |
-      #     az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" \
-      #       --resource-group "${{ env.AZURE_APIM_RESOURCEGROUP }}" \
-      #       --service-name "${{ env.AZURE_APIM_SERVICENAME }}" \
-      #       --api-id "${{ env.AZURE_APIM_API_ID }}" \
-      #       --service-url "${{ env.AZURE_APIM_APPSERVICEURL }}" \
-      #       --specification-path "${{ env.API_IMPORT_SPECIFICATION_PATH }}" \
-      #       --specification-format OpenApi \
-      #       --subscription-required false
-
-      # - name: Logout from Azure
-      #   run: az logout
