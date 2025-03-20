@@ -36,6 +36,9 @@ jobs:
       - name: Publish project
         run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --output ${{ env.PUBLISH_DIR }} --self-contained false
 
+      - name: List files in publish directory
+        run: Get-ChildItem -Path ${{ env.PUBLISH_DIR }} -Recurse
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
