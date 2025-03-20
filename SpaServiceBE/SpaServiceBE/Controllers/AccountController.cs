@@ -516,5 +516,24 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+
+        [HttpDelete("Test/{id}")]
+        public async Task<ActionResult> Test(string id)
+        {
+            try
+            {
+                var isDeleted = await _accountService.DeleteAccount(id);
+
+                if (!isDeleted)
+                    return NotFound($"Account with ID = {id} not found.");
+
+                return Ok("DeleteAccount successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
