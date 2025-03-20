@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { DataTable } from './data-table'
 import { getRecords, getAllEmployees  } from './record.util'
 import {Employee, Record} from '../../../types/type'
+import CheckInTable from './checkInTable'
 
 const columns = [
   {
@@ -34,6 +35,7 @@ export default function CheckInPage() {
   const [data, setData] = useState<Record[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [checkInTime, setCheckInTime] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,12 +66,17 @@ export default function CheckInPage() {
     fetchData()
   }, [])
 
+  const handleCheckInSuccess = (time: string) => {
+    setCheckInTime(time)
+  }
+
   if (loading) return <div className='ml-5'>Loading...</div>
   if (error) return <div className='ml-5'>{error}</div>
 
   return (
     <div className='h-[96%] items-center justify-center'>
       <h2 className='container mx-auto my-4 ml-11'>Check-In Records</h2>
+      <CheckInTable checkInTime={checkInTime} onCheckInSuccess={handleCheckInSuccess} />
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

@@ -19,7 +19,11 @@ const checkInSchema = z.object({
   checkInTime: z.string().nonempty('Check-in Time is required')
 })
 
-export default function CheckInModal() {
+interface CheckInModalProps {
+  onCheckInSuccess: (time: string) => void
+}
+
+export default function CheckInModal({ onCheckInSuccess }: CheckInModalProps) {
   const [action, setAction] = useState<string>('checkin')
   const form = useForm<z.infer<typeof checkInSchema>>({
     resolver: zodResolver(checkInSchema),
@@ -55,6 +59,9 @@ export default function CheckInModal() {
     const latitude = 10.88931964301905
     const longtitude = 106.79658776930619
     await checkInCheckOut(accountId, action, latitude, longtitude)
+    if (action === 'checkin') {
+      onCheckInSuccess(data.checkInTime)
+    }
   }
 
   const handleOpen = () => {
