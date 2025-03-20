@@ -1,4 +1,4 @@
-name: Build and deploy .NET Core application to Web App spaservice with API Management Service SpaServiceBEapi-SpaServiceBE
+﻿name: Build and deploy .NET Core application to Web App spaservice with API Management Service SpaServiceBEapi-SpaServiceBE
 
 on:
   push:
@@ -16,7 +16,7 @@ env:
   SWASHBUCKLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
   API_IMPORT_SPECIFICATION_PATH: SpaServiceBE/publish/swagger.json
-  API_IMPORT_DLL: SpaServiceBE/bin/Release/net8.0/SpaServiceBE.dll
+  API_IMPORT_DLL: SpaServiceBE/publish/SpaServiceBE.dll # Fix đường dẫn DLL
   API_IMPORT_VERSION: v1
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
@@ -32,11 +32,6 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-
-      - name: Setup SwashBuckle .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
 
       - name: Restore dependencies
         run: dotnet restore ${{ env.WORKING_DIRECTORY }}
@@ -63,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: webapp
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          path: SpaServiceBE/publish/** # Fix upload tất cả file
 
   deploy:
     runs-on: windows-latest
@@ -73,13 +68,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: webapp
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          path: SpaServiceBE/artifacts # Fix để không ghi đè publish/
+
+      - name: Debug check downloaded artifact
+        run: Get-ChildItem -Path SpaServiceBE/artifacts -Recurse
 
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: SpaServiceBE/artifacts
           publish-profile: ${{ secrets.SPASERVICE_0113 }}
 
       - name: Azure Login
