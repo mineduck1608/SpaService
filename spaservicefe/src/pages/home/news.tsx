@@ -1,6 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { apiUrl } from '../../types/constants'
 
 const News = () => {
+  interface NewsItem {
+    newsId: number
+    header: string
+    content: string
+    type: string
+    image: string
+    createdAt: Date
+  }
+  
+  const [news, setNews] = useState<NewsItem[]>([])
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    // Fetch dữ liệu từ API
+    const fetchNews = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/news/GetAll`)
+        const data = await response.json()
+        console.log(data)
+
+        setNews(data) // Lưu toàn bộ dữ liệu
+      } catch (error) {
+        console.error('Error fetching news:', error)
+      }
+    }
+
+    fetchNews()
+  }, [])
+
+  useEffect(() => {
+    // Set interval để chuyển đổi 3 tin tức tiếp theo mỗi 5 giây
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 3) % news.length)
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [news])
+
   return (
     <section className='news'>
       <div className='relative w-full bg-white py-20'>
@@ -32,81 +72,45 @@ const News = () => {
           </div>
 
           {/* News Grid */}
-          <div className='grid grid-cols-3 gap-8' data-aos='fade-up' data-aos-delay='300'>
-            {/* News Item 1 */}
-
-            <div className='overflow-hidden rounded-lg bg-white shadow-lg'>
-              <a href='/news/detail/:id'>
-                <div className='overflow-hidden'>
-                  <img
-                    src='https://senspa.com.vn/wp-content/uploads/2020/11/620552810-H-1024x700-1.jpg'
-                    alt='Skin care'
-                    className='h-[250px] w-full object-cover transition-transform duration-500 hover:scale-110'
-                  />
-                </div>
-              </a>
-              <div className='p-6'>
-                <p className='mb-2 text-sm text-gray-500'>17.11.2020</p>
-                <h3 className='mb-4 text-xl font-semibold text-gray-800'>Facial care for smooth and radiant skin.</h3>
-                <a
-                  href='/news/detail/:id'
-                  className='text-[#8B3A8B] transition-colors duration-300 hover:text-[#a040a0]'
-                >
-                  Details
-                </a>
-              </div>
+<div className='relative h-[500px] flex justify-center items-center px-8' data-aos='fade-up' data-aos-delay='300'>
+<AnimatePresence mode='wait'>
+  {news.length > 0 && (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.8 }}
+      className='w-full container mx-auto grid grid-cols-3 gap-12'
+    >
+      {news.slice(index, index + 3).map((item) => (
+        <div key={item.newsId} className='overflow-hidden rounded-lg bg-white shadow-lg'>
+          <a href={`/news/detail/${item.newsId}`}>
+            <div className='overflow-hidden'>
+              <img
+                src={item.image}
+                alt={item.header}
+                className='h-[250px] w-full object-cover transition-transform duration-500 hover:scale-110'
+              />
             </div>
-
-            {/* News Item 2 */}
-            <div className='overflow-hidden rounded-lg bg-white shadow-lg'>
-              <a href='/news/detail/:id'>
-                <div className='overflow-hidden'>
-                  <img
-                    src='https://senspa.com.vn/wp-content/uploads/2020/11/shutterstock_458768797.jpg'
-                    alt='Himalaya salt'
-                    className='h-[250px] w-full object-cover transition-transform duration-500 hover:scale-110'
-                  />
-                </div>
-              </a>
-              <div className='p-6'>
-                <p className='mb-2 text-sm text-gray-500'>17.11.2020</p>
-                <h3 className='mb-4 text-xl font-semibold text-gray-800'>
-                  The unexpected benefits of Himalayan pink salt.
-                </h3>
-                <a
-                  href='/news/detail/:id'
-                  className='text-[#8B3A8B] transition-colors duration-300 hover:text-[#a040a0]'
-                >
-                  Details
-                </a>
-              </div>
-            </div>
-
-            {/* News Item 3 */}
-            <div className='overflow-hidden rounded-lg bg-white shadow-lg'>
-              <a href='/news/detail/:id'>
-                <div className='overflow-hidden'>
-                  <img
-                    src='https://senspa.com.vn/wp-content/uploads/2020/11/DSC5072.jpg'
-                    alt='Foot massage'
-                    className='h-[250px] w-full object-cover transition-transform duration-500 hover:scale-110'
-                  />
-                </div>
-              </a>
-              <div className='p-6'>
-                <p className='mb-2 text-sm text-gray-500'>17.11.2020</p>
-                <h3 className='mb-4 text-xl font-semibold text-gray-800'>
-                  The benefits of foot massage you should know.
-                </h3>
-                <a
-                  href='/news/detail/:id'
-                  className='text-[#8B3A8B] transition-colors duration-300 hover:text-[#a040a0]'
-                >
-                  Details
-                </a>
-              </div>
-            </div>
+          </a>
+          <div className='p-6'>
+            <p className='mb-2 text-sm text-gray-500'>{new Date(item.createdAt).toLocaleDateString()}</p>
+            <h3 className='mb-4 text-xl font-semibold text-gray-800'>{item.header}</h3>
+            <a
+              href={`/news/detail/${item.newsId}`}
+              className='text-[#8B3A8B] transition-colors duration-300 hover:text-[#a040a0]'
+            >
+              Details
+            </a>
           </div>
+        </div>
+      ))}
+    </motion.div>
+  )}
+</AnimatePresence>
+</div>
+
         </div>
       </div>
     </section>
