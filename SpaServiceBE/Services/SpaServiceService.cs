@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Repositories;
+using Repositories.DTO;
 using Repositories.Entities;
 using Services.IServices;
 
@@ -49,6 +50,11 @@ namespace Services
         public async Task<bool> Delete(string serviceId)
         {
             return await _spaServiceRepository.Delete(serviceId);
+        }
+
+        public Dictionary<string, ServiceStatistic> GetServiceStatistic(DateTime lower)
+        {
+            return _spaServiceRepository.GetServicesStats(lower);
         }
     }
 }

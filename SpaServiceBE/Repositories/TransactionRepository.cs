@@ -92,12 +92,27 @@ namespace Repositories
         }
         public async Task<float> GetTotalRevenue()
         {
+            var now = DateTime.Now;
+            var lower = new DateTime(now.Year - 1, now.Month, 1);
             return await _context.Transactions
-             .Where(t => t.Status == true) // Assuming 'true' means "Done"
+             .Where(t => t.Status 
+             && ((DateTime)t.CompleteTime) >= lower
+             && ((DateTime)t.CompleteTime) < now) // Assuming 'true' means "Done"
+             .SumAsync(t => t.TotalPrice);
+        }
+        public async Task<float> GetTotalRevenue(string type, DateTime lower)
+        {
+            var now = DateTime.Now;
+            return await _context.Transactions
+             .Where(t => 
+             t.TransactionType == type
+             && t.Status
+             && ((DateTime)t.CompleteTime) >= lower
+             && ((DateTime)t.CompleteTime) < now) // Assuming 'true' means "Done"
              .SumAsync(t => t.TotalPrice);
         }
 
-        public IEnumerable<float> OrderByMonth()
+        public Dictionary<DateOnly, float> OrderByMonth()
         {
             var now = DateTime.Now;
             var lower = new DateTime(now.Year - 1, now.Month, 1);
@@ -112,17 +127,23 @@ namespace Repositories
             ).Select(x => new
             {
                 m = x.CompleteTime.GetValueOrDefault().Month,
-                y = x.CompleteTime.GetValueOrDefault().Year - year + 1,
+                y = x.CompleteTime.GetValueOrDefault().Year,
                 t = x.TotalPrice,
             });
-            var buckets = new float[13];
-            //Group the transactions by month/year
+            var result = new Dictionary<DateOnly, float>();
             foreach (var t in trans)
             {
-                int index = t.m + (t.y == 1 ? 12 : 0) - month;
-                buckets[index % 13] += t.t;
+                var constructed = new DateOnly(t.y, t.m, 1);
+                if (result.ContainsKey(constructed))
+                {
+                    result[constructed] += t.t;
+                }
+                else
+                {
+                    result.Add(constructed, t.t);
+                }
             }
-            return buckets;
+            return result;
         }
         public Dictionary<string, float> OrderByCategory()
         {

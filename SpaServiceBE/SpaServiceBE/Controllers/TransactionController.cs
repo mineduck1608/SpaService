@@ -272,11 +272,16 @@ namespace API.Controllers
             }
         }
         [HttpGet("OrderByMonth")]
-        public ActionResult<IEnumerable<float>> OrderByMonth()
+        public IActionResult OrderByMonth()
         {
             try
             {
-                var buckets = _service.OrderByMonths();
+                var buckets = _service.OrderByMonths().Select(x => new
+                {
+                    date = x.Key,
+                    revenue = x.Value,
+                })
+                    .OrderByDescending(x => x.date);
                 return Ok(buckets);
             }
             catch (Exception ex)

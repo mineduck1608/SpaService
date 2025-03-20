@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Repositories.DTO;
 using Repositories.Entities;
 
 namespace Services.IServices
@@ -13,5 +14,6 @@ namespace Services.IServices
         Task<bool> Delete(string serviceId);
         Task<SpaService> GetByName(string serviceName);
         Task<TimeOnly> GetTimeByServiceId(string serviceId);
+        Dictionary<string, ServiceStatistic> GetServiceStatistic(DateTime lower);
     }
 }

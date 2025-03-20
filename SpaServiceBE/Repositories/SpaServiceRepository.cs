@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
 using Repositories.Context;
+using Repositories.DTO;
 
 namespace Repositories
 {
@@ -38,7 +39,7 @@ namespace Repositories
             return await _context.SpaServices
                 .Where(s => !s.IsDeleted) // not include service has been deleted
                 .Include(s => s.Category)    // Bao gồm thông tin Category liên quan
-                //.Include(s => s.Requests)    // Bao gồm các Request liên quan đến dịch vụ
+                                             //.Include(s => s.Requests)    // Bao gồm các Request liên quan đến dịch vụ
                 .ToListAsync();
         }
 
@@ -98,6 +99,78 @@ namespace Repositories
             {
                 return false;
             }
+        }
+        public Dictionary<string, ServiceStatistic> GetServicesStats(DateTime lower)
+        {
+            //Deal with requests and appointment statistic
+            var requestRaw = _context.Requests
+                .Include(x => x.Appointments)
+                .ThenInclude(x => x.Feedbacks)
+                .Where(x =>
+                x.StartTime >= lower
+                && (x.Appointments.Count == 0
+                || x.Appointments.First().StartTime >= lower))
+                .Include(x => x.Customer)
+                .Select(x => new
+                {
+                    x.ServiceId,
+                    x.RequestId,
+                    appointment = x.Appointments.Count > 0 ? x.Appointments.First() : null,
+                    x.Customer.Gender,
+                })
+                .ToHashSet();
+            //Deal with revenue
+            var money = _context.ServiceTransactions
+                .Include(x => x.Transaction)
+                .Where(x =>
+                x.Transaction.Status
+                && x.Transaction.CompleteTime >= lower)
+                .Include(x => x.Request)
+                .Select(x => new
+                {
+                    x.Request.RequestId,
+                    x.Request.ServiceId,
+                    x.Transaction.TotalPrice
+                })
+                .ToHashSet();
+            var services = _context.SpaServices
+                .Select(x => new
+                {
+                    x.ServiceId,
+                });
+            var map = new Dictionary<string, ServiceStatistic>();
+            foreach (var service in services)
+            {
+                if (!map.ContainsKey(service.ServiceId))
+                {
+                    map.Add(service.ServiceId, new());
+                }
+                var requestOfThisService = requestRaw
+                    .Where(x => x.ServiceId == service.ServiceId);
+                var entry = map[service.ServiceId];
+                foreach(var u in requestOfThisService)
+                {
+                    entry.RequestCount++;
+                    var moneyOfRequest = money.FirstOrDefault(x => x.RequestId == u.RequestId);
+                    if (u.appointment != null)
+                    {
+                        entry.AppointmentCount++;
+                        if (u.appointment.Feedbacks.Count > 0)
+                        {
+                            foreach (var r in u.appointment.Feedbacks)
+                            {
+                                entry.Rating[r.Rating - 1]++;
+                            }
+                        }
+                        
+                    }
+                    entry.Revenue += moneyOfRequest?.TotalPrice ?? 0;
+                    var gender = u.Gender == "Female" ? 0 : 1;
+                    entry.GenderCount[gender]++;
+                }
+                requestRaw.RemoveWhere(x => x.ServiceId == service.ServiceId);
+            }
+            return map;
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Services
             return await _transactionRepository.GetTotalRevenue();
         }
 
-        public IEnumerable<float> OrderByMonths()
+        public Dictionary<DateOnly, float> OrderByMonths()
         {
             return _transactionRepository.OrderByMonth();
         }

@@ -199,9 +199,6 @@ namespace API.Controllers
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteSpaService(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                return BadRequest("ServiceId is required.");
-
             try
             {
                 var isDeleted = await _service.Delete(id);
@@ -220,13 +217,27 @@ namespace API.Controllers
         [HttpGet("ServiceOfCategory")]
         public async Task<ActionResult> GetServicesOfCategory(string categoryId)
         {
-            if (string.IsNullOrEmpty(categoryId))
-            {
-                return BadRequest("Category Id is required.");
-            }
             try
             {
                 return Ok((await _service.GetAll()).Where(x => x.CategoryId == categoryId));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("GetStatistic")]
+        public IActionResult GetServiceStatistic(DateTime? lower)
+        {
+            try
+            {
+                var x = _service.GetServiceStatistic(lower ?? DateTime.Now.AddMonths(-3));
+                var result = x.Select(x => new
+                {
+                    serviceId = x.Key,
+                    statistic = x.Value,
+                });
+                return Ok(result);
             }
             catch (Exception ex)
             {

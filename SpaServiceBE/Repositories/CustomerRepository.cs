@@ -119,5 +119,15 @@ namespace Repositories
                 .Where(x => x.Account.CreatedAt >= lower);
             return (total, filtered.Count());
         }
+        public (int total, int newCustomer) NumOfCustomers(DateTime lower)
+        {
+            var now = DateTime.Now;
+            var customers = _context.Customers;
+            var total = customers.Count();
+            var filtered = customers
+                .Include(x => x.Account)
+                .Where(x => x.Account.CreatedAt >= lower);
+            return (total, filtered.Count());
+        }
     }
 }
