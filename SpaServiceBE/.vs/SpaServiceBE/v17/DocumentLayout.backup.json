@@ -244,8 +244,13 @@
               "Title": "AccountRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AccountRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\AccountRepository.cs",
+<<<<<<< HEAD
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AccountRepository.cs",
               "RelativeToolTip": "Repositories\\AccountRepository.cs",
+=======
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\AccountRepository.cs*",
+              "RelativeToolTip": "Repositories\\AccountRepository.cs*",
+>>>>>>> cd021b2784dbd2c8e3c2389f981c85397074eb42
               "ViewState": "AgIAAEQAAAAAAAAAAAAUwGAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-18T03:33:33.682Z",

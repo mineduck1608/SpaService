@@ -28,8 +28,11 @@
     <ProjectReference Include="..\SpaServiceBE\SpaServiceBE.csproj" />
   </ItemGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="ServicesTests\" />
   </ItemGroup>
 
+=======
+>>>>>>> cd021b2784dbd2c8e3c2389f981c85397074eb42
 </Project>
