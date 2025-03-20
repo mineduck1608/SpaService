@@ -14,6 +14,7 @@ namespace Repositories
         private readonly SpaserviceContext _context;
 
 
+
         public AccountRepository(SpaserviceContext context)
         {
             _context = context;
