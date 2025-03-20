@@ -49,6 +49,7 @@ export type SideBarItem = {
 export const sideData = {
   navMain: userRole === 'Admin' ? adminNavMain : userRole === 'Manager' ? managerNavMain : employeeNavMain,
   workspaces: [
+    { title: 'Check-In', url: getFullPath('/check-in'), icon: CalendarCheck2 },
     {
       title: 'Appointments',
       icon: ClipboardList,
@@ -60,7 +61,7 @@ export const sideData = {
     { title: 'Application', url: getFullPath('/application'), icon:  PaperclipIcon },
     { title: 'Commission', url: getFullPath('/commissions'), icon:  ArrowLeftRight },
     { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
-    { title: 'Check-In', url: getFullPath('/check-in'), icon: CalendarCheck2 },
+    
     // { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
     // {
     //   title: 'Requests',
