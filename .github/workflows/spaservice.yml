@@ -13,7 +13,7 @@ env:
   AZURE_APIM_SERVICENAME: SpaServiceBEapi
   AZURE_APIM_API_ID: SpaServiceBE
   AZURE_APIM_APPSERVICEURL: https://spaservice.azurewebsites.net
-  SWASHBUCKLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 6.5.0  # Cập nhật bản mới nhất hỗ trợ .NET 8
+  SWASHBUCKLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 6.5.0  # Bản mới nhất hỗ trợ .NET 8
   API_IMPORT_SPECIFICATION_PATH: SpaServiceBE/publish/swagger.json
   API_IMPORT_DLL: SpaServiceBE/bin/Release/net8.0/SpaServiceBE.dll
   API_IMPORT_VERSION: v1
@@ -47,17 +47,14 @@ jobs:
       - name: Debug check publish folder
         run: Get-ChildItem -Path ${{ env.AZURE_WEBAPP_PACKAGE_PATH }} -Recurse
 
-      - name: Install & Update Swashbuckle CLI
+      - name: Install Swashbuckle CLI
         run: |
           dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCKLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
-          dotnet tool update --global Swashbuckle.AspNetCore.Cli
 
       - name: Generate Open API Specification Document
         run: |
-          $swaggerPath = "${{ env.API_IMPORT_SPECIFICATION_PATH }}"
-          $dllPath = "${{ env.API_IMPORT_DLL }}"
-          $version = "${{ env.API_IMPORT_VERSION }}"
-          dotnet exec --runtime win-x64 --fx-version 8.0 $env:USERPROFILE\.dotnet\tools\swagger tofile --output "$swaggerPath" "$dllPath" "$version"
+          swagger tofile --output "${{ env.API_IMPORT_SPECIFICATION_PATH }}" "${{ env.API_IMPORT_DLL }}" "${{ env.API_IMPORT_VERSION }}"
+        shell: cmd
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
