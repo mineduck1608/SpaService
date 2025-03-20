@@ -6338,6 +6338,7 @@
       "Microsoft.CodeAnalysis.Analyzers >= 3.3.4",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.1",
       "Microsoft.EntityFrameworkCore.Relational >= 9.0.3",
+      "Microsoft.IdentityModel.Protocols >= 7.0.3",
       "Microsoft.IdentityModel.Protocols.OpenIdConnect >= 7.0.3",
       "Microsoft.IdentityModel.Tokens >= 8.6.1",
       "Services >= 1.0.0",
@@ -6421,6 +6422,10 @@
           "Microsoft.EntityFrameworkCore.Relational": {
             "target": "Package",
             "version": "[9.0.3, )"
+          },
+          "Microsoft.IdentityModel.Protocols": {
+            "target": "Package",
+            "version": "[7.0.3, )"
           },
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": {
             "target": "Package",
