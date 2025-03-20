@@ -20,6 +20,7 @@ import { getAllServiceCategories } from '../servicecategories/servicecategory.ut
 import { RadialChartComp } from './radial-chart.tsx'
 import { AreaChart2Comp } from './area-chart2.tsx'
 import { BarChartComp } from './bar-chart.tsx'
+import { Link } from 'react-router-dom'
 
 export const Dashboard = () => {
   const [lineChartData, setLineChartData] = useState<number[]>([])
@@ -115,10 +116,13 @@ export const Dashboard = () => {
   }, [])
   return (
     <div className='flex flex-1 flex-col gap-10 p-4'>
+      <Link to='report' className='bg-slate-100 p-1 no-underline'>
+        Report
+      </Link>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
         <RadarChartComp array={serviceCatData} />
         <LineChartComp array={lineChartData} />
-        <RadarChartComp array={productCatData} isProduct/>
+        <RadarChartComp array={productCatData} isProduct />
       </div>
       <div>
         <AreaChart2Comp data={areaChart} />
