@@ -36,6 +36,7 @@ export default function CheckInPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [checkInTime, setCheckInTime] = useState<string | null>(null)
+  const [checkOutTime, setCheckOutTime] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,13 +71,23 @@ export default function CheckInPage() {
     setCheckInTime(time)
   }
 
+  const handleCheckOutSuccess = (time: string) => {
+    setCheckOutTime(time)
+  }
+
   if (loading) return <div className='ml-5'>Loading...</div>
   if (error) return <div className='ml-5'>{error}</div>
 
   return (
     <div className='h-[96%] items-center justify-center'>
       <h2 className='container mx-auto my-4 ml-11'>Check-In Records</h2>
-      <CheckInTable checkInTime={checkInTime} onCheckInSuccess={handleCheckInSuccess} />
+      <CheckInTable 
+      checkInTime={checkInTime} 
+      checkOutTime={checkOutTime}
+      onCheckInSuccess={handleCheckInSuccess} 
+      onCheckOutSuccess={handleCheckOutSuccess}
+      />
+      
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>
