@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -25,19 +25,18 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        working-directory: SpaServiceBE/
 
       - name: dotnet publish
-        run: dotnet publish SpaServiceBE/SpaServiceBE/SpaServiceBE.csproj -c Release -o output
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: output
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
@@ -55,9 +54,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DE609CC1B4014D2F941849A0D23631CA }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3BD468077F0D4EC0B6EA2D3FAF9018F4 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4CD7739206FC4F8AAA0CADC30E50911D }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8DA52E5AC79E4443AF8BCED4972C4215 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D8E47C446F9F45018F3E32E3D555A189 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D5C729B1244540A080D3A9C6B1D5AACA }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
