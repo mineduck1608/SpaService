@@ -12,7 +12,7 @@ interface DetailTransactionModalProps {
 export default function DetailTransactionModal({ isOpen, onClose, transaction }: DetailTransactionModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='px-10'>
+      <DialogContent className='px-10 font-montserrat'>
         <DialogTitle className='flex justify-center'>Transaction Detail</DialogTitle>
         <TransactionDetailTable
           transactionId={transaction.transactionId}

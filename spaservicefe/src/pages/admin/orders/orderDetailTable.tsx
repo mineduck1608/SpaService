@@ -58,10 +58,9 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
 
   return (
     <Table>
-      <TableCaption>Order Details</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>No</TableHead> {/* New column for No */}
+          <TableHead>No</TableHead>
           <TableHead>Product</TableHead>
           <TableHead>Quantity</TableHead>
           <TableHead>Price</TableHead>
