@@ -17,6 +17,10 @@ using SpaServiceBE;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Load connection string
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine($"Loaded Connection String: {connectionString}");
 // Add SpaServiceContext to DI
 builder.Services.AddDbContext<SpaserviceContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
