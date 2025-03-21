@@ -20,7 +20,7 @@ using Google;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings:DefaultConnection")
-                    ?? Environment.GetEnvironmentVariable("APPSETTING_ConnectionStrings:DefaultConnection")
+                    ?? Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING")
                     ?? Environment.GetEnvironmentVariable("SQLAZURECONNSTR_CONNECTIONSTRING")
                     ?? builder.Configuration["ConnectionStrings:DefaultConnection"];
 
