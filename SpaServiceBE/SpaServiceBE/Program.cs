@@ -181,11 +181,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["AccessToken:Issuer"],  // JWT Issuer from configuration
-            ValidAudience = builder.Configuration["AccessToken:Audience"], // JWT Audience from configuration
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AccessToken:Key"])) // JWT signing key
+            ValidIssuer = Environment.GetEnvironmentVariable("AccessToken__Issuer")
+                          ?? builder.Configuration["AccessToken:Issuer"],
+            ValidAudience = Environment.GetEnvironmentVariable("AccessToken__Audience")
+                            ?? builder.Configuration["AccessToken:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                Environment.GetEnvironmentVariable("AccessToken__Key")
+                ?? builder.Configuration["AccessToken:Key"]))
         };
     });
+
 
 
 
