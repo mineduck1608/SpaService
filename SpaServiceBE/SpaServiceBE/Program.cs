@@ -19,8 +19,8 @@ using Google;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConnection")
-                       ?? Environment.GetEnvironmentVariable("SQLAZURECONNSTR_AZURE_SQL_CONNECTIONSTRING");
+var connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_AZURE_SQL_CONNECTIONSTRING")
+                       ?? builder.Configuration["ConnectionStrings:DefaultConnection"];
 
 Console.WriteLine($"ConnectionString: {connectionString}");
 
@@ -28,6 +28,7 @@ if (string.IsNullOrEmpty(connectionString))
 {
     throw new Exception("Database ConnectionString is missing!");
 }
+
 
 builder.Services.AddDbContext<SpaserviceContext>(options =>
     options.UseSqlServer(connectionString));
