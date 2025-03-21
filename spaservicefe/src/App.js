@@ -69,7 +69,7 @@ import EmployeeCalendarApp from './pages/admin/employee/appointments/page.tsx'
 import ApplicationList from './pages/applicationList/applicationList.tsx'
 import EmployeeCommissionPage from './pages/admin/employee/commission/commissionPage.tsx'
 import CheckInPage from './pages/admin/checkIn/page.tsx'
-
+import ReportPage from './pages/admin/report/reportPage.tsx'
 import CustomerTransPage from './pages/customerTransactionPage/customerTransPage.tsx'
 function Layout({ children }) {
   return (
@@ -89,7 +89,6 @@ function App() {
   }, [])
   return (
     <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
-      <ToastContainer containerId={'toast'} />
       <BrowserRouter>
         <Routes>
           <Route
@@ -354,6 +353,7 @@ function App() {
             {/* Cosmetics */}
             <Route path='cosmetic-categories' element={<CosmeticCategoriesPage />} />
             <Route path='cosmetic-product' element={<AdminCosmeticPage />} />
+            <Route path='report' element={<ReportPage />} />
           </Route>
 
           <Route
@@ -410,9 +410,9 @@ function App() {
             }
           >
             {/* <Route index element={<Dashboard />} /> */}
-           <Route index element={<CheckInPage />} />
-           
-            <Route path='application' element={ <EmployeeApplicationPage />} />
+            <Route index element={<CheckInPage />} />
+
+            <Route path='application' element={<EmployeeApplicationPage />} />
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<EmployeeCalendarApp />} />
             <Route path='appointments-manage' element={<EmployeeAppointmentManagePage />} />
@@ -446,6 +446,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer containerId={'toast'} />
     </GoogleOAuthProvider>
   )
 }
