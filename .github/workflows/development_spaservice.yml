@@ -9,6 +9,9 @@ on:
       - development
   workflow_dispatch:
 
+env:
+  CONNECTION_STRING: ${{ secrets.AZURE_SQL_CONNECTIONSTRING }}
+
 jobs:
   build:
     runs-on: windows-latest
