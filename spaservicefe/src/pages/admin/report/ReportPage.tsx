@@ -69,17 +69,17 @@ export default function ReportPage() {
         </div>
         <div className='flex justify-between gap-5'>
           <p>
-            Total revenue: <span>{formatNumber(revenue.total)}</span>
+            Total revenue: <span>{formatNumber(revenue.total)} VND</span>
+          </p>
+          <p className='ml-12'>
+            Revenue from spa services: <span>{formatNumber(revenue.service)} VND</span>
           </p>
           <p>
-            Revenue from spa services: <span>{formatNumber(revenue.service)}</span>
-          </p>
-          <p>
-            Revenue from products: <span>{formatNumber(revenue.product)}</span>
+            Revenue from products: <span>{formatNumber(revenue.product)} VND</span>
           </p>
         </div>
         <div className='flex w-1/2 justify-between gap-5'>
-          <p>
+          <p >
             New customers: <span>{formatDate(lower, 'dd/MM/yyyy')}</span>
           </p>
           <p>

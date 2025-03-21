@@ -1,4 +1,4 @@
-export const apiUrl = "https://localhost:7205/api"
+export const apiUrl = process.env.REACT_APP_API_URL
 export const getToken = () => {
   return sessionStorage.getItem('token')
 }

@@ -69,7 +69,7 @@ import EmployeeCalendarApp from './pages/admin/employee/appointments/page.tsx'
 import ApplicationList from './pages/applicationList/applicationList.tsx'
 import EmployeeCommissionPage from './pages/admin/employee/commission/commissionPage.tsx'
 import CheckInPage from './pages/admin/checkIn/page.tsx'
-import ReportPage from './pages/admin/report/reportPage.tsx'
+import ReportPage from './pages/admin/report/ReportPage.tsx'
 import CustomerTransPage from './pages/customerTransactionPage/customerTransPage.tsx'
 function Layout({ children }) {
   return (
