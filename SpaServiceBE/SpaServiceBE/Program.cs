@@ -17,10 +17,10 @@ using SpaServiceBE;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Configuration.AddEnvironmentVariables();
 // Add SpaServiceContext to DI
 builder.Services.AddDbContext<SpaserviceContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                                                        options.UseSqlServer(Environment.GetEnvironmentVariable("SQLAZURECONNSTR_DefaultConnection")));
 
 // Add repositories to DI
 builder.Services.AddScoped<AccountRepository>();
@@ -178,7 +178,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 
-builder.Configuration.AddEnvironmentVariables();
+
 //Connect VNPay API
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 
