@@ -185,7 +185,7 @@ namespace API.Controllers
                 if (!isUpdated)
                     return NotFound(new { msg = $"Spa service with ID = {id} not found." });
 
-                return Ok(new { msg = "Update spa service successfully."});
+                return Ok(new { msg = "Update spa service successfully." });
             }
             catch (Exception ex)
             {
@@ -199,9 +199,6 @@ namespace API.Controllers
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteSpaService(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                return BadRequest("ServiceId is required.");
-
             try
             {
                 var isDeleted = await _service.Delete(id);
@@ -216,17 +213,34 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
- 
+
         [HttpGet("ServiceOfCategory")]
         public async Task<ActionResult> GetServicesOfCategory(string categoryId)
         {
-            if (string.IsNullOrEmpty(categoryId))
-            {
-                return BadRequest("Category Id is required.");
-            }
             try
             {
                 return Ok((await _service.GetAll()).Where(x => x.CategoryId == categoryId));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("GetStatistic")]
+        public async Task<IActionResult> GetServiceStatisticAsync(DateTime? lower)
+        {
+            try
+            {
+                var all = (await _service.GetEverything()).ToDictionary(x => x.ServiceId);
+                var x = _service.GetServiceStatistic(lower ?? DateTime.Now.AddMonths(-3));
+                var result = x.Select(x => new
+                {
+                    serviceName = all[x.Key].ServiceName,
+                    serviceCategory = all[x.Key].Category.CategoryName,
+                    statistic = x.Value,
+                })
+                    .OrderBy(x => x.serviceCategory);
+                return Ok(result);
             }
             catch (Exception ex)
             {

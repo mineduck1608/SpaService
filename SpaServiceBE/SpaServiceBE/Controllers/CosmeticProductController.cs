@@ -20,7 +20,7 @@ namespace SpaServiceBE.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<CosmeticProduct>>> GetAllCosmeticProduct()
+        public async Task<ActionResult<IEnumerable<CosmeticProduct>>> GetAllCosmeticProduct(bool? everything)
         {
             return Ok(await _service.GetAllCosmeticProduct());
         }
@@ -60,7 +60,7 @@ namespace SpaServiceBE.Controllers
                 float price = jsonElement.GetProperty("price").GetSingle();
                 int quantity = jsonElement.GetProperty("quantity").GetInt32();
                 string description = jsonElement.GetProperty("description").GetString();
-               
+
                 string? image = jsonElement.GetProperty("image").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
                 bool isSelling = true;
@@ -69,13 +69,13 @@ namespace SpaServiceBE.Controllers
                 if (quantity == 0)
                 {
                     status = false;
-                    
+
                 }
                 var item = new CosmeticProduct
                 {
                     ProductId = Guid.NewGuid().ToString("N"),
                     ProductName = productName,
-                    Price = price ,
+                    Price = price,
                     Quantity = quantity,
                     Description = description,
                     Status = status,
@@ -115,7 +115,7 @@ namespace SpaServiceBE.Controllers
                 if (string.IsNullOrEmpty(productName) || price <= 0 ||
                    string.IsNullOrEmpty(description) ||
                    string.IsNullOrEmpty(categoryId))
-         
+
                 {
                     return BadRequest(new { msg = "Spa service details are incomplete or invalid." });
                 }
@@ -124,7 +124,7 @@ namespace SpaServiceBE.Controllers
                 if (product == null)
                     return BadRequest(new { msg = "Product ID mismatch." });
                 else
-                product.ProductName = productName;
+                    product.ProductName = productName;
                 product.Price = price;
                 product.Quantity = quantity;
                 product.Description = description;
@@ -158,6 +158,27 @@ namespace SpaServiceBE.Controllers
         {
             var total = await _service.GetTotalCosmeticProductStock();
             return Ok($"Total Cosmetic Stock:{total}");
+        }
+        [HttpGet("GetStatistic")]
+        public async Task<IActionResult> GetStatisticAsync(DateTime? lower)
+        {
+            try
+            {
+                var all = (await _service.GetEverything()).ToDictionary(x => x.ProductId);
+                var x = _service.GetStatistic(lower ?? DateTime.Now.AddMonths(-3));
+                var result = x.Select(x => new
+                {
+                    productName = all[x.Key].ProductName,
+                    productCategory = all[x.Key].Category.CategoryName,
+                    statistic = x.Value,
+                })
+                    .OrderBy(x => x.productCategory);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

@@ -39,16 +39,16 @@ namespace Services
         {
             return await _transactionRepository.Delete(transactionId);
         }
-        public async Task<float> GetTotalRevenue()
+        public async Task<(float, float)> GetTotalRevenue(DateTime lower)
         {
-            return await _transactionRepository.GetTotalRevenue();
+            return await _transactionRepository.GetTotalRevenue(lower);
         }
 
-        public IEnumerable<float> OrderByMonths()
+        public Dictionary<DateOnly, float> OrderByMonths()
         {
             return _transactionRepository.OrderByMonth();
         }
-        public Dictionary<string, float> OrderByServiceCategory() => _transactionRepository.OrderByCategory();
+        public Dictionary<string, float> OrderByServiceCategory(DateTime lower) => _transactionRepository.OrderByCategory(lower);
 
         public Dictionary<DateOnly, (float service, float product)> OrderByDay() => _transactionRepository.OrderByDay();
 

@@ -1,4 +1,5 @@
 ﻿using Repositories;
+using Repositories.DTO;
 using Repositories.Entities;
 using Services.IServices;
 using System;
@@ -61,6 +62,16 @@ namespace Services
         public async Task<int> GetTotalCosmeticProductStock()
         {
             return await _repository.GetTotalCosmeticProductStock();
+        }
+
+        public Dictionary<string, ProductStatistic> GetStatistic(DateTime lower)
+        {
+            return _repository.GetStatistic(lower);
+        }
+
+        public async Task<IEnumerable<CosmeticProduct>> GetEverything()
+        {
+            return await _repository.GetEverything();
         }
     }
 }

@@ -124,5 +124,15 @@ namespace Repositories
 
             return employees;
         }
+        public (int total, int newCustomer) NumOfEmployee(DateTime lower)
+        {
+            var now = DateTime.Now;
+            var customers = _context.Employees;
+            var total = customers.Count();
+            var filtered = customers
+                .Include(x => x.Account)
+                .Where(x => x.Account.CreatedAt >= lower);
+            return (total, filtered.Count());
+        }
     }
 }

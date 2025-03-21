@@ -21,9 +21,10 @@ const checkInSchema = z.object({
 
 interface CheckInModalProps {
   onCheckInSuccess: (time: string) => void
+  onCheckOutSuccess: (time: string) => void
 }
 
-export default function CheckInModal({ onCheckInSuccess }: CheckInModalProps) {
+export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: CheckInModalProps) {
   const [action, setAction] = useState<string>('checkin')
   const form = useForm<z.infer<typeof checkInSchema>>({
     resolver: zodResolver(checkInSchema),
@@ -58,9 +59,13 @@ export default function CheckInModal({ onCheckInSuccess }: CheckInModalProps) {
     const { accountId } = data
     const latitude = 10.88931964301905
     const longtitude = 106.79658776930619
+
     await checkInCheckOut(accountId, action, latitude, longtitude)
+
     if (action === 'checkin') {
       onCheckInSuccess(data.checkInTime)
+    } else if (action === 'checkout') {
+      onCheckOutSuccess(data.checkInTime)
     }
   }
 

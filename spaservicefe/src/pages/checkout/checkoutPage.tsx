@@ -13,11 +13,11 @@ import {
 } from './checkoutPage.util.ts'
 import { Employee, Membership, Promotion } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { ServiceCheckoutContext, SpaRequestModel } from './checkoutContext.tsx'
 import MainForm from './mainForm.tsx'
 import dayjs from 'dayjs'
-import { getCookie } from '../checkoutForCosmetic/checkoutPage.util.ts'
+import { SuccessModal } from './successModal.tsx'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
@@ -36,6 +36,7 @@ export default function CheckoutPage() {
   })
   const [checked, setChecked] = useState(false)
   const [membership, setMembership] = useState<Membership>()
+  const [modalOpen, setModalOpen] = useState(false)
   const { TextArea } = Input
   const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true
   if (!booked.serviceId) {
@@ -98,8 +99,8 @@ export default function CheckoutPage() {
       var r = await onSubmitBase('Cash')
       if (r) {
         toast.success('Request created successfully', { containerId: 'toast' })
-        window.location.assign('/requests')
-        return;
+        setModalOpen(true)
+        return
       }
     } catch (e) {
       toast.error(e as string, { containerId: 'toast' })
@@ -156,6 +157,15 @@ export default function CheckoutPage() {
   }
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
+      <SuccessModal
+        isOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false)
+        }}
+        onConfirm={() => {
+          setModalOpen(false)
+        }}
+      />
       {/* Hình ảnh nền */}
       <ServiceCheckoutContext.Provider value={{ req, setReq, emp }}>
         <div

@@ -25,15 +25,16 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
+        working-directory: SpaServiceBE/
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish SpaServiceBE/SpaServiceBE/SpaServiceBE.csproj -c Release -o output
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: output
 
   deploy:
     runs-on: windows-latest
@@ -43,7 +44,7 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+    
 
     steps:
       - name: Download artifact from build job
