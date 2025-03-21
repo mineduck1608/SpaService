@@ -14,13 +14,24 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using SpaServiceBE;
+using Google;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddEnvironmentVariables();
 // Add SpaServiceContext to DI
-builder.Services.AddDbContext<SpaserviceContext>(options =>
-                                                        options.UseSqlServer(Environment.GetEnvironmentVariable("SQLAZURECONNSTR_DefaultConnection")));
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<SpaserviceContext>(options =>
+                                                        options.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionStrings:DefaultConnection")));
+    builder.Services.AddDistributedMemoryCache();
+}
+else
+{
+    builder.Services.AddDbContext<SpaserviceContext>(options =>
+    options.UseSqlServer(Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING")));
+}
+
 
 // Add repositories to DI
 builder.Services.AddScoped<AccountRepository>();
