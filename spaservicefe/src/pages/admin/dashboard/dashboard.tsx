@@ -23,7 +23,7 @@ import { BarChartComp } from './bar-chart.tsx'
 import { Link } from 'react-router-dom'
 
 export const Dashboard = () => {
-  const [lineChartData, setLineChartData] = useState<number[]>([])
+  const [yearRevenue, setYearRevenue] = useState<{ date: string, revenue: number }[]>([])
   const [serviceCatData, setServiceCatData] = useState<CategoryRevenue[]>([])
   const [productCatData, setProductCatData] = useState<CategoryRevenue[]>([])
   const [radialData, setRadialData] = useState({
@@ -39,8 +39,8 @@ export const Dashboard = () => {
       if ((s as { msg: string }).msg) {
         return
       }
-      setLineChartData(s as number[])
-    } catch (e) {}
+      setYearRevenue(s as { date: string, revenue: number }[])
+    } catch (e) { }
   }
   async function findRevenueByServiceCat() {
     try {
@@ -52,7 +52,7 @@ export const Dashboard = () => {
       var y = s as CategoryRevenue[]
       y.forEach((v) => (v.category = cat.find((x) => x.categoryId === v.category)?.categoryName ?? ''))
       setServiceCatData(y)
-    } catch (e) {}
+    } catch (e) { }
   }
   async function findRevenueByCosmeticCat() {
     try {
@@ -61,7 +61,7 @@ export const Dashboard = () => {
         return
       }
       setProductCatData(s as CategoryRevenue[])
-    } catch (e) {}
+    } catch (e) { }
   }
   async function findCustomerNumber() {
     try {
@@ -70,7 +70,7 @@ export const Dashboard = () => {
         return
       }
       setRadialData(s as { total: number; newCustomers: number })
-    } catch (e) {}
+    } catch (e) { }
   }
   async function findFeedbacks() {
     try {
@@ -79,7 +79,7 @@ export const Dashboard = () => {
         return
       }
       setPieData(s as { rating: number; count: number }[])
-    } catch (e) {}
+    } catch (e) { }
   }
   async function findRevenueByDays() {
     try {
@@ -94,7 +94,7 @@ export const Dashboard = () => {
           product: number
         }[]
       )
-    } catch (e) {}
+    } catch (e) { }
   }
   async function findGenderData() {
     try {
@@ -103,7 +103,7 @@ export const Dashboard = () => {
         return
       }
       setBarData(s as GenderData[])
-    } catch (e) {}
+    } catch (e) { }
   }
   useEffect(() => {
     findYearRevenues()
@@ -121,7 +121,7 @@ export const Dashboard = () => {
       </Link>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
         <RadarChartComp array={serviceCatData} />
-        <LineChartComp array={lineChartData} />
+        <LineChartComp array={yearRevenue} />
         <RadarChartComp array={productCatData} isProduct />
       </div>
       <div>

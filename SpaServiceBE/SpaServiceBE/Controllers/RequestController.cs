@@ -272,7 +272,7 @@ namespace API.Controllers
         }
 
         [HttpPut("AssignRequest/{id}")]
-        public async Task<ActionResult> AssignRequest(string i d, [FromBody] dynamic request)
+        public async Task<ActionResult> AssignRequest(string id, [FromBody] dynamic request)
         {
             try
             {

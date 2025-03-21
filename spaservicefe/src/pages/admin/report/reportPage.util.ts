@@ -1,10 +1,9 @@
 import { apiUrl } from '../../../types/constants'
 import { ProductStat, ServiceStat } from '@/types/statistic'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 
-export async function getRevenues() {
+export async function getRevenues(lower: Dayjs, upper: Dayjs) {
   try {
-    var lower = dayjs().add(-3, 'M').set('date', 1)
     var total = await fetch(`${apiUrl}/transactions/GetTotalRevenue?lower=${lower}`)
     var s = (await total.json()) as { service: number; product: number; total: number }
     return s

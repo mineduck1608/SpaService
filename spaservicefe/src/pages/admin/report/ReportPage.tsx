@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import { getProductStat, getRevenues, getServiceStat } from './reportPage.util'
 import { ProductStat, ServiceStat } from '@/types/statistic'
-import { formatNumber } from '../../../pages/servicesPage/servicesPage.util'
+import { formatNumber } from '../../servicesPage/servicesPage.util'
 import ServiceTable from './serviceTable'
 import ProductTable from './productTable'
 import { Margin, usePDF } from 'react-to-pdf'
@@ -23,7 +23,6 @@ export default function ReportPage() {
     page: {
       margin: Margin.NONE
     },
-    method: 'open',
     overrides: {
       pdf: {
         compress: true

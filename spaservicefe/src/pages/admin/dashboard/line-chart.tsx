@@ -6,8 +6,8 @@ import { lineChartData, lineChartConfig } from '../../../components/chart/chart.
 import { array } from 'zod'
 import { lineChartXAxis } from './dashboard.util'
 
-export function LineChartComp(params: { array: number[] }) {
-  const data = lineChartXAxis(params.array)
+export function LineChartComp(params: { array: { date: string, revenue: number }[] }) {
+  const data = params.array
   return (
     <Card className='w-full'>
       <CardHeader>
@@ -24,9 +24,9 @@ export function LineChartComp(params: { array: number[] }) {
             }}
             className='p-1'
           >
-            <XAxis dataKey='month' />
+            <XAxis dataKey='date' />
             <YAxis dataKey={'revenue'} tickLine />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent unit='đ'/>} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent unit='đ' />} />
             <Line
               dataKey='revenue'
               type='linear'

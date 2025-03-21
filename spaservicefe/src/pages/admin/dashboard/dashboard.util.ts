@@ -1,6 +1,6 @@
 import { apiUrl } from '../../../types/constants'
 
-export async function fetchTransactionsOrderByMonth(): Promise<number[] | { msg: string }> {
+export async function fetchTransactionsOrderByMonth(): Promise<{ date: string, revenue: number }[] | { msg: string }> {
   try {
     const response = await fetch(`${apiUrl}/transactions/OrderByMonth`)
 
@@ -10,7 +10,7 @@ export async function fetchTransactionsOrderByMonth(): Promise<number[] | { msg:
       return errorData
     }
 
-    const data: number[] = await response.json()
+    const data: { date: string, revenue: number }[] = await response.json()
 
     // Check if the response is a number array of length 12
     if (Array.isArray(data)) {
