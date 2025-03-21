@@ -66,7 +66,7 @@ namespace Services
         /// <returns></returns>
         public async Task<(bool roomState, int employeeState, bool conflict)> CheckResourceAvailable(Request q)
         {
-            var (roomId, empId, conflict) = await _requestRepository.FindUnavailableRoomAndEmp(q);
+            var (roomId, empId, conflict) = await _requestRepository.FindUnavailableRoomAndEmp(q, true);
             var service = await _spaServiceRepository.GetById(q.ServiceId);
             var category = await _catRepository.GetById(service.CategoryId);
             var roomsOfCat = (await _roomRepository.GetRoomsOfCategory(category.CategoryId)).Select(x => x.RoomId).ToHashSet();
@@ -94,7 +94,7 @@ namespace Services
         public async Task<(string roomId, string employeeId)> PickRandomResource(Request q, bool chooseEmployee)
         {
             var rand = new Random();
-            var (roomId, empId, conflict) = await _requestRepository.FindUnavailableRoomAndEmp(q);
+            var (roomId, empId, conflict) = await _requestRepository.FindUnavailableRoomAndEmp(q, true);
             var service = await _spaServiceRepository.GetById(q.ServiceId);
             var category = await _catRepository.GetById(service.CategoryId);
             var roomsOfCat = (await _roomRepository.GetRoomsOfCategory(category.CategoryId)).Select(x => x.RoomId).ToHashSet();

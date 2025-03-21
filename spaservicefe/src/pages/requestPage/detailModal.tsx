@@ -18,9 +18,9 @@ interface ConfirmDeleteModalProps {
   onConfirm: () => void
   data: SpaRequest
 }
-function tableData(request: SpaRequest) {
+function tableData(request: any) {
   return [
-    { key: 'Service', value: request.service?.serviceName },
+    { key: 'Service', value: request.serviceName },
     { key: 'Start Time', value: new Date(request.startTime).toLocaleString() },
     {
       key: 'Request Status',
@@ -28,21 +28,21 @@ function tableData(request: SpaRequest) {
       color: new Map<string, string>([
         ['Processed', 'text-green-500'],
         ['Pending', 'text-gray-500'],
-        ['Cancelled', 'text-red-500']
+        ['Denied', 'text-red-500']
       ])
     },
-    { key: 'Requested Employee', value: request.employee?.fullName ?? 'Did not request' },
+    { key: 'Requested Employee', value: request.employeeName ?? 'Did not request' },
     { key: "Manager's Note", value: request.managerNote ?? 'None' },
     { key: 'Your Note', value: request.customerNote.length === 0 ? 'None' : request.customerNote },
     {
       key: 'Price',
       value: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
-        request?.serviceTransactions?.[0]?.transaction?.totalPrice ?? 0
+        request.totalPrice ?? 0
       )
     },
     {
       key: 'Transaction Status',
-      value: status(request?.serviceTransactions?.[0]?.transaction?.status ?? false),
+      value: status(request.transactionStatus ?? false),
       color: new Map<string, string>([
         ['Completed', 'text-green-500'],
         ['Not Completed', 'text-red-500']

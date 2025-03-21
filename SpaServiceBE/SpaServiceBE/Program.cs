@@ -22,9 +22,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_CONNECTIONSTRING")
                     ?? builder.Configuration["ConnectionStrings:DefaultConnectionStringDB"];
 
-Console.WriteLine($"ConnectionString: {connectionString}");
-
-
 if (string.IsNullOrEmpty(connectionString))
 {
     throw new Exception("Database ConnectionString is missing!");
@@ -32,7 +29,8 @@ if (string.IsNullOrEmpty(connectionString))
 
 
 builder.Services.AddDbContext<SpaserviceContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString), ServiceLifetime.Scoped);
+
 
 
 

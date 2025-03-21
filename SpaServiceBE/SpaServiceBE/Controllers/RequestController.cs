@@ -32,8 +32,10 @@ namespace API.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IRoomService _roomService;
         private readonly IFloorService _floorService;
+        private readonly IServiceTransactionService _serviceTransaction;
+        private readonly ITransactionService _transaction;
 
-        public RequestController(IRequestService service, ICustomerService customerService, IConfiguration configuration, ISpaServiceService paService, IAppointmentService appointment, IRequestService requestService, IEmployeeService employeeService, IRoomService roomService, IFloorService floorService)
+        public RequestController(IRequestService service, ICustomerService customerService, IConfiguration configuration, ISpaServiceService paService, IAppointmentService appointment, IRequestService requestService, IEmployeeService employeeService, IRoomService roomService, IFloorService floorService, IServiceTransactionService serviceTransaction, ITransactionService transaction)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
@@ -44,6 +46,9 @@ namespace API.Controllers
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             _roomService = roomService ?? throw new ArgumentNullException(nameof(roomService));
             _floorService = floorService ?? throw new ArgumentNullException(nameof(floorService));
+            _serviceTransaction = serviceTransaction ?? throw new ArgumentNullException(nameof(serviceTransaction));
+            _transaction = transaction ?? throw new ArgumentNullException(nameof(transaction));
+
         }
 
         // GET: api/requests/GetAll
@@ -83,24 +88,52 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [Authorize]
+
         [HttpGet("GetByAccId/{id}")]
-        public async Task<ActionResult<List<Request>>> GetRequestByAccId(string id)
+        public async Task<ActionResult> GetRequestByAccId(string id)
         {
             try
             {
-                var request = await _service.FilterByAccount(id);
+                var requests = await _service.FilterByAccount(id);
 
-                if (request == null)
-                    return NotFound($"Request with ID = {id} not found.");
+                if (requests == null || !requests.Any())
+                    return NotFound($"Requests with Account ID = {id} not found.");
 
-                return Ok(request);
+                var result = new List<object>();
+
+                foreach (var request in requests)
+                {
+                    var spaService = await _spaService.GetById(request.ServiceId);
+                    var employee = await _employeeService.GetEmployeeById(request.EmployeeId);
+                    var serviceTransaction = request.ServiceTransactions.FirstOrDefault(); // Lấy phần tử đầu tiên
+
+                    var transaction = serviceTransaction != null
+                        ? await _transaction.GetById(serviceTransaction.TransactionId)
+                        : null; // Kiểm tra null trước khi gọi GetById
+
+                    result.Add(new
+                    {
+                        ServiceName = spaService.ServiceName,
+                        CreatedAt = request.CreatedAt,
+                        StartTime = request.StartTime,
+                        Status = request.Status,
+                        EmployeeName = employee?.FullName,
+                        TotalPrice = transaction?.TotalPrice,
+                        ManagerNote = request.ManagerNote,
+                        CustomerNote = request.CustomerNote,
+                        TransactionStatus = transaction?.Status
+                    });
+                }
+
+
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
 
         // POST: api/requests/Create
 
@@ -187,7 +220,7 @@ namespace API.Controllers
 
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the request." });
-                CreateEmailRequest(newRequest.RequestId);
+                await CreateEmailRequest(newRequest.RequestId);
                 return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.RequestId }, new { requestId = newRequest.RequestId });
             }
             catch (Exception ex)
@@ -387,7 +420,7 @@ namespace API.Controllers
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
 
 
-                SendEmailRequest(appointment.AppointmentId);
+                await SendEmailRequest(appointment.AppointmentId);
                 return Ok(new { msg = "Assign request successfully." });
             }
             catch (Exception ex)

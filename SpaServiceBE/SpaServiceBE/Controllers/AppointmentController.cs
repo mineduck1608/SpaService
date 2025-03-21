@@ -326,7 +326,7 @@ namespace API.Controllers
                 if (!isUpdated)
                     return NotFound(new { msg = $"Appointment with ID = {id} not found." });
 
-                SendEmailRequest(appointment.AppointmentId);
+                await SendEmailRequest(appointment.AppointmentId);
                 return Ok(new { msg = "Update appoinment successfully." });
             }
             catch (Exception ex)

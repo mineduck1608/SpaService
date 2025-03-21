@@ -7,10 +7,9 @@ export const columns: ColumnDef<SpaRequest>[] = [
   {
     accessorKey: 'serviceName',
     header: 'Service',
-    cell: (r) => r.row.original.service?.serviceName
   },
   {
-    accessorKey: 'createdDate',
+    accessorKey: 'createdAt',
     header: 'Created Time',
     cell: (r) => formatDate(r.row.original.createdAt, 'dd/MM/yyyy hh:mm:ss')
   },
@@ -28,7 +27,7 @@ export const columns: ColumnDef<SpaRequest>[] = [
       // Set the color based on the status value
       if (status === 'Completed') {
         statusColor = 'text-green-500'
-      } else if (status === 'Cancelled') {
+      } else if (status === 'Denied') {
         statusColor = 'text-red-500'
       } else if (status === 'Pending') {
         statusColor = 'text-gray-500'
@@ -38,16 +37,14 @@ export const columns: ColumnDef<SpaRequest>[] = [
     }
   },
   {
-    accessorKey: 'requestedId',
-    header: 'Requested Employee',
-    cell: (r) => r.row.original.employee?.fullName ?? 'Did not request'
+    accessorKey: 'employeeName',
+    header: 'Requested Employee'
   },
   {
-    accessorKey: 'price',
+    accessorKey: 'totalPrice',
     header: 'Total Price',
-    cell: (r) => {
-      const transaction = r.row.original.serviceTransactions?.[0]?.transaction
-      const totalPrice = transaction?.totalPrice ?? 0
+    cell: ({ row }) => {
+      const totalPrice = row.getValue('totalPrice') ?? 0
       return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)
     }
   },

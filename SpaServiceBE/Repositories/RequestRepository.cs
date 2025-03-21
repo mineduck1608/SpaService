@@ -95,12 +95,7 @@ namespace Repositories
         }
         public async Task<List<Request>> FilterByAccount(string accId)
         {
-            var x = await _context.Requests.Include(x => x.Customer)
-                .ThenInclude(x => x.Account)
-                .Include(x => x.Service)
-                .Include(x => x.Employee)
-                .Include(x => x.ServiceTransactions)
-                .ThenInclude(x => x.Transaction)
+            var x = await _context.Requests.Include(x => x.Customer).Include(x => x.ServiceTransactions)
                 .Where(x => 
                 x.Customer.AccountId == accId
                 )
@@ -110,7 +105,7 @@ namespace Repositories
             return x;
         }
 
-        public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Request request)
+        public async Task<(ISet<string> roomId, ISet<string> empId, bool conflictRequest)> FindUnavailableRoomAndEmp(Request request, bool findInAppointments)
         {
             //Tìm các appointment tg request => Tìm phòng nào, nv nào ko dùng đc
             var appointments = _context.Appointments
@@ -168,6 +163,10 @@ namespace Repositories
             //    }
             //}
             //result.conflict = unavailableRequest.Any();
+            if (!findInAppointments)
+            {
+                return result;
+            }
             return result;
         }
 

@@ -17,7 +17,7 @@ import { toast } from 'react-toastify'
 import { ServiceCheckoutContext, SpaRequestModel } from './checkoutContext.tsx'
 import MainForm from './mainForm.tsx'
 import dayjs from 'dayjs'
-import { SuccessModal } from './successModal.tsx'
+import { Loader2, CheckCircle, XCircle } from 'lucide-react'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
@@ -36,7 +36,12 @@ export default function CheckoutPage() {
   })
   const [checked, setChecked] = useState(false)
   const [membership, setMembership] = useState<Membership>()
-  const [modalOpen, setModalOpen] = useState(false)
+  const [modalMailOpen, setModalMailOpen] = useState(false)
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
+  const [message, setMessage] = useState('')
+  const [loadingText, setLoadingText] = useState("Processing");
+
+
   const { TextArea } = Input
   const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true
   if (!booked.serviceId) {
@@ -65,13 +70,20 @@ export default function CheckoutPage() {
   }, [])
   async function onSubmitBase(method: string) {
     try {
+      setModalMailOpen(true)
+      setStatus('loading')
+      setMessage('Processing...')
+
       var req2 = { ...req }
       req2.startTime = req2.startTime.add(7, 'h')
       var s = await submitRequest(req2)
+
       if (s.msg) {
-        toast.error(s.msg, { containerId: 'toast' })
+        setStatus('error')
+        setMessage(s.msg)
         return false
       }
+
       if (s.requestId) {
         var y = await createTransaction(
           method,
@@ -80,26 +92,33 @@ export default function CheckoutPage() {
           req.promotionCode,
           membership?.membershipId
         )
+
         if (y.transactionId) {
           sessionStorage.setItem('trId', y.transactionId)
+          setStatus('success')
+          setMessage('Create request success!')
           return true
+        } else {
+          setStatus('error')
+          setMessage(y.msg || 'Create request failed!')
+          return false
         }
-        toast.error(y.msg, { containerId: 'toast' })
-        return false
       }
-      toast.error(s)
+
+      setStatus('error')
+      setMessage('Error happen!')
+      return false
     } catch (e) {
-      toast.error(e as string)
+      setStatus('error')
+      setMessage(e as string)
+      return false
     }
-    return false
   }
   async function payInCash(e: FormEvent) {
     e.preventDefault()
     try {
       var r = await onSubmitBase('Cash')
       if (r) {
-        toast.success('Request created successfully', { containerId: 'toast' })
-        setModalOpen(true)
         return
       }
     } catch (e) {
@@ -155,17 +174,65 @@ export default function CheckoutPage() {
       console.log(e as string)
     }
   }
+
+  useEffect(() => {
+    if (status !== "loading") return;
+  
+    const dots = ["Processing", "Processing.", "Processing..", "Processing..."];
+    let index = 0;
+  
+    const interval = setInterval(() => {
+      setLoadingText(dots[index]);
+      index = (index + 1) % dots.length;
+    }, 500);
+  
+    return () => clearInterval(interval);
+  }, [status]);
+  
+  
   return (
     <div className='relative h-[100vh] w-full overflow-hidden'>
-      <SuccessModal
-        isOpen={modalOpen}
-        onClose={() => {
-          setModalOpen(false)
-        }}
-        onConfirm={() => {
-          setModalOpen(false)
-        }}
-      />
+      {modalMailOpen && (
+        <div className='fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-50'>
+          <div className='bg-white p-6 rounded-lg shadow-lg w-80 text-center'>
+            {status === 'loading' && (
+              <>
+                <Loader2 className='h-12 w-12 animate-spin text-blue-500 mx-auto' />
+                <p className='mt-4 text-gray-500'>{loadingText}</p>
+              </>
+            )}
+
+            {status === 'success' && (
+              <>
+                <CheckCircle className='h-12 w-12 text-green-500 mx-auto' />
+                <p className='mt-4 text-green-600'>{message}</p>
+              </>
+            )}
+
+            {status === 'error' && (
+              <>
+                <XCircle className='h-12 w-12 text-red-500 mx-auto' />
+                <p className='mt-4 text-red-600'>{message}</p>
+              </>
+            )}
+            {status === 'success' && (
+              <div className='flex justify-evenly'>
+                <button onClick={() => setModalMailOpen(false)} className="mt-4 px-4 py-2 mr-4 bg-gray-200 rounded hover:bg-gray-300">
+                  Confirm
+                </button>
+                <button className="mt-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                  onClick={() => {
+                    window.location.assign('requests')
+                  }}
+                >
+                  View requests
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Hình ảnh nền */}
       <ServiceCheckoutContext.Provider value={{ req, setReq, emp }}>
         <div

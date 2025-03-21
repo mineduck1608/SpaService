@@ -3,7 +3,6 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { SpaRequest } from '../../types/type' // Updated to CustomerRequest type
 
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
 import { getRequestsOfAccId } from './requestPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'
@@ -20,6 +19,7 @@ export default function RequestTable() {
       try {
         const customerRequests = await getRequestsOfAccId(jwtDecode(getToken() ?? '').UserId)
         setData(customerRequests)
+        console.log(customerRequests)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
