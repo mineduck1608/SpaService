@@ -12,7 +12,7 @@ interface DetailOrderModalProps {
 export default function DetailOrderModal({ isOpen, onClose, order }: DetailOrderModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='mx-auto max-h-[90vh] w-[1000px] max-w-2xl font-montserrat'>
+      <DialogContent className='mx-auto max-h-[90vh] w-[650px] max-w-2xl font-montserrat'>
         <DialogTitle className='flex justify-center'>Order Detail</DialogTitle>
         <OrderStatus order={order} /> 
         <OrderDetailTable orderId={order.orderId} />

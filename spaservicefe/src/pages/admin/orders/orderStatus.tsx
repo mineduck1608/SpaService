@@ -44,7 +44,7 @@ export default function OrderStatus({ order }: OrderStatusProps) {
   ])
 
   return (
-    <div className='w-full mx-auto px-4 bg-transparent'>
+    <div className='w-[550px] mx-auto px-4 bg-transparent'>
       <div className='relative'>
         {steps.map((step, index) => {
           if (index === steps.length - 1) return null
