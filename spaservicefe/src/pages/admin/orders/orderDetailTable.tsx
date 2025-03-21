@@ -57,7 +57,7 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
   if (error) return <div>{error}</div>
 
   return (
-    <Table>
+    <Table className='mb-5 -mt-2'>
       <TableHeader>
         <TableRow>
           <TableHead>No</TableHead>
