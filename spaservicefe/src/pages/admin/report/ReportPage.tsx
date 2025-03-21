@@ -6,6 +6,7 @@ import { ProductStat, ServiceStat } from '@/types/statistic'
 import { formatNumber } from '../../../pages/servicesPage/servicesPage.util'
 import ServiceTable from './serviceTable'
 import ProductTable from './productTable'
+import { Margin, usePDF } from 'react-to-pdf'
 
 export default function ReportPage() {
   const lower = dayjs().add(-3, 'M').toDate()
@@ -17,7 +18,22 @@ export default function ReportPage() {
   })
   const [products, setProducts] = useState<ProductStat[]>([])
   const [services, setServices] = useState<ServiceStat[]>([])
-  const {} = usePDF({filename: 'report.pdf'})
+  const { toPDF, targetRef } = usePDF({
+    filename: 'report.pdf',
+    page: {
+      margin: Margin.NONE
+    },
+    method: 'open',
+    overrides: {
+      pdf: {
+        compress: true
+      },
+      canvas: {
+        useCORS: true
+      }
+    },
+    resolution: 1
+  })
   async function getData() {
     const response = await getRevenues()
     setRevenue(response)
@@ -29,12 +45,20 @@ export default function ReportPage() {
   useEffect(() => {
     try {
       getData()
-    } catch (e) {}
+    } catch (e) { }
   }, [])
   return (
     <div className='p-1'>
-      <div className='border-1 border-black bg-white p-2'>
-        <h3>1. General information</h3>
+      <button
+        onClick={() => {
+          toPDF()
+        }}
+        className='mb-2 rounded-sm bg-purple1 p-1 px-2 text-white'
+      >
+        Download report
+      </button>
+      <div ref={targetRef} className='border-1 w-full border-black bg-white p-2'>
+        <h3 className='mb-3'>1. General information</h3>
         <div className='flex w-1/2 justify-between gap-5'>
           <p>
             Start date: <span>{formatDate(lower, 'dd/MM/yyyy')}</span>
@@ -55,16 +79,16 @@ export default function ReportPage() {
           </p>
         </div>
         <div className='flex w-1/2 justify-between gap-5'>
-          <p className='grid'>
+          <p>
             New customers: <span>{formatDate(lower, 'dd/MM/yyyy')}</span>
           </p>
-          <p className='grid'>
+          <p>
             New employees: <span>{formatDate(now, 'dd/MM/yyyy')}</span>
           </p>
         </div>
-        <h3>2. Services</h3>
+        <h3 className='mb-3'>2. Services</h3>
         <ServiceTable data={services} />
-        <h3>3. Products</h3>
+        <h3 className='mb-3'>3. Products</h3>
         <ProductTable data={products} />
       </div>
     </div>

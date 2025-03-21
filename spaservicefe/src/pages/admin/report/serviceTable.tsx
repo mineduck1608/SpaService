@@ -5,7 +5,7 @@ export default function ServiceTable(params: { data: ServiceStat[] }) {
   return (
     <table className='w-full'>
       <thead>
-        <tr className='*:border-[1px] *:border-purple1 *:bg-purple1 *:px-2 *:text-white'>
+        <tr className='*:border-[1px] *:border-purple1 *:bg-purple1 *:p-2 *:pt-0 *:text-center *:text-white'>
           <th>Category</th>
           <th>Service</th>
           <th>Requested count</th>
@@ -16,7 +16,7 @@ export default function ServiceTable(params: { data: ServiceStat[] }) {
       </thead>
       <tbody>
         {params.data.map((v, i) => (
-          <tr className='*:border-[1px] *:border-purple1 *:px-2'>
+          <tr className='*:border-[1px] *:border-purple1 *:p-2 *:pt-0'>
             <td className='w-[15%] '>{v.serviceCategory}</td>
             <td className='w-[15%] '>{v.serviceName}</td>
             <td className='w-[10%] '>{v.statistic.requestCount}</td>
