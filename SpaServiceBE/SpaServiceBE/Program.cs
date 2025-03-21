@@ -19,18 +19,19 @@ using Google;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add SpaServiceContext to DI
-if (builder.Environment.IsDevelopment())
+var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConnection")
+                       ?? Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
+
+Console.WriteLine($"ConnectionString: {connectionString}");
+
+if (string.IsNullOrEmpty(connectionString))
 {
-    builder.Services.AddDbContext<SpaserviceContext>(options =>
-                                                        options.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionStrings:DefaultConnection")));
-    builder.Services.AddDistributedMemoryCache();
+    throw new Exception("Database ConnectionString is missing!");
 }
-else
-{
-    builder.Services.AddDbContext<SpaserviceContext>(options =>
-    options.UseSqlServer(Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING")));
-}
+
+builder.Services.AddDbContext<SpaserviceContext>(options =>
+    options.UseSqlServer(connectionString));
+
 
 
 // Add repositories to DI
