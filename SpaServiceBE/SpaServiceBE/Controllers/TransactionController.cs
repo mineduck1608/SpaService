@@ -259,7 +259,7 @@ namespace API.Controllers
         }
         //get total revenue with true status
         [HttpGet("GetTotalRevenue")]
-        public async Task<IActionResult> GetTotalRevenue(DateTime? lower)
+        public async Task<IActionResult> GetTotalRevenue(DateTime? lower, DateTime? upper)
         {
             try
             {
@@ -286,7 +286,7 @@ namespace API.Controllers
                     date = x.Key,
                     revenue = x.Value,
                 })
-                    .OrderByDescending(x => x.date);
+                    .OrderBy(x => x.date);
                 return Ok(buckets);
             }
             catch (Exception ex)

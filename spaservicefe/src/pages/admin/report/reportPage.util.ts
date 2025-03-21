@@ -2,9 +2,9 @@ import { apiUrl } from '../../../types/constants'
 import { ProductStat, ServiceStat } from '@/types/statistic'
 import dayjs, { Dayjs } from 'dayjs'
 
-export async function getRevenues(lower: Dayjs, upper: Dayjs) {
+export async function getRevenues(lower?: Dayjs, upper?: Dayjs) {
   try {
-    var total = await fetch(`${apiUrl}/transactions/GetTotalRevenue?lower=${lower}`)
+    var total = await fetch(`${apiUrl}/transactions/GetTotalRevenue?lower=${lower}&upper=${upper}`)
     var s = (await total.json()) as { service: number; product: number; total: number }
     return s
   } catch (e) {
@@ -12,10 +12,9 @@ export async function getRevenues(lower: Dayjs, upper: Dayjs) {
   }
 }
 
-export async function getServiceStat() {
+export async function getServiceStat(lower?: Dayjs, upper?: Dayjs) {
   try {
-    var lower = dayjs().add(-3, 'M').set('date', 1)
-    var stat = await fetch(`${apiUrl}/spaservices/GetStatistic?lower=${lower}`)
+    var stat = await fetch(`${apiUrl}/spaservices/GetStatistic?lower=${lower}&upper=${upper}`)
     var s = (await stat.json()) as ServiceStat[]
     return s
   } catch (e) {
@@ -23,10 +22,9 @@ export async function getServiceStat() {
   }
 }
 
-export async function getProductStat() {
+export async function getProductStat(lower?: Dayjs, upper?: Dayjs) {
   try {
-    var lower = dayjs().add(-3, 'M').set('date', 1)
-    var stat = await fetch(`${apiUrl}/cosmeticproducts/GetStatistic?lower=${lower}`)
+    var stat = await fetch(`${apiUrl}/cosmeticproducts/GetStatistic?lower=${lower}&upper=${upper}`)
     var s = (await stat.json()) as ProductStat[]
     return s
   } catch (e) {

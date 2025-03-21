@@ -52,9 +52,9 @@ namespace Services
             return await _spaServiceRepository.Delete(serviceId);
         }
 
-        public Dictionary<string, ServiceStatistic> GetServiceStatistic(DateTime lower)
+        public Dictionary<string, ServiceStatistic> GetServiceStatistic(DateTime lower, DateTime upper)
         {
-            return _spaServiceRepository.GetServicesStats(lower);
+            return _spaServiceRepository.GetServicesStats(lower, upper);
         }
 
         public async Task<List<SpaService>> GetEverything()

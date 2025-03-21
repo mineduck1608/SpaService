@@ -81,7 +81,7 @@ namespace Repositories
             return await _context.CosmeticProducts.SumAsync(c => c.Quantity);
         }
 
-        public Dictionary<string, ProductStatistic> GetStatistic(DateTime lower)
+        public Dictionary<string, ProductStatistic> GetStatistic(DateTime lower, DateTime upper)
         {
             var orderDetails = _context.OrderDetails
                 .Include(x => x.Order)
@@ -89,7 +89,8 @@ namespace Repositories
                 .ThenInclude(x => x.Transaction)
                 .Where(x => 
                 x.Order.CosmeticTransactions.First().Transaction.Status
-                && x.Order.OrderDate >= lower)
+                && x.Order.OrderDate >= lower
+                && x.Order.OrderDate <= lower)
                 .Include(x => x.Order)
                 .ThenInclude(x => x.Customer)
                 .Select(x => new

@@ -227,12 +227,12 @@ namespace API.Controllers
             }
         }
         [HttpGet("GetStatistic")]
-        public async Task<IActionResult> GetServiceStatisticAsync(DateTime? lower)
+        public async Task<IActionResult> GetServiceStatisticAsync(DateTime? lower, DateTime? upper)
         {
             try
             {
                 var all = (await _service.GetEverything()).ToDictionary(x => x.ServiceId);
-                var x = _service.GetServiceStatistic(lower ?? DateTime.Now.AddMonths(-3));
+                var x = _service.GetServiceStatistic(lower ?? DateTime.Now.AddMonths(-3), upper ?? DateTime.Now);
                 var result = x.Select(x => new
                 {
                     serviceName = all[x.Key].ServiceName,

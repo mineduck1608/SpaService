@@ -106,7 +106,7 @@ namespace Repositories
                 return false;
             }
         }
-        public Dictionary<string, ServiceStatistic> GetServicesStats(DateTime lower)
+        public Dictionary<string, ServiceStatistic> GetServicesStats(DateTime lower, DateTime upper)
         {
             //Deal with requests and appointment statistic
             var requestRaw = _context.Requests
@@ -115,7 +115,9 @@ namespace Repositories
                 .Where(x =>
                 x.StartTime >= lower
                 && (x.Appointments.Count == 0
-                || x.Appointments.First().StartTime >= lower))
+                || (x.Appointments.First().StartTime >= lower 
+                && x.Appointments.First().StartTime <= upper))
+                )
                 .Include(x => x.Customer)
                 .Select(x => new
                 {

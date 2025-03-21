@@ -15,6 +15,6 @@ namespace Services.IServices
         Task<bool> Delete(string serviceId);
         Task<SpaService> GetByName(string serviceName);
         Task<TimeOnly> GetTimeByServiceId(string serviceId);
-        Dictionary<string, ServiceStatistic> GetServiceStatistic(DateTime lower);
+        Dictionary<string, ServiceStatistic> GetServiceStatistic(DateTime lower, DateTime upper);
     }
 }

@@ -20,6 +20,6 @@ namespace Services.IServices
         Task<Dictionary<string, CosmeticProduct>> GetProductsOfList(List<string> productIdList);
         Task<int> GetTotalCosmeticProduct();
         Task<int> GetTotalCosmeticProductStock();
-        Dictionary<string, ProductStatistic> GetStatistic(DateTime lower);
+        Dictionary<string, ProductStatistic> GetStatistic(DateTime lower, DateTime dateTime);
     }
 }

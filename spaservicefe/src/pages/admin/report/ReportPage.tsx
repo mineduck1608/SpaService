@@ -33,6 +33,10 @@ export default function ReportPage() {
     },
     resolution: 1
   })
+  const [bounds, setBounds] = useState({
+    start: dayjs(),
+    end: dayjs()
+  })
   async function getData() {
     const response = await getRevenues()
     setRevenue(response)

@@ -15,6 +15,6 @@ namespace Services.IServices
         Task<Customer> GetCustomerByPhone(string phone);
         Task<Customer> GetCustomerByAccountId(string id);
         Task<Customer> GetCustomerByEmail(string email);
-        (int total, int newCustomers) NumOfCustomersThisYear();
+        (int total, int newCustomers) NumOfCustomers(DateTime lower, DateTime upper);
     }
 }

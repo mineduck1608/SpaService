@@ -64,9 +64,9 @@ namespace Services
             return await _repository.GetTotalCosmeticProductStock();
         }
 
-        public Dictionary<string, ProductStatistic> GetStatistic(DateTime lower)
+        public Dictionary<string, ProductStatistic> GetStatistic(DateTime lower, DateTime upper)
         {
-            return _repository.GetStatistic(lower);
+            return _repository.GetStatistic(lower, upper);
         }
 
         public async Task<IEnumerable<CosmeticProduct>> GetEverything()

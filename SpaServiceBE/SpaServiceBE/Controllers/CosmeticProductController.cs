@@ -160,12 +160,12 @@ namespace SpaServiceBE.Controllers
             return Ok($"Total Cosmetic Stock:{total}");
         }
         [HttpGet("GetStatistic")]
-        public async Task<IActionResult> GetStatisticAsync(DateTime? lower)
+        public async Task<IActionResult> GetStatisticAsync(DateTime? lower, DateTime? upper)
         {
             try
             {
                 var all = (await _service.GetEverything()).ToDictionary(x => x.ProductId);
-                var x = _service.GetStatistic(lower ?? DateTime.Now.AddMonths(-3));
+                var x = _service.GetStatistic(lower ?? DateTime.Now.AddMonths(-3), upper ?? DateTime.Now);
                 var result = x.Select(x => new
                 {
                     productName = all[x.Key].ProductName,

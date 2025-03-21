@@ -204,11 +204,11 @@ namespace API.Controllers
             }
         }
         [HttpGet("NumOfCustomers")]
-        public IActionResult NumOfCustomersThisYear()
+        public IActionResult NumOfCustomers(DateTime? lower, DateTime? upper)
         {
             try
             {
-                var s = _service.NumOfCustomersThisYear();
+                var s = _service.NumOfCustomers(lower ?? DateTime.Now.AddYears(-1), upper ?? DateTime.Now);
                 return Ok(new
                 {
                     s.total,

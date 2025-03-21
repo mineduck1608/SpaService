@@ -20,7 +20,7 @@ using Google;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_CONNECTIONSTRING")
-                    ?? builder.Configuration["ConnectionStrings:DefaultConnection"];
+                    ?? builder.Configuration["ConnectionStrings:DefaultConnectionStringDB"];
 
 Console.WriteLine($"ConnectionString: {connectionString}");
 
