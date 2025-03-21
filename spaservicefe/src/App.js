@@ -411,12 +411,13 @@ function App() {
           >
             {/* <Route index element={<Dashboard />} /> */}
             <Route index element={<CheckInPage />} />
-
             <Route path='application' element={<EmployeeApplicationPage />} />
+            
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<EmployeeCalendarApp />} />
             <Route path='appointments-manage' element={<EmployeeAppointmentManagePage />} />
-            <Route path='transactions' element={<TransactionPage />} />
+            {/* <Route path='transactions' element={<TransactionPage />} /> */}
+            <Route path='commissions' element={<EmployeeCommissionPage />} />
             <Route path='check-in' element={<CheckInPage />} />
 
             {/* Requests */}
