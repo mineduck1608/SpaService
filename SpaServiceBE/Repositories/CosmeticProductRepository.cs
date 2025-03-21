@@ -90,7 +90,7 @@ namespace Repositories
                 .Where(x => 
                 x.Order.CosmeticTransactions.First().Transaction.Status
                 && x.Order.OrderDate >= lower
-                && x.Order.OrderDate <= lower)
+                && x.Order.OrderDate <= upper)
                 .Include(x => x.Order)
                 .ThenInclude(x => x.Customer)
                 .Select(x => new
