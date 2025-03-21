@@ -181,12 +181,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = Environment.GetEnvironmentVariable("AccessToken__Issuer")
+            ValidIssuer = Environment.GetEnvironmentVariable("AccessToken_Issuer")
                           ?? builder.Configuration["AccessToken:Issuer"],
-            ValidAudience = Environment.GetEnvironmentVariable("AccessToken__Audience")
+            ValidAudience = Environment.GetEnvironmentVariable("AccessToken_Audience")
                             ?? builder.Configuration["AccessToken:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                Environment.GetEnvironmentVariable("AccessToken__Key")
+                Environment.GetEnvironmentVariable("AccessToken_Key")
                 ?? builder.Configuration["AccessToken:Key"]))
         };
     });

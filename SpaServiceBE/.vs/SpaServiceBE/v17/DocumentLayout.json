@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Coding\\SpaService\\SpaServiceBE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|d:\\coding\\spaservice\\spaservicebe\\spaservicebe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8922B02-D2A6-44D5-A20A-AACBE1BA786F}|SpaServiceBE\\SpaServiceBE.csproj|solutionrelative:spaservicebe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75B0C449-6BA6-456C-93F7-FC5B276C0DFB}|Repositories\\Repositories.csproj|d:\\coding\\spaservice\\spaservicebe\\repositories\\context\\spaservicecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -172,21 +172,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Program.cs",
+              "RelativeDocumentMoniker": "SpaServiceBE\\Program.cs",
+              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Program.cs",
+              "RelativeToolTip": "SpaServiceBE\\Program.cs",
+              "ViewState": "AgIAAKQAAAAAAAAAAAAAALkAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T07:59:11.284Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\appsettings.json",
               "RelativeDocumentMoniker": "SpaServiceBE\\appsettings.json",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\appsettings.json",
               "RelativeToolTip": "SpaServiceBE\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-03-18T10:21:47.202Z",
               "EditorCaption": ""
@@ -199,9 +208,10 @@
               "RelativeDocumentMoniker": "Repositories\\Entities\\Account.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Entities\\Account.cs",
               "RelativeToolTip": "Repositories\\Entities\\Account.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAA6wB4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAiwB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:31:00.027Z"
+              "WhenOpened": "2025-03-18T03:31:00.027Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -231,19 +241,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Program.cs",
-              "RelativeDocumentMoniker": "SpaServiceBE\\Program.cs",
-              "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Program.cs",
-              "RelativeToolTip": "SpaServiceBE\\Program.cs",
-              "ViewState": "AgIAAKoAAAAAAAAAAAAAALQAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T07:59:11.284Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
               "Title": "RequestRepository.cs",
               "DocumentMoniker": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\RequestRepository.cs",
@@ -252,7 +249,8 @@
               "RelativeToolTip": "Repositories\\RequestRepository.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAgwCEAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T17:04:40.42Z"
+              "WhenOpened": "2025-03-19T17:04:40.42Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -264,7 +262,8 @@
               "RelativeToolTip": "Repositories\\AccountRepository.cs",
               "ViewState": "AgIAAEQAAAAAAAAAAAAYwGAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:33:33.682Z"
+              "WhenOpened": "2025-03-18T03:33:33.682Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -276,7 +275,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AccountController.cs",
               "ViewState": "AgIAAO4BAAAAAAAAAADwvwsCAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T07:36:58.387Z"
+              "WhenOpened": "2025-03-20T07:36:58.387Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -286,9 +286,10 @@
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\AppointmentController.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AppointmentController.cs",
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AppointmentController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAAAKABAAANAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAIBJwKABAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:16:10.523Z"
+              "WhenOpened": "2025-03-18T03:16:10.523Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -298,9 +299,10 @@
               "RelativeDocumentMoniker": "SpaServiceBE\\Controllers\\AttendanceRecordController.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Controllers\\AttendanceRecordController.cs",
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AttendanceRecordController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAHoAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAIBJwHoAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:15:39.265Z"
+              "WhenOpened": "2025-03-18T03:15:39.265Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -310,7 +312,6 @@
               "RelativeDocumentMoniker": "..\\.github\\workflows\\spaservice.yml",
               "ToolTip": "D:\\Coding\\SpaService\\.github\\workflows\\spaservice.yml",
               "RelativeToolTip": "..\\.github\\workflows\\spaservice.yml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACwAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
               "WhenOpened": "2025-03-19T15:20:41.217Z"
             },
@@ -324,7 +325,8 @@
               "RelativeToolTip": "Services\\TransactionService.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAowDkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:41:37.438Z"
+              "WhenOpened": "2025-03-18T03:41:37.438Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -334,9 +336,10 @@
               "RelativeDocumentMoniker": "Repositories\\ApplicationRepository.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\ApplicationRepository.cs",
               "RelativeToolTip": "Repositories\\ApplicationRepository.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAA9wBgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T01:54:09.516Z"
+              "WhenOpened": "2025-03-18T01:54:09.516Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -346,9 +349,10 @@
               "RelativeDocumentMoniker": "Services\\SpaServiceService.cs",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\SpaServiceService.cs",
               "RelativeToolTip": "Services\\SpaServiceService.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAA8wDYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAmwDYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T08:07:14.583Z"
+              "WhenOpened": "2025-03-20T08:07:14.583Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -360,7 +364,8 @@
               "RelativeToolTip": "Repositories\\Entities\\Transaction.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T08:02:34.849Z"
+              "WhenOpened": "2025-03-20T08:02:34.849Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -370,9 +375,10 @@
               "RelativeDocumentMoniker": "SpaServiceBE\\Dockerfile1.original",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\Dockerfile1.original",
               "RelativeToolTip": "SpaServiceBE\\Dockerfile1.original",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-03-20T14:14:47.168Z"
+              "WhenOpened": "2025-03-20T14:14:47.168Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -384,7 +390,8 @@
               "RelativeToolTip": "SpaServiceBE\\SpaServiceBE.csproj",
               "ViewState": "AgIAAAEAAAAAAAAAAAAuwB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-18T15:01:31.261Z"
+              "WhenOpened": "2025-03-18T15:01:31.261Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -396,7 +403,8 @@
               "RelativeToolTip": "Repositories\\Entities\\SpaService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T08:02:34.324Z"
+              "WhenOpened": "2025-03-20T08:02:34.324Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -408,7 +416,8 @@
               "RelativeToolTip": "Services\\AccountService.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAcwCUAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T07:32:11.007Z"
+              "WhenOpened": "2025-03-20T07:32:11.007Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -420,7 +429,8 @@
               "RelativeToolTip": "Services\\ApplicationService.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAAcwDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T07:34:12.18Z"
+              "WhenOpened": "2025-03-20T07:34:12.18Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -432,7 +442,8 @@
               "RelativeToolTip": "Repositories\\Entities\\Application.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:37:52.883Z"
+              "WhenOpened": "2025-03-18T03:37:52.883Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -444,7 +455,8 @@
               "RelativeToolTip": "Services\\PromotionService.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T07:41:48.481Z"
+              "WhenOpened": "2025-03-20T07:41:48.481Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -456,7 +468,8 @@
               "RelativeToolTip": "Repositories\\Entities\\News.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T03:30:17.012Z"
+              "WhenOpened": "2025-03-20T03:30:17.012Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -468,7 +481,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\CosmeticProductController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T03:39:40.25Z"
+              "WhenOpened": "2025-03-20T03:39:40.25Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -480,7 +494,8 @@
               "RelativeToolTip": "Services\\RequestService.cs",
               "ViewState": "AgIAAEUAAAAAAAAAAAAYwFYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T17:06:41.551Z"
+              "WhenOpened": "2025-03-19T17:06:41.551Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -492,7 +507,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\RoleController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T17:04:58.57Z"
+              "WhenOpened": "2025-03-19T17:04:58.57Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -504,7 +520,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\GoogleAuthController.cs",
               "ViewState": "AgIAAHkAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T16:14:47.828Z"
+              "WhenOpened": "2025-03-19T16:14:47.828Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -516,7 +533,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\ApplicationController.cs",
               "ViewState": "AgIAAG4AAAAAAAAAAAAowHYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T01:52:46.654Z"
+              "WhenOpened": "2025-03-18T01:52:46.654Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -528,7 +546,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\CustomerController.cs",
               "ViewState": "AgIAAHwAAAAAAAAAAAAwwIMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T10:03:25.962Z"
+              "WhenOpened": "2025-03-18T10:03:25.962Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -540,7 +559,8 @@
               "RelativeToolTip": "SpaServiceBE\\SpaServiceBE - Backup.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-19T06:01:09.366Z"
+              "WhenOpened": "2025-03-19T06:01:09.366Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -552,7 +572,8 @@
               "RelativeToolTip": "SpaServiceBE\\SpaServiceBE.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-03-19T06:01:10.191Z"
+              "WhenOpened": "2025-03-19T06:01:10.191Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -573,9 +594,10 @@
               "RelativeDocumentMoniker": "Repositories\\Repositories.csproj",
               "ToolTip": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj",
               "RelativeToolTip": "Repositories\\Repositories.csproj",
-              "ViewState": "AgIAAAMAAAAAAAAAAIBZwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAABhwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-19T04:11:55.356Z"
+              "WhenOpened": "2025-03-19T04:11:55.356Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -587,7 +609,8 @@
               "RelativeToolTip": "Services\\AttendanceRecordService.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAowDgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:25:11.073Z"
+              "WhenOpened": "2025-03-18T03:25:11.073Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -599,7 +622,8 @@
               "RelativeToolTip": "SpaServiceBE\\Utils\\Util.cs",
               "ViewState": "AgIAAD0AAAAAAAAAAAAgwEUAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:54:14.318Z"
+              "WhenOpened": "2025-03-18T03:54:14.318Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -611,7 +635,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\FeedbackController.cs",
               "ViewState": "AgIAADwAAAAAAAAAAAAowE0AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T10:04:02.372Z"
+              "WhenOpened": "2025-03-18T10:04:02.372Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -623,7 +648,8 @@
               "RelativeToolTip": "Repositories\\AttendanceRecordRepository.cs",
               "ViewState": "AgIAADkAAAAAAAAAAAAowFEAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:24:32.382Z"
+              "WhenOpened": "2025-03-18T03:24:32.382Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -635,7 +661,8 @@
               "RelativeToolTip": "Repositories\\Entities\\Employee.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:40:44.492Z"
+              "WhenOpened": "2025-03-18T03:40:44.492Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -647,7 +674,8 @@
               "RelativeToolTip": "Services\\IServices\\IAttendanceRecord.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:24:09.407Z"
+              "WhenOpened": "2025-03-18T03:24:09.407Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -659,7 +687,8 @@
               "RelativeToolTip": "Repositories\\Entities\\AttendanceRecord.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:15:29.685Z"
+              "WhenOpened": "2025-03-18T03:15:29.685Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -671,7 +700,8 @@
               "RelativeToolTip": "Services\\EmployeeService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:15:21.459Z"
+              "WhenOpened": "2025-03-18T03:15:21.459Z",
+              "EditorCaption": ""
             }
           ]
         }
