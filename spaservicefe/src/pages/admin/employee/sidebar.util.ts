@@ -7,6 +7,7 @@ import {
   Trash2,
   PaperclipIcon,
   CalendarCheck2,
+  Wallet
 } from 'lucide-react'
 
 import { jwtDecode } from 'jwt-decode'
@@ -59,8 +60,7 @@ export const sideData = {
       ]
     },
     { title: 'Application', url: getFullPath('/application'), icon:  PaperclipIcon },
-    { title: 'Commission', url: getFullPath('/commissions'), icon:  ArrowLeftRight },
-    { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
+    { title: 'Commission', url: getFullPath('/commissions'), icon:  Wallet },
     
     // { title: 'Transactions', url: getFullPath('/transactions'), icon: ArrowLeftRight },
     // {
