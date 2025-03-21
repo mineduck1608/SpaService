@@ -23,9 +23,7 @@ namespace Repositories
         public async Task<Request> GetById(string requestId)
         {
             return await _context.Requests
-                .Include(r => r.Appointments)   // Bao gồm các Appointments liên quan đến Request
-                .Include(r => r.Customer)       // Bao gồm Customer liên quan đến Request
-                .Include(r => r.Service)        // Bao gồm SpaService liên quan đến Request
+               
                 .FirstOrDefaultAsync(r => r.RequestId == requestId);
         }
 
@@ -33,9 +31,7 @@ namespace Repositories
         public async Task<List<Request>> GetAll()
         {
             return await _context.Requests
-                .Include(r => r.Appointments)   // Bao gồm các Appointments liên quan đến Request
-                .Include(r => r.Customer)       // Bao gồm Customer liên quan đến Request
-                .Include(r => r.Service)        // Bao gồm SpaService liên quan đến Request
+   
                 .ToListAsync();
         }
 
