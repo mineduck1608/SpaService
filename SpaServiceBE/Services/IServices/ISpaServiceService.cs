@@ -9,6 +9,7 @@ namespace Services.IServices
     {
         Task<SpaService> GetById(string serviceId);
         Task<List<SpaService>> GetAll();
+        Task<List<SpaService>> GetEverything();
         Task<bool> Add(SpaService spaService);
         Task<bool> Update(string serviceId, SpaService spaService);
         Task<bool> Delete(string serviceId);

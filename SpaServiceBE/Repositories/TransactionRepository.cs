@@ -90,28 +90,26 @@ namespace Repositories
                 return false;
             }
         }
-        public async Task<float> GetTotalRevenue()
+        public async Task<(float service, float prod)> GetTotalRevenue(DateTime lower)
         {
-            var now = DateTime.Now;
-            var lower = new DateTime(now.Year - 1, now.Month, 1);
-            return await _context.Transactions
-             .Where(t => t.Status 
+            var trans = _context.Transactions
+             .Where(t => t.Status
              && ((DateTime)t.CompleteTime) >= lower
-             && ((DateTime)t.CompleteTime) < now) // Assuming 'true' means "Done"
-             .SumAsync(t => t.TotalPrice);
+             && ((DateTime)t.CompleteTime) < DateTime.Now); // Assuming 'true' means "Done"
+            float service = 0, prod = 0;
+            foreach (var t in trans)
+            {
+                if(t.TransactionType == "Service")
+                {
+                    service += t.TotalPrice;
+                }
+                else
+                {
+                    prod += t.TotalPrice;
+                }
+            }
+            return (service, prod);
         }
-        public async Task<float> GetTotalRevenue(string type, DateTime lower)
-        {
-            var now = DateTime.Now;
-            return await _context.Transactions
-             .Where(t => 
-             t.TransactionType == type
-             && t.Status
-             && ((DateTime)t.CompleteTime) >= lower
-             && ((DateTime)t.CompleteTime) < now) // Assuming 'true' means "Done"
-             .SumAsync(t => t.TotalPrice);
-        }
-
         public Dictionary<DateOnly, float> OrderByMonth()
         {
             var now = DateTime.Now;
@@ -145,10 +143,9 @@ namespace Repositories
             }
             return result;
         }
-        public Dictionary<string, float> OrderByCategory()
+        public Dictionary<string, float> OrderByCategory(DateTime lower)
         {
             var now = DateTime.Now;
-            var lower = new DateTime(now.Year - 1, now.Month, 1);
             var trans = _context.ServiceTransactions
                 .Include(x => x.Transaction)
                 .Where(x =>

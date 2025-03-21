@@ -259,12 +259,17 @@ namespace API.Controllers
         }
         //get total revenue with true status
         [HttpGet("GetTotalRevenue")]
-        public async Task<ActionResult<IEnumerable<Transaction>>> GetTotalRevenue()
+        public async Task<IActionResult> GetTotalRevenue(DateTime? lower)
         {
             try
             {
-                var totalRevenue = await _service.GetTotalRevenue();
-                return Ok($"Total Revenue:{totalRevenue}");
+                var totalRevenue = await _service.GetTotalRevenue(lower ?? DateTime.Now.AddMonths(-3));
+                return Ok(new
+                {
+                    service = totalRevenue.Item1,
+                    product = totalRevenue.Item2,
+                    total = totalRevenue.Item1 + totalRevenue.Item2,
+                });
             }
             catch (Exception ex)
             {
@@ -290,11 +295,11 @@ namespace API.Controllers
             }
         }
         [HttpGet("OrderByServiceCategory")]
-        public IActionResult OrderByServiceCategory()
+        public IActionResult OrderByServiceCategory(DateTime? lower)
         {
             try
             {
-                var buckets = _service.OrderByServiceCategory().Select(x => new
+                var buckets = _service.OrderByServiceCategory(lower ?? DateTime.Now.AddMonths(-3)).Select(x => new
                 {
                     category = x.Key,
                     revenue = x.Value,

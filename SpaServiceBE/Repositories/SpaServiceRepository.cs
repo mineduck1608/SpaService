@@ -42,6 +42,12 @@ namespace Repositories
                                              //.Include(s => s.Requests)    // Bao gồm các Request liên quan đến dịch vụ
                 .ToListAsync();
         }
+        public async Task<List<SpaService>> GetEverything()
+        {
+            return await _context.SpaServices
+                .Include(s => s.Category)
+                .ToListAsync();
+        }
 
         // Thêm một SpaService mới
         public async Task<bool> Add(SpaService spaService)
@@ -134,20 +140,17 @@ namespace Repositories
                 })
                 .ToHashSet();
             var services = _context.SpaServices
-                .Select(x => new
-                {
-                    x.ServiceId,
-                });
+                .Select(x => x.ServiceId);
             var map = new Dictionary<string, ServiceStatistic>();
             foreach (var service in services)
             {
-                if (!map.ContainsKey(service.ServiceId))
+                if (!map.ContainsKey(service))
                 {
-                    map.Add(service.ServiceId, new());
+                    map.Add(service, new());
                 }
                 var requestOfThisService = requestRaw
-                    .Where(x => x.ServiceId == service.ServiceId);
-                var entry = map[service.ServiceId];
+                    .Where(x => x.ServiceId == service);
+                var entry = map[service];
                 foreach(var u in requestOfThisService)
                 {
                     entry.RequestCount++;
@@ -168,7 +171,7 @@ namespace Repositories
                     var gender = u.Gender == "Female" ? 0 : 1;
                     entry.GenderCount[gender]++;
                 }
-                requestRaw.RemoveWhere(x => x.ServiceId == service.ServiceId);
+                requestRaw.RemoveWhere(x => x.ServiceId == service);
             }
             return map;
         }

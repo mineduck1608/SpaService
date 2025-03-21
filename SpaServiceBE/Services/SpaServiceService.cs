@@ -56,5 +56,10 @@ namespace Services
         {
             return _spaServiceRepository.GetServicesStats(lower);
         }
+
+        public async Task<List<SpaService>> GetEverything()
+        {
+            return await _spaServiceRepository.GetEverything();
+        }
     }
 }

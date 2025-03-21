@@ -185,7 +185,7 @@ namespace API.Controllers
                 if (!isUpdated)
                     return NotFound(new { msg = $"Spa service with ID = {id} not found." });
 
-                return Ok(new { msg = "Update spa service successfully."});
+                return Ok(new { msg = "Update spa service successfully." });
             }
             catch (Exception ex)
             {
@@ -213,7 +213,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
- 
+
         [HttpGet("ServiceOfCategory")]
         public async Task<ActionResult> GetServicesOfCategory(string categoryId)
         {
@@ -227,16 +227,19 @@ namespace API.Controllers
             }
         }
         [HttpGet("GetStatistic")]
-        public IActionResult GetServiceStatistic(DateTime? lower)
+        public async Task<IActionResult> GetServiceStatisticAsync(DateTime? lower)
         {
             try
             {
+                var all = (await _service.GetEverything()).ToDictionary(x => x.ServiceId);
                 var x = _service.GetServiceStatistic(lower ?? DateTime.Now.AddMonths(-3));
                 var result = x.Select(x => new
                 {
-                    serviceId = x.Key,
+                    serviceName = all[x.Key].ServiceName,
+                    serviceCategory = all[x.Key].Category.CategoryName,
                     statistic = x.Value,
-                });
+                })
+                    .OrderBy(x => x.serviceCategory);
                 return Ok(result);
             }
             catch (Exception ex)
