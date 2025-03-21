@@ -22,7 +22,7 @@ namespace Repositories
         // Lấy Request theo ID với các thực thể liên quan
         public async Task<Request> GetById(string requestId)
         {
-            return await _context.Requests
+            return await _context.Requests.Include(e => e.Employee)
                
                 .FirstOrDefaultAsync(r => r.RequestId == requestId);
         }

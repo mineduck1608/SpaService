@@ -272,7 +272,7 @@ namespace API.Controllers
         }
 
         [HttpPut("AssignRequest/{id}")]
-        public async Task<ActionResult> AssignRequest(string id, [FromBody] dynamic request)
+        public async Task<ActionResult> AssignRequest(string i d, [FromBody] dynamic request)
         {
             try
             {
@@ -319,8 +319,9 @@ namespace API.Controllers
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
 
 
-                var appointmentExit = _appointmentService.GetAppointmentByRequestId(id);
-                if (appointmentExit.Result != null)
+                var appointmentExit = await _appointmentService.GetAppointmentByRequestId(id);
+                if (appointmentExit != null)
+
                 {
                     return BadRequest(new { msg = "Appointment existed." });
                 }
@@ -356,11 +357,21 @@ namespace API.Controllers
                 {
                     return BadRequest(new { msg = string.Join(",", errList) });
                 }
+                ;
+
+
+                var requestService = await _requestService.GetById(id);
+                requestService.EmployeeId = employeeId;
+                await _requestService.Update(id, requestService);
 
                 // Gọi service để thêm appointment
-                var isCreated = _appointmentService.AddAppointment(appointment);
+                var isCreated = await _appointmentService.AddAppointment(appointment);
 
-                bool result = await isCreated; // Giải quyết giá trị Task<bool>
+
+
+
+
+                bool result = isCreated; // Giải quyết giá trị Task<bool>
                 if (result == false)
                 {
                     return StatusCode(500, new { msg = "An error occurred while creating the appointment." });

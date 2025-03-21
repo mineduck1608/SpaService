@@ -66,7 +66,7 @@ export const columns: ColumnDef<Appointment>[] = [
         textColor = 'blue'
       } else if (status === 'finished') {
         textColor = 'green'
-      } else if (status === 'not proccessed') {
+      } else if (status === 'not processed') {
         textColor = 'red'
       }
 

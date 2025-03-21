@@ -86,7 +86,7 @@ namespace Services
             //Coi như ko có nv yêu cầu
             var empState = 1;
             var availableEmpSet = empOfCat.Except(empId);
-            if (!availableEmpSet.IsNullOrEmpty())
+            if (availableEmpSet != null || availableEmpSet.Any())
             {
                 if (a.EmployeeId == null || availableEmpSet.Any(x => x == a.EmployeeId))
                 {

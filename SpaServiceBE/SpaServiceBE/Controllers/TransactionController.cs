@@ -189,7 +189,7 @@ namespace API.Controllers
                 DateTime completeTime = jsonElement.GetProperty("completeTime").GetDateTime();
 
                 // Kiểm tra dữ liệu đầu vào
-                if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0 || status != null)
+                if (string.IsNullOrEmpty(transactionType) || totalPrice <= 0 || status == null)
                 {
                     return BadRequest(new { msg = "Transaction details are incomplete or invalid." });
                 }

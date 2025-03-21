@@ -159,6 +159,22 @@
   },
   {
     "ContainingType": "API.Controllers.AccountController",
+    "Method": "Test",
+    "RelativePath": "api/accounts/Test/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
     "Method": "UpdateAccount",
     "RelativePath": "api/accounts/Update/{id}",
     "HttpMethod": "PUT",
@@ -1293,7 +1309,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "everything",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.CosmeticProduct, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
@@ -1331,6 +1353,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
+    "Method": "GetStatisticAsync",
+    "RelativePath": "api/cosmeticproducts/GetStatistic",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lower",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.CosmeticProductController",
@@ -4084,6 +4122,22 @@
   },
   {
     "ContainingType": "API.Controllers.SpaServiceController",
+    "Method": "GetServiceStatisticAsync",
+    "RelativePath": "api/spaservices/GetStatistic",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lower",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.SpaServiceController",
     "Method": "GetServicesOfCategory",
     "RelativePath": "api/spaservices/ServiceOfCategory",
     "HttpMethod": "GET",
@@ -4204,18 +4258,14 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
+    "Parameters": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repositories.Entities.Transaction, Repositories, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "lower",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
-    ]
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "API.Controllers.TransactionController",
@@ -4245,6 +4295,43 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.TransactionController",
+    "Method": "OrderByServiceCategory",
+    "RelativePath": "api/transactions/OrderByServiceCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lower",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.TransactionController",
+    "Method": "GetFromCustomers",
+    "RelativePath": "api/transactions/TransactionsOfCustomer/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "findInService",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Single, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
@@ -4256,16 +4343,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "API.Controllers.TransactionController",
-    "Method": "OrderByServiceCategory",
-    "RelativePath": "api/transactions/OrderByServiceCategory",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "API.Controllers.TransactionController",

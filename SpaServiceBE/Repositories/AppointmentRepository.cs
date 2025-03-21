@@ -59,10 +59,6 @@ namespace Repositories
         public async Task<List<Appointment>> GetAll()
         {
             var appointments = await _context.Appointments
-                .Include(x => x.Employee)
-                .Include(x => x.Room)
-                .Include(x => x.Request).ThenInclude(x => x.Customer)
-                .Include(x => x.Request).ThenInclude(x => x.Service)
                 .ToListAsync();
 
             bool hasUpdates = false; // Biến cờ để kiểm tra có thay đổi nào cần lưu vào DB không
@@ -201,29 +197,6 @@ namespace Repositories
             {
                 return result;
             }
-            //Tìm trong request lun
-            var requests = _context.Requests
-                .Include(x => x.Service)
-                .ToList()
-                .Select(x => new
-                {
-                    x.StartTime,
-                    EndTime = x.StartTime.Add(x.Service.Duration.ToTimeSpan()),
-                    x.EmployeeId,
-                }
-            );
-            var unavailableRequest = requests.Where(x =>
-            IsOverlap(start.Ticks, end.Ticks, x.StartTime.Ticks, x.EndTime.Ticks)
-            );
-
-            foreach (var item in unavailableRequest)
-            {
-                if (item.EmployeeId != null)
-                {
-                    result.empId.Add(item.EmployeeId);
-                }
-            }
-            result.conflict = unavailableRequest.Any();
             return result;
         }
 
