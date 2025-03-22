@@ -3,7 +3,7 @@ import { apiUrl } from '../../types/constants'
 
 const authenticate = async (username: string, password: string) => {
   try {
-    const resp = await fetch(`${apiUrl}/accounts/Login`, {
+    const resp = await fetch(`${apiUrl}/api/accounts/Login`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
