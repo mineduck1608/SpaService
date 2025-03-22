@@ -191,7 +191,7 @@ export default function CheckoutPage() {
   
   
   return (
-    <div className='relative h-[100vh] w-full overflow-hidden'>
+    <div className='relative h-[130vh] w-full overflow-hidden font-montserrat'>
       {modalMailOpen && (
         <div className='fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-50'>
           <div className='bg-white p-6 rounded-lg shadow-lg w-80 text-center'>
@@ -247,38 +247,39 @@ export default function CheckoutPage() {
             <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
               <ServiceOverview s={booked} membershipValue={membership?.discount} />
               <MainForm />
-              <div className=''>
-                <label className='flex items-center justify-between'>
+              <div className='mt-3'>
+                <label className='flex flex-col'>
                   Promotion Code:
-                  <input
-                    className='mt-2 border-[1px] p-2'
-                    value={req.promotionCode}
-                    onChange={(e) => {
-                      setReq({ ...req, promotionCode: e.currentTarget.value })
-                    }}
-                    placeholder='Promotion code'
-                  />
-                  <div className='flex items-center'>
+                  <div className='flex items-center mt-2'>
                     <input
-                      type='checkbox'
-                      className='size-5'
-                      checked={checked}
-                      disabled={req.promotionCode.length === 0}
-                      onChange={async (e) => {
-                        var arg = !checked
-                        setChecked(arg)
-                        //Only execute this block if req.isActive is true
-                        if (arg) {
-                          await applyPromo()
-                          return
-                        }
-                        setReq({ ...req, active: 0 })
+                      className='border-[1px] p-2 px-4'
+                      value={req.promotionCode}
+                      onChange={(e) => {
+                        setReq({ ...req, promotionCode: e.currentTarget.value })
                       }}
+                      placeholder='Promotion code'
                     />
-                    <span>&nbsp;Apply promotion</span>
+                    <div className='flex items-center ml-5'>
+                      <input
+                        type='checkbox'
+                        className='size-5'
+                        checked={checked}
+                        disabled={req.promotionCode.length === 0}
+                        onChange={async (e) => {
+                          var arg = !checked
+                          setChecked(arg)
+                          if (arg) {
+                            await applyPromo()
+                            return
+                          }
+                          setReq({ ...req, active: 0 })
+                        }}
+                      />
+                      <span className='ml-1'>&nbsp;Apply promotion</span>
+                    </div>
                   </div>
                 </label>
-                <label className='mb-10 grid h-[150%]'>
+                <label className='mb-10 grid h-[150%] mt-3'>
                   <div className='flex justify-between'>
                     <p>Notes:</p>
                     <p>{req.customerNote.length}/255</p>
@@ -289,7 +290,7 @@ export default function CheckoutPage() {
                     onChange={(e) => {
                       setReq({ ...req, customerNote: e.currentTarget.value })
                     }}
-                    className='h-[200%] pb-3 '
+                    className='h-[200%] pb-3 font-montserrat'
                   />
                 </label>
               </div>

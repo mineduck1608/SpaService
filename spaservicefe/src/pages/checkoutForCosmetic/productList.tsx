@@ -17,7 +17,7 @@ export default function ProductList(params: { s: SessionItem[]; discountAmount?:
   return (
     <div className='flex w-full flex-col rounded-lg'>
       <table>
-        <thead className='bg-purple1 text-white *:border-[1px] *:border-purple1 *:p-3'>
+        <thead className='bg-purple1 text-white *:border-[1px] *:border-purple1 *:p-3 text-sm text-center'>
           <tr>
             <th>Product</th>
             <th>Product name</th>

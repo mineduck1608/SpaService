@@ -16,7 +16,7 @@ export default function MainForm() {
           showMinute
           showSecond={false}
           minuteStep={30}
-          className='mt-2 border-[1px] p-2'
+          className='mt-2 border-[1px] p-2 font-montserrat'
           onChange={(date) => {
             context.setReq({ ...context.req, startTime: date })
           }}
@@ -24,7 +24,7 @@ export default function MainForm() {
           required
         />
       </label>
-      <label className='grid 2xl:w-[45%]'>
+      <label className='grid 2xl:w-[65%]'>
         Request employee:
         <select
           onChange={(e) => {

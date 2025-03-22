@@ -9,8 +9,6 @@ export async function getOrders(id: string) {
       }
     })
     var r = (await s.json()) as Order[]
-    console.log(id)
-    console.log(r)
     return r
   } catch (e) {
     return []

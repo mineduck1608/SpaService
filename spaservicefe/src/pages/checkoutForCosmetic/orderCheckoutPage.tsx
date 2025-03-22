@@ -155,7 +155,7 @@ export default function CosmeticCheckoutPage() {
 
   return (
     <div
-      className='w-full overflow-hidden'
+      className='w-full overflow-hidden font-montserrat'
       style={{
         backgroundImage: `url(https://senspa.com.vn/wp-content/uploads/2020/11/banner-2.png)`,
         backgroundSize: 'cover'
@@ -166,9 +166,9 @@ export default function CosmeticCheckoutPage() {
         <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
             <div className='flex items-center justify-center'>
-              <h1 className='font-bold'>Cosmetic Checkout</h1>
+              <h1 className='font-bold -mt-3'>Cosmetic Checkout</h1>
             </div>
-            <div className='mb-4'>
+            <div className='mb-4 mt-3'>
               <label className='grid'>
                 Address:
                 <input
@@ -179,40 +179,42 @@ export default function CosmeticCheckoutPage() {
                   }}
                 />
               </label>
-              <label className='mt-3 flex items-center justify-between'>
+              <label className='flex flex-col mt-3'>
                 Promotion Code:
-                <input
-                  className='mt-2 border-[1px] p-2'
-                  value={data.promotionCode}
-                  onChange={(e) => {
-                    setData({ ...data, promotionCode: e.currentTarget.value })
-                  }}
-                  placeholder='Promotion code'
-                />
-                <div className='flex items-center'>
+                <div className='flex items-center mt-2'>
                   <input
-                    type='checkbox'
-                    className='size-5'
-                    checked={checked}
-                    disabled={data.promotionCode.length === 0}
-                    onChange={async (e) => {
-                      var arg = !checked
-                      setChecked(arg)
-                      if (arg) {
-                        await applyPromo()
-                        return
-                      }
-                      setData({ ...data, active: 0 })
+                    className='border-[1px] p-2 px-4'
+                    value={data.promotionCode}
+                    onChange={(e) => {
+                      setData({ ...data, promotionCode: e.currentTarget.value })
                     }}
+                    placeholder='Promotion code'
                   />
-                  <span>&nbsp;Apply promotion</span>
+                  <div className='flex items-center ml-5'>
+                    <input
+                      type='checkbox'
+                      className='size-5'
+                      checked={checked}
+                      disabled={data.promotionCode.length === 0}
+                      onChange={async (e) => {
+                        var arg = !checked
+                        setChecked(arg)
+                        if (arg) {
+                          await applyPromo()
+                          return
+                        }
+                        setData({ ...data, active: 0 })
+                      }}
+                    />
+                    <span className='ml-1'>&nbsp;Apply promotion</span>
+                  </div>
                 </div>
               </label>
               <p className='mt-4'>
                 Order on behalf of a person? &nbsp;
                 <input
                   type='checkbox'
-                  className='size-5'
+                  className='size-5 mr-3 mt-1'
                   checked={data.orderOnBehalf}
                   onChange={(e) => {
                     setData({ ...data, orderOnBehalf: !data.orderOnBehalf })
