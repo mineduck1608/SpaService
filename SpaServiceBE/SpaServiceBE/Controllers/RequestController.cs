@@ -421,7 +421,9 @@ namespace API.Controllers
 
 
                 await SendEmailRequest(appointment.AppointmentId);
-                return Ok(new { msg = "Assign request successfully." });
+                return Ok(new { msg = "Assign request successfully.",
+                    AppoinmentId = appointment.AppointmentId
+                });
             }
             catch (Exception ex)
             {
@@ -622,10 +624,6 @@ namespace API.Controllers
                 var isUpdated = await _service.Update(id, updatedRequest);
                 if (!isUpdated)
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
-               await CreateDeclineEmailRequest(id);
-
-
-
                 return Ok(new { msg = "Request denied successfully." });
             }
             catch (Exception ex)

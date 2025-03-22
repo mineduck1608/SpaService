@@ -109,6 +109,13 @@ export async function DenyRequest(id: string, managerNote: string) {
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully deny!')
       setTimeout(() => window.location.reload(), 1000)
+      await fetch(`${apiUrl}/requests/CreateDeclinedMail/${id}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+          'Content-Type': 'application/json'
+        },
+      })
     } else {
       toast.error('Failed. Please try again.', {
         autoClose: 1000,
@@ -156,6 +163,13 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
       const responseData = await res.json()
       toast.success(responseData?.msg || 'Successfully assigned!')
       setTimeout(() => window.location.reload(), 1000)
+      await fetch(`${apiUrl}/requests/SendMail/${responseData?.appoinmentId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+          'Content-Type': 'application/json'
+        },
+      })
     } else {
       const errorData = await res.json()
       toast.error(errorData?.msg || 'Failed. Please try again.', { 

@@ -58,7 +58,7 @@ namespace Repositories
         // Get all appointments
         public async Task<List<Appointment>> GetAll()
         {
-            var appointments = await _context.Appointments.Include(x => x.Request)
+            var appointments = await _context.Appointments.Include(x => x.Request).OrderByDescending(x => x.UpdatedAt)
                 .ToListAsync();
 
             bool hasUpdates = false; // Biến cờ để kiểm tra có thay đổi nào cần lưu vào DB không

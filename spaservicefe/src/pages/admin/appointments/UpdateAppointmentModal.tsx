@@ -16,6 +16,7 @@ import {
   GetEmployeeByCategoryId,
   GetRoomsOfCategory
 } from '../customerRequests/customerRequest.util'
+import { getSpaRequestById } from '../transactions/transaction.util'
 
 interface EditAppointmentModalProps {
   isOpen: boolean
@@ -31,8 +32,9 @@ export function EditAppointmentModal({ isOpen, onClose, appointment, onSave }: E
 
   useEffect(() => {
     const fetchData = async () => {
-      if (appointment.request && appointment.request.serviceId) {
-        const categoryData = await GetCategoryByServiceId(appointment.request.serviceId)
+      if (appointment.requestId) {
+        const request = await getSpaRequestById(appointment.requestId)
+        const categoryData = await GetCategoryByServiceId(request.serviceId)
         const employeesData = await GetEmployeeByCategoryId(categoryData.categoryId)
         const roomData = await GetRoomsOfCategory(categoryData.categoryId)
         setEmployees(employeesData)

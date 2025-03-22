@@ -81,7 +81,11 @@ namespace API.Controllers
                         EmployeeName = employee.FullName,
                         RoomNum = room.RoomNum,
                         CustomerName = customer.FullName,
-                        ServiceName = spaService.ServiceName
+                        ServiceName = spaService.ServiceName,
+                        RequestId = appointment.RequestId,
+                        ServiceId = spaService.ServiceId,
+                        EmployeeId = employee.EmployeeId,
+                        RoomId = room.RoomId
                     });
                 }
                 return Ok(result);
@@ -158,7 +162,10 @@ namespace API.Controllers
                         EmployeeName = employee.FullName,
                         RoomNum = room.RoomNum,
                         CustomerName = customer.FullName,
-                        ServiceName = spaService.ServiceName
+                        ServiceName = spaService.ServiceName,
+                        ServiceId = spaService.ServiceId,
+                        RequestId = appointment.RequestId,
+                        RoomId = room.RoomId
                     });
                 }
                 return Ok(result);
@@ -382,8 +389,8 @@ namespace API.Controllers
                 if (!isUpdated)
                     return NotFound(new { msg = $"Appointment with ID = {id} not found." });
 
-                await SendEmailRequest(appointment.AppointmentId);
-                return Ok(new { msg = "Update appoinment successfully." });
+                return Ok(new { msg = "Update appoinment successfully.",
+                AppointmentId = id});
             }
             catch (Exception ex)
             {

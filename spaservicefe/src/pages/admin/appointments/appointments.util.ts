@@ -199,16 +199,8 @@ export async function getAllAppointmentByEmployee(id: string) {
   }
 }
 
-async function fetchServices() {
-  var res = await fetch(`${apiUrl}/services/GetAll`, {
-    headers: {
-      Authorization: `Bearer ${getToken()}`
-    }
-  })
-  return await res.json()
-}
 
-export async function UpdateAppoitment(appointment: Appointment, roomId: string) {
+export async function UpdateAppoitment(appointment: any, roomId: string) {
   try {
     let parsedStartTime = null
     if (typeof appointment.startTime === 'string' && appointment.startTime.trim() !== '') {
@@ -224,7 +216,7 @@ export async function UpdateAppoitment(appointment: Appointment, roomId: string)
     const data = {
       ...appointment,
       roomId: roomId,
-      serviceId: appointment.request?.serviceId,
+      serviceId: appointment.serviceId,
       startTime: parsedStartTime // Chỉ gán nếu hợp lệ
     }
 
@@ -242,9 +234,17 @@ export async function UpdateAppoitment(appointment: Appointment, roomId: string)
     if (res.status >= 200 && res.status < 300) {
       const responseData = await res.json()
       toast.success(responseData.msg || 'Successfully assigned!')
+      await fetch(`${apiUrl}/appointments/CreateMail/${responseData.appointmentId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+          'Content-Type': 'application/json'
+        },
+      })
       setTimeout(() => window.location.reload(), 1000)
     } else {
       const errorData = await res.json()
+      console.log('Error:', errorData.msg)
       toast.error(errorData.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false

@@ -26,6 +26,7 @@ export function ConfirmDenyModal({ isOpen, onClose, onConfirm }: ConfirmDeleteMo
       return
     }
     onConfirm(managerNote)
+    onClose()
   }
 
   return (
