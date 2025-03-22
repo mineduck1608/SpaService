@@ -71,6 +71,8 @@ import EmployeeCommissionPage from './pages/admin/employee/commission/commission
 import CheckInPage from './pages/admin/checkIn/page.tsx'
 import ReportPage from './pages/admin/report/ReportPage.tsx'
 import CustomerTransPage from './pages/customerTransactionPage/customerTransPage.tsx'
+import CustomerOrderPage from './pages/customer/customerOrderPage/orderPage.tsx'
+
 function Layout({ children }) {
   return (
     <>
@@ -134,6 +136,14 @@ function App() {
             element={
               <Layout>
                 <AppointmentPage />
+              </Layout>
+            }
+          />
+          <Route
+            path='orders'
+            element={
+              <Layout>
+                <CustomerOrderPage />
               </Layout>
             }
           />

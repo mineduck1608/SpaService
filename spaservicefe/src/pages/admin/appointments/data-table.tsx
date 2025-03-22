@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import {
   ColumnFiltersState,
@@ -22,11 +20,12 @@ import {
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
 import { Input } from '../../../components/ui/input'
+import { ToastContainer } from 'react-toastify'
 
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey1?: string // Key để lọc dữ liệu
+  filterKey1?: string
   filterKey2?: string
 }
 
@@ -137,6 +136,7 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div>
+      <ToastContainer />
     </div>
   )
 }

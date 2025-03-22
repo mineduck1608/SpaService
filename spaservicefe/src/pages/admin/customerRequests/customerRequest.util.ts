@@ -178,8 +178,7 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
       })
     }
   } catch (e) {
-    console.error('❌ Error in AssignRequest:', e);
-    toast.error('Something went wrong.', { autoClose: 1000, closeButton: false })
+    console.error('❌ Error in AssignRequest:', e)
     return []
   }
 }

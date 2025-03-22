@@ -10,23 +10,23 @@ export const fetchAppointments = async () => {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
-    });
+    })
 
     if (!response.ok) {
-      throw new Error('Failed to fetch appointments');
+      throw new Error('Failed to fetch appointments')
     }
 
-    const appointments = await response.json();
+    const appointments = await response.json()
 
     if (!Array.isArray(appointments)) {
-      console.error('Unexpected data format:', appointments);
-      return [];
+      console.error('Unexpected data format:', appointments)
+      return []
     }
 
-    console.log('Fetched appointments:', appointments.length); // Chỉ log số lượng thay vì toàn bộ dữ liệu
+    console.log('Fetched appointments:', appointments.length)
 
     const formattedAppointments = appointments.map((event, index) => {
-      const { customerName, employeeName, roomNum, serviceName, startTime, endTime, status } = event;
+      const { customerName, employeeName, roomNum, serviceName, startTime, endTime, status } = event
 
       return {
         id: index + 1,
@@ -41,15 +41,15 @@ export const fetchAppointments = async () => {
         : event.status === 'Pending' ? 'leisure'
         : event.status === 'Cancelled' ? 'school'
         : 'personal'
-      };
-    });
+      }
+    })
 
     return formattedAppointments;
   } catch (error) {
-    console.error('Error fetching appointments:', error);
-    return [];
+    console.error('Error fetching appointments:', error)
+    return []
   }
-};
+}
 
 
 
@@ -65,7 +65,7 @@ export const fetchAppointmentsByEmployee = async (id: string) => {
     }
     const appointments = await response.json()
     const formattedAppointments = appointments.map((event, index) => {
-      const { customerName, employeeName, roomNum, serviceName, startTime, endTime, status } = event;
+      const { customerName, employeeName, roomNum, serviceName, startTime, endTime, status } = event
 
       return {
         id: index + 1,
@@ -80,8 +80,8 @@ export const fetchAppointmentsByEmployee = async (id: string) => {
         : event.status === 'Pending' ? 'leisure'
         : event.status === 'Cancelled' ? 'school'
         : 'personal'
-      };
-    });
+      }
+    })
     return formattedAppointments
   } catch (error) {
     console.error('Error fetching appointments: ', error)
@@ -207,7 +207,7 @@ export async function UpdateAppoitment(appointment: any, roomId: string) {
       const tempDate = dayjs(appointment.startTime, 'DD/MM/YYYY HH:mm:ss', true).tz('Asia/Ho_Chi_Minh')
 
       if (tempDate.isValid()) {
-        parsedStartTime = tempDate.format('YYYY-MM-DDTHH:mm:ssZ') // Format chuẩn ISO với VN timezone
+        parsedStartTime = tempDate.format('YYYY-MM-DDTHH:mm:ssZ')
       } else {
         console.warn('❌ Invalid date format:', appointment.startTime)
       }
@@ -217,7 +217,7 @@ export async function UpdateAppoitment(appointment: any, roomId: string) {
       ...appointment,
       roomId: roomId,
       serviceId: appointment.serviceId,
-      startTime: parsedStartTime // Chỉ gán nếu hợp lệ
+      startTime: parsedStartTime
     }
 
     console.log('🚀 ~ Sending data:', data)
@@ -233,7 +233,7 @@ export async function UpdateAppoitment(appointment: any, roomId: string) {
 
     if (res.status >= 200 && res.status < 300) {
       const responseData = await res.json()
-      toast.success(responseData.msg || 'Successfully assigned!')
+      toast.success(responseData?.msg || 'Successfully assigned!')
       await fetch(`${apiUrl}/appointments/CreateMail/${responseData.appointmentId}`, {
         method: 'POST',
         headers: {
@@ -244,10 +244,9 @@ export async function UpdateAppoitment(appointment: any, roomId: string) {
       setTimeout(() => window.location.reload(), 1000)
     } else {
       const errorData = await res.json()
-      console.log('Error:', errorData.msg)
-      toast.error(errorData.msg || 'Failed. Please try again.', {
-        autoClose: 1000,
-        closeButton: false
+      toast.error(errorData?.msg || 'Failed. Please try again.', { 
+        autoClose: 1000, 
+        closeButton: false 
       })
     }
   } catch (e) {
@@ -256,7 +255,6 @@ export async function UpdateAppoitment(appointment: any, roomId: string) {
   }
 }
 
-// Function to call CheckIn API
 export const handleCheckInAPI = async (appointmentId: string) => {
   try {
     const res = await fetch(`${apiUrl}/appointments/CheckInCheckOut/${appointmentId}`, {
