@@ -31,7 +31,7 @@ export function NavUser({
     // Xóa token và các dữ liệu trong sessionStorage
     sessionStorage.removeItem('token')
     sessionStorage.removeItem('booked')
-
+    sessionStorage.clear();
     // Hiển thị thông báo logout thành công
     toast.success('Logout successfully.')
 

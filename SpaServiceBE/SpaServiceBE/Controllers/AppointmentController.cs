@@ -136,12 +136,32 @@ namespace API.Controllers
         {
             try
             {
-                var appointment = await _service.GetAllAppointmentsFromEmployee(id);
+                var appointments = await _service.GetAllAppointmentsFromEmployee(id);
 
-                if (appointment == null)
+                if (appointments == null)
                     return NotFound($"Appointment with ID = {id} not found.");
+                var result = new List<object>();
 
-                return Ok(appointment);
+                foreach (var appointment in appointments)
+                {
+                    var spaService = await _spaService.GetById(appointment.Request.ServiceId);
+                    var room = await _roomService.GetRoomById(appointment.RoomId);
+                    var employee = await _employeeService.GetEmployeeById(appointment.EmployeeId);
+                    var customer = await _customerService.GetCustomerById(appointment.Request.CustomerId);
+
+                    result.Add(new
+                    {
+                        AppointmentId = appointment.AppointmentId,
+                        Status = appointment.Status,
+                        StartTime = appointment.StartTime,
+                        EndTime = appointment.EndTime,
+                        EmployeeName = employee.FullName,
+                        RoomNum = room.RoomNum,
+                        CustomerName = customer.FullName,
+                        ServiceName = spaService.ServiceName
+                    });
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {

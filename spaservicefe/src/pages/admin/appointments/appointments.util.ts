@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 export const fetchAppointments = async () => {
   try {
-    const response = await fetch('https://localhost:7205/api/appointments/GetAllScheduleApp', {
+    const response = await fetch(`${apiUrl}/appointments/GetAllScheduleApp`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -64,52 +64,24 @@ export const fetchAppointmentsByEmployee = async (id: string) => {
       throw new Error('Failed to fetch appointments')
     }
     const appointments = await response.json()
-    const rooms = await fetchRooms()
-    const roomMap = new Map<string, { roomNum: number; floorId: string | null }>(
-      rooms.map((room: any) => [room.roomId, { roomNum: room.roomNum, floorId: room.floorId }])
-    )
-    const formattedAppointments = appointments.map(
-      (
-        event: {
-          status: string
-          startTime: string
-          endTime: string
-          roomId: string
-          request?: {
-            customer?: {
-              fullName: string
-            }
-            service?: {
-              serviceName: string
-            }
-          }
-        },
-        index: number
-      ) => {
-        const roomInfo = roomMap.get(event.roomId) || { roomNum: null, floorId: null }
-        const customerName = event.request?.customer?.fullName || 'Unknown Customer'
-        const serviceName = event.request?.service?.serviceName || 'Unknown Service'
+    const formattedAppointments = appointments.map((event, index) => {
+      const { customerName, employeeName, roomNum, serviceName, startTime, endTime, status } = event;
 
-        return {
-          id: index + 1,
-          title: `${customerName} - ${event.status}`,
-          start: event.startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
-          end: event.endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1'),
-          location: serviceName,
-          description: roomInfo.roomNum ? `  Room ${roomInfo.roomNum}` : 'Unknown',
-          calendarId:
-            event.status === 'Processing'
-              ? 'personal'
-              : event.status === 'Finished'
-                ? 'work'
-                : event.status === 'Pending'
-                  ? 'leisure'
-                  : event.status === 'Cancelled'
-                    ? 'school'
-                    : 'personal'
-        }
-      }
-    )
+      return {
+        id: index + 1,
+        title: `${customerName || 'Unknown'} - ${status || 'Unknown'}`,
+        start: startTime ? startTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1') : 'Unknown',
+        end: endTime ? endTime.replace(/T(\d{2}:\d{2}):\d{2}/, ' $1') : 'Unknown',
+        people: employeeName ? [employeeName] : ['Unknown'],
+        location: roomNum ? `Room ${roomNum}` : 'Unknown',
+        description: serviceName || 'No description',
+        calendarId: event.status === 'Processing' ? 'personal'
+        : event.status === 'Finished' ? 'work'
+        : event.status === 'Pending' ? 'leisure'
+        : event.status === 'Cancelled' ? 'school'
+        : 'personal'
+      };
+    });
     return formattedAppointments
   } catch (error) {
     console.error('Error fetching appointments: ', error)
@@ -119,7 +91,7 @@ export const fetchAppointmentsByEmployee = async (id: string) => {
 
 export const fetchEmployees = async () => {
   try {
-    const response = await fetch('https://localhost:7205/api/employees/GetAll', {
+    const response = await fetch(`${apiUrl}/employees/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -139,7 +111,7 @@ export const fetchEmployees = async () => {
 
 export const fetchRequests = async () => {
   try {
-    const response = await fetch('https://localhost:7205/api/requests/GetAll', {
+    const response = await fetch(`${apiUrl}/requests/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -159,7 +131,7 @@ export const fetchRequests = async () => {
 
 export const fetchCustomers = async () => {
   try {
-    const response = await fetch('https://localhost:7205/api/customers/GetAll', {
+    const response = await fetch(`${apiUrl}/customers/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
@@ -179,7 +151,7 @@ export const fetchCustomers = async () => {
 
 export const fetchRooms = async () => {
   try {
-    const response = await fetch('https://localhost:7205/api/rooms/GetAll', {
+    const response = await fetch(`${apiUrl}/rooms/GetAll`, {
       headers: {
         Authorization: `Bearer ${getToken()}`
       }

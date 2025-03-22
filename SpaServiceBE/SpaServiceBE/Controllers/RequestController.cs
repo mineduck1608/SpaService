@@ -622,7 +622,7 @@ namespace API.Controllers
                 var isUpdated = await _service.Update(id, updatedRequest);
                 if (!isUpdated)
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
-               CreateDeclineEmailRequest(id);
+               await CreateDeclineEmailRequest(id);
 
 
 

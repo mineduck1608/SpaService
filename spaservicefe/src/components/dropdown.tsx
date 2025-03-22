@@ -44,6 +44,7 @@ export function Dropdown() {
   // Hàm xử lý logout
   const handleLogoutClick = () => {
     sessionStorage.removeItem('token') // Xóa token
+    sessionStorage.clear();
     toast.success('Logout success.')
     navigate('/login') // Điều hướng về trang đăng nhập
   }
