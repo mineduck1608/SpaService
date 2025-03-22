@@ -62,6 +62,10 @@ export function Dropdown() {
       v: '/appointments'
     },
     {
+      k: 'Orders',
+      v: '/orders'
+    },
+    {
       k: 'Transactions',
       v: '/transactions'
     },
