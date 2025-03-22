@@ -53,7 +53,7 @@ export default function OrderStatus({ order }: OrderStatusProps) {
           return (
             <div 
               key={`line-${index}`} 
-              className={`absolute top-6 h-1 transition-all duration-300 ease-out ${isLineBlue ? 'bg-blue-400' : 'bg-gray-200'}`} 
+              className={`absolute top-6 h-1 transition-all duration-300 ease-out ${isLineBlue ? 'bg-green-500' : 'bg-gray-200'}`} 
               style={{ 
                 left: `calc(${(index * 100) / (steps.length - 1)}% + 24px)`,
                 right: `calc(${100 - ((index + 1) * 100) / (steps.length - 1)}% + 24px)`,
@@ -68,15 +68,15 @@ export default function OrderStatus({ order }: OrderStatusProps) {
             return (
               <div key={step.id} className='flex flex-col items-center w-24'>
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center z-10 transition-all duration-500 relative
-                  ${step.completed ? 'bg-blue-400 text-white' : step.active ? 'bg-white text-blue-400 border-2 border-blue-400' : 'bg-gray-200 text-gray-400'}`}
+                  ${step.completed ? 'bg-green-500 text-white' : step.active ? 'bg-white text-green-500 border-2 border-green-500' : 'bg-gray-200 text-gray-400'}`}
                 >
                   {step.icon}
                   {!step.completed && step.active && (
-                    <div className="absolute inset-0 rounded-full border-4 border-blue-200 border-t-blue-400 animate-spin"></div>
+                    <div className="absolute inset-0 rounded-full border-4 border-green-200 border-t-green-500 animate-spin"></div>
                   )}
                 </div>
                 <div className='mt-2 text-center'>
-                  <p className={`text-sm font-medium ${step.completed ? 'text-blue-400' : step.active ? 'text-blue-400' : 'text-gray-400'}`}>
+                  <p className={`text-sm font-medium ${step.completed ? 'text-green-500' : step.active ? 'text-green-500' : 'text-gray-400'}`}>
                     {step.label}
                   </p>
                   {step.subLabel && (
