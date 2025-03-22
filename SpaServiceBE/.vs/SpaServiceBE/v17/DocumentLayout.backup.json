@@ -267,7 +267,8 @@
               "RelativeToolTip": "SpaServiceBE\\Program.cs",
               "ViewState": "AgIAAFgAAAAAAAAAAAAAAGwAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T07:59:11.284Z"
+              "WhenOpened": "2025-03-17T07:59:11.284Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -279,7 +280,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\RoleController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T17:04:58.57Z"
+              "WhenOpened": "2025-03-19T17:04:58.57Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -316,7 +318,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AppointmentController.cs",
               "ViewState": "AgIAAJAAAAAAAAAAAAAAAIwAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:16:10.523Z"
+              "WhenOpened": "2025-03-18T03:16:10.523Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -352,7 +355,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AttendanceRecordController.cs",
               "ViewState": "AgIAAIIAAAAAAAAAAAAIwHoAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T03:15:39.265Z"
+              "WhenOpened": "2025-03-18T03:15:39.265Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -424,7 +428,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\TransactionController.cs",
               "ViewState": "AgIAAJ4AAAAAAAAAAADwv6kAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T10:04:12.15Z"
+              "WhenOpened": "2025-03-21T10:04:12.15Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -496,7 +501,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\PromotionController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T10:25:24.776Z"
+              "WhenOpened": "2025-03-21T10:25:24.776Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -520,7 +526,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\AccountController.cs",
               "ViewState": "AgIAANkBAAAAAAAAAADwvwsCAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T07:36:58.387Z"
+              "WhenOpened": "2025-03-20T07:36:58.387Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -663,7 +670,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\CosmeticProductController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T03:39:40.25Z"
+              "WhenOpened": "2025-03-20T03:39:40.25Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -675,7 +683,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\GoogleAuthController.cs",
               "ViewState": "AgIAAHkAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T16:14:47.828Z"
+              "WhenOpened": "2025-03-19T16:14:47.828Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -687,7 +696,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\CustomerController.cs",
               "ViewState": "AgIAAHwAAAAAAAAAAAAwwIMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T10:03:25.962Z"
+              "WhenOpened": "2025-03-18T10:03:25.962Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -770,7 +780,8 @@
               "RelativeToolTip": "SpaServiceBE\\Controllers\\FeedbackController.cs",
               "ViewState": "AgIAADwAAAAAAAAAAAAowE0AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T10:04:02.372Z"
+              "WhenOpened": "2025-03-18T10:04:02.372Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
