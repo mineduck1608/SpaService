@@ -8,10 +8,20 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { ToastContainer, toast } from 'react-toastify'
-import { checkInCheckOut, getAllEmployees } from './record.util'
+import { checkInCheckOut, getAllEmployees, getCurrentLocation } from './record.util'
 import { jwtDecode } from 'jwt-decode'
 import { format } from 'date-fns'
 import { toZonedTime } from 'date-fns-tz'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+
+delete (L.Icon.Default.prototype as any)._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+})
 
 const checkInSchema = z.object({
   accountId: z.string().nonempty('Account ID is required'),
@@ -26,6 +36,21 @@ interface CheckInModalProps {
 
 export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: CheckInModalProps) {
   const [action, setAction] = useState<string>('checkin')
+  const [location, setLocation] = useState<{ latitude: number, longitude: number } | null>(null)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const updateLocation = async () => {
+      try {
+        const position = await getCurrentLocation()
+        setLocation(position)
+      } catch (error) {
+        toast.error('Unable to get location. Please enable location services.')
+      }
+    }
+    updateLocation()
+  })
+
   const form = useForm<z.infer<typeof checkInSchema>>({
     resolver: zodResolver(checkInSchema),
     defaultValues: {
@@ -34,6 +59,8 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
       checkInTime: format(new Date(), 'yyyy-MM-dd\'T\'HH:mm')
     }
   })
+
+
 
   useEffect(() => {
     const fetchAccountDetails = async () => {
@@ -55,17 +82,23 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
   }, [form])
 
   const handleAction = async (action: string) => {
-    const data = form.getValues()
-    const { accountId } = data
-    const latitude = 10.88931964301905
-    const longtitude = 106.79658776930619
+    try {
+      const data = form.getValues()
+      const { accountId } = data
 
-    await checkInCheckOut(accountId, action, latitude, longtitude)
+      const position = await getCurrentLocation()
 
-    if (action === 'checkin') {
-      onCheckInSuccess(data.checkInTime)
-    } else if (action === 'checkout') {
-      onCheckOutSuccess(data.checkInTime)
+      await checkInCheckOut(accountId, action, position.latitude, position.longitude)
+
+      if (action === 'checkin') {
+        onCheckInSuccess(data.checkInTime)
+      } else if (action === 'checkout') {
+        onCheckOutSuccess(data.checkInTime)
+      }
+
+      setOpen(false)
+    } catch (error) {
+      toast.error('Unable to get location. Please enable location services.')
     }
   }
 
@@ -78,14 +111,15 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
   }
 
   return (
-    <Dialog onOpenChange={handleOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant='outline'>Check In</Button>
+        <Button className='bg-green-500 hover:bg-green-600 text-white'>Check In</Button>
       </DialogTrigger>
       <DialogContent className='px-10'>
         <DialogTitle className='flex justify-center'>Employee Check-In</DialogTitle>
         <Form {...form}>
           <form className='space-y-4'>
+
             <FormField
               control={form.control}
               name='fullName'
@@ -101,6 +135,7 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name='checkInTime'
@@ -116,10 +151,39 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
                 </FormItem>
               )}
             />
-            <div className='mt-10 flex justify-end gap-2'>
-              <Button type='button' onClick={() => handleAction('checkin')}>Check In</Button>
-              <Button type='button' onClick={() => handleAction('checkout')}>Check Out</Button>
+
+            <div className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <span className='text-md text-right font-medium'>Location</span>
+              <div className='col-span-3 space-y-1'>
+                {location ? (
+                  <>
+                    <div style={{ height: '200px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                      <MapContainer
+                        center={[location.latitude, location.longitude]}
+                        zoom={15}
+                        style={{ height: '100%', width: '100%' }}
+                      >
+                        <TileLayer
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        />
+                        <Marker position={[location.latitude, location.longitude]}>
+                          <Popup>Current location</Popup>
+                        </Marker>
+                      </MapContainer>
+                    </div>
+                  </>
+                ) : (
+                  <p className='text-sm text-gray-500'>Fetching location...</p>
+                )}
+              </div>
             </div>
+
+            <div className='mt-10 flex justify-end gap-2'>
+            <Button type='button' onClick={() => handleAction('checkin')}>Check In</Button>
+            <Button type='button' onClick={() => handleAction('checkout')}>Check Out</Button>
+          </div>
+            
           </form>
         </Form>
       </DialogContent>
