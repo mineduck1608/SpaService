@@ -56,6 +56,42 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("GetAllScheduleApp")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointmentsScheduleApp()
+        {
+            try
+            {
+                var appointments = await _service.GetAllAppointments();
+
+                var result = new List<object>();
+
+                foreach (var appointment in appointments)
+                {
+                    var spaService = await _spaService.GetById(appointment.Request.ServiceId);
+                    var room = await _roomService.GetRoomById(appointment.RoomId);
+                    var employee = await _employeeService.GetEmployeeById(appointment.EmployeeId);
+                    var customer = await _customerService.GetCustomerById(appointment.Request.CustomerId);  
+
+                    result.Add(new
+                    {
+                        AppointmentId = appointment.AppointmentId,
+                        Status = appointment.Status,
+                        StartTime = appointment.StartTime,
+                        EndTime = appointment.EndTime,
+                        EmployeeName = employee.FullName,
+                        RoomNum = room.RoomNum,
+                        CustomerName = customer.FullName,
+                        ServiceName = spaService.ServiceName
+                    });
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // GET: api/appointments/GetById/{id}
         [Authorize]
         [HttpGet("GetById/{id}")]
@@ -387,7 +423,7 @@ namespace API.Controllers
                                     ServiceTransactionId = serviceTransactionId
                                 };
 
-                                _employeeCommissionService.AddEmployeeCommission(employeeCommission);
+                                await _employeeCommissionService.AddEmployeeCommission(employeeCommission);
 
                                     appointment.CheckOut = DateTime.Now;
                                     appointment.Status = "Finished";

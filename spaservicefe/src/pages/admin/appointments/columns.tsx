@@ -58,15 +58,15 @@ export const columns: ColumnDef<Appointment>[] = [
     accessorKey: 'status',
     header: 'Status',
     cell: (info) => {
-      const status = info.getValue().toLowerCase()
+      const status = info.getValue()
       let textColor = 'black'
-      if (status === 'pending') {
+      if (status === 'Pending') {
         textColor = 'gray'
-      } else if (status === 'processing') {
+      } else if (status === 'Processing') {
         textColor = 'blue'
-      } else if (status === 'finished') {
+      } else if (status === 'Finished') {
         textColor = 'green'
-      } else if (status === 'not processed') {
+      } else if (status === 'Not Processed') {
         textColor = 'red'
       }
 

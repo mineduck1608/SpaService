@@ -19,13 +19,8 @@ function CalendarApp() {
       setEvents(fetchedEvents)
       sessionStorage.setItem('events', JSON.stringify(fetchedEvents))
     }
-
-    const loadEmployees = async () => {
-      const fetchedEmployees = await fetchEmployees()
-    }
-
     loadEvents()
-    loadEmployees()
+
   }, [])
 
   const eventModal = createEventModalPlugin()

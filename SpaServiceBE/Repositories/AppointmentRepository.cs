@@ -58,7 +58,7 @@ namespace Repositories
         // Get all appointments
         public async Task<List<Appointment>> GetAll()
         {
-            var appointments = await _context.Appointments
+            var appointments = await _context.Appointments.Include(x => x.Request)
                 .ToListAsync();
 
             bool hasUpdates = false; // Biến cờ để kiểm tra có thay đổi nào cần lưu vào DB không
@@ -67,7 +67,7 @@ namespace Repositories
             {
                 if (item.EndTime < DateTime.Now && item.Status != "Finished" && item.Status != "Processing")
                 {
-                    item.Status = "Not processed"; // Cập nhật trạng thái
+                    item.Status = "Not Processed"; // Cập nhật trạng thái
                     hasUpdates = true; // Đánh dấu là có thay đổi
                 }
             }
@@ -115,7 +115,7 @@ namespace Repositories
             existingAppointment.StartTime = updatedAppointment.StartTime;
             existingAppointment.EndTime = updatedAppointment.EndTime;
             existingAppointment.RoomId = updatedAppointment.RoomId;
-            existingAppointment.UpdatedAt = updatedAppointment.UpdatedAt;
+            existingAppointment.UpdatedAt = DateTime.Now;
 
             try
             {

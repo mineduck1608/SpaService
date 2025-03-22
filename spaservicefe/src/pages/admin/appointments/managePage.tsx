@@ -20,17 +20,13 @@ export default function AppointmentManagePage() {
           appointments.map(async (appointment: any) => {
             return {
               ...appointment,
-              appointmentId: appointment.appointmentId,
-              customerName: appointment.request.customer.fullName,
-              serviceName: appointment.request.service.serviceName,
-              employeeName: appointment.employee.fullName,
-              roomNumber: appointment.room.roomNum,
+              roomNumber: appointment.roomNum,
               startTime: format(new Date(appointment.startTime), 'yyyy-MM-dd HH:mm'),
               endTime: format(new Date(appointment.endTime), 'yyyy-MM-dd HH:mm'),
-              status: appointment.status
             }
           })
         )
+        console.log(formattedAppointments)
         setData(formattedAppointments)
       } catch (err) {
         setError("Can't load the data." + err)
