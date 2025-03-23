@@ -30,7 +30,7 @@ export default function AppointmentManagePage() {
               roomNumber: appointment.room?.roomNum,
               startTime: format(new Date(appointment.startTime), 'yyyy-MM-dd HH:mm'),
               endTime: format(new Date(appointment.endTime), 'yyyy-MM-dd HH:mm'),
-              status: appointment.status,
+              status: appointment.status
             }
           })
         )

@@ -10,8 +10,8 @@ export function RadialChartComp(params: { total: number; newCustomers: number })
         <CardTitle>Registered Users</CardTitle>
         <CardDescription>Up to 1 year</CardDescription>
       </CardHeader>
-      <CardContent className='flex-1 pb-0 h-[350px]'>
-        <ChartContainer config={radialChartConfig} className='h-full aspect-auto max-h-[250px]'>
+      <CardContent className='h-[350px] flex-1 pb-0'>
+        <ChartContainer config={radialChartConfig} className='aspect-auto h-full max-h-[250px]'>
           <RadialBarChart
             data={[{ newCustomers: params.newCustomers, fill: 'var(--color-safari)' }]}
             endAngle={360 * (params.newCustomers / params.total)}

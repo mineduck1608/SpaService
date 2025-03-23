@@ -36,9 +36,7 @@ function tableData(request: any) {
     { key: 'Your Note', value: request.customerNote.length === 0 ? 'None' : request.customerNote },
     {
       key: 'Price',
-      value: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
-        request.totalPrice ?? 0
-      )
+      value: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(request.totalPrice ?? 0)
     },
     {
       key: 'Transaction Status',

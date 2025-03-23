@@ -97,7 +97,7 @@ const ChartTooltipContent = React.forwardRef<
       hideIndicator?: boolean
       indicator?: 'line' | 'dot' | 'dashed'
       nameKey?: string
-      labelKey?: string,
+      labelKey?: string
       unit?: string
     }
 >(
@@ -116,7 +116,7 @@ const ChartTooltipContent = React.forwardRef<
       formatter,
       color,
       nameKey,
-      labelKey,
+      labelKey
     },
     ref
   ) => {
@@ -213,7 +213,8 @@ const ChartTooltipContent = React.forwardRef<
                         <span className='font-mono font-medium tabular-nums text-foreground'>
                           &nbsp;{item.value.toLocaleString()}
                         </span>
-                      )}{unit ?? ''}
+                      )}
+                      {unit ?? ''}
                     </div>
                   </>
                 )}

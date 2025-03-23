@@ -20,15 +20,15 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'address',
-    header: 'Address',
+    header: 'Address'
   },
   {
     accessorKey: 'phone',
-    header: 'Phone',
+    header: 'Phone'
   },
   {
     accessorKey: 'recepientName',
-    header: 'Cashier',
+    header: 'Cashier'
   },
   {
     id: 'actions',

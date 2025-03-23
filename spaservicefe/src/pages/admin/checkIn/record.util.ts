@@ -39,7 +39,12 @@ export async function getAllEmployees() {
   }
 }
 
-export async function checkInCheckOut(accountId:string, action: string, latitude: number, longitude: number): Promise<void> {
+export async function checkInCheckOut(
+  accountId: string,
+  action: string,
+  latitude: number,
+  longitude: number
+): Promise<void> {
   try {
     const res = await fetch(`${apiUrl}/attendancerecords/CheckInCheckOut/${accountId}`, {
       method: 'PUT',
@@ -61,7 +66,7 @@ export async function checkInCheckOut(accountId:string, action: string, latitude
     toast.error('Error checking in/checking out')
   }
 }
-export const getCurrentLocation = (): Promise<{ latitude: number, longitude: number }> => {
+export const getCurrentLocation = (): Promise<{ latitude: number; longitude: number }> => {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
       reject(new Error('Geolocation is not supported by your browser'))

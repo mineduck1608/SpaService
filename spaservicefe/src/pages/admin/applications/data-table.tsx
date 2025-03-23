@@ -28,7 +28,12 @@ interface DataTableProps<TData, TValue> {
   filterKey2?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey1 = 'content', filterKey2 = 'status' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  filterKey1 = 'content',
+  filterKey2 = 'status'
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -60,10 +65,10 @@ export function DataTable<TData, TValue>({ columns, data, filterKey1 = 'content'
           placeholder={`Filter by content...`}
           value={(table.getColumn(filterKey1)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey1)?.setFilterValue(event.target.value)}
-          className='max-w-sm mr-5'
+          className='mr-5 max-w-sm'
         />
 
-<Input
+        <Input
           placeholder={`Filter by status...`}
           value={(table.getColumn(filterKey2)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey2)?.setFilterValue(event.target.value)}

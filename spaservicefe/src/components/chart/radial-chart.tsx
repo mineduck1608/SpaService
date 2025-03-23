@@ -20,9 +20,7 @@ export function RadialChartComp() {
               className='first:fill-muted last:fill-background'
               polarRadius={[75, 25]}
             />
-            <RadialBar dataKey='visitors' 
-            additive='sum'
-            />
+            <RadialBar dataKey='visitors' additive='sum' />
             {/* <PolarRadiusAxis tick={true} tickLine={true} axisLine={true}>
               <Label
                 content={({ viewBox }) => {

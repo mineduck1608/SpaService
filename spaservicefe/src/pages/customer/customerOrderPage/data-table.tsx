@@ -23,7 +23,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  
+
   const table = useReactTable({
     data,
     columns,

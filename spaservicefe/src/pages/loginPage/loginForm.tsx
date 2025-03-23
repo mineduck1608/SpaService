@@ -19,7 +19,7 @@ import { apiUrl, roleJWT } from '../../types/constants'
 import { RoleName } from '../../types/role'
 import { getCusByAcc } from '../checkout/checkoutPage.util'
 import { Customer } from '@/types/type'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({ username: '', password: '' })
@@ -95,11 +95,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     console.log('Login Failed')
   }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleImageClick = () => {
-    navigate('/');
-  };
+    navigate('/')
+  }
 
   return (
     <GoogleOAuthProvider clientId='397904889849-udf1t7mvf7vmr1bvvdbmv2amj0nea404.apps.googleusercontent.com'>
@@ -108,7 +108,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
           <CardContent className='grid p-0 md:grid-cols-2'>
             <form className='p-6 md:p-8' onSubmit={submit}>
               <div className='flex w-full justify-center'>
-                <img src={logo} className='w-1/4 translate-y-2' onClick={handleImageClick}/>
+                <img src={logo} className='w-1/4 translate-y-2' onClick={handleImageClick} />
               </div>
               <div className='mt-2 flex flex-col gap-6'>
                 <div className='text-center'>

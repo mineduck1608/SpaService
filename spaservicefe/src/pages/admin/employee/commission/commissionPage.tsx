@@ -27,7 +27,7 @@ export default function CommissionPage() {
         const employee = await getEmployeeByAccountId(jwtDecode(getToken() ?? '').UserId)
         const [appointmentData, commissionData] = await Promise.all([
           getAllAppointmentByEmployee(employee.employeeId),
-          getCommissionByEmployeeId(employee.employeeId),
+          getCommissionByEmployeeId(employee.employeeId)
         ])
 
         const commissionMap = new Map(
@@ -43,7 +43,7 @@ export default function CommissionPage() {
             date: format(new Date(appointment.startTime), 'yyyy-MM-dd'),
             status: appointment.status,
             transactionId: commission?.serviceTransaction?.transactionId,
-            commissionValue: commission?.commissionValue || 0,
+            commissionValue: commission?.commissionValue || 0
           }
         })
 
@@ -64,8 +64,8 @@ export default function CommissionPage() {
   return (
     <div className='h-[96%] items-center justify-center'>
       <h2 className='container mx-auto my-4 ml-11'>Employee Commission</h2>
-      <div className='container mx-auto w-[96%] flex justify-end mb-4 z-100 cursor-pointer'>
-        <select value={selectedYear} onChange={handleChange} className='rounded border p-2 cursor-pointer'>
+      <div className='z-100 container mx-auto mb-4 flex w-[96%] cursor-pointer justify-end'>
+        <select value={selectedYear} onChange={handleChange} className='cursor-pointer rounded border p-2'>
           {Array.from({ length: 3 }, (_, i) => (
             <option key={i} value={new Date().getFullYear() - i}>
               {new Date().getFullYear() - i}

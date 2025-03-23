@@ -26,7 +26,8 @@ export function PieChartComp(params: { data: { rating: number; count: number }[]
     sum: 0
   })
   React.useEffect(() => {
-    var count = 0, sum = 0
+    var count = 0,
+      sum = 0
     for (let i = 0; i < s.length; i++) {
       var e = s[i]
       count = count + e.count

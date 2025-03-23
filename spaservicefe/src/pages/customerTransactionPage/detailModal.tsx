@@ -42,7 +42,7 @@ export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteM
               <tbody>
                 {products.map((v) => (
                   <tr key={v.orderDetailId}>
-                    <td className='p-2'>{context.products.find(x => x.productId === v.productId)?.productName}</td>
+                    <td className='p-2'>{context.products.find((x) => x.productId === v.productId)?.productName}</td>
                     <td>{formatNumber(v.subTotalAmount / v.quantity)}</td>
                     <td>{v.quantity}</td>
                     <td>{formatNumber(v.subTotalAmount)}</td>

@@ -11,7 +11,7 @@ const News = () => {
     image: string
     createdAt: Date
   }
-  
+
   const [news, setNews] = useState<NewsItem[]>([])
   const [index, setIndex] = useState(0)
 
@@ -72,45 +72,48 @@ const News = () => {
           </div>
 
           {/* News Grid */}
-<div className='relative h-[500px] flex justify-center items-center px-8' data-aos='fade-up' data-aos-delay='300'>
-<AnimatePresence mode='wait'>
-  {news.length > 0 && (
-    <motion.div
-      key={index}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.8 }}
-      className='w-full container mx-auto grid grid-cols-3 gap-12'
-    >
-      {news.slice(index, index + 3).map((item) => (
-        <div key={item.newsId} className='overflow-hidden rounded-lg bg-white shadow-lg'>
-          <a href={`/news/detail/${item.newsId}`}>
-            <div className='overflow-hidden'>
-              <img
-                src={item.image}
-                alt={item.header}
-                className='h-[250px] w-full object-cover transition-transform duration-500 hover:scale-110'
-              />
-            </div>
-          </a>
-          <div className='p-6'>
-            <p className='mb-2 text-sm text-gray-500'>{new Date(item.createdAt).toLocaleDateString()}</p>
-            <h3 className='mb-4 text-xl font-semibold text-gray-800'>{item.header}</h3>
-            <a
-              href={`/news/detail/${item.newsId}`}
-              className='text-[#8B3A8B] transition-colors duration-300 hover:text-[#a040a0]'
-            >
-              Details
-            </a>
+          <div
+            className='relative flex h-[500px] items-center justify-center px-8'
+            data-aos='fade-up'
+            data-aos-delay='300'
+          >
+            <AnimatePresence mode='wait'>
+              {news.length > 0 && (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.8 }}
+                  className='container mx-auto grid w-full grid-cols-3 gap-12'
+                >
+                  {news.slice(index, index + 3).map((item) => (
+                    <div key={item.newsId} className='overflow-hidden rounded-lg bg-white shadow-lg'>
+                      <a href={`/news/detail/${item.newsId}`}>
+                        <div className='overflow-hidden'>
+                          <img
+                            src={item.image}
+                            alt={item.header}
+                            className='h-[250px] w-full object-cover transition-transform duration-500 hover:scale-110'
+                          />
+                        </div>
+                      </a>
+                      <div className='p-6'>
+                        <p className='mb-2 text-sm text-gray-500'>{new Date(item.createdAt).toLocaleDateString()}</p>
+                        <h3 className='mb-4 text-xl font-semibold text-gray-800'>{item.header}</h3>
+                        <a
+                          href={`/news/detail/${item.newsId}`}
+                          className='text-[#8B3A8B] transition-colors duration-300 hover:text-[#a040a0]'
+                        >
+                          Details
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        </div>
-      ))}
-    </motion.div>
-  )}
-</AnimatePresence>
-</div>
-
         </div>
       </div>
     </section>

@@ -79,7 +79,7 @@ export function RemoveButton(params: { row: Row<SessionItem> }) {
       className='rounded-sm bg-purple1 p-2 text-white'
       onClick={async (e) => {
         var v = document.getElementById(productId)
-        if(v){
+        if (v) {
           document.getElementById('body')?.removeChild(v)
         }
         await removeCartItem(params.row.original.id ?? '')

@@ -13,8 +13,7 @@ import { areaChartData, areaChartConfig } from '../../../components/chart/chart.
 
 export function AreaChart2Comp(params: { data: { date: string; service: number; product: number }[] }) {
   const [timeRange, setTimeRange] = React.useState('90')
-  const filteredData = params.data
-  .filter((v, i) => {
+  const filteredData = params.data.filter((v, i) => {
     return i >= params.data.length - parseInt(timeRange)
   })
   return (

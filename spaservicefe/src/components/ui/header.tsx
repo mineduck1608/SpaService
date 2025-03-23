@@ -28,7 +28,7 @@ const Header = () => {
 
       if (!isTokenValid(token)) {
         sessionStorage.removeItem('token') // Xóa token nếu hết hạn
-        sessionStorage.clear();
+        sessionStorage.clear()
       }
       if (token) {
         var jwtData = jwtDecode(token)

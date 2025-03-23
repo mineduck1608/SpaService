@@ -1,12 +1,12 @@
 import React, { createContext, useState } from 'react'
 export type SmallProduct = {
-  productId: string,
+  productId: string
   productName: string
 }
 type TransType = {
   showServiceTrans: boolean
-  setShowServiceTrans: React.Dispatch<React.SetStateAction<boolean>>,
-  products: SmallProduct[],
+  setShowServiceTrans: React.Dispatch<React.SetStateAction<boolean>>
+  products: SmallProduct[]
   setProducts: React.Dispatch<React.SetStateAction<SmallProduct[]>>
 }
 

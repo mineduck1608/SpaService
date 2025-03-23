@@ -75,7 +75,7 @@ export type SpaRequest = {
   service?: SpaService
   customer?: Customer
   employee?: Employee
-  serviceTransactions?: ServiceTransaction[],
+  serviceTransactions?: ServiceTransaction[]
   createdAt: Date
 }
 
@@ -195,9 +195,9 @@ export type TransactionBase = {
   status: boolean
   completeTime?: string
   promotionId: string
-  paymentType: string,
-  serviceTransactions: ServiceTransaction[],
-  cosmeticTransactions: CosmeticTransaction[],
+  paymentType: string
+  serviceTransactions: ServiceTransaction[]
+  cosmeticTransactions: CosmeticTransaction[]
   promotion: Promotion
 }
 
@@ -224,7 +224,7 @@ export type Order = {
   transactionId: string
   address: string
   recepientName: string
-  customer?: Customer,
+  customer?: Customer
   orderDetails: OrderDetail[]
 }
 
@@ -233,7 +233,7 @@ export type OrderDetail = {
   quantity: number
   subTotalAmount: GLfloat
   orderId: string
-  productId: string,
+  productId: string
   product: CosmeticProduct
 }
 

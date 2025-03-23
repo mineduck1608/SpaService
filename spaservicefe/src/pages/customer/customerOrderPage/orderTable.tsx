@@ -13,7 +13,7 @@ export default function OrderTable() {
     const fetchData = async () => {
       try {
         const customerId = sessionStorage.getItem('customerId')
-        const orders = await getOrders(customerId? customerId : '')
+        const orders = await getOrders(customerId ? customerId : '')
         setData(orders)
       } catch (err) {
         setError("Can't load the data.")

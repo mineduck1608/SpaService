@@ -51,11 +51,11 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
     console.log('Login Failed')
   }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleImageClick = () => {
-    navigate('/');
-  };
+    navigate('/')
+  }
 
   return (
     <div className={cn('items-center justify-center', className)} {...props}>
@@ -63,7 +63,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
         <Tooltip id='confirm-password' className='z-10' />
         <div className='flex flex-col gap-10'>
           <div className='flex w-full justify-center'>
-            <img src={logo} className='w-1/2 -translate-y-20' onClick={handleImageClick}/>
+            <img src={logo} className='w-1/2 -translate-y-20' onClick={handleImageClick} />
           </div>
           <div className='-translate-y-24'>
             <div className='mb-6 flex flex-col items-center text-center'>

@@ -31,7 +31,12 @@ interface DataTableProps<TData, TValue> {
   filterKey2?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey1 = 'statusText', filterKey2 = 'phone' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  filterKey1 = 'statusText',
+  filterKey2 = 'phone'
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})

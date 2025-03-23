@@ -58,7 +58,7 @@ export const columnsForService: ColumnDef<TransactionBase>[] = [
     accessorKey: 'service',
     header: 'Service',
     cell: (r) => r.row.original.serviceTransactions[0].request?.service?.serviceName
-  },
+  }
 ]
 export const columnsForProduct: ColumnDef<TransactionBase>[] = [
   {
@@ -71,5 +71,5 @@ export const columnsForProduct: ColumnDef<TransactionBase>[] = [
     accessorKey: 'detail',
     header: 'Detail',
     cell: (r) => <Details request={r.row.original} />
-  },
+  }
 ]

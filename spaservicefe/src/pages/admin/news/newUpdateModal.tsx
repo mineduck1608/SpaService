@@ -70,7 +70,6 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
   }, [news, categories, form])
 
   const handleSubmit = async (data: any) => {
-
     let imageUrl = ''
     if (imageFile) {
       try {
@@ -220,20 +219,20 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
               )}
             />
 
-             {/* Thêm phần Upload Image */}
-                                    <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
-                                      <FormLabel className='text-md text-right'>Upload Image</FormLabel>
-                                      <div className='col-span-3 space-y-2'>
-                                        <input type='file' accept='image/*' onChange={handleImageChange} />
-                                        {imagePreview && <img src={imagePreview} alt='Preview' className='h-20 w-40 rounded object-cover' />}
-                                      </div>
-                                    </FormItem>
-                        
-                                    <div className='mt-10 flex justify-end'>
-                                      <Button type='submit' disabled={uploading}>
-                                        {uploading ? 'Uploading...' : 'Submit'}
-                                      </Button>
-                                    </div>
+            {/* Thêm phần Upload Image */}
+            <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <FormLabel className='text-md text-right'>Upload Image</FormLabel>
+              <div className='col-span-3 space-y-2'>
+                <input type='file' accept='image/*' onChange={handleImageChange} />
+                {imagePreview && <img src={imagePreview} alt='Preview' className='h-20 w-40 rounded object-cover' />}
+              </div>
+            </FormItem>
+
+            <div className='mt-10 flex justify-end'>
+              <Button type='submit' disabled={uploading}>
+                {uploading ? 'Uploading...' : 'Submit'}
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>

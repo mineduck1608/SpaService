@@ -36,7 +36,7 @@ interface CheckInModalProps {
 
 export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: CheckInModalProps) {
   const [action, setAction] = useState<string>('checkin')
-  const [location, setLocation] = useState<{ latitude: number, longitude: number } | null>(null)
+  const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null)
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
     defaultValues: {
       accountId: '',
       fullName: '',
-      checkInTime: format(new Date(), 'yyyy-MM-dd\'T\'HH:mm')
+      checkInTime: format(new Date(), "yyyy-MM-dd'T'HH:mm")
     }
   })
 
@@ -70,7 +70,7 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
         form.setValue('accountId', accountId)
 
         const employees = await getAllEmployees()
-        const employee = employees.find(emp => emp.accountId === accountId)
+        const employee = employees.find((emp) => emp.accountId === accountId)
         if (employee) {
           form.setValue('fullName', employee.fullName)
         }
@@ -110,13 +110,12 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>
-          <Button className='bg-green-500 hover:bg-green-600 text-white'>Check In</Button>
+          <Button className='bg-green-500 text-white hover:bg-green-600'>Check In</Button>
         </DialogTrigger>
         <DialogContent className='px-10'>
           <DialogTitle className='flex justify-center'>Employee Check-In</DialogTitle>
           <Form {...form}>
             <form className='space-y-4'>
-
               <FormField
                 control={form.control}
                 name='fullName'
@@ -161,7 +160,7 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
                           style={{ height: '100%', width: '100%' }}
                         >
                           <TileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                           />
                           <Marker position={[location.latitude, location.longitude]}>
@@ -177,8 +176,12 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
               </div>
 
               <div className='mt-10 flex justify-end gap-2'>
-                <Button type='button' onClick={() => handleAction('checkin')}>Check In</Button>
-                <Button type='button' onClick={() => handleAction('checkout')}>Check Out</Button>
+                <Button type='button' onClick={() => handleAction('checkin')}>
+                  Check In
+                </Button>
+                <Button type='button' onClick={() => handleAction('checkout')}>
+                  Check Out
+                </Button>
               </div>
             </form>
           </Form>

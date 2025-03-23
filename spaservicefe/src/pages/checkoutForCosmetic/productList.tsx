@@ -17,7 +17,7 @@ export default function ProductList(params: { s: SessionItem[]; discountAmount?:
   return (
     <div className='flex w-full flex-col rounded-lg'>
       <table>
-        <thead className='bg-purple1 text-white *:border-[1px] *:border-purple1 *:p-3 text-sm text-center'>
+        <thead className='bg-purple1 text-center text-sm text-white *:border-[1px] *:border-purple1 *:p-3'>
           <tr>
             <th>Product</th>
             <th>Product name</th>
@@ -33,14 +33,14 @@ export default function ProductList(params: { s: SessionItem[]; discountAmount?:
             return (
               <tr key={i} className='border-purple1 *:border-[1px] *:p-3'>
                 <td>
-                  <img src={v.product.image} alt='product' className='w-16 h-16 object-cover rounded' />
+                  <img src={v.product.image} alt='product' className='h-16 w-16 rounded object-cover' />
                 </td>
 
                 <td>{v.product.productName}</td>
                 <td>
                   {discount ? (
                     <>
-                      <span className='line-through text-gray-500'>{formatNumber(v.product.price)}</span>{' '}
+                      <span className='text-gray-500 line-through'>{formatNumber(v.product.price)}</span>{' '}
                       <span className='text-green-600'>{formatNumber(applyPromo(v.product.price))}</span>
                     </>
                   ) : (
@@ -51,7 +51,7 @@ export default function ProductList(params: { s: SessionItem[]; discountAmount?:
                 <td className={`${discount ? 'text-green-600' : ''}`}>
                   {discount ? (
                     <>
-                      <span className='line-through text-gray-500'>{formatNumber(subTotal)}</span>{' '}
+                      <span className='text-gray-500 line-through'>{formatNumber(subTotal)}</span>{' '}
                       <span>{formatNumber(discountedSubTotal)}</span>
                     </>
                   ) : (
@@ -68,7 +68,7 @@ export default function ProductList(params: { s: SessionItem[]; discountAmount?:
           The total amount is:&nbsp;
           {discount ? (
             <>
-              <span className='line-through text-red-500'>{formatNumber(total)}</span>{' '}
+              <span className='text-red-500 line-through'>{formatNumber(total)}</span>{' '}
               <span className='font-bold text-green-600'>
                 {formatNumber(discountedTotal)} (-{discount}%)
               </span>

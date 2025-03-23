@@ -6,7 +6,7 @@ import { formatDate } from 'date-fns'
 export const columns: ColumnDef<SpaRequest>[] = [
   {
     accessorKey: 'serviceName',
-    header: 'Service',
+    header: 'Service'
   },
   {
     accessorKey: 'createdAt',

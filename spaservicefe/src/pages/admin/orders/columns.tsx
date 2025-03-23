@@ -51,16 +51,13 @@ export const columns: ColumnDef<Order>[] = [
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
-      const status = row.getValue<string>('status');
-      const statusColor = status === 'Unprocessed' 
-        ? 'text-red-500' 
-        : status === 'Processed' 
-        ? 'text-yellow-500' 
-        : 'text-green-500';
-  
-      return <span className={statusColor}>{status}</span>;
+      const status = row.getValue<string>('status')
+      const statusColor =
+        status === 'Unprocessed' ? 'text-red-500' : status === 'Processed' ? 'text-yellow-500' : 'text-green-500'
+
+      return <span className={statusColor}>{status}</span>
     }
-  },  
+  },
   {
     id: 'actions',
     cell: ({ row }) => {

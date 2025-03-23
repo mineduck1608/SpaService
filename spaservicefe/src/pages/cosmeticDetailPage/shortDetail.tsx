@@ -76,7 +76,7 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
             onClick={(e) => {
               if (amount > (params.d?.quantity ?? 0)) {
                 toast.error(`Your cart cannot have more than ${params.d?.quantity} items of this product`)
-                return;
+                return
               }
               window.location.assign(
                 `/cosmetics-check-out?singular=True&productId=${params.d?.productId}&&quantity=${amount}`

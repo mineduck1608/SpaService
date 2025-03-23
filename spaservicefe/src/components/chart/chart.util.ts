@@ -16,9 +16,7 @@ export const lineChartConfig = {
   }
 } satisfies ChartConfig
 
-export const radialChartData = [
-  { browser: 'safari', visitors: 150, fill: 'var(--color-safari)' }
-]
+export const radialChartData = [{ browser: 'safari', visitors: 150, fill: 'var(--color-safari)' }]
 
 export const radialChartConfig = {
   visitors: {

@@ -61,10 +61,10 @@ const Products = () => {
           {/* Swiper Container */}
           <div className='relative'>
             {/* Nút điều hướng */}
-            <button className='prev-button absolute top-1/2 left-[-60px] transform -translate-y-1/2 z-10 text-4xl text-purple1 hover:text-purple-800 transition'>
+            <button className='prev-button absolute left-[-60px] top-1/2 z-10 -translate-y-1/2 transform text-4xl text-purple1 transition hover:text-purple-800'>
               ❮
             </button>
-            <button className='next-button absolute top-1/2 right-[-60px] transform -translate-y-1/2 z-10 text-4xl text-purple1 hover:text-purple-800 transition'>
+            <button className='next-button absolute right-[-60px] top-1/2 z-10 -translate-y-1/2 transform text-4xl text-purple1 transition hover:text-purple-800'>
               ❯
             </button>
 
@@ -89,11 +89,11 @@ const Products = () => {
                   }}
                 >
                   <div className='group cursor-pointer'>
-                    <div className='relative overflow-hidden bg-white shadow-lg rounded-lg'>
+                    <div className='relative overflow-hidden rounded-lg bg-white shadow-lg'>
                       <img
                         src={product.image}
                         alt={product.productName}
-                        className='h-[300px] w-full object-cover group-hover:scale-105 transition-transform duration-500'
+                        className='h-[300px] w-full object-cover transition-transform duration-500 group-hover:scale-105'
                       />
                       <div className='absolute bottom-0 w-full bg-[#8B3A8B] px-6 py-2 text-white'>
                         <h3 className='text-center text-lg'>{product.productName}</h3>

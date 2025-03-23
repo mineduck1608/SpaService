@@ -22,7 +22,7 @@ export default function AppointmentManagePage() {
               ...appointment,
               roomNumber: appointment.roomNum,
               startTime: format(new Date(appointment.startTime), 'yyyy-MM-dd HH:mm'),
-              endTime: format(new Date(appointment.endTime), 'yyyy-MM-dd HH:mm'),
+              endTime: format(new Date(appointment.endTime), 'yyyy-MM-dd HH:mm')
             }
           })
         )

@@ -6,7 +6,7 @@ import { lineChartData, lineChartConfig } from '../../../components/chart/chart.
 import { array } from 'zod'
 import { lineChartXAxis } from './dashboard.util'
 
-export function LineChartComp(params: { array: { date: string, revenue: number }[] }) {
+export function LineChartComp(params: { array: { date: string; revenue: number }[] }) {
   const data = params.array
   return (
     <Card className='w-full'>

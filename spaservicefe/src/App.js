@@ -422,7 +422,7 @@ function App() {
             {/* <Route index element={<Dashboard />} /> */}
             <Route index element={<CheckInPage />} />
             <Route path='application' element={<EmployeeApplicationPage />} />
-            
+
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<EmployeeCalendarApp />} />
             <Route path='appointments-manage' element={<EmployeeAppointmentManagePage />} />

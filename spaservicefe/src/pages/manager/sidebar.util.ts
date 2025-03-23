@@ -103,9 +103,7 @@ export const sideData = {
       ]
     }
   ],
-  users: [
-    { title: 'Employee Categories', icon: UserCog, url: getFullPath('/manager/employee-categories') },
-  ],
+  users: [{ title: 'Employee Categories', icon: UserCog, url: getFullPath('/manager/employee-categories') }],
   spaservices: [
     { title: 'Services Categories', icon: Sparkle, url: getFullPath('/service-categories') },
     { title: 'Spa Services', icon: Sparkles, url: getFullPath('/spa-services') }

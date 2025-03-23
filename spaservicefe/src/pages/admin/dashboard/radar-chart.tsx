@@ -4,16 +4,16 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/component
 import { radarChartConfig } from '../../../components/chart/chart.util'
 import { CategoryRevenue } from './dashboard.util'
 
-export function RadarChartComp(params: { array: CategoryRevenue[], isProduct?: boolean }) {
+export function RadarChartComp(params: { array: CategoryRevenue[]; isProduct?: boolean }) {
   return (
     <Card>
       <CardHeader className='items-center'>
         <CardTitle className='text-lg'>{params.isProduct ? 'Product' : 'Service'} category revenue</CardTitle>
       </CardHeader>
       <CardContent className='-mt-6 pb-0'>
-        <ChartContainer config={radarChartConfig} className='p-2 -m-5'>
+        <ChartContainer config={radarChartConfig} className='-m-5 p-2'>
           <RadarChart data={params.array}>
-            <ChartTooltip cursor={false} content={<ChartTooltipContent unit='đ'/>} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent unit='đ' />} />
             <PolarAngleAxis dataKey='category' />
             <PolarGrid />
             <Radar
