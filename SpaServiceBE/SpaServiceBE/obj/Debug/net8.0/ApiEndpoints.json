@@ -3235,6 +3235,22 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.OrderController",
+    "Method": "RecieveOrder",
+    "RelativePath": "api/orders/RecieveOrder/{orderId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.OrderController",
     "Method": "UpdateOrder",
     "RelativePath": "api/orders/Update/{id}",
     "HttpMethod": "PUT",

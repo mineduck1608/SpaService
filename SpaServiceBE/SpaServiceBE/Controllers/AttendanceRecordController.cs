@@ -153,7 +153,8 @@ namespace API.Controllers
                     return NotFound(new { msg = $"Account with ID = {id} not found or does not have an associated employee." });
                 }
 
-                var employee = await _employeeService.GetEmployeeById(account.Employees.EmployeeId);
+                var employee = await _employeeService.GetEmployeeById(account.Employees.FirstOrDefault()?.EmployeeId);
+
                 if (employee == null)
                 {
                     return NotFound(new { msg = $"Employee not found for Account ID = {id}." });

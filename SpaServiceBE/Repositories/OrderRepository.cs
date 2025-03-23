@@ -72,16 +72,16 @@ namespace Repositories
                 {
                     return await _context.Orders
                         .Where(o => o.CustomerId == customerId)
-                        .Where(o => o.Status == true)
+                        .Where(o => o.Status == "Confirmed")
                         .ToListAsync();
                 }
         public async Task<int> GetTotalProcessedOrder()
         {
-            return await _context.Orders.Where(o => o.Status == true).CountAsync();
+            return await _context.Orders.Where(o => o.Status == "Confirmed").CountAsync();
         }
         public async Task<int> GetTotalPendingOrder()
         {
-            return await _context.Orders.Where(o => o.Status != true).CountAsync();
+            return await _context.Orders.Where(o => o.Status != "Confirmed").CountAsync();
         }
         public async Task<int> GetTotalOrder()
         {

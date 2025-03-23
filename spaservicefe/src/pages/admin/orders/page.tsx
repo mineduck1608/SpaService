@@ -34,7 +34,7 @@ export default function OrderPage() {
             orderDate: format(new Date(order.orderDate), 'dd/MM/yyyy HH:mm:ss'),
             name: customerMap[order.customerId]?.fullName || 'Unknown',
             phone: customerMap[order.customerId]?.phone || 'Unknown',
-            status: order.status ? 'Processed' : 'Unprocessed'
+            status: order.status
           }))
           .sort((a, b) => b.orderDateRaw.getTime() - a.orderDateRaw.getTime()) // Sắp xếp mới nhất lên đầu
 
