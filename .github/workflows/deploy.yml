@@ -25,6 +25,9 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "your-app-name"  # Thay thế bằng tên app trên Azure
+          app-name: "spaservicefe"  # Thay thế bằng tên app trên Azure
           slot-name: "production"
           images: ${{ secrets.ACR_LOGIN_SERVER }}/react-fe:latest
+      - name: Restart Azure Web App
+        run: |
+          az webapp restart --name spaservicefe --resource-group spaserviceresource
