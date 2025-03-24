@@ -37,10 +37,7 @@ export default function RequestTable() {
     <div className='container mx-auto w-[96%] rounded-md border bg-slate-50'>
       <PastBookingContext.Provider value={{ pastBooking, setPastBooking }}>
         <h1 className='py-4 text-center text-2xl font-bold'>Request Information</h1>
-        <DataTable
-          columns={columns}
-          data={data}
-        />
+        <DataTable columns={columns} data={data} />
       </PastBookingContext.Provider>
     </div>
   )

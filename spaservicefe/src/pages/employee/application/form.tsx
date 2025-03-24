@@ -3,7 +3,15 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { jwtDecode } from 'jwt-decode' // Use this to decode the token
 import { Button } from '../../../components/ui/button'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '../../../components/ui/form'
 import { Input } from '../../../components/ui/input'
 import { handleCreateSubmit } from './application.util' // Import your function to handle submission
 import { getToken } from '../../../types/constants'
@@ -31,7 +39,7 @@ export function ApplicationForm() {
       if (!token) {
         throw new Error('Token is null or undefined.')
       }
-      const decodedToken: any = jwtDecode(token) 
+      const decodedToken: any = jwtDecode(token)
       const accountId = decodedToken?.UserId
 
       if (!accountId) {

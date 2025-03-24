@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Button } from 'src/components/ui/button'
 import {
   DropdownMenu,
@@ -10,7 +9,7 @@ import {
 } from 'src/components/ui/dropdown-menu'
 import { Appointment } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { handleCheckInAPI, handleCheckOutAPI, UpdateAppoitment } from '../../appointments/appointments.util'
+import { handleCheckInAPI, handleCheckOutAPI } from '../../appointments/appointments.util'
 
 interface AppointmentActionsProps {
   appointment: Appointment

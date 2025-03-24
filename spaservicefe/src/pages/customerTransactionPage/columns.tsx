@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { Application, SpaRequest, TransactionBase } from '@/types/type' // Assuming `Request` is the correct type based on the entity
+import { TransactionBase } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import Details from './details'
 import { formatDate } from 'date-fns'
@@ -58,7 +58,7 @@ export const columnsForService: ColumnDef<TransactionBase>[] = [
     accessorKey: 'service',
     header: 'Service',
     cell: (r) => r.row.original.serviceTransactions[0].request?.service?.serviceName
-  },
+  }
 ]
 export const columnsForProduct: ColumnDef<TransactionBase>[] = [
   {
@@ -71,5 +71,5 @@ export const columnsForProduct: ColumnDef<TransactionBase>[] = [
     accessorKey: 'detail',
     header: 'Detail',
     cell: (r) => <Details request={r.row.original} />
-  },
+  }
 ]

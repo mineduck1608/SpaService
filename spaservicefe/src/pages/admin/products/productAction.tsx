@@ -11,7 +11,6 @@ import {
 import { ConfirmDeleteModal } from '../components/deleteModal'
 import { CosmeticProduct } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './product.util'
 import UpdateProductModal from './productUpdateModal'
 

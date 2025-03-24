@@ -5,10 +5,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../components/deleteModal'
 import { GuestApplication } from '../../../types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { handleDelete } from './guestApplication.util'

@@ -2,14 +2,13 @@ import { FormEvent, useEffect, useState } from 'react'
 import ProductList from './productList.tsx'
 import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { getPromoByCode, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
 import { getCart, getCosmetic } from '../cosmeticDetailPage/detailPage.util.ts'
 import { createOrder, setCookie } from './checkoutPage.util.ts'
 import { Promotion } from '@/types/type.ts'
 import { SessionItem } from '@/types/sessionItem.ts'
-import { getQueryParamsMap, ProductPayResult } from '../payResult/productPayResult.ts'
-import { getCosmeticProductById } from '../admin/orders/order.util.ts'
+import { getQueryParamsMap } from '../payResult/productPayResult.ts'
 
 export default function CosmeticCheckoutPage() {
   const [checked, setChecked] = useState(false)
@@ -100,7 +99,7 @@ export default function CosmeticCheckoutPage() {
         }
         toast.error(s.rs, { containerId: 'toast' })
       }
-    } catch (e) { }
+    } catch (e) {}
   }
   async function submitWithVnPay(e: FormEvent) {
     e.preventDefault()
@@ -129,7 +128,7 @@ export default function CosmeticCheckoutPage() {
       if (entry) {
         if (typeof entry === 'string') {
           toast.error(entry, {
-          containerId: 'toast'
+            containerId: 'toast'
           })
           return
         }
@@ -166,7 +165,7 @@ export default function CosmeticCheckoutPage() {
         <form className='flex w-3/5 justify-center' onSubmit={payInCash}>
           <div className='relative w-2/3 rounded-bl-lg rounded-tl-lg bg-white p-20 shadow-lg'>
             <div className='flex items-center justify-center'>
-              <h1 className='font-bold -mt-3'>Cosmetic Checkout</h1>
+              <h1 className='-mt-3 font-bold'>Cosmetic Checkout</h1>
             </div>
             <div className='mb-4 mt-3'>
               <label className='grid'>
@@ -179,9 +178,9 @@ export default function CosmeticCheckoutPage() {
                   }}
                 />
               </label>
-              <label className='flex flex-col mt-3'>
+              <label className='mt-3 flex flex-col'>
                 Promotion Code:
-                <div className='flex items-center mt-2'>
+                <div className='mt-2 flex items-center'>
                   <input
                     className='border-[1px] p-2 px-4'
                     value={data.promotionCode}
@@ -190,7 +189,7 @@ export default function CosmeticCheckoutPage() {
                     }}
                     placeholder='Promotion code'
                   />
-                  <div className='flex items-center ml-5'>
+                  <div className='ml-5 flex items-center'>
                     <input
                       type='checkbox'
                       className='size-5'
@@ -214,7 +213,7 @@ export default function CosmeticCheckoutPage() {
                 Order on behalf of a person? &nbsp;
                 <input
                   type='checkbox'
-                  className='size-5 mr-3 mt-1'
+                  className='mr-3 mt-1 size-5'
                   checked={data.orderOnBehalf}
                   onChange={(e) => {
                     setData({ ...data, orderOnBehalf: !data.orderOnBehalf })

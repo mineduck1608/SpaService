@@ -16,7 +16,6 @@ export async function getEmployeeApplications(id: string) {
   }
 }
 
-
 export async function handleCreateSubmit(data: any) {
   try {
     var res = await fetch(`${apiUrl}/applications/Create`, {

@@ -1,7 +1,6 @@
 import { SpaRequest } from '@/types/request'
 import { apiUrl, getToken } from '../../types/constants'
 import { Customer, Employee, Membership, Promotion } from '@/types/type'
-import { jwtDecode } from 'jwt-decode'
 import { setCookie } from '../checkoutForCosmetic/checkoutPage.util'
 
 export async function getEmployees(id: string) {

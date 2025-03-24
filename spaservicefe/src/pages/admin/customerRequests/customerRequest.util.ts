@@ -114,7 +114,7 @@ export async function DenyRequest(id: string, managerNote: string) {
         headers: {
           Authorization: `Bearer ${getToken()}`,
           'Content-Type': 'application/json'
-        },
+        }
       })
     } else {
       toast.error('Failed. Please try again.', {
@@ -168,13 +168,13 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
         headers: {
           Authorization: `Bearer ${getToken()}`,
           'Content-Type': 'application/json'
-        },
+        }
       })
     } else {
       const errorData = await res.json()
-      toast.error(errorData?.msg || 'Failed. Please try again.', { 
-        autoClose: 1000, 
-        closeButton: false 
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false
       })
     }
   } catch (e) {

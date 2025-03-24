@@ -1,6 +1,4 @@
 import React from 'react'
-import { getCart } from '../cosmeticDetailPage/detailPage.util'
-import { formatNumber } from '../servicesPage/servicesPage.util'
 
 export default function TableAppointment(params: { map: Map<string, string> }) {
   return (

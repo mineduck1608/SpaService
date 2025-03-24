@@ -8,7 +8,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../components/deleteModal'
 import { TransactionBase } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { ToastContainer } from 'react-toastify'

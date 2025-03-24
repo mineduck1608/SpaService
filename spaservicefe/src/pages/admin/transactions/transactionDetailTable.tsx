@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from '../../../components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableRow } from '../../../components/ui/table'
 import { ServiceTransaction, CosmeticTransaction, SpaRequest, Order } from '@/types/type'
 import {
   getSpaRequestById,

@@ -4,7 +4,7 @@ import { FaFacebookSquare, FaYoutubeSquare, FaTwitterSquare } from 'react-icons/
 import ReCAPTCHA from 'react-google-recaptcha'
 import { toast } from 'react-toastify'
 import { apiUrl } from '../../types/constants'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify'
 
 interface Form {
   fullName: string

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -57,7 +56,7 @@ export function OrderDetailTable({ orderId }: OrderDetailTableProps) {
   if (error) return <div>{error}</div>
 
   return (
-    <Table className='mb-5 -mt-2'>
+    <Table className='-mt-2 mb-5'>
       <TableHeader>
         <TableRow>
           <TableHead>No</TableHead>

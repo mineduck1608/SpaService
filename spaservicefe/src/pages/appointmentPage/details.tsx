@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Appointment, SpaRequest } from '@/types/type'
+import { Appointment } from '@/types/type'
 import { DetailModal } from './detailModal'
 import { hasSendFeedback } from '../serviceDetailPage/detailPage.util'
 import FeedbackModal from './feedbackModal'
 import UpdateFeedbackModal from './updateFeedbackModal'
-import { Service } from '@/types/services'
 
 interface RequestActionsProps {
   request: Appointment

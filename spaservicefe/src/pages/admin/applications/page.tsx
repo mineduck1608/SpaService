@@ -60,11 +60,11 @@ export default function ApplicationPage() {
             const formatOrNA = (date: string | null) => (date ? format(new Date(date), 'dd/MM/yyyy HH:mm:ss') : 'N/A')
             return {
               ...application,
-              roleName: roleName, 
+              roleName: roleName,
               resolvedBy: fullNameObj?.fullName || 'N/A',
               createdAt: formatOrNA(application.createdAt),
               resolvedAt: formatOrNA(application.resolvedAt),
-              createBy: createBy,
+              createBy: createBy
             }
           })
         )

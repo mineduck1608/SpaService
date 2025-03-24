@@ -1,7 +1,7 @@
 import { ServiceCategory } from '@/types/type'
 import { Service } from '@/types/services'
 import { Link, useNavigate } from 'react-router-dom'
-import React, { useState } from 'react'
+import React from 'react'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import seperator from '../../images/serviceBg/separator.png'
 import { toast } from 'react-toastify' // Import thư viện toast

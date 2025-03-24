@@ -1,8 +1,8 @@
 import { Checkbox } from '../../components/ui/checkbox'
 import { SessionItem } from '@/types/sessionItem'
 import { Row, Table } from '@tanstack/react-table'
-import React, { useContext, useRef, useState } from 'react'
-import { getCartItem, removeCartItem, setCart, setCartItem } from '../cosmeticDetailPage/detailPage.util'
+import React, { useContext, useState } from 'react'
+import { removeCartItem, setCart } from '../cosmeticDetailPage/detailPage.util'
 import { SessionContext } from './context/selectedContext'
 
 export default function RowCheckBox(params: { row: Row<SessionItem> }) {
@@ -79,7 +79,7 @@ export function RemoveButton(params: { row: Row<SessionItem> }) {
       className='rounded-sm bg-purple1 p-2 text-white'
       onClick={async (e) => {
         var v = document.getElementById(productId)
-        if(v){
+        if (v) {
           document.getElementById('body')?.removeChild(v)
         }
         await removeCartItem(params.row.original.id ?? '')

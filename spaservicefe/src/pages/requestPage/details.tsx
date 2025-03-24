@@ -1,17 +1,7 @@
 import { useState } from 'react'
-import { Button } from '../../components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../admin/components/deleteModal'
+
 import { SpaRequest } from '@/types/type' // Đổi từ Account sang Request
-import { MoreHorizontal } from 'lucide-react'
-import { EditRequestModal } from '../admin/customerRequests/editRequestModal' // Import modal chỉnh sửa yêu cầu
+// Import modal chỉnh sửa yêu cầu
 import { DetailModal } from './detailModal'
 
 interface RequestActionsProps {

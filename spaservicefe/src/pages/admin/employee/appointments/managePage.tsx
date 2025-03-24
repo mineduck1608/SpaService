@@ -6,7 +6,7 @@ import { getAllAppointmentByEmployee } from '../../appointments/appointments.uti
 import { format } from 'date-fns'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from 'src/types/constants'
-import { getAllCommissionByEmployeeId, getEmployeeByAccountId } from '../../employees/employee.util'
+import { getEmployeeByAccountId } from '../../employees/employee.util'
 
 export default function AppointmentManagePage() {
   const [commissions, setCommissions] = useState<EmployeeCommission[]>([])
@@ -30,7 +30,7 @@ export default function AppointmentManagePage() {
               roomNumber: appointment.room?.roomNum,
               startTime: format(new Date(appointment.startTime), 'yyyy-MM-dd HH:mm'),
               endTime: format(new Date(appointment.endTime), 'yyyy-MM-dd HH:mm'),
-              status: appointment.status,
+              status: appointment.status
             }
           })
         )

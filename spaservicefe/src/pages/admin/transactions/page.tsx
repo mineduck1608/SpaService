@@ -2,8 +2,12 @@ import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { TransactionBase } from '@/types/type'
-import { getAllCosmeticTransactions, getAllServiceTransactions, getAllTransactions } from '../transactions/transaction.util'
-import { format, parseISO } from 'date-fns'
+import {
+  getAllCosmeticTransactions,
+  getAllServiceTransactions,
+  getAllTransactions
+} from '../transactions/transaction.util'
+import { format } from 'date-fns'
 
 export default function TransactionPage() {
   const [data, setData] = useState<TransactionBase[]>([])
@@ -19,21 +23,27 @@ export default function TransactionPage() {
           getAllServiceTransactions()
         ])
 
-        const cosmeticMap = cosmeticTransactions.reduce((acc, ct) => {
-          acc[ct.transactionId] = {
-            fullName: ct.order?.customer?.fullName,
-            phone: ct.order?.customer?.phone
-          }
-          return acc
-        }, {} as Record<string, any>)
+        const cosmeticMap = cosmeticTransactions.reduce(
+          (acc, ct) => {
+            acc[ct.transactionId] = {
+              fullName: ct.order?.customer?.fullName,
+              phone: ct.order?.customer?.phone
+            }
+            return acc
+          },
+          {} as Record<string, any>
+        )
 
-        const serviceMap = serviceTransactions.reduce((acc, st) => {
-          acc[st.transactionId] = {
-            fullName: st.request?.customer?.fullName,
-            phone: st.request?.customer?.phone
-          }
-          return acc
-        }, {} as Record<string, any>)
+        const serviceMap = serviceTransactions.reduce(
+          (acc, st) => {
+            acc[st.transactionId] = {
+              fullName: st.request?.customer?.fullName,
+              phone: st.request?.customer?.phone
+            }
+            return acc
+          },
+          {} as Record<string, any>
+        )
 
         const formattedTransactions = transactions
           .map((transaction) => {
@@ -51,8 +61,7 @@ export default function TransactionPage() {
               phone: customerData?.phone || 'N/A'
             }
           })
-          .sort((a, b) => b.rawCompleteTime.getTime() - a.rawCompleteTime.getTime()
-        )
+          .sort((a, b) => b.rawCompleteTime.getTime() - a.rawCompleteTime.getTime())
         console.log(formattedTransactions)
         setData(formattedTransactions)
       } catch (err) {

@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Application, Employee } from '../../../types/type'
+import { Application } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllApplications() {
@@ -75,22 +75,21 @@ export async function getByAccountId(id: string): Promise<{ fullName: string } |
       headers: {
         Authorization: `Bearer ${getToken()}`
       }
-    });
+    })
 
     // Check if the response is successful
     if (!res.ok) {
-      console.error('Failed to fetch account data:', res.statusText);
-      return null;
+      console.error('Failed to fetch account data:', res.statusText)
+      return null
     }
 
     // Parse JSON response
-    const json: { fullName: string } = await res.json();
+    const json: { fullName: string } = await res.json()
 
     // Return the object
-    return json;
+    return json
   } catch (e) {
-    console.error('Error while fetching account data:', e);
-    return null; // Return null in case of an error
+    console.error('Error while fetching account data:', e)
+    return null // Return null in case of an error
   }
 }
-

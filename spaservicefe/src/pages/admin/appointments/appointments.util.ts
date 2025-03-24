@@ -1,6 +1,4 @@
-import { Description } from '@radix-ui/react-dialog'
 import { apiUrl, getToken } from '../../../types/constants'
-import { Appointment } from '@/types/type'
 import dayjs from 'dayjs'
 import { toast } from 'react-toastify'
 
@@ -36,22 +34,25 @@ export const fetchAppointments = async () => {
         people: employeeName ? [employeeName] : ['Unknown'],
         location: roomNum ? `Room ${roomNum}` : 'Unknown',
         description: serviceName || 'No description',
-        calendarId: event.status === 'Processing' ? 'personal'
-        : event.status === 'Finished' ? 'work'
-        : event.status === 'Pending' ? 'leisure'
-        : event.status === 'Cancelled' ? 'school'
-        : 'personal'
+        calendarId:
+          event.status === 'Processing'
+            ? 'personal'
+            : event.status === 'Finished'
+              ? 'work'
+              : event.status === 'Pending'
+                ? 'leisure'
+                : event.status === 'Cancelled'
+                  ? 'school'
+                  : 'personal'
       }
     })
 
-    return formattedAppointments;
+    return formattedAppointments
   } catch (error) {
     console.error('Error fetching appointments:', error)
     return []
   }
 }
-
-
 
 export const fetchAppointmentsByEmployee = async (id: string) => {
   try {
@@ -75,11 +76,16 @@ export const fetchAppointmentsByEmployee = async (id: string) => {
         people: employeeName ? [employeeName] : ['Unknown'],
         location: roomNum ? `Room ${roomNum}` : 'Unknown',
         description: serviceName || 'No description',
-        calendarId: event.status === 'Processing' ? 'personal'
-        : event.status === 'Finished' ? 'work'
-        : event.status === 'Pending' ? 'leisure'
-        : event.status === 'Cancelled' ? 'school'
-        : 'personal'
+        calendarId:
+          event.status === 'Processing'
+            ? 'personal'
+            : event.status === 'Finished'
+              ? 'work'
+              : event.status === 'Pending'
+                ? 'leisure'
+                : event.status === 'Cancelled'
+                  ? 'school'
+                  : 'personal'
       }
     })
     return formattedAppointments
@@ -199,7 +205,6 @@ export async function getAllAppointmentByEmployee(id: string) {
   }
 }
 
-
 export async function UpdateAppoitment(appointment: any, roomId: string) {
   try {
     let parsedStartTime = null
@@ -239,14 +244,14 @@ export async function UpdateAppoitment(appointment: any, roomId: string) {
         headers: {
           Authorization: `Bearer ${getToken()}`,
           'Content-Type': 'application/json'
-        },
+        }
       })
       setTimeout(() => window.location.reload(), 1000)
     } else {
       const errorData = await res.json()
-      toast.error(errorData?.msg || 'Failed. Please try again.', { 
-        autoClose: 1000, 
-        closeButton: false 
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
+        autoClose: 1000,
+        closeButton: false
       })
     }
   } catch (e) {

@@ -1,6 +1,4 @@
 import { SideBarItem } from '@/pages/admin/sidebar.util'
-import { type LucideIcon } from 'lucide-react'
-
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from 'src/components/ui/sidebar'
 
 export function NavMain(params: { items: SideBarItem[] }) {

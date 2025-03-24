@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { TrendingUp } from 'lucide-react'
 import { Label, Pie, PieChart } from 'recharts'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-import { pieChartData, pieChartConfig } from '../../../components/chart/chart.util'
+import { pieChartConfig } from '../../../components/chart/chart.util'
 
 export function PieChartComp(params: { data: { rating: number; count: number }[] }) {
   const colorMap = [
@@ -26,7 +25,8 @@ export function PieChartComp(params: { data: { rating: number; count: number }[]
     sum: 0
   })
   React.useEffect(() => {
-    var count = 0, sum = 0
+    var count = 0,
+      sum = 0
     for (let i = 0; i < s.length; i++) {
       var e = s[i]
       count = count + e.count

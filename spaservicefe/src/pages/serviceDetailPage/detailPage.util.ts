@@ -2,7 +2,6 @@ import { apiUrl, getToken } from '../../types/constants'
 import { Service } from '@/types/services'
 import { toast } from 'react-toastify'
 import { getAllFeedbacks } from '../admin/feedbacks/feedback.util'
-import { Feedback } from '@/types/type'
 
 export async function getService(id: string) {
   try {

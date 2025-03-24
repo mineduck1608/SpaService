@@ -1,7 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { Application, SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
-import { formatNumber } from '../servicesPage/servicesPage.util'
-import Details from './details'
+import { Application } from '@/types/type' // Assuming `Request` is the correct type based on the entity
 import { formatDate } from 'date-fns'
 export const columns: ColumnDef<Application>[] = [
   {
@@ -36,5 +34,5 @@ export const columns: ColumnDef<Application>[] = [
     accessorKey: 'managerNote',
     header: 'Result',
     cell: (r) => 'YE'
-  },
+  }
 ]

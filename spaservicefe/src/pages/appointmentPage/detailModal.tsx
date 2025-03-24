@@ -1,16 +1,7 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter
-} from '../../components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../../components/ui/dialog'
 
 import { Button } from '../../components/ui/button'
-import { Appointment, SpaRequest } from '@/types/type'
-import { formatNumber } from '../servicesPage/servicesPage.util'
-import { status } from './appointmentPage.util'
+import { Appointment } from '@/types/type'
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean

@@ -27,7 +27,7 @@ let userRole = 'Employee' // Mặc định nếu không có token
 try {
   if (token) {
     const jwtData = jwtDecode(token)
-    console.log(jwtData.UserId);
+    console.log(jwtData.UserId)
     userRole = jwtData[roleJWT] || 'Employee'
     console.log(userRole)
   } else {
@@ -38,11 +38,9 @@ try {
   userRole = 'Employee'
 }
 
-
 // Kiểm tra xem URL đã chứa basePath chưa trước khi thêm vào
 export const getFullPath = (path: string) =>
-  path.startsWith(`/${userRole.toLowerCase()}`) ? path : `/${userRole.toLowerCase()}${path}`;
-
+  path.startsWith(`/${userRole.toLowerCase()}`) ? path : `/${userRole.toLowerCase()}${path}`
 
 const adminNavMain = [{ title: 'Home', url: '/admin', icon: Home }]
 const managerNavMain = [{ title: 'Home', url: '/manager', icon: Home }]

@@ -39,8 +39,7 @@ export default function CheckoutPage() {
   const [modalMailOpen, setModalMailOpen] = useState(false)
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
   const [message, setMessage] = useState('')
-  const [loadingText, setLoadingText] = useState("Processing");
-
+  const [loadingText, setLoadingText] = useState('Processing')
 
   const { TextArea } = Input
   const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true
@@ -176,51 +175,54 @@ export default function CheckoutPage() {
   }
 
   useEffect(() => {
-    if (status !== "loading") return;
-  
-    const dots = ["Processing", "Processing.", "Processing..", "Processing..."];
-    let index = 0;
-  
+    if (status !== 'loading') return
+
+    const dots = ['Processing', 'Processing.', 'Processing..', 'Processing...']
+    let index = 0
+
     const interval = setInterval(() => {
-      setLoadingText(dots[index]);
-      index = (index + 1) % dots.length;
-    }, 500);
-  
-    return () => clearInterval(interval);
-  }, [status]);
-  
-  
+      setLoadingText(dots[index])
+      index = (index + 1) % dots.length
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [status])
+
   return (
     <div className='relative h-[130vh] w-full overflow-hidden font-montserrat'>
       {modalMailOpen && (
         <div className='fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='bg-white p-6 rounded-lg shadow-lg w-80 text-center'>
+          <div className='w-80 rounded-lg bg-white p-6 text-center shadow-lg'>
             {status === 'loading' && (
               <>
-                <Loader2 className='h-12 w-12 animate-spin text-blue-500 mx-auto' />
+                <Loader2 className='mx-auto h-12 w-12 animate-spin text-blue-500' />
                 <p className='mt-4 text-gray-500'>{loadingText}</p>
               </>
             )}
 
             {status === 'success' && (
               <>
-                <CheckCircle className='h-12 w-12 text-green-500 mx-auto' />
+                <CheckCircle className='mx-auto h-12 w-12 text-green-500' />
                 <p className='mt-4 text-green-600'>{message}</p>
               </>
             )}
 
             {status === 'error' && (
               <>
-                <XCircle className='h-12 w-12 text-red-500 mx-auto' />
+                <XCircle className='mx-auto h-12 w-12 text-red-500' />
                 <p className='mt-4 text-red-600'>{message}</p>
               </>
             )}
             {status === 'success' && (
               <div className='flex justify-evenly'>
-                <button onClick={() => setModalMailOpen(false)} className="mt-4 px-4 py-2 mr-4 bg-gray-200 rounded hover:bg-gray-300">
+                <button
+                  onClick={() => setModalMailOpen(false)}
+                  className='mr-4 mt-4 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300'
+                >
                   Confirm
                 </button>
-                <button className="mt-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                <button
+                  className='mt-4 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300'
                   onClick={() => {
                     window.location.assign('requests')
                   }}
@@ -250,7 +252,7 @@ export default function CheckoutPage() {
               <div className='mt-3'>
                 <label className='flex flex-col'>
                   Promotion Code:
-                  <div className='flex items-center mt-2'>
+                  <div className='mt-2 flex items-center'>
                     <input
                       className='border-[1px] p-2 px-4'
                       value={req.promotionCode}
@@ -259,7 +261,7 @@ export default function CheckoutPage() {
                       }}
                       placeholder='Promotion code'
                     />
-                    <div className='flex items-center ml-5'>
+                    <div className='ml-5 flex items-center'>
                       <input
                         type='checkbox'
                         className='size-5'
@@ -279,7 +281,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
                 </label>
-                <label className='mb-10 grid h-[150%] mt-3'>
+                <label className='mb-10 mt-3 grid h-[150%]'>
                   <div className='flex justify-between'>
                     <p>Notes:</p>
                     <p>{req.customerNote.length}/255</p>

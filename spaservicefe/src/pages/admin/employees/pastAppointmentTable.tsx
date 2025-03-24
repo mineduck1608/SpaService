@@ -27,7 +27,7 @@ export default function PastAppointmentTable({ employee, year }: EmployeeStatist
     }
     fetchData()
   }, [employee])
-  
+
   return (
     <Card className='-mt-5 rounded-none border-white bg-transparent shadow-none'>
       <CardHeader className='text-lg'>

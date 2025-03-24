@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Feedback, Customer } from '@/types/type'
-import { getAllFeedbacks, getFeedbacksByServiceId } from '../admin/feedbacks/feedback.util'
+import { Feedback } from '@/types/type'
+import { getFeedbacksByServiceId } from '../admin/feedbacks/feedback.util'
 import { Service } from '@/types/services'
 import { IoIosStar } from 'react-icons/io'
 import avatar from 'src/images/user/male.png'

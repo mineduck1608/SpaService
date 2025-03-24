@@ -1,6 +1,6 @@
 import { apiUrl } from '../../../types/constants'
 import { ProductStat, ServiceStat } from '@/types/statistic'
-import dayjs, { Dayjs } from 'dayjs'
+import { Dayjs } from 'dayjs'
 
 export async function getRevenues(lower?: Dayjs, upper?: Dayjs) {
   try {

@@ -8,7 +8,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../components/deleteModal'
 import { SpaRequest } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { EditRequestModal } from './editRequestModal'

@@ -1,4 +1,4 @@
-import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
+import { PolarGrid, RadialBar, RadialBarChart } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer } from 'src/components/ui/chart'
 import { radialChartData, radialChartConfig } from './chart.util'
@@ -20,9 +20,7 @@ export function RadialChartComp() {
               className='first:fill-muted last:fill-background'
               polarRadius={[75, 25]}
             />
-            <RadialBar dataKey='visitors' 
-            additive='sum'
-            />
+            <RadialBar dataKey='visitors' additive='sum' />
             {/* <PolarRadiusAxis tick={true} tickLine={true} axisLine={true}>
               <Label
                 content={({ viewBox }) => {

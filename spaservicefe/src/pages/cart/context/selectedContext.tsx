@@ -1,5 +1,5 @@
 import { SessionItem } from '@/types/sessionItem'
-import React, { createContext, useState } from 'react'
+import React, { createContext } from 'react'
 
 type SessionProps = {
   items: SessionItem[]

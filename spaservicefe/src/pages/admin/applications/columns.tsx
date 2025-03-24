@@ -35,7 +35,7 @@ export const columns: ColumnDef<Application>[] = [
     accessorKey: 'content',
     header: 'Content'
   },
-  
+
   {
     accessorKey: 'createdAt',
     header: 'Created At'
@@ -45,12 +45,15 @@ export const columns: ColumnDef<Application>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue<string>('status')
-      const statusColor = 
-      status === 'Accepted' ? 'text-green-500' :
-      status === 'Pending' ? 'text-gray-500' :
-      status === 'Denied' ? 'text-red-500' :
-      'text-black'; // Default color if the status doesn't match
-          return <span className={statusColor}>{status}</span>
+      const statusColor =
+        status === 'Accepted'
+          ? 'text-green-500'
+          : status === 'Pending'
+            ? 'text-gray-500'
+            : status === 'Denied'
+              ? 'text-red-500'
+              : 'text-black' // Default color if the status doesn't match
+      return <span className={statusColor}>{status}</span>
     }
   },
   {

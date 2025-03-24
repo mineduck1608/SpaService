@@ -83,8 +83,6 @@ function Layout({ children }) {
   )
 }
 
-const Placeholder = ({ title }) => <div>{title} Page (Coming Soon)</div>
-
 function App() {
   useEffect(() => {
     findCategories()
@@ -422,7 +420,7 @@ function App() {
             {/* <Route index element={<Dashboard />} /> */}
             <Route index element={<CheckInPage />} />
             <Route path='application' element={<EmployeeApplicationPage />} />
-            
+
             {/* Workspaces */}
             <Route path='appointments-schedule' element={<EmployeeCalendarApp />} />
             <Route path='appointments-manage' element={<EmployeeAppointmentManagePage />} />

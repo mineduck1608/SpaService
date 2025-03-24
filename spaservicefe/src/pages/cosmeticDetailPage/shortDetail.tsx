@@ -1,10 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import seperator from '../../images/serviceBg/separator.png'
 import { toast, ToastContainer } from 'react-toastify' // Import thư viện toast
 import { CosmeticCategory, CosmeticProduct } from '@/types/type'
-import { SessionItem } from '@/types/sessionItem'
 import { getCartItem, setCartItem } from './detailPage.util'
 
 export default function ShortDetail(params: { d?: CosmeticProduct }) {
@@ -76,7 +75,7 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
             onClick={(e) => {
               if (amount > (params.d?.quantity ?? 0)) {
                 toast.error(`Your cart cannot have more than ${params.d?.quantity} items of this product`)
-                return;
+                return
               }
               window.location.assign(
                 `/cosmetics-check-out?singular=True&productId=${params.d?.productId}&&quantity=${amount}`

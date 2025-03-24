@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/main.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import logoColor from '../../images/logos/logoColor.png'
 import { findCategories } from '../../pages/servicesPage/servicesPage.util.ts'
 import { Dropdown } from '../dropdown.tsx'

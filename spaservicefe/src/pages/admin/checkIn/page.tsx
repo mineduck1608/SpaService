@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { DataTable } from './data-table'
-import { getRecords, getAllEmployees  } from './record.util'
-import {Employee, Record} from '../../../types/type'
+import { getRecords, getAllEmployees } from './record.util'
+import { Employee, Record } from '../../../types/type'
 import CheckInTable from './checkInTable'
 
 const columns = [
@@ -22,7 +22,7 @@ const columns = [
   {
     accessorKey: 'checkOutTime',
     header: 'Check-out Time',
-    cell: ({ getValue }: { getValue: () => string }) => getValue() ? new Date(getValue()).toLocaleString() : 'N/A',
+    cell: ({ getValue }: { getValue: () => string }) => (getValue() ? new Date(getValue()).toLocaleString() : 'N/A'),
     sortingFn: 'datetime'
   },
   {
@@ -48,8 +48,8 @@ export default function CheckInPage() {
           return map
         }, {})
 
-        const sortedRecords = [...records].sort((a, b) =>
-          new Date(b.checkInTime).getTime() - new Date(a.checkInTime).getTime()
+        const sortedRecords = [...records].sort(
+          (a, b) => new Date(b.checkInTime).getTime() - new Date(a.checkInTime).getTime()
         )
 
         const recordsWithEmployeeNames = sortedRecords.map((record: Record, idx: number) => ({
@@ -81,13 +81,13 @@ export default function CheckInPage() {
   return (
     <div className='h-[96%] items-center justify-center'>
       <h2 className='container mx-auto my-4 ml-11'>Check-In Records</h2>
-      <CheckInTable 
-      checkInTime={checkInTime} 
-      checkOutTime={checkOutTime}
-      onCheckInSuccess={handleCheckInSuccess} 
-      onCheckOutSuccess={handleCheckOutSuccess}
+      <CheckInTable
+        checkInTime={checkInTime}
+        checkOutTime={checkOutTime}
+        onCheckInSuccess={handleCheckInSuccess}
+        onCheckOutSuccess={handleCheckOutSuccess}
       />
-      
+
       <div className='container mx-auto w-[96%] rounded-md border'>
         <DataTable columns={columns} data={data} />
       </div>

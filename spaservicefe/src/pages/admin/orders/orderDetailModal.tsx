@@ -14,7 +14,7 @@ export default function DetailOrderModal({ isOpen, onClose, order }: DetailOrder
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='mx-auto max-h-[90vh] w-[1200px] max-w-3xl font-montserrat'>
         <DialogTitle className='flex justify-center'>Order Detail</DialogTitle>
-        <OrderStatus order={order} /> 
+        <OrderStatus order={order} />
         <OrderDetailTable orderId={order.orderId} />
       </DialogContent>
     </Dialog>

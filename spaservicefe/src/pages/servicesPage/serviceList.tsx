@@ -2,7 +2,6 @@ import { Service } from '@/types/services'
 import React from 'react'
 import { formatNumber } from './servicesPage.util'
 import sep from '../../images/serviceBg/separator.png'
-import { useNavigate } from 'react-router-dom'
 
 export default function ServiceList(params?: { service: Service[] }) {
   return (

@@ -3,7 +3,7 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { SpaRequest } from '../../types/type' // Updated to CustomerRequest type
 
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
+// Dùng thư viện date-fns để format ngày
 import { getApplicationsOfAccId } from './requestPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'

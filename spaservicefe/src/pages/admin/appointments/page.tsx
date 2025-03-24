@@ -1,9 +1,8 @@
 import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react'
 import { createViewDay, createViewMonthAgenda, createViewWeek, createViewMonthGrid } from '@schedule-x/calendar'
-import { createEventsServicePlugin } from '@schedule-x/events-service'
 import '@schedule-x/theme-default/dist/index.css'
 import { useEffect, useState } from 'react'
-import { fetchAppointments, fetchEmployees } from './appointments.util'
+import { fetchAppointments } from './appointments.util'
 import { createEventModalPlugin } from '@schedule-x/event-modal'
 
 function CalendarApp() {
@@ -20,7 +19,6 @@ function CalendarApp() {
       sessionStorage.setItem('events', JSON.stringify(fetchedEvents))
     }
     loadEvents()
-
   }, [])
 
   const eventModal = createEventModalPlugin()
@@ -35,34 +33,34 @@ function CalendarApp() {
         lightColors: {
           main: '#4a90e2',
           container: '#cfe5ff',
-          onContainer: '#003366',
-        },
+          onContainer: '#003366'
+        }
       },
       work: {
         colorName: 'work',
         lightColors: {
           main: '#28a745',
           container: '#c8f7c5',
-          onContainer: '#0b3d20',
-        },
+          onContainer: '#0b3d20'
+        }
       },
       leisure: {
         colorName: 'leisure',
         lightColors: {
           main: '#f9d71c',
           container: '#fff5aa',
-          onContainer: '#594800',
-        },
+          onContainer: '#594800'
+        }
       },
       school: {
         colorName: 'school',
         lightColors: {
           main: '#dc3545',
           container: '#ffccd5',
-          onContainer: '#60000b',
-        },
-      },
-    },
+          onContainer: '#60000b'
+        }
+      }
+    }
   })
 
   const handleReload = () => {

@@ -24,15 +24,15 @@ export default function AddNewsModal() {
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
-   const [imageFile, setImageFile] = useState<File | null>(null)
-    const [imagePreview, setImagePreview] = useState<string | null>(null)
-    const [uploading, setUploading] = useState<boolean>(false) // Trạng thái upload ảnh
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [uploading, setUploading] = useState<boolean>(false) // Trạng thái upload ảnh
 
   // Danh sách loại tin tức
   const newsTypes = [
     { id: 'Event', name: 'Event' },
     { id: 'Promotion', name: 'Promotion' },
-    { id: 'Blog', name: 'Blog' },
+    { id: 'Blog', name: 'Blog' }
   ]
 
   // Fetch danh mục dịch vụ khi component mount
@@ -53,11 +53,11 @@ export default function AddNewsModal() {
         return
       }
     }
-    const selectedCategory = categories.find(category => category.categoryId === data.categoryId)
+    const selectedCategory = categories.find((category) => category.categoryId === data.categoryId)
     if (selectedCategory) data.categoryId = selectedCategory.categoryId
 
     // Lấy type từ newsType
-    const selectedType = newsTypes.find(type => type.id === form.watch('newsType'))
+    const selectedType = newsTypes.find((type) => type.id === form.watch('newsType'))
     if (selectedType) {
       data.type = selectedType.id
       data.image = imageUrl
@@ -71,40 +71,40 @@ export default function AddNewsModal() {
   }
 
   // Xử lý chọn ảnh và tạo preview
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files) {
-        const file = e.target.files[0]
-        setImageFile(file)
-        setImagePreview(URL.createObjectURL(file))
-      }
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0]
+      setImageFile(file)
+      setImagePreview(URL.createObjectURL(file))
     }
-  
-    // Xử lý upload ảnh lên Firebase Storage
-    const uploadImage = async (file: File) => {
-      return new Promise<string>((resolve, reject) => {
-        setUploading(true)
-        const storageRef = ref(storage, `cosmetic-products/${file.name}`)
-        const uploadTask = uploadBytesResumable(storageRef, file)
-  
-        uploadTask.on(
-          'state_changed',
-          (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            console.log(`Upload is ${progress}% done`)
-          },
-          (error) => {
-            setUploading(false)
-            toast.error('Image upload failed')
-            reject(error)
-          },
-          async () => {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
-            setUploading(false)
-            resolve(downloadURL)
-          }
-        )
-      })
-    }
+  }
+
+  // Xử lý upload ảnh lên Firebase Storage
+  const uploadImage = async (file: File) => {
+    return new Promise<string>((resolve, reject) => {
+      setUploading(true)
+      const storageRef = ref(storage, `cosmetic-products/${file.name}`)
+      const uploadTask = uploadBytesResumable(storageRef, file)
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log(`Upload is ${progress}% done`)
+        },
+        (error) => {
+          setUploading(false)
+          toast.error('Image upload failed')
+          reject(error)
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+          setUploading(false)
+          resolve(downloadURL)
+        }
+      )
+    })
+  }
 
   return (
     <Dialog>
@@ -159,7 +159,7 @@ export default function AddNewsModal() {
                 )}
               />
             ))}
-            
+
             {/* Select News Type */}
             <FormField
               control={form.control}
@@ -194,19 +194,19 @@ export default function AddNewsModal() {
             />
 
             {/* Thêm phần Upload Image */}
-                        <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
-                          <FormLabel className='text-md text-right'>Upload Image</FormLabel>
-                          <div className='col-span-3 space-y-2'>
-                            <input type='file' accept='image/*' onChange={handleImageChange} />
-                            {imagePreview && <img src={imagePreview} alt='Preview' className='h-32 w-32 rounded object-cover' />}
-                          </div>
-                        </FormItem>
-            
-                        <div className='mt-10 flex justify-end'>
-                          <Button type='submit' disabled={uploading}>
-                            {uploading ? 'Uploading...' : 'Submit'}
-                          </Button>
-                        </div>
+            <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <FormLabel className='text-md text-right'>Upload Image</FormLabel>
+              <div className='col-span-3 space-y-2'>
+                <input type='file' accept='image/*' onChange={handleImageChange} />
+                {imagePreview && <img src={imagePreview} alt='Preview' className='h-32 w-32 rounded object-cover' />}
+              </div>
+            </FormItem>
+
+            <div className='mt-10 flex justify-end'>
+              <Button type='submit' disabled={uploading}>
+                {uploading ? 'Uploading...' : 'Submit'}
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>

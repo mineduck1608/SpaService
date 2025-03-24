@@ -1,6 +1,4 @@
 import React, { useState, PropsWithChildren } from 'react'
-import { MdOutlineEmail, MdPhone, MdMap, MdAddLink } from 'react-icons/md'
-import { FaFacebookSquare, FaYoutubeSquare, FaTwitterSquare } from 'react-icons/fa'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { toast } from 'react-toastify'
 import { apiUrl, getToken } from '../../types/constants'

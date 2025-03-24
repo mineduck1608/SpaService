@@ -1,15 +1,7 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter
-} from '../../components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../../components/ui/dialog'
 
 import { Button } from '../../components/ui/button'
 import { SpaRequest } from '@/types/type'
-import { formatNumber } from '../servicesPage/servicesPage.util'
 import { status } from './requestPage.util'
 
 interface ConfirmDeleteModalProps {
@@ -36,9 +28,7 @@ function tableData(request: any) {
     { key: 'Your Note', value: request.customerNote.length === 0 ? 'None' : request.customerNote },
     {
       key: 'Price',
-      value: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
-        request.totalPrice ?? 0
-      )
+      value: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(request.totalPrice ?? 0)
     },
     {
       key: 'Transaction Status',

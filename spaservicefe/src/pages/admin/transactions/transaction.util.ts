@@ -1,12 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import {
-  TransactionBase,
-  SpaRequest,
-  Order,
-  CosmeticProduct,
-  ServiceTransaction,
-  CosmeticTransaction
-} from '../../../types/type'
+import { TransactionBase, SpaRequest, Order, ServiceTransaction, CosmeticTransaction } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllTransactions() {

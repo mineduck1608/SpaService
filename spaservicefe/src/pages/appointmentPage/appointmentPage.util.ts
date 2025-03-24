@@ -1,4 +1,4 @@
-import { Appointment, Feedback, SpaRequest } from '@/types/type'
+import { Appointment, Feedback } from '@/types/type'
 import { apiUrl, getToken } from '../../types/constants'
 
 export async function getAppointments(id: string) {

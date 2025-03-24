@@ -50,7 +50,7 @@ export const columns: ColumnDef<EmployeeCommission>[] = [
       return commissionValue !== 0
         ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(commissionValue)
         : 'N/A'
-    },
+    }
   },
   {
     accessorKey: 'status',

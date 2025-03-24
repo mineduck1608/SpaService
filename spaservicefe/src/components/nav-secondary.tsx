@@ -1,11 +1,9 @@
 import React from 'react'
-import { type LucideIcon } from 'lucide-react'
 
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem
 } from 'src/components/ui/sidebar'
