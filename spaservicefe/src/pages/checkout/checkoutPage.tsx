@@ -69,9 +69,11 @@ export default function CheckoutPage() {
   }, [])
   async function onSubmitBase(method: string) {
     try {
-      setModalMailOpen(true)
-      setStatus('loading')
-      setMessage('Processing...')
+      if (method == 'Cash') {
+        setModalMailOpen(true)
+        setStatus('loading')
+        setMessage('Processing...')
+      }
 
       var req2 = { ...req }
       req2.startTime = req2.startTime.add(7, 'h')
