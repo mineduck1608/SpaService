@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Http.Features;
 
 namespace API.Controllers
 {
-    [Route("appointments")]
+    [Route("api/appointments")]
     [ApiController]
     public class AppointmentController : ControllerBase
     {

@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("guestapplications")]
+    [Route("api/guestapplications")]
     [ApiController]
     public class GuestApplicationController : ControllerBase
     {

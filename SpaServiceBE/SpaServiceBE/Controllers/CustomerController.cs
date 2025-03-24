@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("customers")]
+    [Route("api/customers")]
     [ApiController]
     public class CustomerController : ControllerBase
     {

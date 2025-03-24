@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("applications")]
+    [Route("api/applications")]
     [ApiController]
     public class ApplicationController : ControllerBase
     {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("promotions")]
+    [Route("api/promotions")]
     [ApiController]
     public class PromotionController : ControllerBase
     {

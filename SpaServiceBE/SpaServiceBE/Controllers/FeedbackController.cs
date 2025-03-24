@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("feedbacks")]
+    [Route("api/feedbacks")]
     [ApiController]
     public class FeedbackController : ControllerBase
     {

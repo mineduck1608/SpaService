@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("spaservices")]
+    [Route("api/spaservices")]
     [ApiController]
     public class SpaServiceController : ControllerBase
     {

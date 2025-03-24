@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("cosmeticproducts")]
+    [Route("api/cosmeticproducts")]
     [ApiController]
     public class CosmeticProductController : ControllerBase
     {

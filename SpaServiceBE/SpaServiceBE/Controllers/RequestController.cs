@@ -19,7 +19,7 @@ using System.Drawing;
 
 namespace API.Controllers
 {
-    [Route("requests")]
+    [Route("api/requests")]
     [ApiController]
     public class RequestController : ControllerBase
     {

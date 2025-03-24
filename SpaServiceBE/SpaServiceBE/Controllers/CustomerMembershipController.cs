@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("customermemberships")]
+    [Route("api/customermemberships")]
     [ApiController]
     public class CustomerMembershipController : ControllerBase
     {
