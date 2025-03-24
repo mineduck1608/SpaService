@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/commissions")]
+    [Route("commissions")]
     [ApiController]
     public class CommissionController : ControllerBase
     {

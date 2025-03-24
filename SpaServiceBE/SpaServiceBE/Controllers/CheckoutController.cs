@@ -9,7 +9,7 @@ using SpaServiceBE.Utils;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/checkouts")]
+    [Route("checkouts")]
     [ApiController]
     public class CheckoutController : Controller
     {

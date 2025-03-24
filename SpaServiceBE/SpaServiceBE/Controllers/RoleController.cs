@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/roles")]
+    [Route("roles")]
     [ApiController]
     public class RoleController : ControllerBase
     {

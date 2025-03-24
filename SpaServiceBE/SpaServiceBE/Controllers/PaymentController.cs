@@ -5,7 +5,7 @@ using Services.IServices;
 namespace SpaServiceBE.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class PaymentController : ControllerBase
     {
         private readonly IVnPayService _vnPayService;

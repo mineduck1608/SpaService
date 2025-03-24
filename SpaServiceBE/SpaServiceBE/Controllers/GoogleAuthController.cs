@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SpaServiceBE.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GoogleAuthController : ControllerBase
     {
