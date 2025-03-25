@@ -6374,19 +6374,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ducco\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj",
+      "projectUniqueName": "C:\\Users\\ADMIN\\OneDrive\\Máy tính\\SWD391\\SpaService\\SpaServiceBE\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj",
-      "packagesPath": "C:\\Users\\ducco\\.nuget\\packages\\",
-      "outputPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\obj\\",
+      "projectPath": "C:\\Users\\ADMIN\\OneDrive\\Máy tính\\SWD391\\SpaService\\SpaServiceBE\\Services\\Services.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ADMIN\\OneDrive\\Máy tính\\SWD391\\SpaService\\SpaServiceBE\\Services\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ducco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6401,8 +6406,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj": {
-              "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj"
+            "C:\\Users\\ADMIN\\OneDrive\\Máy tính\\SWD391\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj": {
+              "projectPath": "C:\\Users\\ADMIN\\OneDrive\\Máy tính\\SWD391\\SpaService\\SpaServiceBE\\Repositories\\Repositories.csproj"
             }
           }
         }
@@ -6437,7 +6442,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
