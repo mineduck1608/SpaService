@@ -58,13 +58,46 @@ namespace API.Controllers
             try
             {
                 var (data, totalPages) = await _service.GetPaginatedRequests(page, limit);
-                return Ok(new { data, totalPages });
+
+                // Lấy danh sách ID duy nhất để tối ưu truy vấn
+                var employeeIds = data?.Select(r => r.EmployeeId).Distinct().ToList();
+                var customerIds = data.Select(r => r.CustomerId).Distinct().ToList();
+                var serviceIds = data.Select(r => r.ServiceId).Distinct().ToList();
+
+                // Truy vấn dữ liệu một lần
+                var employees = await _service.GetEmployeesByIds(employeeIds);
+                var customers = await _service.GetCustomersByIds(customerIds);
+                var services = await _service.GetServicesByIds(serviceIds);
+
+                // Chuyển danh sách sang Dictionary để tra cứu nhanh
+                var employeeDict = employees.ToDictionary(e => e.EmployeeId, e => e.FullName);
+                var customerDict = customers.ToDictionary(c => c.CustomerId, c => c.FullName);
+                var serviceDict = services.ToDictionary(s => s.ServiceId, s => s.ServiceName);
+
+                // Ánh xạ dữ liệu
+                var mappedData = data.Select(request => new
+                {
+                    RequestId = request.RequestId,
+                    EmployeeName = employeeDict.TryGetValue(request.EmployeeId ?? "", out var empName) ? empName : "Unknown",
+                    CustomerName = customerDict.TryGetValue(request.CustomerId ?? "", out var custName) ? custName : "Unknown",
+                    ServiceName = serviceDict.TryGetValue(request.ServiceId ?? "", out var servName) ? servName : "Unknown",
+                    StartTime = request.StartTime,
+                    CreatedAt = request.CreatedAt,
+                    CustomerNote = request.CustomerNote,
+                    ManagerNote = request.ManagerNote,
+                    Status = request.Status,
+                });
+
+                return Ok(new { data = mappedData, totalPages });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+
+
 
 
         // GET: api/requests/GetAll

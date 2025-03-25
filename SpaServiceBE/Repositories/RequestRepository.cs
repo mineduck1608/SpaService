@@ -19,6 +19,22 @@ namespace Repositories
             _context = context;
         }
 
+        public async Task<List<Employee>> GetEmployeesByIds(List<string> ids)
+        {
+            return await _context.Employees.Where(e => ids.Contains(e.EmployeeId)).ToListAsync();
+        }
+
+        public async Task<List<Customer>> GetCustomersByIds(List<string> ids)
+        {
+            return await _context.Customers.Where(c => ids.Contains(c.CustomerId)).ToListAsync();
+        }
+
+        public async Task<List<SpaService>> GetServicesByIds(List<string> ids)
+        {
+            return await _context.SpaServices.Where(s => ids.Contains(s.ServiceId)).ToListAsync();
+        }
+
+
         public async Task<(List<Request> Data, int TotalPages)> GetPaginatedRequests(int page, int limit)
         {
             var query = _context.Requests.AsQueryable();

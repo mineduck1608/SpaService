@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Repositories;
 using Repositories.Entities;
@@ -32,6 +33,23 @@ namespace Services
         {
             return await _requestRepository.GetPaginatedRequests(page, limit);
         }
+
+        public async Task<List<Employee>> GetEmployeesByIds(List<string> ids)
+        {
+            return await _requestRepository.GetEmployeesByIds(ids);
+        }
+
+        public async Task<List<Customer>> GetCustomersByIds(List<string> ids)
+        {
+            return await _requestRepository.GetCustomersByIds(ids);
+        }
+
+        public async Task<List<SpaService>> GetServicesByIds(List<string> ids)
+        {
+            return await _requestRepository.GetServicesByIds(ids);
+        }
+
+
 
         public async Task<string> GetSpaServiceIdByRequestId(string requestId)
         {

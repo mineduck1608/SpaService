@@ -3586,6 +3586,27 @@
   },
   {
     "ContainingType": "API.Controllers.RequestController",
+    "Method": "GetCustomerRequests",
+    "RelativePath": "api/requests/GetCustomerRequest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.RequestController",
     "Method": "SendEmailRequest",
     "RelativePath": "api/requests/SendMail/{id}",
     "HttpMethod": "POST",

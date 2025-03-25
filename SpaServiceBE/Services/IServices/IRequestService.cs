@@ -17,5 +17,8 @@ namespace Services.IServices
         Task<string> GetSpaServiceIdByRequestId(string requestId);
 
         Task<(List<Request> Data, int TotalPages)> GetPaginatedRequests(int page, int limit);
+        Task<List<Employee>> GetEmployeesByIds(List<string> ids);
+        Task<List<Customer>> GetCustomersByIds(List<string> ids);
+        Task<List<SpaService>> GetServicesByIds(List<string> ids);
     }
 }
