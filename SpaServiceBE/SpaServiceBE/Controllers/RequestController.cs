@@ -15,6 +15,7 @@ using MimeKit.Utils;
 using Microsoft.VisualBasic;
 using Services.Services;
 using System.Drawing;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace API.Controllers
@@ -50,6 +51,21 @@ namespace API.Controllers
             _transaction = transaction ?? throw new ArgumentNullException(nameof(transaction));
 
         }
+
+        [HttpGet("GetCustomerRequest")]
+        public async Task<IActionResult> GetCustomerRequests(int page = 1, int limit = 10)
+        {
+            try
+            {
+                var (data, totalPages) = await _service.GetPaginatedRequests(page, limit);
+                return Ok(new { data, totalPages });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
         // GET: api/requests/GetAll
         [HttpGet("GetAll")]

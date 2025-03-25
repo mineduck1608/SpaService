@@ -19,6 +19,21 @@ namespace Repositories
             _context = context;
         }
 
+        public async Task<(List<Request> Data, int TotalPages)> GetPaginatedRequests(int page, int limit)
+        {
+            var query = _context.Requests.AsQueryable();
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)limit);
+
+            var customerRequests = await query
+                .OrderByDescending(r => r.CreatedAt)
+                .Skip((page - 1) * limit)
+                .Take(limit)
+                .ToListAsync();
+
+            return (customerRequests, totalPages);
+        }
+
         // Lấy Request theo ID với các thực thể liên quan
         public async Task<Request> GetById(string requestId)
         {

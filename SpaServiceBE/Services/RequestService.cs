@@ -28,6 +28,11 @@ namespace Services
             return await _requestRepository.GetById(requestId);
         }
 
+        public async Task<(List<Request> Data, int TotalPages)> GetPaginatedRequests(int page, int limit)
+        {
+            return await _requestRepository.GetPaginatedRequests(page, limit);
+        }
+
         public async Task<string> GetSpaServiceIdByRequestId(string requestId)
         {
             var request = await _requestRepository.GetById(requestId);
