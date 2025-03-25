@@ -28,7 +28,7 @@ export async function getAllCustomerRequests() {
 
 export const getCustomerRequestsPaginated = async (page: number, limit: number) => {
   try {
-    const url = `${apiUrl}/requests?page=${page}&limit=${limit}`;
+    const url = `${apiUrl}/requests/GetCustomerRequest?page=${page}&limit=${limit}`;
     
     const response = await fetch(url, { method: 'GET' });
 

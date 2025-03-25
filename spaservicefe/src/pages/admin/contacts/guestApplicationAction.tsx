@@ -16,15 +16,6 @@ interface GuestContactActionsProps {
 }
 
 const GuestApplicationActions: React.FC<GuestContactActionsProps> = ({ guestApplication }) => {
-  const [isModalOpen, setModalOpen] = useState(false)
-
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
-
-  const handleConfirmDelete = () => {
-    handleDelete(guestApplication.guestApplicationId)
-    closeModal()
-  }
 
   return (
     <>
