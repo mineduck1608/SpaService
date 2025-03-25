@@ -87,7 +87,8 @@ const ContactForm = () => {
           })
           setCaptchaToken(null)
         } else {
-          toast.error('Failed! Please try again.')
+          var js = await response.json()
+          toast.error(js.msg || 'Failed! Please try again.')
         }
       } catch (error) {
         console.error('Form submitted error: ', error)
