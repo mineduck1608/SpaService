@@ -25,7 +25,9 @@ const NewsDetail = () => {
       if (response) {
         setPosts(response)
       } else {
-        toast.error('Loading news failed.')
+        toast.error('Loading news failed.', {
+          containerId: 'toast'
+        })
       }
       setLoading(false) // Dữ liệu đã được tải, cập nhật trạng thái loading
     }
