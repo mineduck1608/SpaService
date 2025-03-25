@@ -436,7 +436,6 @@ namespace API.Controllers
                     return NotFound(new { msg = $"Request with ID = {id} not found." });
 
 
-                await SendEmailRequest(appointment.AppointmentId);
                 return Ok(new { msg = "Assign request successfully.",
                     AppoinmentId = appointment.AppointmentId
                 });
