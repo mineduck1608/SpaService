@@ -84,7 +84,9 @@ export default function CosmeticCheckoutPage() {
       })
       return result
     } catch (e) {
-      toast.error(e as string, { toastId: 'toast' })
+      toast.error(e as string, {
+        containerId: 'toast'
+      })
       return null
     }
   }

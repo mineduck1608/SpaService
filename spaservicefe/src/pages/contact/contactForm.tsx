@@ -78,7 +78,9 @@ const ContactForm = () => {
           body: JSON.stringify(formData)
         })
         if (response.ok) {
-          toast.success('Thank you for your message.')
+          toast.success('Thank you for your message.', {
+            containerId: 'toast'
+          })
           setFormData({
             fullName: '',
             phoneNumber: '',
@@ -88,7 +90,9 @@ const ContactForm = () => {
           setCaptchaToken(null)
         } else {
           var js = await response.json()
-          toast.error(js.msg || 'Failed! Please try again.')
+          toast.error(js.msg || 'Failed! Please try again.', {
+            containerId: 'toast'
+          })
         }
       } catch (error) {
         console.error('Form submitted error: ', error)

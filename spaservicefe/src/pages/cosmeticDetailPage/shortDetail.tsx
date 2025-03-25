@@ -11,9 +11,11 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
   const [amount, setAmount] = useState(1)
   const cus = sessionStorage.getItem('customerId') ?? ''
   // Hàm kiểm tra và chuyển hướng
-  const addToCart = async (toCheckout?: boolean) => {
+  const addToCart = async () => {
     if (amount <= 0) {
-      toast.error('Invalid amount')
+      toast.error('Invalid amount', {
+        containerId: 'toast'
+      })
       return
     }
     const token = sessionStorage.getItem('token') // Kiểm tra token trong sessionStorage
@@ -22,17 +24,23 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
     }
     if (!token) {
       // Nếu không có token, hiển thị thông báo yêu cầu đăng nhập
-      toast.error('Please login to continue!')
+      toast.error('Please login to continue!', {
+        containerId: 'toast'
+      })
       return
     }
     const item = await getCartItem(cus, params.d.productId)
     var newAmount = (item?.amount ?? 0) + amount
     if (newAmount > params.d.quantity) {
-      toast.error(`Your cart cannot have more than ${params.d.quantity} items of this product`)
+      toast.error(`Your cart cannot have more than ${params.d.quantity} items of this product`, {
+        containerId: 'toast'
+      })
       return
     }
     setCartItem(cus, params.d.productId, amount)
-    toast.success(`Added ${amount} item(s)`)
+    toast.success(`Added ${amount} item(s)`, {
+      containerId: 'toast'
+    })
   }
 
   return (
@@ -74,7 +82,9 @@ export default function ShortDetail(params: { d?: CosmeticProduct }) {
             type='submit'
             onClick={(e) => {
               if (amount > (params.d?.quantity ?? 0)) {
-                toast.error(`Your cart cannot have more than ${params.d?.quantity} items of this product`)
+                toast.error(`Your cart cannot have more than ${params.d?.quantity} items of this product`, {
+                  containerId: 'toast'
+                })
                 return
               }
               window.location.assign(
