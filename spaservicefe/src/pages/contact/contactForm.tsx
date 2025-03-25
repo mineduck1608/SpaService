@@ -203,7 +203,7 @@ const ContactForm = () => {
               {errors.content && <p className='ml-2 text-sm text-red-500'>{errors.content}</p>}
             </div>
             <div className='flex flex-col items-center justify-center'>
-              <ReCAPTCHAFixed sitekey='6LeUZdIqAAAAAPlUPWL-M5n_aaSahKjHd8rfsoB_' onChange={handleCaptchaChange} />
+              <ReCAPTCHAFixed sitekey='6Lf5Dv8qAAAAAFaFNCQnMniYmTnfqQIp47_jGeXR' onChange={handleCaptchaChange} />
               {captchaError && <p className='ml-2 mt-2 text-sm text-red-500'>{captchaError}</p>}
             </div>
             <div className='flex items-center justify-center'>
