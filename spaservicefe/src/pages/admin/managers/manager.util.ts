@@ -60,7 +60,8 @@ export async function handleUpdateSubmit(manager: any, data: any) {
       toast.success('Successfully update!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })
