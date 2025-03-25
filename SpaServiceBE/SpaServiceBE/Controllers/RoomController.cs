@@ -30,7 +30,7 @@ namespace SpaServiceBE.Controllers
                 RoomNum = r.RoomNum,
                 RoomId = r.RoomId,
             });
-            return Ok(await _roomService.GetAllRooms());
+            return Ok(data);
         }
 
         [HttpGet("{id}")]
