@@ -13,21 +13,7 @@ export default function AdminEmployeeCategoryPage() {
     const fetchData = async () => {
       try {
         const employeeCategories = await getAllEmployeeCategory()
-        const formattedData = await Promise.all(
-          employeeCategories.map(async (employeeCategory) => {
-            const employee = await getEmployeeById(employeeCategory.employeeId)
-            const serviceCategory = await getServiceCategoryById(employeeCategory.categoryId)
-
-            const employeeName = employee ? employee.fullName : 'Unknown'
-            const categoryName = serviceCategory ? serviceCategory.categoryName : 'Unknown'
-            return {
-              ...employeeCategory,
-              employeeName, // Add category name to floor data
-              categoryName
-            }
-          })
-        )
-        setData(formattedData)
+        setData(employeeCategories)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
