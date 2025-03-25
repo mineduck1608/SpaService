@@ -13,26 +13,17 @@ export default function AdminFloorPage() {
     const fetchData = async () => {
       try {
         const floors = await getAllFloors() // Fetch floor data
-        // Lấy tên danh mục cho từng floor
-        const formattedFloors = await Promise.all(
-          floors.map(async (floor) => {
-            const category = await getFloorCategoryName(floor.categoryId) // Fetch category for floor
-            const categoryName = category ? category.categoryName : 'Unknown' // Set default category name
-            return {
-              ...floor,
-              categoryName // Add category name to floor data
-            }
-          })
-        )
 
-        setData(formattedFloors)
+        setData(floors)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
         setLoading(false)
       }
     }
-    fetchData()
+    if (data.length === 0) {
+      fetchData()
+    }
   }, [])
 
   if (loading) return <div className='ml-5'>Loading...</div>

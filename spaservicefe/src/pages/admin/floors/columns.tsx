@@ -33,7 +33,8 @@ export const columns: ColumnDef<Floor>[] = [
   },
   {
     accessorKey: 'categoryName',
-    header: 'Category'
+    header: 'Category',
+    cell: ({ row }) => row.original.category.categoryName
   },
   {
     id: 'actions',

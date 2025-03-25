@@ -13,27 +13,19 @@ export default function AdminRoomPage() {
     const fetchData = async () => {
       try {
         const rooms = await getAllRooms()
-        const formattedRooms = await Promise.all(
-          rooms.map(async (room) => {
-            const floor = await getFloorById(room.floorId)
-            const floorName = floor ? `Floor ${floor.floorNum}` : 'Unknown'
-            console.log(floor?.floorNum)
 
-            return {
-              ...room,
-              floorName
-            }
-          })
-        )
-
-        setData(formattedRooms)
+        setData(rooms)
       } catch (err) {
         setError("Can't load the data.")
       } finally {
         setLoading(false)
       }
     }
-    fetchData()
+    if (data.length === 0) {
+      console.log('Fetch again');
+      
+      fetchData()
+    }
   }, [])
 
   if (loading) return <div className='ml-5'>Loading...</div>

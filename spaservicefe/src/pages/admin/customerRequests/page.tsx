@@ -75,9 +75,9 @@ export default function CustomerRequestPage() {
               startTime: format(new Date(request.startTime), 'dd/MM/yyyy HH:mm:ss'),
               customerNote: request.customerNote || 'No notes provided',
               managerNote: request.managerNote || 'No notes provided',
-              customerName: customer.fullName,
-              serviceName: service.serviceName,
-              employeeName: employee.fullName
+              customerName: request.customerName,
+              serviceName: request.serviceName,
+              employeeName: request.fullName
             }
           })
         )
@@ -114,4 +114,10 @@ export default function CustomerRequestPage() {
       <ToastContainer />
     </div>
   )
+}
+
+export type SpaRequestRowModel = SpaRequest & {
+  customerName: string,
+  employeeName: string,
+  serviceName: string
 }
