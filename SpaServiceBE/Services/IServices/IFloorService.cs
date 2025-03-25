@@ -9,6 +9,7 @@ namespace Services.IServices
 {
     public interface IFloorService
     {
+        Task<List<ServiceCategory>> GetCategoriesByIds(List<string> ids);
         Task<IEnumerable<Floor>> GetAllFloors();
         Task<Floor> GetFloorById(string id);
         Task CreateFloor(Floor floor);

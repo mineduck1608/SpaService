@@ -18,9 +18,14 @@ namespace Repositories
             _context = context;
         }
 
+        public async Task<List<ServiceCategory>> GetCategoriesByIds(List<string> ids)
+        {
+            return await _context.ServiceCategories.Where(e => ids.Contains(e.CategoryId)).ToListAsync();
+        }
+
         public async Task<IEnumerable<Floor>> GetAllFloors()
         {
-            return await _context.Floors.Where(f => !f.IsDeleted).ToListAsync();
+            return await _context.Floors.Include(c => c.Category).Where(f => !f.IsDeleted).ToListAsync();
         }
 
         public async Task<Floor> GetFloorById(string id)
