@@ -15,5 +15,10 @@ namespace Services.IServices
         Task<(bool roomState, int employeeState, bool conflict)> CheckResourceAvailable(Request q);
         Task<(string roomId, string employeeId)> PickRandomResource(Request q, bool chooseEmployee);
         Task<string> GetSpaServiceIdByRequestId(string requestId);
+
+        Task<(List<Request> Data, int TotalPages)> GetPaginatedRequests(int page, int limit);
+        Task<List<Employee>> GetEmployeesByIds(List<string> ids);
+        Task<List<Customer>> GetCustomersByIds(List<string> ids);
+        Task<List<SpaService>> GetServicesByIds(List<string> ids);
     }
 }

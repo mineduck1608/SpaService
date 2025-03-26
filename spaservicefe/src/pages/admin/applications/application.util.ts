@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { Application, Employee } from '../../../types/type'
+import { Application } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllApplications() {

@@ -2,14 +2,13 @@ import { FormEvent, useEffect, useState } from 'react'
 import ProductList from './productList.tsx'
 import logoColor from '../../images/logos/logoColor.png'
 import { getToken } from '../../types/constants.ts'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { getPromoByCode, getPaymentUrl } from '../checkout/checkoutPage.util.ts'
 import { getCart, getCosmetic } from '../cosmeticDetailPage/detailPage.util.ts'
 import { createOrder, setCookie } from './checkoutPage.util.ts'
 import { Promotion } from '@/types/type.ts'
 import { SessionItem } from '@/types/sessionItem.ts'
-import { getQueryParamsMap, ProductPayResult } from '../payResult/productPayResult.ts'
-import { getCosmeticProductById } from '../admin/orders/order.util.ts'
+import { getQueryParamsMap } from '../payResult/productPayResult.ts'
 
 export default function CosmeticCheckoutPage() {
   const [checked, setChecked] = useState(false)
@@ -85,7 +84,9 @@ export default function CosmeticCheckoutPage() {
       })
       return result
     } catch (e) {
-      toast.error(e as string, { toastId: 'toast' })
+      toast.error(e as string, {
+        containerId: 'toast'
+      })
       return null
     }
   }

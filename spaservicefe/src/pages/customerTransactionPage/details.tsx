@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SpaRequest, TransactionBase } from '@/types/type' // Đổi từ Account sang Request
+import { TransactionBase } from '@/types/type' // Đổi từ Account sang Request
 import { DetailModal } from './detailModal'
 
 interface RequestActionsProps {

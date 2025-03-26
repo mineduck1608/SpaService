@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
-import { Service } from '@/types/services'
 import { IoIosStar } from 'react-icons/io'
 import { handleCreateSubmit } from '../serviceDetailPage/detailPage.util'
 import { Appointment } from '@/types/type'

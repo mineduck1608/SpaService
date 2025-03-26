@@ -1,6 +1,5 @@
 import React from 'react'
 import AppointmentTable from './appointmentTable'
-import bg from '../../images/customerHistory/bg.jpg'
 
 export default function AppointmentPage() {
   return (

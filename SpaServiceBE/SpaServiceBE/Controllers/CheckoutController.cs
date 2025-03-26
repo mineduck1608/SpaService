@@ -47,7 +47,7 @@ namespace SpaServiceBE.Controllers
             var response = _vnPayService.PaymentExecute(Request.Query);
             if (!response.Success)
             {
-                return Redirect($"http://localhost:3000/pay-result?success=false");
+                return Redirect($"https://spaservicefe.azurewebsites.net/pay-result?success=false");
             }
             //Order desc is txn id
             var txnId = response.OrderDescription;
@@ -70,11 +70,11 @@ namespace SpaServiceBE.Controllers
                     result.Add("customerId", order.CustomerId);
                     result.Add("promotionId", s.PromotionId);
                 }
-                return Redirect($"http://localhost:3000/pay-result?{Util.QueryStringFromDict(result)}");
+                return Redirect($"https://spaservicefe.azurewebsites.net/pay-result?{Util.QueryStringFromDict(result)}");
             }
             catch (Exception ex)
             {
-                return Redirect($"http://localhost:3000/pay-result?success=false");
+                return Redirect($"https://spaservicefe.azurewebsites.net/pay-result?success=false");
             }
         }
         private async Task<Dictionary<string, string>> UpdateServiceTransaction(Transaction tr)

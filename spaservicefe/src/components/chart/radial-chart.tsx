@@ -1,4 +1,4 @@
-import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
+import { PolarGrid, RadialBar, RadialBarChart } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer } from 'src/components/ui/chart'
 import { radialChartData, radialChartConfig } from './chart.util'

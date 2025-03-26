@@ -6,7 +6,6 @@ import { DatePicker } from 'src/components/date-picker'
 import { NavUser } from 'src/components/nav-user'
 import { Sidebar, SidebarContent, SidebarHeader, SidebarSeparator } from 'src/components/ui/sidebar'
 import { getEmployeeByAccountId, getManagerByAccountId } from './utils' // Import hàm getEmployeeById
-import { Employee } from '@/types/type' // Import kiểu dữ liệu Employee
 import { roleJWT } from '../types/constants'
 import { RoleName } from '../types/role'
 

@@ -1,6 +1,6 @@
 import { apiUrl, getToken } from '../../../types/constants'
 import { News, ServiceCategory } from '../../../types/type'
-import { toast, Bounce } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 export async function getAllNews() {
   try {

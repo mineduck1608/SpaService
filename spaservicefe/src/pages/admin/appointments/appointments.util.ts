@@ -1,6 +1,4 @@
-import { Description } from '@radix-ui/react-dialog'
 import { apiUrl, getToken } from '../../../types/constants'
-import { Appointment } from '@/types/type'
 import dayjs from 'dayjs'
 import { toast } from 'react-toastify'
 

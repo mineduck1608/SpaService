@@ -1,7 +1,7 @@
 import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer } from 'src/components/ui/chart'
-import { radialChartData, radialChartConfig } from '../../../components/chart/chart.util'
+import { radialChartConfig } from '../../../components/chart/chart.util'
 
 export function RadialChartComp(params: { total: number; newCustomers: number }) {
   return (

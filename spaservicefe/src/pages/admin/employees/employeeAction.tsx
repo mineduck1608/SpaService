@@ -12,7 +12,6 @@ import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Employee } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateEmployeeModal from './employeeUpdateModal'
-import { ToastContainer } from 'react-toastify'
 import { handleDelete } from './employee.util'
 import EmployeeStatisticModal from './employeeStatisticModal'
 

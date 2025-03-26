@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { ColumnDef } from '@tanstack/react-table'
-import { Appointment, SpaRequest } from '@/types/type'
+import { Appointment } from '@/types/type'
 import Details from './details'
 import { PastAppointmentContext } from './context/pastAppointmentContext'
 import { formatDate } from 'date-fns'

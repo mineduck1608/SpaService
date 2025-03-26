@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
-import { formatNumber, getServicesOfCategory, imgs } from '../servicesPage/servicesPage.util'
+import { getServicesOfCategory, imgs } from '../servicesPage/servicesPage.util'
 import StockImg from './stockImg'
 import { Service } from '@/types/services'
 import { getService } from './detailPage.util'

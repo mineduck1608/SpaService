@@ -18,6 +18,11 @@ namespace Services
             _floorRepository = floorRepository;
         }
 
+        public async Task<List<ServiceCategory>> GetCategoriesByIds(List<string> ids)
+        {
+            return await _floorRepository.GetCategoriesByIds(ids);
+        }
+
         public async Task<IEnumerable<Floor>> GetAllFloors()
         {
             return await _floorRepository.GetAllFloors();

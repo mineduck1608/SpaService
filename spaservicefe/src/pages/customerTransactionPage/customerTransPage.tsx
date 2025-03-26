@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import CustomerTransTable from './customerTransTable'
-import bg from '../../images/customerHistory/bg.jpg'
 import { SmallProduct, TransTypeContext } from './context/transTypeContext'
 
 export default function CustomerTransPage() {

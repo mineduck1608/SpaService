@@ -1,6 +1,5 @@
 import React from 'react'
 import RequestTable from './requestTable'
-import bg from '../../images/customerHistory/bg.jpg'
 
 export default function RequestPage() {
   return (

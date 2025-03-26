@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { Appointment, SpaRequest } from '../../types/type' // Updated to CustomerRequest type
-import { format } from 'date-fns' // Dùng thư viện date-fns để format ngày
+import { Appointment } from '../../types/type' // Updated to CustomerRequest type
+// Dùng thư viện date-fns để format ngày
 import { getAppointments } from './appointmentPage.util'
 import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../types/constants'

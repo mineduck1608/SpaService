@@ -1,6 +1,5 @@
 import { getFullPath, SideBarItem } from '../pages/admin/sidebar.util'
 import { ChevronRight } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
 import {
   SidebarGroup,
@@ -17,7 +16,6 @@ import {
 import { Link } from 'react-router-dom'
 
 export function NavWorkspaces(params: { items: SideBarItem[] }) {
-  const nav = useNavigate()
   return (
     <SidebarGroup>
       <SidebarGroupLabel className='mb-2 text-lg'>Workspaces</SidebarGroupLabel>

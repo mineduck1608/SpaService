@@ -1,5 +1,3 @@
-import { Transaction } from '@/pages/checkout/checkoutPage.util'
-
 export type Account = {
   accountId: string
   username: string

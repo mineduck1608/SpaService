@@ -11,7 +11,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import { checkInCheckOut, getAllEmployees, getCurrentLocation } from './record.util'
 import { jwtDecode } from 'jwt-decode'
 import { format } from 'date-fns'
-import { toZonedTime } from 'date-fns-tz'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -35,7 +34,6 @@ interface CheckInModalProps {
 }
 
 export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: CheckInModalProps) {
-  const [action, setAction] = useState<string>('checkin')
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null)
   const [open, setOpen] = useState(false)
 
@@ -98,96 +96,88 @@ export default function CheckInModal({ onCheckInSuccess, onCheckOutSuccess }: Ch
     } catch (error) {
       toast.error('Unable to get location. Please enable location services.')
     }
-
-    const handleOpen = () => {
-      const now = new Date()
-      const timeZone = 'Asia/Ho_Chi_Minh' // Thay thế bằng múi giờ mong muốn
-      const zonedDate = toZonedTime(now, timeZone)
-      const formattedDate = format(zonedDate, "yyyy-MM-dd'T'HH:mm")
-      form.setValue('checkInTime', formattedDate)
-    }
-
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger>
-          <Button className='bg-green-500 text-white hover:bg-green-600'>Check In</Button>
-        </DialogTrigger>
-        <DialogContent className='px-10'>
-          <DialogTitle className='flex justify-center'>Employee Check-In</DialogTitle>
-          <Form {...form}>
-            <form className='space-y-4'>
-              <FormField
-                control={form.control}
-                name='fullName'
-                render={({ field }) => (
-                  <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
-                    <FormLabel className='text-md text-right'>Full Name</FormLabel>
-                    <div className='col-span-3 space-y-1'>
-                      <FormControl>
-                        <Input {...field} placeholder='Enter Full Name' readOnly />
-                      </FormControl>
-                      <FormMessage className='text-sm' />
-                    </div>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name='checkInTime'
-                render={({ field }) => (
-                  <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
-                    <FormLabel className='text-md text-right'>Check-in Time</FormLabel>
-                    <div className='col-span-3 space-y-1'>
-                      <FormControl>
-                        <Input {...field} type='datetime-local' placeholder='Enter Check-in Time' readOnly />
-                      </FormControl>
-                      <FormMessage className='text-sm' />
-                    </div>
-                  </FormItem>
-                )}
-              />
-
-              <div className='mt-2 grid grid-cols-4 items-center gap-4'>
-                <span className='text-md text-right font-medium'>Location</span>
-                <div className='col-span-3 space-y-1'>
-                  {location ? (
-                    <>
-                      <div style={{ height: '200px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
-                        <MapContainer
-                          center={[location.latitude, location.longitude]}
-                          zoom={15}
-                          style={{ height: '100%', width: '100%' }}
-                        >
-                          <TileLayer
-                            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                          />
-                          <Marker position={[location.latitude, location.longitude]}>
-                            <Popup>Current location</Popup>
-                          </Marker>
-                        </MapContainer>
-                      </div>
-                    </>
-                  ) : (
-                    <p className='text-sm text-gray-500'>Fetching location...</p>
-                  )}
-                </div>
-              </div>
-
-              <div className='mt-10 flex justify-end gap-2'>
-                <Button type='button' onClick={() => handleAction('checkin')}>
-                  Check In
-                </Button>
-                <Button type='button' onClick={() => handleAction('checkout')}>
-                  Check Out
-                </Button>
-              </div>
-            </form>
-          </Form>
-        </DialogContent>
-        <ToastContainer />
-      </Dialog>
-    )
   }
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger>
+        <Button className='bg-green-500 text-white hover:bg-green-600'>Check In</Button>
+      </DialogTrigger>
+      <DialogContent className='px-10'>
+        <DialogTitle className='flex justify-center'>Employee Check-In</DialogTitle>
+        <Form {...form}>
+          <form className='space-y-4'>
+            <FormField
+              control={form.control}
+              name='fullName'
+              render={({ field }) => (
+                <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                  <FormLabel className='text-md text-right'>Full Name</FormLabel>
+                  <div className='col-span-3 space-y-1'>
+                    <FormControl>
+                      <Input {...field} placeholder='Enter Full Name' readOnly />
+                    </FormControl>
+                    <FormMessage className='text-sm' />
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='checkInTime'
+              render={({ field }) => (
+                <FormItem className='mt-2 grid grid-cols-4 items-center gap-4'>
+                  <FormLabel className='text-md text-right'>Check-in Time</FormLabel>
+                  <div className='col-span-3 space-y-1'>
+                    <FormControl>
+                      <Input {...field} type='datetime-local' placeholder='Enter Check-in Time' readOnly />
+                    </FormControl>
+                    <FormMessage className='text-sm' />
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            <div className='mt-2 grid grid-cols-4 items-center gap-4'>
+              <span className='text-md text-right font-medium'>Location</span>
+              <div className='col-span-3 space-y-1'>
+                {location ? (
+                  <>
+                    <div style={{ height: '200px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                      <MapContainer
+                        center={[location.latitude, location.longitude]}
+                        zoom={15}
+                        style={{ height: '100%', width: '100%' }}
+                      >
+                        <TileLayer
+                          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        />
+                        <Marker position={[location.latitude, location.longitude]}>
+                          <Popup>Current location</Popup>
+                        </Marker>
+                      </MapContainer>
+                    </div>
+                  </>
+                ) : (
+                  <p className='text-sm text-gray-500'>Fetching location...</p>
+                )}
+              </div>
+            </div>
+
+            <div className='mt-10 flex justify-end gap-2'>
+              <Button type='button' onClick={() => handleAction('checkin')}>
+                Check In
+              </Button>
+              <Button type='button' onClick={() => handleAction('checkout')}>
+                Check Out
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </DialogContent>
+      <ToastContainer />
+    </Dialog>
+  )
 }

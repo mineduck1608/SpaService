@@ -5,10 +5,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../components/deleteModal'
 import { GuestApplication } from '../../../types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { handleDelete } from './guestApplication.util'
@@ -18,15 +16,6 @@ interface GuestContactActionsProps {
 }
 
 const GuestApplicationActions: React.FC<GuestContactActionsProps> = ({ guestApplication }) => {
-  const [isModalOpen, setModalOpen] = useState(false)
-
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
-
-  const handleConfirmDelete = () => {
-    handleDelete(guestApplication.guestApplicationId)
-    closeModal()
-  }
 
   return (
     <>

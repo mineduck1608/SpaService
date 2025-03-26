@@ -20,7 +20,7 @@ namespace Repositories
         // Lấy danh sách tất cả CategoryEmployee
         public async Task<List<CategoryEmployee>> GetAll()
         {
-            return await _context.CategoryEmployees.ToListAsync();
+            return await _context.CategoryEmployees.Include(c => c.Category).Include(e => e.Employee).ToListAsync();
         }
 
         // Lấy danh sách nhân viên theo CategoryId

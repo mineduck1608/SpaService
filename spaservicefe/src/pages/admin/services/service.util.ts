@@ -1,5 +1,5 @@
 import { apiUrl, getToken } from '../../../types/constants'
-import { SpaService, ServiceCategory } from '../../../types/type'
+import { SpaService } from '../../../types/type'
 import { toast } from 'react-toastify'
 
 export async function getAllServices() {

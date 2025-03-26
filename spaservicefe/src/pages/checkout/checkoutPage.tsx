@@ -69,9 +69,11 @@ export default function CheckoutPage() {
   }, [])
   async function onSubmitBase(method: string) {
     try {
-      setModalMailOpen(true)
-      setStatus('loading')
-      setMessage('Processing...')
+      if (method == 'Cash') {
+        setModalMailOpen(true)
+        setStatus('loading')
+        setMessage('Processing...')
+      }
 
       var req2 = { ...req }
       req2.startTime = req2.startTime.add(7, 'h')
@@ -200,17 +202,16 @@ export default function CheckoutPage() {
               </>
             )}
 
-            {status === 'success' && (
-              <>
-                <CheckCircle className='mx-auto h-12 w-12 text-green-500' />
-                <p className='mt-4 text-green-600'>{message}</p>
-              </>
-            )}
-
             {status === 'error' && (
               <>
                 <XCircle className='mx-auto h-12 w-12 text-red-500' />
                 <p className='mt-4 text-red-600'>{message}</p>
+                <button
+                  onClick={() => setModalMailOpen(false)}
+                  className='mr-4 mt-4 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300'
+                >
+                  Close
+                </button>
               </>
             )}
             {status === 'success' && (

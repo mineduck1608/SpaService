@@ -7,7 +7,7 @@ import {
   getAllServiceTransactions,
   getAllTransactions
 } from '../transactions/transaction.util'
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 
 export default function TransactionPage() {
   const [data, setData] = useState<TransactionBase[]>([])

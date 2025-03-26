@@ -1,4 +1,4 @@
-import { SpaRequest, TransactionBase } from '@/types/type'
+import { TransactionBase } from '@/types/type'
 import { apiUrl, getToken } from '../../types/constants'
 
 export async function getTransactionsOfCustomerId(id: string, findInService?: boolean) {

@@ -1,10 +1,7 @@
-import { TrendingUp } from 'lucide-react'
-import { Line, LineChart, XAxis, CartesianGrid, YAxis } from 'recharts'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
+import { Line, LineChart, XAxis, YAxis } from 'recharts'
+import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-import { lineChartData, lineChartConfig } from '../../../components/chart/chart.util'
-import { array } from 'zod'
-import { lineChartXAxis } from './dashboard.util'
+import { lineChartConfig } from '../../../components/chart/chart.util'
 
 export function LineChartComp(params: { array: { date: string; revenue: number }[] }) {
   const data = params.array

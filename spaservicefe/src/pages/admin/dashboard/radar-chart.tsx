@@ -1,5 +1,5 @@
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from 'recharts'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
 import { radarChartConfig } from '../../../components/chart/chart.util'
 import { CategoryRevenue } from './dashboard.util'

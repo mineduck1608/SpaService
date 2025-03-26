@@ -14,21 +14,26 @@ function CalendarApp() {
     return savedEvents ? JSON.parse(savedEvents) : []
   })
 
+  const [loading, setLoading] = useState(true)
+
+
   useEffect(() => {
     const loadEvents = async () => {
+      setLoading(true)
+      try {
       const employee = await getEmployeeByAccountId(jwtDecode(getToken() ?? '').UserId)
       const fetchedEvents = await fetchAppointmentsByEmployee(employee.employeeId)
       console.log('Fetched events:', fetchedEvents)
       setEvents(fetchedEvents)
       sessionStorage.setItem('events', JSON.stringify(fetchedEvents))
+    } catch (error) {
+      console.error('Error fetching events:', error)
+    } finally {
+      setLoading(false)
     }
-
-    const loadEmployees = async () => {
-      const fetchedEmployees = await fetchEmployees()
     }
 
     loadEvents()
-    loadEmployees()
   }, [])
 
   const eventModal = createEventModalPlugin()
@@ -78,12 +83,53 @@ function CalendarApp() {
   }
 
   return (
-    <div style={{ minHeight: '500px' }}>
-      <button onClick={handleReload} style={{ marginBottom: '10px', padding: '8px 16px', cursor: 'pointer' }}>
-        Show appointments
-      </button>
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <button
+          onClick={handleReload}
+          style={{
+            marginBottom: '20px',
+            padding: '10px 20px',
+            cursor: 'pointer',
+            border: 'none',
+            backgroundColor: '#4a90e2',
+            color: 'white',
+            borderRadius: '5px',
+            fontSize: '16px',
+            alignItems: 'center'
+          }}
+        >
+          Show appointments
+        </button>
+      </div>
 
-      <ScheduleXCalendar calendarApp={calendar} />
+      {loading ? (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <div
+            style={{
+              width: '50px',
+              height: '50px',
+              border: '5px solid #f3f3f3',
+              borderTop: '5px solid #4a90e2',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite'
+            }}
+          ></div>
+          <p style={{ fontSize: '18px', fontWeight: 'bold', color: '#4a90e2', marginTop: '10px' }}>Loading events...</p>
+        </div>
+      ) : (
+        <div>
+          <ScheduleXCalendar calendarApp={calendar} />
+        </div>
+      )}
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}
+      </style>
     </div>
   )
 }

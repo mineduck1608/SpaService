@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext } from 'react'
 
 type PastBookingType = {
   pastBooking: boolean

@@ -6,7 +6,6 @@ import {
   ArrowLeftRight,
   Contact2,
   MessageCircleQuestion,
-  Users2Icon,
   Trash2,
   Warehouse,
   Grip,

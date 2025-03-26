@@ -1,9 +1,8 @@
 import { TrendingUp } from 'lucide-react'
-import { Line, LineChart, XAxis, CartesianGrid, YAxis } from 'recharts'
+import { Line, LineChart, XAxis, YAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-import { lineChartData, lineChartConfig } from './chart.util'
-import { array } from 'zod'
+import { lineChartConfig } from './chart.util'
 import { lineChartXAxis } from '../../pages/admin/dashboard/dashboard.util'
 
 export function LineChartComp(params: { array: number[] }) {

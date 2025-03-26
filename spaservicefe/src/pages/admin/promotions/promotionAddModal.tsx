@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import { FieldConfig, generateZodSchema } from '../modal.util'
 import { DialogTitle } from '@radix-ui/react-dialog'

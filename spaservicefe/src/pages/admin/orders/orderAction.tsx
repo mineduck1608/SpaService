@@ -8,13 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Order } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import { handleDelete } from './order.util'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import DetailOrderModal from './orderDetailModal'
-import UpdateOrderModal from './orderUpdateModal'
 import { updateOrderStatus } from './order.util'
 
 interface OrderActionsProps {

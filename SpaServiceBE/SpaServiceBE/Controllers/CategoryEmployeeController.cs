@@ -28,7 +28,15 @@ namespace API.Controllers
             try
             {
                 var categoryEmployees = await _service.GetAllAsync();
-                return Ok(categoryEmployees);
+
+                var data = categoryEmployees.Select(r => new
+                {
+                    CategoryEmployeeId = r.CategoryEmployeeId,
+                    EmployeeName = r.Employee.FullName,
+                    CategoryName = r.Category.CategoryName
+                });
+
+                return Ok(data);
             }
             catch (Exception ex)
             {

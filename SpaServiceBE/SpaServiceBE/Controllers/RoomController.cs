@@ -4,6 +4,7 @@ using Repositories.Entities;
 using Services;
 using Services.IServices;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SpaServiceBE.Controllers
 {
@@ -21,7 +22,15 @@ namespace SpaServiceBE.Controllers
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Room>>> GetAllRooms()
         {
-            return Ok(await _roomService.GetAllRooms());
+            var room = await _roomService.GetAllRooms();
+
+            var data = room.Select(r => new
+            {
+                FloorNum = r.Floor.FloorNum,
+                RoomNum = r.RoomNum,
+                RoomId = r.RoomId,
+            });
+            return Ok(data);
         }
 
         [HttpGet("{id}")]

@@ -1,8 +1,7 @@
-import { TrendingUp } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
-import { barChartData, barChartConfig } from '../../../components/chart/chart.util'
+import { barChartConfig } from '../../../components/chart/chart.util'
 import { GenderData } from './dashboard.util'
 
 export function BarChartComp(params: { data: GenderData[] }) {

@@ -31,12 +31,14 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
     const rs = await register(data)
 
     if (rs.success) {
-      toast('Register success. Redirecting to login page...')
+      toast.success('Register success. Redirecting to login page...', {
+        containerId: 'toast'
+      })
       setTimeout(() => {
         window.location.assign('/login') // This will now happen after 2 seconds
       }, 2000) // Wait 2 seconds before redirecting
     } else {
-      toast('An error occurred: ' + rs.msg)
+      toast.error('An error occurred: ' + rs.msg)
     }
 
     setFetching(false)

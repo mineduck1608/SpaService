@@ -24,7 +24,11 @@ export const columns: ColumnDef<Room>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'floorName',
+    accessorKey: 'roomId',
+    header: 'Room ID'
+  },
+  {
+    accessorKey: 'floorNum',
     header: 'Floor'
   },
   {

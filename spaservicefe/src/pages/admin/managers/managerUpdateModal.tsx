@@ -12,7 +12,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 's
 import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './manager.util'
 import { managerConfig } from '../modal.util'
-import { DatePicker } from 'antd'
 import dayjs from 'dayjs'
 
 interface UpdateManagerModalProps {

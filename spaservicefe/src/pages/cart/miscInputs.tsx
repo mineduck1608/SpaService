@@ -1,8 +1,8 @@
 import { Checkbox } from '../../components/ui/checkbox'
 import { SessionItem } from '@/types/sessionItem'
 import { Row, Table } from '@tanstack/react-table'
-import React, { useContext, useRef, useState } from 'react'
-import { getCartItem, removeCartItem, setCart, setCartItem } from '../cosmeticDetailPage/detailPage.util'
+import React, { useContext, useState } from 'react'
+import { removeCartItem, setCart } from '../cosmeticDetailPage/detailPage.util'
 import { SessionContext } from './context/selectedContext'
 
 export default function RowCheckBox(params: { row: Row<SessionItem> }) {

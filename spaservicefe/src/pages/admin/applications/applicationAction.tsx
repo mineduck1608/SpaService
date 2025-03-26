@@ -8,31 +8,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../../../components/ui/dropdown-menu'
-import { ConfirmDeleteModal } from '../components/deleteModal'
 import { Application } from '@/types/type'
 import { MoreHorizontal } from 'lucide-react'
 import UpdateApplicationModal from './applicationUpdateModal'
-import { ToastContainer } from 'react-toastify'
-import { handleDelete } from './application.util'
 
 interface ApplicationActionsProps {
   application: Application
 }
 
 const ApplicationActions: React.FC<ApplicationActionsProps> = ({ application }) => {
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
-
-  const openDeleteModal = () => setDeleteModalOpen(true)
-  const closeDeleteModal = () => setDeleteModalOpen(false)
 
   const openUpdateModal = () => setUpdateModalOpen(true)
   const closeUpdateModal = () => setUpdateModalOpen(false)
-
-  const handleConfirmDelete = async () => {
-    handleDelete(application.applicationId)
-    closeDeleteModal()
-  }
 
   return (
     <>

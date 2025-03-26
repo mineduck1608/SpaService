@@ -1,6 +1,5 @@
 import React from 'react'
 import ApplicationTable from './applicationTable'
-import bg from '../../images/customerHistory/bg.jpg'
 
 export default function ApplicationList() {
   return (

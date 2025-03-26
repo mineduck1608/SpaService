@@ -36,7 +36,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         sessionStorage.setItem('token', token)
         var jwtData = jwtDecode(token)
         const role = jwtData[roleJWT] as string
-        toast.success('Login success.')
+        toast.success('Login success.', {
+          containerId: 'toast'
+        })
         if (role === RoleName.CUSTOMER) {
           const getCusId = await getCusByAcc(jwtData['UserId'] as string)
           const asCustomer = getCusId as Customer
@@ -46,18 +48,21 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         }
         window.location.assign(routeByRole(role))
       } else {
-        toast.error('Login failed!')
+        toast.error('Login failed!', {
+          containerId: 'toast'
+        })
         console.log('error' + rs.msg)
       }
     } catch (error) {
-      toast('An unexpected error occurred.')
+      toast('An unexpected error occurred.', {
+        containerId: 'toast'
+      })
     } finally {
       setFetching(false)
     }
   }
 
   const handleGoogleSuccess = async (response: any) => {
-    console.log('Login Success:', response.credential)
     const token = response.credential
     setFetching(true)
     try {
@@ -72,7 +77,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         sessionStorage.setItem('token', token)
         var jwtData = jwtDecode(token)
         const role = jwtData[roleJWT] as string
-        toast.success('Login success.')
+        toast.success('Login success.', {
+          containerId: 'toast'
+        })
         if (role === RoleName.CUSTOMER) {
           const getCusId = await getCusByAcc(jwtData['UserId'] as string)
           const asCustomer = getCusId as Customer
@@ -82,7 +89,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         }
         window.location.assign(routeByRole(role))
       } else {
-        toast.error('Google login failed!')
+        toast.error('Google login failed!', {
+          containerId: 'toast'
+        })
       }
     } catch (error) {
       console.error('Google login error:', error)

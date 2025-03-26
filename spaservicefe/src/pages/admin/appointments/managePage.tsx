@@ -4,7 +4,6 @@ import { DataTable } from './data-table'
 import { Appointment } from '@/types/type' // Replace Feedback with Appointment type
 import { getAllAppointments } from './appointments.util'
 import { format } from 'date-fns' // Use date-fns library to format dates
-import { custom } from 'zod'
 
 export default function AppointmentManagePage() {
   const [data, setData] = useState<Appointment[]>([]) // Change to Appointment type

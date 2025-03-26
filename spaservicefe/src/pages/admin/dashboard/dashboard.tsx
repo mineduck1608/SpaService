@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { AreaChartComp } from 'src/components/chart/area-chart'
 import { PieChartComp } from './pie-chart.tsx'
 
 import {
@@ -13,7 +12,6 @@ import {
   fetchTransactionsOrderByMonth,
   GenderData
 } from './dashboard.util.ts'
-import { toast } from 'react-toastify'
 import { LineChartComp } from './line-chart.tsx'
 import { RadarChartComp } from './radar-chart.tsx'
 import { getAllServiceCategories } from '../servicecategories/servicecategory.util.ts'

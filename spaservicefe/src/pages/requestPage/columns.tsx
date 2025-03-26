@@ -1,6 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { SpaRequest } from '@/types/type' // Assuming `Request` is the correct type based on the entity
-import { formatNumber } from '../servicesPage/servicesPage.util'
 import Details from './details'
 import { formatDate } from 'date-fns'
 export const columns: ColumnDef<SpaRequest>[] = [

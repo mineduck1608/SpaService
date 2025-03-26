@@ -26,6 +26,24 @@ export async function getAllCustomerRequests() {
   }
 }
 
+export const getCustomerRequestsPaginated = async (page: number, limit: number) => {
+  try {
+    const url = `${apiUrl}/requests/GetCustomerRequest?page=${page}&limit=${limit}`;
+    
+    const response = await fetch(url, { method: 'GET' });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return await response.json(); // Trả về { data, totalPages }
+  } catch (error) {
+    console.error('Error fetching paginated customer requests:', error);
+    throw error;
+  }
+};
+
+
 export async function getCustomerById(id: string) {
   try {
     var res = await fetch(`${apiUrl}/customers/GetById/${id}`, {

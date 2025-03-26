@@ -21,7 +21,7 @@ namespace Repositories
 
         public async Task<IEnumerable<Room>> GetAllRooms()
         {
-            return await _context.Rooms.Where(r => r.IsDeleted == false).ToListAsync(); //Only get avaliable room
+            return await _context.Rooms.Include(f => f.Floor).Where(r => r.IsDeleted == false).ToListAsync(); //Only get avaliable room
         }
 
         public async Task<Room> GetRoomById(string id)

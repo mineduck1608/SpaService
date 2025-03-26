@@ -55,12 +55,6 @@ export async function handleCreateSubmit(data: any) {
 
 export async function handleUpdateSubmit(application: any, data: any) {
   try {
-    const updatedData = {
-      ...data,
-      accountId: application.accountId,
-      createdAt: application.createdAt,
-      resolvedAt: new Date().toISOString()
-    }
     var res = await fetch(`${apiUrl}/guestapplications/Update/${application.applicationId}`, {
       method: 'PUT',
       headers: {

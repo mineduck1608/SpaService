@@ -30,13 +30,19 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
   filterKey1?: string
   filterKey2?: string
+  page: number
+  totalPages: number
+  onPageChange: (newPage: number) => void
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   filterKey1 = 'customerName',
-  filterKey2 = 'status'
+  filterKey2 = 'status',
+  page,
+  totalPages,
+  onPageChange
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -132,10 +138,18 @@ export function DataTable<TData, TValue>({
           {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
           selected.
         </div>
-        <Button variant='outline' size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+        <Button variant='outline' size='sm' onClick={() => onPageChange(Math.max(page - 1, 1))} disabled={page === 1}>
           Previous
         </Button>
-        <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+        <span className='px-4 py-2'>
+          {page} / {totalPages}
+        </span>
+        <Button
+          variant='outline'
+          size='sm'
+          onClick={() => onPageChange(Math.min(page + 1, totalPages))}
+          disabled={page === totalPages}
+        >
           Next
         </Button>
       </div>

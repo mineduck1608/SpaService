@@ -1,7 +1,7 @@
 import { ServiceCategory } from '@/types/type'
 import { Service } from '@/types/services'
 import { Link, useNavigate } from 'react-router-dom'
-import React, { useState } from 'react'
+import React from 'react'
 import { formatNumber } from '../servicesPage/servicesPage.util'
 import seperator from '../../images/serviceBg/separator.png'
 import { toast } from 'react-toastify' // Import thư viện toast
@@ -16,7 +16,9 @@ export default function ShortDetail(params: { d?: Service }) {
 
     if (!token) {
       // Nếu không có token, hiển thị thông báo yêu cầu đăng nhập
-      toast.error('Please login to continue!')
+      toast.error('Please login to continue!', {
+        containerId: 'toast'
+      })
     } else {
       // Nếu có token, lưu thông tin và chuyển hướng tới trang checkout
       sessionStorage.setItem('booked', JSON.stringify(params.d) ?? '')

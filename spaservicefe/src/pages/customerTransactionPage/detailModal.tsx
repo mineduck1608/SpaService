@@ -1,17 +1,8 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter
-} from '../../components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../components/ui/dialog'
 
 import { Button } from '../../components/ui/button'
-import { SpaRequest, TransactionBase } from '@/types/type'
+import { TransactionBase } from '@/types/type'
 import { formatNumber } from '../servicesPage/servicesPage.util'
-import { status } from './customerTransPage.util'
-import { Transaction } from '../checkout/checkoutPage.util'
 import { useContext } from 'react'
 import { TransTypeContext } from './context/transTypeContext'
 

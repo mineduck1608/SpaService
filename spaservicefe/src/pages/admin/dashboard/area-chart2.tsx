@@ -1,15 +1,9 @@
 import * as React from 'react'
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
-import {
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent
-} from 'src/components/ui/chart'
+import { ChartContainer, ChartLegend, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { areaChartData, areaChartConfig } from '../../../components/chart/chart.util'
+import { areaChartConfig } from '../../../components/chart/chart.util'
 
 export function AreaChart2Comp(params: { data: { date: string; service: number; product: number }[] }) {
   const [timeRange, setTimeRange] = React.useState('90')
