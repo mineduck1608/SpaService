@@ -145,7 +145,6 @@ namespace API.Controllers
                 string description = jsonElement.GetProperty("description").GetString();
                 string serviceImage = jsonElement.GetProperty("serviceImage").GetString();
                 string categoryId = jsonElement.GetProperty("categoryId").GetString();
-                bool isDeleted = jsonElement.GetProperty("isDeleted").GetBoolean();
                 // Chuyển đổi Duration từ string sang TimeSpan
                 TimeOnly duration;
                 if (!TimeOnly.TryParse(durationString, out duration))
@@ -176,7 +175,7 @@ namespace API.Controllers
                     Description = description,
                     ServiceImage = serviceImage,
                     CategoryId = categoryId,
-                    IsDeleted = isDeleted
+                    IsDeleted = false
                 };
 
                 // Gọi service để cập nhật spa service
