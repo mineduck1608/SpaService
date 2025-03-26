@@ -36,14 +36,25 @@ export default function PayResultPage() {
   }
   const map = getQueryParamsMap(window.location.search.substring(1))
   useEffect(() => {
-    async function fetchCart(customerId: string) {
-      var s = await getCart(customerId)
+    async function loadData() {
+      var s = JSON.parse(map.get('detail') ?? '[]')
+      var items = s.map(x => {
+        var t:SessionItem = {
+          amount: x.qty,
+          product: {
+            productName: x.name,
+            price: x.subTotal / x.qty,
+            image: x.img
+          }
+        }
+        return t
+      })
       var p = await getPromoById(map.get('promotionId') ?? '')
       if (typeof p === 'object') {
         setPromo(p.discountValue)
       }
-      if (s) {
-        setCart(s)
+      if (items) {
+        setCart(items)
       }
     }
     var token = getCookie('token')
@@ -51,7 +62,7 @@ export default function PayResultPage() {
     setR(map.get('success') === 'True')
     if (map.get('type') === 'Product') {
       sessionStorage.setItem('customerId', map.get('customerId') ?? '')
-      fetchCart(map.get('customerId') ?? '')
+      loadData()
     }
   }, [])
   var bg = r ? 'bg-green-600' : 'bg-red-500'
@@ -77,9 +88,12 @@ export default function PayResultPage() {
                   <div className='flex justify-center'>
                     <Link
                       className='rounded-xl bg-green-600 p-3 font-bold text-white no-underline'
-                      to={map.get('type') === 'Service' ? `/requests` : '/'}
+                      to={map.get('type') === 'Service' ? `/requests` : '/transactions'}
+                      onClick={(e) => {
+                        sessionStorage.setItem('autoProduct', '1')
+                      }}
                     >
-                      View your new request!
+                      {map.get('type') === 'Service' ? 'View your new request!' : 'View your transactions'}
                     </Link>
                   </div>
                 </div>

@@ -24,9 +24,12 @@ namespace SpaServiceBE.Controllers
         private readonly ICartCosmeticProductService _cartCosmeticProductService;
         private readonly ICosmeticTransactionService _csCosmeticTransactionService;
         private readonly IOrderService _orderService;
+        private readonly IOrderDetailService _detailService;
+        private readonly ICosmeticProductService _productService;
 
-        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService, IEmployeeService employeeService, IServiceTransactionService svTransService, ICosmeticTransactionService cosmeticTransaction, ICartCosmeticProductService cartCosmeticProductService, ICosmeticTransactionService cosmeticTransactionService, IOrderService orderService)
+        public CheckoutController(IVnPayService vnPayService, ITransactionService transactionService, IRequestService requestService, ISpaServiceService spaService, IAppointmentService appointmentService, IEmployeeService employeeService, IServiceTransactionService svTransService, ICosmeticTransactionService cosmeticTransaction, ICartCosmeticProductService cartCosmeticProductService, ICosmeticTransactionService cosmeticTransactionService, IOrderService orderService, IOrderDetailService detailService, ICosmeticProductService productService)
         {
+            _detailService = detailService;
             _orderService = orderService;
             _csCosmeticTransactionService = cosmeticTransactionService;
             _csTransService = cosmeticTransaction;
@@ -38,6 +41,7 @@ namespace SpaServiceBE.Controllers
             _employeeService = employeeService;
             _svTransService = svTransService;
             _cartCosmeticProductService = cartCosmeticProductService;
+            _productService = productService;
         }
 
 
@@ -65,6 +69,16 @@ namespace SpaServiceBE.Controllers
                 {
                     var prodTrans = await _csCosmeticTransactionService.GetByTransId(txnId);
                     var order = await _orderService.GetOrderByIdAsync(prodTrans.OrderId);
+                    var detail = await _detailService.GetOrderDetailsByOrderId(order.OrderId);
+                    var products = (await _productService.GetAllCosmeticProduct()).ToDictionary(x => x.ProductId);
+                    var data = detail.Select(x => new
+                    {
+                        name = products[x.ProductId].ProductName,
+                        img = products[x.ProductId].Image,
+                        qty = x.Quantity,
+                        subTotal = x.SubTotalAmount,
+                    });
+                    result.Add("detail", JsonConvert.SerializeObject(data));
                     result.Add("success", "True");
                     result.Add("type", "Product");
                     result.Add("customerId", order.CustomerId);

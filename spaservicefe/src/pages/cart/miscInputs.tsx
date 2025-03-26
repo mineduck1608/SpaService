@@ -81,14 +81,12 @@ export function RemoveButton(params: { row: Row<SessionItem> }) {
     <button
       className='rounded-sm bg-purple1 p-2 text-white'
       onClick={async (e) => {
-        var s = [...context.items]
-        var t = s.findIndex((x) => x.product.productId === productId)
-        context.setItems(s => [])
+        var newItems = [...context.items]
+        context.setItems([])
         setTimeout(() => {
-          context.setItems(s.filter((x) => x.product.productId !== productId))
-        }, 20);
-        //document.getElementById(productId)?.remove()
-        // await removeCartItem(params.row.original.id ?? '')
+          context.setItems(newItems.filter((x) => x.product.productId !== productId))
+        }, 0);
+        await removeCartItem(params.row.original.id ?? '')
       }}
     >
       Remove
