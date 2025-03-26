@@ -214,7 +214,7 @@ namespace API.Controllers
                 // Validate required fields
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullName) ||
                     string.IsNullOrEmpty(position) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
-                    return BadRequest("Employee registration details are incomplete.");
+                    return BadRequest(new { msg = "Employee registration details are incomplete." });
 
                 // Validate phone, email, and password formats
                 if (!Util.IsPhoneFormatted(phone.Trim()))
@@ -229,15 +229,15 @@ namespace API.Controllers
                 // Check if the account already exists
                 var existingAccount = await _accountService.GetAccountByUsername(username);
                 if (existingAccount != null)
-                    return Conflict("Username already exists.");
+                    return Conflict(new { msg = "Username already exists." });
 
             var existingPhone = await _employeeService.GetEmployeeByPhone(phone);
             if (existingPhone != null)
-                return Conflict("Phone is used.");
+                return Conflict(new { msg = "Phone is used." });
 
             var existingEmail = await _employeeService.GetEmployeeByEmail(email);
             if (existingEmail != null)
-                return Conflict("Email is used.");
+                return Conflict(new { msg = "Email is used." });
 
             // Create account object
             var account = new Account
@@ -301,7 +301,7 @@ namespace API.Controllers
             // Validate required fields
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullName) ||
                 string.IsNullOrEmpty(position) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
-                return BadRequest("Manager registration details are incomplete.");
+                return BadRequest(new { msg = "Manager registration details are incomplete." });
 
             // Validate phone, email, and password formats
             if (!Util.IsPhoneFormatted(phone.Trim()))

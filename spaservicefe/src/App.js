@@ -396,6 +396,7 @@ function App() {
 
             {/* Users */}
             <Route path='employee-categories' element={<AdminEmployeeCategoryPage />} />
+            <Route path='employees' element={<EmployeePage />} />
 
             {/* Spa Services */}
             <Route path='service-categories' element={<ServiceCategoriesPage />} />

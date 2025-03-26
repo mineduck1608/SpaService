@@ -14,6 +14,7 @@ export default function AdminCosmeticPage() {
       try {
         const products = await getAllProducts()
         setData(products)
+        console.log(products)
       } catch (err) {
         setError("Can't load the data.")
       } finally {

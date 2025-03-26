@@ -63,20 +63,20 @@ namespace SpaServiceBE.Controllers
 
                 if(phone == "None")
                 {
-                    return BadRequest(new { msg = "Phone is invalid." });
+                    return BadRequest(new { msg = "You have to provide phone before create order." });
 
                 }
                 if (!string.IsNullOrEmpty(orderRequest.PromotionCode) && promo == null)
                 {
-                    return BadRequest(new { msg = "Promotion doesn't exist or inactive" });
+                    return BadRequest(new { msg = "Promotion doesn't exist or inactive." });
                 }
                 if (orderRequest.Details.Count == 0)
                 {
-                    return BadRequest(new { msg = "Empty cart" });
+                    return BadRequest(new { msg = "Empty cart." });
                 }
                 if (products.Count != orderRequest.Details.Count)
                 {
-                    return BadRequest(new { msg = "Some products don't exist" });
+                    return BadRequest(new { msg = "Some products don't exist." });
                 }
                 // Check stock availability AND calculate price at the same time
                 double total = 0;

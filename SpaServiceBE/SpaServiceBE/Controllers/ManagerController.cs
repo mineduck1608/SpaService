@@ -100,50 +100,50 @@ namespace SpaServiceBE.Controllers
             {
                 var jsonElement = (JsonElement)request;
 
-                // Extract data from request
-                string fullName = jsonElement.GetProperty("fullName").GetString();
-                string position = jsonElement.GetProperty("position").GetString();
-                string status = jsonElement.GetProperty("status").GetString();
-                string image = jsonElement.GetProperty("image").GetString();
-                string? phone = jsonElement.TryGetProperty("phone", out var phoneProp) ? phoneProp.GetString() : null;
-                string? email = jsonElement.TryGetProperty("email", out var emailProp) ? emailProp.GetString() : null;
-                DateOnly hireDate;
-                if (!DateOnly.TryParse(jsonElement.GetProperty("hireDate").GetString(), out hireDate))
+                // Lấy Manager từ database
+                var existingManager = await _managerService.GetManagerById(id);
+                if (existingManager == null)
                 {
-                    return BadRequest(new { msg = "Invalid date format." });
-                }
-                // Validate input
-                if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(position) || string.IsNullOrEmpty(status) || string.IsNullOrEmpty(image))
-                {
-                    return BadRequest(new { msg = "Manager details are incomplete or invalid." });
+                    return NotFound(new { msg = $"Manager with ID = {id} not found." });
                 }
 
-                // Create Manager object
-                var manager = new Manager
-                {
-                    ManagerId = id, // Use provided ID for update
-                    FullName = fullName,
-                    Position = position,
-                    Status = status,
-                    Image = image,
-                    Phone = phone,
-                    Email = email,
-                    HireDate = hireDate
-                };
+                // Chỉ cập nhật các trường có giá trị mới
+                if (jsonElement.TryGetProperty("fullName", out var fullNameProp))
+                    existingManager.FullName = fullNameProp.GetString();
 
-                // Call service to update manager
-                var isUpdated = await _managerService.UpdateManager(manager);
+                if (jsonElement.TryGetProperty("position", out var positionProp))
+                    existingManager.Position = positionProp.GetString();
+
+                if (jsonElement.TryGetProperty("status", out var statusProp))
+                    existingManager.Status = statusProp.GetString();
+
+                if (jsonElement.TryGetProperty("image", out var imageProp))
+                    existingManager.Image = imageProp.GetString();
+
+                if (jsonElement.TryGetProperty("phone", out var phoneProp))
+                    existingManager.Phone = phoneProp.GetString();
+
+                if (jsonElement.TryGetProperty("email", out var emailProp))
+                    existingManager.Email = emailProp.GetString();
+
+                if (jsonElement.TryGetProperty("accountId", out var accountIdProp))
+                    existingManager.AccountId = accountIdProp.GetString();
+
+                // KHÔNG cập nhật hireDate - giữ nguyên giá trị cũ từ database
+
+                var isUpdated = await _managerService.UpdateManager(existingManager);
 
                 if (!isUpdated)
                     return NotFound(new { msg = $"Manager with ID = {id} not found." });
 
-                return Ok(manager);
+                return Ok(existingManager);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { msg = "Internal server error", error = ex.Message });
             }
         }
+
 
 
         [HttpDelete("Delete/{id}")]

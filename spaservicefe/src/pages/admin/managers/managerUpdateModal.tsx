@@ -30,6 +30,8 @@ export default function UpdateManagerModal({ isOpen, onClose, manager }: UpdateM
 
   const handleSubmit = async (data: any) => {
     handleUpdateSubmit(manager, data)
+
+    console.log(manager)
   }
 
   useEffect(() => {

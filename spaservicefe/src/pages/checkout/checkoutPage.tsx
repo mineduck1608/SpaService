@@ -42,7 +42,7 @@ export default function CheckoutPage() {
   const [loadingText, setLoadingText] = useState('Processing')
 
   const { TextArea } = Input
-  const disable = req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true
+  const disable = (req.startTime ? req.startTime.isBefore(now.add(1, 'h')) : true) || emp.length === 0
   if (!booked.serviceId) {
     window.location.assign('/services')
   }
@@ -65,7 +65,7 @@ export default function CheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) {}
+    } catch (e) { }
   }, [])
   async function onSubmitBase(method: string) {
     try {
@@ -215,22 +215,25 @@ export default function CheckoutPage() {
               </>
             )}
             {status === 'success' && (
-              <div className='flex justify-evenly'>
-                <button
-                  onClick={() => setModalMailOpen(false)}
-                  className='mr-4 mt-4 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300'
-                >
-                  Confirm
-                </button>
-                <button
-                  className='mt-4 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300'
-                  onClick={() => {
-                    window.location.assign('requests')
-                  }}
-                >
-                  View requests
-                </button>
-              </div>
+              <>
+                <p className='mt-4 text-green-600'>{message}</p>
+                <div className='flex justify-evenly'>
+                  <button
+                    onClick={() => setModalMailOpen(false)}
+                    className='mr-4 mt-4 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300'
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    className='mt-4 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300'
+                    onClick={() => {
+                      window.location.assign('requests')
+                    }}
+                  >
+                    View requests
+                  </button>
+                </div>
+              </>
             )}
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Row, Table } from '@tanstack/react-table'
 import React, { useContext, useState } from 'react'
 import { removeCartItem, setCart } from '../cosmeticDetailPage/detailPage.util'
 import { SessionContext } from './context/selectedContext'
+import { formatNumber } from '../servicesPage/servicesPage.util'
 
 export default function RowCheckBox(params: { row: Row<SessionItem> }) {
   const context = useContext(SessionContext)
@@ -73,15 +74,18 @@ export function AllRowCheckBox(params: { table: Table<SessionItem> }) {
   )
 }
 export function RemoveButton(params: { row: Row<SessionItem> }) {
-  const productId = params.row.original.product.productId
+  const product = params.row.original.product
+  const productId = product.productId
+  const context = useContext(SessionContext)
   return (
     <button
       className='rounded-sm bg-purple1 p-2 text-white'
       onClick={async (e) => {
-        var v = document.getElementById(productId)
-        if (v) {
-          document.getElementById('body')?.removeChild(v)
-        }
+        var newItems = [...context.items]
+        context.setItems([])
+        setTimeout(() => {
+          context.setItems(newItems.filter((x) => x.product.productId !== productId))
+        }, 0);
         await removeCartItem(params.row.original.id ?? '')
       }}
     >
@@ -100,6 +104,7 @@ export function AmountButton(params: { row: Row<SessionItem> }) {
     <input
       className='border-[1px] p-1'
       type='number'
+      id={item.id}
       value={amount}
       onChange={(e) => {
         var s = e.target.value

@@ -26,7 +26,7 @@ export default function UpdateProductModal({ isOpen, onClose, product }: UpdateP
   const fieldsToUse = cosmeticProductConfig.updatefields
   const [categories, setCategories] = useState<CosmeticCategory[]>([])
   const [imageFile, setImageFile] = useState<File | null>(null)
-  const [imagePreview, setImagePreview] = useState<string | null>(product?.productImage || null)
+  const [imagePreview, setImagePreview] = useState<string | null>(product?.image || null)
   const [uploading, setUploading] = useState<boolean>(false)
 
   const formSchema = generateZodSchema(fieldsToUse)
@@ -90,7 +90,7 @@ export default function UpdateProductModal({ isOpen, onClose, product }: UpdateP
   }
 
   const handleSubmit = async (data: any) => {
-    let imageUrl = product.productImage
+    let imageUrl = product.image
 
     if (imageFile) {
       try {

@@ -89,8 +89,11 @@ export function DataTable({ columns, data }: DataTableProps) {
         </Table>
       </div>
       <div className='flex items-center justify-end gap-2'>
-        <span className='text-lg font-medium'>Total amount is:</span>
-        <p className='mt-3 text-lg font-bold text-red-500'>{formatNumber(getAmount())} VND</p>
+        <span className='text-lg font-medium' >Total amount is:</span>
+        <p className='mt-3 text-lg font-bold text-red-500' >
+          <span id='total-amount'>{formatNumber(getAmount())} </span>
+          VND
+          </p>
       </div>
 
       <div className='flex items-center justify-end space-x-2 pb-4'>

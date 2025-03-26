@@ -30,6 +30,10 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
   const context = React.useContext(TransTypeContext)
+  if (sessionStorage.getItem('autoProduct') === '1') {
+    context.setShowServiceTrans(false)
+    sessionStorage.removeItem('autoProduct')
+  }
   const table = useReactTable({
     data,
     columns,

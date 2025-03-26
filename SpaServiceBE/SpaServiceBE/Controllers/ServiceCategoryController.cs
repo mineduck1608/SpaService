@@ -150,11 +150,10 @@ namespace API.Controllers
 
                 // Lấy dữ liệu từ request
                 string categoryName = jsonElement.GetProperty("categoryName").GetString();
-                string categoryImage = jsonElement.GetProperty("categoryImage").GetString();
                 string categoryDescription = jsonElement.GetProperty("categoryDescription").GetString();
 
                 // Kiểm tra dữ liệu đầu vào
-                if (string.IsNullOrEmpty(categoryName) || string.IsNullOrEmpty(categoryImage) || string.IsNullOrEmpty(categoryDescription))
+                if (string.IsNullOrEmpty(categoryName) || string.IsNullOrEmpty(categoryDescription))
                     return BadRequest(new { msg = "Category details are incomplete." });
 
                 // Tạo đối tượng danh mục với dữ liệu đã cập nhật
