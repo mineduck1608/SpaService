@@ -14,6 +14,7 @@ import { MoreHorizontal } from 'lucide-react'
 import UpdateEmployeeModal from './employeeUpdateModal'
 import { handleDelete } from './employee.util'
 import EmployeeStatisticModal from './employeeStatisticModal'
+import RecordModal from './recordTable'
 
 interface EmployeeActionsProps {
   employee: Employee
@@ -23,6 +24,7 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isStatisticModalOpen, setStatisticModalOpen] = useState(false)
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false)
+  const [isRecordModalOpen, setRecordModalOpen] = useState(false)
 
   const openStatisticModal = () => setStatisticModalOpen(true)
   const closeStatisticModal = () => setStatisticModalOpen(false)
@@ -32,6 +34,9 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
 
   const openUpdateModal = () => setUpdateModalOpen(true)
   const closeUpdateModal = () => setUpdateModalOpen(false)
+
+  const openRecordModal = () => setRecordModalOpen(true)
+  const closeRecordModal = () => setRecordModalOpen(false)
 
   const handleConfirmDelete = async () => {
     handleDelete(employee.employeeId)
@@ -53,20 +58,17 @@ const EmployeeActions: React.FC<EmployeeActionsProps> = ({ employee }) => {
             Copy employee ID
           </DropdownMenuItem>
           <DropdownMenuItem onClick={openStatisticModal} className='cursor-pointer'>
-            View statistics
+            View Statistics
           </DropdownMenuItem>
-
+          <DropdownMenuItem onClick={openRecordModal} className='cursor-pointer'>
+            View Check-In Records
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
-
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
+      <RecordModal isOpen={isRecordModalOpen} onClose={closeRecordModal} employee={employee}/>
       <EmployeeStatisticModal isOpen={isStatisticModalOpen} onClose={closeStatisticModal} employee={employee} />
       <UpdateEmployeeModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employee={employee} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
