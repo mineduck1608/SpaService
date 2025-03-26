@@ -11,6 +11,11 @@ import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
+import { apiUrl, roleJWT } from '../../types/constants.ts'
+import { RoleName } from '../../types/role.ts'
+import { Customer } from '../../types/type.ts'
+import { routeByRole } from '../loginPage/loginPage.util.ts'
+import { getCusByAcc } from '../checkout/checkoutPage.util.ts'
 
 export default function RegisterForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [data, setData] = useState({
@@ -44,9 +49,42 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
     setFetching(false)
   }
 
-  const handleSuccess = (response: any) => {
-    console.log('Login Success:', response.credential)
-    const user = jwtDecode(response.credential)
+  const  handleSuccess = async (response: any) => {
+    const token = response.credential
+    setFetching(true)
+    try {
+      const res = await fetch(`${apiUrl}/GoogleAuth/decode-and-check-or-create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      })
+      if (res.ok) {
+        const data = await res.json()
+        const token = data.accessToken as string
+        sessionStorage.setItem('token', token)
+        var jwtData = jwtDecode(token)
+        const role = jwtData[roleJWT] as string
+        toast.success('Login success.', {
+          containerId: 'toast'
+        })
+        if (role === RoleName.CUSTOMER) {
+          const getCusId = await getCusByAcc(jwtData['UserId'] as string)
+          const asCustomer = getCusId as Customer
+          if (asCustomer.customerId) {
+            sessionStorage.setItem('customerId', asCustomer.customerId)
+          }
+        }
+        window.location.assign(routeByRole(role))
+      } else {
+        toast.error('Google login failed!', {
+          containerId: 'toast'
+        })
+      }
+    } catch (error) {
+      console.error('Google login error:', error)
+    } finally {
+      setFetching(false)
+    }
   }
 
   const handleError = () => {
