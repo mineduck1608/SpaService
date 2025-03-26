@@ -26,6 +26,20 @@ export async function getAllCustomerRequests() {
   }
 }
 
+export async function getRequestById(id: string) {
+  try {
+    var res = await fetch(`${apiUrl}/requests/GetById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    var json = (await res.json()) as SpaRequest[]
+    return json
+  } catch (e) {
+    return []
+  }
+}
+
 export const getCustomerRequestsPaginated = async (page: number, limit: number) => {
   try {
     const url = `${apiUrl}/requests/GetCustomerRequest?page=${page}&limit=${limit}`;

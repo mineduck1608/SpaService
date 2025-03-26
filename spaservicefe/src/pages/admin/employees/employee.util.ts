@@ -91,7 +91,8 @@ export async function handleCreateSubmit(data: any) {
         closeButton: false
       })
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })
@@ -110,6 +111,7 @@ export async function handleUpdateSubmit(employee: any, data: any) {
   try {
     const updatedData = {
       ...data,
+      image: data.image === '' ? 'null' : data.image,
       accountId: employee.accountId,
       phone: employee.phone,
       email: employee.email
@@ -126,7 +128,8 @@ export async function handleUpdateSubmit(employee: any, data: any) {
       toast.success('Successfully update!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })
@@ -149,7 +152,8 @@ export async function handleDelete(employeeId: string) {
       toast.success('Delete successfully')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })

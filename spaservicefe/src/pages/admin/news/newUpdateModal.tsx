@@ -66,11 +66,12 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
         categoryId: categories.find((c) => c.categoryId === news.categoryId)?.categoryId || '',
         newsType: news.type || ''
       })
+      setImagePreview(news.image || null)
     }
   }, [news, categories, form])
 
   const handleSubmit = async (data: any) => {
-    let imageUrl = ''
+    let imageUrl = news?.image || ''
     if (imageFile) {
       try {
         imageUrl = await uploadImage(imageFile)

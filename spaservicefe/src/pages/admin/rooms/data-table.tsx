@@ -28,7 +28,7 @@ interface DataTableProps<TData, TValue> {
   filterKey?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data, filterKey = 'floorName' }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, filterKey = 'floorNum' }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})

@@ -133,7 +133,6 @@ export const employeeConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL'
     }
   ],
@@ -217,7 +216,6 @@ export const managerConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL'
     },
     {

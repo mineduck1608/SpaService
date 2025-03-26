@@ -45,6 +45,7 @@ export async function handleUpdateSubmit(manager: any, data: any) {
   try {
     const updatedData = {
       ...data,
+      image: data.image === '' ? 'null' : data.image,
       accountId: manager.accountId,
       hireDate: manager.hireDate
     }
@@ -84,7 +85,8 @@ export async function handleDelete(id: string) {
       toast.success('Delete successfully')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })

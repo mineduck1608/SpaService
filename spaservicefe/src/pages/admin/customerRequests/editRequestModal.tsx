@@ -10,8 +10,9 @@ import {
 } from '../../../components/ui/dialog'
 import { Label } from '../../../components/ui/label'
 import { SpaRequest, Employee, Room } from '@/types/type'
-import { GetCategoryByServiceId, GetEmployeeByCategoryId, GetRoomsOfCategory } from './customerRequest.util'
+import { GetCategoryByServiceId, GetEmployeeByCategoryId, getRequestById, GetRoomsOfCategory } from './customerRequest.util'
 import { DatePicker } from 'antd'
+import { getSpaRequestById } from '../transactions/transaction.util'
 
 interface EditRequestModalProps {
   isOpen: boolean
@@ -28,8 +29,9 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
 
   useEffect(() => {
     const fetchData = async () => {
-      if (request.serviceId) {
-        const categoryData = await GetCategoryByServiceId(request.serviceId)
+      if (request) {
+        const fetchRequest = await getRequestById(request.requestId)
+        const categoryData = await GetCategoryByServiceId(fetchRequest.serviceId)
         const employeesData = await GetEmployeeByCategoryId(categoryData.categoryId)
         const roomData = await GetRoomsOfCategory(categoryData.categoryId)
         setEmployees(employeesData)
@@ -40,7 +42,7 @@ export function EditRequestModal({ isOpen, onClose, request, onSave }: EditReque
     if (isOpen) {
       fetchData()
     }
-  }, [isOpen])
+  }, [isOpen, request.requestId])
 
   const handleChange = (field: string, value: string) => {
     setUpdatedRequest((prevState) => ({
