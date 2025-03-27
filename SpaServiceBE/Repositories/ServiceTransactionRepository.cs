@@ -27,7 +27,7 @@ namespace Repositories
         }
         public async Task<ServiceTransaction> GetByTransId(string transId)
         {
-            return await _context.ServiceTransactions
+            return await _context.ServiceTransactions.Include(r => r.Request)
                 // Bao gồm thông tin PromotionCode liên quan đến giao dịch
                 .FirstOrDefaultAsync(t => t.TransactionId == transId);
         }

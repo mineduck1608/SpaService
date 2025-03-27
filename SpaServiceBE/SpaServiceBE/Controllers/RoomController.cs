@@ -91,7 +91,7 @@ namespace SpaServiceBE.Controllers
 
                 // Check if the room already exists
                 var existingRoom = await _roomService.GetRoomByFloorAndNumber(floorId, roomNum);
-                if (existingRoom != null)
+                if (existingRoom.Status == true)
                 {
                     return Conflict(new { msg = "Room already exists with the given floorId and roomNum." });
                 }
@@ -101,6 +101,8 @@ namespace SpaServiceBE.Controllers
                     RoomId = Guid.NewGuid().ToString("N"),
                     FloorId = floorId,
                     RoomNum = roomNum,
+                    Status = true,
+                    IsDeleted = false
                 };
 
                 await _roomService.CreateRoom(room);
