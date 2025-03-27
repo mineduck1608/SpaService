@@ -6,6 +6,8 @@ namespace Services.IServices
 {
     public interface ITransactionService
     {
+
+        Task<float> GetTotalTransactionByCustomerIdAsync(string customerId);
         Task<Transaction> GetById(string transactionId);
         Task<List<Transaction>> GetAll();
         Task<bool> Add(Transaction transaction);

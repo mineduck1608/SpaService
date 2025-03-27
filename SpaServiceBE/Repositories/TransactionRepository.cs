@@ -20,6 +20,28 @@ namespace Repositories
             _context = context;
         }
 
+        public async Task<float> GetTotalTransactionByCustomerIdAsync(string customerId)
+        {
+            // Tổng tiền từ Service Transactions
+            float serviceTotal = await _context.Transactions
+                .Include(t => t.ServiceTransactions)
+                .ThenInclude(st => st.Request)
+                .Where(t => t.ServiceTransactions.Any(st => st.Request.CustomerId == customerId))
+                .SumAsync(t => (float?)t.TotalPrice) ?? 0f;
+
+            // Tổng tiền từ Cosmetic Transactions
+            float cosmeticTotal = await _context.Transactions
+                .Include(ct => ct.CosmeticTransactions)
+                .ThenInclude(st => st.Order)
+                .Where(t => t.CosmeticTransactions.Any(st => st.Order.CustomerId == customerId))
+                .SumAsync(ct => (float?)ct.TotalPrice) ?? 0f;
+
+            // Trả về tổng cộng cả hai loại giao dịch
+            return serviceTotal + cosmeticTotal;
+        }
+
+
+
         // Lấy Transaction theo ID với các thông tin liên quan như Appointment, EmployeeCommission, Membership, PromotionCode
         public async Task<Transaction> GetById(string transactionId)
         {
