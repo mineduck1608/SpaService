@@ -33,13 +33,14 @@ export async function handleUpdateSubmit(application: any, data: any) {
       body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully update!')
+      toast.success('Successfully update!', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 2000)
     } else {
       const errorData = await res.json()
       toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (e) {

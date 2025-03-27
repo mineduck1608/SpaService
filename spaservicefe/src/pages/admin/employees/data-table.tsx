@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import {
   ColumnFiltersState,
@@ -28,7 +26,7 @@ import AddEmployeeModal from './employeeAddModal'
 interface DataTableProps<TData, TValue> {
   columns: any[]
   data: TData[]
-  filterKey1?: string // Key để lọc dữ liệu
+  filterKey1?: string
   filterKey2?: string
 }
 

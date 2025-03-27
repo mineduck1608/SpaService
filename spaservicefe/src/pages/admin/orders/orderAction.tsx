@@ -43,13 +43,13 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order }) => {
       const response = await updateOrderStatus(order.orderId)
 
       if (response && response.msg) {
-        toast.success(response.msg)
+        toast.success(response.msg, { containerId: 'toast' })
         setTimeout(() => window.location.reload(), 2000)
       } else {
-        toast.error('Failed to confirm the order.')
+        toast.error('Failed to confirm the order.', { containerId: 'toast' })
       }
     } catch (error) {
-      toast.error('Error occurred while confirming the order.')
+      toast.error('Error occurred while confirming the order.', { containerId: 'toast' })
     }
   }
 

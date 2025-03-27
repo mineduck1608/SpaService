@@ -75,7 +75,6 @@ export default function CustomerRequestPage() {
           onPageChange={(newPage) => setCurrentPage(newPage)}
         />
       </div>
-      <ToastContainer />
     </div>
   )
 }

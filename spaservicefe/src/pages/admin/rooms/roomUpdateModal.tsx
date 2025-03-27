@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './room.util'
 import { roomConfig } from '../modal.util'
 import { Floor } from 'src/types/type'
@@ -108,7 +107,6 @@ export default function UpdateRoomModal({ isOpen, onClose, room }: UpdateRoomMod
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

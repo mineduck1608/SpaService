@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer, toast } from 'react-toastify'
 import { handleUpdateSubmit } from './service.util'
 import { getAllServiceCategories } from '../servicecategories/servicecategory.util'
 import { spaServiceConfig } from '../modal.util'
@@ -183,7 +182,6 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }
