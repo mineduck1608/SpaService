@@ -32,7 +32,7 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(service?.serviceImage || null)
   const [uploading, setUploading] = useState<boolean>(false)
-  const [duration, setDuration] = useState<string | null>(service?.duration || '00:30') // Giá trị mặc định
+  const [duration, setDuration] = useState<string | null>(service?.duration || '00:30')
 
   const formSchema = generateZodSchema(fieldsToUse)
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,18 +40,16 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
     defaultValues: Object.fromEntries(fieldsToUse.map((field: FieldConfig) => [field.name, '']))
   })
 
-  // Xử lý chọn ảnh
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0]
       setImageFile(file)
-      setImagePreview(URL.createObjectURL(file)) // Hiển thị ảnh xem trước
+      setImagePreview(URL.createObjectURL(file))
     }
   }
 
-  // Xử lý submit form
   const handleSubmit = async (data: any) => {
-    let imageUrl = service?.serviceImage || '' // Giữ nguyên ảnh cũ nếu không có ảnh mới
+    let imageUrl = service?.serviceImage || ''
 
     if (imageFile) {
       setUploading(true)
@@ -81,7 +79,7 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
     if (selectedCategory) data.categoryId = selectedCategory.categoryId
     data.price = parseFloat(data.price) || 0
     data.serviceImage = imageUrl
-    data.duration = duration // Cập nhật duration
+    data.duration = duration
 
     console.log('Updating Data:', data)
     await handleUpdateSubmit(service.serviceId, data)
@@ -105,7 +103,7 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
             }
           }
         })
-        setDuration(service?.duration || '00:30') // Set giá trị mặc định cho duration khi mở form
+        setDuration(service?.duration || '00:30')
       }
     }
     fetchCategories()

@@ -59,11 +59,7 @@ const EmployeeCategoryActions: React.FC<EmployeeCategoryActionsProps> = ({ emplo
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <UpdateEmployeeCategoryModal
-        isOpen={isUpdateModalOpen}
-        onClose={closeUpdateModal}
-        employeeCategory={employeeCategory}
-      />
+      <UpdateEmployeeCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employeeCategory={employeeCategory} />
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

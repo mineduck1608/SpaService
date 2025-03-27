@@ -44,7 +44,8 @@ export async function handleCreateSubmit(data: any) {
       toast.success('Successfully create!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })
@@ -73,7 +74,8 @@ export async function handleUpdateSubmit(id: string, product: any, data: any) {
       toast.success('Successfully update!')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })
@@ -96,7 +98,8 @@ export async function handleDelete(id: string) {
       toast.success('Delete successfully')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })

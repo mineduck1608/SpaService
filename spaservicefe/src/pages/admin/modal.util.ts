@@ -897,7 +897,7 @@ export const employeeCategoryConfig = {
       name: 'employeeId',
       label: 'Employee',
       type: 'select',
-      required: true
+      readonly: true
     }
   ],
   fields: [

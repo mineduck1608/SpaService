@@ -47,6 +47,10 @@ export default function UpdateProductModal({ isOpen, onClose, product }: UpdateP
             if (key === 'price') value = String(value)
             if (key === 'status') value = value ? 'true' : 'false'
             if (key === 'isSelling') value = value ? 'true' : 'false'
+            if (key === 'categoryId') {
+              const categoryName = data.find((category) => category.categoryId === product.categoryId)?.categoryId
+              form.setValue('categoryId', categoryName || '')
+            }
             form.setValue(key, value)
           }
         })
@@ -131,6 +135,7 @@ export default function UpdateProductModal({ isOpen, onClose, product }: UpdateP
                         {field.type === 'select' ? (
                           field.name === 'categoryId' ? (
                             <Select
+                              value={form.watch('categoryId') || ''}
                               onValueChange={(value) => form.setValue('categoryId', value)}
                               disabled={field.readonly}
                             >
