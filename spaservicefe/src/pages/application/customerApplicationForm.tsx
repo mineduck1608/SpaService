@@ -65,13 +65,17 @@ const CustomerApplication = () => {
           body: JSON.stringify({ ...formData, accountId: accId })
         })
         if (response.ok) {
-          toast.success('Application created successfully')
+          toast.success('Application created successfully', {
+            containerId: 'toast'
+          })
           setFormData({
             content: ''
           })
           setCaptchaToken(null)
         } else {
-          toast.error('Failed! Please try again.')
+          toast.error('Failed! Please try again.', {
+            containerId: 'toast'
+          })
         }
       } catch (error) {
         console.error('Form submitted error: ', error)

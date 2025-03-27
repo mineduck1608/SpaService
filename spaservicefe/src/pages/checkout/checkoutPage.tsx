@@ -9,7 +9,8 @@ import {
   getPaymentUrl,
   submitRequest,
   getMembership,
-  setItems
+  setItems,
+  deleteInvalidRequests
 } from './checkoutPage.util.ts'
 import { Employee, Membership, Promotion } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
@@ -102,6 +103,7 @@ export default function CheckoutPage() {
         } else {
           setStatus('error')
           setMessage(y.msg || 'Create request failed!')
+          await deleteInvalidRequests(s.requestId)
           return false
         }
       }

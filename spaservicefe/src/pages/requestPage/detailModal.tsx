@@ -43,22 +43,24 @@ function tableData(request: any) {
 export function DetailModal({ isOpen, onClose, onConfirm, data }: ConfirmDeleteModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className=''>
         <DialogHeader>
           <DialogTitle>Request Detail</DialogTitle>
-          <DialogDescription className='flex justify-center'>
-            <table className='w-full border-[1px] text-black'>
-              <tbody>
-                {tableData(data).map((v) => (
-                  <tr>
-                    <td className='p-2'>{v.key}</td>
-                    <td className={`${v.color ? v.color.get(v.value) : ''}`}>{v.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </DialogDescription>
         </DialogHeader>
+        <DialogDescription className=''>
+          <table className=' border-[1px] text-black w-[460px]'>
+            <tbody>
+              {tableData(data).map((v) => (
+                <tr>
+                  <td className='p-2'>{v.key}</td>
+                  <td className={`${v.color ? v.color.get(v.value) : ''}`}>
+                    <div className='w-[300px] break-words'>{v.value}</div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DialogDescription>
         <Button onClick={onConfirm} className='bg-purple1'>
           Confirm
         </Button>

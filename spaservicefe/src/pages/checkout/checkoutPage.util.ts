@@ -146,3 +146,15 @@ export type Transaction = {
   membershipId: string
   requestId: string
 }
+
+export async function deleteInvalidRequests(id: string){
+  try {
+    var s = await fetch(`${apiUrl}/requests/Delete/${id}`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+  } catch (e) {
+  }
+}

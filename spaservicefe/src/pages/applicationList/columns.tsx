@@ -33,6 +33,6 @@ export const columns: ColumnDef<Application>[] = [
   {
     accessorKey: 'managerNote',
     header: 'Result',
-    cell: (r) => 'YE'
+    cell: (r) => r.row.original.managerNote ?? 'No notes available'
   }
 ]
