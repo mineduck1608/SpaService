@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../../types/constants'
 import { getByAccountId } from '../../../pages/admin/applications/application.util'
 
+
 export default function EmployeeApplicationPage() {
   const [data, setData] = useState<Application[]>([])
   const [error, setError] = useState<string | null>(null)

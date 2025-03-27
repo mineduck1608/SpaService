@@ -15,6 +15,8 @@ import {
 import { Input } from '../../../components/ui/input'
 import { handleCreateSubmit } from './application.util' // Import your function to handle submission
 import { getToken } from '../../../types/constants'
+import { ToastContainer } from 'react-toastify'
+
 
 const formSchema = z.object({
   content: z.string().min(2, {
@@ -78,6 +80,7 @@ export function ApplicationForm() {
         />
         <Button type='submit'>Submit</Button>
       </form>
+      <ToastContainer/>
     </Form>
   )
 }
