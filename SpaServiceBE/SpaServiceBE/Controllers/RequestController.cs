@@ -86,7 +86,8 @@ namespace API.Controllers
                     CustomerNote = request.CustomerNote,
                     ManagerNote = request.ManagerNote,
                     Status = request.Status,
-                    ServiceId = request.ServiceId
+                    ServiceId = request.ServiceId,
+                    EmployeeId = request.EmployeeId
                 });
 
                 return Ok(new { data = mappedData, totalPages });
@@ -270,7 +271,6 @@ namespace API.Controllers
 
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the request." });
-                await CreateEmailRequest(newRequest.RequestId);
                 return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.RequestId }, new { requestId = newRequest.RequestId });
             }
             catch (Exception ex)
@@ -664,6 +664,10 @@ namespace API.Controllers
                 if (updatedRequest.Status.Equals("Denied"))
                 {
                     return BadRequest("Request Status is already declined !");
+                }
+                if (updatedRequest.Status.Equals("Completed"))
+                {
+                    return BadRequest("Cannot deny completed request!");
                 }
                 // Cập nhật trạng thái
                 updatedRequest.Status = "Denied";

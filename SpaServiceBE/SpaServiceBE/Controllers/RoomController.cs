@@ -150,15 +150,15 @@ namespace SpaServiceBE.Controllers
         } 
         
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteRoom(string id)
         {
             var room = await _roomService.GetRoomById(id);
             if (room == null)
                 return NotFound(new { msg = $"Room with ID = {id} not found." });
 
+            room.IsDeleted = true;
             room.Status = false;
-            await _roomService.DeleteRoom(id);
             var isUpdated = await _roomService.UpdateRoom(room);
 
             if (!isUpdated)

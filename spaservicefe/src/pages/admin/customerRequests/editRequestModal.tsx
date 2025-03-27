@@ -12,7 +12,6 @@ import { Label } from '../../../components/ui/label'
 import { SpaRequest, Employee, Room } from '@/types/type'
 import { GetCategoryByServiceId, GetEmployeeByCategoryId, getRequestById, GetRoomsOfCategory } from './customerRequest.util'
 import { DatePicker } from 'antd'
-import { getSpaRequestById } from '../transactions/transaction.util'
 
 interface EditRequestModalProps {
   isOpen: boolean
