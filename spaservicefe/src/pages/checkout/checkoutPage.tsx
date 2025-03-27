@@ -19,6 +19,7 @@ import { ServiceCheckoutContext, SpaRequestModel } from './checkoutContext.tsx'
 import MainForm from './mainForm.tsx'
 import dayjs from 'dayjs'
 import { Loader2, CheckCircle, XCircle } from 'lucide-react'
+import { apiUrl, getToken } from '../../types/constants.ts'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
@@ -66,15 +67,13 @@ export default function CheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) { }
+    } catch (e) {}
   }, [])
   async function onSubmitBase(method: string) {
     try {
-      if (method == 'Cash') {
         setModalMailOpen(true)
         setStatus('loading')
         setMessage('Processing...')
-      }
 
       var req2 = { ...req }
       req2.startTime = req2.startTime.add(7, 'h')
@@ -83,8 +82,8 @@ export default function CheckoutPage() {
       if (s.msg) {
         setStatus('error')
         setMessage(s.msg)
-        if(method === 'VnPay'){
-          toast.error(s.msg, {containerId: 'toast'})
+        if (method === 'VnPay') {
+          toast.error(s.msg, { containerId: 'toast' })
         }
         return false
       }
@@ -100,8 +99,14 @@ export default function CheckoutPage() {
 
         if (y.transactionId) {
           sessionStorage.setItem('trId', y.transactionId)
-          setStatus('success')
-          setMessage('Create request success!')
+          
+          await fetch(`${apiUrl}/requests/CreateMail/${s.requestId}`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              'Content-Type': 'application/json'
+            }
+          })
           return true
         } else {
           setStatus('error')

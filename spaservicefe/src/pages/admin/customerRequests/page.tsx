@@ -27,48 +27,8 @@ export default function CustomerRequestPage() {
         const response = await getCustomerRequestsPaginated(currentPage, pageSize) // API trả về { data, totalItems }
         const { data: customerRequests, totalPages } = response
 
-        const getCustomer = async (id) => {
-          if (!id) return { fullName: 'Unknown' }
-          if (customerCache.has(id)) return customerCache.get(id)
-          try {
-            const customer = await getCustomerById(id)
-            customerCache.set(id, customer)
-            return customer
-          } catch {
-            return { fullName: 'Unknown' }
-          }
-        }
-
-        const getService = async (id) => {
-          if (!id) return { serviceName: 'Unknown' }
-          if (serviceCache.has(id)) return serviceCache.get(id)
-          try {
-            const service = await getServiceById(id)
-            serviceCache.set(id, service)
-            return service
-          } catch {
-            return { serviceName: 'Unknown' }
-          }
-        }
-
-        const getEmployee = async (id) => {
-          if (!id) return { fullName: 'Unknown' }
-          if (employeeCache.has(id)) return employeeCache.get(id)
-          try {
-            const employee = await getEmployeeById(id)
-            employeeCache.set(id, employee)
-            return employee
-          } catch {
-            return { fullName: 'Unknown' }
-          }
-        }
-
         const formattedCustomerRequests = await Promise.all(
           customerRequests.map(async (request) => {
-            const customer = await getCustomer(request.customerId)
-            const service = await getService(request.serviceId)
-            const employee = await getEmployee(request.employeeId)
-
             return {
               ...request,
               createdAt: format(new Date(request.createdAt), 'dd/MM/yyyy HH:mm:ss'),
@@ -77,7 +37,6 @@ export default function CustomerRequestPage() {
               managerNote: request.managerNote || 'No notes provided',
               customerName: request.customerName,
               serviceName: request.serviceName,
-              employeeName: request.fullName
             }
           })
         )

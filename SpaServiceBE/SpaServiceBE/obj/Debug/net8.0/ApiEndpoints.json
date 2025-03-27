@@ -3785,22 +3785,6 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.RoomController",
-    "Method": "DeleteRoom",
-    "RelativePath": "api/rooms/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SpaServiceBE.Controllers.RoomController",
     "Method": "CreateRoom",
     "RelativePath": "api/rooms/Create",
     "HttpMethod": "POST",
@@ -3810,6 +3794,22 @@
       {
         "Name": "request",
         "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "DeleteRoom",
+    "RelativePath": "api/rooms/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
