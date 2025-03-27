@@ -126,6 +126,8 @@ export function AmountButton(params: { row: Row<SessionItem> }) {
         context.setItems(x)
         setAmount(rs)
       }}
+      min={1}
+      max={item.product.quantity}
     />
   )
 }
