@@ -86,6 +86,7 @@ namespace API.Controllers
                     CustomerNote = request.CustomerNote,
                     ManagerNote = request.ManagerNote,
                     Status = request.Status,
+                    ServiceId = request.ServiceId
                 });
 
                 return Ok(new { data = mappedData, totalPages });
