@@ -69,6 +69,11 @@ export default function CheckoutPage() {
     } catch (e) { }
   }, [])
   async function onSubmitBase(method: string) {
+    if (method !== 'Cash') {
+      toast('Please wait while we submit your request', {
+        containerId: 'toast'
+      })
+    }
     try {
       if (method == 'Cash') {
         setModalMailOpen(true)
@@ -83,8 +88,8 @@ export default function CheckoutPage() {
       if (s.msg) {
         setStatus('error')
         setMessage(s.msg)
-        if(method === 'VnPay'){
-          toast.error(s.msg, {containerId: 'toast'})
+        if (method === 'VnPay') {
+          toast.error(s.msg, { containerId: 'toast' })
         }
         return false
       }
