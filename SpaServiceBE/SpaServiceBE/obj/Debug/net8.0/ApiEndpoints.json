@@ -794,6 +794,22 @@
   },
   {
     "ContainingType": "API.Controllers.AttendanceRecordController",
+    "Method": "GetLatestCheckInTodayAsync",
+    "RelativePath": "api/attendancerecords/latest-checkin/{employeeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AttendanceRecordController",
     "Method": "UpdateAttendanceRecord",
     "RelativePath": "api/attendancerecords/Update/{id}",
     "HttpMethod": "PUT",
