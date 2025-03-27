@@ -78,6 +78,15 @@ namespace Repositories.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<AttendanceRecord?> GetLatestCheckInTodayAsync(string employeeId)
+        {
+            DateTime today = DateTime.UtcNow.Date;
+
+            return await _context.AttendanceRecords
+                .Where(ar => ar.EmployeeId == employeeId && ar.CheckInTime.HasValue && ar.CheckInTime.Value.Date == today)
+                .OrderByDescending(ar => ar.CheckInTime)
+                .FirstOrDefaultAsync();
+        }
 
         // Thêm bản ghi mới
         public async Task AddAttendance(AttendanceRecord attendance)

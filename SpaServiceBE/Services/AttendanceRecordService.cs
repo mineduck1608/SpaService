@@ -55,5 +55,11 @@ namespace Services.Services
         {
             await _attendanceRecordRepository.UpdateAttendance(attendance);
         }
-    }
+
+        public async Task<AttendanceRecord?> GetLatestCheckInTodayAsync(string employeeId)
+        {
+            return await _attendanceRecordRepository.GetLatestCheckInTodayAsync(employeeId);
+        }
+
+}
 }
