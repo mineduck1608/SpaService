@@ -102,8 +102,7 @@ namespace API.Controllers
                     TransactionId = Guid.NewGuid().ToString(), // Generate unique ID
                     TransactionType = transactionType,
                     Status = false,
-                    PaymentType = paymentType,
-                    CompleteTime = DateTime.Now
+                    PaymentType = paymentType
                 };
 
                 // Handle promotion
