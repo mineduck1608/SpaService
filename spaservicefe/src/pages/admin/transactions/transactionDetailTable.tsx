@@ -29,6 +29,7 @@ export function TransactionDetailTable({ transactionId, transactionType }: Trans
           if (serviceTransaction) {
             const spaRequest: SpaRequest[] = await getSpaRequestById(serviceTransaction.requestId)
             fetchedDetails = spaRequest ? [spaRequest] : []
+            console.log(spaRequest)
           }
         } else if (transactionType === 'Product') {
           const cosmeticTransactions: CosmeticTransaction[] = await getAllCosmeticTransactions()
