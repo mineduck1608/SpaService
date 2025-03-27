@@ -28,7 +28,8 @@ export async function handleCreateSubmit(data: any) {
     })
     if (res.status >= 200 && res.status < 300) {
       toast.success('Successfully create!', {
-        autoClose: 2000
+        autoClose: 2000,
+        containerId: 'toast'
       })
       setTimeout(() => window.location.reload(), 2000)
     } else {
