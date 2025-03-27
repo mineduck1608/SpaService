@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Dialog, DialogContent } from 'src/components/ui/dialog'
 import { DialogTitle } from '@radix-ui/react-dialog'
-import { ToastContainer } from 'react-toastify'
-import { getAllEmployees, getRecords } from '../checkIn/record.util'
-import { jwtDecode } from 'jwt-decode'
+import { getRecords } from '../checkIn/record.util'
 import {
   Table,
   TableBody,
@@ -50,27 +48,19 @@ export default function RecordModal({ isOpen, onClose, employee }: RecordModalPr
   useEffect(() => {
     const fetchAccountDetails = async () => {
       const token = sessionStorage.getItem('token')
-      if (token) {
-        // const decodedToken: any = jwtDecode(token)
-        // //const accountId = decodedToken.UserId
-        // const accountId = 'a5086aa620714784b545ed57f24b7acc'
+      if (employee) {
+        const records = await getRecords()
+        const filteredRecords = records.filter(record => {
+          if (record.employeeId !== employee.employeeId) return false
 
-        // const employees = await getAllEmployees()
-        // const employee = employees.find((emp) => emp.accountId === accountId)
-        if (employee) {
-          const records = await getRecords()
-          const filteredRecords = records.filter(record => {
-            if (record.employeeId !== employee.employeeId) return false
-
-            const checkIn = record.checkInTime ? new Date(record.checkInTime) : null
-            const checkOut = record.checkOutTime ? new Date(record.checkOutTime) : null
-            return (
-              (checkIn && checkIn.getFullYear() === selectedYear && checkIn.getMonth() + 1 === selectedMonth) ||
-              (checkOut && checkOut.getFullYear() === selectedYear && checkOut.getMonth() + 1 === selectedMonth)
-            )
-          })
-          setRecords(filteredRecords)
-        }
+          const checkIn = record.checkInTime ? new Date(record.checkInTime) : null
+          const checkOut = record.checkOutTime ? new Date(record.checkOutTime) : null
+          return (
+            (checkIn && checkIn.getFullYear() === selectedYear && checkIn.getMonth() + 1 === selectedMonth) ||
+            (checkOut && checkOut.getFullYear() === selectedYear && checkOut.getMonth() + 1 === selectedMonth)
+          )
+        })
+        setRecords(filteredRecords)
       }
     }
     fetchAccountDetails()
@@ -129,7 +119,6 @@ export default function RecordModal({ isOpen, onClose, employee }: RecordModalPr
           </TableFooter>
         </Table>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit, getAllRoles } from './account.util'
 import { accountConfig } from '../modal.util'
 
@@ -126,7 +125,6 @@ export default function UpdateAccountModal({ isOpen, onClose, account }: UpdateA
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

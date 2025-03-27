@@ -35,13 +35,12 @@ export default function CommissionPage() {
         )
 
         const formattedCommission = appointmentData.map((appointment: Appointment) => {
-          const commission = commissionMap.get(appointment.request?.requestId)
+          const commission = commissionMap.get(appointment.requestId)
           return {
             ...appointment,
-            customerName: appointment.request?.customer?.fullName,
-            serviceName: appointment.request?.service?.serviceName,
+            customerName: appointment.customerName,
+            serviceName: appointment.serviceName,
             date: format(new Date(appointment.startTime), 'yyyy-MM-dd'),
-            status: appointment.status,
             transactionId: commission?.serviceTransaction?.transactionId,
             commissionValue: commission?.commissionValue || 0
           }
