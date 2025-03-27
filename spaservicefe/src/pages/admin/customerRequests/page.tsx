@@ -18,7 +18,7 @@ export default function CustomerRequestPage() {
   const [totalPages, setTotalPages] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 10 // Số lượng yêu cầu trên mỗi trang
-
+  const [map, setMap] = useState<Map<number, SpaRequest[]>>(new Map<number, SpaRequest[]>())
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
@@ -42,6 +42,7 @@ export default function CustomerRequestPage() {
         )
 
         setData(formattedCustomerRequests)
+        map.set(currentPage, customerRequests)
         setTotalPages(totalPages) // Cập nhật tổng số items
       } catch (err) {
         console.error('Error fetching data:', err)
@@ -51,8 +52,12 @@ export default function CustomerRequestPage() {
         setLoading(false)
       }
     }
-
-    fetchData()
+    if (map && map?.has(currentPage)) {
+      setData(map.get(currentPage) ?? [])
+    }
+    else {
+      fetchData()
+    }
   }, [currentPage]) // Fetch lại dữ liệu khi `currentPage` thay đổi
 
   if (loading) return <div className='ml-5'>Loading...</div>

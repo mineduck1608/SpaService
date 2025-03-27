@@ -70,6 +70,11 @@ export default function CheckoutPage() {
     } catch (e) {}
   }, [])
   async function onSubmitBase(method: string) {
+    if (method !== 'Cash') {
+      toast('Please wait while we submit your request', {
+        containerId: 'toast'
+      })
+    }
     try {
         setModalMailOpen(true)
         setStatus('loading')
