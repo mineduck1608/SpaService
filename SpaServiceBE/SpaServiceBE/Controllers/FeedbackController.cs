@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Repositories.Entities;
+using Services;
 using Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,13 @@ namespace API.Controllers
     public class FeedbackController : ControllerBase
     {
         private readonly IFeedbackService _service;
+        private readonly IAppointmentService _appointmentService;
 
-        public FeedbackController(IFeedbackService service)
+
+        public FeedbackController(IFeedbackService service, IAppointmentService appointmentService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
+            _appointmentService = appointmentService ?? throw new ArgumentNullException(nameof(appointmentService));
         }
 
         // GET: api/feedbacks/GetAll
@@ -121,6 +125,13 @@ namespace API.Controllers
                     string.IsNullOrEmpty(createdBy) || string.IsNullOrEmpty(appointmentId))
                 {
                     return BadRequest(new { msg = "Feedback details are incomplete or invalid." });
+                }
+
+                var appoinment = await _appointmentService.GetAppointmentById(appointmentId);
+                if(appoinment.Status != "Finished")
+                {
+                    return BadRequest(new { msg = "Appoinment is not finished yet." });
+
                 }
 
                 // Tạo đối tượng Feedback
