@@ -3,6 +3,7 @@ import { DataTable } from './data-table'
 import { getRecords, getAllEmployees } from './record.util'
 import { Employee, Record } from '../../../types/type'
 import CheckInTable from './checkInTable'
+import { jwtDecode } from 'jwt-decode'
 
 const columns = [
   {
@@ -41,20 +42,33 @@ export default function CheckInPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const records = await getRecords()
-        const employees = await getAllEmployees()
-        const employeeMap = employees.reduce((map: { [key: string]: string }, employee: Employee) => {
-          map[employee.employeeId] = employee.fullName
-          return map
-        }, {})
+        const token = sessionStorage.getItem('token')
+        if (!token) {
+          setError('User is not authenticated.')
+          return
+        }
 
-        const sortedRecords = [...records].sort(
-          (a, b) => new Date(b.checkInTime).getTime() - new Date(a.checkInTime).getTime()
+        const decodedToken: any = jwtDecode(token)
+        const userId = decodedToken.UserId
+
+        const employees = await getAllEmployees()
+        const employee = employees.find((emp) => emp.accountId === userId)
+
+        if (!employee) {
+          setError('Employee not found.')
+          return
+        }
+
+        const records = await getRecords()
+        const filteredRecords = records.filter((record) => record.employeeId === employee.employeeId) 
+
+        const sortedRecords = [...filteredRecords].sort(
+          (a,b) => new Date(b.checkInTime).getTime() - new Date(a.checkInTime).getTime()
         )
 
         const recordsWithEmployeeNames = sortedRecords.map((record: Record, idx: number) => ({
           ...record,
-          employeeName: employeeMap[record.employeeId] || 'Unknown',
+          employeeName: employee.fullName,
           index: idx + 1
         }))
         setData(recordsWithEmployeeNames || [])
