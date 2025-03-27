@@ -18,6 +18,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import TimePicker from 'react-time-picker'
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
+import { toast } from 'react-toastify'
 
 interface UpdateServiceModalProps {
   isOpen: boolean
@@ -68,7 +69,7 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
           )
         })
       } catch (error) {
-        toast.error('Image upload failed')
+        toast.error('Image upload failed', { containerId: 'toast' })
         setUploading(false)
         return
       }
