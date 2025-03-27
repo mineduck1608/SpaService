@@ -83,6 +83,9 @@ export default function CheckoutPage() {
       if (s.msg) {
         setStatus('error')
         setMessage(s.msg)
+        if(method === 'VnPay'){
+          toast.error(s.msg, {containerId: 'toast'})
+        }
         return false
       }
 
