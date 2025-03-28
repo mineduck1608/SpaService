@@ -91,7 +91,7 @@ namespace SpaServiceBE.Controllers
 
                 // Check if the room already exists
                 var existingRoom = await _roomService.GetRoomByFloorAndNumber(floorId, roomNum);
-                if (existingRoom != null)
+                if (existingRoom.Status == true)
                 {
                     return Conflict(new { msg = "Room already exists with the given floorId and roomNum." });
                 }
@@ -101,6 +101,8 @@ namespace SpaServiceBE.Controllers
                     RoomId = Guid.NewGuid().ToString("N"),
                     FloorId = floorId,
                     RoomNum = roomNum,
+                    Status = true,
+                    IsDeleted = false
                 };
 
                 await _roomService.CreateRoom(room);
@@ -122,7 +124,7 @@ namespace SpaServiceBE.Controllers
                 var jsonElement = (JsonElement)request;
                 string floorId = jsonElement.GetProperty("floorId").GetString();
                 int roomNum = jsonElement.GetProperty("roomNum").GetInt32();
-                bool isDeleted = jsonElement.GetProperty("isDeleted").GetBoolean();
+                
                 if (string.IsNullOrEmpty(floorId) || roomNum <= 0)
                 {
                     return BadRequest(new { msg = "Room details are incomplete or invalid." });
@@ -132,6 +134,9 @@ namespace SpaServiceBE.Controllers
                 {
                     RoomId = id,
                     RoomNum = roomNum,
+                    FloorId = floorId,
+                    Status = true,
+                    IsDeleted = false
                 };
 
                 var isUpdated = await _roomService.UpdateRoom(room);
@@ -148,15 +153,15 @@ namespace SpaServiceBE.Controllers
         } 
         
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteRoom(string id)
         {
             var room = await _roomService.GetRoomById(id);
             if (room == null)
                 return NotFound(new { msg = $"Room with ID = {id} not found." });
 
+            room.IsDeleted = true;
             room.Status = false;
-            await _roomService.DeleteRoom(id);
             var isUpdated = await _roomService.UpdateRoom(room);
 
             if (!isUpdated)

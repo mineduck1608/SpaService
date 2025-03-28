@@ -794,6 +794,22 @@
   },
   {
     "ContainingType": "API.Controllers.AttendanceRecordController",
+    "Method": "GetLatestCheckInTodayAsync",
+    "RelativePath": "api/attendancerecords/latest-checkin/{employeeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AttendanceRecordController",
     "Method": "UpdateAttendanceRecord",
     "RelativePath": "api/attendancerecords/Update/{id}",
     "HttpMethod": "PUT",
@@ -3769,22 +3785,6 @@
   },
   {
     "ContainingType": "SpaServiceBE.Controllers.RoomController",
-    "Method": "DeleteRoom",
-    "RelativePath": "api/rooms/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SpaServiceBE.Controllers.RoomController",
     "Method": "CreateRoom",
     "RelativePath": "api/rooms/Create",
     "HttpMethod": "POST",
@@ -3794,6 +3794,22 @@
       {
         "Name": "request",
         "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpaServiceBE.Controllers.RoomController",
+    "Method": "DeleteRoom",
+    "RelativePath": "api/rooms/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

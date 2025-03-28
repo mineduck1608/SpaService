@@ -14,7 +14,7 @@ import { newsConfig } from '../modal.util'
 import { ServiceCategory } from 'src/types/type'
 import { storage } from '../../../firebaseConfig'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 interface UpdateNewsModalProps {
   isOpen: boolean
@@ -66,11 +66,12 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
         categoryId: categories.find((c) => c.categoryId === news.categoryId)?.categoryId || '',
         newsType: news.type || ''
       })
+      setImagePreview(news.image || null)
     }
   }, [news, categories, form])
 
   const handleSubmit = async (data: any) => {
-    let imageUrl = ''
+    let imageUrl = news?.image || ''
     if (imageFile) {
       try {
         imageUrl = await uploadImage(imageFile)
@@ -236,7 +237,6 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

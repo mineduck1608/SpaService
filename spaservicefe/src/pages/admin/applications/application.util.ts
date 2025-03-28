@@ -33,12 +33,14 @@ export async function handleUpdateSubmit(application: any, data: any) {
       body: JSON.stringify(updatedData)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully update!')
+      toast.success('Successfully update!', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (e) {
@@ -59,7 +61,8 @@ export async function handleDelete(id: string) {
       toast.success('Delete successfully')
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      const errorData = await res.json()
+      toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })
@@ -76,20 +79,14 @@ export async function getByAccountId(id: string): Promise<{ fullName: string } |
         Authorization: `Bearer ${getToken()}`
       }
     })
-
-    // Check if the response is successful
     if (!res.ok) {
       console.error('Failed to fetch account data:', res.statusText)
       return null
     }
-
-    // Parse JSON response
     const json: { fullName: string } = await res.json()
-
-    // Return the object
     return json
   } catch (e) {
     console.error('Error while fetching account data:', e)
-    return null // Return null in case of an error
+    return null
   }
 }

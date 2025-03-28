@@ -69,7 +69,7 @@ namespace Repositories
 
             existingEmployee.FullName = employee.FullName;
             existingEmployee.Position = employee.Position;
-            existingEmployee.HireDate = employee.HireDate;
+            existingEmployee.HireDate = existingEmployee.HireDate;
             existingEmployee.Status = employee.Status;
             existingEmployee.Image = employee.Image;
             existingEmployee.AccountId = employee.AccountId;

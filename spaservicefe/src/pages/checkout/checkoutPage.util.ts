@@ -21,7 +21,6 @@ export async function getEmployees(id: string) {
 
 export async function submitRequest(req: SpaRequest) {
   try {
-    console.log(req)
     var s = await fetch(`${apiUrl}/requests/Create`, {
       method: 'POST',
       headers: {
@@ -145,4 +144,16 @@ export type Transaction = {
   promotionId: string
   membershipId: string
   requestId: string
+}
+
+export async function deleteInvalidRequests(id: string){
+  try {
+    var s = await fetch(`${apiUrl}/requests/Delete/${id}`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+  } catch (e) {
+  }
 }

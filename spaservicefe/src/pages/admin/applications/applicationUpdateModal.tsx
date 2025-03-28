@@ -9,10 +9,9 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './application.util'
 import { applicatonConfig } from '../modal.util'
-import { jwtDecode } from 'jwt-decode' // Add this library if it's not already installed
+import { jwtDecode } from 'jwt-decode'
 
 interface UpdateApplicationModalProps {
   isOpen: boolean
@@ -83,6 +82,7 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value='Accepted'>Accepted</SelectItem>
+                              <SelectItem value='Pending'>Pending</SelectItem>
                               <SelectItem value='Denied'>Denied</SelectItem>
                             </SelectContent>
                           </Select>
@@ -107,7 +107,6 @@ export default function UpdateApplicationModal({ isOpen, onClose, application }:
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

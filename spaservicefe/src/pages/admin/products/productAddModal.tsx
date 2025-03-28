@@ -9,7 +9,7 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { handleCreateSubmit, getAllCosmeticCategories } from './product.util'
 import { cosmeticProductConfig } from '../modal.util'
 import { CosmeticCategory } from 'src/types/type'
@@ -58,7 +58,7 @@ export default function AddProductModal() {
         },
         (error) => {
           setUploading(false)
-          toast.error('Image upload failed')
+          toast.error('Image upload failed', { containerId: 'toast' })
           reject(error)
         },
         async () => {
@@ -186,7 +186,6 @@ export default function AddProductModal() {
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

@@ -1,14 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckInModal from './checkInModal'
+import { getLatestCheckIn, getAllEmployees } from './record.util'
+import { jwtDecode } from 'jwt-decode'
 
 interface CheckInTable {
-  checkInTime: string | null
-  checkOutTime: string | null
   onCheckInSuccess: (time: string) => void
   onCheckOutSuccess: (time: string) => void
 }
 
-const AttendanceInfo: React.FC<CheckInTable> = ({ checkInTime, checkOutTime, onCheckInSuccess, onCheckOutSuccess }) => {
+const AttendanceInfo: React.FC<CheckInTable> = ({ onCheckInSuccess, onCheckOutSuccess }) => {
+  const [employeeId, setEmployeeId] = useState<string | null>(null)
+  const [checkInTime, setCheckInTime] = useState<string | null>(null)
+  const [checkOutTime, setCheckOutTime] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchEmployeeId = async () => {
+      try {
+        const token = sessionStorage.getItem('token')
+        if (token) {
+          const decodedToken: any = jwtDecode(token)
+          const userId = decodedToken.UserId
+
+          const employees = await getAllEmployees()
+          const employee = employees.find((emp) => emp.accountId === userId)
+
+          if (employee) {
+            setEmployeeId(employee.employeeId)
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching employee ID:', error)
+      }
+    }
+
+    fetchEmployeeId()
+  }, [])
+
+  useEffect(() => {
+    const fetchLatestCheckIn = async () => {
+      if (employeeId) {
+        const { checkInTime, checkOutTime } = await getLatestCheckIn(employeeId)
+        setCheckInTime(checkInTime)
+        setCheckOutTime(checkOutTime)
+      }
+    }
+
+    fetchLatestCheckIn()
+  }, [employeeId])
+
   return (
     <div className='flex justify-end px-11'>
       <div className='mb-2 w-[100%] rounded-md border p-2'>

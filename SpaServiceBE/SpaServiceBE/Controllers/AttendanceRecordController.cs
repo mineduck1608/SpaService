@@ -229,6 +229,19 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("latest-checkin/{employeeId}")]
+        public async Task<IActionResult> GetLatestCheckInTodayAsync(string employeeId)
+        {
+            var attendance = await _attendanceRecordService.GetLatestCheckInTodayAsync(employeeId);
+
+            if (attendance == null)
+            {
+                return NotFound("No check-in record found for today.");
+            }
+
+            return Ok(attendance);
+        }
+
 
 
 

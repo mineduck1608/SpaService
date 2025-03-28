@@ -112,7 +112,7 @@ export function AmountButton(params: { row: Row<SessionItem> }) {
           return
         }
         var rs = parseInt(s)
-        if (rs <= 0) {
+        if (rs <= 0 || rs > item.product.quantity) {
           return
         }
         const x = [...context.items]
@@ -126,6 +126,8 @@ export function AmountButton(params: { row: Row<SessionItem> }) {
         context.setItems(x)
         setAmount(rs)
       }}
+      min={1}
+      max={item.product.quantity}
     />
   )
 }

@@ -18,7 +18,7 @@ export default function CustomerRequestPage() {
   const [totalPages, setTotalPages] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 10 // Số lượng yêu cầu trên mỗi trang
-
+  const [map, setMap] = useState<Map<number, SpaRequest[]>>(new Map<number, SpaRequest[]>())
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
@@ -27,48 +27,8 @@ export default function CustomerRequestPage() {
         const response = await getCustomerRequestsPaginated(currentPage, pageSize) // API trả về { data, totalItems }
         const { data: customerRequests, totalPages } = response
 
-        const getCustomer = async (id) => {
-          if (!id) return { fullName: 'Unknown' }
-          if (customerCache.has(id)) return customerCache.get(id)
-          try {
-            const customer = await getCustomerById(id)
-            customerCache.set(id, customer)
-            return customer
-          } catch {
-            return { fullName: 'Unknown' }
-          }
-        }
-
-        const getService = async (id) => {
-          if (!id) return { serviceName: 'Unknown' }
-          if (serviceCache.has(id)) return serviceCache.get(id)
-          try {
-            const service = await getServiceById(id)
-            serviceCache.set(id, service)
-            return service
-          } catch {
-            return { serviceName: 'Unknown' }
-          }
-        }
-
-        const getEmployee = async (id) => {
-          if (!id) return { fullName: 'Unknown' }
-          if (employeeCache.has(id)) return employeeCache.get(id)
-          try {
-            const employee = await getEmployeeById(id)
-            employeeCache.set(id, employee)
-            return employee
-          } catch {
-            return { fullName: 'Unknown' }
-          }
-        }
-
         const formattedCustomerRequests = await Promise.all(
           customerRequests.map(async (request) => {
-            const customer = await getCustomer(request.customerId)
-            const service = await getService(request.serviceId)
-            const employee = await getEmployee(request.employeeId)
-
             return {
               ...request,
               createdAt: format(new Date(request.createdAt), 'dd/MM/yyyy HH:mm:ss'),
@@ -77,12 +37,12 @@ export default function CustomerRequestPage() {
               managerNote: request.managerNote || 'No notes provided',
               customerName: request.customerName,
               serviceName: request.serviceName,
-              employeeName: request.fullName
             }
           })
         )
 
         setData(formattedCustomerRequests)
+        map.set(currentPage, customerRequests)
         setTotalPages(totalPages) // Cập nhật tổng số items
       } catch (err) {
         console.error('Error fetching data:', err)
@@ -92,8 +52,12 @@ export default function CustomerRequestPage() {
         setLoading(false)
       }
     }
-
-    fetchData()
+    if (map && map?.has(currentPage)) {
+      setData(map.get(currentPage) ?? [])
+    }
+    else {
+      fetchData()
+    }
   }, [currentPage]) // Fetch lại dữ liệu khi `currentPage` thay đổi
 
   if (loading) return <div className='ml-5'>Loading...</div>
@@ -102,7 +66,7 @@ export default function CustomerRequestPage() {
   return (
     <div className='h-[96%] items-center justify-center'>
       <h2 className='container mx-auto my-4 ml-11'>Customer Requests Management</h2>
-      <div className='container mx-auto w-[96%] rounded-md border'>
+      <div className='container mx-auto w-[96%] mb-10 rounded-md border'>
         <DataTable
           columns={columns}
           data={data}
@@ -111,7 +75,6 @@ export default function CustomerRequestPage() {
           onPageChange={(newPage) => setCurrentPage(newPage)}
         />
       </div>
-      <ToastContainer />
     </div>
   )
 }

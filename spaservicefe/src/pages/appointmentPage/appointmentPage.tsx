@@ -1,5 +1,6 @@
 import React from 'react'
 import AppointmentTable from './appointmentTable'
+import { ToastContainer } from 'react-toastify'
 
 export default function AppointmentPage() {
   return (
@@ -12,6 +13,7 @@ export default function AppointmentPage() {
       <div className='mb-40 mt-60 w-full p-5 '>
         <AppointmentTable />
       </div>
+      <ToastContainer />
     </div>
   )
 }

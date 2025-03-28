@@ -133,7 +133,6 @@ export const employeeConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL'
     }
   ],
@@ -217,7 +216,6 @@ export const managerConfig = {
       name: 'image',
       label: 'Image',
       type: 'text',
-      required: true,
       placeholder: 'Enter image URL'
     },
     {
@@ -653,13 +651,6 @@ export const roomConfig = {
       type: 'select',
       required: true,
       placeholder: 'Select floor'
-    },
-    {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status'
     }
   ],
   fields: [
@@ -899,7 +890,7 @@ export const employeeCategoryConfig = {
       name: 'employeeId',
       label: 'Employee',
       type: 'select',
-      required: true
+      readonly: true
     }
   ],
   fields: [

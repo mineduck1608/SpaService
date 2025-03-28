@@ -3,7 +3,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/c
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from 'src/components/ui/chart'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { getTransactionsById } from '../../transactions/transaction.util'
 
 interface EmployeeStatisticProps<TData> {
   year: number
@@ -14,10 +13,6 @@ const chartConfig = {
   service: {
     label: 'Service',
     color: 'hsl(var(--chart-1))'
-  },
-  product: {
-    label: 'Product',
-    color: 'hsl(var(--chart-2))'
   }
 } satisfies ChartConfig
 
@@ -25,7 +20,7 @@ export default function Overall<TData>({ year, data }: EmployeeStatisticProps<TD
   const [selectedMonthIndex, setSelectedMonthIndex] = useState(new Date().getMonth())
   const [totalCommissions, setTotalCommission] = useState<number | null>(null)
   const [chartData, setChartData] = useState<any[]>([])
-
+  
   const handlePreviousMonth = () => {
     setSelectedMonthIndex((prev) => (prev === 0 ? 11 : prev - 1))
   }
@@ -36,25 +31,17 @@ export default function Overall<TData>({ year, data }: EmployeeStatisticProps<TD
 
   useEffect(() => {
     if (data.length === 0) return
-    const fetchCommissions = async () => {
-      const commissionByMonthAndType = Array(12)
-        .fill(0)
-        .map(() => ({ service: 0, product: 0 }))
+      const fetchCommissions = async () => {
+        const commissionByMonth = Array(12).fill(0).map(() => ({ service: 0 }))
+
       for (const item of data) {
-        try {
-          const commission = await getTransactionsById(item.transactionId)
-          const month = new Date(item.date).getMonth()
-          const type = commission.transactionType === 'Product' ? 'product' : 'service'
-          commissionByMonthAndType[month][type] += item.commissionValue
-        } catch (error) {
-          console.error(error)
-        }
+        const month = new Date(item.date).getMonth()
+        commissionByMonth[month].service += item.commissionValue
       }
 
-      const formattedChartData = commissionByMonthAndType.map((commissions, index) => ({
+      const formattedChartData = commissionByMonth.map((commissions, index) => ({
         month: index + 1,
         service: commissions.service || 0,
-        product: commissions.product || 0
       }))
 
       setChartData(formattedChartData)
@@ -64,23 +51,16 @@ export default function Overall<TData>({ year, data }: EmployeeStatisticProps<TD
 
   useEffect(() => {
     if (chartData.length > 0) {
-      const selectedMonthData = chartData[selectedMonthIndex] || { service: 0, product: 0 }
-      setTotalCommission(selectedMonthData.service + selectedMonthData.product)
+      const selectedMonthData = chartData[selectedMonthIndex] || { service: 0 }
+      setTotalCommission(selectedMonthData.service)
     }
   }, [chartData, selectedMonthIndex])
 
   const selectedMonthData =
-    chartData.length > 0
-      ? [
-          {
-            service: chartData[selectedMonthIndex]?.service || 0,
-            product: chartData[selectedMonthIndex]?.product || 0
-          }
-        ]
-      : []
+    chartData.length > 0 ? [{ service: chartData[selectedMonthIndex]?.service || 0 }]: []
 
   const isDataEmpty =
-    !selectedMonthData[0] || (selectedMonthData[0].service === 0 && selectedMonthData[0].product === 0)
+    !selectedMonthData[0] || (selectedMonthData[0].service === 0)
 
   return (
     <Card className='-z-10 -mt-10 flex flex-col rounded-none border-white bg-transparent font-montserrat shadow-none'>
@@ -138,13 +118,6 @@ export default function Overall<TData>({ year, data }: EmployeeStatisticProps<TD
                 dataKey='service'
                 stackId='a'
                 fill='var(--color-service)'
-                cornerRadius={5}
-                className='stroke-transparent stroke-2'
-              />
-              <RadialBar
-                dataKey='product'
-                stackId='a'
-                fill='var(--color-product)'
                 cornerRadius={5}
                 className='stroke-transparent stroke-2'
               />

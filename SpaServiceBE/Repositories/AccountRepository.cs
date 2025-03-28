@@ -63,6 +63,7 @@ namespace Repositories
             existingAccount.Password = account.Password;
             existingAccount.Status = account.Status;
             existingAccount.RoleId = account.RoleId;
+            existingAccount.UpdatedAt = DateTime.UtcNow;
            
             try
             {

@@ -63,7 +63,7 @@ namespace Repositories
         public async Task<IEnumerable<Room>> GetRoomsOfCategory(string catId)
         {
             return await _context.Rooms.Include(x => x.Floor)
-                .Where(r => r.Floor.CategoryId == catId)
+                .Where(r => r.Floor.CategoryId == catId && r.IsDeleted == false)
                 .ToListAsync();
         }
 

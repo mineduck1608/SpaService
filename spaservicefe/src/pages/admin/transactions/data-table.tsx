@@ -34,7 +34,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-  filterKey1 = 'statusText',
+  filterKey1 = 'name',
   filterKey2 = 'phone'
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
     <div>
       <div className='flex items-center py-3'>
         <Input
-          placeholder={`Filter by status...`}
+          placeholder={`Filter by name...`}
           value={(table.getColumn(filterKey1)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(filterKey1)?.setFilterValue(event.target.value)}
           className='mr-4 max-w-sm'

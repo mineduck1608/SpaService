@@ -85,3 +85,29 @@ export const getCurrentLocation = (): Promise<{ latitude: number; longitude: num
     )
   })
 }
+
+export async function getLatestCheckIn(employeeId: string): Promise<{ checkInTime: string | null; checkOutTime: string | null} > {
+  try {
+    const res = await fetch(`${apiUrl}/attendancerecords/latest-checkin/${employeeId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (res.status >= 200 && res.status < 300) {
+      const data = await res.json()
+      return {
+        checkInTime: data.checkInTime || null,
+        checkOutTime: data.checkOutTime || null,
+      }
+    } else {
+      console.error('Failed to fetch latest check-in:', res.statusText)
+      return { checkInTime: null, checkOutTime: null}
+    }
+  } catch (error) {
+    console.error('Error fetching latest check-in:', error)
+    return { checkInTime: null, checkOutTime: null}
+  }
+}

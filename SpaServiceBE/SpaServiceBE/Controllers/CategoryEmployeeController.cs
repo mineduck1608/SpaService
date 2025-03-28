@@ -33,7 +33,9 @@ namespace API.Controllers
                 {
                     CategoryEmployeeId = r.CategoryEmployeeId,
                     EmployeeName = r.Employee.FullName,
-                    CategoryName = r.Category.CategoryName
+                    CategoryName = r.Category.CategoryName,
+                    EmployeeId = r.EmployeeId,
+                    CategoryId = r.CategoryId,
                 });
 
                 return Ok(data);

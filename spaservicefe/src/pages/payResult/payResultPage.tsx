@@ -90,7 +90,7 @@ export default function PayResultPage() {
                       className='rounded-xl bg-green-600 p-3 font-bold text-white no-underline'
                       to={map.get('type') === 'Service' ? `/requests` : '/transactions'}
                       onClick={(e) => {
-                        sessionStorage.setItem('autoProduct', '1')
+                        sessionStorage.setItem('autoProduct', map.get('type') === 'Service' ? '0' : '1')
                       }}
                     >
                       {map.get('type') === 'Service' ? 'View your new request!' : 'View your transactions'}

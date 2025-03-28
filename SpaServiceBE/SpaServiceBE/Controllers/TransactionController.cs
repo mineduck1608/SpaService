@@ -22,8 +22,10 @@ namespace API.Controllers
         private readonly IServiceTransactionService _serviceTransactionService;
         private readonly IMembershipService _membershipService;
         private readonly ICustomerMembershipService _customerMembershipService;
+        private readonly ICosmeticTransactionService _cosmeticTransactionService;
 
-        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService)
+
+        public TransactionController(ITransactionService service, IRequestService requestService, IServiceTransactionService serviceTransactionService, IMembershipService membershipService, IPromotionService promotionService, ICustomerMembershipService customerMembershipService, ICosmeticTransactionService cosmeticTransactionService)
         {
             _promotionService = promotionService;
             _service = service ?? throw new ArgumentNullException(nameof(service));
@@ -31,6 +33,7 @@ namespace API.Controllers
             _serviceTransactionService = serviceTransactionService;
             _membershipService = membershipService;
             _customerMembershipService = customerMembershipService;
+            _cosmeticTransactionService = cosmeticTransactionService;
         }
 
         // GET: api/transactions/GetAll
@@ -99,8 +102,7 @@ namespace API.Controllers
                     TransactionId = Guid.NewGuid().ToString(), // Generate unique ID
                     TransactionType = transactionType,
                     Status = false,
-                    PaymentType = paymentType,
-                    CompleteTime = DateTime.Now
+                    PaymentType = paymentType
                 };
 
                 // Handle promotion
@@ -204,21 +206,111 @@ namespace API.Controllers
                     PaymentType = paymentType,
                     CompleteTime = completeTime
                 };
-                //cap nhat membership neu la loai service va da thanh toan
-                if (transactionType == "Service" && status == true)
+
+                if (status == true)
                 {
-                    var serviceTransaction = await _serviceTransactionService.GetByTransId(id);
-                    if (serviceTransaction == null)
+                    if(transactionType == "Service")
                     {
-                        return BadRequest(new { msg = $"serviceTransaction with id {id} not found." });
+                        var serviceTransaction = await _serviceTransactionService.GetByTransId(id);
+                        if (serviceTransaction == null)
+                        {
+                            return BadRequest(new { msg = $"serviceTransaction with id {id} not found." });
+                        }
+                        var cusMembership = await _customerMembershipService.FindNewestByCustomerId(serviceTransaction.Request.CustomerId);
+                        if (cusMembership == null)
+                        {
+                            var cusMember = new CustomerMembership
+                            {
+                                CustomerId = serviceTransaction.Request.CustomerId,
+                                MembershipId = "2",
+                                StartDate = DateOnly.FromDateTime(DateTime.Now),
+                                EndDate = null
+                            };
+                            await _customerMembershipService.CreateAsync(cusMember);
+                        }
+                        else
+                        {
+                            // Tính tổng transaction của khách hàng
+                            float totalTransaction = await _service.GetTotalTransactionByCustomerIdAsync(serviceTransaction.Request.CustomerId);
+                            totalTransaction += totalPrice;
+
+                            // Lấy danh sách membership theo cấp bậc
+                            var memberships = await _membershipService.GetAllMemberships();
+
+                            // Tìm membership cao nhất phù hợp với tổng transaction
+                            var upgradedMembership = memberships
+                                .Where(m => totalTransaction >= m.TotalPayment)
+                                .OrderByDescending(m => m.TotalPayment)
+                                .FirstOrDefault();
+
+                            if (upgradedMembership != null && upgradedMembership.MembershipId != cusMembership.MembershipId)
+                            {
+                                // Cập nhật lên hạng cao hơn
+                                cusMembership.EndDate = DateOnly.FromDateTime(DateTime.Now);
+                                await _customerMembershipService.UpdateAsync(cusMembership);
+
+                                var newCusMember = new CustomerMembership
+                                {
+                                    CustomerId = serviceTransaction.Request.CustomerId,
+                                    MembershipId = upgradedMembership.MembershipId,
+                                    StartDate = DateOnly.FromDateTime(DateTime.Now),
+                                    EndDate = null
+                                };
+                                await _customerMembershipService.CreateAsync(newCusMember);
+                            }
+                        }
                     }
-                    var membership = await _membershipService.GetMembershipById(serviceTransaction.MembershipId);
-                    if (membership == null)
+                    else if (transactionType == "Product")
                     {
-                        return BadRequest(new { msg = $"Membership with id {serviceTransaction.MembershipId} not found." });
+                        var productTransaction = await _cosmeticTransactionService.GetByTransId(id);
+                        if (productTransaction == null)
+                        {
+                            return BadRequest(new { msg = $"ProductTransaction with id {id} not found." });
+                        }
+                        var cusMembership = await _customerMembershipService.FindNewestByCustomerId(productTransaction.Order.CustomerId);
+                        if (cusMembership == null)
+                        {
+                            var cusMember = new CustomerMembership
+                            {
+                                CustomerId = productTransaction.Order.CustomerId,
+                                MembershipId = "2",
+                                StartDate = DateOnly.FromDateTime(DateTime.Now),
+                                EndDate = null
+                            };
+                            await _customerMembershipService.CreateAsync(cusMember);
+                        }
+                        else
+                        {
+                            // Tính tổng transaction của khách hàng (bao gồm product)
+                            float totalTransaction = await _service.GetTotalTransactionByCustomerIdAsync(productTransaction.Order.CustomerId);
+                            totalTransaction += totalPrice;
+
+                            // Lấy danh sách membership theo cấp bậc
+                            var memberships = await _membershipService.GetAllMemberships();
+
+                            // Tìm membership cao nhất phù hợp với tổng transaction
+                            var upgradedMembership = memberships
+                                .Where(m => totalTransaction >= m.TotalPayment)
+                                .OrderByDescending(m => m.TotalPayment)
+                                .FirstOrDefault();
+
+                            if (upgradedMembership != null && upgradedMembership.MembershipId != cusMembership.MembershipId)
+                            {
+                                // Cập nhật lên hạng cao hơn
+                                cusMembership.EndDate = DateOnly.FromDateTime(DateTime.Now);
+                                await _customerMembershipService.UpdateAsync(cusMembership);
+
+                                var newCusMember = new CustomerMembership
+                                {
+                                    CustomerId = productTransaction.Order.CustomerId,
+                                    MembershipId = upgradedMembership.MembershipId,
+                                    StartDate = DateOnly.FromDateTime(DateTime.Now),
+                                    EndDate = null
+                                };
+                                await _customerMembershipService.CreateAsync(newCusMember);
+                            }
+                        }
                     }
-                    membership.TotalPayment += totalPrice;
-                    await _membershipService.UpdateMembership(membership.MembershipId, membership);
                 }
                 // Gọi service để cập nhật transaction
                 var isUpdated = await _service.Update(id, transaction);

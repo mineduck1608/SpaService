@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './room.util'
 import { roomConfig } from '../modal.util'
 import { Floor } from 'src/types/type'
@@ -44,7 +43,11 @@ export default function UpdateRoomModal({ isOpen, onClose, room }: UpdateRoomMod
       if (room) {
         Object.keys(room).forEach((key: string) => {
           if (form.getValues(key) !== undefined) {
-            form.setValue(key, room[key])
+            if(key == 'floorId') {
+              const floorNum = data.find((floor) => floor.floorId === room.floorId)?.floorNum
+              form.setValue('floorId', floorNum || '')
+            }
+            else form.setValue(key, room[key])
           }
         })
       }
@@ -108,7 +111,6 @@ export default function UpdateRoomModal({ isOpen, onClose, room }: UpdateRoomMod
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

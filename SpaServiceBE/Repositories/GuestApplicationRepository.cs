@@ -20,7 +20,7 @@ namespace Repositories
 
         public async Task<IEnumerable<GuestApplication>> GetAllAsync()
         {
-            return await _context.GuestApplications.ToListAsync();
+            return await _context.GuestApplications.Include(x => x.Application).ToListAsync();
         }
 
         public async Task<GuestApplication> GetGuestApplicationById(string id)

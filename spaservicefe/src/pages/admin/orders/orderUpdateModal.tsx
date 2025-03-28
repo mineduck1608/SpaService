@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './order.util'
 import { ordersConfig } from '../modal.util'
 
@@ -110,7 +109,6 @@ export default function UpdateOrderModal({ isOpen, onClose, order }: UpdateOrder
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

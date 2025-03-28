@@ -9,7 +9,8 @@ import {
   getPaymentUrl,
   submitRequest,
   getMembership,
-  setItems
+  setItems,
+  deleteInvalidRequests
 } from './checkoutPage.util.ts'
 import { Employee, Membership, Promotion } from '@/types/type.ts'
 import logoColor from '../../images/logos/logoColor.png'
@@ -18,6 +19,7 @@ import { ServiceCheckoutContext, SpaRequestModel } from './checkoutContext.tsx'
 import MainForm from './mainForm.tsx'
 import dayjs from 'dayjs'
 import { Loader2, CheckCircle, XCircle } from 'lucide-react'
+import { apiUrl, getToken } from '../../types/constants.ts'
 
 export default function CheckoutPage() {
   const booked = JSON.parse(sessionStorage.getItem('booked') ?? '{}') as Service
@@ -65,15 +67,18 @@ export default function CheckoutPage() {
     }
     try {
       fetchData()
-    } catch (e) { }
+    } catch (e) {}
   }, [])
   async function onSubmitBase(method: string) {
+    if (method !== 'Cash') {
+      toast('Please wait while we submit your request', {
+        containerId: 'toast'
+      })
+    }
     try {
-      if (method == 'Cash') {
         setModalMailOpen(true)
         setStatus('loading')
         setMessage('Processing...')
-      }
 
       var req2 = { ...req }
       req2.startTime = req2.startTime.add(7, 'h')
@@ -82,6 +87,9 @@ export default function CheckoutPage() {
       if (s.msg) {
         setStatus('error')
         setMessage(s.msg)
+        if (method === 'VnPay') {
+          toast.error(s.msg, { containerId: 'toast' })
+        }
         return false
       }
 
@@ -96,12 +104,19 @@ export default function CheckoutPage() {
 
         if (y.transactionId) {
           sessionStorage.setItem('trId', y.transactionId)
-          setStatus('success')
-          setMessage('Create request success!')
+          
+          await fetch(`${apiUrl}/requests/CreateMail/${s.requestId}`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              'Content-Type': 'application/json'
+            }
+          })
           return true
         } else {
           setStatus('error')
           setMessage(y.msg || 'Create request failed!')
+          await deleteInvalidRequests(s.requestId)
           return false
         }
       }

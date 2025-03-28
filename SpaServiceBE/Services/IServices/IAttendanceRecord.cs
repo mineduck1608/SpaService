@@ -24,5 +24,6 @@ namespace Services.IServices
         Task<AttendanceRecord?> GetLatestAttendanceByEmployeeId(string employeeId);
         Task AddAttendance(AttendanceRecord attendance);
         Task UpdateAttendance(AttendanceRecord attendance);
+        Task<AttendanceRecord?> GetLatestCheckInTodayAsync(string employeeId);
     }
 }

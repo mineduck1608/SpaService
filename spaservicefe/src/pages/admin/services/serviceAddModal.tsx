@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer, toast } from 'react-toastify'
 import { handleCreateSubmit } from './service.util'
 import { getAllServiceCategories } from '../servicecategories/servicecategory.util'
 import { spaServiceConfig } from '../modal.util'
@@ -173,7 +172,6 @@ export default function AddServiceModal() {
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

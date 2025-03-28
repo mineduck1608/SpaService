@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './manager.util'
 import { managerConfig } from '../modal.util'
 import dayjs from 'dayjs'
@@ -115,7 +114,6 @@ export default function UpdateManagerModal({ isOpen, onClose, manager }: UpdateM
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

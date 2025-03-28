@@ -86,6 +86,8 @@ namespace API.Controllers
                     CustomerNote = request.CustomerNote,
                     ManagerNote = request.ManagerNote,
                     Status = request.Status,
+                    ServiceId = request.ServiceId,
+                    EmployeeId = request.EmployeeId
                 });
 
                 return Ok(new { data = mappedData, totalPages });
@@ -269,7 +271,6 @@ namespace API.Controllers
 
                 if (!isCreated)
                     return StatusCode(500, new { msg = "An error occurred while creating the request." });
-                await CreateEmailRequest(newRequest.RequestId);
                 return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.RequestId }, new { requestId = newRequest.RequestId });
             }
             catch (Exception ex)
@@ -361,7 +362,7 @@ namespace API.Controllers
                 var jsonElement = (JsonElement)request;
 
                 string employeeId = jsonElement.GetProperty("employeeId").GetString();
-                DateTime startTime = jsonElement.TryGetProperty("startTime", out JsonElement e) && e.ValueKind == JsonValueKind.String ? e.GetDateTime() : default;
+                DateTime startTime = jsonElement.GetProperty("startTime").GetDateTime();
                 string roomId = jsonElement.GetProperty("roomId").GetString();
                 string serviceId = jsonElement.GetProperty("serviceId").GetString();
 
@@ -375,9 +376,11 @@ namespace API.Controllers
 
                 TimeOnly durationValue = await duration; // Lấy giá trị thực từ Task<TimeOnly>
                 TimeSpan timeSpan = durationValue.ToTimeSpan(); // Chuyển thành TimeSpan
-                DateTime endTime = startTime.Add(timeSpan); // Cộng vào DateTime
 
-                //handle Start time
+                startTime = startTime.AddHours(7);
+                DateTime endTime = startTime.Add(timeSpan); // Cộng vào DateTime
+                
+                               //handle Start time
                 if (startTime < DateTime.Now.AddMinutes(15))
                 {
                     return BadRequest(new { msg = "Start time must be at least 15 minutes in the future." });
@@ -388,7 +391,7 @@ namespace API.Controllers
                 }
                 if (startTime.Hour > 20 || startTime.Hour < 8)
                 {
-                    return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 20:00 PM." });
+                    return BadRequest(new { msg = "Bookings can only be made between 8:00 AM and 20:00 PM.", startTime.Hour });
                 }
                 //handle duration
                 if (endTime.Hour > 20)
@@ -663,6 +666,10 @@ namespace API.Controllers
                 if (updatedRequest.Status.Equals("Denied"))
                 {
                     return BadRequest("Request Status is already declined !");
+                }
+                if (updatedRequest.Status.Equals("Completed"))
+                {
+                    return BadRequest("Cannot deny completed request!");
                 }
                 // Cập nhật trạng thái
                 updatedRequest.Status = "Denied";

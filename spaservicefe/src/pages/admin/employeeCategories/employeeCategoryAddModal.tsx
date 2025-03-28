@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer } from 'react-toastify'
 import { handleCreateSubmit } from './employeeCategory.util'
 import { employeeCategoryConfig } from '../modal.util'
 import { ServiceCategory, Employee } from 'src/types/type'
@@ -114,7 +113,6 @@ export default function AddCosmeticModal() {
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

@@ -2,6 +2,8 @@ import { apiUrl, getToken } from '../../types/constants'
 import { Service } from '@/types/services'
 import { toast } from 'react-toastify'
 import { getAllFeedbacks } from '../admin/feedbacks/feedback.util'
+import { ToastContainer } from 'react-toastify'
+
 
 export async function getService(id: string) {
   try {
@@ -41,10 +43,15 @@ export async function handleCreateSubmit(data: any) {
       body: JSON.stringify(data)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Thank you for your feedback!')
+      toast.success('Thank you for your feedback!', {
+        autoClose: 1000,
+        closeButton: false
+      })
       setTimeout(() => window.location.reload(), 2000)
     } else {
-      toast.error('Failed. Please try again.', {
+      var response = await res.json()
+      console.log(response)
+      toast.error(response.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false
       })
