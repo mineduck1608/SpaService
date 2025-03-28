@@ -134,7 +134,9 @@ namespace SpaServiceBE.Controllers
                 {
                     RoomId = id,
                     RoomNum = roomNum,
-                    FloorId = floorId
+                    FloorId = floorId,
+                    Status = true,
+                    IsDeleted = false
                 };
 
                 var isUpdated = await _roomService.UpdateRoom(room);
