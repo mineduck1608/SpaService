@@ -47,6 +47,10 @@ export default function UpdateRoomModal({ isOpen, onClose, room }: UpdateRoomMod
               const floorNum = data.find((floor) => floor.floorId === room.floorId)?.floorNum
               form.setValue('floorId', floorNum || '')
             }
+            else if (key == 'roomNum'){
+              room[key] = String(room[key])
+              form.setValue(key, room[key])
+            }
             else form.setValue(key, room[key])
           }
         })
