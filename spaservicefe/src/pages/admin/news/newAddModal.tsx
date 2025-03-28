@@ -14,7 +14,7 @@ import { newsConfig } from '../modal.util'
 import { ServiceCategory } from 'src/types/type'
 import { storage } from '../../../firebaseConfig'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 export default function AddNewsModal() {
   const fieldsToUse = newsConfig.fields
@@ -210,7 +210,6 @@ export default function AddNewsModal() {
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

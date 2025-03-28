@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
-import { ToastContainer, toast } from 'react-toastify'
 import { handleUpdateSubmit } from './service.util'
 import { getAllServiceCategories } from '../servicecategories/servicecategory.util'
 import { spaServiceConfig } from '../modal.util'
@@ -19,6 +18,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import TimePicker from 'react-time-picker'
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
+import { toast } from 'react-toastify'
 
 interface UpdateServiceModalProps {
   isOpen: boolean
@@ -69,7 +69,7 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
           )
         })
       } catch (error) {
-        toast.error('Image upload failed')
+        toast.error('Image upload failed', { containerId: 'toast' })
         setUploading(false)
         return
       }
@@ -183,7 +183,6 @@ export default function UpdateServiceModal({ isOpen, onClose, service }: UpdateS
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

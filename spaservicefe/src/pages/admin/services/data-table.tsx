@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import {
   ColumnFiltersState,
@@ -128,7 +126,6 @@ export function DataTable<TData, TValue>({ columns, data, filterKey = 'serviceNa
           Next
         </Button>
       </div>
-      <ToastContainer />
     </div>
   )
 }

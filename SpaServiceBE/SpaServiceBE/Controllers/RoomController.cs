@@ -124,7 +124,7 @@ namespace SpaServiceBE.Controllers
                 var jsonElement = (JsonElement)request;
                 string floorId = jsonElement.GetProperty("floorId").GetString();
                 int roomNum = jsonElement.GetProperty("roomNum").GetInt32();
-                bool isDeleted = jsonElement.GetProperty("isDeleted").GetBoolean();
+                
                 if (string.IsNullOrEmpty(floorId) || roomNum <= 0)
                 {
                     return BadRequest(new { msg = "Room details are incomplete or invalid." });
@@ -134,6 +134,9 @@ namespace SpaServiceBE.Controllers
                 {
                     RoomId = id,
                     RoomNum = roomNum,
+                    FloorId = floorId,
+                    Status = true,
+                    IsDeleted = false
                 };
 
                 var isUpdated = await _roomService.UpdateRoom(room);

@@ -238,7 +238,7 @@ export async function UpdateAppoitment(appointment: any, roomId: string) {
 
     if (res.status >= 200 && res.status < 300) {
       const responseData = await res.json()
-      toast.success(responseData?.msg || 'Successfully assigned!')
+      toast.success(responseData?.msg || 'Successfully assigned!', { containerId: 'toast' })
       await fetch(`${apiUrl}/appointments/CreateMail/${responseData.appointmentId}`, {
         method: 'POST',
         headers: {
@@ -251,7 +251,8 @@ export async function UpdateAppoitment(appointment: any, roomId: string) {
       const errorData = await res.json()
       toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (e) {
@@ -273,13 +274,14 @@ export const handleCheckInAPI = async (appointmentId: string) => {
 
     if (res.status >= 200 && res.status < 300) {
       const responseData = await res.json()
-      toast.success(responseData.msg || 'Check-in successful!')
+      toast.success(responseData.msg || 'Check-in successful!', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 1000)
     } else {
       const errorData = await res.json()
       toast.error(errorData.msg || 'Failed to check-in.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (error) {
@@ -303,13 +305,14 @@ export const handleCheckOutAPI = async (appointmentId: string) => {
 
     if (res.status >= 200 && res.status < 300) {
       const responseData = await res.json()
-      toast.success(responseData.msg || 'Check-out successful!')
+      toast.success(responseData.msg || 'Check-out successful!', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 1000)
     } else {
       const errorData = await res.json()
       toast.error(errorData.msg || 'Failed to check-out.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (error) {

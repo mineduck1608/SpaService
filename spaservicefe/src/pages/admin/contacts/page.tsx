@@ -3,7 +3,6 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { GuestApplication } from '../../../types/type'
 import { getAllGuestApplications } from './guestApplication.util'
-import { getAllApplications } from '../applications/application.util'
 
 export default function ContactAdminPage() {
   const [data, setData] = useState<GuestApplication[]>([])
@@ -13,20 +12,13 @@ export default function ContactAdminPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [guestContacts, applications] = await Promise.all([getAllGuestApplications(), getAllApplications()])
-
-        const applicationMap = applications.reduce(
-          (guestContact, application) => {
-            guestContact[application.applicationId] = application.content
-            return guestContact
-          },
-          {} as Record<string, string>
-        )
-
+        const guestContacts = await getAllGuestApplications()
         const formattedContacts = guestContacts.map((guestContact) => ({
           ...guestContact,
-          content: applicationMap[guestContact.applicationId] || 'N/A'
+          content: guestContact.application?.content || 'N/A'
         }))
+
+        console.log(guestContacts)
 
         setData(formattedContacts)
       } catch (err) {

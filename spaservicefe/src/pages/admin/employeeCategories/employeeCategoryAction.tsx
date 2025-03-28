@@ -51,15 +51,11 @@ const EmployeeCategoryActions: React.FC<EmployeeCategoryActionsProps> = ({ emplo
             Copy Employee Category ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>
-            Delete
-          </DropdownMenuItem>
+          {/* <DropdownMenuItem onClick={openUpdateModal} className='cursor-pointer'>Update</DropdownMenuItem> */}
+          <DropdownMenuItem onClick={openDeleteModal} className='cursor-pointer'>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <UpdateEmployeeCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employeeCategory={employeeCategory} />
+      {/* <UpdateEmployeeCategoryModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} employeeCategory={employeeCategory} /> */}
       <ConfirmDeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} onConfirm={handleConfirmDelete} />
     </>
   )

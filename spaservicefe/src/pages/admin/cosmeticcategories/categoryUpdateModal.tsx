@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'src/components/ui/form'
 import { Input } from 'src/components/ui/input'
-import { ToastContainer } from 'react-toastify'
 import { handleUpdateSubmit } from './category.util'
 import { cosmeticCategoriesConfig } from '../modal.util'
 
@@ -75,7 +74,6 @@ export default function UpdateCategoryModal({ isOpen, onClose, category }: Updat
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }

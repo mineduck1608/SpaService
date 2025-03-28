@@ -139,7 +139,7 @@ export async function DenyRequest(id: string, managerNote: string) {
       body: JSON.stringify({ managerNote })
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully deny!')
+      toast.success('Successfully deny!', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 1000)
       await fetch(`${apiUrl}/requests/CreateDeclinedMail/${id}`, {
         method: 'POST',
@@ -152,7 +152,8 @@ export async function DenyRequest(id: string, managerNote: string) {
       const errorData = await res.json()
       toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (e) {
@@ -194,7 +195,7 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
 
     if (res.status >= 200 && res.status < 300) {
       const responseData = await res.json()
-      toast.success(responseData?.msg || 'Successfully assigned!')
+      toast.success(responseData?.msg || 'Successfully assigned!', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 1000)
       await fetch(`${apiUrl}/requests/SendMail/${responseData?.appoinmentId}`, {
         method: 'POST',
@@ -205,9 +206,11 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
       })
     } else {
       const errorData = await res.json()
+      console.log(errorData)
       toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (e) {

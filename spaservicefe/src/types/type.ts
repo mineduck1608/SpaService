@@ -134,6 +134,7 @@ export type GuestApplication = {
   phoneNumber: string
   email: string
   applicationId: string
+  application: Application
 }
 
 export type Application = {

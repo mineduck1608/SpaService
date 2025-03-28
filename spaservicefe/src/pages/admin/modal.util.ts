@@ -651,13 +651,6 @@ export const roomConfig = {
       type: 'select',
       required: true,
       placeholder: 'Select floor'
-    },
-    {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      placeholder: 'Select status'
     }
   ],
   fields: [

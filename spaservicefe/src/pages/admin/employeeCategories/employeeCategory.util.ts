@@ -27,13 +27,14 @@ export async function handleCreateSubmit(data: any) {
       body: JSON.stringify(data)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully create!')
+      toast.success('Successfully create!', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 2000)
     } else {
       const errorData = await res.json()
       toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (e) {
@@ -41,9 +42,9 @@ export async function handleCreateSubmit(data: any) {
   }
 }
 
-export async function handleUpdateSubmit(id: string, data: any) {
+export async function handleUpdateSubmit(employeeCategory: any, data: any) {
   try {
-    var res = await fetch(`${apiUrl}/categoryemployees/Update/${id}`, {
+    var res = await fetch(`${apiUrl}/categoryemployees/Update/${employeeCategory.categoryEmployeeId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -52,13 +53,14 @@ export async function handleUpdateSubmit(id: string, data: any) {
       body: JSON.stringify(data)
     })
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Successfully update!')
+      toast.success('Successfully update!', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 2000)
     } else {
       const errorData = await res.json()
       toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (e) {
@@ -79,13 +81,14 @@ export async function handleDelete(employeeCategory: any) {
       }
     )
     if (res.status >= 200 && res.status < 300) {
-      toast.success('Delete successfully')
+      toast.success('Delete successfully', { containerId: 'toast' })
       setTimeout(() => window.location.reload(), 2000)
     } else {
       const errorData = await res.json()
       toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
-        closeButton: false
+        closeButton: false,
+        containerId: 'toast'
       })
     }
   } catch (error) {

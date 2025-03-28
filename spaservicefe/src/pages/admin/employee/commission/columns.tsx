@@ -53,25 +53,6 @@ export const columns: ColumnDef<EmployeeCommission>[] = [
     }
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: (info) => {
-      const status = info.getValue().toLowerCase()
-      let textColor = 'black'
-      if (status === 'pending') {
-        textColor = 'gray'
-      } else if (status === 'processing') {
-        textColor = 'blue'
-      } else if (status === 'finished') {
-        textColor = 'green'
-      } else if (status === 'not proccessed') {
-        textColor = 'red'
-      }
-
-      return <span style={{ color: textColor }}>{info.getValue()}</span>
-    }
-  },
-  {
     id: 'actions',
     cell: ({ row }) => {
       const commission = row.original

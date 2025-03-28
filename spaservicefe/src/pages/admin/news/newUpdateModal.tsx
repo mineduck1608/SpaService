@@ -14,7 +14,7 @@ import { newsConfig } from '../modal.util'
 import { ServiceCategory } from 'src/types/type'
 import { storage } from '../../../firebaseConfig'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 interface UpdateNewsModalProps {
   isOpen: boolean
@@ -237,7 +237,6 @@ export default function UpdateNewsModal({ isOpen, onClose, news }: UpdateNewsMod
           </form>
         </Form>
       </DialogContent>
-      <ToastContainer />
     </Dialog>
   )
 }
