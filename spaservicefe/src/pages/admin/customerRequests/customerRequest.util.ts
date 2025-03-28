@@ -206,6 +206,7 @@ export async function AssignRequest(request: SpaRequest, roomId: string) {
       })
     } else {
       const errorData = await res.json()
+      console.log(errorData)
       toast.error(errorData?.msg || 'Failed. Please try again.', {
         autoClose: 1000,
         closeButton: false,
