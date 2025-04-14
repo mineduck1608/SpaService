@@ -451,12 +451,11 @@ namespace API.Controllers
                                 };
 
                                 await _employeeCommissionService.AddEmployeeCommission(employeeCommission);
-
-                                    appointment.CheckOut = DateTime.Now;
-                                    appointment.Status = "Finished";
                                 }
                             }
                         }
+                        appointment.CheckOut = DateTime.Now;
+                        appointment.Status = "Finished";
                     }
                     else
                     {
