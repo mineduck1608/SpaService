@@ -389,3 +389,5 @@ D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\refint\SpaServic
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.pdb
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.genruntimeconfig.cache
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\ref\SpaServiceBE.dll
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Images\brochure1.jpg
+D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Images\SenSpa(Black).png

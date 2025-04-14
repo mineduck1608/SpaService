@@ -63,7 +63,7 @@ namespace Repositories
         public async Task<List<Order>> GetByCustomerIdAsync(string customerId)
         {
             return await _context.Orders
-                .Where(o => o.CustomerId == customerId)
+                .Where(o => o.CustomerId == customerId).OrderByDescending(o => o.OrderDate)
                 .ToListAsync();
         }
 

@@ -76,9 +76,16 @@ export default function OrderStatus({ order }: OrderStatusProps) {
               key={`line-${index}`}
               className={`absolute top-6 h-1 transition-all duration-300 ease-out ${step.completed ? 'bg-green-500' : 'bg-gray-200'}`}
               style={{
-                left: `calc(${(index * 100) / (steps.length - 1)}% + 24px)`,
-                right: `calc(${100 - ((index + 1) * 100) / (steps.length - 1)}% + 24px)`,
-                width: `calc(${100 / (steps.length - 1)}% - 48px)`
+                left: index === steps.length - 2 
+                  ? `calc(${(index * 100) / (steps.length - 1)}% - 8px)`
+                  : `calc(${(index * 100) / (steps.length - 1)}% + 40px)`,
+                
+                right: index === steps.length - 2 
+                  ? `calc(${100 - ((index + 1) * 100) / (steps.length - 1)}%)`
+                  : `calc(${100 - ((index + 1) * 100) / (steps.length - 1)}% + 8px)`,
+                width: index === steps.length - 2 
+                  ? `calc(${100 / (steps.length - 1)}% - 64px)` 
+                  : `calc(${100 / (steps.length - 1)}% - 32px)`
               }}
             ></div>
           )
@@ -102,7 +109,7 @@ export default function OrderStatus({ order }: OrderStatusProps) {
                 >
                   {step.label}
                 </p>
-                {step.subLabel && <p className='mt-1 text-xs text-gray-500'>{step.subLabel}</p>}
+                {/* {step.subLabel && <p className='mt-1 text-xs text-gray-500'>{step.subLabel}</p>} */}
               </div>
             </div>
           ))}

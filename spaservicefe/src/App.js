@@ -72,7 +72,7 @@ import CheckInPage from './pages/admin/checkIn/page.tsx'
 import ReportPage from './pages/admin/report/ReportPage.tsx'
 import CustomerTransPage from './pages/customerTransactionPage/customerTransPage.tsx'
 import CustomerOrderPage from './pages/customer/customerOrderPage/orderPage.tsx'
-
+import CalculateDatePage from './pages/test/page.tsx'
 function Layout({ children }) {
   return (
     <>
@@ -104,6 +104,7 @@ function App() {
               </Layout>
             }
           />
+          <Route path='/calculateDate' element={<CalculateDatePage />} />
           <Route
             path='requests'
             element={

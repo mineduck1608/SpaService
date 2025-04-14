@@ -50,6 +50,7 @@ const UserProfile = () => {
           gender: data.gender
         })
         if (data) {
+          console.log(data)
           const membershipData = await FindNewestByCustomerId(data.customerId)
           if (membershipData) {
             const membershipType = await GetMemberShipId(membershipData.membershipId)
