@@ -6347,19 +6347,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ducco\\.nuget\\packages\\": {}
+    "C:\\Users\\MineDuck\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
+      "projectUniqueName": "D:\\Code\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
       "projectName": "SpaServiceBE",
-      "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
-      "packagesPath": "C:\\Users\\ducco\\.nuget\\packages\\",
-      "outputPath": "D:\\Coding\\SpaService\\SpaServiceBE\\SpaServiceBE\\obj\\",
+      "projectPath": "D:\\Code\\SpaService\\SpaServiceBE\\SpaServiceBE\\SpaServiceBE.csproj",
+      "packagesPath": "C:\\Users\\MineDuck\\.nuget\\packages\\",
+      "outputPath": "D:\\Code\\SpaService\\SpaServiceBE\\SpaServiceBE\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ducco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MineDuck\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6367,15 +6372,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj": {
-              "projectPath": "D:\\Coding\\SpaService\\SpaServiceBE\\Services\\Services.csproj"
+            "D:\\Code\\SpaService\\SpaServiceBE\\Services\\Services.csproj": {
+              "projectPath": "D:\\Code\\SpaService\\SpaServiceBE\\Services\\Services.csproj"
             }
           }
         }
@@ -6389,7 +6393,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -6463,7 +6468,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

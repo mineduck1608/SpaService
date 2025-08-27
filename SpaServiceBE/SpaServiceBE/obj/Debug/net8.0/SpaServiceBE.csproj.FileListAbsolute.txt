@@ -391,3 +391,14 @@ D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.gen
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\ref\SpaServiceBE.dll
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Images\brochure1.jpg
 D:\Coding\SpaService\SpaServiceBE\SpaServiceBE\bin\Debug\net8.0\Images\SenSpa(Black).png
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.csproj.AssemblyReference.cache
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.AssemblyInfoInputs.cache
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.AssemblyInfo.cs
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.csproj.CoreCompileInputs.cache
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.MvcApplicationPartsAssemblyInfo.cs
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.MvcApplicationPartsAssemblyInfo.cache
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.sourcelink.json
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.dll
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\refint\SpaServiceBE.dll
+D:\Code\SpaService\SpaServiceBE\SpaServiceBE\obj\Debug\net8.0\SpaServiceBE.pdb
